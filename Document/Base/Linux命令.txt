@@ -1,0 +1,293 @@
+===== 帮助 =====
+man more/less/tail		:帮助(外国版)
+指令 --help				:帮助(中国版)
+yum						:在线安装
+rz						:上传
+./						:安装
+./nginx -s stop			:停止服务
+
+===== 安装方式 =====
+源码安装				:编译后 执行make install命令安装
+安装包安装
+yum安装					:在线安装
+
+===== 常用命令 =====
+clear					:清屏
+ctrl+c 或 q				:退出
+pwd						:显示当前所在目录
+touch 文件名			:创建一个空文件
+wget 链接				:下载资源
+
+===== cd命令 =====
+cd / 					:进入根目录
+cd 目录名				:相对路径,进入当前目录下的某目录
+cd /目录名				:绝对路径,进入根目录下的某目录
+cd - 					:返回上一个操作的目录
+cd ../					:返回上一层
+cd ../../				:逐层返回
+
+===== ls和ll命令 ======
+ls 						:查看所有目录名称
+ll						:查看所有目录的详情
+ll -h					:友好显示文件大小,带有单位 如:kb,mb
+特别命令: ls -l 相当于 ll
+
+===== mkdir创建目录命令 =====
+mkdir 目录名			:根据目录名创建目录
+mkdir -p				:级联创建目录
+
+===== rmdir删除目录命令 =====
+rmdir 目录名			:根据目录名删除目录(有子目录或子文件不能被删除)
+rmdir -p				:级联删除目录
+
+===== rm删除文件命令 =====
+rm 文件名				:删除文件(需要用户确认)
+rm -f 文件名			:删除文件(不询问,直接删除)
+rm -r 目录名或文件名	:递归删除目录(包括文件)或文件(需要用户确认)
+rm -rf 目录名或文件名	:不询问递归删除
+rm -rf ./*				:不询问递归删除当前目录下所有目录和文件
+rm -rf /*				:系统自杀(不可操作)
+
+===== cp复制文件命令 =====
+cp 文件a 文件b			:将文件a复制为文件b,需要指定源文件名和目标文件名或目录
+cp 文件 ../				:将文件复制到上一层目录中
+
+===== mv移动文件命令 =====
+mv 文件 ../				:将文件移动到上一层目录中
+mv 文件a 文件b			将a文件重命名为b文件
+
+===== tar打包命令 =====
+tar 文件或目录 			:把文件或目录打包成一个文件,但不做压缩
+常用参数:
+  -c	:创建一个新的tar文件
+  -v	:显示运行过程的信息
+  -f	:指定打包后的文件名
+  -z	:调用gzip压缩命令进行压缩
+  -t	:查看压缩文件的内容
+  -x	:解开tar文件
+tar -zcvf 压缩目录名或压缩文件名 需要压缩的文件
+  例:tar -zcvf t.tar.gz * :压缩当前目录下所有文件,压缩后的文件名为t.tar.gz
+tar -zxvf 压缩目录名或文件名 :解压tar包
+tar -ztvf xxx.tar :查看tar包内的文件
+  -- 如果此tar包没有被压缩,当解压时把z参数去掉
+jar	:解压war包
+
+===== grep快速查找命令 =====
+grep location nginx.conf --color -A5 -B5  查找字符串并且高亮显示、显示查找到的元素的前、后5行内容
+ps -ef					:查看所有进程
+ps -ef | grep java		:查看java的进程
+ps -ef | grep tomcat	:查看tomcat的进程
+
+===== 浏览文件 =====
+cat						:输出文件所有内容
+more					:从头逐步查看所有内容
+less					:和more相似,但less可使用PgUp、PgOn键来控制
+tail					:显示文件后几行的内容(可指定)
+
+===== 文件创建与编辑 =====
+===== vi进入文件命令 =====
+vi或vim					:编辑或查看文件内容
+  三种模式:命令行,插入,底行模式
+	切换到命令行模式	:按ESC键
+	切换到插入模式		:按i或o或a键
+	切换到底行模式		:按:(冒号)
+  a 或 i 或 o			:进入insert模式
+  按ESC,然后:wq			:编辑成功,保存并退出
+  按ESC,然后:q!			:放弃更改并退出
+  按ESC,然后:q			:直接退出编辑
+===== 查找文件内容命令 =====
+/						:查找文件内容,按n键查找下一个,按N键查找上一个
+n						:搜索翻页(配合/使用)
+shift + n				:反向搜索翻页(配合/使用)
+===== 替换文件内容命令 =====
+:s/old/new				:用new替换old，替换当前行的第一个匹配
+:s/old/new/g 			:用new替换old，替换当前行的所有匹配
+:%s/old/new 			:用new替换old，替换所有行的第一个匹配
+:%s/old/new/g 			:用new替换old，替换整个文件的所有匹配
+===== 移动命令 =====
+shift+g					:移动到文件尾部
+===== 显示行号命令 =====
+:set nu					:显示文件内容的行号
+===== 重定向输出>和>>命令 =====
+文件a > 文件b			:将a文件中的内容定下输出到b文件中覆盖原有内容
+文件a >> 文件b			:将a文件中的内容定下输出到b文件中追到到已有内容后
+
+===== 管道 "|" 命令 =====
+作用:将一个命令的输出用作另一个命令的输入
+ls --help | more		:分页查询帮助信息
+ps -ef | grep java		:查询名称中包含java的进程
+
+===== && 命令执行控制 =====
+作用:命令之间使用&&链接,实现逻辑与的功能,只有在左边的命令执行成功后才能继续执行下一个命令,只要其中有一个命令执行失败,它后面的命令将都不会继续执行
+
+===== 网络通讯命令 =====
+ifconfig				:显示网络设备
+ifconfig 网卡名 up		:启用某某网卡
+ifconfig 网卡名 down	:停用某某网卡
+ping 链接				:探测链接是否畅通
+netstat -an				:查看网络端口号
+netstat -an | grep 端口号:查询端口号占有情况
+
+===== 系统管理命令 =====
+date					:显示当前系统时间
+date -s "时间"			:设置系统时间
+df -h					:友好显示磁盘大小信息
+free -m					:以mb为单位显示内存使用状态
+
+top						:任务管理器(管理执行中的程序)
+  1						:查看几核(进入任务管理器按1)
+
+ps -ef					:查看所有进程
+kill 进程编号			:杀掉某进程
+kill -9 进程编号		:强制杀死进程
+du -h					:显示当前目录大小
+who						:显示当前登入系统的用户信息
+hostname				:查看当前主机名
+  修改vi/etc/susconfig/network
+uname					:显示系统信息
+uname -a				:显示本机详细信息
+
+===== 多用户 =====
+useradd 用户名			:添加一个用户
+useradd 用户名 -d /home/t1	:指定用户home目录
+passwd 用户名			:为用户设置或修改密码
+userdel 用户名			:删除用户(不会删除home目录)
+userdel -r 用户名		:删除用户以及home目录
+===== 用户组 =====
+groupadd 组名			:创建一个组
+useradd 用户名 -g 组名	:创建用户指定组
+groupdel 组名			:删除组(如果存在组用户需要先删除组用户)
+/etc/group				:组所在文件夹
+===== id命令 =====
+id 参数 用户名			:查看一个用户的UID和GID
+===== su命令 =====
+su 用户名				:切换到指定用户
+su - 用户名				:切换到指定用户,并且将环境也切换到该用户的环境
+
+===== 特殊文件 =====
+/etc/passwd				:用户文件
+/etc/shadow  			:密码文件
+/etc/group  			:组信息文件
+/etc/sysconfig/iptables	:防火墙文件
+
+===== 文件权限 =====
+-打头					:文件
+d打头					:目录
+所属用户U  同组G  其他O
+r  read   可读   4
+w  write  可写   2
+x  excuse 可执行 1
+主用户拥有某某权限,同组人拥有某某权限,其他人拥有某某权限
+
+chmod	 				:文件和目录权限编辑
+chown					:变更文件或目录的拥有者或所属群组
+  chown 用户名:组名 文件名
+  chown -R 用户名:组名 目录
+
+===== 关机,重启 =====
+shutdown -h now			:立刻关机
+shutdown -h 5			:5分钟后关机
+poweroff				:立刻关机
+shutdown -r now			:立刻重启
+shutdown -r 5			:5分钟后重启
+reboot					:立刻重启
+
+	====================
+	======= 实战 =======
+	====================
+===== rpm命令 =====
+解释:rpm全称是Redhat Package Manager,
+  RPM有五种操作模式:安装 卸载 升级 查询和验证
+---> 安装
+rpm -i 文件名.rpm		:安装软件
+rpm -iv 文件名.rpm		:安装过程中显示安装软件信息
+rpm -ivh 文件名.rpm		:安装过程中显示安装软件信息以及安装进度
+---> 查询
+rpm -qa					:查询所有已安装的包
+rpm -qa | grep java		:查看java是否安装成功
+---> 卸载
+rpm -e 文件名			:卸载软件包
+---> 升级
+rpm -Uvh 文件名.rpm		:升级软件包过程中显示软件信息以及升级进度
+---> 验证
+rpm -V 需要验证的包		:验证软件包
+---> 其他附加命令 <---
+ --force		:强制操作
+ --requires		:显示该包的依赖关系
+ --nodeps		:忽略依赖关系并继续操作
+例:
+rpm -e --nodeps 软件名	:忽略依赖关系卸载软件包
+java -version  			:查看JDK版本信息
+
+===== 重新加载环境变量 =====
+source /etc/profile		:改变环境变量后需要重新加载环境变量
+
+===== 查看服务是否启动 =====
+service mysql status	:查看mysql服务的状态
+service mysql start		:启动mysql服务
+service mysql stop		:停止mysql服务
+
+===== 启动tomcat服务器 =====
+cd tomcat/bin/startup.sh:启动tomcat服务器
+sh startup.sh			:启动tomcat服务器
+
+===== 关闭防火墙 =====
+service iptables stop		:关闭防火墙服务
+service iptables start		:开启防火墙服务
+vim /etc/sysconfig/iptables	:修改防火墙文件
+
+lsof -i:8885 	:查看端口为8885的PID
+kill -9 9001	:强制杀死PID为9001的进程
+nohup java -jar dby-app-0.0.1.jar > /dev/null 2>&1 &	:运行jar包
+
+//***Linux下安装nginx***//
+-- 第一步: 在线安装Nginx的依赖(命令如下)
+	yum -y install gcc-c++  
+	yum -y install pcre pcre-devel  
+	yum -y install zlib zlib-devel  
+	yum -y install openssl openssl—devel
+	
+-- 第二步: 创建压缩文件上传位置(命令如下)
+	mkdir /src/nginx 	// 创建文件夹
+	cd /src/nginx 		// 进入文件夹
+	
+-- 第三步: 下载或者上传压缩文件
+	wget http://nginx.org/download/nginx-1.7.7.tar.gz 或 rz上传
+	tar -xvf nginx-1.7.7.tar.gz	// 解压文件
+	cd nginx-1.7.7				// 进入解压后文件
+	
+-- 注意点: (一般root用户属于DBA,所以操作一般给子用户,限制权限)
+	#安装到/ucenter 
+	mkdir -p /ucenter/soft/nginx
+	
+	pwd 查看此时所在文件夹应该是 /src/nginx/nginx-1.7.7	,如果是运行一下命令进行配置
+	./configure --prefix=/ucenter/soft/nginx --user=ucenter --group=ucenter // 配置环境
+	make			// 编译  
+	make install	// 安装
+
+-- 防火墙问题
+	防火墙打开80端口
+	service iptables stop //关闭防火墙(一般不这样做)
+
+	/sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT	// 添加端口号到防火墙
+	/etc/rc.d/init.d/iptables save	// 保存配置
+	/etc/init.d/iptables status
+	
+-- 切换用户
+	cd /ucenter/	// 此时用户是root,要进行切换
+	chowm ucenter:ucenter ./* -R	// 修改当前目录及子目录的用户为ucenter所属组为ucenter
+	su -ucenter // 切换用户
+	cd /soft/nginx/sbin/
+	./nginx // 提示没有权限
+	
+	由于非root用户不能占用80端口所以使普通用户以root身份启动nginx。
+	// 如何做
+	exit	// 退出到root用户
+	cd /ucenter/soft/nginx/sbin	
+	chown root nginx	// 暂时改变nginx文件的所属
+	chmod u+s nginx		// 授权
+	su -ucenter // 切换用户
+	cd /soft/nginx/sbin/
+	./nginx // 已经拥有权限并运行
+	
+ps -ef|grep nginx	查询进程,有两个进程即可(成功)

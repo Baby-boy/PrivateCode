@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/jdbc
+         http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+    <!-- ========================= DATASOURCE DEFINITION ========================= -->
+    <!-- C3P0数据库配置 -->
+    <bean id="readerDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass"  value="${reader.jdbc.driverClassName}" />
+        <property name="jdbcUrl"  value="${reader.jdbc.url}" />
+        <property name="user"  value="${reader.jdbc.username}" />
+        <property name="password"  value="${reader.jdbc.password}" />
+        
+        <!-- 当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+        <property name="acquireIncrement" value="3" />
+        <!-- 定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+        <property name="acquireRetryAttempts" value="30" />
+        <!-- 两次连接中间隔时间，单位毫秒。Default: 1000 -->
+        <property name="acquireRetryDelay" value="1000" />
+        <!-- 连接关闭时默认将所有未提交的操作回滚。Default: false -->
+        <property name="autoCommitOnClose" value="false" />
+        <!-- 当连接池用完时客户端调用getConnection()后等待获取新连接的时间，超时后将抛出 SQLException,如设为0则无限期等待。单位毫秒。Default: 0 -->
+        <property name="checkoutTimeout" value="60000" />
+        <!-- 每60秒检查所有连接池中的空闲连接。Default: 0 -->
+        <property name="idleConnectionTestPeriod" value="60" />
+        <!-- 初始化时获取的连接数，取值应在minPoolSize与maxPoolSize之间。Default: 3 -->
+        <property name="initialPoolSize" value="5" />
+        <!-- 连接池中保留的最小连接数 -->
+        <property name="minPoolSize" value="3" />
+        <!-- 连接池中保留的最大连接数。Default: 15 -->
+        <property name="maxPoolSize" value="300" />
+        <!-- 最大空闲时间,600秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
+        <property name="maxIdleTime" value="600" />
+        <!-- c3p0将建一张名为Test的空表，并使用其自带的查询语句进行测试。如果定义了这个参数那么 属性preferredTestQuery将被忽略。你不能在这张Test表上进行任何操作，它将只供c3p0测试 使用。Default: null -->
+        <!--<property name="automaticTestTable" value="${oracle.jdbc.username}.C3P0_TESTTABLE" />-->
+        <property name="preferredTestQuery" value="select now()" />
+        <!-- 获取连接失败将会引起所有等待连接池来获取连接的线程抛出异常。但是数据源仍有效 保留，并在下次调用getConnection()的时候继续尝试获取连接。如果设为true，那么在尝试 获取连接失败后该数据源将申明已断开并永久关闭。Default: false -->
+        <property name="breakAfterAcquireFailure" value="false" />      
+        <!--JDBC的标准参数，用以控制数据源内加载的PreparedStatements数量。但由于预缓存的statements
+        属于单个connection而不是整个连接池。所以设置这个参数需要考虑到多方面的因素。
+        如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭。Default: 0-->      
+        <property name="maxStatements" value="0" />
+        <!--maxStatementsPerConnection定义了连接池内单个连接所拥有的最大缓存statements数。Default: 0 -->
+        <property name="maxStatementsPerConnection" value="0" />
+        <!--c3p0是异步操作的，缓慢的JDBC操作通过帮助进程完成。扩展这些操作可以有效的提升性能
+        通过多线程实现多个操作同时被执行。Default: 3-->
+        <property name="numHelperThreads" value="3" />
+        <!-- 记录返回连接池失败的日志 -->
+        <property name="debugUnreturnedConnectionStackTraces" value="true" /> 
+        <!--240秒connection不返回连接池就被自动杀掉-->
+        <property name="unreturnedConnectionTimeout" value="60" />
+        <!-- 
+        	这个配置主要是为了减轻连接池的负载，比如连接池中连接数因为某次数据访问高峰导致创建了很多数据连接
+		但是后面的时间段需要的数据库连接数很少，则此时连接池完全没有必要维护那么多的连接，所以有必要将
+		断开丢弃掉一些连接来减轻负载，必须小于maxIdleTime。配置不为0，则会将连接池中的连接数量保持到minPoolSize。
+		default : 0 单位 s
+         -->
+        <property name="maxIdleTimeExcessConnections" value="50" />
+        <!-- 
+        	配置连接的生存时间，超过这个时间的连接将由连接池自动断开丢弃掉。当然正在使用的连接不会马上断开，而是等待
+		它close再断开。配置为0的时候则不会对连接的生存时间进行限制。
+		default : 0 单位 s
+         -->
+        <property name="maxConnectionAge" value="50" />
+    </bean>    
+  
+    <bean id="writerDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${writer.jdbc.driverClassName}" />
+        <property name="jdbcUrl" value="${writer.jdbc.url}" />
+        <property name="user" value="${writer.jdbc.username}" />
+        <property name="password" value="${writer.jdbc.password}" />
+        
+        <!-- 当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+        <property name="acquireIncrement" value="3" />
+        <!-- 定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+        <property name="acquireRetryAttempts" value="30" />
+        <!-- 两次连接中间隔时间，单位毫秒。Default: 1000 -->
+        <property name="acquireRetryDelay" value="1000" />
+        <!-- 连接关闭时默认将所有未提交的操作回滚。Default: false -->
+        <property name="autoCommitOnClose" value="false" />
+        <!-- 当连接池用完时客户端调用getConnection()后等待获取新连接的时间，超时后将抛出 SQLException,如设为0则无限期等待。单位毫秒。Default: 0 -->
+        <property name="checkoutTimeout" value="60000" />
+        <!-- 每60秒检查所有连接池中的空闲连接。Default: 0 -->
+        <property name="idleConnectionTestPeriod" value="60" />
+        <!-- 初始化时获取的连接数，取值应在minPoolSize与maxPoolSize之间。Default: 3 -->
+        <property name="initialPoolSize" value="5" />
+        <!-- 连接池中保留的最小连接数 -->
+        <property name="minPoolSize" value="3" />
+        <!-- 连接池中保留的最大连接数。Default: 15 -->
+        <property name="maxPoolSize" value="100" />
+        <!-- 最大空闲时间,600秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
+        <property name="maxIdleTime" value="600" />
+        <!-- c3p0将建一张名为Test的空表，并使用其自带的查询语句进行测试。如果定义了这个参数那么 属性preferredTestQuery将被忽略。你不能在这张Test表上进行任何操作，它将只供c3p0测试 使用。Default: null -->
+        <property name="preferredTestQuery" value="select now()" />
+        <!-- 获取连接失败将会引起所有等待连接池来获取连接的线程抛出异常。但是数据源仍有效 保留，并在下次调用getConnection()的时候继续尝试获取连接。如果设为true，那么在尝试 获取连接失败后该数据源将申明已断开并永久关闭。Default: false -->
+        <property name="breakAfterAcquireFailure" value="false" />      
+        <!--JDBC的标准参数，用以控制数据源内加载的PreparedStatements数量。但由于预缓存的statements
+        属于单个connection而不是整个连接池。所以设置这个参数需要考虑到多方面的因素。
+        如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭。Default: 0-->      
+        <property name="maxStatements" value="0" />
+        <!--maxStatementsPerConnection定义了连接池内单个连接所拥有的最大缓存statements数。Default: 0 -->
+        <property name="maxStatementsPerConnection" value="0" />
+        <!--c3p0是异步操作的，缓慢的JDBC操作通过帮助进程完成。扩展这些操作可以有效的提升性能
+        通过多线程实现多个操作同时被执行。Default: 3-->
+        <property name="numHelperThreads" value="3" /> 
+        <!-- 记录返回连接池失败的日志 -->
+        <property name="debugUnreturnedConnectionStackTraces" value="true" /> 
+         <!--240秒connection不返回连接池就被自动杀掉-->
+        <property name="unreturnedConnectionTimeout" value="240" /> 
+    </bean>
+</beans>

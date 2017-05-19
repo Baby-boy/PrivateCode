@@ -1,0 +1,26 @@
+-- 当一个git损坏时操作(首先一定得备份)
+-- 到clone的地方,找到隐藏文件.git,修改地址
+
+-- 切换git分支
+git checkout master
+
+-- 重置到最新父节点
+git reset --hard HEAD
+
+-- 清除多余的文件
+git clean -df
+
+-- 强制推送
+git push -f
+
+
+-- 修改git用户或者查看用户
+git config --global user.name 用户名
+git config --global user.name
+
+-- 修改git用户邮箱或者查看邮箱
+git config --global user.mail 邮箱
+git config --global user.mail
+
+-- 获取git公钥(用于SSH协议)
+ssh-keygen.exe
