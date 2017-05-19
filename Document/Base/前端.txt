@@ -1,0 +1,11 @@
+1. 安装node
+2. 熟悉npm命令
+2.1 安装cnpm替代npm
+3. 进入项目文件夹
+4. npm init 生成package.json 相当于POM.XML
+5. cnpm install vue -S  (cnpm i vue-cli -D)
+5.1 -S 保存到package.json  -D package.json里边有一个开发环境包
+5.2 -g 全局
+
+webpack
+
