@@ -1,0 +1,34 @@
+.titlePanel {
+    position: relative;
+    display: inline;
+}
+
+.titlePanel .blod {
+    background-image: url(boldBg.png);
+    left: 36px;
+    top: 4px;
+}
+
+.titlePanel .color {
+    background-image: url(color.png);
+    left: 8px;
+    top: 1px;
+}
+
+.titlePanel .color,
+.titlePanel .blod,
+.titlePanel .clear {
+    width: 15px;
+    height: 16px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    position: absolute;
+    cursor: pointer;
+}
+
+.titlePanel .clear {
+    left: 56px;
+    top: 2px;
+    font: 11px Verdana;
+    color: #09F;
+}

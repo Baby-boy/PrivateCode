@@ -1,0 +1,69 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
+<!--组件样式-->
+<style>
+	.rightCard{
+		position: fixed;
+		top: 70px;
+		bottom: 0;
+		right: -315px;
+		width: 315px;
+		background: #fff;
+		z-index: 99;
+		box-shadow: rgba(0,0,0,0.2) 0 0 10px;
+		border:#eee solid 1px;
+		border-right:none;
+		transition: all 0.5s;
+	}
+	.rightCard.active{
+		right: 20px!important;
+	}
+	.rightCardTitle{
+		position: absolute;
+		top: 0;
+		width: 100%;
+		box-sizing: border-box;
+		border-bottom: #eee solid 1px;
+		padding: 12px 20px;
+		background-color: #fcfcfc;
+		font-size: 14px;
+		color: #666;
+	}
+	.rightCardTitle a{
+		color: #666;
+		margin-top: 3px;
+	}
+	.rightCardContent{
+		position: absolute;
+		width:100%;
+		top: 60px;
+		bottom: 20px;
+		box-sizing: border-box;
+		padding: 0 20px;
+		overflow-y: auto;
+	}
+</style>
+<!--组件模板-->
+<script type="text/x-template" id="componentRightCard">
+	<div class="rightCard" :class="{active:show}" :style="'top:'+top+';width:'+width+';right:-'+width">
+		<div class="rightCardTitle clearfix">
+			<span>{{cardTitle}}</span>
+			<a href="javascript:;" class="fr el-icon-close" @click="closeRightCard"></a>
+		</div>
+		<div class="rightCardContent">
+			<slot></slot>
+		</div>
+	</div>
+</script>	
+<!--注册组件-->
+<script>
+	Vue.component('rightCard',{
+		template: '#componentRightCard',
+		props:['cardTitle','show','top','width'],
+		methods:{
+			closeRightCard:function(){
+				this.$emit('hide',false);
+			}
+		}
+	})
+</script>
+

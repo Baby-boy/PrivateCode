@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.ctrlhr.dao.sign.MonthlySignDao" >
+	<resultMap id="BaseResultMap" type="com.glanway.ctrlhr.entity.sign.MonthlySign" >
+	  <id column="ID" property="id" jdbcType="DECIMAL" />
+	  <result column="EMPLOYEE_ID" property="employeeId" jdbcType="DECIMAL" />
+	  <result column="DATE_FROM" property="dateFrom" jdbcType="TIMESTAMP" />
+	  <result column="DATE_TO" property="dateTo" jdbcType="TIMESTAMP" />
+	  <result column="DAYS" property="days" jdbcType="DECIMAL" />
+	  <result column="HOURS" property="hours" jdbcType="DECIMAL" />
+	  <result column="BATCH_DATE" property="batchDate" jdbcType="TIMESTAMP" />
+	  <result column="DELETED" property="deleted" jdbcType="CHAR" />
+	  <result column="CRE_PRO_ID" property="creProId" jdbcType="DECIMAL" />
+	  <result column="CREATED_BY" property="createdBy" jdbcType="DECIMAL" />
+	  <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+	  <result column="MOD_PRO_ID" property="modProId" jdbcType="DECIMAL" />
+	  <result column="LAST_MODIFIED_BY" property="lastModifiedBy" jdbcType="DECIMAL" />
+	  <result column="LAST_MODIFIED_DATE" property="lastModifiedDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List" >
+	  ID, EMPLOYEE_ID, DATE_FROM, DATE_TO, DAYS, HOURS, BATCH_DATE, DELETED, CRE_PRO_ID, 
+	  CREATED_BY, CREATED_DATE, MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+	  select 
+	  <include refid="Base_Column_List" />
+	  from T_MONTHLY_SIGN
+	  where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+	  delete from T_MONTHLY_SIGN
+	  where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.glanway.ctrlhr.entity.sign.MonthlySign" >
+	  insert into T_MONTHLY_SIGN (ID, EMPLOYEE_ID, DATE_FROM, 
+	    DATE_TO, DAYS, HOURS, 
+	    BATCH_DATE, DELETED, CRE_PRO_ID, 
+	    CREATED_BY, CREATED_DATE, MOD_PRO_ID, 
+	    LAST_MODIFIED_BY, LAST_MODIFIED_DATE)
+	  values (#{id,jdbcType=DECIMAL}, #{employeeId,jdbcType=DECIMAL}, #{dateFrom,jdbcType=TIMESTAMP}, 
+	    #{dateTo,jdbcType=TIMESTAMP}, #{days,jdbcType=DECIMAL}, #{hours,jdbcType=DECIMAL}, 
+	    #{batchDate,jdbcType=TIMESTAMP}, #{deleted,jdbcType=CHAR}, #{creProId,jdbcType=DECIMAL}, 
+	    #{createdBy,jdbcType=DECIMAL}, #{createdDate,jdbcType=TIMESTAMP}, #{modProId,jdbcType=DECIMAL}, 
+	    #{lastModifiedBy,jdbcType=DECIMAL}, #{lastModifiedDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.glanway.ctrlhr.entity.sign.MonthlySign" >
+	  insert into T_MONTHLY_SIGN
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null" >
+	      ID,
+	    </if>
+	    <if test="employeeId != null" >
+	      EMPLOYEE_ID,
+	    </if>
+	    <if test="dateFrom != null" >
+	      DATE_FROM,
+	    </if>
+	    <if test="dateTo != null" >
+	      DATE_TO,
+	    </if>
+	    <if test="days != null" >
+	      DAYS,
+	    </if>
+	    <if test="hours != null" >
+	      HOURS,
+	    </if>
+	    <if test="batchDate != null" >
+	      BATCH_DATE,
+	    </if>
+	    <if test="deleted != null" >
+	      DELETED,
+	    </if>
+	    <if test="creProId != null" >
+	      CRE_PRO_ID,
+	    </if>
+	    <if test="createdBy != null" >
+	      CREATED_BY,
+	    </if>
+	    <if test="createdDate != null" >
+	      CREATED_DATE,
+	    </if>
+	    <if test="modProId != null" >
+	      MOD_PRO_ID,
+	    </if>
+	    <if test="lastModifiedBy != null" >
+	      LAST_MODIFIED_BY,
+	    </if>
+	    <if test="lastModifiedDate != null" >
+	      LAST_MODIFIED_DATE,
+	    </if>
+	  </trim>
+	  <trim prefix="values (" suffix=")" suffixOverrides="," >
+	    <if test="id != null" >
+	      #{id,jdbcType=DECIMAL},
+	    </if>
+	    <if test="employeeId != null" >
+	      #{employeeId,jdbcType=DECIMAL},
+	    </if>
+	    <if test="dateFrom != null" >
+	      #{dateFrom,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="dateTo != null" >
+	      #{dateTo,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="days != null" >
+	      #{days,jdbcType=DECIMAL},
+	    </if>
+	    <if test="hours != null" >
+	      #{hours,jdbcType=DECIMAL},
+	    </if>
+	    <if test="batchDate != null" >
+	      #{batchDate,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="deleted != null" >
+	      #{deleted,jdbcType=CHAR},
+	    </if>
+	    <if test="creProId != null" >
+	      #{creProId,jdbcType=DECIMAL},
+	    </if>
+	    <if test="createdBy != null" >
+	      #{createdBy,jdbcType=DECIMAL},
+	    </if>
+	    <if test="createdDate != null" >
+	      #{createdDate,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="modProId != null" >
+	      #{modProId,jdbcType=DECIMAL},
+	    </if>
+	    <if test="lastModifiedBy != null" >
+	      #{lastModifiedBy,jdbcType=DECIMAL},
+	    </if>
+	    <if test="lastModifiedDate != null" >
+	      #{lastModifiedDate,jdbcType=TIMESTAMP},
+	    </if>
+	  </trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.glanway.ctrlhr.entity.sign.MonthlySign" >
+	  update T_MONTHLY_SIGN
+	  <set >
+	    <if test="employeeId != null" >
+	      EMPLOYEE_ID = #{employeeId,jdbcType=DECIMAL},
+	    </if>
+	    <if test="dateFrom != null" >
+	      DATE_FROM = #{dateFrom,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="dateTo != null" >
+	      DATE_TO = #{dateTo,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="days != null" >
+	      DAYS = #{days,jdbcType=DECIMAL},
+	    </if>
+	    <if test="hours != null" >
+	      HOURS = #{hours,jdbcType=DECIMAL},
+	    </if>
+	    <if test="batchDate != null" >
+	      BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="deleted != null" >
+	      DELETED = #{deleted,jdbcType=CHAR},
+	    </if>
+	    <if test="creProId != null" >
+	      CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+	    </if>
+	    <if test="createdBy != null" >
+	      CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+	    </if>
+	    <if test="createdDate != null" >
+	      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="modProId != null" >
+	      MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+	    </if>
+	    <if test="lastModifiedBy != null" >
+	      LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+	    </if>
+	    <if test="lastModifiedDate != null" >
+	      LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP},
+	    </if>
+	  </set>
+	  where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.glanway.ctrlhr.entity.sign.MonthlySign" >
+	  update T_MONTHLY_SIGN
+	  set EMPLOYEE_ID = #{employeeId,jdbcType=DECIMAL},
+	    DATE_FROM = #{dateFrom,jdbcType=TIMESTAMP},
+	    DATE_TO = #{dateTo,jdbcType=TIMESTAMP},
+	    DAYS = #{days,jdbcType=DECIMAL},
+	    HOURS = #{hours,jdbcType=DECIMAL},
+	    BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+	    DELETED = #{deleted,jdbcType=CHAR},
+	    CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+	    CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+	    CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+	    MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+	    LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+	    LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP}
+	  where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	
+	<!-- 全部查询 -->
+	<sql id="where_findList">
+		<where>
+			TDS.DELETED = 0 AND TDS.STATE = 1
+			<if test="para.keyword != null and para.keyword != ''">
+				AND (EMP.CODE LIKE '%${para.keyword}%' OR EMP.NAME LIKE '%${para.keyword}%')
+			</if>
+			<if test="para.dateStart != null and para.dateStart != '' and para.dateEnd != null and para.dateEnd != ''">
+				AND TDS.DATE_FROM >= TO_DATE('${para.dateStart}', 'yyyy-MM-dd HH24:mi:ss')
+				AND TDS.DATE_TO <![CDATA[<=]]> TO_DATE('${para.dateEnd}', 'yyyy-MM-dd HH24:mi:ss')
+			</if>
+		</where>
+	</sql>
+	<sql id="list_findList">
+		SELECT 
+			EMP.CODE EMPLOYEE_CODE,EMP.NAME EMPLOYEE_NAME,DEPT.NAME DEPT_NAME,JOB.NAME JOB_NAME,
+			DA.DATE_FROM,DA.DATE_TO,DAYS.DAYS DAYS,HOURS.HOURS HOURS
+		FROM T_DAY_SIGN TDS
+		LEFT JOIN 
+			(SELECT 
+					TDS.EMPLOYEE_ID,MIN(TDS.DATE_FROM) DATE_FROM,MAX(TDS.DATE_TO) DATE_TO
+				FROM T_DAY_SIGN TDS 
+				WHERE TDS.DELETED = 0 AND TDS.STATE = 1 
+				AND TDS.DATE_FROM >= TO_DATE('${para.dateStart}', 'yyyy-MM-dd HH24:mi:ss')
+				AND TDS.DATE_TO <![CDATA[<=]]> TO_DATE('${para.dateEnd}', 'yyyy-MM-dd HH24:mi:ss')
+				GROUP BY TDS.EMPLOYEE_ID) DA ON DA.EMPLOYEE_ID = TDS.EMPLOYEE_ID
+		LEFT JOIN
+			(SELECT 
+					COUNT(TDS.EMPLOYEE_ID) DAYS,TDS.EMPLOYEE_ID
+				FROM T_DAY_SIGN TDS 
+				WHERE TDS.DELETED=0 AND TDS.state =1
+				AND TDS.DATE_FROM >= TO_DATE('${para.dateStart}', 'yyyy-MM-dd HH24:mi:ss')
+				AND TDS.DATE_TO <![CDATA[<=]]> TO_DATE('${para.dateEnd}', 'yyyy-MM-dd HH24:mi:ss')
+				GROUP BY TDS.EMPLOYEE_ID) DAYS ON DAYS.EMPLOYEE_ID = TDS.EMPLOYEE_ID
+		LEFT JOIN
+			(SELECT 
+					SUM(TDS.HOURS) HOURS,TDS.EMPLOYEE_ID
+				FROM T_DAY_SIGN TDS 
+				WHERE TDS.DELETED=0 AND TDS.state =1
+				AND TDS.DATE_FROM >= TO_DATE('${para.dateStart}', 'yyyy-MM-dd HH24:mi:ss')
+				AND TDS.DATE_TO <![CDATA[<=]]> TO_DATE('${para.dateEnd}', 'yyyy-MM-dd HH24:mi:ss')
+				GROUP BY TDS.EMPLOYEE_ID) HOURS ON HOURS.EMPLOYEE_ID = TDS.EMPLOYEE_ID
+		LEFT JOIN T_EMPLOYEE EMP ON EMP.ID= TDS.EMPLOYEE_ID AND EMP.JOB_STATE != 3
+		LEFT JOIN T_DEPT DEPT ON DEPT.ID = EMP.DEPT_ID AND DEPT.STATE = 1
+		LEFT JOIN T_JOB JOB ON JOB.ID = EMP.JOB_ID AND JOB.STATE = 1
+		<include refid="where_findList"/>
+		GROUP BY EMP.CODE,EMP.NAME,DEPT.NAME,JOB.NAME,DA.DATE_FROM,DA.DATE_TO,DAYS.DAYS,HOURS.HOURS
+		<if test="para.orderBy == 'employeeNameDesc'">
+			ORDER BY EMP.NAME DESC
+		</if>
+		<if test="para.orderBy == 'employeeNameAsc'">
+			ORDER BY EMP.NAME ASC
+		</if>
+		<if test="para.orderBy == 'employeeCodeDesc'">
+			ORDER BY EMP.CODE DESC
+		</if>
+		<if test="para.orderBy == 'employeeCodeAsc'">
+			ORDER BY EMP.CODE ASC
+		</if>
+		<if test="para.orderBy == 'deptNameDesc'">
+			ORDER BY DEPT.NAME DESC
+		</if>
+		<if test="para.orderBy == 'deptNameAsc'">
+			ORDER BY DEPT.NAME ASC
+		</if>
+		<if test="para.orderBy == 'jobNameDesc'">
+			ORDER BY JOB.NAME DESC
+		</if>
+		<if test="para.orderBy == 'jobNameAsc'">
+			ORDER BY JOB.NAME ASC
+		</if>
+		<if test="para.orderBy == 'DateFromDesc'">
+			ORDER BY DA.DATE_FROM DESC
+		</if>
+		<if test="para.orderBy == 'DateFromAsc'">
+			ORDER BY DA.DATE_FROM ASC
+		</if>
+		<if test="para.orderBy == 'DateToDesc'">
+			ORDER BY DA.DATE_TO DESC
+		</if>
+		<if test="para.orderBy == 'DateToAsc'">
+			ORDER BY DA.DATE_TO ASC
+		</if>
+		<if test="para.orderBy == 'DaysDesc'">
+			ORDER BY DAYS.DAYS DESC
+		</if>
+		<if test="para.orderBy == 'DaysAsc'">
+			ORDER BY DAYS.DAYS ASC
+		</if>
+		<if test="para.orderBy == 'HoursDesc'">
+			ORDER BY HOURS.HOURS DESC
+		</if>
+		<if test="para.orderBy == 'HoursAsc'">
+			ORDER BY HOURS.HOURS ASC
+		</if>
+		<if test="para.orderBy == null or para.orderBy == ''">
+			ORDER BY EMP.CODE
+		</if>
+	</sql>
+	<!-- 查询考勤记录列表总数 -->
+	<select id="findListCount" resultType="java.lang.Integer">
+		SELECT 
+            COUNT(DISTINCT TDS.EMPLOYEE_ID)
+        FROM T_DAY_SIGN TDS
+        LEFT JOIN T_EMPLOYEE EMP ON EMP.ID=TDS.EMPLOYEE_ID AND EMP.JOB_STATE !=3
+        LEFT JOIN T_DEPT DEPT ON DEPT.ID = EMP.DEPT_ID AND DEPT.state =1
+        LEFT JOIN T_JOB JOB ON JOB.ID = EMP.JOB_ID AND JOB.STATE = 1 
+		<include refid="where_findList"/>
+	</select>
+	<!-- 查询考勤记录列表-->
+	<select id="findList" resultType="MonthlySignVo">
+		SELECT 
+			TT.EMPLOYEE_CODE,TT.EMPLOYEE_NAME,TT.DEPT_NAME,TT.JOB_NAME,TT.DATE_FROM,TT.DATE_TO,TT.DAYS,TT.HOURS
+		FROM(
+			SELECT R.*, ROWNUM RN
+			FROM (
+				<include refid="list_findList"/>
+			) R
+			where ROWNUM <![CDATA[<]]> (#{para.startIndex} + #{para.pageSize})
+		) TT WHERE TT.RN >= #{para.startIndex}
+	</select>
+	
+	<!-- 获取需要导出的月考勤记录列表 -->
+	<select id="findMany" resultType="MonthlySignVo">
+		SELECT 
+			EMP.CODE EMPLOYEE_CODE,EMP.NAME EMPLOYEE_NAME,DEPT.NAME DEPT_NAME,JOB.NAME JOB_NAME,
+			DA.DATE_FROM,DA.DATE_TO,DAYS.DAYS DAYS,HOURS.HOURS HOURS
+		FROM T_DAY_SIGN TDS
+		LEFT JOIN 
+			(SELECT 
+					TDS.EMPLOYEE_ID,MIN(TDS.DATE_FROM) DATE_FROM,MAX(TDS.DATE_TO) DATE_TO
+				FROM T_DAY_SIGN TDS 
+				WHERE TDS.DELETED = 0 AND TDS.STATE = 1 
+				AND TDS.DATE_FROM >= TO_DATE('${para.dateStart}', 'yyyy-MM-dd HH24:mi:ss')
+				AND TDS.DATE_TO <![CDATA[<=]]> TO_DATE('${para.dateEnd}', 'yyyy-MM-dd HH24:mi:ss')
+				GROUP BY TDS.EMPLOYEE_ID) DA ON DA.EMPLOYEE_ID = TDS.EMPLOYEE_ID
+		LEFT JOIN
+			(SELECT 
+					COUNT(TDS.EMPLOYEE_ID) DAYS,TDS.EMPLOYEE_ID
+				FROM T_DAY_SIGN TDS 
+				WHERE TDS.DELETED=0 AND TDS.state =1
+				AND TDS.DATE_FROM >= TO_DATE('${para.dateStart}', 'yyyy-MM-dd HH24:mi:ss')
+				AND TDS.DATE_TO <![CDATA[<=]]> TO_DATE('${para.dateEnd}', 'yyyy-MM-dd HH24:mi:ss')
+				GROUP BY TDS.EMPLOYEE_ID) DAYS ON DAYS.EMPLOYEE_ID = TDS.EMPLOYEE_ID
+		LEFT JOIN
+			(SELECT 
+					SUM(TDS.HOURS) HOURS,TDS.EMPLOYEE_ID
+				FROM T_DAY_SIGN TDS 
+				WHERE TDS.DELETED=0 AND TDS.state =1
+				AND TDS.DATE_FROM >= TO_DATE('${para.dateStart}', 'yyyy-MM-dd HH24:mi:ss')
+				AND TDS.DATE_TO <![CDATA[<=]]> TO_DATE('${para.dateEnd}', 'yyyy-MM-dd HH24:mi:ss')
+				GROUP BY TDS.EMPLOYEE_ID) HOURS ON HOURS.EMPLOYEE_ID = TDS.EMPLOYEE_ID
+		LEFT JOIN T_EMPLOYEE EMP ON EMP.ID= TDS.EMPLOYEE_ID AND EMP.JOB_STATE != 3
+		LEFT JOIN T_DEPT DEPT ON DEPT.ID = EMP.DEPT_ID AND DEPT.STATE = 1
+		LEFT JOIN T_JOB JOB ON JOB.ID = EMP.JOB_ID AND JOB.STATE = 1
+		<include refid="where_findList"/>
+		GROUP BY EMP.CODE,EMP.NAME,DEPT.NAME,JOB.NAME,DA.DATE_FROM,DA.DATE_TO,DAYS.DAYS,HOURS.HOURS
+	</select>
+</mapper>

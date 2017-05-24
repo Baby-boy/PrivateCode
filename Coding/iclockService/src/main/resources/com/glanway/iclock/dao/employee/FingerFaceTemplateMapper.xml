@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.iclock.dao.employee.FingerFaceTemplateDao">
+	<resultMap id="BaseResultMap" type="com.glanway.iclock.entity.employee.FingerFaceTemplate">
+		<id column="ID" property="id" />
+		<result column="EMPLOYEE_CODE" property="employeeCode" />
+		<result column="FID" property="fid" />
+		<result column="TMP_SIZE" property="tmpSize" />
+		<result column="VALID" property="valid" />
+		<result column="TMP" property="tmp" />
+		<result column="TYPE" property="type" />
+		<result column="DELETED" property="deleted" />
+		<result column="BATCH_DATE" property="batchDate" />
+		<result column="CRE_PRO_ID" property="creProId" />
+		<result column="CREATED_BY" property="createdBy" />
+		<result column="CREATED_DATE" property="createdDate" />
+		<result column="MOD_PRO_ID" property="modProId" />
+		<result column="LAST_MODIFIED_BY" property="lastModifiedBy" />
+		<result column="LAST_MODIFIED_DATE" property="lastModifiedDate" />
+		
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, EMPLOYEE_CODE, FID, TMP_SIZE, VALID, TMP, TYPE,DELETED,BATCH_DATE, CRE_PRO_ID,
+		CREATED_BY,
+		CREATED_DATE, MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE
+	</sql>
+	<sql id="baseFilter">
+		<if test="employeeCode != null">
+				AND EMPLOYEE_CODE = #{employeeCode}
+			</if>
+			<if test="fid != null">
+				AND FID = #{fid}
+			</if>
+			<if test="size != null">
+				AND TMP_SIZE = #{tmpSize}
+			</if>
+			<if test="valid != null">
+				AND VALID = #{valid}
+			</if>
+			<if test="tmp != null">
+				AND TMP = #{tmp}
+			</if>
+			<if test="type != null">
+				AND TYPE = #{type}
+			</if>
+			<if test="batchDate != null">
+				AND BATCH_DATE = #{batchDate}
+			</if>
+			<if test="creProId != null">
+				AND CRE_PRO_ID = #{creProId}
+			</if>
+			<if test="createdBy != null">
+				AND CREATED_BY = #{createdBy}
+			</if>
+			<if test="createdDate != null">
+				AND CREATED_DATE = #{createdDate}
+			</if>
+			<if test="modProId != null">
+				AND MOD_PRO_ID = #{modProId}
+			</if>
+			<if test="lastModifiedBy != null">
+				AND LAST_MODIFIED_BY = #{lastModifiedBy}
+			</if>
+			<if test="lastModifiedDate != null">
+				AND LAST_MODIFIED_DATE = #{lastModifiedDate}
+			</if>
+			AND DELETED = '0'
+	</sql>
+	<select id="findMany" resultMap="BaseResultMap"
+		parameterType="map">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM T_FINGER_FACE_TEMPLATE
+		<where>
+			<include refid="baseFilter"/>
+		</where>
+		ORDER BY CREATED_DATE ASC
+	</select>
+	
+	<select id="find" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM T_FINGER_FACE_TEMPLATE
+		where DELETED = '0' AND ID = #{id}
+	</select>
+	<select id="selectByEmployeeCodeAndType" resultMap="BaseResultMap"
+		parameterType="map">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM T_FINGER_FACE_TEMPLATE
+		WHERE DELETED = '0' AND EMPLOYEE_CODE = #{employeeCode}
+		AND TYPE = #{type}
+	</select>
+	
+	<select id="findInfoByEmployeeCodeAndTypeAndFid" resultMap="BaseResultMap"
+		parameterType="map">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM T_FINGER_FACE_TEMPLATE
+		WHERE DELETED = '0' AND EMPLOYEE_CODE = #{employeeCode}
+		AND TYPE = #{type}
+		AND FID = #{fid}
+	</select>
+	
+	<insert id="save" parameterType="FingerFaceTemplate">
+	<selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE">
+			SELECT S_T_FINGER_FACE_TEMPLATE.NEXTVAL FROM DUAL
+		</selectKey>
+		insert into T_FINGER_FACE_TEMPLATE (ID, EMPLOYEE_CODE, FID,
+		TMP_SIZE, VALID,TMP, TYPE,
+		DELETED,BATCH_DATE, CRE_PRO_ID, CREATED_BY,
+		CREATED_DATE, MOD_PRO_ID, LAST_MODIFIED_BY,
+		LAST_MODIFIED_DATE)
+		values (#{id}, #{employeeCode}, #{fid},
+		#{tmpSize}, #{valid}, #{tmp}, #{type},
+		#{deleted},#{batchDate}, #{creProId}, #{createdBy},
+		#{createdDate}, #{modProId}, #{lastModifiedBy},
+		#{lastModifiedDate})
+	</insert>
+	
+	<update id="update" parameterType="FingerFaceTemplate">
+		update T_FINGER_FACE_TEMPLATE
+		<set>
+			<if test="employeeCode != null">
+				EMPLOYEE_CODE = #{employeeCode},
+			</if>
+			<if test="fid != null">
+				FID = #{fid},
+			</if>
+			<if test="tmpSize != null">
+				TMP_SIZE = #{tmpSize},
+			</if>
+			<if test="valid != null">
+				VALID = #{valid},
+			</if>
+			<if test="tmp != null">
+				TMP = #{tmp},
+			</if>
+			<if test="type != null">
+				TYPE = #{type},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted},
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE = #{batchDate},
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID = #{creProId},
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY = #{createdBy},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate},
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID = #{modProId},
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY = #{lastModifiedBy},
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE = #{lastModifiedDate},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>

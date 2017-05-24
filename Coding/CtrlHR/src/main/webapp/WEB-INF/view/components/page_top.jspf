@@ -1,0 +1,50 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
+
+<!--组件样式-->
+<style>
+	.pageTop{
+		border-bottom: #ddd solid 1px;
+		padding: 20px 0 10px 0;
+	}
+	.pageTopCont{
+		float: left;
+		width: 50%;
+	}
+	.pageTopSlot{
+		float: right;
+		width: 50%;
+		padding-top:20px;
+	}
+	.pageTopSlot>div{
+		margin:0 20px;
+	}
+	.pageTopCont>.title{
+		font-weight: bold;
+		font-size: 16px;
+		margin-bottom: 10px;
+	}
+	.pageTopCont>.intro{
+		font-size: 12px;
+		color: #999;
+	}
+</style>
+<!--组件模板-->
+<script type="text/x-template" id="componentPageTop">
+	<div class="pageTop clearfix">
+		<div class="pageTopCont">
+			<div class="title">{{pageTitle}}</div>
+			<div class="intro">{{pageDescription}}</div>
+		</div>
+		<div class="pageTopSlot">
+			<slot></slot>
+		</div>
+	</div>
+</script>	
+<!--注册组件-->
+<script>
+	Vue.component('page-top',{
+		template: '#componentPageTop',
+		props:['pageTitle','pageDescription']
+	})
+</script>
+

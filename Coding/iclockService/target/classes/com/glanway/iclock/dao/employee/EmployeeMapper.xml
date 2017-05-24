@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.iclock.dao.employee.EmployeeDao">
+	<resultMap id="BaseResultMap" type="Employee">
+		<id column="ID" property="id" />
+		<result column="NAME" property="name" />
+		<result column="CODE" property="code" />
+		<result column="MOBILE" property="mobile" />
+		<result column="SEX" property="sex" />
+		<result column="JOB_STATE" property="jobState" />
+		<result column="ENTRY_DATE" property="entryDate" />
+		<result column="FORMAL_DATE" property="formalDate" />
+		<result column="QUIT_DATE" property="quitDate" />
+		<result column="DEPT_ID" property="deptId" />
+		<result column="JOB_ID" property="jobId" />
+		<result column="SALARY_ID" property="salaryId" />
+		<result column="PERF_ID" property="perfId" />
+		<result column="BATCH_DATE" property="batchDate" />
+		<result column="DELETED" property="deleted" />
+		<result column="CRE_PRO_ID" property="creProId" />
+		<result column="CREATED_BY" property="createdBy" />
+		<result column="CREATED_DATE" property="createdDate" />
+		<result column="MOD_PRO_ID" property="modProId" />
+		<result column="LAST_MODIFIED_BY" property="lastModifiedBy" />
+		<result column="LAST_MODIFIED_DATE" property="lastModifiedDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, NAME, CODE, MOBILE, SEX, JOB_STATE, ENTRY_DATE,
+		FORMAL_DATE,
+		QUIT_DATE, DEPT_ID,
+		JOB_ID, SALARY_ID, PERF_ID, BATCH_DATE,
+		DELETED, CRE_PRO_ID, CREATED_BY,
+		CREATED_DATE,
+		MOD_PRO_ID,
+		LAST_MODIFIED_BY, LAST_MODIFIED_DATE
+	</sql>
+	<!--根据员工代码,查询员工信息  -->
+	<select id="selectByCode" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_EMPLOYEE
+		where CODE = #{code}
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from T_EMPLOYEE
+		where ID = #{id}
+	</select>
+	<select id="findMany" resultMap="BaseResultMap" parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from T_EMPLOYEE
+		<where>
+			1=1
+			<if test="name != null">
+				AND NAME = #{name}
+			</if>
+			<if test="code != null">
+				AND CODE = #{code}
+			</if>
+			<if test="mobile != null">
+				AND MOBILE = #{mobile}
+			</if>
+			<if test="sex != null">
+				AND SEX = #{sex}
+			</if>
+			<if test="jobState != null">
+				AND JOB_STATE = #{jobState}
+			</if>
+			<if test="entryDate != null">
+				AND ENTRY_DATE = #{entryDate}
+			</if>
+			<if test="formalDate != null">
+				AND FORMAL_DATE = #{formalDate}
+			</if>
+			<if test="quitDate != null">
+				AND QUIT_DATE = #{quitDate}
+			</if>
+			<if test="deptId != null">
+				AND DEPT_ID = #{deptId}
+			</if>
+			<if test="jobId != null">
+				AND JOB_ID = #{jobId}
+			</if>
+			<if test="salaryId != null">
+				AND SALARY_ID = #{salaryId}
+			</if>
+			<if test="perfId != null">
+				AND PERF_ID = #{perfId}
+			</if>
+			<if test="batchDate != null">
+				AND BATCH_DATE = #{batchDate}
+			</if>
+
+			<if test="creProId != null">
+				AND CRE_PRO_ID = #{creProId}
+			</if>
+			<if test="createdBy != null">
+				AND CREATED_BY = #{createdBy}
+			</if>
+			<if test="createdDate != null">
+				AND CREATED_DATE = #{createdDate}
+			</if>
+			<if test="modProId != null">
+				AND MOD_PRO_ID = #{modProId}
+			</if>
+			<if test="lastModifiedBy != null">
+				AND LAST_MODIFIED_BY = #{lastModifiedBy}
+			</if>
+			<if test="lastModifiedDate != null">
+				AND LAST_MODIFIED_DATE = #{lastModifiedDate}
+			</if>
+			AND DELETE = '0'
+		</where>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		T_EMPLOYEE
+		where ID = #{id}
+	</delete>
+	<insert id="insert" parameterType="Employee">
+		insert into T_EMPLOYEE (ID,
+		NAME, CODE,
+		MOBILE, SEX, JOB_STATE,
+		ENTRY_DATE, FORMAL_DATE, QUIT_DATE,
+		DEPT_ID, JOB_ID, SALARY_ID,
+		PERF_ID, BATCH_DATE, DELETED,
+		CRE_PRO_ID,
+		CREATED_BY, CREATED_DATE,
+		MOD_PRO_ID, LAST_MODIFIED_BY,
+		LAST_MODIFIED_DATE
+		)
+		values (#{id},
+		#{name},
+		#{code},
+		#{mobile}, #{sex},
+		#{jobState},
+		#{entryDate},
+		#{formalDate},
+		#{quitDate},
+		#{deptId}, #{jobId},
+		#{salaryId},
+		#{perfId},
+		#{batchDate},
+		#{deleted},
+		#{creProId}, #{createdBy},
+		#{createdDate},
+		#{modProId},
+		#{lastModifiedBy},
+		#{lastModifiedDate}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="Employee">
+		insert into T_EMPLOYEE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="code != null">
+				CODE,
+			</if>
+			<if test="mobile != null">
+				MOBILE,
+			</if>
+			<if test="sex != null">
+				SEX,
+			</if>
+			<if test="jobState != null">
+				JOB_STATE,
+			</if>
+			<if test="entryDate != null">
+				ENTRY_DATE,
+			</if>
+			<if test="formalDate != null">
+				FORMAL_DATE,
+			</if>
+			<if test="quitDate != null">
+				QUIT_DATE,
+			</if>
+			<if test="deptId != null">
+				DEPT_ID,
+			</if>
+			<if test="jobId != null">
+				JOB_ID,
+			</if>
+			<if test="salaryId != null">
+				SALARY_ID,
+			</if>
+			<if test="perfId != null">
+				PERF_ID,
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE,
+			</if>
+			<if test="deleted != null">
+				DELETED,
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID,
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID,
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY,
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="code != null">
+				#{code},
+			</if>
+			<if test="mobile != null">
+				#{mobile},
+			</if>
+			<if test="sex != null">
+				#{sex},
+			</if>
+			<if test="jobState != null">
+				#{jobState},
+			</if>
+			<if test="entryDate != null">
+				#{entryDate},
+			</if>
+			<if test="formalDate != null">
+				#{formalDate},
+			</if>
+			<if test="quitDate != null">
+				#{quitDate},
+			</if>
+			<if test="deptId != null">
+				#{deptId},
+			</if>
+			<if test="jobId != null">
+				#{jobId},
+			</if>
+			<if test="salaryId != null">
+				#{salaryId},
+			</if>
+			<if test="perfId != null">
+				#{perfId},
+			</if>
+			<if test="batchDate != null">
+				#{batchDate},
+			</if>
+			<if test="deleted != null">
+				#{deleted},
+			</if>
+			<if test="creProId != null">
+				#{creProId},
+			</if>
+			<if test="createdBy != null">
+				#{createdBy},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate},
+			</if>
+			<if test="modProId != null">
+				#{modProId},
+			</if>
+			<if test="lastModifiedBy != null">
+				#{lastModifiedBy},
+			</if>
+			<if test="lastModifiedDate != null">
+				#{lastModifiedDate},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="Employee">
+		update T_EMPLOYEE
+		<set>
+			<if test="name != null">
+				NAME = #{name},
+			</if>
+			<if test="code != null">
+				CODE = #{code},
+			</if>
+			<if test="mobile != null">
+				MOBILE = #{mobile},
+			</if>
+			<if test="sex != null">
+				SEX = #{sex},
+			</if>
+			<if test="jobState != null">
+				JOB_STATE = #{jobState},
+			</if>
+			<if test="entryDate != null">
+				ENTRY_DATE = #{entryDate},
+			</if>
+			<if test="formalDate != null">
+				FORMAL_DATE = #{formalDate},
+			</if>
+			<if test="quitDate != null">
+				QUIT_DATE = #{quitDate},
+			</if>
+			<if test="deptId != null">
+				DEPT_ID = #{deptId},
+			</if>
+			<if test="jobId != null">
+				JOB_ID = #{jobId},
+			</if>
+			<if test="salaryId != null">
+				SALARY_ID = #{salaryId},
+			</if>
+			<if test="perfId != null">
+				PERF_ID = #{perfId},
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE = #{batchDate},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted},
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID = #{creProId},
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY = #{createdBy},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate},
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID = #{modProId,
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY = #{lastModifiedBy},
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE =
+				#{lastModifiedDate},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="Employee">
+		update T_EMPLOYEE
+		set NAME = #{name},
+		CODE = #{code},
+		MOBILE = #{mobile},
+		SEX = #{sex},
+		JOB_STATE = #{jobState},
+		ENTRY_DATE = #{entryDate},
+		FORMAL_DATE =
+		#{formalDate},
+		QUIT_DATE = #{quitDate},
+		DEPT_ID = #{deptId},
+		JOB_ID =
+		#{jobId},
+		SALARY_ID = #{salaryId},
+		PERF_ID = #{perfId},
+		BATCH_DATE =
+		#{batchDate},
+		DELETED = #{deleted},
+		CRE_PRO_ID = #{creProId},
+		CREATED_BY
+		= #{createdBy},
+		CREATED_DATE = #{createdDate},
+		MOD_PRO_ID = #{modProId},
+		LAST_MODIFIED_BY = #{lastModifiedBy},
+		LAST_MODIFIED_DATE =
+		#{lastModifiedDate}
+		where ID = #{id}
+	</update>
+
+	<!-- 全部查询 -->
+	<!-- 员工列表查询条件 -->
+	<sql id="where_findList">
+		<where>
+			EMP.DELETED = 0
+			<if test="para.companyId != null and para.companyId != ''">
+				AND COM.ID = #{para.companyId}
+			</if>
+			<if test="para.deptIds != null and para.deptIds != ''">
+				AND EMP.DEPT_ID IN
+				<foreach collection="para.deptIdList" item="deptId" open="("
+					close=")" separator=",">
+					#{deptId}
+				</foreach>
+			</if>
+			<if test="para.jobId != null and para.jobId != ''">
+				AND EMP.JOB_ID = #{para.jobId}
+			</if>
+			<if test="para.jobState != null and para.jobState != ''">
+				AND EMP.JOB_STATE = #{para.jobState}
+			</if>
+			<if
+				test="para.entryDateFrom != null and para.entryDateFrom != '' and para.entryDateTo != null and para.entryDateTo != ''">
+				AND (EMP.ENTRY_DATE BETWEEN TO_DATE('${para.entryDateFrom}',
+				'yyyy-MM-dd HH24:mi:ss') AND TO_DATE('${para.entryDateTo}',
+				'yyyy-MM-dd HH24:mi:ss'))
+			</if>
+			<if
+				test="para.formalDateFrom != null and para.formalDateFrom != '' and para.formalDateTo != null and para.formalDateTo != ''">
+				AND (EMP.ENTRY_DATE BETWEEN TO_DATE('${para.formalDateFrom}',
+				'yyyy-MM-dd HH24:mi:ss') AND TO_DATE('${para.formalDateTo}',
+				'yyyy-MM-dd HH24:mi:ss'))
+			</if>
+			<if
+				test="para.quitDateFrom != null and para.quitDateFrom != '' and para.quitDateTo != null and para.quitDateTo != ''">
+				AND (EMP.ENTRY_DATE BETWEEN TO_DATE('${para.quitDateFrom}',
+				'yyyy-MM-dd HH24:mi:ss') AND TO_DATE('${para.quitDateTo}',
+				'yyyy-MM-dd HH24:mi:ss'))
+			</if>
+			<if test="para.keyword != null and para.keyword != ''">
+				AND EMP.CODE LIKE '%${para.keyword}%' OR EMP."NAME" LIKE
+				'%${para.keyword}%'
+			</if>
+		</where>
+	</sql>
+	<!-- 员工列表查询Orcale分页查询主体数据 -->
+	<sql id="list_findList">
+		SELECT
+		EMP.ID,EMP."NAME",EMP.CODE,EMP.JOB_STATE,EMP.ENTRY_DATE,EMP.FORMAL_DATE,EMP.QUIT_DATE,EMP.DEPT_ID,DEPT."NAME"
+		DEPT_NAME,EMP.JOB_ID,JOB."NAME" JOB_NAME
+		FROM T_EMPLOYEE EMP
+		LEFT JOIN
+		T_DEPT DEPT ON DEPT.ID = EMP.DEPT_ID AND DEPT.STATE = 1
+		LEFT JOIN
+		T_COMPANY COM ON COM.ID = DEPT.COMPANY_ID AND COM.STATE = 1
+		LEFT JOIN
+		T_JOB JOB ON JOB.ID = EMP.JOB_ID AND JOB.STATE = 1
+		<include refid="where_findList" />
+		<if test="para.orderBy == 'employeeNameDesc'">
+			ORDER BY EMP."NAME" DESC
+		</if>
+		<if test="para.orderBy == 'employeeNameAsc'">
+			ORDER BY EMP."NAME" ASC
+		</if>
+		<if test="para.orderBy == 'employeeCodeDesc'">
+			ORDER BY EMP.CODE DESC
+		</if>
+		<if test="para.orderBy == 'employeeCodeAsc'">
+			ORDER BY EMP.CODE ASC
+		</if>
+		<if test="para.orderBy == 'deptNameDesc'">
+			ORDER BY DEPT."NAME" DESC
+		</if>
+		<if test="para.orderBy == 'deptNameAsc'">
+			ORDER BY DEPT."NAME" ASC
+		</if>
+		<if test="para.orderBy == 'jobNameDesc'">
+			ORDER BY JOB."NAME" DESC
+		</if>
+		<if test="para.orderBy == 'jobNameAsc'">
+			ORDER BY JOB."NAME" ASC
+		</if>
+		<if test="para.orderBy == 'jobStateDesc'">
+			ORDER BY EMP.JOB_STATE DESC
+		</if>
+		<if test="para.orderBy == 'jobStateAsc'">
+			ORDER BY EMP.JOB_STATE ASC
+		</if>
+		<if test="para.orderBy == 'entryDateDesc'">
+			ORDER BY EMP.ENTRY_DATE DESC
+		</if>
+		<if test="para.orderBy == 'entryDateAsc'">
+			ORDER BY EMP.ENTRY_DATE ASC
+		</if>
+		<if test="para.orderBy == 'formalDateDesc'">
+			ORDER BY EMP.FORMAL_DATE DESC
+		</if>
+		<if test="para.orderBy == 'formalDateAsc'">
+			ORDER BY EMP.FORMAL_DATE ASC
+		</if>
+		<if test="para.orderBy == 'quitDateDesc'">
+			ORDER BY EMP.QUIT_DATE DESC
+		</if>
+		<if test="para.orderBy == 'quitDateAsc'">
+			ORDER BY EMP.QUIT_DATE ASC
+		</if>
+		<if test="para.orderBy == null or para.orderBy == ''">
+			ORDER BY EMP.CODE
+		</if>
+	</sql>
+	
+
+
+	<!--根据ID获取员工信息 -->
+	<select id="find" parameterType="long" resultType="Employee">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM T_EMPLOYEE E WHERE E.ID=#{id} AND E.DELETED=0
+	</select>
+
+</mapper>

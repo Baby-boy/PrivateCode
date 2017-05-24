@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="${ctx}/css/normalize.css">
+<link rel="stylesheet" href="${ctx}/css/common.css">
+<link rel="stylesheet" href="${ctx}/css/base.css">
+<link rel="stylesheet" href="${ctx}/js/iconFont/iconfont.css">
+<link rel="stylesheet" href="${ctx}/js/elementUI/index.css"/>
+<script src="${ctx}/js/modernizr-2.6.2.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/iconFont/iconfont.js"></script>
+<script type="text/javascript" src="${ctx}/js/vue.js"></script>
+<script type="text/javascript" src="${ctx}/js/vue-resource.js"></script>
+<script type="text/javascript" src="${ctx}/js/elementUI/index.js"></script>
+<script type="text/javascript" src="${ctx}/js/common.js"></script>
+<script type="text/javascript" src="${ctx}/js/util.js"></script>
+<script type="text/javascript" src="${ctx}/js/js.cookie.js"></script>
+<script type="text/javascript" src="${ctx}/js/dateChange.js"></script>
+<script type="text/javascript">
+var ctx = '${ctx}';
+</script>

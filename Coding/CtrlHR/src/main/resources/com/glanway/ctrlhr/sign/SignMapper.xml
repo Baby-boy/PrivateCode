@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.ctrlhr.dao.sign.SignDao" >
+	<resultMap id="BaseResultMap" type="com.glanway.ctrlhr.entity.sign.Sign" >
+	  <id column="ID" property="id" jdbcType="DECIMAL" />
+	  <result column="EMPLOYEE_CODE" property="employeeCode" jdbcType="VARCHAR" />
+	  <result column="SN" property="sn" jdbcType="VARCHAR" />
+	  <result column="TIME" property="time" jdbcType="TIMESTAMP" />
+	  <result column="STATE" property="state" jdbcType="VARCHAR" />
+	  <result column="VERIFY" property="verify" jdbcType="VARCHAR" />
+	  <result column="WORKCODE" property="workcode" jdbcType="VARCHAR" />
+	  <result column="BATCH_DATE" property="batchDate" jdbcType="TIMESTAMP" />
+	  <result column="DELETED" property="deleted" jdbcType="CHAR" />
+	  <result column="CRE_PRO_ID" property="creProId" jdbcType="DECIMAL" />
+	  <result column="CREATED_BY" property="createdBy" jdbcType="DECIMAL" />
+	  <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+	  <result column="MOD_PRO_ID" property="modProId" jdbcType="DECIMAL" />
+	  <result column="LAST_MODIFIED_BY" property="lastModifiedBy" jdbcType="DECIMAL" />
+	  <result column="LAST_MODIFIED_DATE" property="lastModifiedDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List" >
+	  ID, EMPLOYEE_CODE, SN, TIME, STATE, VERIFY, WORKCODE, BATCH_DATE, DELETED, CRE_PRO_ID, 
+	  CREATED_BY, CREATED_DATE, MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+	  select 
+	  <include refid="Base_Column_List" />
+	  from T_SIGN
+	  where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+	  delete from T_SIGN
+	  where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.glanway.ctrlhr.entity.sign.Sign" >
+	  insert into T_SIGN (ID, EMPLOYEE_CODE, SN, 
+	    TIME, STATE, VERIFY, 
+	    WORKCODE, BATCH_DATE, DELETED, 
+	    CRE_PRO_ID, CREATED_BY, CREATED_DATE, 
+	    MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE
+	    )
+	  values (#{id,jdbcType=DECIMAL}, #{employeeCode,jdbcType=VARCHAR}, #{sn,jdbcType=VARCHAR}, 
+	    #{time,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR}, #{verify,jdbcType=VARCHAR}, 
+	    #{workcode,jdbcType=VARCHAR}, #{batchDate,jdbcType=TIMESTAMP}, #{deleted,jdbcType=CHAR}, 
+	    #{creProId,jdbcType=DECIMAL}, #{createdBy,jdbcType=DECIMAL}, #{createdDate,jdbcType=TIMESTAMP}, 
+	    #{modProId,jdbcType=DECIMAL}, #{lastModifiedBy,jdbcType=DECIMAL}, #{lastModifiedDate,jdbcType=TIMESTAMP}
+	    )
+	</insert>
+	<insert id="insertSelective" parameterType="com.glanway.ctrlhr.entity.sign.Sign" >
+	  insert into T_SIGN
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null" >
+	      ID,
+	    </if>
+	    <if test="employeeCode != null" >
+	      EMPLOYEE_CODE,
+	    </if>
+	    <if test="sn != null" >
+	      SN,
+	    </if>
+	    <if test="time != null" >
+	      TIME,
+	    </if>
+	    <if test="state != null" >
+	      STATE,
+	    </if>
+	    <if test="verify != null" >
+	      VERIFY,
+	    </if>
+	    <if test="workcode != null" >
+	      WORKCODE,
+	    </if>
+	    <if test="batchDate != null" >
+	      BATCH_DATE,
+	    </if>
+	    <if test="deleted != null" >
+	      DELETED,
+	    </if>
+	    <if test="creProId != null" >
+	      CRE_PRO_ID,
+	    </if>
+	    <if test="createdBy != null" >
+	      CREATED_BY,
+	    </if>
+	    <if test="createdDate != null" >
+	      CREATED_DATE,
+	    </if>
+	    <if test="modProId != null" >
+	      MOD_PRO_ID,
+	    </if>
+	    <if test="lastModifiedBy != null" >
+	      LAST_MODIFIED_BY,
+	    </if>
+	    <if test="lastModifiedDate != null" >
+	      LAST_MODIFIED_DATE,
+	    </if>
+	  </trim>
+	  <trim prefix="values (" suffix=")" suffixOverrides="," >
+	    <if test="id != null" >
+	      #{id,jdbcType=DECIMAL},
+	    </if>
+	    <if test="employeeCode != null" >
+	      #{employeeCode,jdbcType=VARCHAR},
+	    </if>
+	    <if test="sn != null" >
+	      #{sn,jdbcType=VARCHAR},
+	    </if>
+	    <if test="time != null" >
+	      #{time,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="state != null" >
+	      #{state,jdbcType=VARCHAR},
+	    </if>
+	    <if test="verify != null" >
+	      #{verify,jdbcType=VARCHAR},
+	    </if>
+	    <if test="workcode != null" >
+	      #{workcode,jdbcType=VARCHAR},
+	    </if>
+	    <if test="batchDate != null" >
+	      #{batchDate,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="deleted != null" >
+	      #{deleted,jdbcType=CHAR},
+	    </if>
+	    <if test="creProId != null" >
+	      #{creProId,jdbcType=DECIMAL},
+	    </if>
+	    <if test="createdBy != null" >
+	      #{createdBy,jdbcType=DECIMAL},
+	    </if>
+	    <if test="createdDate != null" >
+	      #{createdDate,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="modProId != null" >
+	      #{modProId,jdbcType=DECIMAL},
+	    </if>
+	    <if test="lastModifiedBy != null" >
+	      #{lastModifiedBy,jdbcType=DECIMAL},
+	    </if>
+	    <if test="lastModifiedDate != null" >
+	      #{lastModifiedDate,jdbcType=TIMESTAMP},
+	    </if>
+	  </trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.glanway.ctrlhr.entity.sign.Sign" >
+	  update T_SIGN
+	  <set >
+	    <if test="employeeCode != null" >
+	      EMPLOYEE_CODE = #{employeeCode,jdbcType=VARCHAR},
+	    </if>
+	    <if test="sn != null" >
+	      SN = #{sn,jdbcType=VARCHAR},
+	    </if>
+	    <if test="time != null" >
+	      TIME = #{time,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="state != null" >
+	      STATE = #{state,jdbcType=VARCHAR},
+	    </if>
+	    <if test="verify != null" >
+	      VERIFY = #{verify,jdbcType=VARCHAR},
+	    </if>
+	    <if test="workcode != null" >
+	      WORKCODE = #{workcode,jdbcType=VARCHAR},
+	    </if>
+	    <if test="batchDate != null" >
+	      BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="deleted != null" >
+	      DELETED = #{deleted,jdbcType=CHAR},
+	    </if>
+	    <if test="creProId != null" >
+	      CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+	    </if>
+	    <if test="createdBy != null" >
+	      CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+	    </if>
+	    <if test="createdDate != null" >
+	      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="modProId != null" >
+	      MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+	    </if>
+	    <if test="lastModifiedBy != null" >
+	      LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+	    </if>
+	    <if test="lastModifiedDate != null" >
+	      LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP},
+	    </if>
+	  </set>
+	  where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.glanway.ctrlhr.entity.sign.Sign" >
+	  update T_SIGN
+	  set EMPLOYEE_CODE = #{employeeCode,jdbcType=VARCHAR},
+	    SN = #{sn,jdbcType=VARCHAR},
+	    TIME = #{time,jdbcType=TIMESTAMP},
+	    STATE = #{state,jdbcType=VARCHAR},
+	    VERIFY = #{verify,jdbcType=VARCHAR},
+	    WORKCODE = #{workcode,jdbcType=VARCHAR},
+	    BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+	    DELETED = #{deleted,jdbcType=CHAR},
+	    CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+	    CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+	    CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+	    MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+	    LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+	    LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP}
+	  where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	
+	<!-- 全部查询 -->
+	<sql id="where_findList">
+		<where>
+			TS.DELETED=0 
+			<if test="para.keyword != null and para.keyword != ''">
+				AND (EMP.CODE LIKE '%${para.keyword}%' OR EMP.NAME LIKE '%${para.keyword}%')
+			</if>
+			<if test="para.dateStart != null and para.dateStart != '' and para.dateEnd != null and para.dateEnd != ''">
+				AND (TS.TIME BETWEEN TO_DATE('${para.dateStart}', 'yyyy-MM-dd HH24:mi:ss') AND TO_DATE('${para.dateEnd}', 'yyyy-MM-dd HH24:mi:ss'))
+			</if>
+		</where>
+	</sql>
+	<!-- 查询考勤记录导出的详情列表 -->
+	<select id="findMany" resultType="SignVo">
+		SELECT 
+			TS.ID,EMP.CODE EMPLOYEE_CODE,EMP.NAME EMPLOYEE_NAME,DEPT.NAME DEPT_NAME,JOB.NAME JOB_NAME,TS.TIME TIME
+		FROM T_SIGN TS
+		INNER JOIN T_EMPLOYEE EMP ON EMP.CODE = TS.EMPLOYEE_CODE AND EMP.JOB_STATE !=3
+		INNER JOIN T_DEPT DEPT ON DEPT.ID = EMP.DEPT_ID AND DEPT.state =1
+		INNER JOIN T_JOB JOB ON JOB.ID = EMP.JOB_ID AND JOB.STATE = 1
+		<include refid="where_findList"/>
+		ORDER BY TS.TIME DESC
+	</select>
+	
+	<!-- Task -->
+	<select id="findExList" resultType="SignRecordVo">
+		SELECT 
+			COUNT(TS.ID) COUNT,TS.EMPLOYEE_CODE,EMP.ID EMPLOYEE_ID
+		FROM T_SIGN TS
+		LEFT JOIN T_EMPLOYEE EMP ON EMP.CODE = TS.EMPLOYEE_CODE AND EMP.JOB_STATE !=3 AND EMP.DELETED = 0
+		WHERE TS.DELETED = 0
+		AND (TS.TIME BETWEEN TO_DATE('${dateStart}', 'yyyy-MM-dd HH24:mi:ss') AND TO_DATE('${dateEnd}', 'yyyy-MM-dd HH24:mi:ss'))
+		GROUP BY TS.EMPLOYEE_CODE,EMP.ID
+	</select>
+	
+	<select id="findEmployeeByCode" resultType="SignRecordVo">
+		SELECT 
+			MIN(TS.TIME) MIN_TIME,MAX(TS.TIME) MAX_TIME
+		FROM T_SIGN TS
+		WHERE TS.DELETED= 0 AND TS.EMPLOYEE_CODE = #{employeeCode}
+		AND (TS.TIME BETWEEN TO_DATE('${dateStart}', 'yyyy-MM-dd HH24:mi:ss') AND TO_DATE('${dateEnd}', 'yyyy-MM-dd HH24:mi:ss'))
+	</select>
+</mapper>

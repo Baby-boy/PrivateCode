@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <link rel="stylesheet" href="uploader2.css"/>
+    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdn.bootcss.com/plupload/2.1.8/plupload.full.min.js"></script>
+    <script type="text/javascript" src="uploader2.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 18px 23px 30px;
+            font-family: "微软雅黑", Arial, "宋体", serif;
+            font-size: 12px;
+            color: #333;
+            background: #e4ebe9 repeat top left;
+        }
+        .form-table td {
+            border-bottom: 1px dashed #EFEFEF;
+            padding-top: 7px;
+            padding-bottom: 7px;
+        }
+    </style>
+</head>
+<body>
+<div class="page-content">
+    <div class="page-header">
+        <span class="title">表单组件</span>
+        <a href="javascript:location.reload();" class="reload">刷新</a>
+    </div>
+        <table class="form-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr>
+                <td align="right">单图上传(FilePicker)：</td>
+                <td>
+                    <div class="uploader-1" id="single-drop-zone">
+                        <div class="upload-desc">请上传<b>50x30</b>图片</div>
+                        <div class="upload-single">
+                            <div class="actions">
+                                <a href="javascript:;" id="image-upload-btn" name="path"
+                                   data-drop-target="single-drop-zone">选择文件</a>
+                            </div>
+                            <div class="upload-input">请选择...</div>
+                            <ul class="upload-queue" id="image-upload-queue">
+                                <li><input type="hidden" name="path" value="已经上传文件路径" /></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            var uploader = Uploader2({
+                                name: 'path',
+                                list: 'image-upload-queue',
+                                mode: 't',
+                                max_file_count: 1,
+                                max_file_size: '20m',
+                                file_data_name: 'img',
+                                baseUrl: '${ctx}',
+                                url: '${ctx}/storage/images/ul',
+                                browse_button: 'image-upload-btn'
+                            }).bind('FileFiltered', function (up, file) {
+                                var el = file.el,
+                                        name = el ? el.getAttribute('data-name') || el.value : file.name;
+                                $('#image-upload-btn .upload-input').text(name).attr('title', name);
+                            }).bind('FilesRemoved', function (up, file) {
+                                $('#image-upload-btn .upload-input').text('请选择..').attr('title', '');
+                            });
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">单文件上传(FilePicker)：</td>
+                <td>
+                    <div class="uploader-2 uploader-single-skin">
+                        <div class="upload-desc">请上传<b>5G以内</b>文件</div>
+                        <div class="upload-single">
+                            <div class="actions">
+                                <a href="javascript:;" id="file-upload-btn" name="path" data-target="file-upload-queue::2g:::">开始上传</a>
+                            </div>
+                            <div class="upload-input">请选择...</div>
+                            <ul class="upload-queue" id="file-upload-queue">
+                                <li><input type="hidden" name="path" data-name="保存的文件名称.png" value="已经上传文件路径"/></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        Uploader2.embed($('#file-upload-btn')[0])
+                                .bind('FileFiltered', function (up, file) {
+                                    var el = file.el,
+                                            name = el ? el.getAttribute('data-name') || el.value : file.name;
+                                    $('.upload-single .upload-input').text(name).attr('title', name);
+                                }).bind('FilesRemoved', function (up, file) {
+                                    $('#file-upload-btn .upload-input').text('请选择..').attr('title', '');
+                                });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">组图上传(FilePicker)：</td>
+                <td>
+                    <div class="images-uploader uploader-default-skin">
+                        <div class="upload-desc">
+                            请上传<b>50x30</b>图片, 最多可以上传<b>3</b>张
+                            <span name="up" class="J-plupload upload-btn"
+                                  data-target="images-upload-queue:t:3x50G:file::1"
+                                  data-suffix="jpg,png"
+                                  data-drop-target="..">开始上传</span>
+                        </div>
+                        <!--<div class="error">组件初始化失败：-500, 配置错误</div>-->
+                        <ul class="upload-queue cf" id="images-upload-queue"></ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">多文件上传(FilePicker)：</td>
+                <td>
+                    <div class="files-uploader uploader-default-skin">
+                        <div class="upload-desc">
+                            <span name="up" class="J-plupload upload-btn"
+                                  data-target="files-upload-queue:l:5x50G:file::1"
+                                  data-suffix="" data-drop-target="..">开始上传</span>
+                        </div>
+                        <!--<div class="error">组件初始化失败：-500, 配置错误</div>-->
+                        <ul class="upload-queue cf" id="files-upload-queue">
+                            <li><input type="hidden" name="up" data-name="保存的文件名称.png" value="已经上传文件路径"/></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">晒图上传(FilePicker)：</td>
+                <td>
+                    <div  class="photo-uploader uploader-mini-skin">
+                        <a class="upload-btn" id="photo-upload-btn"><span>晒照片</span></a>
+                        <ul class="upload-queue" id="photo-upload-queue"></ul>
+                        <span class="upload-msg"><span>0</span>/5</span>
+                        <script type="text/javascript">
+                            new Uploader2({
+                                name: 'path',
+                                list: 'photo-upload-queue',
+                                mode: 't',
+                                max_file_count: 5,
+                                max_file_size: '100m',
+                                file_data_name: 'img',
+                                baseUrl: '${ctx}',
+                                url: '${ctx}/storage/images/ul',
+                                browse_button: 'photo-upload-btn',
+                                remove_on_fail: true
+                            }).bind('FileFiltered', function() {
+                                    var $count = $('.upload-msg span');
+                                        $count.text(+$count.text() + 1);
+                            }).bind('FilesRemoved', function(up, files) {
+                                var $count = $('.upload-msg span');
+                                $count.text(Math.max(+$count.text() - files.length, 0));
+                            });
+                        </script>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+</body>
+</html>

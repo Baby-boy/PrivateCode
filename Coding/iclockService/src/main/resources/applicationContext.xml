@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:task="http://www.springframework.org/schema/task" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                           http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:property-placeholder location="classpath:config.properties"
+                                  ignore-unresolvable="true" />
+
+                           
+    <context:annotation-config/>
+
+    <context:component-scan base-package="com.glanway.iclock.service">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    
+    <context:component-scan base-package="com.glanway.iclock.utils">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+	<context:component-scan base-package="com.glanway.iclock.server"/>
+    <aop:aspectj-autoproxy/>
+
+
+  <!--   <bean id="smsService" class="com.glanway.jty.service.sms.impl.SmsServiceImpl">
+        <property name="cacheManager" ref="ehcacheMgr" />
+
+        <property name="producer" ref="captchaProducer" />
+        <property name="smsSender" ref="SmsSender" />
+        <property name="captchaTimeout" value="180" />
+    </bean> -->
+
+  
+    
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+    
+     <!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/view/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean> -->
+    <!--<bean class="com.glanway.gone.service.impl.FileLocalStorageServiceImpl">
+        <property name="storageHomeRelative" value="${data.file.home.relative}" />
+        <property name="storageHome" value="${data.file.home}"/>
+    </bean>
+
+    <bean class="com.glanway.gone.service.impl.ImageLocalStorageServiceImpl">
+        <property name="storageHomeRelative" value="${data.image.home.relative}" />
+        <property name="storageHome" value="${data.image.home}" />
+        <property name="allowSizeList">
+            <list></list>
+        </property>
+    </bean>-->
+
+    <bean id="webContextFilter" class="org.ponly.web.servlet.WebContextFilter">
+        <property name="configManager" ref="configManager"/>
+    </bean>
+
+    <bean id="configManager" class="org.ponly.config.mgt.support.JdbcConfigManager">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="cacheManager" ref="ponlyCacheManager"/>
+    </bean>
+
+    <bean id="ponlyCacheManager" class="org.ponly.cache.ehcache.EhCacheManager" destroy-method="destroy">
+        <property name="cacheManager" ref="ehcacheMgr"/>
+    </bean>
+
+    <!--
+    <bean id="fileStorageService" class="org.ponly.webbase.service.support.FileStorageServiceImpl">
+        <property name="fileSystem" ref="fileSystem"></property>
+    </bean>
+    -->
+
+
+
+
+    <!-- <bean id="multipart" class="org.ponly.webbase.servlet.multipart.DefaultMultipartServlet">
+        <property name="multipartService" ref="multipartService" />
+    </bean>
+    <bean id="ueditor" class="org.ponly.webbase.servlet.multipart.UEditorMultipartServlet">
+        <property name="multipartService" ref="multipartService" />
+    </bean>
+
+    <bean id="multipartService" class="org.ponly.webbase.service.support.StylingMultipartServiceImpl">
+        <property name="fileSystem" ref="fileSystem" />
+    </bean> -->
+    <!-- 具体文件系统相关内容请查阅 ponly-fs -->
+    
+   <!--  <bean id="fileSystem" class="org.ponly.fs.FileSystems" factory-method="getFileSystem">
+        
+            local:///path
+            sftp://user:password@host
+       
+        <constructor-arg index="0" value="${data.file.home}"/>
+    </bean> -->
+
+
+    <!-- <bean id="solrServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
+        <constructor-arg value="${solr.server.url}" />
+    </bean> -->
+    
+    <!--Start task 定时器  -->
+    <task:annotation-driven/>
+    
+   
+	
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+    <context:component-scan base-package="com.glanway.iclock.controller.taskJob"/>
+	<!--End task 定时器  -->
+	
+    <import resource="spring-mybatis.xml" />
+    <import resource="spring-cache.xml" />
+
+</beans>

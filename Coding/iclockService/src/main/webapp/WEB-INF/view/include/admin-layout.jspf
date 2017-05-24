@@ -1,0 +1,90 @@
+<%@include file="/WEB-INF/view/include/taglibs.jspf" %>
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <%--<base href="<%=request.getContextPath()%>"/>--%>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="${description}">
+    <title>${_cfg['app.mgr.name']}</title>
+    <!-- favicon.ico -->
+    <link rel="icon" href="${ctx}/favicon.ico">
+    <link rel="shortcut icon" href="${ctx}/favicon.ico">
+    <link rel="stylesheet" href="${ctx}/css/admin/normalize.css">
+    <link rel="stylesheet" href="${ctx}/css/admin/common_site.css">
+    <link rel="stylesheet" href="${ctx}/css/admin/common.css">
+    <link rel="stylesheet" href="${ctx}/js/lib/pui/uploader2/uploader2.css">
+    <link rel="stylesheet" href="${ctx}/js/lib/pui/treepicker/css/jstree-style.min.css">
+    <link rel="stylesheet" href="${ctx}/js/lib/pui/treepicker/css/treepicker.css">
+	<link href="http://cdn.bootcss.com/chosen/1.4.2/chosen.css" rel="stylesheet">	
+    <link rel="stylesheet" href="${ctx}/js/lib/jqgrid/css/jquery-ui.theme.css">
+    <link rel="stylesheet" href="${ctx}/js/lib/jqgrid/css/ui.jqgrid.css">
+    <link rel="stylesheet" href="${ctx}/js/lib/layer/skin/layer.css">
+    <link rel="stylesheet" href="${ctx}/css/admin/jqgrid.sm.css">
+    <link rel="stylesheet" href="${ctx}/css/admin.css"/>
+
+    <script type="text/javascript">var contextPath = contextPath || "${ctx}";</script>
+    <script type="text/javascript">var actx = actx || "${actx}";</script>
+    <script type="text/javascript">var Besture = Besture || {}; Besture.contextPath = "${ctx}";</script>
+    <script type="text/javascript">var Glanway = Glanway || {}; Glanway.contextPath = "${ctx}";</script>
+    <script type="text/javascript" src="${ctx}/js/modernizr-2.6.2.min.js"></script>
+    <script type="text/javascript" src="${ctx}/js/lib/ueditor/third-party/zeroclipboard/ZeroClipboard.min.js"></script>
+    <script type="text/javascript" src="${ctx}/js/lib/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="${ctx}/js/lib/ueditor/ueditor.all.min.js"></script>
+    <script type="text/javascript" src="${ctx}/js/lib/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" src="${ctx}/js/lib/require.js"></script>
+    <script type="text/javascript" src="${ctx}/js/app.js"></script>
+    <script type="text/javascript" src="${ctx}/js/glanway.js"></script>
+    <layout:block name="head-ext"></layout:block>
+</head>
+<%--<body <c:if test="${index eq true}">class="index bg"</c:if>>--%>
+<body class="${bodyClass}">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+<%@include file="/WEB-INF/view/include/admin/support.jspf" %>
+<%@include file="/WEB-INF/view/include/admin/adminHead.jspf" %>
+<div class="main">
+    <layout:block name="main">
+        <%@include file="/WEB-INF/view/include/admin/adminSidebar.jspf" %>
+        <!-- Begin 主内容区 -->
+        <div class="content">
+            <layout:block name="content">
+                <!-- Begin 当前位置 -->
+                <div class="position">
+                    <span>您当前的位置：</span>
+                    <a href="${actx}/" title="首页">首页</a> &gt;
+                    <a href="${actx}/website/index" title="商品">商品</a> &gt; 商品模型
+                </div>
+                <!-- //End 当前位置 -->
+                <div class="listPage">
+                    <!-- Begin 操作条 -->
+                    <div class="operateBar">
+                        <ul>
+                            <li><a class="operate-delete" href="javascript:void(0);" class=""><s
+                                    class="icon-delete"></s>删除</a></li>
+                            <li><a class="operate-add" href="add" class=""><s class="icon-add-green"></s>新增</a></li>
+                            <li><a class="operate-all" href="base"><s class="icon-gou-red"></s>基本模型</a></li>
+                        </ul>
+                    </div>
+                    <!-- //End 操作条 -->
+                    <div class="table-module03">
+                        <table id="datagrid"></table>
+                        <div id="pagination"></div>
+                    </div>
+                </div>
+            </layout:block>
+        </div>
+        <!-- //End 主内容区 -->
+        <layout:block name="inner"></layout:block>
+    </layout:block>
+</div>
+</body>
+</html>

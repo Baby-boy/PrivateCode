@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.ctrlhr.dao.signGroup.SignGroupDao">
+	<resultMap id="BaseResultMap" type="com.glanway.ctrlhr.entity.signGroup.SignGroup">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="STATE" property="state" jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="BATCH_DATE" property="batchDate" jdbcType="TIMESTAMP" />
+		<result column="DELETED" property="deleted" jdbcType="CHAR" />
+		<result column="CRE_PRO_ID" property="creProId" jdbcType="DECIMAL" />
+		<result column="CREATED_BY" property="createdBy" jdbcType="DECIMAL" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="MOD_PRO_ID" property="modProId" jdbcType="DECIMAL" />
+		<result column="LAST_MODIFIED_BY" property="lastModifiedBy"
+			jdbcType="DECIMAL" />
+		<result column="LAST_MODIFIED_DATE" property="lastModifiedDate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, NAME, STATE, REMARK, BATCH_DATE, DELETED, CRE_PRO_ID, CREATED_BY,
+		CREATED_DATE,
+		MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from T_SIGN_GROUP
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from T_SIGN_GROUP
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.glanway.ctrlhr.entity.signGroup.SignGroup">
+		insert into T_SIGN_GROUP (ID, NAME, STATE,
+		REMARK, BATCH_DATE, DELETED,
+		CRE_PRO_ID, CREATED_BY, CREATED_DATE,
+		MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE
+		)
+		values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR},
+		#{state,jdbcType=DECIMAL},
+		#{remark,jdbcType=VARCHAR}, #{batchDate,jdbcType=TIMESTAMP}, #{deleted,jdbcType=CHAR},
+		#{creProId,jdbcType=DECIMAL}, #{createdBy,jdbcType=DECIMAL},
+		#{createdDate,jdbcType=TIMESTAMP},
+		#{modProId,jdbcType=DECIMAL}, #{lastModifiedBy,jdbcType=DECIMAL},
+		#{lastModifiedDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.glanway.ctrlhr.entity.signGroup.SignGroup">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE">
+			SELECT S_T_SIGN_GROUP.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		insert into T_SIGN_GROUP
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="state != null">
+				STATE,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE,
+			</if>
+			<if test="deleted != null">
+				DELETED,
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID,
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID,
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY,
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=DECIMAL},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="batchDate != null">
+				#{batchDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=CHAR},
+			</if>
+			<if test="creProId != null">
+				#{creProId,jdbcType=DECIMAL},
+			</if>
+			<if test="createdBy != null">
+				#{createdBy,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modProId != null">
+				#{modProId,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedBy != null">
+				#{lastModifiedBy,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedDate != null">
+				#{lastModifiedDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.glanway.ctrlhr.entity.signGroup.SignGroup">
+		update T_SIGN_GROUP
+		<set>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				STATE = #{state,jdbcType=DECIMAL},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=CHAR},
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.glanway.ctrlhr.entity.signGroup.SignGroup">
+		update T_SIGN_GROUP
+		set NAME = #{name,jdbcType=VARCHAR},
+		STATE = #{state,jdbcType=DECIMAL},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+		DELETED = #{deleted,jdbcType=CHAR},
+		CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+		CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+		CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+		MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+		LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+		LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	
+	<!-- 全部查询 -->
+	<!-- 考勤组列表结果集 -->
+	<resultMap type="com.glanway.ctrlhr.entity.vo.SignGroupVo" id="SignGroupVoResultMap">
+		<id property="id" column="ID"/>
+		<result property="name" column="NAME"/>
+		<result property="state" column="STATE"/>
+		
+		<!-- 职位部门关联 -->
+		<collection property="jobDepts" ofType="com.glanway.ctrlhr.entity.vo.SignGroupDeptVo">
+			<result property="deptId" column="JOB_DEPT_ID"/>
+			<result property="deptName" column="JOB_DEPT_NAME"/>
+		</collection>
+		
+		<!-- 职位关联 -->
+		<collection property="jobs" ofType="com.glanway.ctrlhr.entity.vo.SignGroupJobVo">
+			<result property="jobId" column="JOB_ID"/>
+			<result property="jobName" column="JOB_NAME"/>
+		</collection>
+		
+		<!-- 人员关联 -->
+		<collection property="employees" ofType="com.glanway.ctrlhr.entity.vo.SignGroupEmployeeVo">
+			<result property="employeeId" column="EMPLOYEE_ID"/>
+			<result property="employeeName" column="EMPLOYEE_NAME"/>
+		</collection>
+		
+		<!-- 考勤点关联 -->
+		<collection property="signPoints" ofType="com.glanway.ctrlhr.entity.vo.SignGroupSignPointVo">
+			<result property="signPointId" column="SIGN_POINT_ID"/>
+			<result property="signPointName" column="SIGN_POINT_NAME"/>
+		</collection>
+		
+		<!-- 组织架构关联 -->
+		<collection property="placeDepts" ofType="com.glanway.ctrlhr.entity.vo.SignGroupDeptVo">
+			<result property="deptId" column="PLACE_DEPT_ID"/>
+			<result property="deptName" column="PLACE_DEPT_NAME"/>
+		</collection>
+	</resultMap>
+	<!-- 考勤组查询条件 -->
+	<sql id="where_findList">
+		<where>
+			TSG.DELETED=0
+		</where>
+	</sql>
+	<!-- 查询数据主体 -->
+	<sql id="list_findList">
+		SELECT 
+			TSG.ID,TSG.STATE,TSG.NAME,DEPT.ID JOB_DEPT_ID,DEPT.NAME JOB_DEPT_NAME,JOB.ID JOB_ID,JOB.NAME JOB_NAME,
+			EMP.ID EMPLOYEE_ID,EMP.NAME EMPLOYEE_NAME,
+			TSP.ID SIGN_POINT_ID,TSP.NAME SIGN_POINT_NAME,
+			DEPT2.ID PLACE_DEPT_ID,DEPT2.NAME PLACE_DEPT_NAME
+		FROM T_SIGN_GROUP TSG
+		LEFT JOIN T_SIGN_GROUP_DEPT TSGD ON TSGD.SIGN_GROUP_ID = TSG.ID --AND TSG.STATE = 1
+		LEFT JOIN T_DEPT DEPT ON DEPT.ID = TSGD.DEPT_ID AND DEPT.DELETED = 0 AND DEPT.STATE = 1
+		LEFT JOIN T_JOB JOB ON JOB.ID = TSGD.JOB_ID AND JOB.DELETED = 0 AND JOB.STATE = 1
+		LEFT JOIN T_EMPLOYEE EMP ON EMP.ID = TSGD.EMPLOYEE_ID AND EMP.DELETED = 0 AND EMP.JOB_STATE !=3
+		
+		LEFT JOIN T_SIGN_GROUP_SIGN_POINT TSGSP ON TSGSP.SIGN_GROUP_ID = TSG.ID
+		LEFT JOIN T_SIGN_POINT TSP ON TSP.ID = TSGSP.SIGN_POINT_ID AND TSP.DELETED = 0
+		LEFT JOIN T_DEPT DEPT2 ON DEPT2.ID = TSGSP.DEPT_ID AND DEPT2.DELETED = 0 AND DEPT2.STATE = 1
+		<include refid="where_findList"/>
+		ORDER BY TSG.CREATED_DATE DESC
+	</sql>
+	<!-- 查询考勤群组列表总数 -->
+	<select id="findListCount" resultType="java.lang.Integer">
+		SELECT 
+			COUNT(DISTINCT TSG.ID)
+		FROM T_SIGN_GROUP TSG
+		LEFT JOIN T_SIGN_GROUP_DEPT TSGD ON TSGD.SIGN_GROUP_ID = TSG.ID --AND TSG.STATE = 1
+		LEFT JOIN T_DEPT DEPT ON DEPT.ID = TSGD.DEPT_ID AND DEPT.DELETED = 0 AND DEPT.STATE = 1
+		LEFT JOIN T_JOB JOB ON JOB.ID = TSGD.JOB_ID AND JOB.DELETED = 0 AND JOB.STATE = 1
+		LEFT JOIN T_EMPLOYEE EMP ON EMP.ID = TSGD.EMPLOYEE_ID AND EMP.DELETED = 0 AND EMP.JOB_STATE !=3
+		
+		LEFT JOIN T_SIGN_GROUP_SIGN_POINT TSGSP ON TSGSP.SIGN_GROUP_ID = TSG.ID
+		LEFT JOIN T_SIGN_POINT TSP ON TSP.ID = TSGSP.SIGN_POINT_ID AND TSP.DELETED = 0
+		LEFT JOIN T_DEPT DEPT2 ON DEPT2.ID = TSGSP.DEPT_ID AND DEPT2.DELETED = 0 AND DEPT2.STATE = 1
+		<include refid="where_findList"/>
+	</select>
+	<!-- 查询考勤群组列表 -->
+	<select id="findList" resultMap="SignGroupVoResultMap">
+		SELECT 
+			TT.ID,TT.STATE,TT.NAME,TT.JOB_DEPT_ID,TT.JOB_DEPT_NAME,TT.JOB_ID,TT.JOB_NAME,
+			TT.EMPLOYEE_ID,TT.EMPLOYEE_NAME,
+			TT.SIGN_POINT_ID,TT.SIGN_POINT_NAME,
+			TT.PLACE_DEPT_ID,TT.PLACE_DEPT_NAME
+		FROM(
+			SELECT R.*, ROWNUM RN
+			FROM (
+				<include refid="list_findList"/>
+			) R
+			where ROWNUM <![CDATA[<]]> (#{para.startIndex} + #{para.pageSize})
+		) TT WHERE TT.RN >= #{para.startIndex}
+	</select>
+	
+	<!-- 根据ID获取考勤群组信息 -->
+	<select id="getInfo" resultMap="SignGroupVoResultMap">
+		SELECT 
+			TSG.ID,TSG.STATE,TSG.NAME,DEPT.ID JOB_DEPT_ID,DEPT.NAME JOB_DEPT_NAME,JOB.ID JOB_ID,JOB.NAME JOB_NAME,
+			EMP.ID EMPLOYEE_ID,EMP.NAME EMPLOYEE_NAME,
+			TSP.ID SIGN_POINT_ID,TSP.NAME SIGN_POINT_NAME,
+			DEPT2.ID PLACE_DEPT_ID,DEPT2.NAME PLACE_DEPT_NAME
+		FROM T_SIGN_GROUP TSG
+		LEFT JOIN T_SIGN_GROUP_DEPT TSGD ON TSGD.SIGN_GROUP_ID = TSG.ID --AND TSG.STATE = 1
+		LEFT JOIN T_DEPT DEPT ON DEPT.ID = TSGD.DEPT_ID AND DEPT.DELETED = 0 AND DEPT.STATE = 1
+		LEFT JOIN T_JOB JOB ON JOB.ID = TSGD.JOB_ID AND JOB.DELETED = 0 AND JOB.STATE = 1
+		LEFT JOIN T_EMPLOYEE EMP ON EMP.ID = TSGD.EMPLOYEE_ID AND EMP.DELETED = 0 AND EMP.JOB_STATE !=3
+		
+		LEFT JOIN T_SIGN_GROUP_SIGN_POINT TSGSP ON TSGSP.SIGN_GROUP_ID = TSG.ID
+		LEFT JOIN T_SIGN_POINT TSP ON TSP.ID = TSGSP.SIGN_POINT_ID AND TSP.DELETED = 0
+		LEFT JOIN T_DEPT DEPT2 ON DEPT2.ID = TSGSP.DEPT_ID AND DEPT2.DELETED = 0 AND DEPT2.STATE = 1
+		WHERE TSG.ID = #{id}
+	</select>
+	
+	<!-- 批量删除考勤群组(逻辑删除) -->
+	<update id="deleteBatch">
+		UPDATE 
+			T_SIGN_GROUP 
+		SET DELETED = 1
+		WHERE ID IN
+		<foreach collection="idArr" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</update>
+	
+	<!-- 根据考勤组ID修改考勤组的状态  -->
+	<update id="updateState">
+		UPDATE 
+			T_SIGN_GROUP 
+		SET STATE = #{state} 
+		WHERE ID = #{id}
+	</update>
+	
+	<select id="findSimpleList" resultType="SimpleSignGroupVo">
+		SELECT
+			TSG.ID,TSG.NAME
+		FROM
+			T_DEVICE TD,
+			T_SIGN_GROUP_SIGN_POINT TSGSP,
+			T_SIGN_GROUP TSG
+		WHERE 1 = 1
+		AND TD.SIGN_POINT_ID = TSGSP.SIGN_POINT_ID 
+		AND TSGSP.DELETED = 0
+		AND TSGSP.TYPE = 1
+		AND TSGSP.SIGN_GROUP_ID = TSG.ID
+		AND TSG.DELETED = 0
+		AND TSG.STATE = 1
+		AND TD.SN = #{sn}
+	</select>	
+</mapper>

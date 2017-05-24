@@ -1,0 +1,101 @@
+<!--
+<link rel="stylesheet" href="../jquery-ui.min.css">
+<link rel="stylesheet" href="css/jquery-ui-1.10.4.custom.css">
+<link rel="stylesheet" href="../jquery-ui.css">
+
+-->
+<style type="text/css">
+   html, body {
+      font-family: Verdana,'Helvetica Neue',helvetica, "Hiragino Sans GB",'Microsoft YaHei', "WenQuanYi Micro Hei", sans-serif;
+      margin: 0;
+      padding: 0;
+   }
+</style>
+<link rel="stylesheet" href="css/jquery-ui.theme.css">
+<link rel="stylesheet" href="css/ui.jqgrid.css">
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/jquery.jqGrid.min.js"></script>
+<script type="text/javascript" src="js/i18n/grid.locale-cn.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    'use strict';
+     var gidData = [
+            { id: "1", orderdate: "2013-10-01", customer: "customer",  price: "200.00", vat: "10.00", completed: true, shipment: "TN", total: "210.00"},
+            { id: "2", orderdate: "2013-10-01", customer: "customer2",  price: "300.00", vat: "20.00", completed: false, shipment: "FE", total: "320.00"},
+            { id: "3", orderdate: "2011-07-30", customer: "customer3",  price: "400.00", vat: "30.00", completed: false, shipment: "FE", total: "430.00"},
+            { id: "4", orderdate: "2013-10-04", customer: "customer4",  price: "200.00", vat: "10.00", completed: true, shipment: "TN", total: "210.00"},
+            { id: "5", orderdate: "2013-11-31", customer: "customer5",  price: "300.00", vat: "20.00", completed: false, shipment: "FE", total: "320.00"},
+            { id: "6", orderdate: "2013-09-06", customer: "customer6",  price: "400.00", vat: "30.00", completed: false, shipment: "FE", total: "430.00"},
+            { id: "7", orderdate: "2011-08-30", customer: "customer7",  price: "200.00", vat: "10.00", completed: true, shipment: "TN", total: "210.00"},
+            { id: "8", orderdate: "2013-10-03", customer: "customer8",  price: "300.00", vat: "20.00", completed: false, shipment: "FE", total: "320.00"},
+            { id: "9", orderdate: "2013-09-01", customer: "customer9",  price: "400.00", vat: "30.00", completed: false, shipment: "TN", total: "430.00"},
+            { id: "10", orderdate: "2013-09-08", customer: "customer10", price: "702.00", vat: "30.00", completed: true, shipment: "IN", total: "530.00"},
+            { id: "11", orderdate: "2013-09-08", customer: "customer11",  price: "500.00", vat: "30.00", completed: false, shipment: "FE", total: "530.00"},
+            { id: "12", orderdate: "2013-09-10", customer: "customer12",  price: "500.00", vat: "30.00", completed: false, shipment: "FE", total: "530.00"}
+        ],
+        theGrid = $("#theGrid"),
+        numberTemplate = {formatter: 'number', align: 'right', sorttype: 'number'}
+ 
+ 
+    theGrid.jqGrid({
+        altRows: true,
+        datatype: 'local',
+        data: gidData,
+        colNames: ['客户', 'Date',  'Price', 'VAT', 'Total', 'Completed', 'Shipment'],
+        colModel: [                  
+                  {name: 'customer', index: 'customer', width: 90, editable:true},
+                  {name: 'orderdate', index: 'orderdate', width: 100, align: 'center', sorttype: 'date', formatter: 'date', datefmt: 'd-M-Y'},
+                  {name: 'price', index: 'price', width: 55, template: numberTemplate},
+                  {name: 'vat', index: 'vat', width: 42, template: numberTemplate},
+                  {name: 'total', index: 'total', width: 50, template: numberTemplate},
+                  {name: 'completed', index: 'completed', width: 30, align: 'center', formatter: 'checkbox', edittype: 'checkbox', editoptions: {value: 'Yes:No', defaultValue: 'Yes'}},
+                  {name: 'shipment', index: 'shipment', width: 80, align: 'center', formatter: 'select', edittype: 'select', editoptions: {value: 'FE:FedEx;TN:TNT;IN:Intime;us:USPS', defaultValue: 'Intime'}}                  
+        ],
+        autowidth: true,
+        gridview: true,
+        rownumbers: true,
+        multiselect: true,
+        rowNum: 10,
+        rowList: [5, 10, 15],
+        pager: '#gridPager',
+        viewrecords: true,  
+        //caption: 'Edit Commands Buttons',
+        // height: '50%',
+        height: 'auto',
+        prmNames: { page: 'page', rows: "size", sort: "sort", order: "dir" },
+        jsonReader: {
+            root: '',
+            total: 'total',   // 总page
+            page: 'page',     // 当前页码
+            records: '',      // 记录
+            repeatitems: false, // 数据不可重复
+        },
+        gridComplete : function () {
+                                    var maxDate; 
+                                    var rowIDs = jQuery("#theGrid").jqGrid('getDataIDs');
+                                    for (var i = 0; i < rowIDs.length ; i++) 
+                                    {
+                                        var rowID = rowIDs[i];
+                                        var row = jQuery('#theGrid').jqGrid ('getRowData', rowID);
+ 
+                                        if(i==0)
+                                        {
+                                            maxDate = new Date(row.orderdate);
+                                        }
+                                        else
+                                        {
+                                            if(maxDate < new Date(row.orderdate))
+                                {   
+                                maxDate = new Date(row.orderdate);
+                                }                                       
+                                        }       
+                                    }
+                                     
+                                    $("#maxDateField").val(maxDate);
+                                }
+    }).jqGrid('filterToolbar',{searchOperators : true});
+});
+</script>
+<table id="theGrid">
+</table>
+<div id="gridPager" />

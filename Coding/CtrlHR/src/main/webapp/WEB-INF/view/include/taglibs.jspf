@@ -1,0 +1,21 @@
+<%-- JSP taglib fragment--%>
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="f" uri="http://www.ponly.org/jsp/jstl/functions"%>
+<%-- <%@ taglib prefix="layout" uri="http://www.ponly.org/jsp/tags/layout"%> --%>
+<%-- <%@ taglib prefix="ui" uri="http://www.ponly.org/jsp/tags/form" %> --%>
+
+<%@ taglib prefix="fne" uri="http://www.glanway.com/el/functions"%>
+<%-- <%@ taglib prefix="p" uri="http://www.besture.com/jsp/tags/pager" %>  --%>
+<%--<%@ taglib prefix="t" uri="http://www.besture.com/jsp/tags/getText" %>--%>
+<%--<%@ taglib prefix="ed" uri="http://www.besture.com/jsp/tags/enddate" %>--%>
+<%-- <%@ taglib prefix="fne" uri="http://www.besture.com/el/functions" %> --%>
+<%@ taglib prefix="m" tagdir="/WEB-INF/tags" %>
+<c:set var="ctx" value="${pageContext.request.contextPath }"></c:set>
+<%-- <% request.setAttribute("ctx", request.getContextPath()); %> --%>
+<%--<% request.setAttribute("actx", request.getContextPath() + "/admin"); %>--%>
+<% request.setAttribute("actx", request.getContextPath()); %>

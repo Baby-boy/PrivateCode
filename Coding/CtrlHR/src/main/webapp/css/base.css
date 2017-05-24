@@ -1,0 +1,208 @@
+/*标签*/
+html,
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+input,
+textarea,
+select,
+button,
+fieldset,
+legend,
+img,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+th,
+td,
+pre,
+blockquote {
+  margin: 0;
+  padding: 0;
+}
+html {
+  color: #333;
+  background: #fff;
+  font-size: 62.5%;
+}
+body,
+button,
+input,
+select,
+textarea,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 1.2em;
+  font-family: 'Microsoft YaHei', SimSun, Verdana, Arial, sans-serif;
+}
+img,
+fieldset {
+  border: 0;
+  vertical-align: middle;
+}
+textarea {
+  word-wrap: break-word;
+  word-break: break-all;
+  resize: none;
+}
+li {
+  list-style: none;
+}
+img {
+  border: none;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+a:hover {
+  color: #5da1d5;
+}
+a:focus {
+  outline: none;
+}
+/*基础公共样式*/
+[v-cloak]{
+	visibility: hidden;
+}
+.mainColor{
+	color: #4794D0;
+}
+.color6{
+	color: #666;
+}
+.color9{
+	color: #999;
+}
+.radius{
+	border-radius: 5px;
+}
+/*位置*/
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.clear {
+  clear: both;
+}
+.wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
+  z-index: 10;
+}
+/*右侧搜索按钮*/
+.searchBtns{
+	text-align: center;
+	padding: 30px 0 10px 0;
+}
+.searchBtns button{
+	padding:8px 25px
+}
+
+/*页面内容部分*/
+.contentWrap{
+	position: absolute;
+	top: 50px;
+	left: 100px;
+	right: 0;
+}
+.pageOperate{
+	padding: 20px 0;
+}
+/*添加新员工*/
+.addUserPop{
+	background-color: #000;
+}
+.addUserPopInner{
+	position: fixed;
+	z-index: 30;
+	width: 500px;
+	top: 30px;
+	left: 50%;
+	margin-left: -250px;
+	padding: 20px;
+	background-color: #fff;
+	border: 1px solid #333;
+}
+.addUserPopInner .newTitle{
+	font-size: 16px;
+	text-align: center;
+	color: #333;
+}
+.addUserPop .closePop{
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	font-size: 20px;
+	cursor: pointer;
+}
+.topMsg{
+	text-align: center;
+	padding: 20px 0;
+	color: #ccc;
+}
+.topMsg .requiredNotice{
+	text-align: right;
+	color: #999;
+	float: right;
+}
+.leftBtns{
+}
+.leftBtns .leftTabs{
+	width: 105px;
+	height: 280px;
+	overflow: hidden;
+}
+.leftBtns .btnItem{
+	display: block;
+	width: 80px;	
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	border-radius: 5px;
+	color: #333;
+	margin-bottom: 20px;
+	border: 1px solid #333;	
+}
+.leftBtns .btnItem:hover,.leftBtns .btnItem.on{
+	background-color: #5DA1D5;
+	color: #fff;
+	border-color: #5DA1D5;
+}
+/*表格信息*/
+
+/*分页*/
+.pagination{
+	margin: 50px 0;
+}
+.pagination .el-pagination{
+	text-align: center;
+}
+.pagination .el-pagination .btn-prev,.pagination .el-pagination .btn-next,.pagination .el-pager li.active + li,.pagination .el-pager li{
+	border: 1px solid rgb(209, 219, 229);
+}
+.pagination .el-pager{
+	margin: 0 5px;
+}
+.pagination .el-pager li{
+	margin: 0 5px;
+}

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.iclock.dao.task.TaskDao">
+	<resultMap id="BaseTaskMap" type="task" >
+	   <id column="ID" property="id" />
+	   <result column="SN" property="sn"/>
+	   <result column="STATE" property="state"/>
+	   <result column="COMMAND" property="command"/>
+	   <result column="ARGS" property="args"/>
+	   <result column="START_HANDLE_TIME" property="startHandleTime"/>
+	   <result column="COMPLETE_TIME" property="completeTime"/>
+	   <result column="BATCH_DATE" property="batchDate"/>
+	   <result column="DELETED" property="deleted"/>
+	   <result column="CRE_PRO_ID" property="creProId"  />
+	   <result column="CREATED_BY" property="createdBy"  />
+	   <result column="CREATED_DATE" property="createdDate"  />
+	   <result column="MOD_PRO_ID" property="modProId" />
+	   <result column="LAST_MODIFIED_BY" property="lastModifiedBy" />
+	   <result column="LAST_MODIFIED_DATE" property="lastModifiedDate"  />
+	 </resultMap>
+	 <sql id="baseCols">
+	 	ID
+	 	,SN
+	 	,STATE
+	 	,COMMAND
+	 	,ARGS
+	 	,START_HANDLE_TIME
+	 	,COMPLETE_TIME
+	 	,BATCH_DATE
+	 	,DELETED
+	 	,CRE_PRO_ID
+	 	,CREATED_BY
+	 	,CREATED_DATE
+	 	,MOD_PRO_ID
+	 	,LAST_MODIFIED_BY
+	 	,LAST_MODIFIED_DATE
+	 </sql>
+	 
+	 <sql id="baseFilter">
+	 	<if test="sn != null">
+	 		AND SN = #{sn}
+	 	</if>
+	 	
+	 	<if test="state != null">
+	 		AND STATE = #{state}
+	 	</if>
+	 	
+	 	<if test="command != null">
+	 		AND COMMAND = #{command}
+	 	</if>
+	 	
+	 	<if test="args != null">
+	 		AND ARGS = #{args}
+	 	</if>
+	 	
+	 	<if test="startHandleTime != null">
+	 		AND START_HANDLE_TIME = #{startGandleTime}
+	 	</if>
+	 	
+	 	<if test="completeTime != null">
+	 		AND COMPLETE_TIME = #{completeTime}
+	 	</if>
+	 	
+	 	<if test="batchDate != null">
+	 		AND BATCH_DATE = #{batchDate}
+	 	</if>
+	 	AND DELETED = '0'
+	 </sql>
+	 
+	 <sql id="baseFilter1">
+	 		1=1
+	 	<if test="sn != null">
+	 		AND T.SN = #{sn}
+	 	</if>
+	 	
+	 	<if test="state != null">
+	 		AND T.STATE = #{state}
+	 	</if>
+	 	
+	 	<if test="command != null">
+	 		AND T.COMMAND = #{command}
+	 	</if>
+	 	
+	 	<if test="args != null">
+	 		AND T.ARGS = #{args}
+	 	</if>
+	 	
+	 	<if test="startHandleTime != null">
+	 		AND T.START_HANDLE_TIME = #{startGandleTime}
+	 	</if>
+	 	
+	 	<if test="completeTime != null">
+	 		AND T.COMPLETE_TIME = #{completeTime}
+	 	</if>
+	 	
+	 	<if test="batchDate != null">
+	 		AND T.BATCH_DATE = #{batchDate}
+	 	</if>
+	 	AND T.DELETED = '0'
+	 </sql>
+	 <select id="findMany" parameterType="map" resultMap="BaseTaskMap">
+	 	SELECT 
+	 		T.*
+	 		FROM T_TASK T
+	 		WHERE 
+	 		<include refid="baseFilter1"/>
+	 		ORDER BY T.CREATED_DATE ASC
+	 </select>
+	 
+	 <!-- 根据条件查询前20条数据 -->
+	 <select id="findManyBeforeSize" parameterType="map" resultMap="BaseTaskMap">
+	 		SELECT A.* FROM (	
+	 			SELECT T.* FROM T_TASK T 
+	 			WHERE 
+	 			<include refid="baseFilter1"/>
+	 			ORDER BY T.ID ASC
+	 		) A WHERE ROWNUM <![CDATA[<=]]> 1
+	 </select>
+	 
+	 <insert id="save" useGeneratedKeys="true" keyProperty="id">
+	 <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE">
+			SELECT S_T_TASK.NEXTVAL FROM DUAL
+		</selectKey>
+	 	INSERT INTO　T_TASK(
+	 		<include refid="baseCols"/>
+	 	) VALUES(
+	 		#{id}
+		 	,#{sn}
+		 	,#{state}
+		 	,#{command}
+		 	,#{args}
+		 	,#{startHandleTime}
+		 	,#{completeTime}
+		 	,#{batchDate}
+		 	,#{deleted}
+		 	,#{creProId}
+		 	,#{createdBy}
+		 	,#{createdDate}
+		 	,#{modProId}
+		 	,#{lastModifiedBy}
+		 	,#{lastModifiedDate}
+	 	)
+	 </insert>
+	 
+	 <update id="update" parameterType="Task">
+	 	UPDATE T_TASK
+	 	<set>
+	 		<if test="sn != null">
+	 			SN = #{sn},
+	 		</if>
+	 		<if test="state != null">
+	 			STATE = #{state},
+	 		</if>
+	 		<if test="command != null">
+	 			COMMAND = #{command},
+	 		</if>
+	 		<if test="args != null">
+	 			ARGS = #{args},
+	 		</if>
+	 		<if test="startHandleTime != null">
+	 			START_HANDLE_TIME = #{startHandleTime},
+	 		</if>
+	 		<if test="completeTime != null">
+	 			COMPLETE_TIME = #{completeTime},
+	 		</if>
+	 		<if test="batchDate != null">
+	 			BATCH_DATE = #{batchDate},
+	 		</if>
+	 		<if test="creProId != null">
+	 			CRE_PRO_ID = #{creProId},
+	 		</if>
+	 		<if test="createdBy != null">
+	 			CREATED_BY = #{createdBy},
+	 		</if>
+	 		<if test="createdDate != null">
+	 			CREATED_DATE = #{createdDate},
+	 		</if>
+	 		<if test="modProId != null">
+	 			MOD_PRO_ID = #{modProId},
+	 		</if>
+	 		<if test="lastModifiedBy != null">
+	 			LAST_MODIFIED_BY = #{lastModifiedBy},
+	 		</if>
+	 		<if test="lastModifiedDate != null">
+	 			LAST_MODIFIED_DATE = #{lastModifiedDate},
+	 		</if>
+	 	</set>
+	 	<where>
+	 		ID = #{id}
+	 	</where>
+	 </update>
+	 
+	 <update id="delete" parameterType="Task">
+	 	UPDATE T_TASK SET DELETED = '1' WHERE ID = #{id}
+	 </update>
+	 <!-- 根据设备代码SN,删除(逻辑删除)所有关于当前设备的记录 -->
+	 <update id="chearCommandsBySn" parameterType="java.lang.String">
+	 	UPDATE T_TASK SET DELETED = '1' WHERE SN = #{sn}
+	 </update>
+	 <!-- 根据设备代码SN,修改当前命令的状态 -->
+	 <update id="updateStateBySn" parameterType="map">
+	 	UPDATE T_TASK SET STATE = #{state} 
+	 	WHERE DELETED='0' AND SN = #{sn}
+	 	<if test="oldState != null">
+	 		AND STATE = #{oldState}
+	 	</if>
+	 </update>
+	 <!-- 根据任务ID,修改当前命令的状态 -->
+	 <update id="updateStateById" parameterType="map">
+	 	UPDATE T_TASK SET STATE = #{state}
+	 	<if test="state == 3">
+	 	,COMPLETE_TIME = SYSDATE
+	 	</if> 
+	 	<if test="state == 2">
+	 	,START_HANDLE_TIME = SYSDATE
+	 	</if>
+	 	WHERE DELETED='0' AND ID = #{id}
+	 	<if test="oldState != null">
+	 		AND STATE = #{oldState}
+	 	</if>
+	 </update>
+</mapper>

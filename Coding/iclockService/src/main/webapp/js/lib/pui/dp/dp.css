@@ -1,0 +1,281 @@
+body {
+    /*font-family: Arial, Helvetica, sans-serif;*/
+    background: #e4ebe9 url(img/white_texture.png) repeat top left;
+}
+form .error {
+    border: 1px solid #c33;
+}
+
+form label.error {
+    border: 0;
+    display: inline-block;
+    color: #c33;
+    vertical-align: middle;
+}
+
+form label.error.icon:before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    background: url(validator_default.png) 0 1px no-repeat;
+    vertical-align: top;
+}
+
+form input[type="text"].error:focus,
+form input[type="password"].error:focus,
+form select.error:focus,
+form textarea.error:focus {
+    border: 1px solid #E08484;
+    -moz-box-shadow: 0 0 3px #e08484;
+    -webkit-box-shadow: 0 0 3px #e08484;
+    box-shadow: 0 0 3px #e08484;
+}
+table {
+}
+.date-picker-container {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 12px;
+    zoom: 1;
+    /*-webkit-user-select: none;*/
+    /*-moz-user-select: none;*/
+    /*user-select: none;*/
+}
+.date-picker-container.date-picker-container-with-drop .date-picker-drop {
+    left: 0;
+}
+.date-picker-drop {
+    /*width: 415px;*/
+    /*width: 428px;*/
+    white-space: nowrap;
+    position: absolute;
+    top: 100%;
+    left: -9999px;
+    z-index: 1010;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    _overflow-x: auto;
+    border: 1px solid #aaa;
+    border-top: 0;
+    background: #fff;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+}
+.date-picker-container .date-picker-toolbar {
+    position: relative;
+    height: 25px;
+    line-height: 25px;
+    padding-right: 30px;
+    border-bottom: 1px dashed #efefef;
+    text-align: right;
+    display: none;
+}
+.calendar-view {
+    position: relative;
+    /*margin: -1px 10px 10px;*/
+    margin: 3px 10px 5px;
+}
+.multiple .calendar-view {
+    border: 1px solid #eee;
+    margin-top: -1px;
+}
+.multiple .date-picker-toolbar {
+    display: block;
+}
+.multiple .gap {
+    display: block;
+}
+.calendar {
+    position: relative;
+    /*float: left;*/
+    display: inline-block;
+    vertical-align: top;
+    /*margin: 0 6px;*/
+    white-space: nowrap;
+}
+.calendar-view:before,
+.calendar-view:after,
+.calendar:before,
+.calendar:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.calendar-prev,
+.calendar-next {
+    width: 27px;
+}
+.calendar-view .calendar-menu .calendar-prev span,
+.calendar-view .calendar-menu .calendar-next span{
+    cursor: pointer;
+    display: block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.calendar-view table {
+    width: 190px;
+    border-collapse: separate;
+    border-spacing: 0;
+    position: relative;
+    z-index: 2;
+}
+/* clear style */
+.calendar-view td {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+.calendar-view .calendar-menu {
+    height: 30px;
+}
+.calendar-weeks {
+    background-color: #e4f9f4;
+    line-height: 20px;
+}
+.calendar-week, .calendar-day { text-align: center; }
+.calendar-week {}
+.calendar-day {
+    padding: 5px !important;
+    border: 0;
+    /*text-align: center;*/
+    cursor: pointer;
+}
+.calendar-day-phantom {
+    color: #ccc;
+}
+.calendar-day:hover,
+.calendar-day.checked {
+    background-color: rgba(156, 219, 247, 0.5);
+}
+.calendar-day.calendar-day-phantom:hover,
+.calendar-day.calendar-day-phantom.checked {
+    background-color: transparent;
+    cursor: not-allowed;
+}
+.crack .calendar-crack {
+    display: block;
+    position: relative;
+    width: 12px;
+    height: 15px;
+    background-color: #eee;
+}
+.calendar-crack:before,
+.calendar-crack:after {
+    content: '';
+}
+.crack .calendar-crack:before,
+.crack .calendar-crack .crack-convex {
+    display: block;
+    height: 0;
+    border-left: 8px solid #fff;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+}
+
+.crack .calendar-crack:after,
+.crack .calendar-crack .crack-concave {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 4px;
+    height: 0;
+    border: 8px solid #fff;
+    border-left-color: transparent;
+}
+
+.quick a {
+    color: rgb(107, 180, 214);
+}
+input {
+    border: 1px solid #aaa;
+    -moz-border-radius-bottomright: 0;
+    -moz-border-radius-bottomleft: 0;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #eeeeee), color-stop(80%, #ffffff));
+    background-image: -moz-linear-gradient(#eeeeee 20%, #ffffff 80%);
+    background-image: -o-linear-gradient(#eeeeee 20%, #ffffff 80%);
+}
+.month-bg {
+    position: absolute;
+    left: 0;
+    top: 45px;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    font-size: 130px;
+    font-family: Arial,serif;
+    color: #eee;
+    z-index: 0;
+}
+.calendar-weeks {
+    background-color: #f7f8fa;
+    line-height: 25px;
+    border: 1px solid #e1e1e1;
+}
+.calendar-weeks th {
+    font-weight: normal;
+    border-top: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
+}
+.calender-selector {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    visibility: hidden;
+}
+
+.time {
+    border: 1px solid #ddd;
+    margin: 5px;
+}
+.time:before,
+.time:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.time-text,
+.time-hour,
+.time-minute,
+.time-second {
+    display: inline-block;
+    width: 21px;
+    height: 20px;
+    line-height: 20px;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 400;
+    background: #fff none;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+}
+.time-text {
+    display: inline-block;
+    width: 33px;
+    border-right: 1px solid #ddd;
+    background-color: #eee;
+}
+.time input {
+    margin-left: -3px;
+}
+.time i {
+    display: inline-block;
+    font-style: normal;
+    font-weight: 400;
+}
+.multiple .time {
+    display: none;
+}

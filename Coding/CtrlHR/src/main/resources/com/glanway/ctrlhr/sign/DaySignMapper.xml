@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.ctrlhr.dao.sign.DaySignDao" >
+	<resultMap id="BaseResultMap" type="com.glanway.ctrlhr.entity.sign.DaySign" >
+	  <id column="ID" property="id" jdbcType="DECIMAL" />
+	  <result column="EMPLOYEE_ID" property="employeeId" jdbcType="DECIMAL" />
+	  <result column="DATE_FROM" property="dateFrom" jdbcType="TIMESTAMP" />
+	  <result column="DATE_TO" property="dateTo" jdbcType="TIMESTAMP" />
+	  <result column="HOURS" property="hours" jdbcType="DECIMAL" />
+	  <result column="STATE" property="state" jdbcType="DECIMAL" />
+	  <result column="BATCH_DATE" property="batchDate" jdbcType="TIMESTAMP" />
+	  <result column="DELETED" property="deleted" jdbcType="CHAR" />
+	  <result column="CRE_PRO_ID" property="creProId" jdbcType="DECIMAL" />
+	  <result column="CREATED_BY" property="createdBy" jdbcType="DECIMAL" />
+	  <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+	  <result column="MOD_PRO_ID" property="modProId" jdbcType="DECIMAL" />
+	  <result column="LAST_MODIFIED_BY" property="lastModifiedBy" jdbcType="DECIMAL" />
+	  <result column="LAST_MODIFIED_DATE" property="lastModifiedDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List" >
+	  ID, EMPLOYEE_ID, DATE_FROM, DATE_TO, HOURS, STATE, BATCH_DATE, DELETED, CRE_PRO_ID, 
+	  CREATED_BY, CREATED_DATE, MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+	  select 
+	  <include refid="Base_Column_List" />
+	  from T_DAY_SIGN
+	  where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+	  delete from T_DAY_SIGN
+	  where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.glanway.ctrlhr.entity.sign.DaySign" >
+	  insert into T_DAY_SIGN (ID, EMPLOYEE_ID, DATE_FROM, 
+	    DATE_TO, HOURS, STATE, 
+	    BATCH_DATE, DELETED, CRE_PRO_ID, 
+	    CREATED_BY, CREATED_DATE, MOD_PRO_ID, 
+	    LAST_MODIFIED_BY, LAST_MODIFIED_DATE)
+	  values (#{id,jdbcType=DECIMAL}, #{employeeId,jdbcType=DECIMAL}, #{dateFrom,jdbcType=TIMESTAMP}, 
+	    #{dateTo,jdbcType=TIMESTAMP}, #{hours,jdbcType=DECIMAL}, #{state,jdbcType=DECIMAL}, 
+	    #{batchDate,jdbcType=TIMESTAMP}, #{deleted,jdbcType=CHAR}, #{creProId,jdbcType=DECIMAL}, 
+	    #{createdBy,jdbcType=DECIMAL}, #{createdDate,jdbcType=TIMESTAMP}, #{modProId,jdbcType=DECIMAL}, 
+	    #{lastModifiedBy,jdbcType=DECIMAL}, #{lastModifiedDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.glanway.ctrlhr.entity.sign.DaySign" >
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE">
+			SELECT S_T_DAY_SIGN.NEXTVAL FROM DUAL
+		</selectKey>
+	
+	  insert into T_DAY_SIGN
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null" >
+	      ID,
+	    </if>
+	    <if test="employeeId != null" >
+	      EMPLOYEE_ID,
+	    </if>
+	    <if test="dateFrom != null" >
+	      DATE_FROM,
+	    </if>
+	    <if test="dateTo != null" >
+	      DATE_TO,
+	    </if>
+	    <if test="hours != null" >
+	      HOURS,
+	    </if>
+	    <if test="state != null" >
+	      STATE,
+	    </if>
+	    <if test="batchDate != null" >
+	      BATCH_DATE,
+	    </if>
+	    <if test="deleted != null" >
+	      DELETED,
+	    </if>
+	    <if test="creProId != null" >
+	      CRE_PRO_ID,
+	    </if>
+	    <if test="createdBy != null" >
+	      CREATED_BY,
+	    </if>
+	    <if test="createdDate != null" >
+	      CREATED_DATE,
+	    </if>
+	    <if test="modProId != null" >
+	      MOD_PRO_ID,
+	    </if>
+	    <if test="lastModifiedBy != null" >
+	      LAST_MODIFIED_BY,
+	    </if>
+	    <if test="lastModifiedDate != null" >
+	      LAST_MODIFIED_DATE,
+	    </if>
+	  </trim>
+	  <trim prefix="values (" suffix=")" suffixOverrides="," >
+	    <if test="id != null" >
+	      #{id,jdbcType=DECIMAL},
+	    </if>
+	    <if test="employeeId != null" >
+	      #{employeeId,jdbcType=DECIMAL},
+	    </if>
+	    <if test="dateFrom != null" >
+	      #{dateFrom,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="dateTo != null" >
+	      #{dateTo,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="hours != null" >
+	      #{hours,jdbcType=DECIMAL},
+	    </if>
+	    <if test="state != null" >
+	      #{state,jdbcType=DECIMAL},
+	    </if>
+	    <if test="batchDate != null" >
+	      #{batchDate,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="deleted != null" >
+	      #{deleted,jdbcType=CHAR},
+	    </if>
+	    <if test="creProId != null" >
+	      #{creProId,jdbcType=DECIMAL},
+	    </if>
+	    <if test="createdBy != null" >
+	      #{createdBy,jdbcType=DECIMAL},
+	    </if>
+	    <if test="createdDate != null" >
+	      #{createdDate,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="modProId != null" >
+	      #{modProId,jdbcType=DECIMAL},
+	    </if>
+	    <if test="lastModifiedBy != null" >
+	      #{lastModifiedBy,jdbcType=DECIMAL},
+	    </if>
+	    <if test="lastModifiedDate != null" >
+	      #{lastModifiedDate,jdbcType=TIMESTAMP},
+	    </if>
+	  </trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.glanway.ctrlhr.entity.sign.DaySign" >
+	  update T_DAY_SIGN
+	  <set >
+	    <if test="employeeId != null" >
+	      EMPLOYEE_ID = #{employeeId,jdbcType=DECIMAL},
+	    </if>
+	    <if test="dateFrom != null" >
+	      DATE_FROM = #{dateFrom,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="dateTo != null" >
+	      DATE_TO = #{dateTo,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="hours != null" >
+	      HOURS = #{hours,jdbcType=DECIMAL},
+	    </if>
+	    <if test="state != null" >
+	      STATE = #{state,jdbcType=DECIMAL},
+	    </if>
+	    <if test="batchDate != null" >
+	      BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="deleted != null" >
+	      DELETED = #{deleted,jdbcType=CHAR},
+	    </if>
+	    <if test="creProId != null" >
+	      CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+	    </if>
+	    <if test="createdBy != null" >
+	      CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+	    </if>
+	    <if test="createdDate != null" >
+	      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="modProId != null" >
+	      MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+	    </if>
+	    <if test="lastModifiedBy != null" >
+	      LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+	    </if>
+	    <if test="lastModifiedDate != null" >
+	      LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP},
+	    </if>
+	  </set>
+	  where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.glanway.ctrlhr.entity.sign.DaySign" >
+	  update T_DAY_SIGN
+	  set EMPLOYEE_ID = #{employeeId,jdbcType=DECIMAL},
+	    DATE_FROM = #{dateFrom,jdbcType=TIMESTAMP},
+	    DATE_TO = #{dateTo,jdbcType=TIMESTAMP},
+	    HOURS = #{hours,jdbcType=DECIMAL},
+	    STATE = #{state,jdbcType=DECIMAL},
+	    BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+	    DELETED = #{deleted,jdbcType=CHAR},
+	    CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+	    CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+	    CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+	    MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+	    LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+	    LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP}
+	  where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	
+	<!-- 全部查询 -->
+	<!-- Task -->
+	<select id="findEmployeeById" resultType="DaySign">
+		SELECT 
+		<include refid="Base_Column_List"/>
+		FROM T_DAY_SIGN TDS
+		WHERE TDS.DELETED= 0 AND TDS.EMPLOYEE_ID = #{employeeId}
+		AND ((TDS.DATE_FROM BETWEEN TO_DATE('${dateStart}', 'yyyy-MM-dd HH24:mi:ss') AND TO_DATE('${dateEnd}', 'yyyy-MM-dd HH24:mi:ss'))
+		OR (TDS.DATE_TO BETWEEN TO_DATE('${dateStart}', 'yyyy-MM-dd HH24:mi:ss') AND TO_DATE('${dateEnd}', 'yyyy-MM-dd HH24:mi:ss')))
+	</select>
+</mapper>

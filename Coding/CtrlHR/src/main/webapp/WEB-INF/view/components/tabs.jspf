@@ -1,0 +1,87 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
+
+<!--组件样式-->
+<style>
+	.menuTab a{
+		display: block;
+		width: 100px;
+		padding: 10px 5px;
+		font-size: 14px;
+		border: #dedede solid 1px;
+		text-align: center;
+		margin-bottom: 20px;
+		color: #666;
+		border-radius: 10px;
+	}
+	.menuTab a:hover,
+	.menuTab a.active{
+		border-color: #4794D0;
+		color: #4794D0;
+	}
+</style>
+<!--组件模板-->
+<script type="text/x-template" id="componentTabs">
+	<div class="menuTab">
+		<div class="menuTabTitle">
+			<a href="javascript:;" v-for="tabs in tabTitle">{{tabs[tabName]}}</a>
+		</div>
+		<div class="menuTabBox">
+			<div class="tabBox">
+				<page-top page-title="设备管理" page-description="在这里您可以更清晰的查看考勤机的使用情况">
+					 
+				</page-top>
+			</div>
+			<div class="tabBox">
+				<page-top page-title="考勤点管理" page-description="在这里您可以更清晰的查看考勤机的使用情况">
+					 
+				</page-top>
+			</div>
+			<div class="tabBox">
+				<page-top page-title="考勤群组管理" page-description="在这里您可以更清晰的查看考勤机的使用情况">
+					 
+				</page-top>
+			</div>
+		</div>
+	</div>
+</script>	
+<!--注册组件-->
+<script>
+	Vue.component('tabs',{
+		template: '#componentTabs',
+		props:{
+			"current":{
+				type:Number,
+				default:0
+			},
+			"tabName":{
+				type:String,
+				default:"name"
+			},
+			"tabTitle":{
+				type:Array,
+				default:function(){
+					return []
+				}
+			}	
+		}
+	});
+	Vue.component('tabItem',{
+		template: '#componentTabs',
+		props:{
+			"current":{
+				type:Number,
+				default:0
+			},
+			"tabName":{
+				type:String,
+				default:"name"
+			},
+			"tabTitle":{
+				type:Array,
+				default:function(){
+					return []
+				}
+			}	
+		}
+	})
+</script>

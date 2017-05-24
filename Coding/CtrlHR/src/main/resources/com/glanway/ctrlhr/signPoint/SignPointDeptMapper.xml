@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.ctrlhr.dao.signPoint.SignPointDeptDao">
+	<resultMap id="BaseResultMap"
+		type="com.glanway.ctrlhr.entity.signPoint.SignPointDept">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="SIGN_POINT_ID" property="signPointId" jdbcType="DECIMAL" />
+		<result column="DEPT_ID" property="deptId" jdbcType="DECIMAL" />
+		<result column="BATCH_DATE" property="batchDate" jdbcType="TIMESTAMP" />
+		<result column="DELETED" property="deleted" jdbcType="CHAR" />
+		<result column="CRE_PRO_ID" property="creProId" jdbcType="DECIMAL" />
+		<result column="CREATED_BY" property="createdBy" jdbcType="DECIMAL" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="MOD_PRO_ID" property="modProId" jdbcType="DECIMAL" />
+		<result column="LAST_MODIFIED_BY" property="lastModifiedBy"
+			jdbcType="DECIMAL" />
+		<result column="LAST_MODIFIED_DATE" property="lastModifiedDate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, SIGN_POINT_ID, DEPT_ID, BATCH_DATE, DELETED,
+		CRE_PRO_ID, CREATED_BY,
+		CREATED_DATE,
+		MOD_PRO_ID, LAST_MODIFIED_BY,
+		LAST_MODIFIED_DATE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from T_SIGN_POINT_DEPT
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		T_SIGN_POINT_DEPT
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.glanway.ctrlhr.entity.signPoint.SignPointDept">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE">
+			SELECT S_T_SIGN_POINT_DEPT.NEXTVAL FROM DUAL
+		</selectKey>
+	
+		insert into T_SIGN_POINT_DEPT
+		(ID, SIGN_POINT_ID, DEPT_ID,
+		BATCH_DATE, DELETED, CRE_PRO_ID,
+		CREATED_BY, CREATED_DATE, MOD_PRO_ID,
+		LAST_MODIFIED_BY,
+		LAST_MODIFIED_DATE)
+		values (#{id,jdbcType=DECIMAL},
+		#{signPointId,jdbcType=DECIMAL},
+		#{deptId,jdbcType=DECIMAL},
+		#{batchDate,jdbcType=TIMESTAMP}, #{deleted,jdbcType=CHAR},
+		#{creProId,jdbcType=DECIMAL},
+		#{createdBy,jdbcType=DECIMAL},
+		#{createdDate,jdbcType=TIMESTAMP},
+		#{modProId,jdbcType=DECIMAL},
+		#{lastModifiedBy,jdbcType=DECIMAL},
+		#{lastModifiedDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.glanway.ctrlhr.entity.signPoint.SignPointDept">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE">
+			SELECT S_T_SIGN_POINT_DEPT.NEXTVAL FROM DUAL
+		</selectKey>
+	
+		insert into T_SIGN_POINT_DEPT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="signPointId != null">
+				SIGN_POINT_ID,
+			</if>
+			<if test="deptId != null">
+				DEPT_ID,
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE,
+			</if>
+			<if test="deleted != null">
+				DELETED,
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID,
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID,
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY,
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="signPointId != null">
+				#{signPointId,jdbcType=DECIMAL},
+			</if>
+			<if test="deptId != null">
+				#{deptId,jdbcType=DECIMAL},
+			</if>
+			<if test="batchDate != null">
+				#{batchDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=CHAR},
+			</if>
+			<if test="creProId != null">
+				#{creProId,jdbcType=DECIMAL},
+			</if>
+			<if test="createdBy != null">
+				#{createdBy,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modProId != null">
+				#{modProId,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedBy != null">
+				#{lastModifiedBy,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedDate != null">
+				#{lastModifiedDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.glanway.ctrlhr.entity.signPoint.SignPointDept">
+		update T_SIGN_POINT_DEPT
+		<set>
+			<if test="signPointId != null">
+				SIGN_POINT_ID = #{signPointId,jdbcType=DECIMAL},
+			</if>
+			<if test="deptId != null">
+				DEPT_ID = #{deptId,jdbcType=DECIMAL},
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=CHAR},
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE =
+				#{lastModifiedDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.glanway.ctrlhr.entity.signPoint.SignPointDept">
+		update
+		T_SIGN_POINT_DEPT
+		set SIGN_POINT_ID = #{signPointId,jdbcType=DECIMAL},
+		DEPT_ID = #{deptId,jdbcType=DECIMAL},
+		BATCH_DATE =
+		#{batchDate,jdbcType=TIMESTAMP},
+		DELETED = #{deleted,jdbcType=CHAR},
+		CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+		CREATED_BY =
+		#{createdBy,jdbcType=DECIMAL},
+		CREATED_DATE =
+		#{createdDate,jdbcType=TIMESTAMP},
+		MOD_PRO_ID =
+		#{modProId,jdbcType=DECIMAL},
+		LAST_MODIFIED_BY =
+		#{lastModifiedBy,jdbcType=DECIMAL},
+		LAST_MODIFIED_DATE =
+		#{lastModifiedDate,jdbcType=TIMESTAMP}
+		where ID =
+		#{id,jdbcType=DECIMAL}
+	</update>
+
+	<!-- 全部查询 -->
+	<!-- 根据考勤点ID查询部门 -->
+	<select id="findMany" resultType="SignPointDept">
+		SELECT 
+			TSPD.ID,TSPD.SIGN_POINT_ID,TSPD.DEPT_ID,TSPD.BATCH_DATE,TSPD.DELETED,
+			TSPD.CRE_PRO_ID,TSPD.CREATED_BY,TSPD.CREATED_DATE,
+			TSPD.MOD_PRO_ID,TSPD.LAST_MODIFIED_BY,TSPD.LAST_MODIFIED_DATE	
+		FROM T_SIGN_POINT_DEPT TSPD
+		LEFT JOIN T_DEPT DEPT ON DEPT.ID=TSPD.DEPT_ID AND DEPT.DELETED=0
+		WHERE TSPD.SIGN_POINT_ID = #{signPointId}
+	</select>
+</mapper>

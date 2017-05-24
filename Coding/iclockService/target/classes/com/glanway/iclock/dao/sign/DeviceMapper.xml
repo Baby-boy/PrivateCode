@@ -1,0 +1,951 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.iclock.dao.sign.DeviceDao">
+	<resultMap id="BaseResultMap" type="Device">
+		<id column="ID" property="id"  />
+		<result column="SIGN_POINT_ID" property="signPointId"  />
+		<result column="NAME" property="name" />
+		<result column="SN" property="sn" />
+		<result column="IP" property="ip"  />
+		<result column="FIRST_CONNECTION_TIME" property="firstConnectionTime"
+			 />
+		<result column="LAST_CONNECTION_TIME" property="lastConnectionTime"
+			 />
+		<result column="TOTAL_PEOPLE" property="totalPeople"  />
+		<result column="UNSYNC_PEOPLE" property="unsyncPeople"
+			/>
+		<result column="STATE" property="state"  />
+		<result column="SYNC_STATE" property="syncState"  />
+		<result column="BATCH_DATE" property="batchDate" />
+		<result column="DELETED" property="deleted"  />
+		<result column="CRE_PRO_ID" property="creProId" />
+		<result column="CREATED_BY" property="createdBy" />
+		<result column="CREATED_DATE" property="createdDate" />
+		<result column="MOD_PRO_ID" property="modProId"/>
+		<result column="LAST_MODIFIED_BY" property="lastModifiedBy"
+			/>
+		<result column="LAST_MODIFIED_DATE" property="lastModifiedDate"
+			/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, 
+		SIGN_POINT_ID, 
+		NAME, 
+		SN, 
+		IP, 
+		FIRST_CONNECTION_TIME,
+		LAST_CONNECTION_TIME, 
+		TOTAL_PEOPLE,
+		UNSYNC_PEOPLE, 
+		STATE, 
+		SYNC_STATE,
+		BATCH_DATE, 
+		DELETED, 
+		CRE_PRO_ID, 
+		CREATED_BY,
+		CREATED_DATE,
+		MOD_PRO_ID, 
+		LAST_MODIFIED_BY, 
+		LAST_MODIFIED_DATE
+	</sql>
+	
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from T_DEVICE
+		where  DELETED = '0' AND ID = #{id}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from T_DEVICE
+		where ID = #{id}
+	</delete>
+	<insert id="insert" parameterType="Device">
+		insert into T_DEVICE 
+		(
+		ID, 
+		SIGN_POINT_ID, 
+		NAME,
+		SN, 
+		IP, 
+		FIRST_CONNECTION_TIME,
+		LAST_CONNECTION_TIME,
+		TOTAL_PEOPLE, 
+		UNSYNC_PEOPLE,
+		STATE,
+		SYNC_STATE,
+		BATCH_DATE, 
+		DELETED,
+		CRE_PRO_ID, 
+		CREATED_BY, 
+		CREATED_DATE,
+		MOD_PRO_ID, 
+		LAST_MODIFIED_BY, 
+		LAST_MODIFIED_DATE
+		)
+		values 
+		(
+		#{id}, 
+		#{signPointId},
+		#{name},
+		#{sn}, 
+		#{ip}, 
+		#{firstConnectionTime},
+		#{lastConnectionTime},
+		#{totalPeople}, 
+		#{unsyncPeople},
+		#{state},
+		#{syncState}, 
+		#{batchDate},
+		#{deleted},
+		#{creProId}, 
+		#{createdBy}, 
+		#{createdDate},
+		#{modProId}, 
+		#{lastModifiedBy},
+		#{lastModifiedDate}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="Device">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE">
+			SELECT S_T_DEVICE.NEXTVAL FROM DUAL
+		</selectKey>
+		insert into T_DEVICE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="signPointId != null">
+				SIGN_POINT_ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="sn != null">
+				SN,
+			</if>
+			<if test="ip != null">
+				IP,
+			</if>
+			<if test="firstConnectionTime != null">
+				FIRST_CONNECTION_TIME,
+			</if>
+			<if test="lastConnectionTime != null">
+				LAST_CONNECTION_TIME,
+			</if>
+			<if test="totalPeople != null">
+				TOTAL_PEOPLE,
+			</if>
+			<if test="unsyncPeople != null">
+				UNSYNC_PEOPLE,
+			</if>
+			<if test="state != null">
+				STATE,
+			</if>
+			<if test="syncState != null">
+				SYNC_STATE,
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE,
+			</if>
+			<if test="deleted != null">
+				DELETED,
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID,
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID,
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY,
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="signPointId != null">
+				#{signPointId},
+			</if>
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="sn != null">
+				#{sn},
+			</if>
+			<if test="ip != null">
+				#{ip},
+			</if>
+			<if test="firstConnectionTime != null">
+				#{firstConnectionTime},
+			</if>
+			<if test="lastConnectionTime != null">
+				#{lastConnectionTime},
+			</if>
+			<if test="totalPeople != null">
+				#{totalPeople},
+			</if>
+			<if test="unsyncPeople != null">
+				#{unsyncPeople},
+			</if>
+			<if test="state != null">
+				#{state},
+			</if>
+			<if test="syncState != null">
+				#{syncState},
+			</if>
+			<if test="batchDate != null">
+				#{batchDate},
+			</if>
+			<if test="deleted != null">
+				#{deleted},
+			</if>
+			<if test="creProId != null">
+				#{creProId},
+			</if>
+			<if test="createdBy != null">
+				#{createdBy},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate},
+			</if>
+			<if test="modProId != null">
+				#{modProId},
+			</if>
+			<if test="lastModifiedBy != null">
+				#{lastModifiedBy},
+			</if>
+			<if test="lastModifiedDate != null">
+				#{lastModifiedDate},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="Device">
+		update T_DEVICE
+		<set>
+			<if test="signPointId != null">
+				SIGN_POINT_ID = #{signPointId},
+			</if>
+			<if test="name != null">
+				NAME = #{name},
+			</if>
+			<if test="sn != null">
+				SN = #{sn},
+			</if>
+			<if test="ip != null">
+				IP = #{ip},
+			</if>
+			<if test="firstConnectionTime != null">
+				FIRST_CONNECTION_TIME = #{firstConnectionTime},
+			</if>
+			<if test="lastConnectionTime != null">
+				LAST_CONNECTION_TIME = #{lastConnectionTime},
+			</if>
+			<if test="totalPeople != null">
+				TOTAL_PEOPLE = #{totalPeople},
+			</if>
+			<if test="unsyncPeople != null">
+				UNSYNC_PEOPLE = #{unsyncPeople},
+			</if>
+			<if test="state != null">
+				STATE = #{state},
+			</if>
+			<if test="syncState != null">
+				SYNC_STATE = #{syncState},
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE = #{batchDate},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted},
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID = #{creProId},
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY = #{createdBy},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate},
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID = #{modProId},
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY = #{lastModifiedBy},
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE = #{lastModifiedDate},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="Device">
+		update T_DEVICE
+		set SIGN_POINT_ID = #{signPointId},
+		NAME = #{name},
+		SN = #{sn},
+		IP = #{ip},
+		FIRST_CONNECTION_TIME = #{firstConnectionTime},
+		LAST_CONNECTION_TIME = #{lastConnectionTime},
+		TOTAL_PEOPLE = #{totalPeople},
+		UNSYNC_PEOPLE = #{unsyncPeople},
+		STATE = #{state},
+		SYNC_STATE = #{syncState},
+		BATCH_DATE = #{batchDate},
+		DELETED = #{deleted},
+		CRE_PRO_ID = #{creProId},
+		CREATED_BY = #{createdBy},
+		CREATED_DATE = #{createdDate},
+		MOD_PRO_ID = #{modProId},
+		LAST_MODIFIED_BY = #{lastModifiedBy},
+		LAST_MODIFIED_DATE = #{lastModifiedDate}
+		where ID = #{id}
+	</update>
+
+	<update id="update" parameterType="Device">
+		update T_DEVICE
+		<set>
+			<if test="signPointId != null">
+				SIGN_POINT_ID = #{signPointId},
+			</if>
+			<if test="name != null">
+				NAME = #{name},
+			</if>
+			<if test="sn != null">
+				SN = #{sn},
+			</if>
+			<if test="ip != null">
+				IP = #{ip},
+			</if>
+			<if test="firstConnectionTime != null">
+				FIRST_CONNECTION_TIME = #{firstConnectionTime},
+			</if>
+			<if test="lastConnectionTime != null">
+				LAST_CONNECTION_TIME = #{lastConnectionTime},
+			</if>
+			<if test="totalPeople != null">
+				TOTAL_PEOPLE = #{totalPeople},
+			</if>
+			<if test="unsyncPeople != null">
+				UNSYNC_PEOPLE = #{unsyncPeople},
+			</if>
+			<if test="state != null">
+				STATE = #{state},
+			</if>
+			<if test="syncState != null">
+				SYNC_STATE = #{syncState},
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE = #{batchDate},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted},
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID = #{creProId},
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY = #{createdBy},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate},
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID = #{modProId},
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY = #{lastModifiedBy},
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE = #{lastModifiedDate}
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<sql id="baseFilter">
+			1 = 1
+			<if test="signPointId != null">
+				AND SIGN_POINT_ID = #{signPointId}
+			</if>
+			<if test="name != null">
+				AND NAME = #{name}
+			</if>
+			<if test="sn != null">
+				AND SN = #{sn}
+			</if>
+			<if test="ip != null">
+				AND IP = #{ip}
+			</if>
+			<if test="firstConnectionTime != null">
+				AND FIRST_CONNECTION_TIME = #{firstConnectionTime}
+			</if>
+			<if test="lastConnectionTime != null">
+				AND LAST_CONNECTION_TIME = #{lastConnectionTime}
+			</if>
+			<if test="totalPeople != null">
+				AND TOTAL_PEOPLE = #{totalPeople}
+			</if>
+			<if test="unsyncPeople != null">
+				AND UNSYNC_PEOPLE = #{unsyncPeople}
+			</if>
+			<if test="state != null">
+				AND STATE = #{state}
+			</if>
+			<if test="syncState != null">
+				AND SYNC_STATE = #{syncState}
+			</if>
+			<if test="batchDate != null">
+				AND BATCH_DATE = #{batchDate}
+			</if>
+			<if test="creProId != null">
+				AND CRE_PRO_ID = #{creProId}
+			</if>
+			<if test="createdBy != null">
+				AND CREATED_BY = #{createdBy}
+			</if>
+			<if test="createdDate != null">
+				AND CREATED_DATE = #{createdDate}
+			</if>
+			<if test="modProId != null">
+				AND MOD_PRO_ID = #{modProId}
+			</if>
+			<if test="lastModifiedBy != null">
+				AND LAST_MODIFIED_BY = #{lastModifiedBy}
+			</if>
+			<if test="lastModifiedDate != null">
+				AND LAST_MODIFIED_DATE = #{lastModifiedDate}
+			</if>
+			AND DELETED = '0'
+	</sql>
+   <select id="findMany" parameterType="map" resultMap="BaseResultMap">
+	   SELECT 
+	   <include refid="Base_Column_List"/>
+	   FROM T_DEVICE
+	   WHERE 
+	   
+	   <include refid="baseFilter"/>
+	   
+   </select>
+   
+   <select id="find" parameterType="map" resultMap="BaseResultMap">
+	   SELECT 
+	   <include refid="Base_Column_List"/>
+	   FROM T_DEVICE
+	   WHERE 
+	   
+	   <include refid="baseFilter"/>
+	   
+   </select>
+   	<!-- 根据设备代码sn查询设备信息 -->
+	<select id="selectByDeviceSn" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_DEVICE
+		where DELETED = '0' AND SN = #{sn} 
+	</select>
+	<!-- 根据设备代码sn 查询考勤点不为空的设备 -->
+	<select id="selectSignPointNotNullByDeviceSn" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_DEVICE
+		where DELETED = '0' AND SIGN_POINT_ID IS NOT NULL AND SN = #{sn} 
+	</select>
+	
+	<!-- 取数据库中根据已连通设备最后一次连接时间超过5分钟的设备 -->
+	<select id="findLastConnectionTimeExcendFiveMinute" resultMap="BaseResultMap">
+		SELECT * FROM 
+		T_DEVICE D 
+		WHERE 
+		D.LAST_CONNECTION_TIME IS NOT NULL 
+		AND D.DELETED = '0' 
+		AND D.STATE = 2 
+		AND D.LAST_CONNECTION_TIME <![CDATA[<]]> (SYSDATE-5/1440)
+	</select>
+	
+	<!--根据ID修改设备的状态  -->
+	<update id="updateStateById" parameterType="map">
+		UPDATE T_DEVICE D SET D.STATE = #{state} WHERE D.ID = #{id}
+	</update>
+	
+	<!--根据设备代码SN修改设备的状态  -->
+	<update id="updateStateBySn" parameterType="map">
+		UPDATE T_DEVICE D SET D.STATE = #{state} WHERE D.SN = #{sn}
+	</update>
+	<!-- 设备关联员工 -->
+	<!-- 考勤点-人员基本信息 -->
+	<sql id="signPointEmployee">
+		SELECT TE.*,TEDI.PWD,TEDI.CARD, TEDI.PRI<!-- ,TEDI.PIC -->
+		FROM T_DEVICE TD
+		LEFT JOIN T_SIGN_POINT TSP ON TSP.ID = TD.SIGN_POINT_ID AND TSP.DELETED = '0'
+		LEFT JOIN T_SIGN_POINT_DEPT TSPD ON TSPD.SIGN_POINT_ID = TSP.ID AND TSPD.DELETED = '0'
+		LEFT JOIN T_DEPT TP ON TP.ID = TSPD.DEPT_ID AND TP.DELETED = '0'
+		LEFT JOIN T_EMPLOYEE TE ON TE.DEPT_ID = TP.ID AND TE.DELETED = '0'
+		LEFT JOIN T_EMPLOYEE_DEVICE_INFO TEDI ON TEDI.EMPLOYEE_CODE = TE.CODE AND TEDI.DELETED = '0'
+		WHERE
+		TD.DELETED = '0'
+		AND TD.SN = #{sn}
+	</sql>
+	<!--考勤组-考勤点-(部门) -->
+	<sql id="groupSignPointDept">
+
+		SELECT
+		TE.*,TEDI.PWD,TEDI.CARD, TEDI.PRI<!-- ,TEDI.PIC -->
+		FROM T_EMPLOYEE TE
+		LEFT JOIN T_EMPLOYEE_DEVICE_INFO TEDI ON TEDI.EMPLOYEE_CODE = TE.CODE AND
+		TEDI.DELETED = '0'
+		WHERE
+		EXISTS (
+		SELECT
+		*
+		FROM
+		T_DEVICE TD,
+		T_SIGN_POINT_DEPT TSPD,
+		T_SIGN_GROUP_DEPT TSGD,
+		T_SIGN_GROUP TSG,
+		T_SIGN_GROUP_SIGN_POINT TSGSP
+	
+		WHERE 1 = 1
+		AND TSGD.TYPE = 1
+		AND TE.DEPT_ID = TSGD.DEPT_ID
+		AND TE.JOB_ID = TSGD.JOB_ID
+		AND TSGD.SIGN_GROUP_ID = TSGSP.SIGN_GROUP_ID
+		AND TSGSP.TYPE = 1
+		AND TSGSP.SIGN_POINT_ID = TSPD.SIGN_POINT_ID
+	
+		AND TSGD.SIGN_GROUP_ID = TSG.ID
+		AND TSGSP.SIGN_GROUP_ID = TSG.ID
+		AND TSG.DELETED = '0'
+		AND TSG.STATE = 1
+	
+	
+		AND TSPD.SIGN_POINT_ID = TD.SIGN_POINT_ID
+	
+	
+		AND TD.SN = #{sn}
+		)
+		AND TE.DELETED = '0'
+
+	</sql>
+	<!-- 考勤组-考勤点-(人员) -->
+	<sql id="groupSignPointEmployee">
+		SELECT
+		TE.*,TEDI.PWD,TEDI.CARD, TEDI.PRI<!-- ,TEDI.PIC -->
+		FROM T_EMPLOYEE TE
+		LEFT JOIN T_EMPLOYEE_DEVICE_INFO TEDI ON TEDI.EMPLOYEE_CODE = TE.CODE AND
+		TEDI.DELETED = '0'
+		WHERE
+		EXISTS (
+		SELECT
+		*
+		FROM
+		T_DEVICE TD,
+		T_SIGN_POINT_DEPT TSPD,
+		T_SIGN_GROUP_DEPT TSGD,
+		T_SIGN_GROUP TSG,
+		T_SIGN_GROUP_SIGN_POINT TSGSP
+
+		WHERE 1 = 1
+		AND TSGD.TYPE = 2
+		AND TE.ID = TSGD.EMPLOYEE_ID
+		AND TSGD.SIGN_GROUP_ID = TSGSP.SIGN_GROUP_ID
+		AND TSGSP.TYPE = 1
+		AND TSGSP.SIGN_POINT_ID = TSPD.SIGN_POINT_ID
+
+		AND TSGD.SIGN_GROUP_ID = TSG.ID
+		AND TSGSP.SIGN_GROUP_ID = TSG.ID
+		AND TSG.DELETED = '0'
+		AND TSG.STATE = 1
+
+		AND TSPD.SIGN_POINT_ID = TD.SIGN_POINT_ID
+		AND TD.SN = #{sn}
+		)
+		AND TE.DELETED = '0'
+	</sql>
+	<!-- 考勤组-组织架构 -(部门) -->
+	<sql id="groupDeptDept">
+		SELECT
+		TE.*,TEDI.PWD,TEDI.CARD, TEDI.PRI<!-- ,TEDI.PIC -->
+		FROM T_EMPLOYEE
+		TE
+		LEFT JOIN T_EMPLOYEE_DEVICE_INFO TEDI ON TEDI.EMPLOYEE_CODE = TE.CODE
+		AND
+		TEDI.DELETED = '0'
+		WHERE
+		EXISTS (
+		SELECT
+		*
+		FROM
+		T_DEVICE TD,
+		T_SIGN_POINT_DEPT TSPD,
+		T_SIGN_GROUP_DEPT TSGD,
+		T_SIGN_GROUP_SIGN_POINT
+		TSGSP,
+		T_SIGN_GROUP TSG,
+		T_DEPT DEPT,
+		T_DEPT CHILDREN
+		WHERE 1 = 1
+		AND
+		TSGD.TYPE = 1
+		AND TE.DEPT_ID = TSGD.DEPT_ID
+		AND TE.JOB_ID = TSGD.JOB_ID
+		AND TSGD.SIGN_GROUP_ID =
+		TSGSP.SIGN_GROUP_ID
+	
+		AND TSGD.SIGN_GROUP_ID = TSG.ID
+		AND
+		TSGSP.SIGN_GROUP_ID = TSG.ID
+		AND TSG.DELETED = '0'
+		AND TSG.STATE = 1
+		AND
+		DEPT.DELETED = '0'
+		AND DEPT.STATE = 1
+		AND CHILDREN.DELETED = '0'
+		AND
+		CHILDREN.STATE = 1
+	
+		AND TSGSP.TYPE = 2
+		AND TSGSP.DEPT_ID = DEPT.ID
+	
+		AND CHILDREN.PATH LIKE (DEPT.PATH || '%')
+		AND CHILDREN.ID = TSGSP.DEPT_ID
+		AND TSPD.SIGN_POINT_ID = TD.SIGN_POINT_ID
+	
+		AND TD.SN = #{sn}
+		)
+		AND
+		TE.DELETED = '0'
+	</sql>
+	<!-- 考勤组-组织架构 -(人员) -->
+	<sql id="groupDeptEmployee">
+		SELECT
+		TE.*,TEDI.PWD,TEDI.CARD, TEDI.PRI<!-- ,TEDI.PIC -->
+		FROM T_EMPLOYEE TE
+		LEFT JOIN T_EMPLOYEE_DEVICE_INFO TEDI ON TEDI.EMPLOYEE_CODE = TE.CODE AND
+		TEDI.DELETED = '0'
+		WHERE
+		EXISTS (
+		SELECT
+		*
+		FROM
+		T_DEVICE TD,
+		T_SIGN_POINT_DEPT TSPD,
+		T_SIGN_GROUP_DEPT TSGD,
+		T_SIGN_GROUP_SIGN_POINT TSGSP,
+		T_SIGN_GROUP TSG,
+		T_DEPT DEPT,
+		T_DEPT CHILDREN
+		WHERE 1 = 1
+		AND TSGD.TYPE = 2
+		AND TE.ID = TSGD.EMPLOYEE_ID
+		AND TSGD.SIGN_GROUP_ID =
+		TSGSP.SIGN_GROUP_ID
+		AND TSGSP.TYPE = 2
+		AND TSGSP.DEPT_ID = DEPT.ID
+	
+		AND
+		TSGD.SIGN_GROUP_ID = TSG.ID
+		AND TSGSP.SIGN_GROUP_ID = TSG.ID
+		AND
+		TSG.DELETED = '0'
+		AND TSG.STATE = 1
+		AND DEPT.DELETED = '0'
+		AND DEPT.STATE = 1
+		AND CHILDREN.DELETED = '0'
+		AND CHILDREN.STATE = 1
+	
+		AND CHILDREN.PATH LIKE (DEPT.PATH || '%')
+		AND
+		CHILDREN.ID = TSGSP.DEPT_ID
+	
+		AND TSPD.SIGN_POINT_ID = TD.SIGN_POINT_ID
+	
+	
+		AND TD.SN = #{sn}
+		)
+		AND TE.DELETED = '0'
+    </sql>
+	
+	
+	<!-- 根据设备代码 sn 查询应该在当前设备上打卡的员工-->
+	<!-- 目前只写出考勤点和考勤组-考勤点 下的员工 -->
+	
+	<select id="findEmployeeBySn" parameterType="map" resultMap="deviceEmployeeMap">
+		SELECT A.ID,A.NAME,A.CODE,A.SEX,A.MOBILE,A.JOB_STATE,A.PWD,A.CARD,A.PRI<!-- ,A.PIC  --> FROM (
+		<include refid="signPointEmployee"/>
+		UNION
+		<include refid="groupSignPointDept"/>
+		UNION
+		<include refid="groupSignPointEmployee"/>
+		UNION
+		<include refid="groupDeptDept"/>
+		UNION
+		<include refid="groupDeptEmployee"/>
+		) A WHERE A.ID IS NOT NULL  GROUP BY A.ID,A.NAME,A.CODE,A.SEX,A.MOBILE,A.JOB_STATE,A.PWD,A.CARD,A.PRI<!-- ,A.PIC -->
+	</select>
+	
+	
+	
+    <select id="countEmployeeBySn" parameterType="map" resultType="int">
+    SELECT COUNT(B.ID) FROM (
+        SELECT A.ID,A.NAME,A.CODE,A.SEX,A.MOBILE,A.JOB_STATE,A.PWD,A.CARD,A.PRI FROM (
+        <include refid="signPointEmployee"/>
+        UNION
+        <include refid="groupSignPointDept"/>
+        UNION
+        <include refid="groupSignPointEmployee"/>
+        UNION
+        <include refid="groupDeptDept"/>
+        UNION
+        <include refid="groupDeptEmployee"/>
+        ) A WHERE A.ID IS NOT NULL  GROUP BY A.ID,A.NAME,A.CODE,A.SEX,A.MOBILE,A.JOB_STATE,A.PWD,A.CARD,A.PRI
+        ) B
+    </select>
+	
+	<!--  根据设备代码 sn 查询应该在当前设备上打卡的员工  返回实体-->
+	<resultMap id="deviceEmployeeMap" type="EmployeeDeviceInfoVo">
+			<result column="ID" property="id" />
+			<result column="NAME" property="name" />
+			<result column="CODE" property="code" />
+			<result column="SEX" property="sex" />
+			<result column="MOBILE" property="mobile" />
+			<result column="JOB_STATE" property="jobState" />
+			<result column="PWD" property="pwd" />
+			<result column="CARD" property="card" />
+			<result column="PRI" property="pri" />
+			<result column="PIC" property="pic" />
+	</resultMap>
+	
+	<!--  根据设备代码 sn 查询应该在当前设备上打卡的员工 的指纹模板或脸纹模板-->
+	
+	
+	<!-- 设备关联员工指纹或脸纹模板 -->
+	<!-- 考勤点-人员指纹或脸纹模板 -->
+	<sql id="signPointEmployeeFingerFace">
+		SELECT TE.*,TFFT.FID,TFFT.TMP_SIZE, TFFT.VALID<!-- ,TFFT.TMP -->  FROM T_DEVICE TD
+		LEFT JOIN T_SIGN_POINT TSP ON TSP.ID = TD.SIGN_POINT_ID AND TSP.DELETED = '0'
+		LEFT JOIN T_SIGN_POINT_DEPT TSPD ON TSPD.SIGN_POINT_ID = TSP.ID AND TSPD.DELETED = '0'
+		LEFT JOIN T_DEPT TP ON TP.ID = TSPD.DEPT_ID AND TP.DELETED = '0'
+		LEFT JOIN T_EMPLOYEE TE ON TE.DEPT_ID = TP.ID AND TE.DELETED = '0'
+		LEFT JOIN T_FINGER_FACE_TEMPLATE TFFT ON TFFT.EMPLOYEE_CODE = TE.CODE AND TFFT.DELETED = '0' AND TFFT.TYPE = #{type}
+		WHERE
+		TD.DELETED = '0'
+		AND TD.SN = #{sn}
+	</sql>
+	<!--考勤组-考勤点-(部门) -->
+	<sql id="groupSignPointDeptFingerFace">
+		SELECT
+				TE.*,TFFT.FID,TFFT.TMP_SIZE, TFFT.VALID <!-- ,TFFT.TMP--> 
+			FROM T_EMPLOYEE TE
+			LEFT JOIN T_FINGER_FACE_TEMPLATE TFFT ON TFFT.EMPLOYEE_CODE = TE.CODE AND TFFT.DELETED = '0' AND TFFT.TYPE = #{type}
+			WHERE 
+			EXISTS (
+				SELECT
+					*
+				FROM
+					T_DEVICE TD,
+					T_SIGN_POINT_DEPT TSPD,
+					T_SIGN_GROUP_DEPT TSGD,
+					T_SIGN_GROUP TSG,
+					T_SIGN_GROUP_SIGN_POINT TSGSP
+					
+				WHERE 1 = 1
+				AND TSGD.TYPE = 1
+				AND TE.DEPT_ID = TSGD.DEPT_ID
+				AND TE.JOB_ID = TSGD.JOB_ID
+				AND TSGD.SIGN_GROUP_ID = TSGSP.SIGN_GROUP_ID
+			
+				AND TSGD.SIGN_GROUP_ID = TSG.ID
+				AND TSGSP.SIGN_GROUP_ID = TSG.ID
+				AND TSG.DELETED = '0'
+				AND TSG.STATE = 1
+			
+				AND TSGSP.TYPE = 1
+				AND TSGSP.SIGN_POINT_ID = TSPD.SIGN_POINT_ID
+				
+				AND TSPD.SIGN_POINT_ID = TD.SIGN_POINT_ID
+			
+				AND TD.SN = #{sn}
+			) 
+			AND TE.DELETED = '0'
+		
+	</sql>
+	<!-- 考勤组-考勤点-(人员) -->
+	<sql id="groupSignPointEmployeeFingerFace">
+		SELECT
+				TE.*,TFFT.FID,TFFT.TMP_SIZE, TFFT.VALID <!-- ,TFFT.TMP --> 
+			FROM T_EMPLOYEE TE
+			LEFT JOIN T_FINGER_FACE_TEMPLATE TFFT ON TFFT.EMPLOYEE_CODE = TE.CODE AND TFFT.DELETED = '0' AND TFFT.TYPE = #{type}
+			WHERE 
+			EXISTS (
+				SELECT
+					*
+				FROM
+					T_DEVICE TD,
+					T_SIGN_POINT_DEPT TSPD,
+					T_SIGN_GROUP_DEPT TSGD,
+					T_SIGN_GROUP TSG,
+					T_SIGN_GROUP_SIGN_POINT TSGSP
+					
+				WHERE 1 = 1
+				AND TSGD.TYPE = 2
+				AND TE.ID = TSGD.EMPLOYEE_ID
+				AND TSGD.SIGN_GROUP_ID = TSGSP.SIGN_GROUP_ID
+				AND TSGSP.TYPE = 1
+				AND TSGSP.SIGN_POINT_ID = TSPD.SIGN_POINT_ID
+			
+				AND TSGD.SIGN_GROUP_ID = TSG.ID
+				AND TSGSP.SIGN_GROUP_ID = TSG.ID
+				AND TSG.DELETED = '0'
+				AND TSG.STATE = 1
+			
+				AND TSPD.SIGN_POINT_ID = TD.SIGN_POINT_ID
+			
+				AND TD.SN = #{sn}
+			)
+			AND TE.DELETED = '0'
+	</sql>
+	<!-- 考勤组-组织架构 -(部门) --> 
+	<sql id="groupDeptDeptFingerFace">
+		SELECT
+				TE.*,TFFT.FID,TFFT.TMP_SIZE, TFFT.VALID <!-- ,TFFT.TMP --> 
+			FROM T_EMPLOYEE TE
+			LEFT JOIN T_FINGER_FACE_TEMPLATE TFFT ON TFFT.EMPLOYEE_CODE = TE.CODE AND TFFT.DELETED = '0' AND TFFT.TYPE = #{type}
+			WHERE 
+			EXISTS (
+				SELECT
+					*
+				FROM
+					T_DEVICE TD,
+					T_SIGN_POINT_DEPT TSPD,
+					T_SIGN_GROUP_DEPT TSGD,
+					T_SIGN_GROUP_SIGN_POINT TSGSP,
+					T_SIGN_GROUP TSG,
+					T_DEPT DEPT,
+					T_DEPT CHILDREN
+				WHERE 1 = 1
+			  AND TSGD.TYPE = 1
+				AND TE.DEPT_ID = TSGD.DEPT_ID
+				AND TE.JOB_ID = TSGD.JOB_ID
+				AND TSGD.SIGN_GROUP_ID = TSGSP.SIGN_GROUP_ID
+			
+				AND TSGD.SIGN_GROUP_ID = TSG.ID
+				AND TSGSP.SIGN_GROUP_ID = TSG.ID
+				AND TSG.DELETED = '0'
+				AND TSG.STATE = 1
+				AND DEPT.DELETED = '0'
+			  AND DEPT.STATE = 1
+				AND CHILDREN.DELETED = '0'
+			  AND CHILDREN.STATE = 1
+			
+				AND TSGSP.TYPE = 2
+				AND TSGSP.DEPT_ID = DEPT.ID
+			
+				AND CHILDREN.PATH LIKE (DEPT.PATH || '%')
+				AND CHILDREN.ID = TSGSP.DEPT_ID
+			
+				AND TSPD.SIGN_POINT_ID = TD.SIGN_POINT_ID
+				
+			
+				AND TD.SN = #{sn}
+			) 
+			AND TE.DELETED = '0'
+	</sql>
+	<!-- 考勤组-组织架构 -(人员) -->
+	<sql id="groupDeptEmployeeFingerFace">
+		SELECT
+				TE.*,TFFT.FID,TFFT.TMP_SIZE, TFFT.VALID <!-- ,TFFT.TMP --> 
+			FROM T_EMPLOYEE TE
+			LEFT JOIN T_FINGER_FACE_TEMPLATE TFFT ON TFFT.EMPLOYEE_CODE = TE.CODE AND TFFT.DELETED = '0' AND TFFT.TYPE = #{type}
+			WHERE 
+			EXISTS (
+				SELECT
+					*
+				FROM
+					T_DEVICE TD,
+					T_SIGN_POINT_DEPT TSPD,
+					T_SIGN_GROUP_DEPT TSGD,
+					T_SIGN_GROUP_SIGN_POINT TSGSP,
+					T_SIGN_GROUP TSG,
+					T_DEPT DEPT,
+					T_DEPT CHILDREN
+				WHERE 1 = 1
+			  AND TSGD.TYPE = 2
+				AND TE.ID = TSGD.EMPLOYEE_ID
+				AND TSGD.SIGN_GROUP_ID = TSGSP.SIGN_GROUP_ID
+				AND TSGSP.TYPE = 2
+				AND TSGSP.DEPT_ID = DEPT.ID
+			
+				AND TSGD.SIGN_GROUP_ID = TSG.ID
+				AND TSGSP.SIGN_GROUP_ID = TSG.ID
+				AND TSG.DELETED = '0'
+				AND TSG.STATE = 1
+				AND DEPT.DELETED = '0'
+			  AND DEPT.STATE = 1
+				AND CHILDREN.DELETED = '0'
+			  AND CHILDREN.STATE = 1
+			
+				AND CHILDREN.PATH LIKE (DEPT.PATH || '%')
+				AND CHILDREN.ID = TSGSP.DEPT_ID
+			
+				AND TSPD.SIGN_POINT_ID = TD.SIGN_POINT_ID
+				
+			
+				AND TD.SN = #{sn}
+			) 
+			AND TE.DELETED = '0'	
+			
+			
+	</sql>
+	
+	
+	<!-- 根据设备代码 sn 查询应该在当前设备上打卡的员工指纹或脸纹模板-->
+	<!-- 目前只写出考勤点和考勤组-考勤点 下的员工 -->
+	
+	<select id="findEmployeeFingerFaceBySn" parameterType="map" resultMap="deviceEmployeeFingerFaceMap">
+		SELECT A.CODE,A.FID,A.TMP_SIZE,A.VALID<!-- ,A.TMP --> FROM (
+		<include refid="signPointEmployeeFingerFace"/>
+		UNION
+		<include refid="groupSignPointDeptFingerFace"/>
+		UNION
+		<include refid="groupSignPointEmployeeFingerFace"/>
+		UNION
+		<include refid="groupDeptDeptFingerFace"/>
+		UNION
+		<include refid="groupDeptEmployeeFingerFace"/>
+		) A WHERE A.CODE IS NOT NULL  GROUP BY A.CODE,A.FID,A.TMP_SIZE,A.VALID<!-- ,A.TMP -->
+	</select>
+	
+	<!--  根据设备代码 sn 查询应该在当前设备上打卡的员工指纹或脸纹模板  返回实体-->
+	<resultMap id="deviceEmployeeFingerFaceMap" type="EmployeeDeviceFingerFaceVo">
+			<result column="CODE" property="code" />
+			<result column="FID" property="fid" />
+			<result column="TMP_SIZE" property="size" />
+			<result column="VALID" property="valid" />
+			<result column="TMP" property="tmp" />
+	</resultMap>
+	
+	
+	<!-- 根据员工代码(code) 查询 该员工的指纹和模板数-->
+	<select id="countFingerAndFaceByEmployeeCode" parameterType="java.lang.String" resultType="int">
+		SELECT COUNT(1) 
+		FROM T_FINGER_FACE_TEMPLATE TFFT 
+		WHERE TFFT.DELETED = 0 
+		AND TFFT.EMPLOYEE_CODE = #{code}
+	</select>
+	
+</mapper>

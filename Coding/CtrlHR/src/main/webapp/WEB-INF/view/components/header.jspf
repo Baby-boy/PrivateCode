@@ -1,0 +1,107 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
+<style>
+	.head {
+	  position: absolute;
+	  width: 96%;
+	  height: 50px;
+	  line-height: 50px;
+	  padding: 0 2%;
+	  background: #000;
+	  color: #fff;
+	}
+	.head .name {
+	  position: absolute;
+	  left: 3%;
+	  font-size: 20px;
+	  line-height: 50px;
+	}
+	.head .menu {
+	  position: absolute;
+	  left: 11%;
+	  font-size: 25px;
+	  color: #fff;
+	}
+	.head .nav {
+	  position: absolute;
+	  left: 18%;
+	  width: 50%;
+	  border-left: 1px solid #ccc;
+	}
+	.head .nav a {
+	  color: #ccc;
+	  padding: 5px 15px;
+	  margin-left: 6%;
+	  font-size: 16px;
+	}
+	.head .nav a:hover,
+	.head .nav a.on {
+	  color: #fff;
+	}
+	.head .manageNav {
+	  position: absolute;
+	  right: 15%;
+	  color: #fff;
+	}
+	.head .manageNav span {
+	  font-size: 16px;
+	  margin: 0 5px;
+	}
+	.head .manageNav .icon1 {
+	  font-size: 22px;
+	}
+	.head .manageNav .icon2 {
+	  font-size: 14px;
+	}
+	.head .loginUser {
+	  position: absolute;
+	  right: 2%;
+	  padding-left: 20px;
+	  border-left: 1px solid #ccc;
+	}
+	.head .loginUser .loginHead {
+	  width: 40px;
+	  height: 40px;
+	  border-radius: 50%;
+	  margin-top: -5px;
+	}
+	.head .loginUser .userName {
+	  font-size: 16px;
+	  margin: 0 5px;
+	}
+	.head .loginUser .icon2 {
+	  font-size: 14px;
+	}
+</style>
+<script type="text/x-template" id="headNav">
+	<div class="head" id="header">
+		<div class="name">CtrlHR</div>
+        <div class="menu iconfont icon-navigation"></div>
+        <div class="nav">
+	        <a href="javascript:void(0);">组织</a>
+	        <a href="${ctx}/pageTo/employee/employeeList?viewName=1" :class="{on:activeNav==1}">员工</a>
+	        <a href="${ctx}/pageTo/attendance/attendanceList?viewName=2" :class="{on:activeNav==2}">考勤</a>
+        </div>
+       	<a href="javascript:void(0);" class="manageNav">
+           	<i class="iconfont icon-setting icon1"></i>
+            <span>管理中心</span>
+            <i class="el-icon-arrow-down icon2"></i>
+        </a>
+        <div class="loginUser">
+             <img src="${ctx}/images/people.jpg" class="loginHead">
+             <span class="userName">test</span>
+             <i class="el-icon-arrow-down icon2"></i>
+        </div>
+	</div>
+</script>
+<script>
+	Vue.component('headerNav',{
+		template: '#headNav',
+		data:function(){
+			var activeNav=Util.getUrlParam("viewName")
+			return{
+				activeNav:activeNav
+			}
+		},
+		
+	})
+</script>

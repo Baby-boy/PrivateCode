@@ -1,0 +1,44 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
+
+<!--组件样式-->
+<style>
+	.searchDiv input[type="text"]{
+		border: none;
+		width: 170px;
+		outline: none;
+	}
+	.searchDiv a{
+		font-size:16px;
+		color:#999;
+	}
+</style>
+<!--组件模板-->
+<script type="text/x-template" id="componentSearch">
+	<div class="searchDiv">
+		<input type="text" v-model="searchText" @input="changeValue" :placeholder="searchTips" v-on:keyup.enter="clicksearch" />
+		<a href="javascript:;" v-on:click="clicksearch"  class="el-icon-search"></a>
+	</div>
+</script>	
+<!--注册组件-->
+<script>
+	Vue.component('search',{
+		template: '#componentSearch',
+		data:function(){
+			return {
+				searchText:""
+			}
+		},
+		mounted:function(){
+			this.searchText = this.value;
+		},
+		props:['searchTips','value'],
+		methods:{
+			changeValue:function(){
+				this.$emit('input',this.searchText);
+			},
+			clicksearch:function(){
+				this.$emit('search',this.searchText);
+			}
+		}
+	})
+</script>

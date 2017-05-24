@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <description>Spring MVC 配置</description>
+
+    <context:property-placeholder location="classpath:config.properties"/>
+    <context:annotation-config/>
+
+    <context:component-scan base-package="com.glanway.iclock.controller"/>
+
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+        <mvc:argument-resolvers>
+            <!--<bean class="com.glanway.gone.spring.bind.PageableHandlerMethodArgumentResolver" />-->
+            <!--<bean class="com.glanway.gone.spring.bind.FiltersHandlerMethodArgumentResolver"/>-->
+            <!--<bean class="org.ponly.webbase.spring.web.bind.PageableHandlerMethodArgumentResolver" />-->
+            <bean class="org.ponly.webbase.spring.web.bind.PageableHandlerMethodArgumentResolver">
+                <property name="sortResolver">
+                    <bean class="org.ponly.webbase.spring.web.bind.SortHandlerMethodArgumentResolver2"/>
+                </property>
+            </bean>
+            <bean class="org.ponly.webbase.spring.web.bind.FiltersHandlerMethodArgumentResolver"/>
+        </mvc:argument-resolvers>
+        <mvc:message-converters>
+            <ref bean="jackson2HttpMessageConverter"/>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="mediaTypes">
+            <value>
+                json=application/json
+                xml=application/xml
+            </value>
+        </property>
+    </bean>
+
+    <bean id="jackson2HttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+                <value>text/html;charset=UTF-8</value>
+            </list>
+        </property>
+        <property name="objectMapper">
+            <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+                <property name="failOnEmptyBeans" value="false"/>
+                <property name="featuresToDisable">
+                    <util:constant
+                            static-field="com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES"/>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--<property name="prefix" value="/WEB-INF/view/"/>-->
+        <property name="prefix" value="/WEB-INF/view/admin/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- id 不能省略 -_-! -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--one of the properties disabled; the maximum file size in bytes -->
+        <!--<property name="maxUploadSize" value="2097152"/>-->
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <bean class="org.ponly.webbase.spring.web.handler.ResponseBodyHandlerMethodExceptionResolver">
+        <property name="messageConverters" ref="jackson2HttpMessageConverter" />
+    </bean>
+
+   <!--  <mvc:interceptors>
+        <mvc:interceptor>
+            设置拦截的路径
+            <mvc:mapping path="/admin/**"/>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/favicon.ico" />
+            <mvc:exclude-mapping path="/robots.txt" />
+            <mvc:exclude-mapping path="/humans.txt" />
+            <mvc:exclude-mapping path="/js/**" />
+            <mvc:exclude-mapping path="/css/**" />
+            <mvc:exclude-mapping path="/images/**" />
+            <mvc:exclude-mapping path="/storage/**" />
+            <mvc:exclude-mapping path="/ueditor/**" />
+            <bean class="com.glanway.eshop.admin.interceptor.PermissionInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors> -->
+
+    <!-- 资源映射 -->
+    <mvc:resources mapping="/favicon.ico" location="/"/>
+    <mvc:resources mapping="/robots.txt" location="/"/>
+    <mvc:resources mapping="/humans.txt" location="/"/>
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/css/**" location="/css/"/>
+    <mvc:resources mapping="/images/**" location="/images/"/>
+
+</beans>

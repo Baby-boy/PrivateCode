@@ -1,0 +1,79 @@
+<!doctype html>
+<!--
+  ~ Copyright (c) 2005, 2014 vacoor
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  -->
+<html class="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1"/>
+    <link rel="stylesheet" type="text/css" href="css/jstree-style.min.css"/>
+    <link rel="stylesheet" href="css/treepicker.css"/>
+</head>
+<body>
+CATEGORY: <input id="single" style="width: 300px;display: none!important;">
+<button type="button" id="props-btn">获取Props</button>
+<hr>
+PROPERTY: <input id="multi" style="width: 300px;display: none!important;">
+<span id="text"></span>
+<script type="text/javascript" src="js/lib/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/lib/jstree.min.js"></script>
+<script type="text/javascript" src="js/treepicker.js"></script>
+<script type="text/javascript">
+    $('#single').treepicker({
+        nodeParam: 'cid',
+        rootProp: 'sellerAuthorize.itemCats',
+        valueProp: 'cid',
+        // data: 'http://localhost:8001/tb/itemcats'
+        data: function (node, cb) {
+            $.ajax({
+                url: '/tb/itemcats',
+                data: {
+                    cid: node.id
+                }
+            }).done(function (data) {
+                if ('#' == node.id) {
+                    data = data['sellerAuthorize'];
+                }
+                data = data['itemCats'];
+                $.each(data, function (i, item) {
+                    item.id = item.cid + '';
+                    item.text = item.name + "(" + item.cid + ")";
+                    item.children = item.isParent;
+                });
+                cb(data);
+            });
+        },
+        selected: ['26/50014480/50012090']
+    });
+    $('#props-btn').click(function () {
+        var cid = $('#single').val();
+        if (!cid) return;
+        $.ajax({
+            url: '/tb/itemprops',
+            data: {cid: cid}
+        }).done(function (data) {
+            $.each(data, function (i, item) {
+                item.id = item.pid + '';
+                item.text = item.name + (item.must ? ' **** ' : '') + " (" + item.id + ")";
+                item.children = item.propValues;
+                $.each(item.propValues, function (j, v) {
+                    v.id = item.id + ':' + v.vid;
+                    v.text = v.name + " (" + item.id + ":" + v.vid + ")";
+                    v.children = [];
+                });
+            });
+            var picker = $('#multi').data('data', data || []).treepicker({
+                multiple: true,
+                data: function (node, cb) {
+                    cb($('#multi').data('data'));
+                }
+            });
+            picker.clear();
+            picker.refresh();
+        })
+    });
+</script>
+</body>
+</html>

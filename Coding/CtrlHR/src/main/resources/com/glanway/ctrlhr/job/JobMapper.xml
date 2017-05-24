@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.ctrlhr.dao.job.JobDao">
+	<resultMap id="BaseResultMap" type="com.glanway.ctrlhr.entity.job.Job">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="JOB_TYPE_ID" property="jobTypeId" jdbcType="DECIMAL" />
+		<result column="JOB_GRADE_ID" property="jobGradeId" jdbcType="DECIMAL" />
+		<result column="STATE" property="state" jdbcType="DECIMAL" />
+		<result column="BATCH_DATE" property="batchDate" jdbcType="TIMESTAMP" />
+		<result column="DELETED" property="deleted" jdbcType="CHAR" />
+		<result column="CRE_PRO_ID" property="creProId" jdbcType="DECIMAL" />
+		<result column="CREATED_BY" property="createdBy" jdbcType="DECIMAL" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="MOD_PRO_ID" property="modProId" jdbcType="DECIMAL" />
+		<result column="LAST_MODIFIED_BY" property="lastModifiedBy"
+			jdbcType="DECIMAL" />
+		<result column="LAST_MODIFIED_DATE" property="lastModifiedDate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, NAME, JOB_TYPE_ID, JOB_GRADE_ID, STATE, BATCH_DATE, DELETED,
+		CRE_PRO_ID, CREATED_BY,
+		CREATED_DATE, MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from T_JOB
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from T_JOB
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.glanway.ctrlhr.entity.job.Job">
+		insert into T_JOB (ID, NAME, JOB_TYPE_ID,
+		JOB_GRADE_ID, STATE, BATCH_DATE,
+		DELETED, CRE_PRO_ID, CREATED_BY,
+		CREATED_DATE, MOD_PRO_ID, LAST_MODIFIED_BY,
+		LAST_MODIFIED_DATE)
+		values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR},
+		#{jobTypeId,jdbcType=DECIMAL},
+		#{jobGradeId,jdbcType=DECIMAL}, #{state,jdbcType=DECIMAL}, #{batchDate,jdbcType=TIMESTAMP},
+		#{deleted,jdbcType=CHAR}, #{creProId,jdbcType=DECIMAL},
+		#{createdBy,jdbcType=DECIMAL},
+		#{createdDate,jdbcType=TIMESTAMP}, #{modProId,jdbcType=DECIMAL}, #{lastModifiedBy,jdbcType=DECIMAL},
+		#{lastModifiedDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.glanway.ctrlhr.entity.job.Job">
+		insert into T_JOB
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="jobTypeId != null">
+				JOB_TYPE_ID,
+			</if>
+			<if test="jobGradeId != null">
+				JOB_GRADE_ID,
+			</if>
+			<if test="state != null">
+				STATE,
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE,
+			</if>
+			<if test="deleted != null">
+				DELETED,
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID,
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID,
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY,
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="jobTypeId != null">
+				#{jobTypeId,jdbcType=DECIMAL},
+			</if>
+			<if test="jobGradeId != null">
+				#{jobGradeId,jdbcType=DECIMAL},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=DECIMAL},
+			</if>
+			<if test="batchDate != null">
+				#{batchDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=CHAR},
+			</if>
+			<if test="creProId != null">
+				#{creProId,jdbcType=DECIMAL},
+			</if>
+			<if test="createdBy != null">
+				#{createdBy,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modProId != null">
+				#{modProId,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedBy != null">
+				#{lastModifiedBy,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedDate != null">
+				#{lastModifiedDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.glanway.ctrlhr.entity.job.Job">
+		update T_JOB
+		<set>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="jobTypeId != null">
+				JOB_TYPE_ID = #{jobTypeId,jdbcType=DECIMAL},
+			</if>
+			<if test="jobGradeId != null">
+				JOB_GRADE_ID = #{jobGradeId,jdbcType=DECIMAL},
+			</if>
+			<if test="state != null">
+				STATE = #{state,jdbcType=DECIMAL},
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=CHAR},
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.glanway.ctrlhr.entity.job.Job">
+		update T_JOB
+		set NAME = #{name,jdbcType=VARCHAR},
+		JOB_TYPE_ID = #{jobTypeId,jdbcType=DECIMAL},
+		JOB_GRADE_ID = #{jobGradeId,jdbcType=DECIMAL},
+		STATE = #{state,jdbcType=DECIMAL},
+		BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+		DELETED = #{deleted,jdbcType=CHAR},
+		CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+		CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+		CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+		MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+		LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+		LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	
+	<!-- 全部查询 -->
+	<!-- 通过部门ID查找部门对应的职位 -->
+	<select id="findJobByDeptId" resultType="Job">
+		SELECT 
+			JOB.ID,JOB.NAME
+		FROM T_JOB_ORGANIZE TJO
+		LEFT JOIN T_JOB JOB ON JOB.ID = TJO.JOB_ID AND JOB.STATE = 1 AND JOB.DELETED = 0
+		WHERE TJO.DELETED = 0 AND TJO.DEPT_ID = #{deptId}
+	</select>
+</mapper>

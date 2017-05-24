@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.ctrlhr.dao.device.DeviceDao">
+	<resultMap id="BaseResultMap" type="com.glanway.ctrlhr.entity.device.Device">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="SIGN_POINT_ID" property="signPointId" jdbcType="DECIMAL" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="SN" property="sn" jdbcType="VARCHAR" />
+		<result column="IP" property="ip" jdbcType="VARCHAR" />
+		<result column="FIRST_CONNECTION_TIME" property="firstConnectionTime"
+			jdbcType="TIMESTAMP" />
+		<result column="LAST_CONNECTION_TIME" property="lastConnectionTime"
+			jdbcType="TIMESTAMP" />
+		<result column="TOTAL_PEOPLE" property="totalPeople" jdbcType="DECIMAL" />
+		<result column="UNSYNC_PEOPLE" property="unsyncPeople"
+			jdbcType="DECIMAL" />
+		<result column="STATE" property="state" jdbcType="DECIMAL" />
+		<result column="BATCH_DATE" property="batchDate" jdbcType="TIMESTAMP" />
+		<result column="DELETED" property="deleted" jdbcType="CHAR" />
+		<result column="CRE_PRO_ID" property="creProId" jdbcType="DECIMAL" />
+		<result column="CREATED_BY" property="createdBy" jdbcType="DECIMAL" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="MOD_PRO_ID" property="modProId" jdbcType="DECIMAL" />
+		<result column="LAST_MODIFIED_BY" property="lastModifiedBy"
+			jdbcType="DECIMAL" />
+		<result column="LAST_MODIFIED_DATE" property="lastModifiedDate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, SIGN_POINT_ID, NAME, SN, IP, FIRST_CONNECTION_TIME,
+		LAST_CONNECTION_TIME, TOTAL_PEOPLE,
+		UNSYNC_PEOPLE, STATE, BATCH_DATE, DELETED, CRE_PRO_ID, CREATED_BY, CREATED_DATE,
+		MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from T_DEVICE
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from T_DEVICE
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.glanway.ctrlhr.entity.device.Device">
+		insert into T_DEVICE (ID, SIGN_POINT_ID, NAME,
+		SN, IP, FIRST_CONNECTION_TIME,
+		LAST_CONNECTION_TIME, TOTAL_PEOPLE, UNSYNC_PEOPLE,
+		STATE, BATCH_DATE, DELETED,
+		CRE_PRO_ID, CREATED_BY, CREATED_DATE,
+		MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE
+		)
+		values (#{id,jdbcType=DECIMAL}, #{signPointId,jdbcType=DECIMAL},
+		#{name,jdbcType=VARCHAR},
+		#{sn,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{firstConnectionTime,jdbcType=TIMESTAMP},
+		#{lastConnectionTime,jdbcType=TIMESTAMP},
+		#{totalPeople,jdbcType=DECIMAL}, #{unsyncPeople,jdbcType=DECIMAL},
+		#{state,jdbcType=DECIMAL}, #{batchDate,jdbcType=TIMESTAMP},
+		#{deleted,jdbcType=CHAR},
+		#{creProId,jdbcType=DECIMAL}, #{createdBy,jdbcType=DECIMAL}, #{createdDate,jdbcType=TIMESTAMP},
+		#{modProId,jdbcType=DECIMAL}, #{lastModifiedBy,jdbcType=DECIMAL},
+		#{lastModifiedDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.glanway.ctrlhr.entity.device.Device">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE">
+			SELECT S_T_DEVICE.NEXTVAL FROM DUAL
+		</selectKey>
+		insert into T_DEVICE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="signPointId != null">
+				SIGN_POINT_ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="sn != null">
+				SN,
+			</if>
+			<if test="ip != null">
+				IP,
+			</if>
+			<if test="firstConnectionTime != null">
+				FIRST_CONNECTION_TIME,
+			</if>
+			<if test="lastConnectionTime != null">
+				LAST_CONNECTION_TIME,
+			</if>
+			<if test="totalPeople != null">
+				TOTAL_PEOPLE,
+			</if>
+			<if test="unsyncPeople != null">
+				UNSYNC_PEOPLE,
+			</if>
+			<if test="state != null">
+				STATE,
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE,
+			</if>
+			<if test="deleted != null">
+				DELETED,
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID,
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID,
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY,
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="signPointId != null">
+				#{signPointId,jdbcType=DECIMAL},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sn != null">
+				#{sn,jdbcType=VARCHAR},
+			</if>
+			<if test="ip != null">
+				#{ip,jdbcType=VARCHAR},
+			</if>
+			<if test="firstConnectionTime != null">
+				#{firstConnectionTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastConnectionTime != null">
+				#{lastConnectionTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="totalPeople != null">
+				#{totalPeople,jdbcType=DECIMAL},
+			</if>
+			<if test="unsyncPeople != null">
+				#{unsyncPeople,jdbcType=DECIMAL},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=DECIMAL},
+			</if>
+			<if test="batchDate != null">
+				#{batchDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=CHAR},
+			</if>
+			<if test="creProId != null">
+				#{creProId,jdbcType=DECIMAL},
+			</if>
+			<if test="createdBy != null">
+				#{createdBy,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modProId != null">
+				#{modProId,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedBy != null">
+				#{lastModifiedBy,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedDate != null">
+				#{lastModifiedDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.glanway.ctrlhr.entity.device.Device">
+		update T_DEVICE
+		<set>
+			<if test="signPointId != null">
+				SIGN_POINT_ID = #{signPointId,jdbcType=DECIMAL},
+			</if>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sn != null">
+				SN = #{sn,jdbcType=VARCHAR},
+			</if>
+			<if test="ip != null">
+				IP = #{ip,jdbcType=VARCHAR},
+			</if>
+			<if test="firstConnectionTime != null">
+				FIRST_CONNECTION_TIME = #{firstConnectionTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastConnectionTime != null">
+				LAST_CONNECTION_TIME = #{lastConnectionTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="totalPeople != null">
+				TOTAL_PEOPLE = #{totalPeople,jdbcType=DECIMAL},
+			</if>
+			<if test="unsyncPeople != null">
+				UNSYNC_PEOPLE = #{unsyncPeople,jdbcType=DECIMAL},
+			</if>
+			<if test="state != null">
+				STATE = #{state,jdbcType=DECIMAL},
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=CHAR},
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.glanway.ctrlhr.entity.device.Device">
+		update T_DEVICE
+		set SIGN_POINT_ID = #{signPointId,jdbcType=DECIMAL},
+		NAME = #{name,jdbcType=VARCHAR},
+		SN = #{sn,jdbcType=VARCHAR},
+		IP = #{ip,jdbcType=VARCHAR},
+		FIRST_CONNECTION_TIME = #{firstConnectionTime,jdbcType=TIMESTAMP},
+		LAST_CONNECTION_TIME = #{lastConnectionTime,jdbcType=TIMESTAMP},
+		TOTAL_PEOPLE = #{totalPeople,jdbcType=DECIMAL},
+		UNSYNC_PEOPLE = #{unsyncPeople,jdbcType=DECIMAL},
+		STATE = #{state,jdbcType=DECIMAL},
+		BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+		DELETED = #{deleted,jdbcType=CHAR},
+		CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+		CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+		CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+		MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+		LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+		LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+
+	<!-- 全部查询 -->
+	<!--设备列表查询条件 -->
+	<sql id="where_findList">
+		<where>
+			DEV.DELETED = 0
+			<if test="para.state != null and para.state != ''">
+				AND DEV.STATE = #{para.state}
+			</if>
+			<if test="para.keyword != null and para.keyword != ''">
+				AND TSP.NAME LIKE '%${para.keyword}%'
+			</if>
+		</where>
+	</sql>
+	<!-- 设备列表查询Orcale分页查询主体数据 -->
+	<sql id="list_findList">
+		SELECT 
+			DEV.ID,DEV.STATE,DEV.SYNC_STATE,TSP.NAME SIGN_POINT_NAME,DEV.NAME DEVICE_NAME,DEV.SN,DEV.TOTAL_PEOPLE,DEV.UNSYNC_PEOPLE
+		FROM T_DEVICE DEV 
+		LEFT JOIN T_SIGN_POINT TSP ON TSP.ID =  DEV.SIGN_POINT_ID AND TSP.DELETED =0
+		<include refid="where_findList"/>
+	</sql>
+
+	<!-- 查询设备列表总数 -->
+	<select id="findListCount" resultType="java.lang.Integer">
+		SELECT 
+			COUNT(DISTINCT DEV.ID)
+		FROM T_DEVICE DEV 
+		LEFT JOIN T_SIGN_POINT TSP ON TSP.ID =  DEV.SIGN_POINT_ID AND TSP.DELETED =0
+		<include refid="where_findList" />
+	</select>
+
+	<!-- 查询设备列表 -->
+	<select id="findList" resultType="DeviceVo">
+		SELECT 
+			TT.ID,TT.STATE,TT.SYNC_STATE,TT.SIGN_POINT_NAME,TT.DEVICE_NAME,TT.SN,TT.TOTAL_PEOPLE,TT.UNSYNC_PEOPLE
+		FROM(
+			SELECT R.*, ROWNUM RN
+			FROM (
+				<include refid="list_findList"/>
+			) R
+			where ROWNUM <![CDATA[<]]> (#{para.startIndex} + #{para.pageSize})
+		) TT WHERE TT.RN >= #{para.startIndex}
+	</select>
+
+	<!-- 更新未绑定考勤点的考勤机的数据 -->
+	<update id="update">
+		UPDATE 
+			T_DEVICE DEV SET DEV.SIGN_POINT_ID = #{signPointId},DEV.STATE = 2
+		WHERE DEV.ID IN
+		<foreach collection="deviceIdArr" item="deviceId" open="(" close=")" separator=",">
+			#{deviceId}
+		</foreach>
+	</update>
+	
+	<!-- 根据考勤点ID查询设备  -->
+	<select id="findMany" resultType="Device">
+		SELECT  
+			<include refid="Base_Column_List"/>
+		FROM T_DEVICE
+		WHERE SIGN_POINT_ID=#{signPointId} AND DELETED=0
+	</select>
+	
+	<!-- 查询设备精简列表(未删除和未使用) -->
+	<select id="findsimpleList" resultType="SimpleDeviceVo">
+		SELECT 
+			ID,NAME 
+		FROM T_DEVICE 
+		WHERE STATE = 1 AND DELETED =0
+		<if test="para.keyword != null and para.keyword != ''">
+				AND NAME LIKE '%${para.keyword}%'
+		</if>
+	</select>
+	<!-- 删除时根据设备id时查询设备 -->
+	<select id="queryDevice" resultType="Device">
+		SELECT 
+			D.ID,D.SIGN_POINT_ID,D.NAME,D.SN,D.IP,D.FIRST_CONNECTION_TIME,D.TOTAL_PEOPLE,D.UNSYNC_PEOPLE,D.STATE,
+			D.BATCH_DATE,D.DELETED,D.CRE_PRO_ID,D.CREATED_BY,D.CREATED_DATE,
+			D.MOD_PRO_ID,D.LAST_MODIFIED_BY,D.LAST_MODIFIED_DATE	
+		FROM T_DEVICE D
+		WHERE D.ID = #{id} AND D.DELETED=0
+	</select>
+	
+	<!-- 根据id 获取考勤设备信息 -->
+	<select id="queryOneDevice" resultType="DeviceVo">
+		SELECT 
+			D.ID,D.SIGN_POINT_ID,D.NAME DEVICENAME, SP.NAME SIGNPOINNAME,D.SN
+		FROM T_DEVICE D LEFT JOIN T_SIGN_POINT SP ON D.SIGN_POINT_ID= SP.ID
+		WHERE  D.ID = #{id} AND D.DELETED=0
+	</select>
+	
+	<!-- 逻辑删除考勤设备 -->
+	<update id="delete">
+		UPDATE T_DEVICE
+			SET DELETED=1
+		WHERE ID=#{id}
+	</update>
+	
+	<!-- 查询设备是否已经存在 -->
+	<select id="findDeviceBySn" resultType="Device">
+		select 
+			ID, NAME
+		from T_DEVICE
+		where SN = #{sn}
+	</select>
+	
+	<!-- 根据设备ID同步数据 -->
+	<select id="findSnById" resultType="Device">
+		SELECT 
+			ID,NAME,SIGN_POINT_ID,SN
+		FROM T_DEVICE
+		WHERE STATE = 2 AND SYNC_STATE = 1 AND DELETED = 0 AND ID IN
+		<foreach collection="idArr" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach> 
+	</select>
+	<!-- 查询所有可用未同步的设备序列号 -->
+	<select id="findAllSn" resultType="Device">
+		SELECT 
+			ID,NAME,SIGN_POINT_ID,SN
+		FROM T_DEVICE
+		WHERE STATE = 2 AND SYNC_STATE = 1 AND DELETED = 0
+	</select>
+</mapper>

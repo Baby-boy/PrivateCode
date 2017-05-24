@@ -1,0 +1,219 @@
+/*
+body {
+    font-family: "微软雅黑", Arial, "宋体",serif;
+    font-size: 12px;
+}
+*/
+
+.tree-picker-container {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 12px;
+    zoom: 1;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.tree-picker-container .tree-picker-pl {
+    background: transparent;
+    border: 0;
+    line-height: 24px;
+    color: #666;
+    box-shadow: none;
+    padding: 0 0 0 8px;
+    margin: 0;
+}
+
+.tree-picker-container .tree-picker-drop {
+    position: absolute;
+    top: 100%;
+    left: -9999px;
+    z-index: 1010;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    min-width: 100%;
+    _width: 100%;
+    _overflow-x: auto;
+    border: 1px solid #aaa;
+    border-top: 0;
+    background: #fff;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+}
+
+.tree-picker-container.tree-picker-with-drop .tree-picker-drop {
+    left: 0;
+}
+
+.tree-picker-container .tree-picker-drop a {
+    color: #333;
+    text-decoration: none;
+}
+
+.tree-picker-drop a.close-own {
+    background: url(cross.png) no-repeat left 3px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    outline: none;
+    right: 7px;
+    top: 5px;
+    text-indent: 200px;
+    overflow: hidden;
+}
+
+.tree-picker-drop a.close-own:hover {
+    background-position: left -46px;
+}
+
+.tree-picker-drop .loader {
+    display: none;
+}
+
+.tree-picker-drop.loading .loader {
+    display: block;
+}
+
+.tree-picker-container .tree-picker-toolbar {
+    position: relative;
+    height:25px;
+    line-height:25px;
+    padding-right:30px;
+    border-bottom: 1px dashed #efefef;
+    text-align: right;
+}
+
+.tree-picker-container .tree-picker-single .tree-picker-pl {
+    padding-left: 0;
+}
+
+/*
+.tree-picker-single .choice-close {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+*/
+
+.tree-picker-container-single .tree-picker-single {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    padding: 0 0 0 8px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #444;
+    text-decoration: none;
+    white-space: nowrap;
+    line-height: 24px;
+    outline: 0;
+
+    background: -webkit-gradient(linear,50% 0,50% 100%,color-stop(20%,#fff),color-stop(50%,#f6f6f6),color-stop(52%,#eee),color-stop(100%,#f4f4f4));
+    background: -webkit-linear-gradient(top,#fff 20%,#f6f6f6 50%,#eee 52%,#f4f4f4 100%);
+    background: -moz-linear-gradient(top,#fff 20%,#f6f6f6 50%,#eee 52%,#f4f4f4 100%);
+    background: -o-linear-gradient(top,#fff 20%,#f6f6f6 50%,#eee 52%,#f4f4f4 100%);
+    background: linear-gradient(top,#fff 20%,#f6f6f6 50%,#eee 52%,#f4f4f4 100%);
+    background-clip: padding-box;
+    box-shadow: 0 0 3px #fff inset,0 1px 1px rgba(0,0,0,.1);
+}
+.tree-picker-container-single .tree-picker-drop {
+    margin-top: -1px;
+    background-clip: padding-box;
+}
+
+.tree-picker-container-active.tree-picker-with-drop .tree-picker-single {
+    border: 1px solid #aaa;
+    -moz-border-radius-bottomright: 0;
+    border-bottom-right-radius: 0;
+    -moz-border-radius-bottomleft: 0;
+    border-bottom-left-radius: 0;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #eeeeee), color-stop(80%, #ffffff));
+    background-image: -webkit-linear-gradient(#eeeeee 20%, #ffffff 80%);
+    background-image: -moz-linear-gradient(#eeeeee 20%, #ffffff 80%);
+    background-image: -o-linear-gradient(#eeeeee 20%, #ffffff 80%);
+    background-image: linear-gradient(#eeeeee 20%, #ffffff 80%);
+    box-shadow: 0 1px 0 #fff inset;
+}
+
+
+.tree-picker-container-multi .tree-picker-choices {
+    position: relative;
+    overflow: hidden;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: text;
+}
+
+.tree-picker-container-multi .tree-picker-choices li {
+    float: left;
+    list-style: none;
+}
+
+.tree-picker-container-multi .tree-picker-choices li.choice-item {
+    position: relative;
+    margin: 2px 0 2px 3px;
+    padding: 2px 20px 2px 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #e4e4e4;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #f4f4f4), color-stop(50%, #f0f0f0), color-stop(52%, #e8e8e8), color-stop(100%, #eeeeee));
+    background-image: -webkit-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+    background-image: -moz-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+    background-image: -o-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+    background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+    background-clip: padding-box;
+    box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+    color: #333;
+    line-height: 14px;
+    cursor: default;
+}
+
+.tree-picker-container-multi .tree-picker-choices li.choice-item .choice-close {
+    position: absolute;
+    top: 50%;
+    margin-top: -7px;
+    right: 3px;
+    display: block;
+    width: 12px;
+    height: 12px;
+    font-size: 1px;
+    color: #999;
+    cursor: pointer;
+}
+
+.tree-picker-container-multi .tree-picker-choices li.choice-item .choice-close:hover {
+    color: #000;
+}
+
+
+.jstree-default .jstree-anchor .jstree-themeicon {
+    background: #fdab36;
+    width: 10px ;
+    height: 10px ;
+    line-height: 10px;
+    margin: 7px 7px 7px 0;
+}
+.tree-picker-container .jstree-wholerow-ul {
+    max-height: 300px;
+    _height: 300px;
+    overflow-y: auto;
+}
+
+/*
+.tree-picker-container-active.tree-picker-with-drop .tree-picker-single {
+    border-color: #e1a531;
+    -moz-box-shadow: 0 0 3px #e1a531;
+    -webkit-box-shadow: 0 0 3px #e1a531;
+    box-shadow: 0 0 3px #e1a531;
+    outline: none;
+}
+*/

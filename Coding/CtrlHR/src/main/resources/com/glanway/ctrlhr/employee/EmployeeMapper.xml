@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.ctrlhr.dao.employee.EmployeeDao" >
+	<resultMap id="BaseResultMap" type="com.glanway.ctrlhr.entity.employee.Employee">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="CODE" property="code" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="SEX" property="sex" jdbcType="DECIMAL" />
+		<result column="JOB_STATE" property="jobState" jdbcType="DECIMAL" />
+		<result column="ENTRY_DATE" property="entryDate" jdbcType="TIMESTAMP" />
+		<result column="FORMAL_DATE" property="formalDate" jdbcType="TIMESTAMP" />
+		<result column="QUIT_DATE" property="quitDate" jdbcType="TIMESTAMP" />
+		<result column="DEPT_ID" property="deptId" jdbcType="DECIMAL" />
+		<result column="JOB_ID" property="jobId" jdbcType="DECIMAL" />
+		<result column="SALARY_ID" property="salaryId" jdbcType="DECIMAL" />
+		<result column="PERF_ID" property="perfId" jdbcType="DECIMAL" />
+		<result column="BATCH_DATE" property="batchDate" jdbcType="TIMESTAMP" />
+		<result column="DELETED" property="deleted" jdbcType="CHAR" />
+		<result column="CRE_PRO_ID" property="creProId" jdbcType="DECIMAL" />
+		<result column="CREATED_BY" property="createdBy" jdbcType="DECIMAL" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="MOD_PRO_ID" property="modProId" jdbcType="DECIMAL" />
+		<result column="LAST_MODIFIED_BY" property="lastModifiedBy"
+			jdbcType="DECIMAL" />
+		<result column="LAST_MODIFIED_DATE" property="lastModifiedDate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, NAME, CODE, MOBILE, SEX, JOB_STATE, ENTRY_DATE, FORMAL_DATE,
+		QUIT_DATE, DEPT_ID,
+		JOB_ID, SALARY_ID, PERF_ID, BATCH_DATE, DELETED, CRE_PRO_ID, CREATED_BY,
+		CREATED_DATE,
+		MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from T_EMPLOYEE
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from T_EMPLOYEE
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.glanway.ctrlhr.entity.employee.Employee">
+		insert into T_EMPLOYEE (ID, NAME, CODE,
+		MOBILE, SEX, JOB_STATE,
+		ENTRY_DATE, FORMAL_DATE, QUIT_DATE,
+		DEPT_ID, JOB_ID, SALARY_ID,
+		PERF_ID, BATCH_DATE, DELETED,
+		CRE_PRO_ID, CREATED_BY, CREATED_DATE,
+		MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE
+		)
+		values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR},
+		#{code,jdbcType=VARCHAR},
+		#{mobile,jdbcType=VARCHAR}, #{sex,jdbcType=DECIMAL}, #{jobState,jdbcType=DECIMAL},
+		#{entryDate,jdbcType=TIMESTAMP}, #{formalDate,jdbcType=TIMESTAMP},
+		#{quitDate,jdbcType=TIMESTAMP},
+		#{deptId,jdbcType=DECIMAL}, #{jobId,jdbcType=DECIMAL}, #{salaryId,jdbcType=DECIMAL},
+		#{perfId,jdbcType=DECIMAL}, #{batchDate,jdbcType=TIMESTAMP},
+		#{deleted,jdbcType=CHAR},
+		#{creProId,jdbcType=DECIMAL}, #{createdBy,jdbcType=DECIMAL}, #{createdDate,jdbcType=TIMESTAMP},
+		#{modProId,jdbcType=DECIMAL}, #{lastModifiedBy,jdbcType=DECIMAL},
+		#{lastModifiedDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.glanway.ctrlhr.entity.employee.Employee">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE">
+			SELECT S_T_EMPLOYEE.NEXTVAL FROM DUAL
+		</selectKey>
+
+		insert into T_EMPLOYEE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="code != null">
+				CODE,
+			</if>
+			<if test="mobile != null">
+				MOBILE,
+			</if>
+			<if test="sex != null">
+				SEX,
+			</if>
+			<if test="jobState != null">
+				JOB_STATE,
+			</if>
+			<if test="entryDate != null">
+				ENTRY_DATE,
+			</if>
+			<if test="formalDate != null">
+				FORMAL_DATE,
+			</if>
+			<if test="quitDate != null">
+				QUIT_DATE,
+			</if>
+			<if test="deptId != null">
+				DEPT_ID,
+			</if>
+			<if test="jobId != null">
+				JOB_ID,
+			</if>
+			<if test="salaryId != null">
+				SALARY_ID,
+			</if>
+			<if test="perfId != null">
+				PERF_ID,
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE,
+			</if>
+			<if test="deleted != null">
+				DELETED,
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID,
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID,
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY,
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=DECIMAL},
+			</if>
+			<if test="jobState != null">
+				#{jobState,jdbcType=DECIMAL},
+			</if>
+			<if test="entryDate != null">
+				#{entryDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="formalDate != null">
+				#{formalDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="quitDate != null">
+				#{quitDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deptId != null">
+				#{deptId,jdbcType=DECIMAL},
+			</if>
+			<if test="jobId != null">
+				#{jobId,jdbcType=DECIMAL},
+			</if>
+			<if test="salaryId != null">
+				#{salaryId,jdbcType=DECIMAL},
+			</if>
+			<if test="perfId != null">
+				#{perfId,jdbcType=DECIMAL},
+			</if>
+			<if test="batchDate != null">
+				#{batchDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=CHAR},
+			</if>
+			<if test="creProId != null">
+				#{creProId,jdbcType=DECIMAL},
+			</if>
+			<if test="createdBy != null">
+				#{createdBy,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modProId != null">
+				#{modProId,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedBy != null">
+				#{lastModifiedBy,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedDate != null">
+				#{lastModifiedDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.glanway.ctrlhr.entity.employee.Employee">
+		update T_EMPLOYEE
+		<set>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				CODE = #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				MOBILE = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				SEX = #{sex,jdbcType=DECIMAL},
+			</if>
+			<if test="jobState != null">
+				JOB_STATE = #{jobState,jdbcType=DECIMAL},
+			</if>
+			<if test="entryDate != null">
+				ENTRY_DATE = #{entryDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="formalDate != null">
+				FORMAL_DATE = #{formalDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="quitDate != null">
+				QUIT_DATE = #{quitDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deptId != null">
+				DEPT_ID = #{deptId,jdbcType=DECIMAL},
+			</if>
+			<if test="jobId != null">
+				JOB_ID = #{jobId,jdbcType=DECIMAL},
+			</if>
+			<if test="salaryId != null">
+				SALARY_ID = #{salaryId,jdbcType=DECIMAL},
+			</if>
+			<if test="perfId != null">
+				PERF_ID = #{perfId,jdbcType=DECIMAL},
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=CHAR},
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.glanway.ctrlhr.entity.employee.Employee">
+		update T_EMPLOYEE
+		set NAME = #{name,jdbcType=VARCHAR},
+		CODE = #{code,jdbcType=VARCHAR},
+		MOBILE = #{mobile,jdbcType=VARCHAR},
+		SEX = #{sex,jdbcType=DECIMAL},
+		JOB_STATE = #{jobState,jdbcType=DECIMAL},
+		ENTRY_DATE = #{entryDate,jdbcType=TIMESTAMP},
+		FORMAL_DATE = #{formalDate,jdbcType=TIMESTAMP},
+		QUIT_DATE = #{quitDate,jdbcType=TIMESTAMP},
+		DEPT_ID = #{deptId,jdbcType=DECIMAL},
+		JOB_ID = #{jobId,jdbcType=DECIMAL},
+		SALARY_ID = #{salaryId,jdbcType=DECIMAL},
+		PERF_ID = #{perfId,jdbcType=DECIMAL},
+		BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+		DELETED = #{deleted,jdbcType=CHAR},
+		CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+		CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+		CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+		MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+		LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+		LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+  
+	<!-- 全部查询 -->
+	<!-- 员工采集信息结果集 -->
+	<resultMap type="com.glanway.ctrlhr.entity.vo.EmployeeSignInfoVo" id="EmployeeSignInfoVoResultMap">
+		<id column="ID" property="id"/>
+		<result column="CODE" property="code"/>
+		<result column="NAME" property="name"/>
+		<result column="FIN_ID" property="hasFinger"/>
+		<result column="FAC_ID" property="hasFace"/>
+		
+		<!-- 考勤点 -->
+		<collection property="signPoints" ofType="com.glanway.ctrlhr.entity.vo.EmployeeSignPointVo">
+			<result column="SIGN_POINT_ID" property="signPointId"/>
+			<result column="SIGN_POINT_NAME" property="signPointName"/>
+		</collection>
+		
+		<!-- 考勤群组 -->
+		<collection property="signGroups" ofType="com.glanway.ctrlhr.entity.vo.EmployeeSignGroupVo">
+			<result column="SIGN_GROUP_ID" property="signGroupId"/>
+			<result column="SIGN_GROUP_NAME" property="signGroupName"/>
+		</collection>
+	</resultMap>
+ 	<!-- 员工列表查询条件 -->
+	<sql id="where_findList">
+		<where>
+			EMP.DELETED = 0 
+			<if test="para.companyId != null and para.companyId != ''">
+				AND COM.ID = #{para.companyId}
+			</if>
+			<if test="para.deptIds != null and para.deptIds != ''">
+				AND EMP.DEPT_ID IN
+				<foreach collection="para.deptIdList" item="deptId" open="(" close=")" separator=",">
+					#{deptId}
+				</foreach>
+			</if>
+			<if test="para.jobId != null and para.jobId != ''">
+				AND EMP.JOB_ID = #{para.jobId}
+			</if>
+			<if test="para.jobStates != null and para.jobStates != ''">
+				AND EMP.JOB_STATE IN
+				<foreach collection="para.jobStateList" item="jobState" open="(" close=")" separator=",">
+					#{jobState}
+				</foreach>
+			</if>
+			<if test="para.entryDateFrom != null and para.entryDateFrom != '' and para.entryDateTo != null and para.entryDateTo != ''">
+				AND (EMP.ENTRY_DATE BETWEEN TO_DATE('${para.entryDateFrom}', 'yyyy-MM-dd HH24:mi:ss') AND TO_DATE('${para.entryDateTo}', 'yyyy-MM-dd HH24:mi:ss'))
+			</if>
+			<if test="para.formalDateFrom != null and para.formalDateFrom != '' and para.formalDateTo != null and para.formalDateTo != ''">
+				AND (EMP.ENTRY_DATE BETWEEN TO_DATE('${para.formalDateFrom}', 'yyyy-MM-dd HH24:mi:ss') AND TO_DATE('${para.formalDateTo}', 'yyyy-MM-dd HH24:mi:ss'))
+			</if>
+			<if test="para.quitDateFrom != null and para.quitDateFrom != '' and para.quitDateTo != null and para.quitDateTo != ''">
+				AND (EMP.ENTRY_DATE BETWEEN TO_DATE('${para.quitDateFrom}', 'yyyy-MM-dd HH24:mi:ss') AND TO_DATE('${para.quitDateTo}', 'yyyy-MM-dd HH24:mi:ss'))
+			</if>
+			<if test="para.keyword != null and para.keyword != ''">
+				AND (EMP.CODE LIKE '%${para.keyword}%' OR EMP.NAME LIKE '%${para.keyword}%')
+			</if>
+
+		</where>
+	</sql>
+	<!-- 员工列表查询Orcale分页查询主体数据 -->
+	<sql id="list_findList">
+		SELECT 
+			EMP.ID,EMP.NAME,EMP.CODE,EMP.JOB_STATE,EMP.ENTRY_DATE,EMP.FORMAL_DATE,EMP.QUIT_DATE,EMP.DEPT_ID,DEPT.NAME DEPT_NAME,EMP.JOB_ID,JOB.NAME JOB_NAME
+		FROM T_EMPLOYEE EMP
+		LEFT JOIN T_DEPT DEPT ON DEPT.ID = EMP.DEPT_ID AND DEPT.STATE = 1 AND DEPT.DELETED=0
+		LEFT JOIN T_COMPANY COM ON COM.ID = DEPT.COMPANY_ID AND COM.STATE = 1 AND DEPT.DELETED=0
+		LEFT JOIN T_JOB JOB ON JOB.ID = EMP.JOB_ID AND JOB.STATE = 1 AND DEPT.DELETED=0
+		<include refid="where_findList"/>
+		<if test="para.orderBy == 'employeeNameDesc'">
+			ORDER BY EMP.NAME DESC
+		</if>
+		<if test="para.orderBy == 'employeeNameAsc'">
+			ORDER BY EMP.NAME ASC
+		</if>
+		<if test="para.orderBy == 'employeeCodeDesc'">
+			ORDER BY EMP.CODE DESC
+		</if>
+		<if test="para.orderBy == 'employeeCodeAsc'">
+			ORDER BY EMP.CODE ASC
+		</if>
+		<if test="para.orderBy == 'deptNameDesc'">
+			ORDER BY DEPT.NAME DESC
+		</if>
+		<if test="para.orderBy == 'deptNameAsc'">
+			ORDER BY DEPT.NAME ASC
+		</if>
+		<if test="para.orderBy == 'jobNameDesc'">
+			ORDER BY JOB.NAME DESC
+		</if>
+		<if test="para.orderBy == 'jobNameAsc'">
+			ORDER BY JOB.NAME ASC
+		</if>
+		<if test="para.orderBy == 'jobStateDesc'">
+			ORDER BY EMP.JOB_STATE DESC
+		</if>
+		<if test="para.orderBy == 'jobStateAsc'">
+			ORDER BY EMP.JOB_STATE ASC
+		</if>
+		<if test="para.orderBy == 'entryDateDesc'">
+			ORDER BY EMP.ENTRY_DATE DESC
+		</if>
+		<if test="para.orderBy == 'entryDateAsc'">
+			ORDER BY EMP.ENTRY_DATE ASC
+		</if>
+		<if test="para.orderBy == 'formalDateDesc'">
+			ORDER BY EMP.FORMAL_DATE DESC
+		</if>
+		<if test="para.orderBy == 'formalDateAsc'">
+			ORDER BY EMP.FORMAL_DATE ASC
+		</if>
+		<if test="para.orderBy == 'quitDateDesc'">
+			ORDER BY EMP.QUIT_DATE DESC
+		</if>
+		<if test="para.orderBy == 'quitDateAsc'">
+			ORDER BY EMP.QUIT_DATE ASC
+		</if>
+		<if test="para.orderBy == null or para.orderBy == ''">
+			ORDER BY EMP.CODE
+		</if>
+	</sql>
+	<!-- 查询员工列表总数 -->
+	<select id="findListCount" resultType="java.lang.Integer">
+		SELECT 
+			COUNT(DISTINCT EMP.ID)
+		FROM T_EMPLOYEE EMP
+		LEFT JOIN T_DEPT DEPT ON DEPT.ID = EMP.DEPT_ID AND DEPT.STATE = 1 AND DEPT.DELETED=0
+		LEFT JOIN T_COMPANY COM ON COM.ID = DEPT.COMPANY_ID AND COM.STATE = 1 AND DEPT.DELETED=0
+		LEFT JOIN T_JOB JOB ON JOB.ID = EMP.JOB_ID AND JOB.STATE = 1 AND DEPT.DELETED=0
+		<include refid="where_findList"/>
+	 </select>
+	 
+	 <!-- 查询员工列表 -->
+	 <select id="findList" resultType="EmployeeVo">
+		SELECT 
+			TT.ID,TT.NAME,TT.CODE,TT.JOB_STATE,TT.ENTRY_DATE,TT.FORMAL_DATE,TT.QUIT_DATE,TT.DEPT_ID,TT.DEPT_NAME,TT.JOB_ID,TT.JOB_NAME
+		FROM(
+			SELECT R.*, ROWNUM RN
+			FROM (
+				<include refid="list_findList"/>
+			) R
+			where ROWNUM <![CDATA[<]]> (#{para.startIndex} + #{para.pageSize})
+		) TT WHERE TT.RN >= #{para.startIndex}
+	</select>
+
+	<!-- 根据ID获取员工信息 -->
+	<select id="findOne" resultType="EmployeeVo">
+		SELECT 
+			EMP.ID,EMP.NAME,EMP.CODE,EMP.MOBILE,EMP.SEX,EMP.JOB_STATE,EMP.ENTRY_DATE,EMP.FORMAL_DATE,EMP.QUIT_DATE,EMP.DEPT_ID,DEPT.NAME DEPT_NAME,
+			EMP.JOB_ID,JOB.NAME JOB_NAME,EMP.SALARY_ID,TSS.NAME SALARY_NAME, EMP.PERF_ID,TPS.NAME PERF_NAME
+		FROM T_EMPLOYEE EMP
+		LEFT JOIN T_DEPT DEPT ON DEPT.ID = EMP.DEPT_ID AND DEPT.STATE = 1 AND DEPT.DELETED=0
+		LEFT JOIN T_COMPANY COM ON COM.ID = DEPT.COMPANY_ID AND COM.STATE = 1 AND DEPT.DELETED=0
+		LEFT JOIN T_JOB JOB ON JOB.ID = EMP.JOB_ID AND JOB.STATE = 1 AND DEPT.DELETED=0
+		LEFT JOIN T_SALARY_STALL TSS ON TSS.ID = EMP.SALARY_ID
+		LEFT JOIN T_PERF_STALL TPS ON TPS.ID = EMP.PERF_ID
+		WHERE EMP.ID = #{id}
+	</select>
+
+	<!-- 查询设备上员工列表 -->
+	<sql id="where_findDeviceToEmployeeList">
+		<if test="para.keyword != null and para.keyword != ''">
+			AND (EMP.CODE LIKE '%${para.keyword}%' OR EMP.NAME LIKE '%${para.keyword}%')
+		</if>
+	</sql>
+	
+	<!-- 员工列表查询Orcale分页查询主体数据 -->
+	<sql id="list_findDeviceToEmployeeList">
+		SELECT 
+			EMP.ID,EMP.NAME,EMP.CODE,EMP.DEPT_ID,EMP.DEPT_NAME,EMP.JOB_ID,EMP.JOB_NAME 
+		FROM(
+		<include refid="signPointEmployee"/>
+		UNION
+		<include refid="groupSignPointDept"/>
+		UNION
+		<include refid="groupSignPointEmployee"/>
+		UNION
+		<include refid="groupDeptDept"/>
+		UNION
+		<include refid="groupDeptEmployee"/>
+		) EMP WHERE EMP.ID IS NOT NULL  
+		<include refid="where_findDeviceToEmployeeList"/>
+		GROUP BY EMP.ID,EMP.NAME,EMP.CODE,EMP.DEPT_ID,EMP.DEPT_NAME,EMP.JOB_ID,EMP.JOB_NAME
+	</sql>
+	
+	<!-- 考勤点-人员基本信息 -->
+	<sql id="signPointEmployee">
+		SELECT
+			EMP.ID,EMP.NAME,EMP.CODE,DEPT.ID DEPT_ID,DEPT.NAME DEPT_NAME,JOB.ID JOB_ID,JOB.NAME JOB_NAME
+		FROM
+			T_DEVICE TD
+		LEFT JOIN T_SIGN_POINT TSP ON TSP. ID = TD.SIGN_POINT_ID AND TSP.DELETED = '0'
+		LEFT JOIN T_SIGN_POINT_DEPT TSPD ON TSPD.SIGN_POINT_ID = TSP. ID AND TSPD.DELETED = '0'
+		LEFT JOIN T_DEPT TP ON TP. ID = TSPD.DEPT_ID AND TP.DELETED = '0'
+		LEFT JOIN T_EMPLOYEE EMP ON EMP.DEPT_ID = TP. ID AND EMP.DELETED = '0'
+		LEFT JOIN T_EMPLOYEE_DEVICE_INFO TEDI ON TEDI.EMPLOYEE_CODE = EMP.CODE AND TEDI.DELETED = '0'
+		LEFT JOIN T_DEPT DEPT ON DEPT. ID = EMP.DEPT_ID AND DEPT.DELETED = 0 AND DEPT.STATE = 1
+		LEFT JOIN T_JOB JOB ON JOB.ID = EMP.JOB_ID AND JOB.DELETED = 0 AND JOB.STATE = 1
+		WHERE TD.DELETED = '0'
+		AND TD.SN = #{para.sn}
+	</sql>
+	<!--考勤组-考勤点-(部门) -->
+	<sql id="groupSignPointDept">
+		SELECT
+			EMP.ID,EMP.NAME,EMP.CODE,DEPT.ID DEPT_ID,DEPT.NAME DEPT_NAME,JOB.ID JOB_ID,JOB.NAME JOB_NAME
+		FROM
+			T_EMPLOYEE EMP
+		LEFT JOIN T_EMPLOYEE_DEVICE_INFO TEDI ON TEDI.EMPLOYEE_CODE = EMP.CODE AND TEDI.DELETED = '0'
+		LEFT JOIN T_DEPT DEPT ON DEPT. ID = EMP.DEPT_ID AND DEPT.DELETED = 0 AND DEPT.STATE = 1
+		LEFT JOIN T_JOB JOB ON JOB.ID = EMP.JOB_ID AND JOB.DELETED = 0 AND JOB.STATE = 1
+		WHERE
+			EXISTS (
+				SELECT
+					*
+				FROM
+					T_DEVICE TD,
+					T_SIGN_POINT_DEPT TSPD,
+					T_SIGN_GROUP_DEPT TSGD,
+					T_SIGN_GROUP TSG,
+					T_SIGN_GROUP_SIGN_POINT TSGSP
+				WHERE
+					1 = 1
+				AND TSGD.TYPE = 1
+				AND EMP.DEPT_ID = TSGD.DEPT_ID
+				AND EMP.JOB_ID = TSGD.JOB_ID
+				AND TSGD.SIGN_GROUP_ID = TSGSP.SIGN_GROUP_ID
+				AND TSGSP.TYPE = 1
+				AND TSGSP.SIGN_POINT_ID = TSPD.SIGN_POINT_ID
+				AND TSGD.SIGN_GROUP_ID = TSG.ID
+				AND TSGSP.SIGN_GROUP_ID = TSG.ID
+				AND TSG.DELETED = '0'
+				AND TSG.STATE = 1
+				AND TSPD.SIGN_POINT_ID = TD.SIGN_POINT_ID
+				AND TD.SN = #{para.sn}
+			)
+		AND EMP.DELETED = '0'
+	</sql>
+	<!-- 考勤组-考勤点-(人员) -->
+	<sql id="groupSignPointEmployee">
+		SELECT
+			EMP.ID,EMP.NAME,EMP.CODE,DEPT.ID DEPT_ID,DEPT.NAME DEPT_NAME,JOB.ID JOB_ID,JOB.NAME JOB_NAME
+		FROM
+			T_EMPLOYEE EMP
+		LEFT JOIN T_EMPLOYEE_DEVICE_INFO TEDI ON TEDI.EMPLOYEE_CODE = EMP.CODE AND TEDI.DELETED = '0'
+		LEFT JOIN T_DEPT DEPT ON DEPT. ID = EMP.DEPT_ID AND DEPT.DELETED = 0 AND DEPT.STATE = 1
+		LEFT JOIN T_JOB JOB ON JOB.ID = EMP.JOB_ID AND JOB.DELETED = 0 AND JOB.STATE = 1
+		WHERE
+			EXISTS (
+				SELECT
+					*
+				FROM
+					T_DEVICE TD,
+					T_SIGN_POINT_DEPT TSPD,
+					T_SIGN_GROUP_DEPT TSGD,
+					T_SIGN_GROUP TSG,
+					T_SIGN_GROUP_SIGN_POINT TSGSP
+				WHERE
+					1 = 1
+				AND TSGD.TYPE = 2
+				AND EMP.ID = TSGD.EMPLOYEE_ID
+				AND TSGD.SIGN_GROUP_ID = TSGSP.SIGN_GROUP_ID
+				AND TSGSP. TYPE = 1
+				AND TSGSP.SIGN_POINT_ID = TSPD.SIGN_POINT_ID
+				AND TSGD.SIGN_GROUP_ID = TSG.ID
+				AND TSGSP.SIGN_GROUP_ID = TSG.ID
+				AND TSG.DELETED = '0'
+				AND TSG.STATE = 1
+				AND TSPD.SIGN_POINT_ID = TD.SIGN_POINT_ID
+				AND TD.SN = #{para.sn}
+			)
+		AND EMP.DELETED = '0'
+	</sql>
+	<!-- 考勤组-组织架构 -(部门) -->
+	<sql id="groupDeptDept">
+		SELECT
+			EMP.ID,EMP.NAME,EMP.CODE,DEPT.ID DEPT_ID,DEPT.NAME DEPT_NAME,JOB.ID JOB_ID,JOB.NAME JOB_NAME
+		FROM
+			T_EMPLOYEE EMP
+		LEFT JOIN T_EMPLOYEE_DEVICE_INFO TEDI ON TEDI.EMPLOYEE_CODE = EMP.CODE AND TEDI.DELETED = '0'
+		LEFT JOIN T_DEPT DEPT ON DEPT. ID = EMP.DEPT_ID AND DEPT.DELETED = 0 AND DEPT.STATE = 1
+		LEFT JOIN T_JOB JOB ON JOB.ID = EMP.JOB_ID AND JOB.DELETED = 0 AND JOB.STATE = 1
+		WHERE
+			EXISTS (
+				SELECT
+					*
+				FROM
+					T_DEVICE TD,
+					T_SIGN_POINT_DEPT TSPD,
+					T_SIGN_GROUP_DEPT TSGD,
+					T_SIGN_GROUP_SIGN_POINT TSGSP,
+					T_SIGN_GROUP TSG,
+					T_DEPT DEPT,
+					T_DEPT CHILDREN
+				WHERE
+					1 = 1
+				AND TSGD.TYPE = 1
+				AND EMP.DEPT_ID = TSGD.DEPT_ID
+				AND EMP.JOB_ID = TSGD.JOB_ID
+				AND TSGD.SIGN_GROUP_ID = TSGSP.SIGN_GROUP_ID
+				AND TSGD.SIGN_GROUP_ID = TSG.ID
+				AND TSGSP.SIGN_GROUP_ID = TSG.ID
+				AND TSG.DELETED = '0'
+				AND TSG.STATE = 1
+				AND DEPT.DELETED = '0'
+				AND DEPT.STATE = 1
+				AND CHILDREN.DELETED = '0'
+				AND CHILDREN.STATE = 1
+				AND TSGSP.TYPE = 2
+				AND TSGSP.DEPT_ID = DEPT. ID
+				AND CHILDREN.PATH LIKE (DEPT.PATH || '%')
+				AND CHILDREN.ID = TSGSP.DEPT_ID
+				AND TSPD.SIGN_POINT_ID = TD.SIGN_POINT_ID
+				AND TD.SN = #{para.sn}
+			)
+		AND EMP.DELETED = '0'
+	</sql>
+	<!-- 考勤组-组织架构 -(人员) -->
+	<sql id="groupDeptEmployee">
+		SELECT
+			EMP.ID,EMP.NAME,EMP.CODE,DEPT.ID DEPT_ID,DEPT.NAME DEPT_NAME,JOB.ID JOB_ID,JOB.NAME JOB_NAME
+		FROM T_EMPLOYEE EMP
+		LEFT JOIN T_EMPLOYEE_DEVICE_INFO TEDI ON TEDI.EMPLOYEE_CODE = EMP.CODE AND TEDI.DELETED = '0'
+		LEFT JOIN T_DEPT DEPT ON DEPT.ID=EMP.DEPT_ID AND DEPT.deleted = 0 AND DEPT.state =1
+		LEFT JOIN T_JOB JOB ON JOB.ID= EMP.job_ID AND JOB.deleted = 0 AND JOB.state =1
+		WHERE
+			EXISTS (
+				SELECT
+					*
+				FROM
+					T_DEVICE TD,
+					T_SIGN_POINT_DEPT TSPD,
+					T_SIGN_GROUP_DEPT TSGD,
+					T_SIGN_GROUP_SIGN_POINT TSGSP,
+					T_SIGN_GROUP TSG,
+					T_DEPT DEPT,
+					T_DEPT CHILDREN
+				WHERE
+					1 = 1
+				AND TSGD.TYPE = 2
+				AND EMP.ID = TSGD.EMPLOYEE_ID
+				AND TSGD.SIGN_GROUP_ID = TSGSP.SIGN_GROUP_ID
+				AND TSGSP.TYPE = 2
+				AND TSGSP.DEPT_ID = DEPT.ID
+				AND TSGD.SIGN_GROUP_ID = TSG.ID
+				AND TSGSP.SIGN_GROUP_ID = TSG.ID
+				AND TSG.DELETED = '0'
+				AND TSG.STATE = 1
+				AND DEPT.DELETED = '0'
+				AND DEPT.STATE = 1
+				AND CHILDREN.DELETED = '0'
+				AND CHILDREN.STATE = 1
+				AND CHILDREN.PATH LIKE (DEPT. PATH || '%')
+				AND CHILDREN.ID = TSGSP.DEPT_ID
+				AND TSPD.SIGN_POINT_ID = TD.SIGN_POINT_ID
+				AND TD.SN = #{para.sn}
+			)
+		AND EMP.DELETED = '0'
+    </sql>
+	
+	<!-- 查询设备上员工列表总数 -->
+	<select id="findListDeviceToEmployeeCount" resultType="java.lang.Integer">
+		SELECT 
+			COUNT(DISTINCT EMP.ID)
+		FROM(
+		<include refid="signPointEmployee"/>
+		UNION
+		<include refid="groupSignPointDept"/>
+		UNION
+		<include refid="groupSignPointEmployee"/>
+		UNION
+		<include refid="groupDeptDept"/>
+		UNION
+		<include refid="groupDeptEmployee"/>
+		) EMP WHERE EMP.ID IS NOT NULL  
+		<include refid="where_findDeviceToEmployeeList"/>
+	 </select>
+	
+	 <!-- 查询员工列表 -->
+	 <select id="findDeviceToEmployeeList" resultType="DeviceToEmployeeVo">
+		SELECT 
+			TT.ID,TT.NAME,TT.CODE,TT.DEPT_ID,TT.DEPT_NAME,TT.JOB_ID,TT.JOB_NAME
+		FROM(
+			SELECT R.*, ROWNUM RN
+			FROM (
+				<include refid="list_findDeviceToEmployeeList"/>
+			) R
+			where ROWNUM <![CDATA[<]]> (#{para.startIndex} + #{para.pageSize})
+		) TT WHERE TT.RN >= #{para.startIndex}
+	</select>
+	
+	<!-- 根据员工代码查询员工是否已经存在 -->
+	<select id="findByCode" resultType="Employee">
+		select 
+			ID,CODE
+		from T_EMPLOYEE
+		where CODE = #{code}
+	</select>
+	
+	<!-- 员工考勤采集信息 -->
+	<select id="findSignInfo" resultMap="EmployeeSignInfoVoResultMap">
+		SELECT 
+			EMP.ID,EMP.CODE,EMP.NAME,FIN.ID FIN_ID,FAC.ID FAC_ID,TSP.ID SIGN_POINT_ID,TSP.NAME SIGN_POINT_NAME,TSG.ID SIGN_GROUP_ID,TSG.NAME SIGN_GROUP_NAME
+		FROM T_EMPLOYEE EMP
+		LEFT JOIN T_FINGER_FACE_TEMPLATE FIN ON FIN.EMPLOYEE_CODE = EMP.CODE AND FIN.VALID = 1 AND FIN.TYPE = 1 
+		LEFT JOIN T_FINGER_FACE_TEMPLATE FAC ON FAC.EMPLOYEE_CODE = EMP.CODE AND FAC.VALID = 1 AND FAC.TYPE = 2
+		
+		LEFT JOIN T_SIGN_POINT_DEPT TSPD ON TSPD.DEPT_ID = EMP.DEPT_ID AND TSPD.DELETED = 0
+		LEFT JOIN T_SIGN_POINT TSP ON TSP.ID = TSPD.SIGN_POINT_ID AND TSP.DELETED = 0
+		
+		LEFT JOIN T_SIGN_GROUP_DEPT TSGD ON TSGD.DEPT_ID = EMP.DEPT_ID AND TSGD.JOB_ID = EMP.JOB_ID AND TSGD.TYPE = 1 AND TSGD.DELETED = 0
+		LEFT JOIN T_SIGN_GROUP_DEPT TSGD2 ON TSGD2.EMPLOYEE_ID = EMP.ID AND TSGD2.TYPE = 2 AND TSGD2.DELETED = 0
+		LEFT JOIN T_SIGN_GROUP TSG ON (TSG.ID = TSGD2.SIGN_GROUP_ID OR TSG.ID = TSGD.SIGN_GROUP_ID) AND TSG.STATE =1 AND TSG.DELETED = 0
+		
+		WHERE EMP.ID = #{id} AND EMP.CODE = #{code}
+	</select>
+</mapper>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.iclock.dao.employee.EmployeeDeviceInfoDao">
+	<resultMap id="BaseResultMap" type="EmployeeDeviceInfo">
+		<id column="ID" property="id" />
+		<result column="EMPLOYEE_CODE" property="employeeCode" />
+		<result column="PRI" property="pri" />
+		<result column="PIC" property="pic" />
+		<result column="PWD" property="pwd" />
+		<result column="CARD" property="card" />
+		<result column="DELETED" property="deleted" />
+		<result column="BATCH_DATE" property="batchDate" />
+		<result column="CRE_PRO_ID" property="creProId" />
+		<result column="CREATED_BY" property="createdBy" />
+		<result column="CREATED_DATE" property="createdDate" />
+		<result column="MOD_PRO_ID" property="modProId" />
+		<result column="LAST_MODIFIED_BY" property="lastModifiedBy" />
+		<result column="LAST_MODIFIED_DATE" property="lastModifiedDate" />
+
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, EMPLOYEE_CODE, PRI, PIC, PWD, CARD,DELETED,BATCH_DATE,
+		CRE_PRO_ID,
+		CREATED_BY,
+		CREATED_DATE, MOD_PRO_ID, LAST_MODIFIED_BY,
+		LAST_MODIFIED_DATE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from T_EMPLOYEE_DEVICE_INFO
+		where DELETED = '0' AND ID = #{id}
+	</select>
+	<select id="find" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from T_EMPLOYEE_DEVICE_INFO
+		where DELETED = '0' AND ID = #{id}
+	</select>
+	<select id="selectByEmployeeCode" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_EMPLOYEE_DEVICE_INFO
+		where DELETED = '0' AND EMPLOYEE_CODE =
+		#{employeeCode}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		T_EMPLOYEE_DEVICE_INFO
+		where ID = #{id}
+	</delete>
+	<insert id="insert" parameterType="EmployeeDeviceInfo">
+		insert into
+		T_EMPLOYEE_DEVICE_INFO (ID, EMPLOYEE_CODE, PRI,
+		PIC, PWD, CARD,
+		DELETED,BATCH_DATE, CRE_PRO_ID, CREATED_BY,
+		CREATED_DATE, MOD_PRO_ID,
+		LAST_MODIFIED_BY,
+		LAST_MODIFIED_DATE)
+		values (#{id}, #{employeeCode},
+		#{pri},
+		#{pic}, #{pwd}, #{card},
+		#{deleted},#{batchDate}, #{creProId},
+		#{createdBy},
+		#{createdDate}, #{modProId}, #{lastModifiedBy},
+		#{lastModifiedDate})
+	</insert>
+	<insert id="save" parameterType="EmployeeDeviceInfo">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="BEFORE">
+			SELECT S_T_EMPLOYEE_DEVICE_INFO.NEXTVAL FROM DUAL
+		</selectKey>
+		insert into T_EMPLOYEE_DEVICE_INFO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="employeeCode != null">
+				EMPLOYEE_CODE,
+			</if>
+			<if test="pri != null">
+				PRI,
+			</if>
+			<if test="pic != null">
+				PIC,
+			</if>
+			<if test="pwd != null">
+				PWD,
+			</if>
+			<if test="card != null">
+				CARD,
+			</if>
+			<if test="deleted != null">
+				DELETED,
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE,
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID,
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID,
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY,
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="employeeCode != null">
+				#{employeeCode},
+			</if>
+			<if test="pri != null">
+				#{pri},
+			</if>
+			<if test="pic != null">
+				#{pic},
+			</if>
+			<if test="pwd != null">
+				#{pwd},
+			</if>
+			<if test="card != null">
+				#{card},
+			</if>
+			<if test="deleted != null">
+				#{deleted},
+			</if>
+			<if test="batchDate != null">
+				#{batchDate},
+			</if>
+			<if test="creProId != null">
+				#{creProId},
+			</if>
+			<if test="createdBy != null">
+				#{createdBy},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate},
+			</if>
+			<if test="modProId != null">
+				#{modProId},
+			</if>
+			<if test="lastModifiedBy != null">
+				#{lastModifiedBy},
+			</if>
+			<if test="lastModifiedDate != null">
+				#{lastModifiedDate},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="EmployeeDeviceInfo">
+		update T_EMPLOYEE_DEVICE_INFO
+		<set>
+			<if test="employeeCode != null">
+				EMPLOYEE_CODE = #{employeeCode},
+			</if>
+			<if test="pri != null">
+				PRI = #{pri},
+			</if>
+			<if test="pic != null">
+				PIC = #{pic},
+			</if>
+			<if test="pwd != null">
+				PWD = #{pwd},
+			</if>
+			<if test="card != null">
+				CARD = #{card},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted},
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE = #{batchDate},
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID = #{creProId},
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY = #{createdBy},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate},
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID = #{modProId},
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY = #{lastModifiedBy},
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE = #{lastModifiedDate},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="EmployeeDeviceInfo">
+		update
+		T_EMPLOYEE_DEVICE_INFO
+		set EMPLOYEE_CODE = #{employeeCode},
+		PRI =
+		#{pri},
+		PIC = #{pic},
+		PWD = #{pwd},
+		CARD = #{card},
+		DELETED = #{deleted},
+		BATCH_DATE = #{batchDate},
+		CRE_PRO_ID = #{creProId},
+		CREATED_BY =
+		#{createdBy},
+		CREATED_DATE = #{createdDate},
+		MOD_PRO_ID = #{modProId},
+		LAST_MODIFIED_BY = #{lastModifiedBy},
+		LAST_MODIFIED_DATE =
+		#{lastModifiedDate}
+		where ID = #{id}
+	</update>
+
+
+	<!-- <insert id="save" parameterType="EmployeeDeviceInfo"> <selectKey resultType="java.lang.Long" 
+		keyProperty="id" order="BEFORE"> SELECT S_T_EMPLOYEE_DEVICE_INFO.NEXTVAL 
+		FROM DUAL </selectKey> insert into T_EMPLOYEE_DEVICE_INFO (ID, EMPLOYEE_CODE, 
+		PRI, PIC, PWD,CARD, DELETED,BATCH_DATE, CRE_PRO_ID, CREATED_BY, CREATED_DATE, 
+		MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE) values (#{id}, #{employeeCode}, 
+		#{pri}, #{pic}, #{pwd}, #{card}, #{deleted},#{batchDate} #{creProId}, #{createdBy}, 
+		#{createdDate}, #{modProId}, #{lastModifiedBy}, #{lastModifiedDate}) </insert> -->
+
+	
+	<update id="update" parameterType="EmployeeDeviceInfo">
+		update T_EMPLOYEE_DEVICE_INFO
+		<set>
+			<if test="employeeCode != null">
+				EMPLOYEE_CODE = #{employeeCode},
+			</if>
+			<if test="pri != null">
+				PRI = #{pri},
+			</if>
+			<if test="pic != null">
+				PIC = #{pic},
+			</if>
+			<if test="pwd != null">
+				PWD = #{pwd},
+			</if>
+			<if test="card != null">
+				CARD = #{card},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted},
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE = #{batchDate},
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID = #{creProId},
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY = #{createdBy},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate},
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID = #{modProId},
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY = #{lastModifiedBy},
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE = #{lastModifiedDate},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>

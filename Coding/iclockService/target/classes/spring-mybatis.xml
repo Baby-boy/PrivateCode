@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+
+    <description>Spring MyBatis 整合配置</description>
+
+    <context:property-placeholder location="classpath:config.properties"
+                                  ignore-resource-not-found="true"
+                                  ignore-unresolvable="true"/>
+
+
+    <!-- mybatis SqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!-- 如果 Mapper 和 xml 不在同一目录或名称不同, 需要 -->
+        <property name="mapperLocations">
+            <array>
+                <!--<value>classpath*:dao/support/mbt/SupportMapper.xml</value>-->
+                <value>classpath*:org/ponly/webbase/dao/support/mbt/SupportMapper.xml</value>
+                <value>classpath:com/glanway/iclock/dao/**/*Mapper.xml</value>
+            </array>
+        </property>
+        <property name="typeAliasesPackage" value="com.glanway.iclock.entity"/>
+        <property name="databaseIdProvider">
+            <bean class="org.apache.ibatis.mapping.VendorDatabaseIdProvider">
+                <property name="properties">
+                    <props>
+                        <prop key="MySQL">mysql</prop>
+                        <prop key="Oracle">oracle</prop>
+                    </props>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- mybatis spring schema ext -->
+    <mybatis:scan base-package="com.glanway.iclock.dao" factory-ref="sqlSessionFactory" />
+
+    <!-- mybatis transaction manager -->
+    <bean id="mybatisTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 必须和 sqlSessionFactory 是同一数据源 -->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="mybatisTransactionManager"/>
+
+      <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="initialPoolSize" value="2" />
+        <property name="maxPoolSize" value="50" />
+        <property name="minPoolSize" value="2" />
+        <property name="acquireIncrement" value="5" />
+        <property name="checkoutTimeout" value="0"/>
+        <property name="idleConnectionTestPeriod" value="3000"/>
+    </bean>
+</beans>

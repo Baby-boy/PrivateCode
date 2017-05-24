@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.ctrlhr.dao.dept.DeptDao" >
+  <resultMap id="BaseResultMap" type="com.glanway.ctrlhr.entity.dept.Dept" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="DUTY" property="duty" jdbcType="VARCHAR" />
+    <result column="IS_INDEPENDENT" property="isIndependent" jdbcType="CHAR" />
+    <result column="HAS_SUPERVISE_POWER" property="hasSupervisePower" jdbcType="CHAR" />
+    <result column="SUPERVISED" property="supervised" jdbcType="CHAR" />
+    <result column="POSITION" property="position" jdbcType="DECIMAL" />
+    <result column="STATE" property="state" jdbcType="DECIMAL" />
+    <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
+    <result column="PATH" property="path" jdbcType="VARCHAR" />
+    <result column="PATH_NAMES" property="pathNames" jdbcType="VARCHAR" />
+    <result column="DEPTH" property="depth" jdbcType="DECIMAL" />
+    <result column="IS_LEAF" property="isLeaf" jdbcType="CHAR" />
+    <result column="BATCH_DATE" property="batchDate" jdbcType="TIMESTAMP" />
+    <result column="DELETED" property="deleted" jdbcType="CHAR" />
+    <result column="CRE_PRO_ID" property="creProId" jdbcType="DECIMAL" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="DECIMAL" />
+    <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="MOD_PRO_ID" property="modProId" jdbcType="DECIMAL" />
+    <result column="LAST_MODIFIED_BY" property="lastModifiedBy" jdbcType="DECIMAL" />
+    <result column="LAST_MODIFIED_DATE" property="lastModifiedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, COMPANY_ID, COMPANY_NAME, NAME, CODE, DUTY, IS_INDEPENDENT, HAS_SUPERVISE_POWER, 
+    SUPERVISED, POSITION, STATE, PARENT_ID, PATH, PATH_NAMES, DEPTH, IS_LEAF, BATCH_DATE, 
+    DELETED, CRE_PRO_ID, CREATED_BY, CREATED_DATE, MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_DEPT
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from T_DEPT
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.glanway.ctrlhr.entity.dept.Dept" >
+    insert into T_DEPT (ID, COMPANY_ID, COMPANY_NAME, 
+      NAME, CODE, DUTY, IS_INDEPENDENT, 
+      HAS_SUPERVISE_POWER, SUPERVISED, POSITION, 
+      STATE, PARENT_ID, PATH, 
+      PATH_NAMES, DEPTH, IS_LEAF, 
+      BATCH_DATE, DELETED, CRE_PRO_ID, 
+      CREATED_BY, CREATED_DATE, MOD_PRO_ID, 
+      LAST_MODIFIED_BY, LAST_MODIFIED_DATE)
+    values (#{id,jdbcType=DECIMAL}, #{companyId,jdbcType=DECIMAL}, #{companyName,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{duty,jdbcType=VARCHAR}, #{isIndependent,jdbcType=CHAR}, 
+      #{hasSupervisePower,jdbcType=CHAR}, #{supervised,jdbcType=CHAR}, #{position,jdbcType=DECIMAL}, 
+      #{state,jdbcType=DECIMAL}, #{parentId,jdbcType=DECIMAL}, #{path,jdbcType=VARCHAR}, 
+      #{pathNames,jdbcType=VARCHAR}, #{depth,jdbcType=DECIMAL}, #{isLeaf,jdbcType=CHAR}, 
+      #{batchDate,jdbcType=TIMESTAMP}, #{deleted,jdbcType=CHAR}, #{creProId,jdbcType=DECIMAL}, 
+      #{createdBy,jdbcType=DECIMAL}, #{createdDate,jdbcType=TIMESTAMP}, #{modProId,jdbcType=DECIMAL}, 
+      #{lastModifiedBy,jdbcType=DECIMAL}, #{lastModifiedDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glanway.ctrlhr.entity.dept.Dept" >
+    insert into T_DEPT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="duty != null" >
+        DUTY,
+      </if>
+      <if test="isIndependent != null" >
+        IS_INDEPENDENT,
+      </if>
+      <if test="hasSupervisePower != null" >
+        HAS_SUPERVISE_POWER,
+      </if>
+      <if test="supervised != null" >
+        SUPERVISED,
+      </if>
+      <if test="position != null" >
+        POSITION,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="path != null" >
+        PATH,
+      </if>
+      <if test="pathNames != null" >
+        PATH_NAMES,
+      </if>
+      <if test="depth != null" >
+        DEPTH,
+      </if>
+      <if test="isLeaf != null" >
+        IS_LEAF,
+      </if>
+      <if test="batchDate != null" >
+        BATCH_DATE,
+      </if>
+      <if test="deleted != null" >
+        DELETED,
+      </if>
+      <if test="creProId != null" >
+        CRE_PRO_ID,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE,
+      </if>
+      <if test="modProId != null" >
+        MOD_PRO_ID,
+      </if>
+      <if test="lastModifiedBy != null" >
+        LAST_MODIFIED_BY,
+      </if>
+      <if test="lastModifiedDate != null" >
+        LAST_MODIFIED_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="duty != null" >
+        #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="isIndependent != null" >
+        #{isIndependent,jdbcType=CHAR},
+      </if>
+      <if test="hasSupervisePower != null" >
+        #{hasSupervisePower,jdbcType=CHAR},
+      </if>
+      <if test="supervised != null" >
+        #{supervised,jdbcType=CHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="pathNames != null" >
+        #{pathNames,jdbcType=VARCHAR},
+      </if>
+      <if test="depth != null" >
+        #{depth,jdbcType=DECIMAL},
+      </if>
+      <if test="isLeaf != null" >
+        #{isLeaf,jdbcType=CHAR},
+      </if>
+      <if test="batchDate != null" >
+        #{batchDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=CHAR},
+      </if>
+      <if test="creProId != null" >
+        #{creProId,jdbcType=DECIMAL},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=DECIMAL},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modProId != null" >
+        #{modProId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastModifiedBy != null" >
+        #{lastModifiedBy,jdbcType=DECIMAL},
+      </if>
+      <if test="lastModifiedDate != null" >
+        #{lastModifiedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glanway.ctrlhr.entity.dept.Dept" >
+    update T_DEPT
+    <set >
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="duty != null" >
+        DUTY = #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="isIndependent != null" >
+        IS_INDEPENDENT = #{isIndependent,jdbcType=CHAR},
+      </if>
+      <if test="hasSupervisePower != null" >
+        HAS_SUPERVISE_POWER = #{hasSupervisePower,jdbcType=CHAR},
+      </if>
+      <if test="supervised != null" >
+        SUPERVISED = #{supervised,jdbcType=CHAR},
+      </if>
+      <if test="position != null" >
+        POSITION = #{position,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="path != null" >
+        PATH = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="pathNames != null" >
+        PATH_NAMES = #{pathNames,jdbcType=VARCHAR},
+      </if>
+      <if test="depth != null" >
+        DEPTH = #{depth,jdbcType=DECIMAL},
+      </if>
+      <if test="isLeaf != null" >
+        IS_LEAF = #{isLeaf,jdbcType=CHAR},
+      </if>
+      <if test="batchDate != null" >
+        BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        DELETED = #{deleted,jdbcType=CHAR},
+      </if>
+      <if test="creProId != null" >
+        CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modProId != null" >
+        MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastModifiedBy != null" >
+        LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+      </if>
+      <if test="lastModifiedDate != null" >
+        LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glanway.ctrlhr.entity.dept.Dept" >
+    update T_DEPT
+    set COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=VARCHAR},
+      DUTY = #{duty,jdbcType=VARCHAR},
+      IS_INDEPENDENT = #{isIndependent,jdbcType=CHAR},
+      HAS_SUPERVISE_POWER = #{hasSupervisePower,jdbcType=CHAR},
+      SUPERVISED = #{supervised,jdbcType=CHAR},
+      POSITION = #{position,jdbcType=DECIMAL},
+      STATE = #{state,jdbcType=DECIMAL},
+      PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      PATH = #{path,jdbcType=VARCHAR},
+      PATH_NAMES = #{pathNames,jdbcType=VARCHAR},
+      DEPTH = #{depth,jdbcType=DECIMAL},
+      IS_LEAF = #{isLeaf,jdbcType=CHAR},
+      BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+      DELETED = #{deleted,jdbcType=CHAR},
+      CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+      CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+      LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+      LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 查询 -->
+  <!-- 查询考勤设备下的部门 -->
+  <select id="findDeptList" resultType="SimpleDeptVo">
+  		SELECT DEPT.ID,DEPT.NAME FROM T_DEVICE D
+			LEFT JOIN  T_SIGN_POINT SP ON SP.ID = D.SIGN_POINT_ID
+			LEFT JOIN  T_SIGN_POINT_DEPT SPD  ON SPD.SIGN_POINT_ID = SP.ID
+			LEFT JOIN  T_DEPT DEPT ON DEPT.ID = SPD.DEPT_ID
+		WHERE D.SN=#{sn} AND D.DELETED=0
+  </select>
+  
+</mapper>
