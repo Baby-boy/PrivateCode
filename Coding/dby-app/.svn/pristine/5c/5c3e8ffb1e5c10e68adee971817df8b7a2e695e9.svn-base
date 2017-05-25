@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdPointsLogMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdPointsLog" >
+    <id column="pl_id" property="plId" jdbcType="INTEGER" />
+    <result column="pl_userid" property="plUserid" jdbcType="INTEGER" />
+    <result column="pl_username" property="plUsername" jdbcType="VARCHAR" />
+    <result column="pl_adminid" property="plAdminid" jdbcType="INTEGER" />
+    <result column="pl_adminname" property="plAdminname" jdbcType="VARCHAR" />
+    <result column="pl_points" property="plPoints" jdbcType="INTEGER" />
+    <result column="pl_addtime" property="plAddtime" jdbcType="CHAR" />
+    <result column="pl_desc" property="plDesc" jdbcType="VARCHAR" />
+    <result column="pl_stage" property="plStage" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pl_id, pl_userid, pl_username, pl_adminid, pl_adminname, pl_points, pl_addtime, pl_desc, 
+    pl_stage
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_points_log
+    where pl_id = #{plId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_points_log
+    where pl_id = #{plId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdPointsLog" >
+    insert into yd_points_log (pl_id, pl_userid, pl_username, 
+      pl_adminid, pl_adminname, pl_points, 
+      pl_addtime, pl_desc, pl_stage
+      )
+    values (#{plId,jdbcType=INTEGER}, #{plUserid,jdbcType=INTEGER}, #{plUsername,jdbcType=VARCHAR}, 
+      #{plAdminid,jdbcType=INTEGER}, #{plAdminname,jdbcType=VARCHAR}, #{plPoints,jdbcType=INTEGER}, 
+      #{plAddtime,jdbcType=CHAR}, #{plDesc,jdbcType=VARCHAR}, #{plStage,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdPointsLog" >
+    insert into yd_points_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="plId != null" >
+        pl_id,
+      </if>
+      <if test="plUserid != null" >
+        pl_userid,
+      </if>
+      <if test="plUsername != null" >
+        pl_username,
+      </if>
+      <if test="plAdminid != null" >
+        pl_adminid,
+      </if>
+      <if test="plAdminname != null" >
+        pl_adminname,
+      </if>
+      <if test="plPoints != null" >
+        pl_points,
+      </if>
+      <if test="plAddtime != null" >
+        pl_addtime,
+      </if>
+      <if test="plDesc != null" >
+        pl_desc,
+      </if>
+      <if test="plStage != null" >
+        pl_stage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="plId != null" >
+        #{plId,jdbcType=INTEGER},
+      </if>
+      <if test="plUserid != null" >
+        #{plUserid,jdbcType=INTEGER},
+      </if>
+      <if test="plUsername != null" >
+        #{plUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="plAdminid != null" >
+        #{plAdminid,jdbcType=INTEGER},
+      </if>
+      <if test="plAdminname != null" >
+        #{plAdminname,jdbcType=VARCHAR},
+      </if>
+      <if test="plPoints != null" >
+        #{plPoints,jdbcType=INTEGER},
+      </if>
+      <if test="plAddtime != null" >
+        #{plAddtime,jdbcType=CHAR},
+      </if>
+      <if test="plDesc != null" >
+        #{plDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="plStage != null" >
+        #{plStage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdPointsLog" >
+    update yd_points_log
+    <set >
+      <if test="plUserid != null" >
+        pl_userid = #{plUserid,jdbcType=INTEGER},
+      </if>
+      <if test="plUsername != null" >
+        pl_username = #{plUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="plAdminid != null" >
+        pl_adminid = #{plAdminid,jdbcType=INTEGER},
+      </if>
+      <if test="plAdminname != null" >
+        pl_adminname = #{plAdminname,jdbcType=VARCHAR},
+      </if>
+      <if test="plPoints != null" >
+        pl_points = #{plPoints,jdbcType=INTEGER},
+      </if>
+      <if test="plAddtime != null" >
+        pl_addtime = #{plAddtime,jdbcType=CHAR},
+      </if>
+      <if test="plDesc != null" >
+        pl_desc = #{plDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="plStage != null" >
+        pl_stage = #{plStage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pl_id = #{plId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdPointsLog" >
+    update yd_points_log
+    set pl_userid = #{plUserid,jdbcType=INTEGER},
+      pl_username = #{plUsername,jdbcType=VARCHAR},
+      pl_adminid = #{plAdminid,jdbcType=INTEGER},
+      pl_adminname = #{plAdminname,jdbcType=VARCHAR},
+      pl_points = #{plPoints,jdbcType=INTEGER},
+      pl_addtime = #{plAddtime,jdbcType=CHAR},
+      pl_desc = #{plDesc,jdbcType=VARCHAR},
+      pl_stage = #{plStage,jdbcType=VARCHAR}
+    where pl_id = #{plId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 所有查询 -->
+  <!-- 积分中心操作日志总数 -->
+  <select id="selectUserPointsCenterPageListCount" resultType="java.lang.Integer">
+  	select 
+  		count(distinct pl_id)
+	from 
+		yd_points_log
+	where pl_userid=#{userId}
+  </select>
+  
+  <!-- 积分中心操作日志列表 -->
+  <select id="selectUserPointsCenterPageList" resultType="YdPointsLog">
+  	select 
+  		pl_addtime,pl_desc,pl_points
+	from 
+		yd_points_log
+	where pl_userid=#{userId}
+	order by pl_addtime desc
+	limit #{para.startIndex},#{para.onePageCount}
+  </select>
+</mapper>

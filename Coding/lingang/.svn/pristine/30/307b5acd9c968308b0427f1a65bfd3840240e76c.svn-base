@@ -1,0 +1,137 @@
+package com.lingang.platform.controller.seek;
+
+import java.util.Date;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.lingang.api.domain.basic.JsonResult;
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysImages;
+import com.lingang.api.domain.entity.SysPark;
+import com.lingang.api.domain.para.SysParkPara;
+import com.lingang.api.domain.pfvo.SysParkPfVo;
+import com.lingang.api.domain.vo.SysParkVo;
+import com.lingang.api.service.SysImagesService;
+import com.lingang.api.service.SysParkService;
+
+@Controller
+@RequestMapping("/sysPark")
+public class SysParkController {
+
+	@Resource
+	private SysParkService sysParkService;
+
+	@Resource
+	private SysImagesService sysImagesService;
+
+	/**
+	 * @Description: (查询产业园区列表_后台)
+	 * @param para
+	 * @return 参数注释
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月8日 下午12:55:33
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/sysParkPageList.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult sysParkPageList(@RequestBody SysParkPara para) {
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<Page<SysParkPfVo>> result = sysParkService.selectSysParkPfVoPageList(para);
+		jsonResult.setData(result.getData());
+		jsonResult.setStateCode(result.getStateCode());
+		return jsonResult;
+	}
+
+	/**
+	 * @Description: (查询产业园区详情)
+	 * @param parkId 产业园区ID
+	 * @return 参数注释
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月5日 下午12:25:40
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/parkDetails.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult parkDetails(@RequestParam(value = "parkId", required = true) Integer parkId) {
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<SysParkVo> result = sysParkService.selectSysParkDetailsByStationId(parkId);
+		// 补充缩略图
+		ServiceResult<SysImages> imgResult = sysImagesService.selectSysImagesByImgTypeAndObjId(5,
+				result.getData().getParkId());
+		if (imgResult.getData() != null) {
+			result.getData().setImgId(imgResult.getData().getImgId());
+			result.getData().setImgPath(imgResult.getData().getImgPath());
+		}
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setData(result.getData());
+		return jsonResult;
+	}
+
+	/**
+	 * @Description: (修改产业园区)
+	 * @param para
+	 * @return
+	 * @author lgl(lgl1012dream@foxmail.com)
+	 * @date: 2016年12月9日 上午2:10:20
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/updateParkDetails.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult updateParkDetails(@RequestBody SysParkPara para) {
+		JsonResult jsonResult = new JsonResult();
+		SysPark park = new SysPark();
+		park.setParkId(para.getParkId());
+		park.setParkName(para.getParkName());
+		park.setParkAddress(para.getParkAddress());
+		park.setParkFax(para.getParkFax());
+		park.setParkLink(para.getParkLink());
+		park.setParkState(para.getParkState());
+		park.setParkContent(para.getParkContent());
+		park.setUpdateTime(new Date());
+		park.setMaxImgId(para.getMaxImgId());
+		park.setMinImgId(para.getMinImgId());
+		park.setRegionId(para.getRegionId());
+		ServiceResult<Object> result = sysParkService.updateParkDetails(park);
+
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setMessage(result.getMessage());
+		return jsonResult;
+	}
+
+	/**
+	 * @Description: (添加产业园区)
+	 * @param para
+	 * @return
+	 * @author lgl(lgl1012dream@foxmail.com)
+	 * @date: 2016年12月9日 上午2:10:20
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addParkDetails.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult addParkDetails(@RequestBody SysParkPara para) {
+		JsonResult jsonResult = new JsonResult();
+		SysPark park = new SysPark();
+		park.setParkId(null);
+		park.setParkName(para.getParkName());
+		park.setParkAddress(para.getParkAddress());
+		park.setParkFax(para.getParkFax());
+		park.setParkLink(para.getParkLink());
+		park.setParkState(para.getParkState());
+		park.setParkContent(para.getParkContent());
+		park.setCreateTime(new Date());
+		park.setUpdateTime(park.getCreateTime());
+		park.setMaxImgId(para.getMaxImgId());
+		park.setMinImgId(para.getMinImgId());
+		park.setRegionId(para.getRegionId());
+
+		ServiceResult<Object> result = sysParkService.addParkDetails(park);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setMessage(result.getMessage());
+		return jsonResult;
+	}
+
+}

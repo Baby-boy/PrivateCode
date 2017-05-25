@@ -1,0 +1,24 @@
+package com.lingang.core.persistence.reader;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.lingang.api.domain.entity.SysServiceWithBLOBs;
+import com.lingang.api.domain.vo.SysServiceVo;
+
+public interface SysServiceReaderMapper {
+
+    SysServiceWithBLOBs selectByPrimaryKey(Integer serviceId);
+
+    int selectServiceCount(@Param("map")Map map);
+    
+    List<SysServiceVo> selectServicePageList(@Param("map")Map map);
+    
+    SysServiceVo selectServiceVoByServiceId(Integer serviceId);
+    
+    int selectUserCollectCount(@Param("map")Map map);
+	
+	List<SysServiceVo> selectUserCollectPageList(@Param("map")Map map);
+}

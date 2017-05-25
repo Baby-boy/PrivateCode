@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysNewsReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysNews" >
+    <id column="news_id" property="newsId" jdbcType="INTEGER" />
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="news_title" property="newsTitle" jdbcType="VARCHAR" />
+    <result column="news_author" property="newsAuthor" jdbcType="VARCHAR" />
+    <result column="look_number" property="lookNumber" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="news_state" property="newsState" jdbcType="INTEGER" />
+    <result column="share_number" property="shareNumber" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lingang.api.domain.entity.SysNews" extends="BaseResultMap" >
+    <result column="news_content" property="newsContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+   <resultMap id="SysNewsResultMap" type="com.lingang.api.domain.vo.SysNewsVo" extends="ResultMapWithBLOBs">
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+   </resultMap>
+  <sql id="Base_Column_List" >
+    news_id, img_id, news_title, news_author, look_number, create_time, update_time, 
+    news_state, share_number
+  </sql>
+  <sql id="Blob_Column_List" >
+    news_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select news_id,news_title,news_author,look_number,create_time,news_content 
+    from sys_news where news_state=2 and news_id = #{newsId,jdbcType=INTEGER}
+  </select>
+   <select id="selectSysNewsCount" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select COUNT(DISTINCT news_id) from sys_news where news_state=2
+  </select>
+  <sql id="PAGING_selectSysNewsAll" >
+	SELECT TOP ${map.onePageCount}
+	* 
+	from 
+	(select * from sys_news) 
+	t
+   	WHERE t.news_id NOT IN
+	(
+		SELECT TOP (${map.onePageCount} * ${map.startIndex})  
+		nt.news_id 
+		from 
+		(select * from sys_news)
+		nt
+	)
+  </sql>
+  <select id="selectSysNewsAll" resultMap="SysNewsResultMap" parameterType="java.util.Map">
+	select 
+	sn.news_id,sn.news_title,sn.create_time,sm.img_path,sm.img_id 
+	from (
+		<include refid="PAGING_selectSysNewsAll"/>
+	) sn 
+	LEFT JOIN (SELECT * from sys_images where img_state=1) sm on sn.img_id=sm.img_id
+	where sn.news_state=2 
+  </select>
+  
+  <!-- 后台 -->
+  
+  <select id="querySysNewsCount" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select COUNT(news_id) from sys_news where news_state=2 and news_state<![CDATA[!=]]>3 
+    <!-- and news_id  <if test="newsIstop!=1"> not </if> in (select obj_id from sys_top where top_type = 1) -->
+  </select>
+  
+  <select id="queryAllByPage" resultMap="SysNewsResultMap" parameterType="java.util.Map">
+<!--   	SELECT TOP ${map.onePageCount}
+  	 sn.news_id,sn.news_title,sn.news_author,sn.look_number,sn.news_state,sn.share_number,sn.create_time,sn.update_time,sm.img_path,sm.img_id 
+  	 from 
+  	 sys_news sn
+   	LEFT JOIN (SELECT * from sys_images where img_state=1) sm on sn.img_id=sm.img_id
+ 	WHERE sn.news_title like '%${map.newsTitle}%' and sn.news_author like '%${map.newsAuthor}%' and sn.news_state<![CDATA[!=]]>3
+ 	and sn.news_id  <if test="map.newsIstop!=1"> not </if> in (select obj_id from sys_top where top_type = 1)
+ 	 and sn.news_id 
+ 	 NOT IN 
+ 	 (SELECT TOP (${map.onePageCount}*${map.startIndex}) news_id from sys_news  sysnews order by sn.create_time desc) order by sn.create_time desc -->
+ 	 
+ 	 <!-- 2016-12-14 gsh改语句 -->
+ 	 SELECT TOP ${map.onePageCount}
+  	 sn.news_id,sn.news_title,sn.news_author,sn.look_number,sn.news_state,sn.share_number,sn.create_time,sn.update_time,sm.img_path,sm.img_id 
+  	 from 
+  	 sys_news sn
+   	 LEFT JOIN (SELECT * from sys_images where img_state=1) sm on sn.img_id=sm.img_id
+ 	 WHERE 
+ 	 sn.news_title like '%${map.newsTitle}%'
+ 	 and sn.news_author like '%${map.newsAuthor}%'
+ 	  and sn.news_state<![CDATA[!=]]>3 and sn.news_id
+ 	 NOT IN 
+ 	 (SELECT TOP (${map.onePageCount}*${map.startIndex}) sns.news_id from sys_news  sns order by sns.create_time desc) order by sn.create_time desc
+  </select>
+  
+  <select id="queryById" resultMap="ResultMapWithBLOBs">
+    select news_id,img_id,news_title,news_author,look_number,create_time,news_content,update_time,news_state,share_number
+    from sys_news where news_state<![CDATA[!=]]>3 and news_id = #{newsId}
+  </select>
+  
+</mapper>

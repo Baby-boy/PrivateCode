@@ -1,0 +1,124 @@
+package com.lingang.platform.controller.seek;
+
+import java.util.Date;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.lingang.api.domain.basic.JsonResult;
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysStation;
+import com.lingang.api.domain.para.SysStationPara;
+import com.lingang.api.domain.pfvo.SysStationPfVo;
+import com.lingang.api.domain.vo.SysStationVo;
+import com.lingang.api.service.SysStationService;
+
+@Controller
+@RequestMapping("/sysStation")
+public class SysStationController {
+
+	@Resource
+	private SysStationService sysStationService;
+
+	/**
+	 * @Description: (查询入驻企业列表_后台)
+	 * @param para
+	 * @return 参数注释
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月9日 上午12:55:34
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/sysStationPageList.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult sysStationPageList(@RequestBody SysStationPara para) {
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<Page<SysStationPfVo>> result = sysStationService.selectSysStationPfVoPageList(para);
+		jsonResult.setData(result.getData());
+		jsonResult.setStateCode(result.getStateCode());
+		return jsonResult;
+	}
+
+	/**
+	 * @Description: (查询入驻企业详情_后台)
+	 * @param stationId
+	 * @return 参数注释
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月10日 下午4:31:47
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/stationDetails.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult sysStationDetails(@RequestParam(value = "stationId", required = true) Integer stationId) {
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<SysStationVo> result = sysStationService.selectByPrimaryKey(stationId);
+		jsonResult.setData(result.getData());
+		jsonResult.setStateCode(result.getStateCode());
+		return jsonResult;
+	}
+
+	/**
+	 * @Description: (修改入驻企业_后台)
+	 * @param para
+	 * @return 参数注释
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月10日 下午4:40:12
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/updateStationDetails.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult updateStationDetails(@RequestBody SysStationPara para) {
+		JsonResult jsonResult = new JsonResult();
+		SysStation station = new SysStation();
+		station.setStationId(para.getStationId());
+		station.setStationTitle(para.getStationTitle());
+		station.setStationSimple(para.getStationSimple());
+		station.setRegNumber(para.getRegNumber());
+		station.setCreditCode(para.getCreditCode());
+		station.setStationCompany(para.getStationCompany());
+		station.setIsFictitious(para.getIsFictitious());
+		station.setLossState(para.getLossState());
+		station.setStationState(para.getStationState());
+		station.setStationContent(para.getStationContent());
+		station.setUpdateTime(new Date());
+
+		ServiceResult<Object> result = sysStationService.updateStationDetails(station);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setMessage(result.getMessage());
+		return jsonResult;
+	}
+
+	/**
+	 * @Description: (添加入驻企业_后台)
+	 * @param para
+	 * @return 参数注释
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月10日 下午4:44:54
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addStationDetails.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult addStationDetails(@RequestBody SysStationPara para) {
+		JsonResult jsonResult = new JsonResult();
+		SysStation station = new SysStation();
+		station.setStationId(null);
+		station.setStationTitle(para.getStationTitle());
+		station.setStationSimple(para.getStationSimple());
+		station.setRegNumber(para.getRegNumber());
+		station.setCreditCode(para.getCreditCode());
+		station.setStationCompany(para.getStationCompany());
+		station.setIsFictitious(para.getIsFictitious());
+		station.setLossState(para.getLossState());
+		station.setStationState(para.getStationState());
+		station.setStationContent(para.getStationContent());
+		station.setCreateTime(new Date());
+		station.setUpdateTime(station.getCreateTime());
+
+		ServiceResult<Object> result = sysStationService.addStationDetails(station);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setMessage(result.getMessage());
+		return jsonResult;
+	}
+}

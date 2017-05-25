@@ -1,0 +1,69 @@
+package com.lingang.core.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.apache.poi.hssf.record.formula.functions.T;
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+import com.lingang.api.service.SysSearchService;
+import com.lingang.core.persistence.reader.SysIndustryReaderMapper;
+
+/**
+ * 
+ * @author adminhgx
+ * 
+ */
+@Service("sysSearchService")
+public class SysSearchServiceImpl implements SysSearchService {
+
+	@Resource
+	private SysIndustryReaderMapper sysIndustryReaderMapper;
+	/*
+	 * @Resource private SysIndustryWriterMapper sysIndustryWriterMapper;
+	 * 
+	 * @Resource private SysImagesReaderMapper sysImagesReaderMapper;
+	 * 
+	 * @Resource private SysImagesWriterMapper sysImagesWriterMapper;
+	 * 
+	 * @Resource private SysParkIndustryReaderMapper
+	 * sysParkIndustryReaderMapper;
+	 * 
+	 * @Resource private SysParkIndustryWriterMapper
+	 * sysParkIndustryWriterMapper;
+	 * 
+	 * @Resource private SysIndustryLabelWriterMapper
+	 * sysIndustryLabelWriterMapper;
+	 */
+
+	/**
+	 * 产业集群列表
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public ServiceResult<Page<T>> searchStatisticsPageList(String keywords, Integer pageIndex, Integer pageSize) {
+		ServiceResult<Page<T>> result = new ServiceResult<Page<T>>();
+		// 查询条件
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("keywords", keywords);
+		int countRecord = sysIndustryReaderMapper.searchIndustryStatisticsCount(map);
+
+		Page<T> page = new Page<T>(pageIndex, countRecord, pageSize);
+		if (countRecord > 0) {
+			map.put("startIndex", page.getCurrentPage() - 1);
+			map.put("onePageCount", pageSize);
+			List list = sysIndustryReaderMapper.searchIndustryStatisticsPageList(map);
+			page.setList(list);
+		}
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+
+}

@@ -1,0 +1,33 @@
+package com.lingang.api.domain.entity;
+
+public class SysPower {
+    private Integer powerId;
+
+    private Integer managerId;
+
+    private Integer modularId;
+
+    public Integer getPowerId() {
+        return powerId;
+    }
+
+    public void setPowerId(Integer powerId) {
+        this.powerId = powerId;
+    }
+
+    public Integer getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Integer managerId) {
+        this.managerId = managerId;
+    }
+
+    public Integer getModularId() {
+        return modularId;
+    }
+
+    public void setModularId(Integer modularId) {
+        this.modularId = modularId;
+    }
+}

@@ -1,0 +1,68 @@
+package com.lingang.platform.controller.system;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.lingang.api.domain.basic.JsonResult;
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysManager;
+import com.lingang.api.domain.entity.SysUser;
+import com.lingang.api.domain.para.SysUserPara;
+import com.lingang.api.domain.vo.SysUserVo;
+import com.lingang.api.service.SysUserService;
+
+/**
+ * @Description: (APP账户信息控制)
+ * @Author: cnk(chenningkang@adinnet.cn)
+ * @date:2016年12月13日 下午16:00:04
+ * @Version:1.0
+ */
+@Controller
+@RequestMapping("/user")
+public class SysUserController {
+	
+	@Resource
+	private SysUserService sysUserService;
+
+	/**
+	* @Description: (APP用户列表)
+	* @param pageIndex
+	* @param pageSize
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月6日 下午7:43:42
+	 */
+	@RequestMapping(value="/sysUserPagePageList.do",method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public JsonResult sysUserPagePageList(@RequestBody SysUserPara para) {
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<Page<SysUser>> result=sysUserService.selectSysUserPageList(para);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setData(result.getData());
+		return jsonResult;
+	}
+	
+	/**
+	* @Description: (修改App账户信息)
+	* @param manager
+	* @return    
+	* @author cnk(chenningkang@adinnet.cn)
+	* @date: 2016年12月13日 
+	 */
+	@RequestMapping(value="/updateSysUser.do",method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public JsonResult updateSysUser(@RequestBody SysUser sysUser){
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<SysUserVo> result=sysUserService.updateSysUser(sysUser);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setMessage(result.getMessage());
+		jsonResult.setData(result.getData());
+		return jsonResult;
+	}
+}

@@ -1,0 +1,58 @@
+package com.lingang.core.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+import com.lingang.api.domain.entity.SysBasics;
+import com.lingang.api.domain.entity.SysRegion;
+import com.lingang.api.domain.para.SysRegionPara;
+import com.lingang.api.service.SysRegionService;
+import com.lingang.core.persistence.reader.SysRegionReaderMapper;
+
+@Service("sysRegionService")
+public class SysRegionServiceImpl implements SysRegionService{
+	
+	@Resource
+	private SysRegionReaderMapper sysRegionReaderMapper;
+
+	@Override
+	public ServiceResult<List<SysRegion>> selectRegionAllList(Integer nameType) {
+		ServiceResult<List<SysRegion>> result=new ServiceResult<List<SysRegion>>();
+		List<SysRegion> list=sysRegionReaderMapper.selectRegionAllList(nameType);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(list);
+		return result;
+	}
+
+	public ServiceResult<Page<SysRegion>> selectSysRegionPageList(SysRegionPara para) {
+		ServiceResult<Page<SysRegion>> result=new ServiceResult<Page<SysRegion>>();
+		//查询条件
+		Map<String, Object> map=new HashMap<String, Object>();
+		Integer regionType = para.getRegionType();
+		
+			map.put("regionType", regionType);
+		
+		
+		int countRecord=sysRegionReaderMapper.selectSysRegionCount(map);
+		Page<SysRegion> page=new Page<SysRegion>(para.getCurrentPage(), countRecord, para.getOnePageCount());
+		if(countRecord>0){
+			map.put("startIndex", page.getStartIndex());
+			map.put("onePageCount", para.getOnePageCount());
+			List<SysRegion> list=sysRegionReaderMapper.selectSysRegionPageList(map);
+			page.setList(list);
+		}
+		//返回信息
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+
+}

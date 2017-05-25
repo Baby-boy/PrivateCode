@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdBillMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdBill" >
+    <id column="bill_id" property="billId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="bill_foreign_id" property="billForeignId" jdbcType="INTEGER" />
+    <result column="bill_pay_sn" property="billPaySn" jdbcType="VARCHAR" />
+    <result column="bill_money" property="billMoney" jdbcType="DOUBLE" />
+    <result column="bill_state" property="billState" jdbcType="TINYINT" />
+    <result column="bill_type" property="billType" jdbcType="TINYINT" />
+    <result column="bill_content" property="billContent" jdbcType="VARCHAR" />
+    <result column="bill_created_time" property="billCreatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bill_id, user_id, bill_foreign_id, bill_pay_sn, bill_money, bill_state, bill_type, 
+    bill_content, bill_created_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_bill
+    where bill_id = #{billId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_bill
+    where bill_id = #{billId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdBill" >
+    insert into yd_bill (bill_id, user_id, bill_foreign_id, 
+      bill_pay_sn, bill_money, bill_state, 
+      bill_type, bill_content, bill_created_time
+      )
+    values (#{billId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{billForeignId,jdbcType=INTEGER}, 
+      #{billPaySn,jdbcType=VARCHAR}, #{billMoney,jdbcType=DOUBLE}, #{billState,jdbcType=TINYINT}, 
+      #{billType,jdbcType=TINYINT}, #{billContent,jdbcType=VARCHAR}, #{billCreatedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdBill" >
+    insert into yd_bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="billId != null" >
+        bill_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="billForeignId != null" >
+        bill_foreign_id,
+      </if>
+      <if test="billPaySn != null" >
+        bill_pay_sn,
+      </if>
+      <if test="billMoney != null" >
+        bill_money,
+      </if>
+      <if test="billState != null" >
+        bill_state,
+      </if>
+      <if test="billType != null" >
+        bill_type,
+      </if>
+      <if test="billContent != null" >
+        bill_content,
+      </if>
+      <if test="billCreatedTime != null" >
+        bill_created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="billId != null" >
+        #{billId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="billForeignId != null" >
+        #{billForeignId,jdbcType=INTEGER},
+      </if>
+      <if test="billPaySn != null" >
+        #{billPaySn,jdbcType=VARCHAR},
+      </if>
+      <if test="billMoney != null" >
+        #{billMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="billState != null" >
+        #{billState,jdbcType=TINYINT},
+      </if>
+      <if test="billType != null" >
+        #{billType,jdbcType=TINYINT},
+      </if>
+      <if test="billContent != null" >
+        #{billContent,jdbcType=VARCHAR},
+      </if>
+      <if test="billCreatedTime != null" >
+        #{billCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdBill" >
+    update yd_bill
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="billForeignId != null" >
+        bill_foreign_id = #{billForeignId,jdbcType=INTEGER},
+      </if>
+      <if test="billPaySn != null" >
+        bill_pay_sn = #{billPaySn,jdbcType=VARCHAR},
+      </if>
+      <if test="billMoney != null" >
+        bill_money = #{billMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="billState != null" >
+        bill_state = #{billState,jdbcType=TINYINT},
+      </if>
+      <if test="billType != null" >
+        bill_type = #{billType,jdbcType=TINYINT},
+      </if>
+      <if test="billContent != null" >
+        bill_content = #{billContent,jdbcType=VARCHAR},
+      </if>
+      <if test="billCreatedTime != null" >
+        bill_created_time = #{billCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where bill_id = #{billId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdBill" >
+    update yd_bill
+    set user_id = #{userId,jdbcType=INTEGER},
+      bill_foreign_id = #{billForeignId,jdbcType=INTEGER},
+      bill_pay_sn = #{billPaySn,jdbcType=VARCHAR},
+      bill_money = #{billMoney,jdbcType=DOUBLE},
+      bill_state = #{billState,jdbcType=TINYINT},
+      bill_type = #{billType,jdbcType=TINYINT},
+      bill_content = #{billContent,jdbcType=VARCHAR},
+      bill_created_time = #{billCreatedTime,jdbcType=TIMESTAMP}
+    where bill_id = #{billId,jdbcType=INTEGER}
+  </update>
+</mapper>

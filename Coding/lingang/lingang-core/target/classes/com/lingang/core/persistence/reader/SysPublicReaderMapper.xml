@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysPublicReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysPublic" >
+    <id column="public_id" property="publicId" jdbcType="INTEGER" />
+    <result column="region_id" property="regionId" jdbcType="INTEGER" />
+    <result column="min_img_id" property="minImgId" jdbcType="INTEGER" />
+    <result column="park_id" property="parkId" jdbcType="INTEGER" />
+    <result column="max_img_id" property="maxImgId" jdbcType="INTEGER" />
+    <result column="sys_region_id" property="sysRegionId" jdbcType="INTEGER" />
+    <result column="basics_id" property="basicsId" jdbcType="INTEGER" />
+    <result column="public_title" property="publicTitle" jdbcType="VARCHAR" />
+    <result column="public_address" property="publicAddress" jdbcType="VARCHAR" />
+    <result column="public_fax" property="publicFax" jdbcType="VARCHAR" />
+    <result column="public_link" property="publicLink" jdbcType="VARCHAR" />
+    <result column="public_company" property="publicCompany" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="public_state" property="publicState" jdbcType="INTEGER" />
+  </resultMap>
+  
+    <resultMap type="com.lingang.api.domain.vo.SysCompanyVo" id="sysPublicCompanyVoMap">
+  	<result column="company_id" property="companyId" jdbcType="INTEGER"></result>
+  	<result column="company_name" property="companyName" jdbcType="VARCHAR"></result>
+  	<result column="count_company" property="countCompany" jdbcType="INTEGER"></result>
+    </resultMap>
+    
+   <resultMap id="sysPartnerNewAddMonthStatisticsVo"
+		type="com.lingang.api.domain.vo.SysNewAddMonthStatisticsVo">
+		<result column="create_year" property="createYear" jdbcType="VARCHAR" />
+		<result column="create_month" property="createMonth" jdbcType="VARCHAR" />
+		<result column="count_add" property="countAdd" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="sysPartnerNewAddQuarterStatisticsVo"
+		type="com.lingang.api.domain.vo.SysNewAddQuarterStatisticsVo">
+		<result column="create_year" property="createYear" jdbcType="VARCHAR" />
+		<result column="create_quarter" property="createQuarter" jdbcType="VARCHAR" />
+		<result column="count_add" property="countAdd" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+	</resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lingang.api.domain.entity.SysPublic" extends="BaseResultMap" >
+    <result column="public_content" property="publicContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <!-- 查询公共平台列表字段 -->
+  <resultMap id="SysPublicVoResultMap" type="com.lingang.api.domain.vo.SysPublicVo" extends="ResultMapWithBLOBs">
+  	<result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+    <result column="park_name" property="parkName" jdbcType="VARCHAR" />
+    
+    <!-- 收藏相关字段 -->
+	<result column="collect_id" property="collectId" jdbcType="INTEGER" />
+    
+    <collection property="labels" ofType="com.lingang.api.domain.entity.SysLabel">
+		<id column="label_id" property="labelId" jdbcType="INTEGER" />
+		<result column="label_name" property="labelName" jdbcType="VARCHAR" />
+	</collection>
+	
+  </resultMap>
+  <!-- 查询公共平台详情字段 -->
+  <resultMap id="SysPublicDetailsResultMap" type="com.lingang.api.domain.vo.SysPublicVo" extends="ResultMapWithBLOBs">
+  	<result column="min_img_id" property="imgId" jdbcType="INTEGER"/>
+  	<result column="img_path" property="imgPath" jdbcType="VARCHAR"/>
+<!--   	<result column="way_id" property="wayId" jdbcType="INTEGER"/>
+  	<result column="way_tel" property="wayTel" jdbcType="VARCHAR"/> -->
+  	<result column="basics_id" property="basicsId" jdbcType="INTEGER"/>
+  	<result column="basics_name" property="basicsName" jdbcType="VARCHAR"/>
+  	<result column="max_img_id" property="maxImgId" jdbcType="INTEGER" />
+  	
+  	<collection property="ways" ofType="com.lingang.api.domain.entity.SysWay">
+		<id column="way_id" property="wayId" jdbcType="INTEGER" />
+		<result column="way_tel" property="wayTel" jdbcType="VARCHAR" />
+	</collection>
+  	<collection property="labels" ofType="com.lingang.api.domain.entity.SysLabel">
+		<id column="label_id" property="labelId" jdbcType="INTEGER" />
+		<result column="label_name" property="labelName" jdbcType="VARCHAR" />
+	</collection>
+	<collection property="parks" ofType="com.lingang.api.domain.vo.SysParkVo">
+		<id column="park_id" property="parkId" jdbcType="INTEGER" />
+		<result column="pmax_img_id" property="maxImgId" jdbcType="INTEGER" />
+		<result column="max_img_path" property="maxImgPath" jdbcType="VARCHAR" />
+		<result column="park_address" property="parkAddress" jdbcType="VARCHAR" />
+		<result column="park_fax" property="parkFax" jdbcType="VARCHAR" />
+		<result column="park_link" property="parkLink" jdbcType="VARCHAR" />
+		<result column="park_name" property="parkName" jdbcType="VARCHAR" />
+	</collection>
+	
+	<!-- 管理公司 -->
+	<collection property="companys" ofType="com.lingang.api.domain.entity.SysCompany">
+		<id column="company_id" property="companyId" jdbcType="INTEGER" />
+		<result column="company_name" property="companyName" jdbcType="VARCHAR" />
+	</collection>
+	
+	<!-- 联络人(新添加字段) -->
+	<collection property="umanagers" ofType="com.lingang.api.domain.entity.SysUmanager">
+		<id column="umanager_id" property="umanagerId" jdbcType="INTEGER" />
+		<result column="umanager_name" property="umanagerName"
+			jdbcType="VARCHAR" />
+		<result column="umanager_company" property="umanagerCompany"
+			jdbcType="VARCHAR" />
+		<result column="umanager_department" property="umanagerDepartment"
+			jdbcType="VARCHAR" />
+		<result column="umanager_email" property="umanagerEmail"
+			jdbcType="VARCHAR" />
+		<result column="umanager_tel" property="umanagerTel" jdbcType="VARCHAR" />
+		<result column="umanager_mobile" property="umanagerMobile"
+			jdbcType="VARCHAR" />
+		<!-- <result column="uman_create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="uman_update_time" property="updateTime" jdbcType="TIMESTAMP" /> -->
+	</collection>
+	
+	<!-- 客户经理 -->
+	<collection property="pumans"
+		ofType="com.lingang.api.domain.entity.SysPublicUmanager">
+		<id column="public_umanager_id" property="publicUmanagerId" jdbcType="INTEGER" />
+		<result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+	</collection>
+  </resultMap>
+  
+  <!-- 后台逻辑 -->
+  <resultMap id="SysPublicPfVoResultMap" type="com.lingang.api.domain.pfvo.SysPublicPfVo" extends="ResultMapWithBLOBs">
+  	<result column="park_name" property="parkName" jdbcType="VARCHAR"/>
+  	<result column="region_name" property="regionName" jdbcType="VARCHAR"/>
+  	<result column="basics_name" property="basicsName" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+
+  <sql id="Base_Column_List" >
+    public_id, region_id, min_img_id, park_id, max_img_id, sys_region_id, basics_id, 
+    public_title, public_address, public_fax, public_link, public_company, create_time, 
+    update_time, public_state
+  </sql>
+  <sql id="Blob_Column_List" >
+    public_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_public
+    where public_id = #{publicId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- app列表重写 -->
+  <sql id="where_selectSysPublicVoPageListByRegionIdAndBasicsId">
+  	<where>
+  		sp.public_state=2 
+  		<!-- <if test="map.regionId !=null and map.regionId !=''">
+  			and region_id = #{map.regionId,jdbcType=INTEGER}
+  		</if> -->
+  		<if test="map.basicsId !=null and map.basicsId !=''">
+  			and basics_id = #{map.basicsId,jdbcType=INTEGER}
+  		</if>
+  		<if test="map.regionTypeId !=null and map.regionTypeId !=''">
+			and sr.region_type= #{map.regionTypeId,jdbcType=INTEGER}
+		</if>
+        <if test="map.parkId !=null and map.parkId !=''">
+          and spk.park_id= #{map.parkId,jdbcType=INTEGER}
+       </if>
+       <if test="map.beninTime !=null and map.beninTime !=''">
+       		 and sp.create_time >= #{map.beninTime}
+       </if>
+       <if test="map.endTime !=null and map.endTime !=''">
+       		 and sp.create_time <![CDATA[ < ]]> #{map.endTime}
+       </if>
+       <if test="map.companyId !=null and map.companyId !=''">
+            and sa.company_id= #{map.companyId,jdbcType=INTEGER}
+       </if>
+       <if test="map.keywords !=null and map.keywords !=''">
+       		and (CONTAINS (sp.public_title, '${map.keywords}')
+			OR CONTAINS (sp.public_content, '${map.keywords}'))
+       </if>
+  	</where>
+  </sql>
+  <!-- 关联表 -->
+  <sql id="relation_selectSysPublicVoPageListByRegionIdAndBasicsId">
+  	left join (select * from sys_images where img_state=1) si on sp.min_img_id=si.img_id
+	left join sys_public_label spl on sp.public_id=spl.public_id
+	left join (select * from sys_label where label_state=1) sl on spl.label_id=sl.label_id
+	<!-- left join sys_park_public spp on spp.public_id=sp.public_id
+	left join (select * from sys_park) spk on spk.park_id=spp.park_id -->
+	<!-- 公共平台和产业园区是一对一关系,所有不要关联表,直接使用公共平台表中的park_id即可 -->
+	left join (select * from sys_park where park_state=2) spk on sp.park_id=spk.park_id
+	left join sys_region sr on sr.region_id=spk.region_id
+	left join (select * from sys_assort where assort_type=5) sa on sa.obj_id=sp.public_id
+  </sql>
+  <select id="selectSysPublicVoCountByRegionIdAndBasicsId" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select COUNT(DISTINCT sp.public_id) 
+  	from sys_public sp 
+  	<include refid="relation_selectSysPublicVoPageListByRegionIdAndBasicsId"/>
+  	<include refid="where_selectSysPublicVoPageListByRegionIdAndBasicsId"/>
+  </select>
+  <select id="selectSysPublicVoPageListByRegionIdAndBasicsId" resultMap="SysPublicVoResultMap" parameterType="java.util.Map">
+  	WITH cte AS(
+		select sp.public_id,
+			ROW_NUMBER() OVER(ORDER BY sp.create_time DESC) AS rownum
+		from sys_public sp
+		<include refid="relation_selectSysPublicVoPageListByRegionIdAndBasicsId"/>
+		<include refid="where_selectSysPublicVoPageListByRegionIdAndBasicsId"/>
+		GROUP BY sp.public_id,sp.create_time
+	)
+
+	select sp.public_id,sp.public_title,sp.public_content,si.img_id,si.img_path,sl.label_id,sl.label_name,spk.park_id,spk.park_name
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st
+	left join sys_public sp on sp.public_id=st.public_id
+	<include refid="relation_selectSysPublicVoPageListByRegionIdAndBasicsId"/>
+  </select>
+  
+  <select id="selectSysPublicDetailsCountByPublicId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  	select count(distinct public_id) 
+  	from sys_public 
+  	where public_id=#{publicId,jdbcType=INTEGER};
+  </select>
+  <select id="selectSysPublicDetailsByPublicId" resultMap="SysPublicDetailsResultMap" parameterType="java.lang.Integer">
+	<!-- 这里已经把park的地址,传真,连接修改为public的地址,传真,连接 -->
+	select sp.public_id,sp.public_title,sp.public_content,sp.public_company,sp.create_time,sp.min_img_id,si.img_path,
+  	sl.label_id,sl.label_name,spk.park_name,sp.public_address,sp.public_fax,sp.public_link,spk.park_id,spk.max_img_id,spi.img_path max_img_path, 
+	sb.basics_id,sb.basics_name,sw.way_id,sw.way_tel, 
+	<!-- sc.company_id,sc.company_name两字段为后来添加,实现一对多 -->
+	sc.company_id,sc.company_name,
+	spu.public_umanager_id,spu.user_account
+	from sys_public sp 
+	left join (select * from sys_images where img_state=1) si on si.img_id=sp.max_img_id
+	left join sys_public_label spl on sp.public_id=spl.public_id
+	left join (select * from sys_label where label_state=1)sl on spl.label_id=sl.label_id
+	left join (select * from sys_park where park_state=2) spk on sp.park_id=spk.park_id
+	left join (select * from sys_images where img_state=1) spi on spi.img_id=spk.max_img_id
+	left join (select * from sys_basics where basics_state=2) sb on sb.basics_id=sp.basics_id
+	left join (select * from sys_way where way_type=3) sw on sw.way_obj_id=sp.public_id
+	left join sys_public_umanager spu on spu.public_id=sp.public_id
+	<!-- sys_assort,sys_company两数据库表为后来添加,实现一对多 -->
+	LEFT JOIN (SELECT * FROM sys_assort WHERE assort_type=5) sa ON sa.obj_id=sp.public_id
+	LEFT JOIN (SELECT * FROM sys_company WHERE company_state=2)sc ON sc.company_id=sa.company_id
+	where sp.public_id=#{publicId,jdbcType=INTEGER};
+  </select>
+  
+  <!-- 我的收藏 -->
+  <sql id="where_selectUserCollectPageList">
+  	<where>
+  		sc.collect_type=5 and sc.user_id= #{map.userId,jdbcType=INTEGER}
+  	</where>
+  </sql>
+  <!-- 关联表 -->
+  <sql id="relation_selectUserCollectPageList">
+  	left join sys_public sp on sp.public_id=sc.obj_id
+	left join (select * from sys_images where img_state=1) si on sp.min_img_id=si.img_id
+	left join sys_public_label spl on sp.public_id=spl.public_id
+	left join (select * from sys_label where label_state=1) sl on spl.label_id=sl.label_id
+  </sql>
+  <select id="selectUserCollectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select COUNT(DISTINCT sc.collect_id)
+	from sys_collect sc
+	<include refid="where_selectUserCollectPageList"/>
+  </select>
+  <select id="selectUserCollectPageList" resultMap="SysPublicVoResultMap" parameterType="java.util.Map">
+  	WITH cte AS(
+		select sc.collect_id,
+			ROW_NUMBER() OVER(ORDER BY sc.create_time DESC) AS rownum
+		from sys_collect sc
+		<include refid="where_selectUserCollectPageList"/>
+		GROUP BY sc.collect_id,sc.create_time
+	)
+				 
+	select sc.collect_id,sp.public_id,sp.public_title,sp.public_content,si.img_id,si.img_path,sl.label_id,sl.label_name 
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st 
+	left join sys_collect sc on sc.collect_id=st.collect_id
+  	<include refid="relation_selectUserCollectPageList"/>
+  </select>
+  
+  <!-- 后台逻辑 -->
+  <sql id="where_selectSysPublicPfVoPageList">
+  	<where>
+		1=1
+		<if test="map.publicTitleKeywords !=null and map.publicTitleKeywords !=''">
+			and public_title like '%${map.publicTitleKeywords}%'
+		</if>
+		<if test="map.regionNameKeywords !=null and map.regionNameKeywords !=''">
+			and region_name like '%${map.regionNameKeywords}%'
+		</if>
+		<if test="map.parkNameKeywords !=null and map.parkNameKeywords !=''">
+			and park_name like '%${map.parkNameKeywords}%'
+		</if>
+		<if test="map.publicState !=null and map.publicState !=''">
+			and public_state = #{map.publicState}
+		</if>
+	</where>
+  </sql>
+  <sql id="relation_selectSysPublicPfVoPageList">
+  	left join sys_region sr on sr.region_id=sp.region_id
+	left join sys_park spk on spk.park_id=sp.park_id
+	left join sys_basics sb on sb.basics_id=sp.basics_id 
+  </sql>
+  <select id="selectSysPublicPfVoCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select COUNT(DISTINCT sp.public_id)
+	from sys_public sp
+	<include refid="relation_selectSysPublicPfVoPageList"/>
+	<include refid="where_selectSysPublicPfVoPageList"/>
+  </select>
+  <select id="selectSysPublicPfVoPageList" resultMap="SysPublicPfVoResultMap" parameterType="java.util.Map">
+  	WITH cte AS(
+		select sp.public_id,
+			ROW_NUMBER() OVER(ORDER BY sp.create_time DESC) AS rownum
+		from sys_public sp
+		<include refid="relation_selectSysPublicPfVoPageList"/>
+		<include refid="where_selectSysPublicPfVoPageList"/>
+		GROUP BY sp.public_id,sp.create_time
+	)
+
+	select sp.public_id,sp.public_address,sp.public_title,sp.public_company,sp.create_time,sp.update_time,
+	sp.public_state,sr.region_name,spk.park_name,sb.basics_name
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st
+	left join sys_public sp on sp.public_id=st.public_id
+	<include refid="relation_selectSysPublicPfVoPageList"/>
+  </select>
+  
+  <!-- 公共平台详情 -->
+  <select id="selectSysPublicDetails" resultMap="SysPublicDetailsResultMap" parameterType="java.lang.Integer">
+	select sp.public_id,sp.public_title,sp.public_address,sp.public_content,sp.public_company,sp.create_time,
+  	sp.public_fax,sp.public_link,sp.public_state,sp.min_img_id,si.img_path,sp.max_img_id,sp.basics_id,sp.region_id,
+  	sl.label_id,sl.label_name,spk.park_name,spk.park_address,spk.park_fax,spk.park_link,spk.park_id,spk.max_img_id pmax_max_img_id,spi.img_path max_img_path, 
+	sb.basics_id,sb.basics_name,sw.way_id,sw.way_tel,sc.company_id,sc.company_name,
+	spu.public_umanager_id,spu.user_account 
+	from sys_public sp 
+	left join (select * from sys_images where img_state=1) si on si.img_id=sp.max_img_id
+	left join sys_public_label spl on sp.public_id=spl.public_id
+	left join (select * from sys_label where label_state=1)sl on spl.label_id=sl.label_id
+	left join (select * from sys_park where park_state=2) spk on sp.park_id=spk.park_id
+	left join (select * from sys_images where img_state=1) spi on spi.img_id=spk.max_img_id
+	left join (select * from sys_basics where basics_state=2) sb on sb.basics_id=sp.basics_id
+	left join (select * from sys_way where way_type=3) sw on sw.way_obj_id=sp.public_id
+	LEFT JOIN (SELECT * FROM sys_assort WHERE assort_type=5) sa ON sa.obj_id=sp.public_id
+	LEFT JOIN (SELECT * FROM sys_company WHERE company_state=2)sc ON sc.company_id=sa.company_id
+	left join sys_public_umanager spu on spu.public_id=sp.public_id
+	where sp.public_id=#{publicId,jdbcType=INTEGER};
+  </select>
+  
+     <select id="selectNewAddMonth" resultMap="sysPartnerNewAddMonthStatisticsVo">
+		SELECT
+			YEAR (create_time) create_year,
+			MONTH (create_time) create_month,
+			COUNT (create_time) count_add,
+			1 type
+		FROM
+			sys_public
+		WHERE public_state=2
+		GROUP BY
+			YEAR (create_time),
+			MONTH (create_time)
+		ORDER BY
+			create_year,
+			create_month
+	</select>
+	<select id="selectNewAddQuarter" resultMap="sysPartnerNewAddQuarterStatisticsVo">
+		SELECT
+			DATENAME(YEAR, create_time) create_year,
+			DATENAME(quarter, create_time) create_quarter,
+			COUNT (1) count_add, 
+			2 type
+		FROM
+			sys_public t
+		WHERE t.public_state=2
+		GROUP BY
+			DATENAME(YEAR, create_time),
+			DATENAME(quarter, create_time)
+		ORDER BY
+			CONVERT (
+				INT,
+				DATENAME(quarter, create_time)
+			)
+	</select>
+	<select id="selectNewAddMonthMax" resultType="java.lang.Integer">
+		SELECT
+			MAX (count_add)
+		FROM
+			(
+				SELECT
+					YEAR (create_time) create_year,
+					MONTH (create_time) create_month,
+					COUNT (create_time) count_add,
+					1 type
+				FROM
+					sys_public
+				WHERE public_state=2
+				GROUP BY
+					YEAR (create_time),
+					MONTH (create_time)
+			) temp
+	</select>
+	<select id="selectNewAddQuarterMax" resultType="java.lang.Integer">
+		SELECT
+			MAX (count_add)
+		FROM
+			(
+				SELECT
+					DATENAME(YEAR, create_time) create_year,
+					DATENAME(quarter, create_time) create_quarter,
+					COUNT (1) count_add,
+					2 type
+				FROM
+					sys_public t
+				WHERE t.public_state=2
+				GROUP BY
+					DATENAME(YEAR, create_time),
+					DATENAME(quarter, create_time)
+			) temp
+	</select>
+	
+  <!--公共平台创建单位统计  -->
+  <select id="selectPublicCompanyTotalCount" resultType = "java.lang.Integer"> 
+	SELECT
+		MAX (count_company)
+	FROM
+		(
+			SELECT
+				s2.company_id,
+				s2.company_name,
+				COUNT (s2.company_id) AS count_company
+			FROM
+				sys_assort s1
+			INNER JOIN (select * from sys_company where company_state=2) s2 ON s1.company_id = s2.company_id
+			AND s1.assort_type = 5
+			GROUP BY
+				s2.company_id,
+				s2.company_name
+		) temp
+  </select>
+  <select id="selectPublicCompanyCount" resultMap = "sysPublicCompanyVoMap"> 
+	select s2.company_id,s2.company_name,count (s2.company_id) as count_company
+	from
+		sys_assort s1
+	inner join (select * from sys_company where company_state=2) s2 on s1.company_id = s2.company_id
+	and s1.assort_type = 5
+	group by
+		s2.company_id,s2.company_name
+  </select>
+</mapper>

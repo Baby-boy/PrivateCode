@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysStationUmanagerWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_station_umanager
+    where station_umanager_id = #{stationUmanagerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysStationUmanager" >
+    insert into sys_station_umanager (station_umanager_id, umanager_id, station_id, 
+      user_account)
+    values (#{stationUmanagerId,jdbcType=INTEGER}, #{umanagerId,jdbcType=INTEGER}, #{stationId,jdbcType=INTEGER}, 
+      #{userAccount,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="stationUmanagerId" parameterType="com.lingang.api.domain.entity.SysStationUmanager" >
+    insert into sys_station_umanager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stationUmanagerId != null" >
+        station_umanager_id,
+      </if>
+      <if test="umanagerId != null" >
+        umanager_id,
+      </if>
+      <if test="stationId != null" >
+        station_id,
+      </if>
+      <if test="userAccount != null" >
+        user_account,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stationUmanagerId != null" >
+        #{stationUmanagerId,jdbcType=INTEGER},
+      </if>
+      <if test="umanagerId != null" >
+        #{umanagerId,jdbcType=INTEGER},
+      </if>
+      <if test="stationId != null" >
+        #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="userAccount != null" >
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysStationUmanager" >
+    update sys_station_umanager
+    <set >
+      <if test="umanagerId != null" >
+        umanager_id = #{umanagerId,jdbcType=INTEGER},
+      </if>
+      <if test="stationId != null" >
+        station_id = #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="userAccount != null" >
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where station_umanager_id = #{stationUmanagerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysStationUmanager" >
+    update sys_station_umanager
+    set umanager_id = #{umanagerId,jdbcType=INTEGER},
+      station_id = #{stationId,jdbcType=INTEGER},
+      user_account = #{userAccount,jdbcType=VARCHAR}
+    where station_umanager_id = #{stationUmanagerId,jdbcType=INTEGER}
+  </update>
+</mapper>

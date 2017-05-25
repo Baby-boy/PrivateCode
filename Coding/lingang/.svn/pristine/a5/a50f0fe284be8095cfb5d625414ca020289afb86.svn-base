@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysMessageReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysMessage" >
+    <id column="message_id" property="messageId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="message_type" property="messageType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="message_state" property="messageState" jdbcType="INTEGER" />
+    <result column="link_type" property="linkType" jdbcType="INTEGER" />
+    <result column="link_id" property="linkId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lingang.api.domain.entity.SysMessage" extends="BaseResultMap" >
+    <result column="message_content" property="messageContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapByUserName" type="com.lingang.api.domain.pfvo.SysMessagePfvo" extends="ResultMapWithBLOBs" >
+    <result column="user_name" property="username" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    message_id, user_id, message_type, create_time, message_state, link_type, link_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    message_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_message
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectMessageCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  		select 
+		count(message_id) 
+		from sys_message 
+	    where message_type=#{map.messageType,jdbcType=INTEGER} 
+  </select>
+  	<sql id="SQL_selectMessagePageList" >
+		select 
+	    <include refid="Base_Column_List" />
+	    ,
+	    <include refid="Blob_Column_List" />
+	    from sys_message 
+	    where message_type=#{map.messageType,jdbcType=INTEGER} 
+	</sql>
+	<sql id="SQL_ID_selectMessagePageList" >
+		message_id
+	</sql>
+  <select id="selectMessagePageList" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map" >
+    SELECT TOP ${map.onePageCount}
+		*
+	FROM 
+	(
+		<include refid="SQL_selectMessagePageList" />
+	)
+	 t
+	WHERE t.<include refid="SQL_ID_selectMessagePageList" /> 
+	NOT IN
+	(
+		SELECT TOP (${map.onePageCount} * ${map.startIndex}) 
+		nt.<include refid="SQL_ID_selectMessagePageList" /> 
+		FROM 
+		(
+			<include refid="SQL_selectMessagePageList" />
+		) nt
+	)
+  </select>
+  <!-- 后台 -->
+    <sql id="SQL_selectMessageAndUser" >
+	select sm.message_id,sm.message_content,sm.link_type,sm.message_state,sm.create_time,su.user_name
+	from sys_message sm
+	LEFT JOIN (SELECT * from sys_user where user_state=1) su on sm.user_id=su.user_id
+	<where>
+	sm.message_type=#{map.messageType,jdbcType=INTEGER}
+	<if test="map.linkType !=null and map.linkType !=''">
+			and sm.link_type= #{map.linkType,jdbcType=INTEGER}
+	</if>
+	</where>
+	<!-- where sm.message_type=#{map.messageType,jdbcType=INTEGER} -->
+	</sql>
+   <select id="selectMessageAll" resultMap="ResultMapByUserName" parameterType="java.util.Map" >
+    SELECT TOP ${map.onePageCount}
+		*
+	FROM 
+	(
+		<include refid="SQL_selectMessageAndUser" />
+	)
+	 t
+	WHERE t.<include refid="SQL_ID_selectMessagePageList" /> 
+	NOT IN
+	(
+		SELECT TOP (${map.onePageCount} * ${map.startIndex}) 
+		nt.<include refid="SQL_ID_selectMessagePageList" /> 
+		FROM 
+		(
+			<include refid="SQL_selectMessageAndUser" />
+		) nt
+	)
+  </select>
+  <select id="updateMessageByKey" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+  UPDATE sys_message set message_state=2 where message_id=#{messageType,jdbcType=INTEGER}
+  </select>
+</mapper>

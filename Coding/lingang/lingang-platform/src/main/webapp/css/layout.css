@@ -1,0 +1,131 @@
+.mt-10{
+	margin-top: 10px;
+}
+.mt-20{
+	margin-top: 20px;
+}
+.wd-100{
+	width: 100%;
+	display: inline-block;
+}
+.wd-80{
+	width: 80px;
+	display: inline-block;
+}
+.wd-120{
+	width: 120px;
+	display: inline-block;
+}
+.wd-240{
+	width: 240px;
+	display: inline-block;
+}
+.m-0{
+	margin: 0;
+}
+.p-0{
+	padding: 0;
+}
+.p-10{
+	padding: 10px;
+}
+.pl-15{
+	padding-left: 15px;
+}
+.img-load{
+	width: 100%;
+	height: 160px;
+	background: #E1E1E1;
+	line-height: 160px;
+	text-align: center;
+	color: white;
+}
+.img-load>img{
+	width: 100%;
+	height: 100%;
+}
+.file-btn{
+	position: relative;
+	cursor: pointer;
+}
+.file-btn-2{
+	position: absolute;
+	left:400px;
+	top:0px;
+	background-color:#8080ff;
+	height:35px;
+}
+.input-btn{
+	position: absolute;
+	left:15px;
+	top:100px;
+}
+.file-btn>input[type="file"]{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	z-index: 10;
+}
+.font-color{
+	color: white;
+}
+.lh-40{
+	line-height: 40px;
+}
+.text-primary {
+    color: #337ab7 !important;
+}
+.tab-items{
+	padding: 20px;
+}
+.tab-items>.sub-div{
+	line-height: 35px;
+	padding: 10px 0;
+}
+.radios>label{
+	font-weight: normal;
+}
+.radios>label>input[type='radio']{
+	margin: 0;
+	vertical-align: middle;
+	margin-left: 10px;
+}
+.pr-0{
+	padding-right: 0;
+}
+.table td{
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 500px;
+}
+.border-dashed{
+	border: 2px dashed #337ab7;
+}
+.pics .item{
+	width: calc(20% - 5px);
+	margin-right: 5px;
+	float: left;
+}
+.pics .item .bd{
+	height: 160px;
+	border: 1px dashed #337ab7;
+	line-height: 160px;
+	text-align: center;
+	overflow: hidden;
+}
+.pics .item .bd img{
+	width: 100%;
+	min-height: 100%;
+	height: 100%;
+}
+.pics .item .btns{
+	margin-top: 10px;
+	text-align: center;
+}
+.pics .item .btns button{
+	margin-left: 10px;
+}

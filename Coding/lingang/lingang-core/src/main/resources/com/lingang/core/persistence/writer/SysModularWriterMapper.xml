@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysModularWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_modular
+    where modular_id = #{modularId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysModular" >
+    insert into sys_modular (modular_id, modular_level, modular_father, 
+      modular_number, modular_name, create_time, 
+      update_time)
+    values (#{modularId,jdbcType=INTEGER}, #{modularLevel,jdbcType=INTEGER}, #{modularFather,jdbcType=INTEGER}, 
+      #{modularNumber,jdbcType=INTEGER}, #{modularName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="modularId" parameterType="com.lingang.api.domain.entity.SysModular" >
+    insert into sys_modular
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="modularId != null" >
+        modular_id,
+      </if>
+      <if test="modularLevel != null" >
+        modular_level,
+      </if>
+      <if test="modularFather != null" >
+        modular_father,
+      </if>
+      <if test="modularNumber != null" >
+        modular_number,
+      </if>
+      <if test="modularName != null" >
+        modular_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="modularId != null" >
+        #{modularId,jdbcType=INTEGER},
+      </if>
+      <if test="modularLevel != null" >
+        #{modularLevel,jdbcType=INTEGER},
+      </if>
+      <if test="modularFather != null" >
+        #{modularFather,jdbcType=INTEGER},
+      </if>
+      <if test="modularNumber != null" >
+        #{modularNumber,jdbcType=INTEGER},
+      </if>
+      <if test="modularName != null" >
+        #{modularName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysModular" >
+    update sys_modular
+    <set >
+      <if test="modularLevel != null" >
+        modular_level = #{modularLevel,jdbcType=INTEGER},
+      </if>
+      <if test="modularFather != null" >
+        modular_father = #{modularFather,jdbcType=INTEGER},
+      </if>
+      <if test="modularNumber != null" >
+        modular_number = #{modularNumber,jdbcType=INTEGER},
+      </if>
+      <if test="modularName != null" >
+        modular_name = #{modularName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where modular_id = #{modularId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysModular" >
+    update sys_modular
+    set modular_level = #{modularLevel,jdbcType=INTEGER},
+      modular_father = #{modularFather,jdbcType=INTEGER},
+      modular_number = #{modularNumber,jdbcType=INTEGER},
+      modular_name = #{modularName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where modular_id = #{modularId,jdbcType=INTEGER}
+  </update>
+</mapper>

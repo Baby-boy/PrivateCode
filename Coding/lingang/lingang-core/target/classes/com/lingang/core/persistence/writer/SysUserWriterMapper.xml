@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysUserWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysUser" >
+    insert into sys_user (user_id, img_id, user_account, 
+      user_password, user_department, user_post, 
+      user_tel, user_mobile, user_email, 
+      user_name, user_company, user_state, 
+      manager_id, create_time,gesture_state,gesture_pwd)
+    values (#{userId,jdbcType=INTEGER}, #{imgId,jdbcType=INTEGER}, #{userAccount,jdbcType=VARCHAR}, 
+      #{userPassword,jdbcType=VARCHAR}, #{userDepartment,jdbcType=VARCHAR}, #{userPost,jdbcType=VARCHAR}, 
+      #{userTel,jdbcType=VARCHAR}, #{userMobile,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{userCompany,jdbcType=VARCHAR}, #{userState,jdbcType=INTEGER}, 
+      #{managerId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{gestureState,jdbcType=INTEGER}, #{gesturePwd,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="userId" parameterType="com.lingang.api.domain.entity.SysUser" >
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="imgId != null" >
+        img_id,
+      </if>
+      <if test="userAccount != null" >
+        user_account,
+      </if>
+      <if test="userPassword != null" >
+        user_password,
+      </if>
+      <if test="userDepartment != null" >
+        user_department,
+      </if>
+      <if test="userPost != null" >
+        user_post,
+      </if>
+      <if test="userTel != null" >
+        user_tel,
+      </if>
+      <if test="userMobile != null" >
+        user_mobile,
+      </if>
+      <if test="userEmail != null" >
+        user_email,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userCompany != null" >
+        user_company,
+      </if>
+      <if test="userState != null" >
+        user_state,
+      </if>
+      <if test="managerId != null" >
+        manager_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="gestureState != null" >
+        gesture_state,
+      </if>
+      <if test="gesturePwd != null" >
+        gesture_pwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="userAccount != null" >
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userDepartment != null" >
+        #{userDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="userPost != null" >
+        #{userPost,jdbcType=VARCHAR},
+      </if>
+      <if test="userTel != null" >
+        #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userCompany != null" >
+        #{userCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="userState != null" >
+        #{userState,jdbcType=INTEGER},
+      </if>
+      <if test="managerId != null" >
+        #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gestureState != null" >
+        #{gestureState,jdbcType=INTEGER},
+      </if>
+      <if test="gesturePwd != null" >
+        #{gesturePwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysUser" >
+    update sys_user
+    <set >
+      <if test="imgId != null" >
+        img_id = #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="userAccount != null" >
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userDepartment != null" >
+        user_department = #{userDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="userPost != null" >
+        user_post = #{userPost,jdbcType=VARCHAR},
+      </if>
+      <if test="userTel != null" >
+        user_tel = #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        user_mobile = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userCompany != null" >
+        user_company = #{userCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="userState != null" >
+        user_state = #{userState,jdbcType=INTEGER},
+      </if>
+      <if test="managerId != null" >
+        manager_id = #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gestureState != null" >
+        gesture_state = #{gestureState,jdbcType=INTEGER},
+      </if>
+      <if test="gesturePwd != null" >
+        gesture_pwd = #{gesturePwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysUser" >
+    update sys_user
+    set img_id = #{imgId,jdbcType=INTEGER},
+      user_account = #{userAccount,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_department = #{userDepartment,jdbcType=VARCHAR},
+      user_post = #{userPost,jdbcType=VARCHAR},
+      user_tel = #{userTel,jdbcType=VARCHAR},
+      user_mobile = #{userMobile,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_company = #{userCompany,jdbcType=VARCHAR},
+      user_state = #{userState,jdbcType=INTEGER},
+      manager_id = #{managerId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      gesture_state = #{gestureState,jdbcType=INTEGER},
+      gesture_pwd = #{gesturePwd,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

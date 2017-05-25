@@ -1,0 +1,76 @@
+<div class="row" ng-controller="topStationListCtrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>{{title}}</h5>
+            </div> -->
+            <div class="ibox-content">
+                <form class="form-inline">
+	               <div class="row m-t">
+						<div class="form-group col-xs-3">
+							<label for="stationTitle">标题:</label>
+							<input type="text" class="form-control" id="stationTitle" ng-model="para.stationTitle" placeholder="请输入关键字" >
+						</div>
+						<div class="form-group col-xs-2">
+							<label for="stationIstop">状态:</label>
+							<select class="form-control" id="stationState"  ng-model="para.stationState" ng-change="getStationList()">
+							    <option value="">全部</option>
+								<option value="1">已上传</option>
+								<option value="2">已发布</option>
+							</select>
+						</div>
+						<div class="col-md-1">
+							<button type="button" class="btn btn-primary" ng-click="getStationList()">立即搜索</button>
+						</div>
+<!-- 						<div class="col-md-2">
+							<button type="button" class="btn btn-primary" onclick="javascript:window.location.href='#/home/topStation/topStationAdd/index'">添加入驻信息</button>
+						</div> -->
+					</div>
+					<div class="row m-t">
+						
+					</div>
+				  </form>
+		 	  <div >
+ 		       <table class="table table-striped table-bordered table-hover dataTables-example">
+                      <tr>
+                            <th style="text-align: center;">序号</th>
+                            <th style="text-align: center;">标题</th>
+                            <th style="text-align: center;">简称</th>
+                            <th style="text-align: center;">创建单位</th>
+                            <th style="text-align: center;">置顶时间</th>
+                            <th style="text-align: center;">流失装填</th>
+                            <th style="text-align: center;">状态</th>
+                            <th style="text-align: center;">操作</th>
+                        </tr>
+                        <tr ng-repeat="station in topStationList">
+                            <td>{{$index + (paginationConf.currentPage-1)*onePageCount + 1}}</td>
+                            <td   style="width:10%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{station.stationTitle}}</td>
+                            <td>{{station.stationSimple}}</td>
+                            <td>{{station.stationCompany}}</td>
+                            <td>{{station.topTime | date:'yyyy-MM-dd HH:mm'}}</td>
+                            <td ng-if="station.lossState == 1" ng-style="station.lossState == 1?{color:'gray'}:''">在园区</td>
+                            <td ng-if="station.lossState == 2" ng-style="station.lossState == 2?{color:'blue'}:''">淘汰</td>
+                            <td ng-if="station.lossState == 3" ng-style="station.lossState == 3?{color:'red'}:''">流失</td>
+                            <td ng-if="station.stationState == 1" ng-style="station.stationState == 1?{color:'gray'}:''">已上传</td>
+                            <td ng-if="station.stationState == 2" ng-style="station.stationState == 2?{color:'blue'}:''">已发布</td>
+                            <td ng-if="station.stationState == 3" ng-style="station.stationState == 3?{color:'red'}:''">已删除</td>
+                            <td>
+                            <!-- <a href="#/home/topStation/topStationDetails/{{station.stationId}}">管理</a> -->
+                            <a href=""  ng-click="delStationTop(station)">取消置顶</a>
+                            </td>
+                         </tr>
+            	   </table>
+                    <div class="row m-t">
+					  <div class="col-md-10 col-md-offset-1">
+					  		<!--分页开始-->
+							<ndtech-pagination class conf="paginationConf"></ndtech-pagination>
+							<!--分页结束-->
+					  </div>
+				   </div>
+ 		       </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+

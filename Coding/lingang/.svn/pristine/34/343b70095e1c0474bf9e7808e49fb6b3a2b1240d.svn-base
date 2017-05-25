@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysPolicyReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysPolicy" >
+    <id column="policy_id" property="policyId" jdbcType="INTEGER" />
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="policy_title" property="policyTitle" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="policy_state" property="policyState" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lingang.api.domain.entity.SysPolicy" extends="BaseResultMap" >
+    <result column="policy_content" property="policyContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="SysPolicyResultMap" type="com.lingang.api.domain.vo.SysPolicyVo" extends="ResultMapWithBLOBs">
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+   </resultMap>
+  <sql id="Base_Column_List" >
+    policy_id, img_id, policy_title, create_time, policy_state
+  </sql>
+  <sql id="Blob_Column_List" >
+    policy_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysPolicyResultMap" parameterType="java.lang.Integer" >
+    select sp.policy_id,sp.policy_title,sp.policy_content,
+    sp.create_time,sm.img_id,sm.img_path
+    from sys_policy sp
+    LEFT JOIN (SELECT * from sys_images WHERE img_state=1) sm on sp.img_id=sm.img_id
+    where policy_id =#{policyId,jdbcType=INTEGER} and policy_state=2
+  </select>
+  <select id="selectByKey" resultMap="SysPolicyResultMap" parameterType="java.lang.Integer" >
+    select sp.policy_id,sp.policy_title,sp.policy_content,
+    sp.create_time,sp.policy_state,sm.img_id,sm.img_path
+    from sys_policy sp
+    LEFT JOIN (SELECT * from sys_images WHERE img_state=1) sm on sp.img_id=sm.img_id
+    where policy_id =#{policyId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- app列表重写 -->
+  <sql id="where_selectSysPolicyAll">
+  	<where>
+	  	policy_state=2
+	  	<if test="map.keywords !=null and map.keywords !=''">
+       		and (CONTAINS (sp.policy_title, '${map.keywords}')
+			OR CONTAINS (sp.policy_content, '${map.keywords}'))
+       </if>
+  	</where>
+  </sql>
+  <select id="selectSysPolicyCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select COUNT(DISTINCT sp.policy_id)
+    from sys_policy sp
+    <include refid="where_selectSysPolicyAll"/>
+  </select>
+  <select id="selectSysPolicyAll" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+   	WITH cte AS(
+		select sp.policy_id,
+			ROW_NUMBER() OVER(ORDER BY sp.create_time DESC) AS rownum
+		from sys_policy sp
+		<include refid="where_selectSysPolicyAll"/>
+		GROUP BY sp.policy_id,sp.create_time
+	)
+
+	select sp.policy_id,sp.policy_title,sp.policy_content,sp.create_time
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st 
+	left join sys_policy sp on sp.policy_id=st.policy_id
+  </select>
+  
+  <!-- 后台 -->
+  <sql id="where_queryAllByPage">
+  	<where>
+		1=1
+		<if test="map.policyTitle !=null and map.policyTitle !=''">
+			and policy_title like '%${map.policyTitle}%'
+		</if>
+		<if test="map.policyState !=null and map.policyState !=''">
+			and policy_state = #{map.policyState}
+		</if>
+	</where>
+  </sql>
+  <select id="querySysPolicyCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+   	select COUNT(DISTINCT sp.policy_id)
+	from sys_policy sp
+    <include refid="where_queryAllByPage"/>
+  </select>
+  <select id="queryAllByPage" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+   	WITH cte AS(
+		select sp.policy_id,
+			ROW_NUMBER() OVER(ORDER BY sp.create_time DESC) AS rownum
+		from sys_policy sp
+	 	<include refid="where_queryAllByPage"/>
+		GROUP BY sp.policy_id,sp.create_time
+	)
+
+	select sp.policy_id,sp.policy_title,sp.create_time,sp.policy_state 
+	from
+		(select * from cte where rownum between 1 and 100) st 
+	left join sys_policy sp on sp.policy_id=st.policy_id
+  </select>
+  
+</mapper>

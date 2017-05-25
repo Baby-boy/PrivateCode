@@ -1,0 +1,65 @@
+package com.lingang.api.domain.vo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.lingang.api.domain.entity.SysLabel;
+import com.lingang.api.domain.entity.SysPark;
+import com.lingang.api.domain.entity.SysStation;
+import com.lingang.api.domain.entity.SysUmanager;
+
+public class SysStationVo extends SysStation{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4976369767451195602L;
+	
+	private String imgPath;
+	
+	private List<SysPark> parks=new ArrayList<SysPark>();
+	private List<SysParkVo> parksvo=new ArrayList<SysParkVo>();
+	private List<SysIndustryVo> industrys=new ArrayList<SysIndustryVo>();
+	private List<SysLabel> labels=new ArrayList<SysLabel>();
+	private List<SysUmanager> umanagers=new ArrayList<SysUmanager>();
+	public String getImgPath() {
+		return imgPath;
+	}
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+	public List<SysPark> getParks() {
+		return parks;
+	}
+	public void setParks(List<SysPark> parks) {
+		this.parks = parks;
+	}
+	public List<SysIndustryVo> getIndustrys() {
+		return industrys;
+	}
+	public void setIndustrys(List<SysIndustryVo> industrys) {
+		this.industrys = industrys;
+	}
+	public List<SysLabel> getLabels() {
+		return labels;
+	}
+	public void setLabels(List<SysLabel> labels) {
+		this.labels = labels;
+	}
+	public List<SysUmanager> getUmanagers() {
+		return umanagers;
+	}
+	public void setUmanagers(List<SysUmanager> umanagers) {
+		this.umanagers = umanagers;
+	}
+	public List<SysParkVo> getParksvo() {
+		return parksvo;
+	}
+	public void setParksvo(List<SysParkVo> parksvo) {
+		this.parksvo = parksvo;
+	}
+
+
+	
+
+}

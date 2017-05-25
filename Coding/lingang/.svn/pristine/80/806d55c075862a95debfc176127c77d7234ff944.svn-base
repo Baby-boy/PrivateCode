@@ -1,0 +1,82 @@
+package com.lingang.consumer.controller.seek;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.lingang.api.domain.basic.JsonResult;
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.vo.SysServiceVo;
+import com.lingang.api.service.SysServiceService;
+
+/**
+ * @Description: (服务机构信息控制)
+ * @Author: lgl(lgl1012dream@foxmail.com)
+ * @date:2016年12月5日 下午6:00:22
+ * @Version:1.0
+ */
+@Controller
+@RequestMapping("/service")
+public class ServiceController {
+	
+	@Resource
+	private SysServiceService sysServiceService;
+
+	/**
+	* @Description: (服务机构列表)
+	* @param pageIndex
+	* @param pageSize
+	* @param regionId 地区ID
+	* @param basicsId 服务类型ID
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月5日 下午6:32:04
+	 */
+	@RequestMapping(value = "/servicePageList.do", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public JsonResult servicePageList(
+			@RequestParam(value = "pageIndex", required = false, defaultValue = "1") Integer pageIndex,
+			@RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+			@RequestParam(value = "regionId", required = false, defaultValue = "") Integer regionId,
+			@RequestParam(value = "regionTypeId", required = false, defaultValue = "1") Integer regionTypeId,
+			@RequestParam(value = "basicsId", required = false, defaultValue = "") Integer basicsId) {
+		JsonResult jsonResult = new JsonResult();
+		if(null != regionId && regionId==-1){
+			regionTypeId=null;
+			regionId=null;
+		}else if(null != regionId && regionId==-2){
+			regionTypeId=1;
+			regionId=null;
+		}else if(null != regionId && regionId==-3){
+			regionTypeId=2;
+			regionId=null;
+		}
+		ServiceResult<Page<SysServiceVo>> result = sysServiceService.selectServicePageList(pageIndex, regionTypeId, pageSize, regionId, basicsId);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setData(result.getData());
+		return jsonResult;
+	}
+	
+	
+	/**
+	* @Description: (服务机构详情)
+	* @param serviceId
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月5日 下午9:26:54
+	 */
+	@RequestMapping(value="/serviceDetails.do", method = { RequestMethod.GET, RequestMethod.POST })
+    @ResponseBody	
+	public JsonResult serviceDetails(@RequestParam(value="serviceId",required=true)Integer serviceId){
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<SysServiceVo> result=sysServiceService.selectServiceByServiceId(serviceId);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setData(result.getData());
+		return jsonResult; 
+	} 
+}

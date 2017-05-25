@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdAdminMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdAdmin" >
+    <id column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="admin_name" property="adminName" jdbcType="VARCHAR" />
+    <result column="admin_password" property="adminPassword" jdbcType="VARCHAR" />
+    <result column="admin_login_time" property="adminLoginTime" jdbcType="TIMESTAMP" />
+    <result column="admin_login_num" property="adminLoginNum" jdbcType="INTEGER" />
+    <result column="admin_is_super" property="adminIsSuper" jdbcType="BIT" />
+    <result column="admin_gid" property="adminGid" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    admin_id, admin_name, admin_password, admin_login_time, admin_login_num, admin_is_super, 
+    admin_gid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_admin
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_admin
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdAdmin" >
+    insert into yd_admin (admin_id, admin_name, admin_password, 
+      admin_login_time, admin_login_num, admin_is_super, 
+      admin_gid)
+    values (#{adminId,jdbcType=INTEGER}, #{adminName,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, 
+      #{adminLoginTime,jdbcType=TIMESTAMP}, #{adminLoginNum,jdbcType=INTEGER}, #{adminIsSuper,jdbcType=BIT}, 
+      #{adminGid,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdAdmin" >
+    insert into yd_admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="adminName != null" >
+        admin_name,
+      </if>
+      <if test="adminPassword != null" >
+        admin_password,
+      </if>
+      <if test="adminLoginTime != null" >
+        admin_login_time,
+      </if>
+      <if test="adminLoginNum != null" >
+        admin_login_num,
+      </if>
+      <if test="adminIsSuper != null" >
+        admin_is_super,
+      </if>
+      <if test="adminGid != null" >
+        admin_gid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="adminName != null" >
+        #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPassword != null" >
+        #{adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminLoginTime != null" >
+        #{adminLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminLoginNum != null" >
+        #{adminLoginNum,jdbcType=INTEGER},
+      </if>
+      <if test="adminIsSuper != null" >
+        #{adminIsSuper,jdbcType=BIT},
+      </if>
+      <if test="adminGid != null" >
+        #{adminGid,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdAdmin" >
+    update yd_admin
+    <set >
+      <if test="adminName != null" >
+        admin_name = #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPassword != null" >
+        admin_password = #{adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminLoginTime != null" >
+        admin_login_time = #{adminLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminLoginNum != null" >
+        admin_login_num = #{adminLoginNum,jdbcType=INTEGER},
+      </if>
+      <if test="adminIsSuper != null" >
+        admin_is_super = #{adminIsSuper,jdbcType=BIT},
+      </if>
+      <if test="adminGid != null" >
+        admin_gid = #{adminGid,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdAdmin" >
+    update yd_admin
+    set admin_name = #{adminName,jdbcType=VARCHAR},
+      admin_password = #{adminPassword,jdbcType=VARCHAR},
+      admin_login_time = #{adminLoginTime,jdbcType=TIMESTAMP},
+      admin_login_num = #{adminLoginNum,jdbcType=INTEGER},
+      admin_is_super = #{adminIsSuper,jdbcType=BIT},
+      admin_gid = #{adminGid,jdbcType=SMALLINT}
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+</mapper>

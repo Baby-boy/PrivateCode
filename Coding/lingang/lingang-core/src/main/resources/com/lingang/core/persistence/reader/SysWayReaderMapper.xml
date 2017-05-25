@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysWayReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysWay" >
+    <id column="way_id" property="wayId" jdbcType="INTEGER" />
+    <result column="way_tel" property="wayTel" jdbcType="VARCHAR" />
+    <result column="way_type" property="wayType" jdbcType="INTEGER" />
+    <result column="way_obj_id" property="wayObjId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    way_id, way_tel, way_type, way_obj_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_way
+    where way_id = #{wayId,jdbcType=INTEGER}
+  </select>
+</mapper>

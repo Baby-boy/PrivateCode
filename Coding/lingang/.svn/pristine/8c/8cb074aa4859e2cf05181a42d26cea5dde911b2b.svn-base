@@ -1,0 +1,40 @@
+package com.lingang.api.service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysManager;
+import com.lingang.api.domain.para.SysManagerPara;
+import com.lingang.api.domain.pfvo.SysManagerPfVo;
+
+public interface SysManagerService {
+
+	/**
+	* @Description: (管理员列表)
+	* @param pageIndex
+	* @param pageSize
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月6日 下午7:51:55
+	 */
+	ServiceResult<Page<SysManagerPfVo>> selectSysManagerPageList(SysManagerPara para);
+	
+	
+	/**
+	* @Description: (修改管理信息)
+	* @param manager
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月7日 下午7:58:12
+	 */
+	ServiceResult<SysManager> updateSysManager(SysManager manager);
+	
+	/**
+	* @Description: (管理员登录)
+	* @param userAccount
+	* @param userPwd
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月20日 上午9:48:00
+	 */
+	ServiceResult<SysManager> selectSysManagerLogin(String userAccount,String userPwd);
+}

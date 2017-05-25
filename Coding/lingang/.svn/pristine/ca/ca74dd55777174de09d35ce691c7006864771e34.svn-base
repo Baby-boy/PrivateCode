@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysPartnerUmanagerWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_partner_umanager
+    where partner_umanager_id = #{partnerUmanagerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysPartnerUmanager" >
+    insert into sys_partner_umanager (partner_umanager_id, partner_id, umanager_id
+      )
+    values (#{partnerUmanagerId,jdbcType=INTEGER}, #{partnerId,jdbcType=INTEGER}, #{umanagerId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lingang.api.domain.entity.SysPartnerUmanager" >
+    insert into sys_partner_umanager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="partnerUmanagerId != null" >
+        partner_umanager_id,
+      </if>
+      <if test="partnerId != null" >
+        partner_id,
+      </if>
+      <if test="umanagerId != null" >
+        umanager_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="partnerUmanagerId != null" >
+        #{partnerUmanagerId,jdbcType=INTEGER},
+      </if>
+      <if test="partnerId != null" >
+        #{partnerId,jdbcType=INTEGER},
+      </if>
+      <if test="umanagerId != null" >
+        #{umanagerId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysPartnerUmanager" >
+    update sys_partner_umanager
+    <set >
+      <if test="partnerId != null" >
+        partner_id = #{partnerId,jdbcType=INTEGER},
+      </if>
+      <if test="umanagerId != null" >
+        umanager_id = #{umanagerId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where partner_umanager_id = #{partnerUmanagerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysPartnerUmanager" >
+    update sys_partner_umanager
+    set partner_id = #{partnerId,jdbcType=INTEGER},
+      umanager_id = #{umanagerId,jdbcType=INTEGER}
+    where partner_umanager_id = #{partnerUmanagerId,jdbcType=INTEGER}
+  </update>
+</mapper>

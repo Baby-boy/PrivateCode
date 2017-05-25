@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdLogisMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdLogis" >
+    <id column="logis_id" property="logisId" jdbcType="SMALLINT" />
+    <result column="logis_title" property="logisTitle" jdbcType="VARCHAR" />
+    <result column="logis_logo" property="logisLogo" jdbcType="VARCHAR" />
+    <result column="logis_sort" property="logisSort" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    logis_id, logis_title, logis_logo, logis_sort
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_logis
+    where logis_id = #{logisId,jdbcType=SMALLINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from yd_logis
+    where logis_id = #{logisId,jdbcType=SMALLINT}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdLogis" >
+    insert into yd_logis (logis_id, logis_title, logis_logo, 
+      logis_sort)
+    values (#{logisId,jdbcType=SMALLINT}, #{logisTitle,jdbcType=VARCHAR}, #{logisLogo,jdbcType=VARCHAR}, 
+      #{logisSort,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdLogis" >
+    insert into yd_logis
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logisId != null" >
+        logis_id,
+      </if>
+      <if test="logisTitle != null" >
+        logis_title,
+      </if>
+      <if test="logisLogo != null" >
+        logis_logo,
+      </if>
+      <if test="logisSort != null" >
+        logis_sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logisId != null" >
+        #{logisId,jdbcType=SMALLINT},
+      </if>
+      <if test="logisTitle != null" >
+        #{logisTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="logisLogo != null" >
+        #{logisLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="logisSort != null" >
+        #{logisSort,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdLogis" >
+    update yd_logis
+    <set >
+      <if test="logisTitle != null" >
+        logis_title = #{logisTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="logisLogo != null" >
+        logis_logo = #{logisLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="logisSort != null" >
+        logis_sort = #{logisSort,jdbcType=TINYINT},
+      </if>
+    </set>
+    where logis_id = #{logisId,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdLogis" >
+    update yd_logis
+    set logis_title = #{logisTitle,jdbcType=VARCHAR},
+      logis_logo = #{logisLogo,jdbcType=VARCHAR},
+      logis_sort = #{logisSort,jdbcType=TINYINT}
+    where logis_id = #{logisId,jdbcType=SMALLINT}
+  </update>
+</mapper>

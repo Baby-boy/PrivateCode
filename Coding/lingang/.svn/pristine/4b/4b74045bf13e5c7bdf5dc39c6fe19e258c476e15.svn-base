@@ -1,0 +1,47 @@
+package com.lingang.api.domain.para;
+
+public class SysServicePara extends BasePara {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7460830790202970418L;
+
+	// 服务机构名称关键字
+	private String serviceNameKeywords;
+
+	// 服务机构所属地区关键字
+	private String regionNameKeywords;
+
+	// 服务机构提供的服务关键字
+	private String serviceTeamKeywords;
+
+	public String getServiceNameKeywords() {
+		return serviceNameKeywords;
+	}
+
+	public void setServiceNameKeywords(String serviceNameKeywords) {
+		this.serviceNameKeywords = serviceNameKeywords;
+	}
+
+	public String getRegionNameKeywords() {
+		return regionNameKeywords;
+	}
+
+	public void setRegionNameKeywords(String regionNameKeywords) {
+		this.regionNameKeywords = regionNameKeywords;
+	}
+
+	public String getServiceTeamKeywords() {
+		return serviceTeamKeywords;
+	}
+
+	public void setServiceTeamKeywords(String serviceTeamKeywords) {
+		this.serviceTeamKeywords = serviceTeamKeywords;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+}

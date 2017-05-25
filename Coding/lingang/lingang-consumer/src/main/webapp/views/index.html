@@ -1,0 +1,269 @@
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div id="carousel-home" class="carousel slide carousel-home"
+				data-ride="carousel">
+				<ol class="carousel-indicators">
+					<!-- <li data-target="#carousel-home" data-slide-to="0" class="active"></li> -->
+					<li data-target="#carousel-home" data-slide-to="{{$index}}" ng-class="$index == 0?'active':''" ng-repeat="img in resources"></li>
+				</ol>
+				<div class="carousel-inner" role="listbox">
+					<!-- <div class="item active">
+						<img class="item-img" src="pcResource/img/Shuffling-figure.png"
+							alt="杞挱鍥�>
+					</div> -->
+					<div class="item" ng-class="$index == 0?'active':''" ng-repeat="img in resources">
+				    		<a ng-href="{{img.url}}"><img  ng-src="{{img.imgPath}}"  class="item-img"/></a>
+				    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="cond">
+		<!-- <div class="row">
+			<div class="col-lg-2 mt-10">
+				<strong class="title">蹇�鎼滅储</strong>
+			</div>
+			<div class="col-lg-3">
+				<div >
+					<input type="text" class="form-control time-sel" placeholder="璇疯緭鍏ュ叧閿瘝" ng-model="actName">
+					<a><img src="pcResource/img/search.png"></a>
+				</div>
+			</div>
+			
+		</div> -->
+		<div class="row">
+			<div class="col-lg-2">
+				<div class="name">
+					瀛╁瓙骞撮緞
+				</div>
+			</div>
+			<div class="col-lg-10">
+				<ul class="type-ul">
+					<li ng-class="age == 0 ?'active':''" ng-click="changeAge(0)">涓嶉檺</li>
+					<li ng-class="age == 1 ?'active':''" ng-click="changeAge(1)">0鑷�宀�/li>
+					<li ng-class="age == 2 ?'active':''" ng-click="changeAge(2)">4鑷�宀�/li>
+					<li ng-class="age == 3 ?'active':''" ng-click="changeAge(3)">7鑷�2宀�/li>
+					<li ng-class="age == 4 ?'active':''" ng-click="changeAge(4)">13鑷�5宀�/li>
+					<li ng-class="age == -1 ?'active':''" ng-click="changeAge(-1)">娣烽緞</li>
+				</ul>
+			</div>
+		</div>
+		<!-- <div class="row">
+			<div class="col-lg-2">
+				<div class="name">
+					绯诲垪
+				</div>
+			</div>
+			<div class="col-lg-10">
+				<ul class="type-ul">
+					<li ng-class="serId == 0?'active':''" ng-click="changeSer(0)">涓嶉檺</li>
+					<li ng-class="serId == ser.seriesId?'active':''" ng-repeat="ser in seriess" ng-click="changeSer(ser.seriesId)">{{ser.seriesName}}</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-2">
+				<div class="name">
+					绉戠洰
+				</div>
+			</div>
+			<div class="col-lg-10">
+				<ul class="type-ul">
+					<li ng-class="subjectId == 0?'active':''" ng-click="changeSub(0)">涓嶉檺</li>
+					<li ng-class="subjectId == sub.subjectId?'active':''" ng-repeat="sub in subject" ng-click="changeSub(sub.subjectId)">{{sub.subjectName}}</li>
+				</ul>
+			</div>
+		</div> -->
+		<div class="row">
+			<div class="col-lg-2">
+				<div class="name">
+					娲诲姩鏃堕棿
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<input type="text" id="actTime" class="form-control time-sel" ng-model="actTime" mindate="1900-10-10" date-picker  placeholder="璇烽�鎷╁紑濮嬫椂闂�.." >
+				<!-- <select class="form-control time-sel">
+					<option value="">3-1</option>
+					<option value="">3-2</option>
+				</select> -->
+			</div>
+			<div class="col-lg-4 text-right mt-10">
+				<a class="btn btn-default big-btn" ng-click="searchActs()" >鎼滅储</a>
+			</div>
+		</div>
+		<!-- <div class="row">
+			<div class="col-lg-12  text-center">
+				<a class="btn btn-default big-btn" ng-click="searchActs()" >鎼滅储</a>
+			</div>
+		</div> -->
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<ul class="index-recom-list">
+				<li ng-repeat="act in actInfos" ng-click="actDetail(act.actId,act)" >
+					<div class="body">
+						<div class="icon">
+							<img class="auto-img" alt="img3" ng-src="{{act.resourceInfos[0].imgPath}}">
+						</div>
+						<div class="info">
+							<h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box;-webkit-box-orient: vertical; -webkit-line-clamp: 4;  max-height: 100px;">{{act.actName}}</h4>
+							<p>
+								閫傚疁骞寸邯娈碉細
+								<font ng-if="act.limitAge==2">
+									娣烽緞
+								</font>
+								<font ng-if="act.limitAge==1">
+									<font ng-if="act.maxAge!=null&&act.maxAge!=999">
+										{{act.minAge}}-{{act.maxAge}}宀�
+									</font>
+									<font ng-if="act.maxAge==null||act.maxAge==999">
+										{{act.minAge}}宀佷互涓�
+									</font>
+								</font>
+							</p>
+							<p>鏃堕棿锛歿{act.actStime | date : 'yyyy/MM/dd'}}<font ng-show="act.actEtime != null">~{{act.actEtime | date : 'yyyy/MM/dd'}}</font></p><!-- <font ng-if="act.actTimeRemark!=null">({{act.actTimeRemark}})</font> -->
+						</div>
+					</div>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+	<!-- <div class="row">
+		<div class="col-lg-12">
+			<div class="indent-col-main">
+				<div class="block-slider">
+					<ul id="slider_list" class="products-grid">
+						<li class="item" ng-class="{'first':$first,'over':$last}" ng-repeat="act in actInfos" >
+							<div class="item">
+								<a class="product-image" ng-click="actDetail(act.actId,act)"> <img class="auto-img" alt="img1"
+									ng-src="{{act.resourceInfos[0].imgPath}}">
+								</a>
+								<div class="product-name">
+									<div class="row">
+										<div class="col-sm-4 name">
+											</div>
+										<div class="col-sm-12 detai">
+											<span>{{act.actName}}</span> <img
+												src="pcResource/img/click.png" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						
+					</ul>
+				</div>
+				<div id="left_but" class="box-left"></div>
+				<div id="right_but" class="box-right"></div>
+			</div>
+		</div>
+	</div> -->
+	<!-- <div class="row">
+		<div class="col-lg-12">
+			<p class="title">
+				<img src="pcResource/img/course.png" /> <span>鏃呮父浜у搧绯诲垪</span>
+			</p>
+		</div>
+	</div>
+	<div class="row mt-20">
+		<div class="col-lg-3">
+			<div class="round-list">
+				<div class="body">
+					<ul>
+						<li ng-repeat="sub in seriess[0].subjects"><a href="#/act/seriesIndex/{{seriess[0].seriesId}}?seriesName={{seriess[0].seriesName}}&subjectId={{sub.subjectId}}">{{sub.subjectName}}</a></li>
+						<li ng-show="seriess[0].subjects.length>0"><a href="#/act/index">鏇村銆�/a></li>
+					</ul>
+				</div>
+				<div class="icon">
+					<img src="pcResource/img/survival.png" />
+				</div>
+				<div class="type type1">{{seriess[0].seriesName}}</div>
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="round-list">
+				<div class="body">
+					<ul>
+						<li ng-repeat="sub in seriess[1].subjects"><a href="#/act/seriesIndex/{{seriess[1].seriesId}}?seriesName={{seriess[1].seriesName}}&subjectId={{sub.subjectId}}">{{sub.subjectName}}</a></li>
+						<li ng-show="seriess[1].subjects.length>0"><a href="#/act/index">鏇村銆�/a></li>
+					</ul>
+				</div>
+				<div class="icon">
+					<img src="pcResource/img/intelligence.png" />
+				</div>
+				<div class="type type2">{{seriess[1].seriesName}}</div>
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="round-list">
+				<div class="body">
+					<ul>
+						<li ng-repeat="sub in seriess[2].subjects"><a href="#/act/seriesIndex/{{seriess[2].seriesId}}?seriesName={{seriess[2].seriesName}}&subjectId={{sub.subjectId}}">{{sub.subjectName}}</a></li>
+						<li ng-show="seriess[2].subjects.length>0"><a href="#/act/index">鏇村銆�/a></li>
+					</ul>
+				</div>
+				<div class="icon">
+					<img src="pcResource/img/eq.png" />
+				</div>
+				<div class="type type3">{{seriess[2].seriesName}}</div>
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="round-list">
+				<div class="body">
+					<ul>
+						<li ng-repeat="sub in seriess[3].subjects"><a href="#/act/seriesIndex/{{seriess[3].seriesId}}?seriesName={{seriess[3].seriesName}}&subjectId={{sub.subjectId}}">{{sub.subjectName}}</a></li>
+						<li ng-show="seriess[3].subjects.length>0"><a href="#/act/index">鏇村銆�/a></li>
+					</ul>
+				</div>
+				<div class="icon icon2">
+					<img src="pcResource/img/dream.png" />
+				</div>
+				<div class="type type4">{{seriess[3].seriesName}}</div>
+			</div>
+		</div>
+	</div> -->
+<!-- 	<div class="row mt-50">
+		<div class="col-lg-12">
+			<p class="title">
+				<img src="pcResource/img/times.png" /> <span>灏忕墰鏃朵唬</span>
+			</p>
+		</div>
+	</div> -->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="news-list">
+				<div class="icon">
+					<img src="pcResource/img/img_lingang.png" />
+				</div>
+				<div class="body">
+					<div class="row" ng-repeat="info in informations" >
+						<div class="col-lg-6 col-lg-offset-2">
+							<a href="index.html#/information/informationDetail/{{info.id}}">{{info.title}}</a>
+							<!-- <a ng-click="jump(4,'#/information/informationIndex/' + {{info.id}})">{{info.title}}</a> -->
+						</div>
+						<div class="col-lg-2 text-right">
+							<span>{{info.updateDate | date:'yyyy-MM-dd'}}</span>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row">
+					<div class="col-lg-2 col-lg-offset-8 text-right">
+						<!-- <a class="orange-a" href="#/information/informationDetail/index">鏇村绮惧僵</a> -->
+						<a class="orange-a" ng-click="jump(4,'#/information/informationIndex/index')">鏇村绮惧僵</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="row mt-40">
+		<div class="col-lg-8 col-lg-offset-2">
+			<img class="auto-img" src="pcResource/img/features.png" />
+		</div>
+	</div> -->
+</div>

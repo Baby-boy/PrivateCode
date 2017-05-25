@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdClassifyMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdClassify" >
+    <id column="cly_id" property="clyId" jdbcType="INTEGER" />
+    <result column="ads_id" property="adsId" jdbcType="INTEGER" />
+    <result column="cly_pid" property="clyPid" jdbcType="INTEGER" />
+    <result column="cly_sort" property="clySort" jdbcType="INTEGER" />
+    <result column="cly_is_parent" property="clyIsParent" jdbcType="INTEGER" />
+    <result column="cly_type" property="clyType" jdbcType="VARCHAR" />
+    <result column="cly_name" property="clyName" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="cly_imgsrc" property="clyImgsrc" jdbcType="VARCHAR" />
+    <result column="cly_total_goods" property="clyTotalGoods" jdbcType="INTEGER" />
+    <result column="cly_deep" property="clyDeep" jdbcType="TINYINT" />
+    <result column="cly_created_time" property="clyCreatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cly_id, ads_id, cly_pid, cly_sort, cly_is_parent, cly_type, cly_name, type_id, type_name, 
+    cly_imgsrc, cly_total_goods, cly_deep, cly_created_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_classify
+    where cly_id = #{clyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_classify
+    where cly_id = #{clyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdClassify" >
+    insert into yd_classify (cly_id, ads_id, cly_pid, 
+      cly_sort, cly_is_parent, cly_type, 
+      cly_name, type_id, type_name, 
+      cly_imgsrc, cly_total_goods, cly_deep, 
+      cly_created_time)
+    values (#{clyId,jdbcType=INTEGER}, #{adsId,jdbcType=INTEGER}, #{clyPid,jdbcType=INTEGER}, 
+      #{clySort,jdbcType=INTEGER}, #{clyIsParent,jdbcType=INTEGER}, #{clyType,jdbcType=VARCHAR}, 
+      #{clyName,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, 
+      #{clyImgsrc,jdbcType=VARCHAR}, #{clyTotalGoods,jdbcType=INTEGER}, #{clyDeep,jdbcType=TINYINT}, 
+      #{clyCreatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdClassify" >
+    insert into yd_classify
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clyId != null" >
+        cly_id,
+      </if>
+      <if test="adsId != null" >
+        ads_id,
+      </if>
+      <if test="clyPid != null" >
+        cly_pid,
+      </if>
+      <if test="clySort != null" >
+        cly_sort,
+      </if>
+      <if test="clyIsParent != null" >
+        cly_is_parent,
+      </if>
+      <if test="clyType != null" >
+        cly_type,
+      </if>
+      <if test="clyName != null" >
+        cly_name,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="typeName != null" >
+        type_name,
+      </if>
+      <if test="clyImgsrc != null" >
+        cly_imgsrc,
+      </if>
+      <if test="clyTotalGoods != null" >
+        cly_total_goods,
+      </if>
+      <if test="clyDeep != null" >
+        cly_deep,
+      </if>
+      <if test="clyCreatedTime != null" >
+        cly_created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clyId != null" >
+        #{clyId,jdbcType=INTEGER},
+      </if>
+      <if test="adsId != null" >
+        #{adsId,jdbcType=INTEGER},
+      </if>
+      <if test="clyPid != null" >
+        #{clyPid,jdbcType=INTEGER},
+      </if>
+      <if test="clySort != null" >
+        #{clySort,jdbcType=INTEGER},
+      </if>
+      <if test="clyIsParent != null" >
+        #{clyIsParent,jdbcType=INTEGER},
+      </if>
+      <if test="clyType != null" >
+        #{clyType,jdbcType=VARCHAR},
+      </if>
+      <if test="clyName != null" >
+        #{clyName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="clyImgsrc != null" >
+        #{clyImgsrc,jdbcType=VARCHAR},
+      </if>
+      <if test="clyTotalGoods != null" >
+        #{clyTotalGoods,jdbcType=INTEGER},
+      </if>
+      <if test="clyDeep != null" >
+        #{clyDeep,jdbcType=TINYINT},
+      </if>
+      <if test="clyCreatedTime != null" >
+        #{clyCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdClassify" >
+    update yd_classify
+    <set >
+      <if test="adsId != null" >
+        ads_id = #{adsId,jdbcType=INTEGER},
+      </if>
+      <if test="clyPid != null" >
+        cly_pid = #{clyPid,jdbcType=INTEGER},
+      </if>
+      <if test="clySort != null" >
+        cly_sort = #{clySort,jdbcType=INTEGER},
+      </if>
+      <if test="clyIsParent != null" >
+        cly_is_parent = #{clyIsParent,jdbcType=INTEGER},
+      </if>
+      <if test="clyType != null" >
+        cly_type = #{clyType,jdbcType=VARCHAR},
+      </if>
+      <if test="clyName != null" >
+        cly_name = #{clyName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null" >
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="clyImgsrc != null" >
+        cly_imgsrc = #{clyImgsrc,jdbcType=VARCHAR},
+      </if>
+      <if test="clyTotalGoods != null" >
+        cly_total_goods = #{clyTotalGoods,jdbcType=INTEGER},
+      </if>
+      <if test="clyDeep != null" >
+        cly_deep = #{clyDeep,jdbcType=TINYINT},
+      </if>
+      <if test="clyCreatedTime != null" >
+        cly_created_time = #{clyCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cly_id = #{clyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdClassify" >
+    update yd_classify
+    set ads_id = #{adsId,jdbcType=INTEGER},
+      cly_pid = #{clyPid,jdbcType=INTEGER},
+      cly_sort = #{clySort,jdbcType=INTEGER},
+      cly_is_parent = #{clyIsParent,jdbcType=INTEGER},
+      cly_type = #{clyType,jdbcType=VARCHAR},
+      cly_name = #{clyName,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=INTEGER},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      cly_imgsrc = #{clyImgsrc,jdbcType=VARCHAR},
+      cly_total_goods = #{clyTotalGoods,jdbcType=INTEGER},
+      cly_deep = #{clyDeep,jdbcType=TINYINT},
+      cly_created_time = #{clyCreatedTime,jdbcType=TIMESTAMP}
+    where cly_id = #{clyId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 所有查询 -->
+  <!-- 分类列表 -->
+  <resultMap type="com.yd.dby.app.entity.vo.ClassifyVo" id="ClassifyVoResultMap">
+  	<result column="cly_name_one" property="clyNameOne" jdbcType="VARCHAR" />
+  	<result column="cly_imgsrc_one" property="clyImgsrcOne" jdbcType="VARCHAR" />
+  	
+  	<collection property="twoClassify" ofType="com.yd.dby.app.entity.vo.ClassifyTwoVo">
+		<result column="cly_name_two" property="clyNameTwo" jdbcType="VARCHAR" />
+		
+		 <collection property="threeClassify" ofType="com.yd.dby.app.entity.vo.ClassifyThreeVo">
+		 	<id column="cly_id" property="clyId" jdbcType="INTEGER" />
+			<result column="cly_name_three" property="clyNameThree" jdbcType="VARCHAR" />
+			<result column="cly_imgsrc_three" property="clyImgsrcThree" jdbcType="VARCHAR" />
+		</collection>
+	</collection>
+  </resultMap>
+  
+  <!-- 分类列表查询 -->
+  <select id="selectClassifyList" resultMap="ClassifyVoResultMap">
+  	select 
+	c_one.cly_name cly_name_one,c_one.cly_imgsrc cly_imgsrc_one,
+	c_two.cly_name cly_name_two,
+	c_three.cly_name cly_name_three,c_three.cly_imgsrc cly_imgsrc_three,c_three.cly_id
+	from yd_classify c_one 
+	left join yd_classify c_two on c_two.cly_pid=c_one.cly_id
+	left join yd_classify c_three on c_three.cly_pid=c_two.cly_id
+	where c_one.cly_pid=0
+	order by c_one.cly_sort desc
+  </select>
+</mapper>

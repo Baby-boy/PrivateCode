@@ -1,0 +1,24 @@
+package com.lingang.api.domain.para;
+
+public class SysIndustryPara extends BasePara {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 282833726816152374L;
+
+	private String industryTitleKeywords;
+
+	public String getIndustryTitleKeywords() {
+		return industryTitleKeywords;
+	}
+
+	public void setIndustryTitleKeywords(String industryTitleKeywords) {
+		this.industryTitleKeywords = industryTitleKeywords;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+}

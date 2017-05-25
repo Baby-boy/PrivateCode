@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysPolicyWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_policy
+    where policy_id = #{policyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysPolicy" >
+    insert into sys_policy (policy_id, img_id, policy_title, 
+      create_time, policy_state, policy_content
+      )
+    values (#{policyId,jdbcType=INTEGER}, #{imgId,jdbcType=INTEGER}, #{policyTitle,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{policyState,jdbcType=INTEGER}, #{policyContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="policyId" parameterType="com.lingang.api.domain.entity.SysPolicy" >
+    insert into sys_policy
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="policyId != null" >
+        policy_id,
+      </if>
+      <if test="imgId != null" >
+        img_id,
+      </if>
+      <if test="policyTitle != null" >
+        policy_title,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="policyState != null" >
+        policy_state,
+      </if>
+      <if test="policyContent != null" >
+        policy_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="policyId != null" >
+        #{policyId,jdbcType=INTEGER},
+      </if>
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="policyTitle != null" >
+        #{policyTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="policyState != null" >
+        #{policyState,jdbcType=INTEGER},
+      </if>
+      <if test="policyContent != null" >
+        #{policyContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysPolicy" >
+    update sys_policy
+    <set >
+      <if test="imgId != null" >
+        img_id = #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="policyTitle != null" >
+        policy_title = #{policyTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="policyState != null" >
+        policy_state = #{policyState,jdbcType=INTEGER},
+      </if>
+      <if test="policyContent != null" >
+        policy_content = #{policyContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where policy_id = #{policyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lingang.api.domain.entity.SysPolicy" >
+    update sys_policy
+    set img_id = #{imgId,jdbcType=INTEGER},
+      policy_title = #{policyTitle,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      policy_state = #{policyState,jdbcType=INTEGER},
+      policy_content = #{policyContent,jdbcType=LONGVARCHAR}
+    where policy_id = #{policyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysPolicy" >
+    update sys_policy
+    set img_id = #{imgId,jdbcType=INTEGER},
+      policy_title = #{policyTitle,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      policy_state = #{policyState,jdbcType=INTEGER}
+    where policy_id = #{policyId,jdbcType=INTEGER}
+  </update>
+</mapper>

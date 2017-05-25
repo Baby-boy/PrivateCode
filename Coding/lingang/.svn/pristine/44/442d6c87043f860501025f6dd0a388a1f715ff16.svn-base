@@ -1,0 +1,133 @@
+package com.lingang.common.ad;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.lingang.common.custom.SMSRequest;
+
+/**
+ *@Description: (Http请求AD域，截取字符串返回)
+ *@Author: lgl(lgl1012dream@foxmail.com)
+ *@date:2017年1月7日 下午2:11:44
+ *@Version:1.0
+ */
+public class HttpResultStr {
+
+	private static Logger log = LoggerFactory.getLogger(HttpResultStr.class);
+	
+	private final static String URL = "http://116.228.182.237:8000/UserService";
+	
+//	public final static StringBuffer stringBuffer = new StringBuffer(URL); 
+	
+	public static void main(String[] args) {
+//		System.out.println(resultStrLogin("lijh", "Qwer1234"));
+//		System.out.println(resultStrCheckUser("lgl"));
+//		String resultStr=resultStrCheckUser("lgl");
+//		String jsonStr=JSONObject.toJSONString(resultStr);
+//		System.out.println(resultStr);
+//		System.out.println(jsonStr);
+//		JSONObject.parseObject(resultStr, SysUser.class);
+//		String testStr="123";
+//		System.out.println(testStr.substring(1,2));
+	}
+	
+	//查询AD域用户
+	public static String resultStrCheckUser (String str) {
+		String resultStr ="";
+		if(str==null || str.equals("")){
+			return resultStr;
+		}
+		try {
+			str =URLEncoder.encode(str, "UTF-8");
+			StringBuffer sb =new StringBuffer(URL+"/"+str);
+			String result=doHttp(sb).result;
+//			System.out.println(result);
+			Integer beginIndex=result.indexOf(">");
+			Integer endIndex=result.lastIndexOf("<");
+			String  subStr = result.substring(beginIndex+1, endIndex);
+			if(!subStr.equals("{'data': ''}")){
+				resultStr = result.substring(beginIndex+1, endIndex);
+//				System.out.println(resultStr);
+			}
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			 
+		return resultStr;
+	}
+	
+	//登录
+	public static String resultStrLogin (String account,String pwd) {
+		String resultStr ="";
+		if(account==null || account.equals("") || pwd==null || pwd.equals("")){
+			return resultStr;
+		}
+		try {
+			account =URLEncoder.encode(account, "UTF-8");
+			pwd =URLEncoder.encode(pwd, "UTF-8");
+			StringBuffer sb =new StringBuffer(URL+"/"+account+"/"+pwd);
+			String result=doHttp(sb).result;
+//			System.out.println(result);
+			Integer beginIndex=result.indexOf(">");
+			Integer endIndex=result.lastIndexOf("<");
+			if(endIndex>0){
+				resultStr = result.substring(beginIndex+1, endIndex);
+//				 System.out.println(resultStr);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return resultStr;
+	}
+	
+	//请求
+	private static SMSRequest doHttp(StringBuffer sb) {
+		SMSRequest httpRequest = new SMSRequest();
+		try {
+			// 发送GET请求
+			URL url = new URL(sb.toString());
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+			conn.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch");
+			conn.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.8");
+			conn.setRequestProperty("Cache-Control", "max-age=0");
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			conn.setRequestProperty("Connection", "Keep-Alive");
+			conn.setUseCaches(false);
+			conn.setDoInput(true);
+			conn.setDoOutput(true);
+			
+			httpRequest.responseCode = conn.getResponseCode();
+			// 获取响应状态
+			if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+				log.debug("连接失败！");
+				return httpRequest;
+			}
+			// 获取响应内容体
+			String line, result = "";
+			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			while ((line = in.readLine()) != null) {
+				result += line;
+			}
+			in.close();
+			httpRequest.result = result;
+			
+			return httpRequest;
+		} catch (IOException e) {
+			log.error("发短信异常!", e);
+		}
+		return httpRequest;
+	}
+}

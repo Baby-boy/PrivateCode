@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdCtcClassMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdCtcClass" >
+    <id column="cc_id" property="ccId" jdbcType="INTEGER" />
+    <result column="cc_pid" property="ccPid" jdbcType="INTEGER" />
+    <result column="cc_sort" property="ccSort" jdbcType="INTEGER" />
+    <result column="cc_name" property="ccName" jdbcType="VARCHAR" />
+    <result column="cc_imgsrc" property="ccImgsrc" jdbcType="VARCHAR" />
+    <result column="cc_is_recommend" property="ccIsRecommend" jdbcType="BIT" />
+    <result column="cc_total_goods" property="ccTotalGoods" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cc_id, cc_pid, cc_sort, cc_name, cc_imgsrc, cc_is_recommend, cc_total_goods
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_ctc_class
+    where cc_id = #{ccId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_ctc_class
+    where cc_id = #{ccId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdCtcClass" >
+    insert into yd_ctc_class (cc_id, cc_pid, cc_sort, 
+      cc_name, cc_imgsrc, cc_is_recommend, 
+      cc_total_goods)
+    values (#{ccId,jdbcType=INTEGER}, #{ccPid,jdbcType=INTEGER}, #{ccSort,jdbcType=INTEGER}, 
+      #{ccName,jdbcType=VARCHAR}, #{ccImgsrc,jdbcType=VARCHAR}, #{ccIsRecommend,jdbcType=BIT}, 
+      #{ccTotalGoods,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdCtcClass" >
+    insert into yd_ctc_class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ccId != null" >
+        cc_id,
+      </if>
+      <if test="ccPid != null" >
+        cc_pid,
+      </if>
+      <if test="ccSort != null" >
+        cc_sort,
+      </if>
+      <if test="ccName != null" >
+        cc_name,
+      </if>
+      <if test="ccImgsrc != null" >
+        cc_imgsrc,
+      </if>
+      <if test="ccIsRecommend != null" >
+        cc_is_recommend,
+      </if>
+      <if test="ccTotalGoods != null" >
+        cc_total_goods,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ccId != null" >
+        #{ccId,jdbcType=INTEGER},
+      </if>
+      <if test="ccPid != null" >
+        #{ccPid,jdbcType=INTEGER},
+      </if>
+      <if test="ccSort != null" >
+        #{ccSort,jdbcType=INTEGER},
+      </if>
+      <if test="ccName != null" >
+        #{ccName,jdbcType=VARCHAR},
+      </if>
+      <if test="ccImgsrc != null" >
+        #{ccImgsrc,jdbcType=VARCHAR},
+      </if>
+      <if test="ccIsRecommend != null" >
+        #{ccIsRecommend,jdbcType=BIT},
+      </if>
+      <if test="ccTotalGoods != null" >
+        #{ccTotalGoods,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdCtcClass" >
+    update yd_ctc_class
+    <set >
+      <if test="ccPid != null" >
+        cc_pid = #{ccPid,jdbcType=INTEGER},
+      </if>
+      <if test="ccSort != null" >
+        cc_sort = #{ccSort,jdbcType=INTEGER},
+      </if>
+      <if test="ccName != null" >
+        cc_name = #{ccName,jdbcType=VARCHAR},
+      </if>
+      <if test="ccImgsrc != null" >
+        cc_imgsrc = #{ccImgsrc,jdbcType=VARCHAR},
+      </if>
+      <if test="ccIsRecommend != null" >
+        cc_is_recommend = #{ccIsRecommend,jdbcType=BIT},
+      </if>
+      <if test="ccTotalGoods != null" >
+        cc_total_goods = #{ccTotalGoods,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cc_id = #{ccId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdCtcClass" >
+    update yd_ctc_class
+    set cc_pid = #{ccPid,jdbcType=INTEGER},
+      cc_sort = #{ccSort,jdbcType=INTEGER},
+      cc_name = #{ccName,jdbcType=VARCHAR},
+      cc_imgsrc = #{ccImgsrc,jdbcType=VARCHAR},
+      cc_is_recommend = #{ccIsRecommend,jdbcType=BIT},
+      cc_total_goods = #{ccTotalGoods,jdbcType=INTEGER}
+    where cc_id = #{ccId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 全部查询 -->
+  <!-- 懒鱼筛选分类结果集 -->
+  <resultMap type="com.yd.dby.app.entity.vo.CtcClassifyVo" id="CtcClassifyVoResultMap">
+  	<result column="cc_name_one" property="ccNameOne" jdbcType="VARCHAR" />
+  	
+  	<collection property="twoClassify" ofType="com.yd.dby.app.entity.vo.CtcClassifyTwoVo">
+		<result column="cc_id_two" property="ccIdTwo" jdbcType="INTEGER" />
+	  	<result column="cc_name_two" property="ccNameTwo" jdbcType="VARCHAR" />
+	  	<result column="cc_pid_two" property="ccPidTwo" jdbcType="INTEGER" />
+  	</collection>
+  </resultMap>
+  
+  <!-- 懒鱼筛选分类 -->
+  <select id="selectCtcClassifyList" resultMap="CtcClassifyVoResultMap">
+  	select 
+  		ycc.cc_name cc_name_one,ycc2.cc_id cc_id_two,ycc2.cc_name cc_name_two,ycc2.cc_pid cc_pid_two
+	from yd_ctc_class ycc
+	left join (select cc_id,cc_pid,cc_name from yd_ctc_class where cc_pid>0) ycc2 on ycc2.cc_pid=ycc.cc_id
+	where ycc.cc_pid=0
+	order by ycc.cc_sort desc
+  </select>
+  
+  <!-- 查询懒鱼首页商品分类 -->
+  <select id="selectCtcGoodsClassify" resultType="YdCtcClass" parameterType="CtcHomePara">
+  	select 
+  		cc_id,cc_name,cc_pid 
+	from 
+		yd_ctc_class
+	where cc_pid=0
+	order by cc_sort desc
+  </select>
+</mapper>

@@ -1,0 +1,51 @@
+package com.lingang.api.domain.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class SysTop implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -671330052116648833L;
+
+	private Integer topId;
+
+    private Integer topType;
+
+    private Date createTime;
+
+    private Integer objId;
+
+    public Integer getTopId() {
+        return topId;
+    }
+
+    public void setTopId(Integer topId) {
+        this.topId = topId;
+    }
+
+    public Integer getTopType() {
+        return topType;
+    }
+
+    public void setTopType(Integer topType) {
+        this.topType = topType;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Integer getObjId() {
+        return objId;
+    }
+
+    public void setObjId(Integer objId) {
+        this.objId = objId;
+    }
+}

@@ -1,0 +1,73 @@
+package com.lingang.api.service;
+
+import java.util.List;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysPark;
+import com.lingang.api.domain.para.SysParkPara;
+import com.lingang.api.domain.pfvo.SysParkPfVo;
+import com.lingang.api.domain.vo.SysFileVo;
+import com.lingang.api.domain.vo.SysParkVo;
+
+public interface SysParkService {
+
+	/**
+	 * @Description: (查询产业园区列表)
+	 * @param regionId 地区ID
+	 * @param industryIds 产业ID
+	 * @param pageIndex 当前页
+	 * @param pageSize 每页条数
+	 * @return   参数注释 
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月4日 上午10:16:48 
+	 */
+	ServiceResult<Page<SysParkVo>> selectSysParkVoPageListByRegionIdAndIndustryIds(Integer regionId,Integer regionTypeId, List<Integer> industryIds, Integer pageIndex, Integer pageSize);
+	
+	/**
+	 * @Description: (查询产业园区详情)
+	 * @param parkId　产业园区ID
+	 * @return   参数注释 
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月5日 上午10:03:44 
+	 */
+	ServiceResult<SysParkVo> selectSysParkDetailsByStationId(Integer parkId);
+	
+	/**
+	* @Description: (宣传册/视频 点击弹窗)
+	* @param fileId
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月7日 下午9:56:58
+	 */
+	ServiceResult<SysFileVo> selectClickPopup(Integer fileId,Integer userId);
+
+	/**
+	 * @Description: (查询产业园区列表_后台)
+	 * @return   参数注释 
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @param para 
+	 * @date: 2016年12月8日 下午12:58:43 
+	 */
+	ServiceResult<Page<SysParkPfVo>> selectSysParkPfVoPageList(SysParkPara para);
+	
+	
+	/**
+	* @Description: (修改园区信息)
+	* @param park
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月9日 上午2:34:01
+	 */
+	ServiceResult<Object> updateParkDetails(SysPark park);
+	
+	/**
+	* @Description: (添加园区信息)
+	* @param park
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月9日 上午2:34:01
+	 */
+	ServiceResult<Object> addParkDetails(SysPark park);
+	
+}

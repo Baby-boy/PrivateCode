@@ -1,0 +1,50 @@
+define(['mySession', 'route-config', 'serviceBase','layer','My97DatePicker','uEditor', 'uEditorConfig', 'uEditorCulture','ajaxUpload'], function (mySession, routeConfig, serviceBase,My97DatePicker) {
+    var _controller = function($scope, $http, $routeParams, $location,sysParkService){
+    	if($routeParams.value==null || $routeParams.value==""){
+    		alert("信息异常..");
+    	}
+    	var ue = UM.getEditor('parkContent',{
+	        initialFrameWidth:'100%',
+	        initialFrameHeight:200
+        });
+    	//获取园区详情
+    	$scope.getParkDetails=function(){
+    		$scope.para={
+    				parkId:$routeParams.value
+    		};
+    		sysParkService.getParkDetails($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				$scope.park=data.data;
+    				ue.setContent($scope.park.parkContent);
+    			}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    		});
+    	};
+    	
+    	//修改园区基本信息
+    	$scope.updateParkDetails=function(){
+    		$scope.para={
+    				parkId:$scope.park.parkId,
+    				parkName:$scope.park.parkName,
+    				parkAddress:$scope.park.parkAddress,
+    				parkFax:$scope.park.parkFax,
+    				parkLink:$scope.park.parkLink,
+    				parkContent:ue.getContent()
+    		
+    		};
+    		sysParkService.updateParkDetails($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				alert("修改成功");
+    			}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    		});
+    	};
+    	
+    	
+    	
+    	$scope.getParkDetails();
+    };
+    return ["sysParkDetailsCtrl", _controller];
+});

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdMessageGoodsMapper" >
+   <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdMessageGoods" >
+    <id column="im_mid" property="imMid" jdbcType="INTEGER" />
+    <result column="im_store_id" property="imStoreId" jdbcType="INTEGER" />
+    <result column="im_depot_id" property="imDepotId" jdbcType="INTEGER" />
+    <result column="im_message" property="imMessage" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+    <result column="goods_pic" property="goodsPic" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR" />
+    <result column="im_time" property="imTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    im_mid, im_store_id, im_depot_id, im_message, goods_name, goods_price, goods_pic, 
+    user_id, user_name, user_avatar, im_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_message_goods
+    where im_mid = #{imMid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_message_goods
+    where im_mid = #{imMid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdMessageGoods" >
+    insert into yd_message_goods (im_mid, im_store_id, im_depot_id, 
+      im_message, goods_name, goods_price, 
+      goods_pic, user_id, user_name, 
+      user_avatar, im_time)
+    values (#{imMid,jdbcType=INTEGER}, #{imStoreId,jdbcType=INTEGER}, #{imDepotId,jdbcType=INTEGER}, 
+      #{imMessage,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DECIMAL}, 
+      #{goodsPic,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+      #{userAvatar,jdbcType=VARCHAR}, #{imTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdMessageGoods" >
+    insert into yd_message_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="imMid != null" >
+        im_mid,
+      </if>
+      <if test="imStoreId != null" >
+        im_store_id,
+      </if>
+      <if test="imDepotId != null" >
+        im_depot_id,
+      </if>
+      <if test="imMessage != null" >
+        im_message,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price,
+      </if>
+      <if test="goodsPic != null" >
+        goods_pic,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userAvatar != null" >
+        user_avatar,
+      </if>
+      <if test="imTime != null" >
+        im_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="imMid != null" >
+        #{imMid,jdbcType=INTEGER},
+      </if>
+      <if test="imStoreId != null" >
+        #{imStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="imDepotId != null" >
+        #{imDepotId,jdbcType=INTEGER},
+      </if>
+      <if test="imMessage != null" >
+        #{imMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null" >
+        #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsPic != null" >
+        #{goodsPic,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAvatar != null" >
+        #{userAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="imTime != null" >
+        #{imTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdMessageGoods" >
+    update yd_message_goods
+    <set >
+      <if test="imStoreId != null" >
+        im_store_id = #{imStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="imDepotId != null" >
+        im_depot_id = #{imDepotId,jdbcType=INTEGER},
+      </if>
+      <if test="imMessage != null" >
+        im_message = #{imMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsPic != null" >
+        goods_pic = #{goodsPic,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAvatar != null" >
+        user_avatar = #{userAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="imTime != null" >
+        im_time = #{imTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where im_mid = #{imMid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdMessageGoods" >
+    update yd_message_goods
+    set im_store_id = #{imStoreId,jdbcType=INTEGER},
+      im_depot_id = #{imDepotId,jdbcType=INTEGER},
+      im_message = #{imMessage,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      goods_pic = #{goodsPic,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_avatar = #{userAvatar,jdbcType=VARCHAR},
+      im_time = #{imTime,jdbcType=TIMESTAMP}
+    where im_mid = #{imMid,jdbcType=INTEGER}
+  </update>
+</mapper>

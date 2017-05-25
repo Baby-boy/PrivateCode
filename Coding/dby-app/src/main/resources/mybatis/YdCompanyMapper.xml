@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdCompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdCompany" >
+    <id column="company_id" property="companyId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="company_address" property="companyAddress" jdbcType="VARCHAR" />
+    <result column="company_business_licence" property="companyBusinessLicence" jdbcType="VARCHAR" />
+    <result column="company_organization_code" property="companyOrganizationCode" jdbcType="VARCHAR" />
+    <result column="company_bank_account" property="companyBankAccount" jdbcType="VARCHAR" />
+    <result column="legal_person_positive" property="legalPersonPositive" jdbcType="VARCHAR" />
+    <result column="legal_person_negative" property="legalPersonNegative" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    company_id, store_id, user_id, company_name, company_address, company_business_licence, 
+    company_organization_code, company_bank_account, legal_person_positive, legal_person_negative
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_company
+    where company_id = #{companyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_company
+    where company_id = #{companyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdCompany" >
+    insert into yd_company (company_id, store_id, user_id, 
+      company_name, company_address, company_business_licence, 
+      company_organization_code, company_bank_account, 
+      legal_person_positive, legal_person_negative
+      )
+    values (#{companyId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{companyName,jdbcType=VARCHAR}, #{companyAddress,jdbcType=VARCHAR}, #{companyBusinessLicence,jdbcType=VARCHAR}, 
+      #{companyOrganizationCode,jdbcType=VARCHAR}, #{companyBankAccount,jdbcType=VARCHAR}, 
+      #{legalPersonPositive,jdbcType=VARCHAR}, #{legalPersonNegative,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdCompany" >
+    insert into yd_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="companyAddress != null" >
+        company_address,
+      </if>
+      <if test="companyBusinessLicence != null" >
+        company_business_licence,
+      </if>
+      <if test="companyOrganizationCode != null" >
+        company_organization_code,
+      </if>
+      <if test="companyBankAccount != null" >
+        company_bank_account,
+      </if>
+      <if test="legalPersonPositive != null" >
+        legal_person_positive,
+      </if>
+      <if test="legalPersonNegative != null" >
+        legal_person_negative,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="companyId != null" >
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null" >
+        #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyBusinessLicence != null" >
+        #{companyBusinessLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="companyOrganizationCode != null" >
+        #{companyOrganizationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyBankAccount != null" >
+        #{companyBankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonPositive != null" >
+        #{legalPersonPositive,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonNegative != null" >
+        #{legalPersonNegative,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdCompany" >
+    update yd_company
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null" >
+        company_address = #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyBusinessLicence != null" >
+        company_business_licence = #{companyBusinessLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="companyOrganizationCode != null" >
+        company_organization_code = #{companyOrganizationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyBankAccount != null" >
+        company_bank_account = #{companyBankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonPositive != null" >
+        legal_person_positive = #{legalPersonPositive,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonNegative != null" >
+        legal_person_negative = #{legalPersonNegative,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where company_id = #{companyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdCompany" >
+    update yd_company
+    set store_id = #{storeId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      company_address = #{companyAddress,jdbcType=VARCHAR},
+      company_business_licence = #{companyBusinessLicence,jdbcType=VARCHAR},
+      company_organization_code = #{companyOrganizationCode,jdbcType=VARCHAR},
+      company_bank_account = #{companyBankAccount,jdbcType=VARCHAR},
+      legal_person_positive = #{legalPersonPositive,jdbcType=VARCHAR},
+      legal_person_negative = #{legalPersonNegative,jdbcType=VARCHAR}
+    where company_id = #{companyId,jdbcType=INTEGER}
+  </update>
+</mapper>

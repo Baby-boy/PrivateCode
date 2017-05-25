@@ -1,0 +1,85 @@
+package com.lingang.core.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+import com.lingang.api.domain.vo.SysPartnerVo;
+import com.lingang.api.domain.vo.SysStationVo;
+import com.lingang.api.service.SysTopService;
+import com.lingang.core.persistence.reader.SysTopReaderMapper;
+import com.lingang.core.persistence.writer.SysTopWriterMapper;
+
+@Service("sysTopService")
+public class SysTopServiceImpl implements SysTopService {
+	
+	@Resource
+	private SysTopReaderMapper sysTopReaderMapper;
+	@Resource
+	private SysTopWriterMapper sysTopWriterMapper;
+
+	@Override
+	public ServiceResult<Page<SysPartnerVo>> selectTopPartnerVoPageList(Integer pageIndex, Integer pageSize) {
+		ServiceResult<Page<SysPartnerVo>> result=new ServiceResult<Page<SysPartnerVo>>();
+		//查询条件
+		Map<String, Object> map=new HashMap<String, Object>();
+		int countRecord=sysTopReaderMapper.selectTopPartnerCount(map);
+		Page<SysPartnerVo> page=new Page<SysPartnerVo>(pageIndex, countRecord, pageSize);
+		if(countRecord>0){
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", pageSize);
+			List<SysPartnerVo> list=sysTopReaderMapper.selectTopPartnerVoPageList(map);
+			page.setList(list);
+		}
+		//返回信息
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+
+
+	@Override
+	public ServiceResult<Page<SysStationVo>> selectTopStationVoPageList(Integer pageIndex, Integer pageSize) {
+		ServiceResult<Page<SysStationVo>> result=new ServiceResult<Page<SysStationVo>>();
+		//查询条件
+		Map<String, Object> map=new HashMap<String, Object>();
+		int countRecord=sysTopReaderMapper.selectTopStationCount(map);
+		Page<SysStationVo> page=new Page<SysStationVo>(pageIndex, countRecord, pageSize);
+		if(countRecord>0){
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", pageSize);
+			List<SysStationVo> list=sysTopReaderMapper.selectTopStationVoPageList(map);
+			page.setList(list);
+		}
+		//返回信息
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+
+
+	/**
+	 * 取消置顶
+	 */
+	@Override
+	public ServiceResult<Object> delPanrtnerTop(Integer partnerId) {
+		ServiceResult<Object> result=new ServiceResult<Object>();
+//		int i=sysTopWriterMapper.deleteByObjId(partnerId);
+//		if(i>0){
+//			result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+//			result.setMessage("已取消");
+//		}else{
+//			result.setStateCode(StateCodeConstant.ERROR_CODE_DEL);
+//			result.setMessage("取消失败");
+//		}
+		return result;
+	}
+
+}

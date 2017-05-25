@@ -1,0 +1,34 @@
+package com.lingang.api.domain.para;
+
+public class SysParkPara extends BasePara {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8236002024577576252L;
+
+	private String parkNameKeywords;
+
+	private String parkAddrKeywords;
+
+	public String getParkNameKeywords() {
+		return parkNameKeywords;
+	}
+
+	public void setParkNameKeywords(String parkNameKeywords) {
+		this.parkNameKeywords = parkNameKeywords;
+	}
+
+	public String getParkAddrKeywords() {
+		return parkAddrKeywords;
+	}
+
+	public void setParkAddrKeywords(String parkAddrKeywords) {
+		this.parkAddrKeywords = parkAddrKeywords;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+}

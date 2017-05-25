@@ -1,0 +1,37 @@
+package com.lingang.api.service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.vo.SysPartnerVo;
+import com.lingang.api.domain.vo.SysStationVo;
+
+public interface SysTopService {
+
+	/**
+	* @Description: (最新合作商)
+	* @param pageIndex
+	* @param pageSize
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月3日 下午2:05:02
+	 */
+	ServiceResult<Page<SysPartnerVo>> selectTopPartnerVoPageList(Integer pageIndex,Integer pageSize);
+	
+	/**
+	* @Description: (最新合作商)
+	* @param pageIndex
+	* @param pageSize
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月3日 下午2:05:02
+	 */
+	ServiceResult<Page<SysStationVo>> selectTopStationVoPageList(Integer pageIndex,Integer pageSize);
+	/**
+	* @Description: (取消置顶)
+	* @param partnerId
+	* @return    
+	* @author gsh(15136390655@163.com)
+	* @date: 2016年12月19日 下午2:52:16
+	 */
+	ServiceResult<Object> delPanrtnerTop(Integer partnerId);
+}

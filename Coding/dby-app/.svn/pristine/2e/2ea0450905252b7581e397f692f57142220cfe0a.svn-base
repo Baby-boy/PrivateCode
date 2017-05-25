@@ -1,0 +1,18 @@
+package com.yd.dby.app.entity.para;
+
+import java.util.List;
+
+import com.yd.dby.app.entity.YdOrderWithBLOBs;
+
+public class OrderAddDBMsgPara extends YdOrderWithBLOBs {
+
+	List<OrderAddDBStoreMsgPara> stores;
+
+	public List<OrderAddDBStoreMsgPara> getStores() {
+		return stores;
+	}
+
+	public void setStores(List<OrderAddDBStoreMsgPara> stores) {
+		this.stores = stores;
+	}
+}

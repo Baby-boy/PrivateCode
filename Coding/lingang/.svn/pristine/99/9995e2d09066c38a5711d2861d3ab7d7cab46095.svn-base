@@ -1,0 +1,72 @@
+define(['mySession', 'route-config', 'serviceBase','layer','My97DatePicker','uEditor', 'uEditorConfig', 'uEditorCulture','ajaxUpload'], function (mySession, routeConfig, serviceBase,My97DatePicker) {
+    var _controller = function($scope, $http, $routeParams, $location,sysNewsService){
+    	var ue = UM.getEditor('newsContent',{
+	        initialFrameWidth:'100%',
+	        initialFrameHeight:200
+        });
+    	//请求参数
+    	$scope.para={
+    			newsId:0,
+    			newsTitle:"",
+    			newsAuthor:"",
+    			newsContent:"",
+    			newsState:2,
+    			newsImgId:1
+    	};
+    	
+    	ue.setContent($scope.para.newsContent);
+    	
+    	//获取列表
+    	$scope.getNewsDetail=function(){
+    		$scope.para.newsId = $routeParams.value;
+    		if($scope.para.newsId ==0){alert("系统错误，请刷新后再试！");return;}
+    		sysNewsService.sysNewsDetail($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				$scope.para=data.data;
+    				ue.setContent($scope.para.newsContent);
+    			}else if(data.stateCode=="501"){
+					alert(data.message);
+				}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    		});
+    	};
+    	
+    	$scope.delNewsMsg=function(){
+    		if(!window.confirm("您确认要删除吗？")){
+    			return;
+    		}
+    		$scope.para.newsId = $routeParams.value;
+    		if($scope.para.newsId ==0){alert("系统错误，请刷新后再试！");return;}
+    		sysNewsService.sysNewsDel($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				window.location.href="#/home/sysNews/sysNewsPageList/index";
+    			}else if(data.stateCode=="501"||data.stateCode=="502"||data.stateCode=="503"){
+					alert(data.message);
+				}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    		});
+    	};
+    	
+    	$scope.updateNewsMsg=function(){
+    		$scope.para.newsId = $routeParams.value;
+    		$scope.para.newsContent = ue.getContent();
+    		if($scope.para.newsId ==0){alert("系统错误，请刷新后再试！");return;}
+    		sysNewsService.sysNewsUpdate($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				if(window.confirm("修改成功！是否返回列表？")){
+    					window.location.href="#/home/sysNews/sysNewsPageList/index";
+    				}
+    			}else if(data.stateCode=="501"||data.stateCode=="500"){
+					alert(data.message);
+				}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    		});
+    	};
+    	
+    	$scope.getNewsDetail();
+    };
+    return ["sysNewsMsgCtrl", _controller];
+});

@@ -1,0 +1,22 @@
+/**
+ * Created by FxLsoft on 2015/12/3.
+ */
+'use strict';
+
+define(["sysMessageService"], function (sysMessageService) {
+    var items = {};
+    //获取信息纠错列表
+    items.sysManagerPagePageList = function ($http,data) {
+        var request = $http.post('sysMessage/sysMessagePagePageList.do', data, serviceBase.postConfig);
+        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+    };
+    
+    //获取意见反馈列表信息
+    items.updateSysManager = function ($http,data) {
+        var request = $http.post('sysMessage/sysMessagePagePageList.do', data, serviceBase.postConfig);
+        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+    };
+
+    
+    return ['sysMessageService', items];
+});

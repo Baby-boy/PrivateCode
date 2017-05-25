@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdAttributeMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdAttribute" >
+    <id column="attr_id" property="attrId" jdbcType="INTEGER" />
+    <result column="attr_name" property="attrName" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="attr_show" property="attrShow" jdbcType="BIT" />
+    <result column="attr_sort" property="attrSort" jdbcType="TINYINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yd.dby.app.entity.YdAttribute" extends="BaseResultMap" >
+    <result column="attr_value" property="attrValue" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    attr_id, attr_name, type_id, attr_show, attr_sort
+  </sql>
+  <sql id="Blob_Column_List" >
+    attr_value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from yd_attribute
+    where attr_id = #{attrId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_attribute
+    where attr_id = #{attrId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdAttribute" >
+    insert into yd_attribute (attr_id, attr_name, type_id, 
+      attr_show, attr_sort, attr_value
+      )
+    values (#{attrId,jdbcType=INTEGER}, #{attrName,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, 
+      #{attrShow,jdbcType=BIT}, #{attrSort,jdbcType=TINYINT}, #{attrValue,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdAttribute" >
+    insert into yd_attribute
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attrId != null" >
+        attr_id,
+      </if>
+      <if test="attrName != null" >
+        attr_name,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="attrShow != null" >
+        attr_show,
+      </if>
+      <if test="attrSort != null" >
+        attr_sort,
+      </if>
+      <if test="attrValue != null" >
+        attr_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attrId != null" >
+        #{attrId,jdbcType=INTEGER},
+      </if>
+      <if test="attrName != null" >
+        #{attrName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="attrShow != null" >
+        #{attrShow,jdbcType=BIT},
+      </if>
+      <if test="attrSort != null" >
+        #{attrSort,jdbcType=TINYINT},
+      </if>
+      <if test="attrValue != null" >
+        #{attrValue,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdAttribute" >
+    update yd_attribute
+    <set >
+      <if test="attrName != null" >
+        attr_name = #{attrName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="attrShow != null" >
+        attr_show = #{attrShow,jdbcType=BIT},
+      </if>
+      <if test="attrSort != null" >
+        attr_sort = #{attrSort,jdbcType=TINYINT},
+      </if>
+      <if test="attrValue != null" >
+        attr_value = #{attrValue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where attr_id = #{attrId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yd.dby.app.entity.YdAttribute" >
+    update yd_attribute
+    set attr_name = #{attrName,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=INTEGER},
+      attr_show = #{attrShow,jdbcType=BIT},
+      attr_sort = #{attrSort,jdbcType=TINYINT},
+      attr_value = #{attrValue,jdbcType=LONGVARCHAR}
+    where attr_id = #{attrId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdAttribute" >
+    update yd_attribute
+    set attr_name = #{attrName,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=INTEGER},
+      attr_show = #{attrShow,jdbcType=BIT},
+      attr_sort = #{attrSort,jdbcType=TINYINT}
+    where attr_id = #{attrId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdActivityMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdActivity" >
+    <id column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <result column="activity_type" property="activityType" jdbcType="TINYINT" />
+    <result column="activity_title" property="activityTitle" jdbcType="VARCHAR" />
+    <result column="activity_subtitle" property="activitySubtitle" jdbcType="VARCHAR" />
+    <result column="activity_pc_bg" property="activityPcBg" jdbcType="VARCHAR" />
+    <result column="activity_app_bg" property="activityAppBg" jdbcType="VARCHAR" />
+    <result column="activity_cover" property="activityCover" jdbcType="VARCHAR" />
+    <result column="activity_pics" property="activityPics" jdbcType="VARCHAR" />
+    <result column="activity_begin_time" property="activityBeginTime" jdbcType="VARCHAR" />
+    <result column="activity_end_time" property="activityEndTime" jdbcType="VARCHAR" />
+    <result column="activity_created_time" property="activityCreatedTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yd.dby.app.entity.YdActivity" extends="BaseResultMap" >
+    <result column="activity_contents" property="activityContents" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    activity_id, activity_type, activity_title, activity_subtitle, activity_pc_bg, activity_app_bg, 
+    activity_cover, activity_pics, activity_begin_time, activity_end_time, activity_created_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    activity_contents
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from yd_activity
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_activity
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdActivity" >
+    insert into yd_activity (activity_id, activity_type, activity_title, 
+      activity_subtitle, activity_pc_bg, activity_app_bg, 
+      activity_cover, activity_pics, activity_begin_time, 
+      activity_end_time, activity_created_time, activity_contents
+      )
+    values (#{activityId,jdbcType=INTEGER}, #{activityType,jdbcType=TINYINT}, #{activityTitle,jdbcType=VARCHAR}, 
+      #{activitySubtitle,jdbcType=VARCHAR}, #{activityPcBg,jdbcType=VARCHAR}, #{activityAppBg,jdbcType=VARCHAR}, 
+      #{activityCover,jdbcType=VARCHAR}, #{activityPics,jdbcType=VARCHAR}, #{activityBeginTime,jdbcType=VARCHAR}, 
+      #{activityEndTime,jdbcType=VARCHAR}, #{activityCreatedTime,jdbcType=VARCHAR}, #{activityContents,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdActivity" >
+    insert into yd_activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="activityType != null" >
+        activity_type,
+      </if>
+      <if test="activityTitle != null" >
+        activity_title,
+      </if>
+      <if test="activitySubtitle != null" >
+        activity_subtitle,
+      </if>
+      <if test="activityPcBg != null" >
+        activity_pc_bg,
+      </if>
+      <if test="activityAppBg != null" >
+        activity_app_bg,
+      </if>
+      <if test="activityCover != null" >
+        activity_cover,
+      </if>
+      <if test="activityPics != null" >
+        activity_pics,
+      </if>
+      <if test="activityBeginTime != null" >
+        activity_begin_time,
+      </if>
+      <if test="activityEndTime != null" >
+        activity_end_time,
+      </if>
+      <if test="activityCreatedTime != null" >
+        activity_created_time,
+      </if>
+      <if test="activityContents != null" >
+        activity_contents,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="activityId != null" >
+        #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="activityType != null" >
+        #{activityType,jdbcType=TINYINT},
+      </if>
+      <if test="activityTitle != null" >
+        #{activityTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="activitySubtitle != null" >
+        #{activitySubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="activityPcBg != null" >
+        #{activityPcBg,jdbcType=VARCHAR},
+      </if>
+      <if test="activityAppBg != null" >
+        #{activityAppBg,jdbcType=VARCHAR},
+      </if>
+      <if test="activityCover != null" >
+        #{activityCover,jdbcType=VARCHAR},
+      </if>
+      <if test="activityPics != null" >
+        #{activityPics,jdbcType=VARCHAR},
+      </if>
+      <if test="activityBeginTime != null" >
+        #{activityBeginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="activityEndTime != null" >
+        #{activityEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="activityCreatedTime != null" >
+        #{activityCreatedTime,jdbcType=VARCHAR},
+      </if>
+      <if test="activityContents != null" >
+        #{activityContents,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdActivity" >
+    update yd_activity
+    <set >
+      <if test="activityType != null" >
+        activity_type = #{activityType,jdbcType=TINYINT},
+      </if>
+      <if test="activityTitle != null" >
+        activity_title = #{activityTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="activitySubtitle != null" >
+        activity_subtitle = #{activitySubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="activityPcBg != null" >
+        activity_pc_bg = #{activityPcBg,jdbcType=VARCHAR},
+      </if>
+      <if test="activityAppBg != null" >
+        activity_app_bg = #{activityAppBg,jdbcType=VARCHAR},
+      </if>
+      <if test="activityCover != null" >
+        activity_cover = #{activityCover,jdbcType=VARCHAR},
+      </if>
+      <if test="activityPics != null" >
+        activity_pics = #{activityPics,jdbcType=VARCHAR},
+      </if>
+      <if test="activityBeginTime != null" >
+        activity_begin_time = #{activityBeginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="activityEndTime != null" >
+        activity_end_time = #{activityEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="activityCreatedTime != null" >
+        activity_created_time = #{activityCreatedTime,jdbcType=VARCHAR},
+      </if>
+      <if test="activityContents != null" >
+        activity_contents = #{activityContents,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yd.dby.app.entity.YdActivity" >
+    update yd_activity
+    set activity_type = #{activityType,jdbcType=TINYINT},
+      activity_title = #{activityTitle,jdbcType=VARCHAR},
+      activity_subtitle = #{activitySubtitle,jdbcType=VARCHAR},
+      activity_pc_bg = #{activityPcBg,jdbcType=VARCHAR},
+      activity_app_bg = #{activityAppBg,jdbcType=VARCHAR},
+      activity_cover = #{activityCover,jdbcType=VARCHAR},
+      activity_pics = #{activityPics,jdbcType=VARCHAR},
+      activity_begin_time = #{activityBeginTime,jdbcType=VARCHAR},
+      activity_end_time = #{activityEndTime,jdbcType=VARCHAR},
+      activity_created_time = #{activityCreatedTime,jdbcType=VARCHAR},
+      activity_contents = #{activityContents,jdbcType=LONGVARCHAR}
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdActivity" >
+    update yd_activity
+    set activity_type = #{activityType,jdbcType=TINYINT},
+      activity_title = #{activityTitle,jdbcType=VARCHAR},
+      activity_subtitle = #{activitySubtitle,jdbcType=VARCHAR},
+      activity_pc_bg = #{activityPcBg,jdbcType=VARCHAR},
+      activity_app_bg = #{activityAppBg,jdbcType=VARCHAR},
+      activity_cover = #{activityCover,jdbcType=VARCHAR},
+      activity_pics = #{activityPics,jdbcType=VARCHAR},
+      activity_begin_time = #{activityBeginTime,jdbcType=VARCHAR},
+      activity_end_time = #{activityEndTime,jdbcType=VARCHAR},
+      activity_created_time = #{activityCreatedTime,jdbcType=VARCHAR}
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 所有查询 -->
+  <!-- 活动商品列表结果集 -->
+  <resultMap type="com.yd.dby.app.entity.vo.ActivityVo" id="ActivityVoResultMap">
+  	<result column="activity_title" property="activityTitle" jdbcType="VARCHAR" />
+  	<result column="activity_app_bg" property="activityAppBg" jdbcType="VARCHAR" />
+  	
+  	<collection property="goodsListVoList" ofType="com.yd.dby.app.entity.vo.GoodsListVo">
+  		<id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+  		<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+  		<result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+  		<result column="goods_cover" property="goodsCover" jdbcType="VARCHAR" />
+  		<result column="goods_summary" property="goodsSummary" jdbcType="VARCHAR" />
+  		<result column="goods_total_comment" property="goodsTotalComment" jdbcType="INTEGER" />
+  		<result column="goods_total_fav" property="goodsTotalFav" jdbcType="INTEGER" />
+  	</collection>
+  </resultMap>
+  
+  <!-- 活动商品总数 -->
+  <select id="selectActivityGoodsPageListCount" resultType="java.lang.Integer" parameterType="ActivityPara">
+  	select 
+  		count(distinct yg.goods_id)
+	from 
+		yd_banner yb 
+	left join yd_activity ya on ya.activity_id=yb.banner_key_id
+	left join (select activity_id,goods_id from yd_depot where depot_is_available=1 and depot_type =6) yd on yd.activity_id=ya.activity_id
+	left join yd_goods yg on yg.goods_id=yd.goods_id
+	where yb.banner_id=#{bannerId} and yb.banner_open_type=#{bannerOpenType}
+  </select>
+  
+  <!-- 活动商品列表 -->
+  <select id="selectActivityGoodsPageList" resultMap="ActivityVoResultMap" parameterType="ActivityPara">
+  	select 
+  		ya.activity_app_bg,ya.activity_title,yg.goods_id,yg.goods_name,yg.goods_price,yg.goods_cover,yg.goods_summary,yg.goods_total_comment,yg.goods_total_fav
+	from 
+		yd_banner yb 
+	left join yd_activity ya on ya.activity_id=yb.banner_key_id
+	left join (select depot_id,activity_id,goods_id from yd_depot where depot_is_available=1 and depot_type =6) yd on yd.activity_id=ya.activity_id
+	left join yd_goods yg on yg.goods_id=yd.goods_id
+	where yb.banner_id=#{bannerId} and yb.banner_open_type=#{bannerOpenType}
+	order by yd.depot_id 
+	<if test="sort==0">desc</if>
+    <if test="sort==1">asc</if>
+	limit #{startIndex},#{onePageCount}
+  </select>
+</mapper>

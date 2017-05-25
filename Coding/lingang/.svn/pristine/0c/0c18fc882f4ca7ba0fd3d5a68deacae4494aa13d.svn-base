@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysWayWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_way
+    where way_id = #{wayId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysWay" >
+    insert into sys_way (way_id, way_tel, way_type, 
+      way_obj_id)
+    values (#{wayId,jdbcType=INTEGER}, #{wayTel,jdbcType=VARCHAR}, #{wayType,jdbcType=INTEGER}, 
+      #{wayObjId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="wayId" parameterType="com.lingang.api.domain.entity.SysWay" >
+    insert into sys_way
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wayId != null" >
+        way_id,
+      </if>
+      <if test="wayTel != null" >
+        way_tel,
+      </if>
+      <if test="wayType != null" >
+        way_type,
+      </if>
+      <if test="wayObjId != null" >
+        way_obj_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wayId != null" >
+        #{wayId,jdbcType=INTEGER},
+      </if>
+      <if test="wayTel != null" >
+        #{wayTel,jdbcType=VARCHAR},
+      </if>
+      <if test="wayType != null" >
+        #{wayType,jdbcType=INTEGER},
+      </if>
+      <if test="wayObjId != null" >
+        #{wayObjId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysWay" >
+    update sys_way
+    <set >
+      <if test="wayTel != null" >
+        way_tel = #{wayTel,jdbcType=VARCHAR},
+      </if>
+      <if test="wayType != null" >
+        way_type = #{wayType,jdbcType=INTEGER},
+      </if>
+      <if test="wayObjId != null" >
+        way_obj_id = #{wayObjId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where way_id = #{wayId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysWay" >
+    update sys_way
+    set way_tel = #{wayTel,jdbcType=VARCHAR},
+      way_type = #{wayType,jdbcType=INTEGER},
+      way_obj_id = #{wayObjId,jdbcType=INTEGER}
+    where way_id = #{wayId,jdbcType=INTEGER}
+  </update>
+</mapper>

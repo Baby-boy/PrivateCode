@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdFavoriteMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdFavorite" >
+    <id column="fav_id" property="favId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="fav_type" property="favType" jdbcType="TINYINT" />
+    <result column="fav_fid" property="favFid" jdbcType="INTEGER" />
+    <result column="fav_created_time" property="favCreatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fav_id, user_id, fav_type, fav_fid, fav_created_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_favorite
+    where fav_id = #{favId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_favorite
+    where fav_id = #{favId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdFavorite" >
+    insert into yd_favorite (fav_id, user_id, fav_type, 
+      fav_fid, fav_created_time)
+    values (#{favId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{favType,jdbcType=TINYINT}, 
+      #{favFid,jdbcType=INTEGER}, #{favCreatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyProperty="favId" useGeneratedKeys="true" parameterType="com.yd.dby.app.entity.YdFavorite" >
+    insert into yd_favorite
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="favId != null" >
+        fav_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="favType != null" >
+        fav_type,
+      </if>
+      <if test="favFid != null" >
+        fav_fid,
+      </if>
+      <if test="favCreatedTime != null" >
+        fav_created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="favId != null" >
+        #{favId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="favType != null" >
+        #{favType,jdbcType=TINYINT},
+      </if>
+      <if test="favFid != null" >
+        #{favFid,jdbcType=INTEGER},
+      </if>
+      <if test="favCreatedTime != null" >
+        #{favCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdFavorite" >
+    update yd_favorite
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="favType != null" >
+        fav_type = #{favType,jdbcType=TINYINT},
+      </if>
+      <if test="favFid != null" >
+        fav_fid = #{favFid,jdbcType=INTEGER},
+      </if>
+      <if test="favCreatedTime != null" >
+        fav_created_time = #{favCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where fav_id = #{favId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdFavorite" >
+    update yd_favorite
+    set user_id = #{userId,jdbcType=INTEGER},
+      fav_type = #{favType,jdbcType=TINYINT},
+      fav_fid = #{favFid,jdbcType=INTEGER},
+      fav_created_time = #{favCreatedTime,jdbcType=TIMESTAMP}
+    where fav_id = #{favId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 所有查询 -->
+  <!-- 查询是否已经收藏 -->
+  <select id="selectUserFavorite" resultType="YdFavorite">
+  	select 
+  	<include refid="Base_Column_List"/>
+	from 
+		yd_favorite 
+	where user_id=#{userId} and fav_fid=#{favFid} and fav_type=#{favType}
+  </select>
+  
+  <!-- 删除用户收藏 -->
+  <delete id="deleteUserFavorite">
+  	delete from 
+  		yd_favorite
+    where 
+    	fav_id in
+    <foreach collection="favIdList" item="favIdList" open="(" close=")" separator=",">
+		#{favIdList}
+	</foreach>
+  </delete>
+  
+  <!-- 查询收藏商品总数 -->
+  <select id="selectFavoriteGoodsListCount" resultType="java.lang.Integer">
+  	select 
+  		count(distinct yf.fav_id)
+	from 
+		yd_favorite yf
+	where yf.user_id=#{userId} and yf.fav_type=2
+  </select>
+  
+  <!-- 查询收藏商品列表 -->
+  <select id="selectFavoriteGoodsList" resultType="FavoriteGoodsVo">
+  	select 
+  		yf.fav_id,yg.goods_id,yg.goods_cover,yg.goods_name,yg.goods_summary,yg.goods_price,yd.depot_is_available
+	from 
+		yd_favorite yf
+	left join yd_goods yg on yg.goods_id=yf.fav_fid
+	left join yd_depot yd on yd.goods_id=yg.goods_id
+	where yf.user_id=#{userId} and yf.fav_type=2
+	order by yf.fav_created_time desc
+	limit #{para.startIndex},#{para.onePageCount}
+  </select>
+  
+  <!-- 查询收藏店铺总数 -->
+  <select id="selectFavoriteStoreListCount" resultType="java.lang.Integer">
+  	select 
+  		count(distinct yf.fav_id)
+	from 
+		yd_favorite yf
+	where yf.user_id=#{userId} and yf.fav_type=1
+  </select>
+  
+  <!-- 查询收藏店铺列表 -->
+  <select id="selectFavoriteStoreList" resultType="FavoriteStoreVo">
+  	select 
+  		yf.fav_id,ys.store_id,ys.store_cover,ys.store_name,ys.store_avg_score,ys.store_summary,ys.store_banner,ys.store_is_available 
+	from 
+		yd_favorite yf
+	left join yd_store ys on ys.store_id=yf.fav_fid
+	where yf.user_id=#{userId} and yf.fav_type=1
+	order by yf.fav_created_time desc
+	limit #{para.startIndex},#{para.onePageCount}
+  </select>
+  
+  <!-- 查询收藏懒鱼商品总数 -->
+  <select id="selectFavoriteCtcGoodsListCount" resultType="java.lang.Integer">
+  	select 
+  		count(distinct yf.fav_id)
+	from 
+		yd_favorite yf
+	where yf.user_id=#{userId} and yf.fav_type=4
+  </select>
+  
+  <!-- 查询收藏懒鱼商品列表 -->
+  <select id="selectFavoriteCtcGoodsList" resultType="FavoriteCtcGoodsVo">
+  	select 
+  		yf.fav_id,yc.ctc_id,yc.ctc_name,yc.ctc_cover,yc.ctc_summary,yc.ctc_price,yc.ctc_is_available
+	from 
+		yd_favorite yf
+	left join yd_ctc yc on yc.ctc_id=yf.fav_fid
+	where yf.user_id=#{userId} and yf.fav_type=4
+	order by yf.fav_created_time desc
+	limit #{para.startIndex},#{para.onePageCount}
+  </select>
+</mapper>

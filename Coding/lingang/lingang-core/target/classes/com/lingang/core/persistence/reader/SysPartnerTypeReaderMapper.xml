@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysPartnerTypeReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysPartnerType" >
+    <id column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="count_type" property="countType" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="BaseResultMapVo" type="com.lingang.api.domain.vo.SysPartnerTypeStatisticsVo" >
+    <id column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="count_type" property="countType" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    type_id, type_name, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_partner_type
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectPartnerTypeCount" resultType="java.lang.Integer">
+  	select COUNT(DISTINCT spt.type_id)
+	from sys_partner_type spt
+  </select>
+  <select id="selectPartnerTypeList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    WITH cte AS(
+		select spt.type_id,
+			ROW_NUMBER() OVER(ORDER BY spt.create_time DESC) AS rownum
+		from sys_partner_type spt
+		GROUP BY spt.type_id,spt.create_time
+	)
+
+	select spt.type_id,spt.type_name 
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st
+	left join sys_partner_type spt on spt.type_id=st.type_id
+  </select>
+  <select id="selectPartnerType" resultMap="BaseResultMapVo" >
+	select
+		t.type_id,
+		spt.type_name,
+		t.count_type
+	from (
+		select type_id,count (type_id) as count_type
+		from
+			sys_partner 
+		group by
+			type_id
+		) t
+	left join sys_partner_type spt on t.type_id = spt.type_id 
+  </select>
+  
+  <!-- 后台逻辑 -->
+  <select id="selectSysPartnerType" resultMap="BaseResultMap">
+	select spt.type_id,spt.type_name from sys_partner_type spt;  	
+  </select>
+  
+  <!-- 查询条件 -->
+  <sql id="where_selectPartnerTypePageList">
+  	<where>
+  		1=1
+  		<if test="map.typeName !=null and map.typeName !=''">
+			and type_name like '%${map.typeName}%'
+		</if>
+  	</where>
+  </sql>
+  <select id="selectPartnerTypePageListCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select COUNT(DISTINCT type_id) 
+  	from sys_partner_type
+  	<include refid="where_selectPartnerTypePageList"/>
+  </select>
+  <select id="selectPartnerTypePageList" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	WITH cte AS (
+		select spt.type_id,
+			ROW_NUMBER() OVER(ORDER BY spt.create_time DESC) AS rownum
+		from 
+			sys_partner_type spt
+		<include refid="where_selectPartnerTypePageList"/>
+		GROUP BY spt.type_id,spt.create_time
+	) 
+	
+	select spt.type_id,spt.type_name,spt.create_time,spt.update_time
+	from 
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st 
+	left join sys_partner_type spt on spt.type_id = st.type_id
+  </select>
+</mapper>

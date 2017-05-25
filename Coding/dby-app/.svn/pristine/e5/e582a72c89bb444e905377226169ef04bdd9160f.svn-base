@@ -1,0 +1,54 @@
+package com.yd.dby.app.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.yd.dby.app.basic.Page;
+import com.yd.dby.app.common.HttpCode;
+import com.yd.dby.app.common.ServiceResult;
+import com.yd.dby.app.entity.YdBanner;
+import com.yd.dby.app.entity.para.GroupBuyPara;
+import com.yd.dby.app.entity.vo.GroupBuyVo;
+import com.yd.dby.app.mapper.YdBannerMapper;
+import com.yd.dby.app.mapper.YdDepotMapper;
+import com.yd.dby.app.service.YdDepotService;
+
+@Service("ydDepotService")
+public class YdDepotServiceImpl implements YdDepotService {
+
+	@Autowired
+	private YdDepotMapper ydDepotMapper;
+
+	@Autowired
+	private YdBannerMapper ydBannerMapper;
+
+	@Override
+	public ServiceResult<Page<GroupBuyVo>> selectGroupBuyPageList(GroupBuyPara para) {
+		ServiceResult<Page<GroupBuyVo>> result = new ServiceResult<Page<GroupBuyVo>>();
+
+		// banner
+		List<YdBanner> banners = ydBannerMapper.selectBannerByBannerType("2");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("banners", banners.size() > 0 ? banners.get(0) : "");
+
+		// 列表
+		int countRecord = ydDepotMapper.selectGroupBuyPageCount(para);
+		Page<GroupBuyVo> page = new Page<GroupBuyVo>(para.getCurrentPage(), countRecord, para.getOnePageCount());
+		if (para.getCurrentPage() <= page.getCountPage()) {
+			para.setStartIndex(page.getStartIndex());
+			List<GroupBuyVo> list = ydDepotMapper.selectGroupBuyPageList(para);
+			page.setList(list);
+		}
+
+		result.setData(page);
+		result.setStatusCode(HttpCode.OK);
+		result.setDataMap(map);
+
+		return result;
+	}
+
+}

@@ -1,0 +1,147 @@
+<link href="css/layout.css" rel="stylesheet">
+<link href="library/umeditor/themes/default/css/umeditor.css" media="all" rel="stylesheet" type="text/css" />
+<div class="row" ng-controller="sysParkDetailsCtrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                	<form class="form-horizontal" role="form">
+					 
+					  <div class="form-group">
+					    <label for="parkName" class="col-sm-2 control-label">园区名称</label>
+					    <div class="col-sm-3">
+					      <input type="parkName" class="form-control" id="parkName" placeholder="" ng-model="park.parkName">
+					    </div>
+					    
+					    <label for="parkAddress" class="col-sm-2 control-label">详细地址</label>
+					    <div class="col-sm-3">
+					      <input type="parkAddress" class="form-control" id="parkAddress" placeholder="" ng-model="park.parkAddress">
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					  	<label for="parkFax" class="col-sm-2 control-label">传真</label>
+					   	 <div class="col-sm-3">
+					      <input type="parkFax" class="form-control" id="parkFax" placeholder="" ng-model="park.parkFax">
+					    </div>
+					    
+					    <label for="parkLink" class="col-sm-2 control-label">网址</label>
+					    <div class="col-sm-3">
+					      <input type="parkLink" class="form-control" id="parkLink" placeholder="" ng-model="park.parkLink">
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					  	<label for="parkState" class="col-sm-2 control-label">状态</label>
+					   	 <div class="col-sm-3">
+						   	 <select type="parkState" class="form-control" id="parkState" placeholder="" ng-model="park.parkState">
+						      	<option value="1">上传</option>
+						      	<option value="2">发布</option>
+						      	<option value="3">删除</option>
+						      </select>
+					    </div>
+					    
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="parkContent" class="col-sm-2 control-label">园区简介</label>
+					    <div class="col-sm-8">
+					   	  <textarea class="form-control" name="parkContent" id="parkContent"></textarea>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <div class="col-sm-2"></div>
+					    <div class="col-sm-2">
+					      <button type="button" class="btn btn-primary" ng-click="updateParkDetails()"> 确认保存 </button>
+					    </div>
+					  </div>
+					  
+					  
+					  <div class="form-group">
+					    <div class="col-sm-2"></div>
+					    <div class="col-sm-8">
+					      	<div class="panel-body">
+	                            <div class="panel-group" id="version">
+	                                <div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v41" aria-expanded="true" class="">标签</a>
+	                                                <code class="pull-right"><a ng-style="{color:'red'}">添加标签</a></code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v41" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="lab in park.labels">
+										    		<button type="button" class="btn btn-default">{{lab.labelName}}</button><a ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                
+	                                <div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v42" aria-expanded="true" class="">覆盖产业</a>
+	                                                <code class="pull-right"><a ng-style="{color:'red'}">添加产业</a></code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v42" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="industry in park.industrys">
+										    		<img src="..." alt="{{industry.industryTitle}}" class="img-thumbnail"><a ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                
+	                                
+	                                <div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v43" aria-expanded="true" class="">宣传册</a>
+	                                                <code class="pull-right"><a ng-style="{color:'red'}">添加宣传册</a></code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v43" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="file in park.files" ng-if="file.fileType==1">
+										    		<a>《{{file.fileTitle}}》</a><a ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                
+	                                <div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v44" aria-expanded="true" class="">宣传片</a>
+	                                                <code class="pull-right"><a ng-style="{color:'red'}">添加宣传片</a></code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v44" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="file in park.files" ng-if="file.fileType==2">
+										    		<a>《{{file.fileTitle}}》</a><a ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                    
+	                                </div>
+	                            </div>
+	                        </div>
+					    </div>
+					  </div>
+					</form>
+		 	  <div >
+ 		       </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+

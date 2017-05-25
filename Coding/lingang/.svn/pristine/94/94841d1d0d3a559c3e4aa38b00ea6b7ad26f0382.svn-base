@@ -1,0 +1,40 @@
+package com.lingang.api.domain.entity;
+
+import java.io.Serializable;
+
+public class SysSearchRecords implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5237649609579182344L;
+
+	private Integer sysSrid;
+
+    private Integer countKeywords;
+
+    private String keywordsCount;
+
+    public Integer getSysSrid() {
+        return sysSrid;
+    }
+
+    public void setSysSrid(Integer sysSrid) {
+        this.sysSrid = sysSrid;
+    }
+
+    public Integer getCountKeywords() {
+        return countKeywords;
+    }
+
+    public void setCountKeywords(Integer countKeywords) {
+        this.countKeywords = countKeywords;
+    }
+
+    public String getKeywordsCount() {
+        return keywordsCount;
+    }
+
+    public void setKeywordsCount(String keywordsCount) {
+        this.keywordsCount = keywordsCount == null ? null : keywordsCount.trim();
+    }
+}

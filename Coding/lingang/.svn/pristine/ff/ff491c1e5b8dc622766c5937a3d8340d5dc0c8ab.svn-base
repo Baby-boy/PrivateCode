@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysCollectReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysCollect" >
+    <id column="collect_id" property="collectId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="collect_type" property="collectType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="obj_id" property="objId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    collect_id, user_id, collect_type, create_time, obj_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_collect
+    where collect_id = #{collectId,jdbcType=INTEGER}
+  </select>
+  
+    <select id="selectByUserIdAndCollectTypeAndObjId" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_collect
+    where user_id = #{userId,jdbcType=INTEGER} 
+    and collect_type = #{collectType,jdbcType=INTEGER} 
+    and obj_id = #{objId,jdbcType=INTEGER} 
+  </select>
+</mapper>

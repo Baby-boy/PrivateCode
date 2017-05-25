@@ -1,0 +1,160 @@
+package com.lingang.core.service.impl;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+import com.lingang.api.domain.entity.SysServiceWithBLOBs;
+import com.lingang.api.domain.para.SysServicePara;
+import com.lingang.api.domain.pfvo.SysServicePfVo;
+import com.lingang.api.domain.vo.SysNewServiceStatisticsVo;
+import com.lingang.api.domain.vo.SysServiceVo;
+import com.lingang.api.service.SysServiceService;
+import com.lingang.common.util.DateTimeUtils;
+import com.lingang.core.persistence.reader.SysServiceReaderMapper;
+import com.lingang.core.persistence.writer.SysServiceWriterMapper;
+
+@Service("sysServiceService")
+public class SysServiceServiceImpl implements SysServiceService {
+
+	@Resource
+	private SysServiceReaderMapper sysServiceReaderMapper;
+
+	@Resource
+	private SysServiceWriterMapper sysServiceWriterMapper;
+
+	@Override
+	public ServiceResult<Page<SysServiceVo>> selectServicePageList(Integer pageIndex, Integer regionTypeId,
+			Integer pageSize, Integer regionId, Integer basicsId) {
+		ServiceResult<Page<SysServiceVo>> result = new ServiceResult<Page<SysServiceVo>>();
+		// 查询条件
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("regionTypeId", regionTypeId);
+		map.put("regionId", regionId);
+		map.put("basicsId", basicsId);
+		int countRecord = sysServiceReaderMapper.selectServiceCount(map);
+		Page<SysServiceVo> page = new Page<SysServiceVo>(pageIndex, countRecord, pageSize);
+		if (countRecord > 0) {
+			map.put("startIndex", page.getCurrentPage() - 1);
+			map.put("onePageCount", pageSize);
+			List<SysServiceVo> list = sysServiceReaderMapper.selectServicePageList(map);
+			page.setList(list);
+		}
+		// 返回信息
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<SysServiceVo> selectServiceByServiceId(Integer serviceId) {
+		ServiceResult<SysServiceVo> result = new ServiceResult<SysServiceVo>();
+		SysServiceVo serviceVo = sysServiceReaderMapper.selectServiceVoByServiceId(serviceId);
+		// 返回信息
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(serviceVo);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Page<SysServicePfVo>> selectServicePfVoPageList(SysServicePara para) {
+		ServiceResult<Page<SysServicePfVo>> result = new ServiceResult<>();
+		// 查询条件
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("serviceNameKeywords", para.getServiceNameKeywords());
+		map.put("regionNameKeywords", para.getRegionNameKeywords());
+		map.put("serviceTeamKeywords", para.getServiceTeamKeywords());
+		int countRecord = sysServiceReaderMapper.selectServicePfVoCount(map);
+		Page<SysServicePfVo> page = new Page<>(para.getCurrentPage(), countRecord, para.getOnePageCount());
+		if (countRecord > 0) {
+			// 分页条件
+			map.put("startIndex", page.getCurrentPage() - 1);
+			map.put("onePageCount", page.getOnePageCount());
+			List<SysServicePfVo> list = sysServiceReaderMapper.selectServicePfVoPageList(map);
+			page.setList(list);
+		}
+		result.setData(page);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Page<SysNewServiceStatisticsVo>> selectNewServiceStatisticsList(Integer pageIndex,
+			Integer pageSize) {
+		ServiceResult<Page<SysNewServiceStatisticsVo>> result=new ServiceResult<Page<SysNewServiceStatisticsVo>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> numMap = new HashMap<String, Object>();
+		int maxNum=0;
+		int countRecord=sysServiceReaderMapper.selectNewServiceStatisticsCount(map);
+		Page<SysNewServiceStatisticsVo> page=new Page<SysNewServiceStatisticsVo>(pageIndex, countRecord, pageSize);
+		if(countRecord>0){
+			// 分页条件
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", page.getOnePageCount());
+			List<SysNewServiceStatisticsVo> list=sysServiceReaderMapper.selectNewServiceStatisticsPageList(map);
+			page.setList(list);
+			//最大数查询
+			maxNum=sysServiceReaderMapper.selectNewServiceStatisticsCountMax(map);
+		}
+		numMap.put("maxNum", maxNum);
+		result.setDataMap(numMap);;
+		result.setData(page);
+		
+		//月、季统计
+		String monthDate=DateTimeUtils.format(new Date(), "YYYY-MM");
+		String mStr=DateTimeUtils.format(new Date(), "MM");
+		Integer mInt=Integer.valueOf(mStr);
+		if(mInt>=1 && mInt<=3){
+			mStr=DateTimeUtils.format(new Date(), "YYYY-")+"01-01";
+		}else if(mInt>=4 && mInt<=6){
+			mStr=DateTimeUtils.format(new Date(), "YYYY-")+"04-01";
+		}else if(mInt>=7 && mInt<=9){
+			mStr=DateTimeUtils.format(new Date(), "YYYY-")+"07-01";
+		}else if(mInt>=10 && mInt<=12){
+			mStr=DateTimeUtils.format(new Date(), "YYYY-")+"10-01";
+		}
+		int monthNum=sysServiceReaderMapper.selectNewServiceStatisticsCountThanDate(monthDate+"-01");
+		int seasonNum=sysServiceReaderMapper.selectNewServiceStatisticsCountThanDate(mStr);
+		numMap.put("monthNum", monthNum);
+		numMap.put("seasonNum", seasonNum);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Object> updateServiceDetails(SysServiceWithBLOBs service) {
+		ServiceResult<Object> result = new ServiceResult<>();
+		int info = sysServiceWriterMapper.updateByPrimaryKeySelective(service);
+		if (info == 1) {
+			result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+			result.setMessage("更新成功!");
+		} else {
+			result.setStateCode(StateCodeConstant.ERROR_CODE);
+			result.setMessage("更新失败!");
+		}
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Object> addServiceDetails(SysServiceWithBLOBs service) {
+		ServiceResult<Object> result = new ServiceResult<>();
+		int info = sysServiceWriterMapper.insertSelective(service);
+		if (info == 1) {
+			result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+			result.setMessage("添加成功!");
+		} else {
+			result.setStateCode(StateCodeConstant.ERROR_CODE);
+			result.setMessage("添加失败!");
+		}
+		return result;
+	}
+
+}

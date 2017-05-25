@@ -1,0 +1,108 @@
+package com.lingang.platform.controller.home;
+
+import java.io.IOException;
+import java.util.HashMap;
+
+import javax.annotation.Resource;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.lingang.api.domain.basic.JsonResult;
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysNews;
+import com.lingang.api.domain.vo.SysNewsVo;
+import com.lingang.api.service.SysNewsService;
+
+/**
+ *@Description: 新闻
+ *@Author: lgl(lgl1012dream@foxmail.com)
+ *@date:2016年12月7日 上午10:50:03
+ *@Version:1.0
+ */
+@Controller
+@RequestMapping("/sysNews")
+public class SysNewsController {
+	@Resource
+	private SysNewsService sysNewsService;
+	
+	/***
+	 * @Description: 获取新闻列表信息
+	 * @param map
+	 * @return    
+	 * @author lgl(lgl1012dream@foxmail.com)
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonGenerationException 
+	 * @date: 2016年12月8日 下午3:07:00
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/newsList.do",method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult newsList(@RequestBody HashMap<String, Object> map){
+		JsonResult jsonResult=new JsonResult(); 
+		ServiceResult<Page<SysNewsVo>> serviceResult = sysNewsService.queryAllByPage(map);
+		jsonResult.setData(serviceResult);
+		serviceResult.setStateCode("1000");
+		
+		return jsonResult;
+	}
+	
+	/***
+	 * @Description: 根据新闻id查询新闻详情 
+	 * @param news_id
+	 * @return    
+	 * @author lgl(lgl1012dream@foxmail.com)
+	 * @date: 2016年12月8日 下午3:07:12
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryById.do",method = { RequestMethod.POST })
+	public JsonResult queryById(@RequestBody HashMap<String, Object> map){
+		return sysNewsService.queryById(map);
+	}
+	
+	/***
+	 * @Description: 添加新闻信息 
+	 * @param news
+	 * @return    
+	 * @author lgl(lgl1012dream@foxmail.com)
+	 * @date: 2016年12月8日 下午3:07:26
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/insert.do",method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult insert(@RequestBody HashMap<String, Object> map){
+		return sysNewsService.insert(map);
+	}
+	
+	/***
+	 * @Description: 修改新闻信息 
+	 * @param news
+	 * @return    
+	 * @author lgl(lgl1012dream@foxmail.com)
+	 * @date: 2016年12月8日 下午3:07:39
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/update.do",method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult update(@RequestBody SysNews news){
+		return sysNewsService.update(news);
+	}
+	
+	/***
+	 * @Description: 删除新闻信息 
+	 * @param news_id
+	 * @return    
+	 * @author lgl(lgl1012dream@foxmail.com)
+	 * @date: 2016年12月8日 下午3:07:54
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/del.do",method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult del(@RequestBody HashMap<String, Object> map){
+		return sysNewsService.del(map);
+	}
+	
+}

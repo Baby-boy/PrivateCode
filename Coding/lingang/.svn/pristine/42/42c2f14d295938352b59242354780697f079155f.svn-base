@@ -1,0 +1,45 @@
+define(['mySession', 'route-config', 'serviceBase','layer','My97DatePicker','uEditor', 'uEditorConfig', 'uEditorCulture','ajaxUpload'], function (mySession, routeConfig, serviceBase,My97DatePicker) {
+    var _controller = function($scope, $http, $routeParams, $location,sysPublicService){
+//    	if($routeParams.value==null || $routeParams.value==""){
+//    		alert("信息异常..");
+//    	}
+    	var ue = UM.getEditor('publicContent',{
+	        initialFrameWidth:'100%',
+	        initialFrameHeight:200
+        });
+    	$scope.pPublic={
+    			publicTitle:"",
+    			publicAddress:"",
+    			publicFax:"",
+    			publicLink:"",
+    			publicCompany:"",
+    			publicState:"",
+				publicContent:""
+    	};
+    	
+    	ue.setContent($scope.pPublic.publicContent);
+    	//添加园区
+    	$scope.addPublicDetails=function(){
+    		$scope.para={
+    				publicTitle:$scope.pPublic.publicTitle,
+    				publicAddress:$scope.pPublic.publicAddress,
+    				publicFax:$scope.pPublic.publicFax,
+    				publicLink:$scope.pPublic.publicLink,
+    				publicCompany:$scope.pPublic.publicCompany,
+    				publicState:$scope.pPublic.publicState,
+    				publicContent:ue.getContent()
+    		};
+    		sysPublicService.addPublicDetails($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				alert("添加成功");
+    				location.href="#/seek/sysPublic/sysPublicPageList/index";
+    			}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    		});
+    	};
+    	
+    	
+    };
+    return ["sysPublicAddCtrl", _controller];
+});

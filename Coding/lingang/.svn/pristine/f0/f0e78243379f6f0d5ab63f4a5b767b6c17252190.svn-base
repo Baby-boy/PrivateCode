@@ -1,0 +1,29 @@
+package com.lingang.api.service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.vo.SysPublicVo;
+
+public interface SysPublicService {
+
+	/**
+	 * @Description: (查询公共平台列表)
+	 * @param regionId 地区ID
+	 * @param basicsId 开放层级ID
+	 * @param pageIndex 当前页
+	 * @param pageSize 每页条数
+	 * @return   参数注释 
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月5日 下午2:58:03 
+	 */
+	public ServiceResult<Page<SysPublicVo>> selectSysPublicVoPageListByRegionIdAndBasicsId(Integer regionId,Integer regionTypeId, Integer basicsId, Integer pageIndex, Integer pageSize);
+	
+	/**
+	 * @Description: (查询公共平台详情)
+	 * @param publicId 公共平台ID
+	 * @return   参数注释 
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月5日 下午5:01:04 
+	 */
+	public ServiceResult<SysPublicVo> selectSysPublicDetailsByPublicId(Integer publicId);
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysStationLabelReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysStationLabel" >
+    <id column="station_label_id" property="stationLabelId" jdbcType="INTEGER" />
+    <result column="station_id" property="stationId" jdbcType="INTEGER" />
+    <result column="label_id" property="labelId" jdbcType="INTEGER" />
+  </resultMap>
+    <!--新增resultMap  -->
+  <resultMap type="com.lingang.api.domain.vo.SysLabelsVo" id="BaseResultMapVo">
+  	<result column="label_id" property="labelId" jdbcType="INTEGER"></result>
+  	<result column="label_name" property="labelName" jdbcType="VARCHAR"></result>
+  	<result column="count_label" property="countLabel" jdbcType="INTEGER"></result>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    station_label_id, station_id, label_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_station_label
+    where station_label_id = #{stationLabelId,jdbcType=INTEGER}
+  </select>
+  <!--特定属性统计  -->
+  <select id="selectStationTotalCount" resultType = "java.lang.Integer"> 
+  	select
+ 	COUNT (DISTINCT(station_id)) as total_count
+	from
+ 		sys_station_label
+  </select>
+  <select id="selectStationCountLabel" resultMap = "BaseResultMapVo"> 
+	select s2.label_id,s2.label_name,
+	COUNT (s2.label_id) as count_label
+	from
+	 	sys_station_label s1
+	inner join (select * from sys_label where label_state=1) s2 on s1.label_id = s2.label_id
+	group by s2.label_id,s2.label_name
+  </select>
+  
+
+  
+  
+  
+</mapper>

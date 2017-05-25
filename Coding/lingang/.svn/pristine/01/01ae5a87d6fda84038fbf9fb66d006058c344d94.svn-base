@@ -1,0 +1,33 @@
+package com.lingang.api.domain.entity;
+
+public class SysPartnerUmanager {
+    private Integer partnerUmanagerId;
+
+    private Integer partnerId;
+
+    private Integer umanagerId;
+
+    public Integer getPartnerUmanagerId() {
+        return partnerUmanagerId;
+    }
+
+    public void setPartnerUmanagerId(Integer partnerUmanagerId) {
+        this.partnerUmanagerId = partnerUmanagerId;
+    }
+
+    public Integer getPartnerId() {
+        return partnerId;
+    }
+
+    public void setPartnerId(Integer partnerId) {
+        this.partnerId = partnerId;
+    }
+
+    public Integer getUmanagerId() {
+        return umanagerId;
+    }
+
+    public void setUmanagerId(Integer umanagerId) {
+        this.umanagerId = umanagerId;
+    }
+}

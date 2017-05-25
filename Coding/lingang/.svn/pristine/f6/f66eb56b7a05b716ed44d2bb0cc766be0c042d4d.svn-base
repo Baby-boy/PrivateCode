@@ -1,0 +1,116 @@
+package com.lingang.platform.controller.seek;
+
+import java.util.Date;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.lingang.api.domain.basic.JsonResult;
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysPartner;
+import com.lingang.api.domain.para.SysPartnerPara;
+import com.lingang.api.domain.pfvo.SysPartnerPfVo;
+import com.lingang.api.domain.vo.SysPartnerVo;
+import com.lingang.api.service.SysPartnerService;
+
+@Controller
+@RequestMapping("/sysPartner")
+public class SysPartnerController {
+
+	@Resource
+	private SysPartnerService sysPartnerService;
+
+	/**
+	 * @Description: (查询合作伙伴列表_后台)
+	 * @param para
+	 * @return 参数注释
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月8日 下午4:11:23
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/sysPartnerPageList.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult sysPartnerPageList(@RequestBody SysPartnerPara para) {
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<Page<SysPartnerPfVo>> result = sysPartnerService.selectSysPartnerPfVoPageList(para);
+		jsonResult.setData(result.getData());
+		jsonResult.setStateCode(result.getStateCode());
+		return jsonResult;
+	}
+
+	/**
+	 * @Description: (查询合作伙伴详情)
+	 * @param partnerId
+	 * @return 参数注释
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月9日 下午8:11:52
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/partnerDetails.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult sysPartnerDetails(@RequestParam(value = "partnerId", required = true) Integer partnerId) {
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<SysPartnerVo> result = sysPartnerService.selectPartnerVoByPartnerId(partnerId);
+		jsonResult.setData(result.getData());
+		jsonResult.setStateCode(result.getStateCode());
+		return jsonResult;
+	}
+
+	/**
+	 * @Description: (修改产业园区)
+	 * @param para
+	 * @return 参数注释
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月9日 下午8:33:29
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/updatePartnerDetails.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult updatePartnerDetails(@RequestBody SysPartnerPara para) {
+		JsonResult jsonResult = new JsonResult();
+		SysPartner partner = new SysPartner();
+		partner.setPartnerId(para.getPartnerId());
+		partner.setPartnerName(para.getPartnerName());
+		partner.setPartnerCompany(para.getPartnerCompany());
+		partner.setPartnerSimple(para.getPartnerSimple());
+		partner.setPartnerState(para.getPartnerState());
+		partner.setPartnerContent(para.getPartnerContent());
+		partner.setUpdateTime(new Date());
+
+		ServiceResult<Object> result = sysPartnerService.updatePartnerDetails(partner);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setMessage(result.getMessage());
+		return jsonResult;
+	}
+
+	/**
+	 * @Description: (添加合作伙伴)
+	 * @param para
+	 * @return 参数注释
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月9日 下午9:19:47
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addPartnerDetails.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult addPartnerDetails(@RequestBody SysPartnerPara para) {
+		JsonResult jsonResult = new JsonResult();
+		SysPartner partner = new SysPartner();
+		partner.setPartnerId(null);
+		partner.setPartnerName(para.getPartnerName());
+		partner.setPartnerCompany(para.getPartnerCompany());
+		partner.setPartnerSimple(para.getPartnerSimple());
+		partner.setPartnerState(para.getPartnerState());
+		partner.setPartnerContent(para.getPartnerContent());
+		partner.setCreateTime(new Date());
+		partner.setUpdateTime(partner.getCreateTime());
+
+		ServiceResult<Object> result = sysPartnerService.addPartnerDetails(partner);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setMessage(result.getMessage());
+		return jsonResult;
+	}
+}

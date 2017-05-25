@@ -1,0 +1,19 @@
+package com.lingang.core.persistence.writer;
+
+import com.lingang.api.domain.entity.SysMessage;
+
+public interface SysMessageWriterMapper {
+    int deleteByPrimaryKey(Integer messageId);
+
+    int insert(SysMessage record);
+
+    int insertSelective(SysMessage record);
+
+    int updateByPrimaryKeySelective(SysMessage record);
+
+    int updateByPrimaryKeyWithBLOBs(SysMessage record);
+
+    int updateByPrimaryKey(SysMessage record);
+    
+    int updateMessageByKey(Integer messageId);
+}

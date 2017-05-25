@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdMessage" >
+    <id column="message_id" property="messageId" jdbcType="INTEGER" />
+    <result column="message_state" property="messageState" jdbcType="INTEGER" />
+    <result column="message_type" property="messageType" jdbcType="INTEGER" />
+    <result column="message_obj_id" property="messageObjId" jdbcType="INTEGER" />
+    <result column="message_content" property="messageContent" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="CHAR" />
+    <result column="message_author_id" property="messageAuthorId" jdbcType="INTEGER" />
+    <result column="message_author_name" property="messageAuthorName" jdbcType="VARCHAR" />
+    <result column="message_author_img" property="messageAuthorImg" jdbcType="VARCHAR" />
+    <result column="message_receive_id" property="messageReceiveId" jdbcType="INTEGER" />
+    <result column="message_receive_name" property="messageReceiveName" jdbcType="VARCHAR" />
+    <result column="message_receive_img" property="messageReceiveImg" jdbcType="VARCHAR" />
+    <result column="message_farther_id" property="messageFartherId" jdbcType="INTEGER" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    message_id, message_state, message_type, message_obj_id, message_content, create_date, 
+    message_author_id, message_author_name, message_author_img, message_receive_id, message_receive_name, 
+    message_receive_img, message_farther_id, remarks
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_message
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_message
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdMessage" >
+    insert into yd_message (message_id, message_state, message_type, 
+      message_obj_id, message_content, create_date, 
+      message_author_id, message_author_name, message_author_img, 
+      message_receive_id, message_receive_name, message_receive_img, 
+      message_farther_id, remarks)
+    values (#{messageId,jdbcType=INTEGER}, #{messageState,jdbcType=INTEGER}, #{messageType,jdbcType=INTEGER}, 
+      #{messageObjId,jdbcType=INTEGER}, #{messageContent,jdbcType=VARCHAR}, #{createDate,jdbcType=CHAR}, 
+      #{messageAuthorId,jdbcType=INTEGER}, #{messageAuthorName,jdbcType=VARCHAR}, #{messageAuthorImg,jdbcType=VARCHAR}, 
+      #{messageReceiveId,jdbcType=INTEGER}, #{messageReceiveName,jdbcType=VARCHAR}, #{messageReceiveImg,jdbcType=VARCHAR}, 
+      #{messageFartherId,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdMessage" >
+    insert into yd_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        message_id,
+      </if>
+      <if test="messageState != null" >
+        message_state,
+      </if>
+      <if test="messageType != null" >
+        message_type,
+      </if>
+      <if test="messageObjId != null" >
+        message_obj_id,
+      </if>
+      <if test="messageContent != null" >
+        message_content,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="messageAuthorId != null" >
+        message_author_id,
+      </if>
+      <if test="messageAuthorName != null" >
+        message_author_name,
+      </if>
+      <if test="messageAuthorImg != null" >
+        message_author_img,
+      </if>
+      <if test="messageReceiveId != null" >
+        message_receive_id,
+      </if>
+      <if test="messageReceiveName != null" >
+        message_receive_name,
+      </if>
+      <if test="messageReceiveImg != null" >
+        message_receive_img,
+      </if>
+      <if test="messageFartherId != null" >
+        message_farther_id,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        #{messageId,jdbcType=INTEGER},
+      </if>
+      <if test="messageState != null" >
+        #{messageState,jdbcType=INTEGER},
+      </if>
+      <if test="messageType != null" >
+        #{messageType,jdbcType=INTEGER},
+      </if>
+      <if test="messageObjId != null" >
+        #{messageObjId,jdbcType=INTEGER},
+      </if>
+      <if test="messageContent != null" >
+        #{messageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=CHAR},
+      </if>
+      <if test="messageAuthorId != null" >
+        #{messageAuthorId,jdbcType=INTEGER},
+      </if>
+      <if test="messageAuthorName != null" >
+        #{messageAuthorName,jdbcType=VARCHAR},
+      </if>
+      <if test="messageAuthorImg != null" >
+        #{messageAuthorImg,jdbcType=VARCHAR},
+      </if>
+      <if test="messageReceiveId != null" >
+        #{messageReceiveId,jdbcType=INTEGER},
+      </if>
+      <if test="messageReceiveName != null" >
+        #{messageReceiveName,jdbcType=VARCHAR},
+      </if>
+      <if test="messageReceiveImg != null" >
+        #{messageReceiveImg,jdbcType=VARCHAR},
+      </if>
+      <if test="messageFartherId != null" >
+        #{messageFartherId,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdMessage" >
+    update yd_message
+    <set >
+      <if test="messageState != null" >
+        message_state = #{messageState,jdbcType=INTEGER},
+      </if>
+      <if test="messageType != null" >
+        message_type = #{messageType,jdbcType=INTEGER},
+      </if>
+      <if test="messageObjId != null" >
+        message_obj_id = #{messageObjId,jdbcType=INTEGER},
+      </if>
+      <if test="messageContent != null" >
+        message_content = #{messageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=CHAR},
+      </if>
+      <if test="messageAuthorId != null" >
+        message_author_id = #{messageAuthorId,jdbcType=INTEGER},
+      </if>
+      <if test="messageAuthorName != null" >
+        message_author_name = #{messageAuthorName,jdbcType=VARCHAR},
+      </if>
+      <if test="messageAuthorImg != null" >
+        message_author_img = #{messageAuthorImg,jdbcType=VARCHAR},
+      </if>
+      <if test="messageReceiveId != null" >
+        message_receive_id = #{messageReceiveId,jdbcType=INTEGER},
+      </if>
+      <if test="messageReceiveName != null" >
+        message_receive_name = #{messageReceiveName,jdbcType=VARCHAR},
+      </if>
+      <if test="messageReceiveImg != null" >
+        message_receive_img = #{messageReceiveImg,jdbcType=VARCHAR},
+      </if>
+      <if test="messageFartherId != null" >
+        message_farther_id = #{messageFartherId,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdMessage" >
+    update yd_message
+    set message_state = #{messageState,jdbcType=INTEGER},
+      message_type = #{messageType,jdbcType=INTEGER},
+      message_obj_id = #{messageObjId,jdbcType=INTEGER},
+      message_content = #{messageContent,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=CHAR},
+      message_author_id = #{messageAuthorId,jdbcType=INTEGER},
+      message_author_name = #{messageAuthorName,jdbcType=VARCHAR},
+      message_author_img = #{messageAuthorImg,jdbcType=VARCHAR},
+      message_receive_id = #{messageReceiveId,jdbcType=INTEGER},
+      message_receive_name = #{messageReceiveName,jdbcType=VARCHAR},
+      message_receive_img = #{messageReceiveImg,jdbcType=VARCHAR},
+      message_farther_id = #{messageFartherId,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 全部查询 -->
+  <!-- 懒鱼商品全部留言列表结果集 -->
+  <resultMap type="com.yd.dby.app.entity.vo.CtcMessageListVo" id="CtcMessageListVoResultMap">
+  	<result column="message_author_id" property="messageAuthorId" jdbcType="INTEGER" />
+  	<result column="message_author_name" property="messageAuthorName" jdbcType="VARCHAR" />
+  	<result column="message_author_img" property="messageAuthorImg" jdbcType="VARCHAR" />
+  	<result column="message_content" property="messageContent" jdbcType="VARCHAR" />
+  	<result column="create_date" property="createDate" jdbcType="VARCHAR" />
+  	
+  	<collection property="twoMessageList" ofType="com.yd.dby.app.entity.vo.CtcMessageListTwoVo">
+	  	<result column="reply_content" property="replyContent" jdbcType="VARCHAR" />
+  	</collection>
+  </resultMap>
+  
+  <!-- 查询用户消息中心消息总数 -->
+  <select id="selectUserMessageCenterCount" resultType="java.lang.Integer">
+  	select 
+  		count(distinct ym.message_id)
+	from 
+		yd_message ym
+	left join yd_message_ctc ymc on ymc.message_ctc_id=ym.message_obj_id
+	where ym.message_receive_id=#{userId} and message_state !=4
+  </select>
+  
+  <!-- 查询用户消息中心消息分页列表 -->
+  <select id="selectUserMessageCenterPageList" resultType="MessageVo">
+  	select 
+  		ym.message_id,ym.message_state,ym.message_type,ym.message_content,ym.create_date,ym.message_author_id,ym.message_author_name,ym.message_author_img,
+		ymc.ctc_id,ymc.ctc_img,ymc.ctc_name,ymc.ctc_price,ymc.ctc_summary
+	from 
+		yd_message ym
+	left join yd_message_ctc ymc on ymc.message_ctc_id=ym.message_obj_id
+	where ym.message_receive_id=#{userId} and message_state !=4
+	order by ym.create_date desc
+	limit #{para.startIndex},#{para.onePageCount} 
+  </select>
+  
+  <!-- 懒鱼商品全部留言总数 -->
+  <select id="selectCtcMessagePageListCount" resultType="java.lang.Integer" parameterType="CtcMessagePara"> 
+  	select 
+		count(ym.message_id)
+	from 
+		yd_message ym
+	inner join (select message_ctc_id from yd_message_ctc where ctc_id=#{ctcId}) ymc on ymc.message_ctc_id=ym.message_obj_id
+	where ym.message_type=2 and ym.message_farther_id=0
+  </select>
+  
+  <!-- 懒鱼商品全部留言列表 -->
+  <select id="selectCtcMessagePageList" resultMap="CtcMessageListVoResultMap" parameterType="CtcMessagePara">
+  	select 
+		ym.message_author_id,ym.message_author_img,ym.message_author_name,ym.create_date,ym.message_content,
+		ymm.message_content reply_content
+	from (select * from yd_message where message_type=2 and message_farther_id=0 order by create_date limit #{startIndex},#{onePageCount}) ym
+	inner join (select message_ctc_id from yd_message_ctc where ctc_id=#{ctcId}) ymc on ymc.message_ctc_id=ym.message_obj_id
+	left join (select message_farther_id,message_content from yd_message) ymm on ymm.message_farther_id=ym.message_id 
+  </select>
+</mapper>

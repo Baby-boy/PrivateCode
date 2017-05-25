@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdSeckillMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdSeckill" >
+    <id column="seckill_id" property="seckillId" jdbcType="INTEGER" />
+    <result column="seckill_title" property="seckillTitle" jdbcType="VARCHAR" />
+    <result column="seckill_subtitle" property="seckillSubtitle" jdbcType="VARCHAR" />
+    <result column="seckill_logo" property="seckillLogo" jdbcType="VARCHAR" />
+    <result column="seckill_cover" property="seckillCover" jdbcType="VARCHAR" />
+    <result column="seckill_sort" property="seckillSort" jdbcType="TINYINT" />
+    <result column="seckill_state" property="seckillState" jdbcType="TINYINT" />
+    <result column="start_time" property="startTime" jdbcType="CHAR" />
+    <result column="end_time" property="endTime" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    seckill_id, seckill_title, seckill_subtitle, seckill_logo, seckill_cover, seckill_sort, 
+    seckill_state, start_time, end_time, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_seckill
+    where seckill_id = #{seckillId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_seckill
+    where seckill_id = #{seckillId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdSeckill" >
+    insert into yd_seckill (seckill_id, seckill_title, seckill_subtitle, 
+      seckill_logo, seckill_cover, seckill_sort, 
+      seckill_state, start_time, end_time, 
+      create_time)
+    values (#{seckillId,jdbcType=INTEGER}, #{seckillTitle,jdbcType=VARCHAR}, #{seckillSubtitle,jdbcType=VARCHAR}, 
+      #{seckillLogo,jdbcType=VARCHAR}, #{seckillCover,jdbcType=VARCHAR}, #{seckillSort,jdbcType=TINYINT}, 
+      #{seckillState,jdbcType=TINYINT}, #{startTime,jdbcType=CHAR}, #{endTime,jdbcType=CHAR}, 
+      #{createTime,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdSeckill" >
+    insert into yd_seckill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="seckillId != null" >
+        seckill_id,
+      </if>
+      <if test="seckillTitle != null" >
+        seckill_title,
+      </if>
+      <if test="seckillSubtitle != null" >
+        seckill_subtitle,
+      </if>
+      <if test="seckillLogo != null" >
+        seckill_logo,
+      </if>
+      <if test="seckillCover != null" >
+        seckill_cover,
+      </if>
+      <if test="seckillSort != null" >
+        seckill_sort,
+      </if>
+      <if test="seckillState != null" >
+        seckill_state,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="seckillId != null" >
+        #{seckillId,jdbcType=INTEGER},
+      </if>
+      <if test="seckillTitle != null" >
+        #{seckillTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="seckillSubtitle != null" >
+        #{seckillSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="seckillLogo != null" >
+        #{seckillLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="seckillCover != null" >
+        #{seckillCover,jdbcType=VARCHAR},
+      </if>
+      <if test="seckillSort != null" >
+        #{seckillSort,jdbcType=TINYINT},
+      </if>
+      <if test="seckillState != null" >
+        #{seckillState,jdbcType=TINYINT},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=CHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdSeckill" >
+    update yd_seckill
+    <set >
+      <if test="seckillTitle != null" >
+        seckill_title = #{seckillTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="seckillSubtitle != null" >
+        seckill_subtitle = #{seckillSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="seckillLogo != null" >
+        seckill_logo = #{seckillLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="seckillCover != null" >
+        seckill_cover = #{seckillCover,jdbcType=VARCHAR},
+      </if>
+      <if test="seckillSort != null" >
+        seckill_sort = #{seckillSort,jdbcType=TINYINT},
+      </if>
+      <if test="seckillState != null" >
+        seckill_state = #{seckillState,jdbcType=TINYINT},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=CHAR},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where seckill_id = #{seckillId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdSeckill" >
+    update yd_seckill
+    set seckill_title = #{seckillTitle,jdbcType=VARCHAR},
+      seckill_subtitle = #{seckillSubtitle,jdbcType=VARCHAR},
+      seckill_logo = #{seckillLogo,jdbcType=VARCHAR},
+      seckill_cover = #{seckillCover,jdbcType=VARCHAR},
+      seckill_sort = #{seckillSort,jdbcType=TINYINT},
+      seckill_state = #{seckillState,jdbcType=TINYINT},
+      start_time = #{startTime,jdbcType=CHAR},
+      end_time = #{endTime,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=CHAR}
+    where seckill_id = #{seckillId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectSeckillTimeList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from yd_seckill
+    where seckill_state = 1
+  </select>
+</mapper>

@@ -1,0 +1,48 @@
+define(['mySession', 'route-config', 'serviceBase','layer','My97DatePicker','uEditor', 'uEditorConfig', 'uEditorCulture','ajaxUpload'], function (mySession, routeConfig, serviceBase,My97DatePicker) {
+    var _controller = function($scope, $http, $routeParams, $location,sysPartnerService){
+    	if($routeParams.value==null || $routeParams.value==""){
+    		alert("信息异常..");
+    	}
+    	var ue = UM.getEditor('partnerContent',{
+	        initialFrameWidth:'100%',
+	        initialFrameHeight:200
+        });
+    	//获取园区详情
+    	$scope.getPartnerDetails=function(){
+    		$scope.para={
+    				partnerId:$routeParams.value
+    		};
+    		sysPartnerService.getPartnerDetails($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				$scope.partner=data.data;
+    				ue.setContent($scope.partner.partnerContent);
+    			}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    		});
+    	};
+    	
+    	//修改园区基本信息
+    	$scope.updatePartnerDetails=function(){
+    		$scope.para={
+    				partnerId:$scope.partner.partnerId,
+    				partnerName:$scope.partner.partnerName,
+    				partnerCompany:$scope.partner.partnerCompany,
+    				partnerContent:ue.getContent()
+    		
+    		};
+    		sysPartnerService.updatePartnerDetails($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				alert("修改成功");
+    			}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    		});
+    	};
+    	
+    	
+    	
+    	$scope.getPartnerDetails();
+    };
+    return ["sysPartnerDetailsCtrl", _controller];
+});

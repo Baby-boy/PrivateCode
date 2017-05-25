@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+		<meta name="renderer" content="webkit">
+		<title>登录</title>
+		<meta name="renderer" content="webkit">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="pcResource/css/animations.css" />
+		<link rel="stylesheet" href="pcResource/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="pcResource/css/main.css" />
+		<link rel="stylesheet" href="pcResource/css/base.css" />
+	</head>
+	<body ng-controller="BaseCtrl">
+	<div class="userLogin">
+		<div class="login">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-lg-offset-8">
+						<div class="text-center">
+							<img src="pcResource/img/logo.png"  />
+						</div>
+						<div class="text-center">
+							<p class="text-green">探索儿童成长模式的创新者</p>
+						</div>
+						<div class="login-body">
+							<h3>登录</h3>
+							<div class="login-item">
+								<input type="text" placeholder="手机号码" id="login_mobile"/>
+							</div>
+							<div class="login-item">
+								<input type="password" placeholder="输入密码" id="login_psw"/>
+							</div>
+							<div class="forget">
+								<a class="" ng-click="showPwd()">忘记密码?</a>
+								<span>|</span>
+								<a class="" ng-click="showRegister()">新用户注册</a>
+							</div>
+							<div class="login-btn">
+								<a class="green-btn " ng-click="login()">登录</a>
+							</div>
+							<div class="cas">
+								<a class="" href="index.html#/index">随便看看</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="userRegister" style="display:none;">
+		<div class="login">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-lg-offset-8">
+						<div class="text-center">
+							<img src="pcResource/img/logo.png"  />
+						</div>
+						<div class="text-center">
+							<p class="text-green">探索儿童成长模式的创新者</p>
+						</div>
+						<div class="login-body">
+							<h3>注册</h3>
+							<div class="login-item code">
+								<input type="text" placeholder="输入注册手机号码" id="reg_mobile"/>
+								<a class="bg-btn" ng-click="reg_getSeCode()" id="reg_getyzm">获取验证码</a>
+							</div>
+							<div class="login-item">
+								<input type="text" placeholder="输入验证码" id="reg_yzm" />
+							</div>
+							<div class="login-item">
+								<input type="password" placeholder="输入密码" id="reg_psw"/>
+							</div>
+							<div class="login-item">
+								<input type="password" placeholder="再次输入密码" id="reg_psws"/>
+							</div>
+							<div class="agree">
+								<i onclick="mycheck.checkChange(this)" class="check-i">
+									<input type="checkbox" name="gwc" class="my-check">
+								</i>
+								<span>我已阅读并同意用户协议</span>
+							</div>
+							<div class="login-btn">
+								<a class="green-btn " ng-click="register()">注册</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="userPwd" style="display:none;">
+		<div class="login">
+			<div class="container">
+				<div class="row">
+					<div class="login-contai col-lg-offset-8">
+						<div class="text-center">
+							<img src="pcResource/img/logo.png"  />
+						</div>
+						<div class="text-center">
+							<p class="text-green">探索儿童成长模式的创新者</p>
+						</div>
+						<div class="login-body">
+							<h3>重置密码</h3>
+							<div class="login-item code">
+								<input type="text" placeholder="输入注册手机号码" id="pwd_mobile"/>
+								<a class="bg-btn" ng-click="pwd_getSeCode()" id="pwd_getyzm">获取验证码</a>
+							</div>
+							<div class="login-item">
+								<input type="text" placeholder="输入验证码" id="pwd_yzm" />
+							</div>
+							<div class="login-item">
+								<input type="password" placeholder="输入新登录密码" id="pwd_psw"/>
+							</div>
+							<div class="login-item">
+								<input type="password" placeholder="再次输入新登录密码" id="pwd_psws"/>
+							</div>
+							<div class="login-btn">
+								<a class="green-btn " ng-click="userPWD()">确认</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		<script data-main="login" src="library/require/require-2.1.14.min.js"></script> 
+		<script type="text/javascript" src="pcResource/js/jquery-2.1.1.min.js" ></script>
+		<script type="text/javascript" src="pcResource/js/plugin.js" ></script>
+		<!-- 
+		<script type="text/javascript" src="pcResource/js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="pcResource/js/plugin.js" ></script> -->
+	</body>
+</html>
+

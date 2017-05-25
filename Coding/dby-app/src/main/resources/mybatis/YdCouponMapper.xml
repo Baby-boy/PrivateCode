@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdCouponMapper" >
+<resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdCoupon" >
+    <id column="coupon_id" property="couponId" jdbcType="INTEGER" />
+    <result column="coupon_name" property="couponName" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="coupon_type" property="couponType" jdbcType="TINYINT" />
+    <result column="coupon_store_type" property="couponStoreType" jdbcType="TINYINT" />
+    <result column="coupon_money" property="couponMoney" jdbcType="INTEGER" />
+    <result column="coupon_full_money" property="couponFullMoney" jdbcType="INTEGER" />
+    <result column="coupon_total_stock" property="couponTotalStock" jdbcType="INTEGER" />
+    <result column="coupon_stock" property="couponStock" jdbcType="INTEGER" />
+    <result column="coupon_begin_time" property="couponBeginTime" jdbcType="TIMESTAMP" />
+    <result column="coupon_end_time" property="couponEndTime" jdbcType="TIMESTAMP" />
+    <result column="coupon_created_time" property="couponCreatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    coupon_id, coupon_name, store_id, coupon_type, coupon_store_type, coupon_money, coupon_full_money, 
+    coupon_total_stock, coupon_stock, coupon_begin_time, coupon_end_time, coupon_created_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_coupon
+    where coupon_id = #{couponId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_coupon
+    where coupon_id = #{couponId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdCoupon" >
+    insert into yd_coupon (coupon_id, coupon_name, store_id, 
+      coupon_type, coupon_store_type, coupon_money, 
+      coupon_full_money, coupon_total_stock, coupon_stock, 
+      coupon_begin_time, coupon_end_time, coupon_created_time
+      )
+    values (#{couponId,jdbcType=INTEGER}, #{couponName,jdbcType=VARCHAR}, #{storeId,jdbcType=INTEGER}, 
+      #{couponType,jdbcType=TINYINT}, #{couponStoreType,jdbcType=TINYINT}, #{couponMoney,jdbcType=INTEGER}, 
+      #{couponFullMoney,jdbcType=INTEGER}, #{couponTotalStock,jdbcType=INTEGER}, #{couponStock,jdbcType=INTEGER}, 
+      #{couponBeginTime,jdbcType=TIMESTAMP}, #{couponEndTime,jdbcType=TIMESTAMP}, #{couponCreatedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdCoupon" >
+    insert into yd_coupon
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="couponId != null" >
+        coupon_id,
+      </if>
+      <if test="couponName != null" >
+        coupon_name,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="couponType != null" >
+        coupon_type,
+      </if>
+      <if test="couponStoreType != null" >
+        coupon_store_type,
+      </if>
+      <if test="couponMoney != null" >
+        coupon_money,
+      </if>
+      <if test="couponFullMoney != null" >
+        coupon_full_money,
+      </if>
+      <if test="couponTotalStock != null" >
+        coupon_total_stock,
+      </if>
+      <if test="couponStock != null" >
+        coupon_stock,
+      </if>
+      <if test="couponBeginTime != null" >
+        coupon_begin_time,
+      </if>
+      <if test="couponEndTime != null" >
+        coupon_end_time,
+      </if>
+      <if test="couponCreatedTime != null" >
+        coupon_created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="couponId != null" >
+        #{couponId,jdbcType=INTEGER},
+      </if>
+      <if test="couponName != null" >
+        #{couponName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="couponType != null" >
+        #{couponType,jdbcType=TINYINT},
+      </if>
+      <if test="couponStoreType != null" >
+        #{couponStoreType,jdbcType=TINYINT},
+      </if>
+      <if test="couponMoney != null" >
+        #{couponMoney,jdbcType=INTEGER},
+      </if>
+      <if test="couponFullMoney != null" >
+        #{couponFullMoney,jdbcType=INTEGER},
+      </if>
+      <if test="couponTotalStock != null" >
+        #{couponTotalStock,jdbcType=INTEGER},
+      </if>
+      <if test="couponStock != null" >
+        #{couponStock,jdbcType=INTEGER},
+      </if>
+      <if test="couponBeginTime != null" >
+        #{couponBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponEndTime != null" >
+        #{couponEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponCreatedTime != null" >
+        #{couponCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdCoupon" >
+    update yd_coupon
+    <set >
+      <if test="couponName != null" >
+        coupon_name = #{couponName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="couponType != null" >
+        coupon_type = #{couponType,jdbcType=TINYINT},
+      </if>
+      <if test="couponStoreType != null" >
+        coupon_store_type = #{couponStoreType,jdbcType=TINYINT},
+      </if>
+      <if test="couponMoney != null" >
+        coupon_money = #{couponMoney,jdbcType=INTEGER},
+      </if>
+      <if test="couponFullMoney != null" >
+        coupon_full_money = #{couponFullMoney,jdbcType=INTEGER},
+      </if>
+      <if test="couponTotalStock != null" >
+        coupon_total_stock = #{couponTotalStock,jdbcType=INTEGER},
+      </if>
+      <if test="couponStock != null" >
+        coupon_stock = #{couponStock,jdbcType=INTEGER},
+      </if>
+      <if test="couponBeginTime != null" >
+        coupon_begin_time = #{couponBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponEndTime != null" >
+        coupon_end_time = #{couponEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponCreatedTime != null" >
+        coupon_created_time = #{couponCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where coupon_id = #{couponId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdCoupon" >
+    update yd_coupon
+    set coupon_name = #{couponName,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=INTEGER},
+      coupon_type = #{couponType,jdbcType=TINYINT},
+      coupon_store_type = #{couponStoreType,jdbcType=TINYINT},
+      coupon_money = #{couponMoney,jdbcType=INTEGER},
+      coupon_full_money = #{couponFullMoney,jdbcType=INTEGER},
+      coupon_total_stock = #{couponTotalStock,jdbcType=INTEGER},
+      coupon_stock = #{couponStock,jdbcType=INTEGER},
+      coupon_begin_time = #{couponBeginTime,jdbcType=TIMESTAMP},
+      coupon_end_time = #{couponEndTime,jdbcType=TIMESTAMP},
+      coupon_created_time = #{couponCreatedTime,jdbcType=TIMESTAMP}
+    where coupon_id = #{couponId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <!-- 店铺下的优惠券信息 -->
+  <resultMap type="com.yd.dby.app.entity.vo.UserCoupon" id="CouponListResultMap">
+  	<id column="store_id" property="storeId" jdbcType="INTEGER" />
+  	
+  	<collection property="coupons" ofType="com.yd.dby.app.entity.YdCoupon">
+  		<id column="coupon_id" property="couponId" jdbcType="INTEGER" />
+	    <result column="coupon_name" property="couponName" jdbcType="VARCHAR" />
+	    <result column="coupon_type" property="couponType" jdbcType="TINYINT" />
+	    <result column="coupon_money" property="couponMoney" jdbcType="INTEGER" />
+	    <result column="coupon_full_money" property="couponFullMoney" jdbcType="INTEGER" />
+	    <result column="coupon_total_stock" property="couponTotalStock" jdbcType="INTEGER" />
+	    <result column="coupon_stock" property="couponStock" jdbcType="INTEGER" />
+	    <result column="coupon_begin_time" property="couponBeginTime" jdbcType="TIMESTAMP" />
+	    <result column="coupon_end_time" property="couponEndTime" jdbcType="TIMESTAMP" />
+	    <result column="coupon_created_time" property="couponCreatedTime" jdbcType="TIMESTAMP" />
+  	</collection>
+  </resultMap>
+  
+  <!-- 查询可用的优惠券 -->
+  <select id="selectCouponList" resultMap="CouponListResultMap" parameterType="com.yd.dby.app.entity.para.CouponPara">
+  	select  
+	  	ys.store_id,
+	  	yc.coupon_id, yc.coupon_name, yc.store_id, yc.coupon_type, yc.coupon_money, yc.coupon_full_money, yc.coupon_total_stock, 
+	    yc.coupon_stock, yc.coupon_begin_time, yc.coupon_end_time, yc.coupon_created_time
+  	from yd_store ys 
+	left join yd_coupon yc on yc.store_id=ys.store_id
+	left join (
+		select user_id,coupon_id from yd_receive_coupon where user_id= #{para.userId,jdbcType=INTEGER} 
+	) yrc on yrc.coupon_id=yc.coupon_id
+	where yc.coupon_type=2 and ys.store_id in 
+	<foreach collection="para.ids" item="id" open="(" close=")" separator=",">
+		#{id} 
+	</foreach>
+  </select>
+  
+  <select id="selectCouponCanList" resultMap="BaseResultMap" parameterType="com.yd.dby.app.entity.para.CouponPara">
+  	select 
+		yc.coupon_id, yc.coupon_name, yc.store_id, yc.coupon_type, yc.coupon_money, yc.coupon_full_money, yc.coupon_total_stock, 
+		yc.coupon_stock, yc.coupon_begin_time, yc.coupon_end_time, yc.coupon_created_time 
+	from yd_coupon yc
+	left join yd_receive_coupon yrc on yrc.coupon_id=yc.coupon_id
+	where yc.coupon_type=1 and yrc.user_id=#{para.userId,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

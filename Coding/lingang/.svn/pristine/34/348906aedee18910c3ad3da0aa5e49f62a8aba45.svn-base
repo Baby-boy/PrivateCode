@@ -1,0 +1,48 @@
+package com.lingang.platform.controller;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.lingang.api.domain.basic.JsonResult;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+import com.lingang.api.domain.entity.SysManager;
+import com.lingang.api.service.SysManagerService;
+import com.lingang.common.util.StringUtils;
+
+/**
+ * @Description: (系统登录)
+ * @Author: lgl(lgl1012dream@foxmail.com)
+ * @date:2016年12月20日 上午9:44:49
+ * @Version:1.0
+ */
+@Controller
+public class MainController {
+
+	@Resource
+	private SysManagerService sysManagerService;
+
+	@RequestMapping("/login.htm")
+	@ResponseBody
+	public JsonResult loginTest(@RequestParam(value = "userAccount", required = true) String userAccount,
+			@RequestParam(value = "userPwd", required = true) String userPwd) {
+		JsonResult jsonResult = new JsonResult();
+		if(userAccount.equals("") || userPwd.equals("")){
+			jsonResult.setStateCode(StateCodeConstant.ERROR_CODE_PARAM_NULL);
+			jsonResult.setMessage("账户或密码不能为空");
+			return jsonResult;
+		}
+		//MD5
+		userPwd=StringUtils.MD5(userPwd + userAccount);
+		//登录
+		ServiceResult<SysManager> result=sysManagerService.selectSysManagerLogin(userAccount, userPwd);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setMessage(result.getMessage());
+		return jsonResult;
+	}
+
+}

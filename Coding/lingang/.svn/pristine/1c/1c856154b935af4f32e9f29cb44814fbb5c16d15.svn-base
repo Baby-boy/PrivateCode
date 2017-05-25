@@ -1,0 +1,25 @@
+package com.lingang.api.domain.para;
+
+public class SysMessagePara extends BasePara{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8330675148623629523L;
+	private Integer messageType;
+	private Integer linkType;
+	public Integer getMessageType() {
+		return messageType;
+	}
+	public void setMessageType(Integer messageType) {
+		this.messageType = messageType;
+	}
+	public Integer getLinkType() {
+		return linkType;
+	}
+	public void setLinkType(Integer linkType) {
+		this.linkType = linkType;
+	}
+	
+
+}

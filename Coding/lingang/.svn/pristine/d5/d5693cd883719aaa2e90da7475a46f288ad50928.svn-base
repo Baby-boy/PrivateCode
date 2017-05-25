@@ -1,0 +1,27 @@
+package com.lingang.api.service;
+
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysNews;
+import com.lingang.api.domain.vo.SysNewsVo;
+
+public interface SysNewsService {
+	/**
+	* @Description: (查询新闻列表)
+	* @param 当前页
+	* @param 每页条数
+	* @return    
+	* @author gsh(15136390655@163.com)
+	* @date: 2016年12月3日 下午5:38:13
+	 */
+	ServiceResult<Page<SysNewsVo>> selectSysNewsAll(Integer pageIndex,Integer pageSize);
+	/**
+	* @Description: (查询新闻详情)
+	* @param 新闻ID
+	* @return    
+	* @author gsh(15136390655@163.com)
+	* @date: 2016年12月3日 下午1:42:59
+	 */
+	ServiceResult<SysNews> selectByPrimaryKey(Integer newsId);
+}

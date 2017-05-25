@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdArticleClassMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdArticleClass" >
+    <id column="ac_id" property="acId" jdbcType="INTEGER" />
+    <result column="ac_code" property="acCode" jdbcType="VARCHAR" />
+    <result column="ac_name" property="acName" jdbcType="VARCHAR" />
+    <result column="ac_parent_id" property="acParentId" jdbcType="INTEGER" />
+    <result column="ac_sort" property="acSort" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ac_id, ac_code, ac_name, ac_parent_id, ac_sort
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_article_class
+    where ac_id = #{acId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_article_class
+    where ac_id = #{acId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdArticleClass" >
+    insert into yd_article_class (ac_id, ac_code, ac_name, 
+      ac_parent_id, ac_sort)
+    values (#{acId,jdbcType=INTEGER}, #{acCode,jdbcType=VARCHAR}, #{acName,jdbcType=VARCHAR}, 
+      #{acParentId,jdbcType=INTEGER}, #{acSort,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdArticleClass" >
+    insert into yd_article_class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="acId != null" >
+        ac_id,
+      </if>
+      <if test="acCode != null" >
+        ac_code,
+      </if>
+      <if test="acName != null" >
+        ac_name,
+      </if>
+      <if test="acParentId != null" >
+        ac_parent_id,
+      </if>
+      <if test="acSort != null" >
+        ac_sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="acId != null" >
+        #{acId,jdbcType=INTEGER},
+      </if>
+      <if test="acCode != null" >
+        #{acCode,jdbcType=VARCHAR},
+      </if>
+      <if test="acName != null" >
+        #{acName,jdbcType=VARCHAR},
+      </if>
+      <if test="acParentId != null" >
+        #{acParentId,jdbcType=INTEGER},
+      </if>
+      <if test="acSort != null" >
+        #{acSort,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdArticleClass" >
+    update yd_article_class
+    <set >
+      <if test="acCode != null" >
+        ac_code = #{acCode,jdbcType=VARCHAR},
+      </if>
+      <if test="acName != null" >
+        ac_name = #{acName,jdbcType=VARCHAR},
+      </if>
+      <if test="acParentId != null" >
+        ac_parent_id = #{acParentId,jdbcType=INTEGER},
+      </if>
+      <if test="acSort != null" >
+        ac_sort = #{acSort,jdbcType=TINYINT},
+      </if>
+    </set>
+    where ac_id = #{acId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdArticleClass" >
+    update yd_article_class
+    set ac_code = #{acCode,jdbcType=VARCHAR},
+      ac_name = #{acName,jdbcType=VARCHAR},
+      ac_parent_id = #{acParentId,jdbcType=INTEGER},
+      ac_sort = #{acSort,jdbcType=TINYINT}
+    where ac_id = #{acId,jdbcType=INTEGER}
+  </update>
+</mapper>

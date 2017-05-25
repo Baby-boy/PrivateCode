@@ -1,0 +1,597 @@
+<div class="row" ng-controller="sysManagerPageListCtrl">
+	<div class="col-lg-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-content">
+				<form class="form-inline">
+					<div class="row m-t">
+						<div class="form-group col-xs-3">
+							<label for="subTime">账号:</label> <input type="text"
+								class="form-control" ng-model="para.managerAccount"
+								placeholder="请输入登录账号..">
+						</div>
+						<div class="form-group col-xs-3">
+							<label for="subTime">身份证号:</label> <input type="text"
+								class="form-control" ng-model="para.managerIdcard"
+								placeholder="请输入身份证号..">
+						</div>
+						<div class="form-group col-xs-2">
+							<label for="subTime">状态:</label> <select class="form-control"
+								id="managerState" ng-model="para.managerState"
+								ng-change="getManagerList()">
+								<option value="">全部</option>
+								<option value="1">正常</option>
+								<option value="2">异常</option>
+							</select>
+						</div>
+						<div class="col-md-1">
+							<button type="button" class="btn btn-primary"
+								ng-click="getManagerList()">立即搜索</button>
+						</div>
+						<div class="col-md-3">
+							<button type="button" class="btn btn-primary"
+								ng-click="showManagerAdd()">添加管理员</button>
+						</div>
+					</div>
+					<div class="row m-t"></div>
+				</form>
+				<div>
+					<table
+						class="table table-striped table-bordered table-hover dataTables-example">
+						<tr>
+							<th style="text-align: center;">序号</th>
+							<th style="text-align: center;">账号</th>
+							<th style="text-align: center;">名称</th>
+							<th style="text-align: center;">联系方式</th>
+							<th style="text-align: center;">身份证</th>
+							<th style="text-align: center;">账号状态</th>
+							<th style="text-align: center;">操作</th>
+						</tr>
+						<tr ng-repeat="manager in managerList">
+							<td>{{$index + (paginationConf.currentPage-1)*onePageCount +
+								1}}</td>
+							<td>{{manager.managerAccount}}</td>
+							<td>{{manager.managerName}}</td>
+							<td>{{manager.managerTel}}</td>
+							<td>{{manager.managerIdcard}}</td>
+							<td><span ng-if="manager.managerState == 1"
+								ng-style="manager.managerState == 1?{color:'blue'}:''">正常</span>
+								<span ng-if="manager.managerState == 2"
+								ng-style="manager.managerState == 2?{color:'red'}:''">异常</span>
+							</td>
+							<td class="center"><a href=""
+								ng-click="showManagerDetails(manager)">修改信息</a>&nbsp;|&nbsp; <a
+								href="" ng-click="showPower(manager)">分配权限</a></td>
+						</tr>
+					</table>
+					<div class="row m-t">
+						<div class="col-md-10 col-md-offset-1">
+							<!--分页开始-->
+							<ndtech-pagination class conf="paginationConf"></ndtech-pagination>
+							<!--分页结束-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 管理员详情 -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">管理员详情</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form">
+
+						<div class="form-group">
+							<label for="managerAccount" class="col-sm-2 control-label">账号</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="managerAccount"
+									placeholder="" ng-model="manager.managerAccount">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="managerPassword" class="col-sm-2 control-label">密码</label>
+							<div class="col-sm-6">
+								<input type="password" class="form-control" id="managerPassword"
+									placeholder="" ng-model="manager.managerPassword">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="managerName" class="col-sm-2 control-label">名称</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="managerName"
+									placeholder="" ng-model="manager.managerName">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="managerTel" class="col-sm-2 control-label">联系方式</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="managerTel"
+									placeholder="" ng-model="manager.managerTel">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="managerIdcard" class="col-sm-2 control-label">身份证</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="managerIdcard"
+									placeholder="" ng-model="manager.managerIdcard">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="managerAddress" class="col-sm-2 control-label">地址</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="managerAddress"
+									placeholder="" ng-model="manager.managerAddress">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="managerEmail" class="col-sm-2 control-label">Email</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="managerEmail"
+									placeholder="" ng-model="manager.managerEmail">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="managerState" class="col-sm-2 control-label">状态</label>
+							<div class="col-sm-3">
+								<select class="form-control" ng-model="manager.managerState">
+									<option value="1">正常</option>
+									<option value="2">异常</option>
+								</select>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default"
+						style="margin-bottom: 0;" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="updateSysManager()">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 添加管理员 -->
+	<div class="modal fade" id="managerAdd" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">添加管理员</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form">
+
+						<div class="form-group">
+							<label for="managerAccount" class="col-sm-2 control-label">账号</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="managerAccountAdd"
+									placeholder="" ng-model="managerAdd.managerAccount">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="managerPassword" class="col-sm-2 control-label">密码</label>
+							<div class="col-sm-6">
+								<input type="password" class="form-control"
+									id="managerPasswordAdd" placeholder=""
+									ng-model="managerAdd.managerPassword">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="managerName" class="col-sm-2 control-label">名称</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="managerNameAdd"
+									placeholder="" ng-model="managerAdd.managerName">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="managerTel" class="col-sm-2 control-label">联系方式</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="managerTelAdd"
+									placeholder="" ng-model="managerAdd.managerTel">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="managerIdcard" class="col-sm-2 control-label">身份证</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="managerIdcardAdd"
+									placeholder="" ng-model="managerAdd.managerIdcard">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="managerAddress" class="col-sm-2 control-label">地址</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="managerAddressAdd"
+									placeholder="" ng-model="managerAdd.managerAddress">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="managerEmail" class="col-sm-2 control-label">Email</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="managerEmailAdd"
+									placeholder="" ng-model="managerAdd.managerEmail">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="managerState" class="col-sm-2 control-label">状态</label>
+							<div class="col-sm-3">
+								<select id="managerStateAdd" class="form-control"
+									ng-model="managerAdd.managerState">
+									<option value="1">正常</option>
+									<option value="2">异常</option>
+								</select>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default"
+						style="margin-bottom: 0;" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="addSysManager()">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 分配权限 -->
+	<div class="modal fade" id="powerMan" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">分配权限</h4>
+				</div>
+				<div class="modal-body">
+					<div class="dd" id="nestable2">
+						<ol class="dd-list">
+							<li ng-class="dataItemClass1" data-id="1">
+								<button ng-style="dataCollapseStyle1" ng-click="dataActionShow(1)" data-action="collapse" type="button">关闭</button>
+								<button ng-style="dataExpandStyle1" ng-click="dataActionShow(1)" data-action="expand" type="button">展开</button>
+			                    <div class="dd-handle">
+			                    	<span class="pull-right">
+										<button  type="button" ng-click="powerAdd('/1/','/1/')" class="btn" ng-class="pStr.indexOf('/1/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+											<i class="fa fa-check"></i>
+										</button>
+									</span> 
+			                        <span class="label label-info"><i class="fa fa-cog"></i></span> 基础设置
+			                    </div>
+			                    <ol class="dd-list">
+			                        <li class="dd-item" data-id="2">
+			                            <div class="dd-handle">
+			                                <span class="pull-right">
+			                                	<button ng-click="powerAdd('/2/','/1/')" type="button" class="btn" ng-class="pStr.indexOf('/2/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+			                                </span>
+			                                <span class="label label-warning"><i class="fa fa-bolt"></i></span> 基础类型
+			                            </div>
+			                        </li>
+			                        <li class="dd-item" data-id="3">
+			                            <div class="dd-handle">
+			                                <span class="pull-right">
+			                                	<button  type="button" ng-click="powerAdd('/3/','/1/')" class="btn" ng-class="pStr.indexOf('/3/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+			                                </span>
+			                                <span class="label label-warning"><i class="fa fa-bolt"></i></span> 合作类型
+			                            </div>
+			                        </li>
+			                        <li class="dd-item" data-id="4">
+			                            <div class="dd-handle">
+			                                <span class="pull-right">
+			                                	<button  type="button" ng-click="powerAdd('/4/','/1/')" class="btn" ng-class="pStr.indexOf('/4/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+			                                </span>
+			                                <span class="label label-warning"><i class="fa fa-bolt"></i></span> 标签管理
+			                            </div>
+			                        </li>
+			                        <li class="dd-item" data-id="5">
+										<div class="dd-handle">
+											<span class="pull-right">
+												<button  type="button" ng-click="powerAdd('/27/','/1/')" class="btn" ng-class="pStr.indexOf('/27/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+											</span> 
+											<span class="label label-warning"><i class="fa fa-bolt"></i></span> 地区管理
+										</div>
+									</li>
+									<li class="dd-item" data-id="6">
+										<div class="dd-handle">
+											<span class="pull-right">
+												<button  type="button" ng-click="powerAdd('/5/','/1/')" class="btn" ng-class="pStr.indexOf('/5/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+											</span> 
+											<span class="label label-warning"><i class="fa fa-bolt"></i></span>  公司信息
+										</div>
+									</li>
+			                    </ol>
+			                </li>
+			                
+			                <li ng-class="dataItemClass7" data-id="7">
+								<button ng-style="dataCollapseStyle7" ng-click="dataActionShow(7)" data-action="collapse" type="button">关闭</button>
+								<button ng-style="dataExpandStyle7" ng-click="dataActionShow(7)" data-action="expand" type="button">展开</button>
+			                    <div class="dd-handle">
+			                    	<span class="pull-right">
+										<button  type="button" ng-click="powerAdd('/6/','/6/')" class="btn" ng-class="pStr.indexOf('/6/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+											<i class="fa fa-check"></i>
+										</button>
+									</span> 
+			                        <span class="label label-info"><i class="fa fa-cog"></i></span> 首页置顶
+			                    </div>
+			                    <ol class="dd-list">
+			                        <li class="dd-item" data-id="8">
+			                            <div class="dd-handle">
+			                                <span class="pull-right">
+			                                	<button ng-click="powerAdd('/7/','/6/')" type="button" class="btn" ng-class="pStr.indexOf('/7/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+			                                </span>
+			                                <span class="label label-warning"><i class="fa fa-bolt"></i></span> 新闻列表
+			                            </div>
+			                        </li>
+			                        <li class="dd-item" data-id="9">
+			                            <div class="dd-handle">
+			                                <span class="pull-right">
+			                                	<button  type="button" ng-click="powerAdd('/8/','/6/')" class="btn" ng-class="pStr.indexOf('/8/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+			                                </span>
+			                                <span class="label label-warning"><i class="fa fa-bolt"></i></span> 最新合作
+			                            </div>
+			                        </li>
+			                        <li class="dd-item" data-id="10">
+			                            <div class="dd-handle">
+			                                <span class="pull-right">
+			                                	<button  type="button" ng-click="powerAdd('/9/','/6/')" class="btn" ng-class="pStr.indexOf('/9/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+			                                </span>
+			                                <span class="label label-warning"><i class="fa fa-bolt"></i></span> 最新入驻
+			                            </div>
+			                        </li>
+			                        <li class="dd-item" data-id="11">
+										<div class="dd-handle">
+											<span class="pull-right">
+												<button  type="button" ng-click="powerAdd('/10/','/6/')" class="btn" ng-class="pStr.indexOf('/10/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+											</span> 
+											<span class="label label-warning"><i class="fa fa-bolt"></i></span> 政策列表
+										</div>
+									</li>
+			                    </ol>
+			                </li>
+			                
+			                <li ng-class="dataItemClass12" data-id="12">
+								<button ng-style="dataCollapseStyle12" ng-click="dataActionShow(12)" data-action="collapse" type="button">关闭</button>
+								<button ng-style="dataExpandStyle12" ng-click="dataActionShow(12)" data-action="expand" type="button">展开</button>
+			                    <div class="dd-handle">
+			                    	<span class="pull-right">
+										<button  type="button" ng-click="powerAdd('/11/','/11/')" class="btn" ng-class="pStr.indexOf('/11/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+											<i class="fa fa-check"></i>
+										</button>
+									</span> 
+			                        <span class="label label-info"><i class="fa fa-cog"></i></span> 查询设置
+			                    </div>
+			                    <ol class="dd-list">
+			                        <li class="dd-item" data-id="13">
+			                            <div class="dd-handle">
+			                                <span class="pull-right">
+			                                	<button ng-click="powerAdd('/12/','/11/')" type="button" class="btn" ng-class="pStr.indexOf('/12/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+			                                </span>
+			                                <span class="label label-warning"><i class="fa fa-bolt"></i></span> 产业园区
+			                            </div>
+			                        </li>
+			                        <li class="dd-item" data-id="14">
+			                            <div class="dd-handle">
+			                                <span class="pull-right">
+			                                	<button  type="button" ng-click="powerAdd('/13/','/11/')" class="btn" ng-class="pStr.indexOf('/13/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+			                                </span>
+			                                <span class="label label-warning"><i class="fa fa-bolt"></i></span> 合作伙伴
+			                            </div>
+			                        </li>
+			                        <li class="dd-item" data-id="15">
+			                            <div class="dd-handle">
+			                                <span class="pull-right">
+			                                	<button  type="button" ng-click="powerAdd('/14/','/11/')" class="btn" ng-class="pStr.indexOf('/14/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+			                                </span>
+			                                <span class="label label-warning"><i class="fa fa-bolt"></i></span> 产业集群
+			                            </div>
+			                        </li>
+			                        <li class="dd-item" data-id="16">
+										<div class="dd-handle">
+											<span class="pull-right">
+												<button  type="button" ng-click="powerAdd('/15/','/11/')" class="btn" ng-class="pStr.indexOf('/15/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+											</span> 
+											<span class="label label-warning"><i class="fa fa-bolt"></i></span> 服务机构
+										</div>
+									</li>
+									<li class="dd-item" data-id="17">
+										<div class="dd-handle">
+											<span class="pull-right">
+												<button  type="button" ng-click="powerAdd('/16/','/11/')" class="btn" ng-class="pStr.indexOf('/16/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+											</span> 
+											<span class="label label-warning"><i class="fa fa-bolt"></i></span> 入驻企业
+										</div>
+									</li>
+									<li class="dd-item" data-id="18">
+										<div class="dd-handle">
+											<span class="pull-right">
+												<button  type="button" ng-click="powerAdd('/17/','/11/')" class="btn" ng-class="pStr.indexOf('/17/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+											</span> 
+											<span class="label label-warning"><i class="fa fa-bolt"></i></span> 公共平台
+										</div>
+									</li>
+			                    </ol>
+			                </li>
+			                
+			                <li ng-class="dataItemClass19" data-id="19">
+								<button ng-style="dataCollapseStyle19" ng-click="dataActionShow(19)" data-action="collapse" type="button">关闭</button>
+								<button ng-style="dataExpandStyle19" ng-click="dataActionShow(19)" data-action="expand" type="button">展开</button>
+			                    <div class="dd-handle">
+			                    	<span class="pull-right">
+										<button  type="button" ng-click="powerAdd('/18/','/18/')" class="btn" ng-class="pStr.indexOf('/18/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+											<i class="fa fa-check"></i>
+										</button>
+									</span> 
+			                        <span class="label label-info"><i class="fa fa-cog"></i></span> APP设置
+			                    </div>
+			                    <ol class="dd-list">
+			                        <li class="dd-item" data-id="20">
+			                            <div class="dd-handle">
+			                                <span class="pull-right">
+			                                	<button ng-click="powerAdd('/19/','/18/')" type="button" class="btn" ng-class="pStr.indexOf('/19/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+			                                </span>
+			                                <span class="label label-warning"><i class="fa fa-bolt"></i></span> APP账户
+			                            </div>
+			                        </li>
+			                    </ol>
+			                </li>
+			                
+			                <li ng-class="dataItemClass21" data-id="21">
+								<button ng-style="dataCollapseStyle21" ng-click="dataActionShow(21)" data-action="collapse" type="button">关闭</button>
+								<button ng-style="dataExpandStyle21" ng-click="dataActionShow(21)" data-action="expand" type="button">展开</button>
+			                    <div class="dd-handle">
+			                    	<span class="pull-right">
+										<button  type="button" ng-click="powerAdd('/20/','/20/')" class="btn" ng-class="pStr.indexOf('/20/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+											<i class="fa fa-check"></i>
+										</button>
+									</span> 
+			                        <span class="label label-info"><i class="fa fa-cog"></i></span> 客服管理
+			                    </div>
+			                    <ol class="dd-list">
+			                        <li class="dd-item" data-id="22">
+			                            <div class="dd-handle">
+			                                <span class="pull-right">
+			                                	<button ng-click="powerAdd('/21/','/20/')" type="button" class="btn" ng-class="pStr.indexOf('/21/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+			                                </span>
+			                                <span class="label label-warning"><i class="fa fa-bolt"></i></span> 信息纠错
+			                            </div>
+			                        </li>
+			                        <li class="dd-item" data-id="23">
+			                            <div class="dd-handle">
+			                                <span class="pull-right">
+			                                	<button ng-click="powerAdd('/222/','/20/')" type="button" class="btn" ng-class="pStr.indexOf('/22/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+			                                </span>
+			                                <span class="label label-warning"><i class="fa fa-bolt"></i></span> 意见反馈
+			                            </div>
+			                        </li>
+			                    </ol>
+			                </li>
+			                
+			                <li ng-class="dataItemClass24" data-id="24">
+								<button ng-style="dataCollapseStyle24" ng-click="dataActionShow(24)" data-action="collapse" type="button">关闭</button>
+								<button ng-style="dataExpandStyle24" ng-click="dataActionShow(24)" data-action="expand" type="button">展开</button>
+			                    <div class="dd-handle">
+			                    	<span class="pull-right">
+										<button  type="button" ng-click="powerAdd('/23/','/23/')" class="btn" ng-class="pStr.indexOf('/23/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+											<i class="fa fa-check"></i>
+										</button>
+									</span> 
+			                        <span class="label label-info"><i class="fa fa-cog"></i></span> 系统设置
+			                    </div>
+			                    <ol class="dd-list">
+			                        <li class="dd-item" data-id="25">
+			                            <div class="dd-handle">
+			                                <span class="pull-right">
+			                                	<button ng-click="powerAdd('/24/','/23/')" type="button" class="btn" ng-class="pStr.indexOf('/24/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+			                                </span>
+			                                <span class="label label-warning"><i class="fa fa-bolt"></i></span> 管理员账户
+			                            </div>
+			                        </li>
+			                    </ol>
+			                </li>
+			                
+			                <li ng-class="dataItemClass26" data-id="26">
+								<button ng-style="dataCollapseStyle26" ng-click="dataActionShow(26)" data-action="collapse" type="button">关闭</button>
+								<button ng-style="dataExpandStyle26" ng-click="dataActionShow(26)" data-action="expand" type="button">展开</button>
+			                    <div class="dd-handle">
+			                    	<span class="pull-right">
+										<button  type="button" ng-click="powerAdd('/25/','/25/')" class="btn" ng-class="pStr.indexOf('/25/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+											<i class="fa fa-check"></i>
+										</button>
+									</span> 
+			                        <span class="label label-info"><i class="fa fa-cog"></i></span> 站点发布系统
+			                    </div>
+			                    <ol class="dd-list">
+			                        <li class="dd-item" data-id="27">
+			                            <div class="dd-handle">
+			                                <span class="pull-right">
+			                                	<button ng-click="powerAdd('/26/','/25/')" type="button" class="btn" ng-class="pStr.indexOf('/26/')>=0?'btn-primary btn-circle':'btn-default btn-circle'">
+													<i class="fa fa-check"></i>
+												</button>
+			                                </span>
+			                                <span class="label label-warning"><i class="fa fa-bolt"></i></span> 站点发布系统
+			                            </div>
+			                        </li>
+			                    </ol>
+			                </li>
+			                
+						</ol>
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default"
+						style="margin-bottom: 0;" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="powerUpe()">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

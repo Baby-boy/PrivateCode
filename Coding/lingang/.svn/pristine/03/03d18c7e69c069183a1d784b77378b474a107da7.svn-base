@@ -1,0 +1,10 @@
+package com.lingang.api.service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysPartnerType;
+
+public interface SysPartnerTypeService {
+
+	ServiceResult<Page<SysPartnerType>> selectPartnerTypeList(Integer pageIndex,Integer pageSize);
+}

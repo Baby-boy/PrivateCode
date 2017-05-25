@@ -1,0 +1,12 @@
+﻿
+define(function () {
+    return {
+        serviceBaseUrl: "http://www.lingangsd.com/lingang-platform/",
+        imgServerUrl: "http://www.lingangsd.com/"
+//        serviceBaseUrl: "http://192.168.11.106:8080/lingang-platform/",
+//        imgServerUrl: "http://192.168.11.106:8080/"
+//    	serviceBaseUrl: "http://localhost/lingang-platform/",
+//    	imgServerUrl: "http://localhost/"
+
+    };
+});

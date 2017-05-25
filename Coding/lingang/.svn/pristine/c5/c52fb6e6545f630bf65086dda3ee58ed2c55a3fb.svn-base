@@ -1,0 +1,15 @@
+package com.lingang.core.persistence.writer;
+
+import com.lingang.api.domain.entity.SysTop;
+
+public interface SysTopWriterMapper {
+    int deleteByPrimaryKey(Integer topId);
+
+    int insert(SysTop record);
+
+    int insertSelective(SysTop record);
+
+    int updateByPrimaryKeySelective(SysTop record);
+
+    int updateByPrimaryKey(SysTop record);
+}

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdSeckillGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdSeckillGoods" >
+    <id column="sg_id" property="sgId" jdbcType="INTEGER" />
+    <result column="seckill_id" property="seckillId" jdbcType="INTEGER" />
+    <result column="depot_id" property="depotId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="sg_sort" property="sgSort" jdbcType="TINYINT" />
+    <result column="sg_apply_time" property="sgApplyTime" jdbcType="CHAR" />
+    <result column="sg_state" property="sgState" jdbcType="TINYINT" />
+    <result column="sg_season" property="sgSeason" jdbcType="VARCHAR" />
+    <result column="sg_cover" property="sgCover" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sg_id, seckill_id, depot_id, store_id, store_name, sg_sort, sg_apply_time, sg_state, 
+    sg_season, sg_cover
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_seckill_goods
+    where sg_id = #{sgId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_seckill_goods
+    where sg_id = #{sgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdSeckillGoods" >
+    insert into yd_seckill_goods (sg_id, seckill_id, depot_id, 
+      store_id, store_name, sg_sort, 
+      sg_apply_time, sg_state, sg_season, 
+      sg_cover)
+    values (#{sgId,jdbcType=INTEGER}, #{seckillId,jdbcType=INTEGER}, #{depotId,jdbcType=INTEGER}, 
+      #{storeId,jdbcType=INTEGER}, #{storeName,jdbcType=VARCHAR}, #{sgSort,jdbcType=TINYINT}, 
+      #{sgApplyTime,jdbcType=CHAR}, #{sgState,jdbcType=TINYINT}, #{sgSeason,jdbcType=VARCHAR}, 
+      #{sgCover,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdSeckillGoods" >
+    insert into yd_seckill_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sgId != null" >
+        sg_id,
+      </if>
+      <if test="seckillId != null" >
+        seckill_id,
+      </if>
+      <if test="depotId != null" >
+        depot_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="sgSort != null" >
+        sg_sort,
+      </if>
+      <if test="sgApplyTime != null" >
+        sg_apply_time,
+      </if>
+      <if test="sgState != null" >
+        sg_state,
+      </if>
+      <if test="sgSeason != null" >
+        sg_season,
+      </if>
+      <if test="sgCover != null" >
+        sg_cover,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sgId != null" >
+        #{sgId,jdbcType=INTEGER},
+      </if>
+      <if test="seckillId != null" >
+        #{seckillId,jdbcType=INTEGER},
+      </if>
+      <if test="depotId != null" >
+        #{depotId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sgSort != null" >
+        #{sgSort,jdbcType=TINYINT},
+      </if>
+      <if test="sgApplyTime != null" >
+        #{sgApplyTime,jdbcType=CHAR},
+      </if>
+      <if test="sgState != null" >
+        #{sgState,jdbcType=TINYINT},
+      </if>
+      <if test="sgSeason != null" >
+        #{sgSeason,jdbcType=VARCHAR},
+      </if>
+      <if test="sgCover != null" >
+        #{sgCover,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdSeckillGoods" >
+    update yd_seckill_goods
+    <set >
+      <if test="seckillId != null" >
+        seckill_id = #{seckillId,jdbcType=INTEGER},
+      </if>
+      <if test="depotId != null" >
+        depot_id = #{depotId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sgSort != null" >
+        sg_sort = #{sgSort,jdbcType=TINYINT},
+      </if>
+      <if test="sgApplyTime != null" >
+        sg_apply_time = #{sgApplyTime,jdbcType=CHAR},
+      </if>
+      <if test="sgState != null" >
+        sg_state = #{sgState,jdbcType=TINYINT},
+      </if>
+      <if test="sgSeason != null" >
+        sg_season = #{sgSeason,jdbcType=VARCHAR},
+      </if>
+      <if test="sgCover != null" >
+        sg_cover = #{sgCover,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sg_id = #{sgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdSeckillGoods" >
+    update yd_seckill_goods
+    set seckill_id = #{seckillId,jdbcType=INTEGER},
+      depot_id = #{depotId,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      sg_sort = #{sgSort,jdbcType=TINYINT},
+      sg_apply_time = #{sgApplyTime,jdbcType=CHAR},
+      sg_state = #{sgState,jdbcType=TINYINT},
+      sg_season = #{sgSeason,jdbcType=VARCHAR},
+      sg_cover = #{sgCover,jdbcType=VARCHAR}
+    where sg_id = #{sgId,jdbcType=INTEGER}
+  </update>
+</mapper>

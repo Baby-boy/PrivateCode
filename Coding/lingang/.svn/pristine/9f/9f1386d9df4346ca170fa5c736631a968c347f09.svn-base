@@ -1,0 +1,69 @@
+package com.lingang.api.service;
+
+import java.util.List;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysMessage;
+import com.lingang.api.domain.entity.SysReply;
+import com.lingang.api.domain.para.SysMessagePara;
+import com.lingang.api.domain.pfvo.SysMessagePfvo;
+import com.lingang.api.domain.vo.SysReplyVo;
+
+public interface SysMessageService {
+
+	/**
+	* @Description: (信息纠错/意见反馈列表)
+	* @param pageIndex
+	* @param pageSize
+	* @param messageType
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月5日 下午11:02:20
+	 */
+	ServiceResult<Page<SysMessage>> selectMessagePageList(Integer pageIndex,Integer pageSize,Integer messageType);
+	
+	/**
+	* @Description: (信息纠错/意见反馈 回复详情)
+	* @param messageId
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月6日 上午12:13:38
+	 */
+	ServiceResult<SysReplyVo> selectSysReply(Integer messageId);
+	/**
+	* @Description: (信息纠错/意见反馈列表(后台))
+	* @param para
+	* @return    
+	* @author gsh(15136390655@163.com)
+	* @date: 2016年12月8日 下午3:31:44
+	 */
+	ServiceResult<Page<SysMessagePfvo>> selectMessageAll(SysMessagePara para);
+	/**
+	* @Description: (修改恢复状态)
+	* @param messageType
+	* @return    
+	* @author gsh(15136390655@163.com)
+	* @date: 2016年12月9日 上午1:39:10
+	 */
+	ServiceResult<SysReply> updateMessageType(SysMessagePara para);
+	/**
+	* @Description: (删除)
+	* @param para
+	* @return    
+	* @author gsh(15136390655@163.com)
+	* @date: 2016年12月9日 下午5:34:35
+	 */
+	ServiceResult<Integer> delMessage(SysMessagePara para);
+
+	/**
+	 * @Description: (根据ID逻辑删除消息和错误反馈)
+	 * @param messageIds
+	 * @return 参数注释 
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @param message 
+	 * @date: 2016年12月20日 下午4:05:36 
+	 */
+	ServiceResult<Object> deleteUserOpinion(SysMessage message, List<Integer> messageIds);
+	
+}

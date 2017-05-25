@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdAttributeValueMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdAttributeValue" >
+    <id column="attr_value_id" property="attrValueId" jdbcType="INTEGER" />
+    <result column="attr_value_name" property="attrValueName" jdbcType="VARCHAR" />
+    <result column="attr_id" property="attrId" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="attr_value_sort" property="attrValueSort" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    attr_value_id, attr_value_name, attr_id, type_id, attr_value_sort
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_attribute_value
+    where attr_value_id = #{attrValueId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_attribute_value
+    where attr_value_id = #{attrValueId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdAttributeValue" >
+    insert into yd_attribute_value (attr_value_id, attr_value_name, attr_id, 
+      type_id, attr_value_sort)
+    values (#{attrValueId,jdbcType=INTEGER}, #{attrValueName,jdbcType=VARCHAR}, #{attrId,jdbcType=INTEGER}, 
+      #{typeId,jdbcType=INTEGER}, #{attrValueSort,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdAttributeValue" >
+    insert into yd_attribute_value
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attrValueId != null" >
+        attr_value_id,
+      </if>
+      <if test="attrValueName != null" >
+        attr_value_name,
+      </if>
+      <if test="attrId != null" >
+        attr_id,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="attrValueSort != null" >
+        attr_value_sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attrValueId != null" >
+        #{attrValueId,jdbcType=INTEGER},
+      </if>
+      <if test="attrValueName != null" >
+        #{attrValueName,jdbcType=VARCHAR},
+      </if>
+      <if test="attrId != null" >
+        #{attrId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="attrValueSort != null" >
+        #{attrValueSort,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdAttributeValue" >
+    update yd_attribute_value
+    <set >
+      <if test="attrValueName != null" >
+        attr_value_name = #{attrValueName,jdbcType=VARCHAR},
+      </if>
+      <if test="attrId != null" >
+        attr_id = #{attrId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="attrValueSort != null" >
+        attr_value_sort = #{attrValueSort,jdbcType=BIT},
+      </if>
+    </set>
+    where attr_value_id = #{attrValueId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdAttributeValue" >
+    update yd_attribute_value
+    set attr_value_name = #{attrValueName,jdbcType=VARCHAR},
+      attr_id = #{attrId,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER},
+      attr_value_sort = #{attrValueSort,jdbcType=BIT}
+    where attr_value_id = #{attrValueId,jdbcType=INTEGER}
+  </update>
+</mapper>

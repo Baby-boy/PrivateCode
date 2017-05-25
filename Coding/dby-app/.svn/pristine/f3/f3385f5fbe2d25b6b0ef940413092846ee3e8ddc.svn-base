@@ -1,0 +1,38 @@
+package com.yd.dby.app.entity.para;
+
+import java.util.List;
+
+public class PayPara {
+
+	// pingxx创建订单成功后的order_no
+	private String payOrderNo;
+
+	// 手机端支付成功后 的支付单号
+	private String paySn;
+
+	private List<Integer> orderIds;
+
+	public String getPayOrderNo() {
+		return payOrderNo;
+	}
+
+	public void setPayOrderNo(String payOrderNo) {
+		this.payOrderNo = payOrderNo;
+	}
+
+	public String getPaySn() {
+		return paySn;
+	}
+
+	public void setPaySn(String paySn) {
+		this.paySn = paySn;
+	}
+
+	public List<Integer> getOrderIds() {
+		return orderIds;
+	}
+
+	public void setOrderIds(List<Integer> orderIds) {
+		this.orderIds = orderIds;
+	}
+}

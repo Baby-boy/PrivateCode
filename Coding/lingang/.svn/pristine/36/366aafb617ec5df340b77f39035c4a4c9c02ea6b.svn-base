@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysBasicsReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysBasics" >
+    <id column="basics_id" property="basicsId" jdbcType="INTEGER" />
+    <result column="basics_type" property="basicsType" jdbcType="INTEGER" />
+    <result column="basics_name" property="basicsName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="basics_state" property="basicsState" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    basics_id, basics_type, basics_name, create_time, update_time, basics_state
+  </sql>
+  <sql id="SQL_WHERE_selectSysBasicsPageList">
+  	 <where>
+    	1=1 
+    	<if test="map.basicsType !=null and map.basicsType !=''">
+  			and sb.basics_type = #{map.basicsType,jdbcType=INTEGER}
+  		</if>
+    </where>
+  </sql>
+   <sql id="SQL_selectSysBasicsPageList" >
+		select sb.basics_id, sb.basics_type,  sb.basics_name,  sb.create_time,  sb.update_time,  sb.basics_state
+		from sys_basics sb
+		<where>
+		 1=1
+		 <if test="map.basicsType !=null and map.basicsType !=''">
+  			and sb.basics_type = #{map.basicsType,jdbcType=INTEGER}
+  		</if>
+  		<if test="map.basicsState !=null and map.basicsState !=''">
+  			and sb.basics_state = #{map.basicsState,jdbcType=INTEGER}
+  		</if>
+		</where>
+		<!--<include refid="SQL_WHERE_selectSysBasicsPageList"></include>-->
+	</sql>
+	<sql id="SQL_ID_selectSysBasicsPageList" >
+		basics_id
+	</sql>
+	
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_basics
+    where basics_id = #{basicsId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectSysBasicsCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select count(*)
+    from sys_basics sb
+    <include refid="SQL_WHERE_selectSysBasicsPageList" /> 
+  </select>
+  
+  <select id="selectSysBasicsPageList" resultMap="BaseResultMap" parameterType="java.util.Map">
+	SELECT TOP ${map.onePageCount}
+		*
+	FROM 
+	(
+		<include refid="SQL_selectSysBasicsPageList" />
+	)
+	 t
+	WHERE t.<include refid="SQL_ID_selectSysBasicsPageList" /> 
+	NOT IN
+	(
+		SELECT TOP (${map.onePageCount} * ${map.startIndex}) 
+		nt.<include refid="SQL_ID_selectSysBasicsPageList" /> 
+		FROM 
+		(
+			<include refid="SQL_selectSysBasicsPageList" />
+		) nt
+	) order by basics_id desc
+  </select>
+  
+  <select id="selectSysBasics" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+   select * from sys_basics where basics_type=2
+  </select>
+</mapper>

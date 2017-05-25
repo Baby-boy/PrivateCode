@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdMessageCtcMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdMessageCtc" >
+    <id column="message_ctc_id" property="messageCtcId" jdbcType="INTEGER" />
+    <result column="ctc_id" property="ctcId" jdbcType="INTEGER" />
+    <result column="ctc_img" property="ctcImg" jdbcType="VARCHAR" />
+    <result column="ctc_name" property="ctcName" jdbcType="VARCHAR" />
+    <result column="ctc_price" property="ctcPrice" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yd.dby.app.entity.YdMessageCtc" extends="BaseResultMap" >
+    <result column="ctc_summary" property="ctcSummary" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    message_ctc_id, ctc_id, ctc_img, ctc_name, ctc_price
+  </sql>
+  <sql id="Blob_Column_List" >
+    ctc_summary
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from yd_message_ctc
+    where message_ctc_id = #{messageCtcId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_message_ctc
+    where message_ctc_id = #{messageCtcId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdMessageCtc" >
+    insert into yd_message_ctc (message_ctc_id, ctc_id, ctc_img, 
+      ctc_name, ctc_price, ctc_summary
+      )
+    values (#{messageCtcId,jdbcType=INTEGER}, #{ctcId,jdbcType=INTEGER}, #{ctcImg,jdbcType=VARCHAR}, 
+      #{ctcName,jdbcType=VARCHAR}, #{ctcPrice,jdbcType=DECIMAL}, #{ctcSummary,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="messageCtcId" useGeneratedKeys="true" parameterType="com.yd.dby.app.entity.YdMessageCtc" >
+    insert into yd_message_ctc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageCtcId != null" >
+        message_ctc_id,
+      </if>
+      <if test="ctcId != null" >
+        ctc_id,
+      </if>
+      <if test="ctcImg != null" >
+        ctc_img,
+      </if>
+      <if test="ctcName != null" >
+        ctc_name,
+      </if>
+      <if test="ctcPrice != null" >
+        ctc_price,
+      </if>
+      <if test="ctcSummary != null" >
+        ctc_summary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageCtcId != null" >
+        #{messageCtcId,jdbcType=INTEGER},
+      </if>
+      <if test="ctcId != null" >
+        #{ctcId,jdbcType=INTEGER},
+      </if>
+      <if test="ctcImg != null" >
+        #{ctcImg,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcName != null" >
+        #{ctcName,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcPrice != null" >
+        #{ctcPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ctcSummary != null" >
+        #{ctcSummary,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdMessageCtc" >
+    update yd_message_ctc
+    <set >
+      <if test="ctcId != null" >
+        ctc_id = #{ctcId,jdbcType=INTEGER},
+      </if>
+      <if test="ctcImg != null" >
+        ctc_img = #{ctcImg,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcName != null" >
+        ctc_name = #{ctcName,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcPrice != null" >
+        ctc_price = #{ctcPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ctcSummary != null" >
+        ctc_summary = #{ctcSummary,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where message_ctc_id = #{messageCtcId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yd.dby.app.entity.YdMessageCtc" >
+    update yd_message_ctc
+    set ctc_id = #{ctcId,jdbcType=INTEGER},
+      ctc_img = #{ctcImg,jdbcType=VARCHAR},
+      ctc_name = #{ctcName,jdbcType=VARCHAR},
+      ctc_price = #{ctcPrice,jdbcType=DECIMAL},
+      ctc_summary = #{ctcSummary,jdbcType=LONGVARCHAR}
+    where message_ctc_id = #{messageCtcId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdMessageCtc" >
+    update yd_message_ctc
+    set ctc_id = #{ctcId,jdbcType=INTEGER},
+      ctc_img = #{ctcImg,jdbcType=VARCHAR},
+      ctc_name = #{ctcName,jdbcType=VARCHAR},
+      ctc_price = #{ctcPrice,jdbcType=DECIMAL}
+    where message_ctc_id = #{messageCtcId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 全部查询 -->
+  <!-- 根据懒鱼商品ID查询消息 -->
+  <select id="selectMessageCtcByCtcId" resultType="YdMessageCtc">
+  	select 
+  		message_ctc_id, ctc_id, ctc_img, ctc_name, ctc_price 
+	from 
+		yd_message_ctc 
+	where ctc_id=#{ctcId}
+  </select>
+</mapper>

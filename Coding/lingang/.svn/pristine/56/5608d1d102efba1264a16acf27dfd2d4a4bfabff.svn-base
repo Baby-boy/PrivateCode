@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysManagerReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysManager" >
+    <id column="manager_id" property="managerId" jdbcType="INTEGER" />
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="manager_account" property="managerAccount" jdbcType="VARCHAR" />
+    <result column="manager_password" property="managerPassword" jdbcType="VARCHAR" />
+    <result column="manager_name" property="managerName" jdbcType="VARCHAR" />
+    <result column="manager_tel" property="managerTel" jdbcType="VARCHAR" />
+    <result column="manager_idcard" property="managerIdcard" jdbcType="VARCHAR" />
+    <result column="manager_address" property="managerAddress" jdbcType="VARCHAR" />
+    <result column="manager_state" property="managerState" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="manager_email" property="managerEmail" jdbcType="VARBINARY" />
+  </resultMap>
+  
+  <resultMap id="ResultMapVo" type="com.lingang.api.domain.pfvo.SysManagerPfVo" extends="BaseResultMap" >
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+    <result column="power_id" property="powerId" jdbcType="INTEGER" />
+    <result column="power_modular_str" property="powerModularStr" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    manager_id, img_id, manager_account, manager_password, manager_name, manager_tel, 
+    manager_idcard, manager_address, manager_state, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_manager
+    where manager_id = #{managerId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByManagerAccount" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_manager
+    where manager_account = #{managerAccount,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 后台 -->
+  <sql id="where_selectSysManagerPageList">
+  	<where>
+  		1=1 
+  		<if test="map.managerAccount !=null and map.managerAccount !=''">
+  			and sm.manager_account like '%${map.managerAccount}%'
+  		</if>
+  		<if test="map.managerIdcard !=null and map.managerIdcard !=''">
+  			and sm.manager_idcard=#{map.managerIdcard,jdbcType=VARCHAR}
+  		</if>
+  		<if test="map.managerState !=null and map.managerState !=''">
+  			and sm.manager_state =#{map.managerState,jdbcType=INTEGER}
+  		</if>
+  	</where>
+  </sql>
+  <!-- 关联表 -->
+  <sql id="relation_selectSysManagerPageList">
+  	left join (select * from sys_images where img_state=1) si on si.img_id=sm.img_id
+  	left join sys_power sp on sp.manager_id=sm.manager_id
+  </sql>
+  <select id="selectSysManagerCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select COUNT(DISTINCT sm.manager_id)
+	from sys_manager sm
+	<include refid="relation_selectSysManagerPageList"/>
+	<include refid="where_selectSysManagerPageList"/>
+  </select>
+  <select id="selectSysManagerPageList" resultMap="ResultMapVo" parameterType="java.util.Map">
+	WITH cte AS(
+		select sm.manager_id,
+			ROW_NUMBER() OVER(ORDER BY sm.create_time DESC) AS rownum
+		from sys_manager sm
+		<include refid="relation_selectSysManagerPageList"/>
+		<include refid="where_selectSysManagerPageList"/>
+		GROUP BY sm.manager_id,sm.create_time
+	)
+
+	select 
+	sm.manager_id,sm.manager_account,sm.manager_name,sm.manager_tel,sm.manager_idcard,sm.manager_address,sm.manager_email,sm.manager_state
+	,sp.power_id,sp.power_modular_str
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st 
+	left join sys_manager sm on sm.manager_id=st.manager_id
+	<include refid="relation_selectSysManagerPageList"/>
+  </select>
+</mapper>

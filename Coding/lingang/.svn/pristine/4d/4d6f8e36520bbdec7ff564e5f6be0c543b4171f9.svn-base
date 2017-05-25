@@ -1,0 +1,105 @@
+package com.lingang.core.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+import com.lingang.api.domain.entity.SysPolicy;
+import com.lingang.api.domain.vo.SysPolicyVo;
+import com.lingang.api.service.SysPolicyService;
+import com.lingang.core.persistence.reader.SysPolicyReaderMapper;
+import com.lingang.core.persistence.writer.SysPolicyWriterMapper;
+@Service("sysPolicyService")
+public class SysPolicyServiceImpl implements SysPolicyService{
+	@Resource
+	private SysPolicyReaderMapper sysPolicyReaderMapper;
+	@Resource
+	private SysPolicyWriterMapper sysPolicyWriterMapper;
+	/**
+	 * 查询政策列表
+	 */
+	@Override
+	public ServiceResult<Page<SysPolicy>> selectSysPolicyAll(int pageIndex,int pageSize) {
+		ServiceResult<Page<SysPolicy>> result=new ServiceResult<Page<SysPolicy>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		int countRecord=sysPolicyReaderMapper.selectSysPolicyCount();
+		Page<SysPolicy> page = new Page<SysPolicy>(pageIndex, countRecord, pageSize);
+		if(countRecord>0){
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", pageSize);
+			List<SysPolicy> list = sysPolicyReaderMapper.selectSysPolicyAll(map);
+			page.setList(list);
+		};
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+	/**
+	 * 查询政策信息
+	 */
+	@Override
+	public ServiceResult<SysPolicyVo> selectByPrimaryKey(Integer policyId) {
+		ServiceResult<SysPolicyVo> result=new ServiceResult<SysPolicyVo>();
+		SysPolicyVo policy=sysPolicyReaderMapper.selectByPrimaryKey(policyId);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(policy);
+		return result;
+	}
+	
+	
+	
+/***************后台*****************/
+	
+	@Override
+	public Page<SysPolicy> queryAll(HashMap<String, Object> map) {
+		Integer pageIndex = (Integer) map.get("currentPage");
+		Integer pageSize = (Integer) map.get("onePageCount");
+		int countRecord=sysPolicyReaderMapper.selectSysPolicyCount();
+		Page<SysPolicy> page = new Page<SysPolicy>(pageIndex, countRecord, pageSize);
+		if(countRecord>0){
+			map.put("startIndex", page.getStartIndex());
+			map.put("onePageCount", pageSize);
+			List<SysPolicy> list = sysPolicyReaderMapper.queryAllByPage(map);
+			for(SysPolicy sysPolicy : list){
+				String title = sysPolicy.getPolicyTitle();
+				int num = 15;
+				sysPolicy.setPolicyTitle(title.length()>num?title.substring(0, num)+"...":title);
+			}
+			page.setList(list);
+		};
+		return page;
+	}
+	
+	@Override
+	public SysPolicy queryById(Integer policy_id) {
+		
+		return sysPolicyReaderMapper.selectByPrimaryKey(policy_id);
+	}
+	
+	@Override
+	public int insert(SysPolicy policy) {
+		
+		return sysPolicyWriterMapper.insert(policy);
+	}
+	
+	@Override
+	public int update(SysPolicy policy) {
+		
+		return sysPolicyWriterMapper.updateByPrimaryKey(policy);
+	}
+	
+	@Override
+	public int del(Integer policy_id) {
+		
+		return sysPolicyWriterMapper.deleteByPrimaryKey(policy_id);
+	}
+
+
+}

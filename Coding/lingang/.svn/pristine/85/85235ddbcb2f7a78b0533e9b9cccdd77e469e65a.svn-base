@@ -1,0 +1,52 @@
+define(['mySession', 'route-config', 'serviceBase','layer','My97DatePicker','uEditor', 'uEditorConfig', 'uEditorCulture','ajaxUpload'], function (mySession, routeConfig, serviceBase,My97DatePicker) {
+    var _controller = function($scope, $http, $routeParams, $location,sysIndustryService){
+    	if($routeParams.value==null || $routeParams.value==""){
+    		alert("信息异常..");
+    	}
+    	var ue = UM.getEditor('industryContent',{
+	        initialFrameWidth:'100%',
+	        initialFrameHeight:200
+        });
+    	//获取园区详情
+    	$scope.getIndustryDetails=function(){
+    		$scope.para={
+    				industryId:$routeParams.value
+    		};
+    		sysIndustryService.getIndustryDetails($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				$scope.industry=data.data;
+    				ue.setContent($scope.industry.industryContent);
+    			}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    		});
+    	};
+    	
+    	//修改园区基本信息
+    	$scope.updateIndustryDetails=function(){
+    		$scope.para={
+    				industryId:$scope.industry.industryId,
+    				industryTitle:$scope.industry.industryTitle,
+    				industryLink:$scope.industry.industryLink,
+    				industryState:$scope.industry.industryState,
+    				industrySimple:$scope.industry.industrySimple,
+    				industryContent:ue.getContent()
+    		
+    		};
+    		sysIndustryService.updateIndustryDetails($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				alert("修改成功");
+    				location.href="#/seek/sysIndustry/sysIndustryPageList/index";
+    			}else{
+    				alert("请求失败，请稍后再试");
+    				location.href="#/seek/sysIndustry/sysIndustryPageList/index";
+    			}
+    		});
+    	};
+    	
+    	
+    	
+    	$scope.getIndustryDetails();
+    };
+    return ["sysIndustryDetailsCtrl", _controller];
+});

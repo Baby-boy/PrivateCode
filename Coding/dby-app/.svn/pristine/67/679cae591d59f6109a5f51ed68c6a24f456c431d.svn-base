@@ -1,0 +1,63 @@
+package com.yd.dby.app.entity;
+
+public class YdMessageCtc {
+    private Integer messaeCtcId;
+
+    private Integer ctcId;
+
+    private String ctcImg;
+
+    private String ctcName;
+
+    private Long ctcPrice;
+
+    private String ctcSummary;
+
+    public Integer getMessaeCtcId() {
+        return messaeCtcId;
+    }
+
+    public void setMessaeCtcId(Integer messaeCtcId) {
+        this.messaeCtcId = messaeCtcId;
+    }
+
+    public Integer getCtcId() {
+        return ctcId;
+    }
+
+    public void setCtcId(Integer ctcId) {
+        this.ctcId = ctcId;
+    }
+
+    public String getCtcImg() {
+        return ctcImg;
+    }
+
+    public void setCtcImg(String ctcImg) {
+        this.ctcImg = ctcImg == null ? null : ctcImg.trim();
+    }
+
+    public String getCtcName() {
+        return ctcName;
+    }
+
+    public void setCtcName(String ctcName) {
+        this.ctcName = ctcName == null ? null : ctcName.trim();
+    }
+
+    public Long getCtcPrice() {
+        return ctcPrice;
+    }
+
+    public void setCtcPrice(Long ctcPrice) {
+        this.ctcPrice = ctcPrice;
+    }
+
+    public String getCtcSummary() {
+        return ctcSummary;
+    }
+
+    public void setCtcSummary(String ctcSummary) {
+        this.ctcSummary = ctcSummary == null ? null : ctcSummary.trim();
+    }
+}

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysManagerReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysManager" >
+    <id column="manager_id" property="managerId" jdbcType="INTEGER" />
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="manager_account" property="managerAccount" jdbcType="VARCHAR" />
+    <result column="manager_password" property="managerPassword" jdbcType="VARCHAR" />
+    <result column="manager_name" property="managerName" jdbcType="VARCHAR" />
+    <result column="manager_tel" property="managerTel" jdbcType="VARCHAR" />
+    <result column="manager_idcard" property="managerIdcard" jdbcType="VARCHAR" />
+    <result column="manager_address" property="managerAddress" jdbcType="VARCHAR" />
+    <result column="manager_state" property="managerState" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="manager_email" property="managerEmail" jdbcType="VARBINARY" />
+  </resultMap>
+  
+  <resultMap id="ResultMapVo" type="com.lingang.api.domain.pfvo.SysManagerPfVo" extends="BaseResultMap" >
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    manager_id, img_id, manager_account, manager_password, manager_name, manager_tel, 
+    manager_idcard, manager_address, manager_state, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_manager
+    where manager_id = #{managerId,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  <sql id="SQL_WHERE_selectSysManagerPageList">
+  	<where>
+  		1=1 
+  		<if test="map.managerAccount !=null and map.managerAccount !=''">
+  			and sm.manager_account like '%${map.managerAccount}%'
+  		</if>
+  		<if test="map.managerIdcard !=null and map.managerIdcard !=''">
+  			and sm.manager_idcard=#{map.managerIdcard,jdbcType=VARCHAR}
+  		</if>
+  	</where>
+  </sql>
+  <sql id="SQL_selectSysManagerPageList" >
+		select sm.*,si.img_path from sys_manager sm
+		left join (select * from sys_images where img_state=1) si on si.img_id=sm.img_id 
+		<include refid="SQL_WHERE_selectSysManagerPageList"/>
+	</sql>
+	<sql id="SQL_ID_selectSysManagerPageList" >
+		manager_id
+	</sql>
+  <select id="selectSysManagerCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select count(DISTINCT sm.manager_id) from sys_manager sm
+	left join (select * from sys_images where img_state=1) si on si.img_id=sm.img_id
+	<include refid="SQL_WHERE_selectSysManagerPageList"/>
+  </select>
+  <select id="selectSysManagerPageList" resultMap="ResultMapVo" parameterType="java.util.Map">
+	SELECT TOP ${map.onePageCount}
+		*
+	FROM 
+	(
+		<include refid="SQL_selectSysManagerPageList" />
+	)
+	 t
+	WHERE t.<include refid="SQL_ID_selectSysManagerPageList" /> 
+	NOT IN
+	(
+		SELECT TOP (${map.onePageCount} * ${map.startIndex}) 
+		nt.<include refid="SQL_ID_selectSysManagerPageList" /> 
+		FROM 
+		(
+			<include refid="SQL_selectSysManagerPageList" />
+		) nt
+	)
+  </select>
+</mapper>

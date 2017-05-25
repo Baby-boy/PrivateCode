@@ -1,0 +1,58 @@
+<div class="row" ng-controller="sysLogPageListCtrl">
+	<div class="col-lg-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-content">
+				<form class="form-inline">
+					<div class="row m-t">
+						<div class="form-group col-xs-3">
+							<label for="subTime">账号:</label> <input type="text"
+								class="form-control" ng-model="para.managerAccount"
+								placeholder="请输入操作账号..">
+						</div>
+						<div class="form-group col-xs-3">
+							<label for="subTime">起始时间:</label> 
+							<input type="text" class="form-control" id="beginTime" ng-model="para.beginTime" mindate="1900-10-10" date-picker placeholder="请选择时间...">
+						</div>
+						<div class="form-group col-xs-3">
+							<label for="subTime">结束时间:</label> 
+							<input type="text" class="form-control" id="endTime" ng-model="para.endTime" mindate="1900-10-10" date-picker placeholder="请选择时间...">
+						</div>
+						<div class="col-md-1">
+							<button type="button" class="btn btn-primary"
+								ng-click="getLogList()">立即搜索</button>
+						</div>
+					</div>
+					<div class="row m-t"></div>
+				</form>
+				<div>
+					<table
+						class="table table-striped table-bordered table-hover dataTables-example">
+						<tr>
+							<th style="text-align: center;">序号</th>
+							<th style="text-align: center;">账号</th>
+							<th style="text-align: center;">IP</th>
+							<th style="text-align: center;">信息</th>
+							<th style="text-align: center;">时间</th>
+						</tr>
+						<tr ng-repeat="log in logList">
+							<td>{{$index + (paginationConf.currentPage-1)*onePageCount +
+								1}}</td>
+							<td>{{log.managerAccount}}</td>
+							<td>{{log.logIp}}</td>
+							<td>{{log.logContent}}</td>
+							<td>{{log.createTime | date:'yyyy-MM-dd HH:mm'}}</td>
+						</tr>
+					</table>
+					<div class="row m-t">
+						<div class="col-md-10 col-md-offset-1">
+							<!--分页开始-->
+							<ndtech-pagination class conf="paginationConf"></ndtech-pagination>
+							<!--分页结束-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

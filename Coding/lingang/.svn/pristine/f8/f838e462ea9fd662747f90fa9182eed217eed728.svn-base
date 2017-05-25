@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- ========================= dubbo RESOURCE DEFINITIONS ========================= -->
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="lingang-core" />
+
+	<!-- 使用multicast广播注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="${zookeeper.address}" />
+	<dubbo:annotation package="com.lingang.core" />
+	<!-- 用dubbo协议在20880端口暴露服务 -->
+	<!-- <dubbo:protocol host="172.16.3.220" name="dubbo" port="20880" /> -->
+	<!-- <dubbo:protocol name="dubbo" port="20880" threads="2000" accepts="2000" 
+		/> -->
+	<dubbo:protocol name="dubbo" port="20808" />
+	<!-- 服务提供者过期时间配置 -->
+	<dubbo:provider timeout="300000" retries="3" accepts="800" threads="800" />
+
+	<!-- 声明需要暴露的服务接口 -->
+	<dubbo:service interface="com.lingang.api.service.SysUserService" ref="sysUserService"/>
+	<dubbo:service interface="com.lingang.api.service.SysNewsService" ref="sysNewsService"/>
+	<dubbo:service interface="com.lingang.api.service.SysPolicyService" ref="sysPolicyService"/>
+	<dubbo:service interface="com.lingang.api.service.SysIndustryService" ref="sysIndustryService"/>
+	<dubbo:service interface="com.lingang.api.service.SysRegionService" ref="sysRegionService"/>
+    <dubbo:service interface="com.lingang.api.service.SysPartnerTypeService" ref="sysPartnerTypeService"/>
+	<dubbo:service interface="com.lingang.api.service.SysPartnerService" ref="sysPartnerService"/>
+	<dubbo:service interface="com.lingang.api.service.SysServiceService" ref="sysServiceService"/>
+	<dubbo:service interface="com.lingang.api.service.SysMessageService" ref="sysMessageService"/>
+	<dubbo:service interface="com.lingang.api.service.SysParkService" ref="sysParkService"/>
+	<dubbo:service interface="com.lingang.api.service.SysIndustryService" ref="sysIndustryService"/>
+	<dubbo:service interface="com.lingang.api.service.SysPublicService" ref="sysPublicService"/>
+	<dubbo:service interface="com.lingang.api.service.SysStationService" ref="sysStationService"/>
+	<dubbo:service interface="com.lingang.api.service.SysHomeService" ref="sysHomeService"/>
+	<dubbo:service interface="com.lingang.api.service.SysManagerService" ref="sysManagerService"/>
+	<dubbo:service interface="com.lingang.api.service.SysLabelService" ref="sysLabelService"/>
+	<dubbo:service interface="com.lingang.api.service.SysBasicsService" ref="sysBasicsService"/>
+	<dubbo:service interface="com.lingang.api.service.SysImagesService" ref="sysImagesService"/>
+	<dubbo:service interface="com.lingang.api.service.SysFileService" ref="sysFileService"/>
+    <dubbo:service interface="com.lingang.api.service.SysSearchService" ref="sysSearchService"/>
+    <dubbo:service interface="com.lingang.api.service.SysCompanyService" ref="sysCompanyService"/>
+    <dubbo:service interface="com.lingang.api.service.SysLogService" ref="sysLogService"/>
+    <!-- wcm -->
+    <dubbo:service interface="com.lingang.api.service.WcmCountService" ref="wcmCountService"/>
+</beans>

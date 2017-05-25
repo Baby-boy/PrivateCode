@@ -1,0 +1,21 @@
+package com.lingang.api.domain.pfvo;
+
+import com.lingang.api.domain.entity.SysManager;
+
+public class SysManagerPfVo extends SysManager{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4852024052800366338L;
+
+	private String imgPath;
+
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+}

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysServiceReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysService" >
+    <id column="service_id" property="serviceId" jdbcType="INTEGER" />
+    <result column="region_id" property="regionId" jdbcType="INTEGER" />
+    <result column="basics_id" property="basicsId" jdbcType="INTEGER" />
+    <result column="min_img_id" property="minImgId" jdbcType="INTEGER" />
+    <result column="logo_img_id" property="logoImgId" jdbcType="INTEGER" />
+    <result column="service_name" property="serviceName" jdbcType="VARCHAR" />
+    <result column="service_simple" property="serviceSimple" jdbcType="VARCHAR" />
+    <result column="service_address" property="serviceAddress" jdbcType="VARCHAR" />
+    <result column="service_fax" property="serviceFax" jdbcType="VARCHAR" />
+    <result column="service_link" property="serviceLink" jdbcType="VARCHAR" />
+    <result column="service_company" property="serviceCompany" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="service_state" property="serviceState" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lingang.api.domain.entity.SysServiceWithBLOBs" extends="BaseResultMap" >
+    <result column="service_content" property="serviceContent" jdbcType="LONGVARCHAR" />
+    <result column="service_team" property="serviceTeam" jdbcType="LONGVARCHAR" />
+  </resultMap>
+     <resultMap id="sysPartnerNewAddMonthStatisticsVo"
+		type="com.lingang.api.domain.vo.SysNewAddMonthStatisticsVo">
+		<result column="create_year" property="createYear" jdbcType="VARCHAR" />
+		<result column="create_month" property="createMonth" jdbcType="VARCHAR" />
+		<result column="count_add" property="countAdd" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="sysPartnerNewAddQuarterStatisticsVo"
+		type="com.lingang.api.domain.vo.SysNewAddQuarterStatisticsVo">
+		<result column="create_year" property="createYear" jdbcType="VARCHAR" />
+		<result column="create_quarter" property="createQuarter" jdbcType="VARCHAR" />
+		<result column="count_add" property="countAdd" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+	</resultMap>
+  <resultMap id="ResultMapVo" type="com.lingang.api.domain.vo.SysServiceVo" extends="ResultMapWithBLOBs" >
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+    <result column="basics_id" property="basicsId" jdbcType="INTEGER" />
+    <result column="basics_name" property="basicsName" jdbcType="VARCHAR" />
+    
+    <collection property="labels" ofType="com.lingang.api.domain.entity.SysLabel">
+		<id column="label_id" property="labelId" jdbcType="INTEGER" />
+		<result column="label_name" property="labelName" jdbcType="VARCHAR" />
+	</collection>
+	
+	<collection property="parks" ofType="com.lingang.api.domain.vo.SysServiceParkVo">
+		<id column="park_id" property="parkId" jdbcType="INTEGER" />
+		<result column="park_img_id" property="parkImgId" jdbcType="INTEGER" />
+		<result column="park_img_path" property="parkImgPath" jdbcType="VARCHAR" />
+		<result column="park_name" property="parkName" jdbcType="VARCHAR" />
+	</collection>
+	
+	<collection property="ways" ofType="com.lingang.api.domain.entity.SysWay">
+		<id column="way_id" property="wayId" jdbcType="INTEGER" />
+		<result column="way_tel" property="wayTel" jdbcType="VARCHAR" />
+	</collection>
+  </resultMap>
+  
+  <!-- 后台逻辑 -->
+  <resultMap id="SysServicePfVoResultMap" type="com.lingang.api.domain.pfvo.SysServicePfVo" extends="ResultMapWithBLOBs">
+  	<result column="region_name" property="regionName" jdbcType="VARCHAR"/>
+  	<result column="basics_name" property="basicsName" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <resultMap id="ResultMapNewServiceStatisticsVo" type="com.lingang.api.domain.vo.SysNewServiceStatisticsVo" >
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    service_id, region_id, basics_id, min_img_id, logo_img_id, service_name, service_simple, 
+    service_address, service_fax, service_link, service_company, create_time, update_time, 
+    service_state
+  </sql>
+  <sql id="Blob_Column_List" >
+    service_content, service_team
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_service
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </select>
+  
+  
+  	<sql id="SQL_WHERE_selectServicePageList">
+	  	<where>
+	  		1=1 
+	  		<if test="map.regionId !=null">
+	  			and ss.region_id=#{map.regionId,jdbcType=INTEGER}
+	  		</if>
+	  		<if test="map.basicsId !=null">
+	  			and ss.basics_id=#{map.basicsId,jdbcType=INTEGER}
+	  		</if>
+	  		<if test="map.regionTypeId !=null and map.regionTypeId !=''">
+			and sr.region_type= #{map.regionTypeId,jdbcType=INTEGER}
+		</if>
+	  	</where>
+  	</sql>
+  	<sql id="SQL_selectServicePageList" >
+  		select 
+		ss.service_id,ss.service_name,ss.service_content,
+		si.img_id,si.img_path,
+		sl.label_id,sl.label_name
+		from sys_service ss 
+		LEFT JOIN sys_region sr on ss.region_id=sr.region_id
+		left join (select * from sys_images where img_state=1) si on si.img_id=ss.min_img_id 
+		left join sys_service_label ssl on ssl.service_id=ss.service_id 
+		left join (select * from sys_label where label_state=1) sl on sl.label_id=ssl.label_id
+		<include refid="SQL_WHERE_selectServicePageList" />
+	</sql>
+	<sql id="SQL_ID_selectServicePageList" >
+		service_id
+	</sql>
+	<!-- 服务机构列表总条数 -->
+  <select id="selectServiceCount" resultType="java.lang.Integer">
+  		select 
+		count(DISTINCT ss.service_id)
+		from sys_service ss 
+		LEFT JOIN sys_region sr on ss.region_id=sr.region_id
+		left join (select * from sys_images where img_state=1) si on si.img_id=ss.min_img_id 
+		left join sys_service_label ssl on ssl.service_id=ss.service_id 
+		left join (select * from sys_label where label_state=1) sl on sl.label_id=ssl.label_id
+		<include refid="SQL_WHERE_selectServicePageList" />
+  </select>
+  <select id="selectServicePageList" resultMap="ResultMapVo" parameterType="java.util.Map" >
+    SELECT TOP ${map.onePageCount}
+		*
+	FROM 
+	(
+		<include refid="SQL_selectServicePageList" />
+	)
+	 t
+	WHERE t.<include refid="SQL_ID_selectServicePageList" /> 
+	NOT IN
+	(
+		SELECT TOP (${map.onePageCount} * ${map.startIndex}) 
+		nt.<include refid="SQL_ID_selectServicePageList" /> 
+		FROM 
+		(
+			<include refid="SQL_selectServicePageList" />
+		) nt
+	)
+  </select>
+  
+  <select id="selectServiceVoByServiceId" resultMap="ResultMapVo" parameterType="java.lang.Integer">
+  		select 
+		ss.service_id,ss.service_name,ss.service_content,ss.service_simple,ss.service_team,ss.service_state,
+		ss.service_address,ss.service_fax,ss.service_link,ss.create_time,ss.service_company,
+		si.img_id,si.img_path,
+		sl.label_id,sl.label_name,
+		sb.basics_id,sb.basics_name,
+		sp.park_id,sp.park_name,
+		si_p.img_id park_img_id,si_p.img_path park_img_path,
+		sw.way_id,sw.way_tel
+		from sys_service ss 
+		left join (select * from sys_images where img_state=1) si on si.img_id=ss.logo_img_id
+		left join sys_service_label ssl on ssl.service_id=ss.service_id 
+		left join (select * from sys_label where label_state=1) sl on sl.label_id=ssl.label_id
+		left join (select * from sys_basics where basics_type=1 and basics_state=2) sb on sb.basics_id=ss.basics_id
+		left join sys_service_park ssp on ssp.service_id=ss.service_id 
+		left join sys_park sp on sp.park_id=ssp.park_id 
+		left join (select * from sys_images where img_state=1) si_p on si_p.img_id=sp.min_img_id 
+		left join (select * from sys_way where way_type=2) sw on sw.way_obj_id=ss.service_id
+		where ss.service_id=#{serviceId,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  	<sql id="SQL_selectUserCollectPageList" >
+  		select 
+		sc.collect_id,ss.service_id,ss.service_name,ss.service_content,
+		si.img_id,si.img_path,
+		sl.label_id,sl.label_name
+		from sys_collect sc
+	    left join sys_service ss on ss.service_id=sc.obj_id
+		left join (select * from sys_images where img_state=1) si on si.img_id=ss.min_img_id 
+		left join sys_service_label ssl on ssl.service_id=ss.service_id 
+		left join (select * from sys_label where label_state=1) sl on sl.label_id=ssl.label_id
+		where sc.user_id=#{map.userId,jdbcType=INTEGER} and sc.collect_type=3
+	</sql>
+	<sql id="SQL_ID_selectUserCollectPageList" >
+		collect_id
+	</sql>
+  <select id="selectUserCollectCount" resultType="java.lang.Integer">
+  		select 
+		count(DISTINCT sc.collect_id) 
+		from sys_collect sc
+	    left join sys_service ss on ss.service_id=sc.obj_id
+		left join (select * from sys_images where img_state=1) si on si.img_id=ss.min_img_id 
+		left join sys_service_label ssl on ssl.service_id=ss.service_id 
+		left join (select * from sys_label where label_state=1) sl on sl.label_id=ssl.label_id
+		where sc.user_id=#{map.userId,jdbcType=INTEGER} and sc.collect_type=3
+  </select>
+  <select id="selectUserCollectPageList" resultMap="ResultMapVo" parameterType="java.util.Map" >
+    SELECT TOP ${map.onePageCount}
+		*
+	FROM 
+	(
+		<include refid="SQL_selectUserCollectPageList" />
+	)
+	 t
+	WHERE t.<include refid="SQL_ID_selectUserCollectPageList" /> 
+	NOT IN
+	(
+		SELECT TOP (${map.onePageCount} * ${map.startIndex}) 
+		nt.<include refid="SQL_ID_selectUserCollectPageList" /> 
+		FROM 
+		(
+			<include refid="SQL_selectUserCollectPageList" />
+		) nt
+	)
+  </select>
+  
+  <!-- 后台逻辑 -->
+  <select id="selectServicePfVoCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select count(DISTINCT ss.service_id) 
+	from sys_service ss
+	left join sys_region sr on sr.region_id=ss.region_id 
+	left join sys_basics sb on sb.basics_id=ss.basics_id
+	<where>
+		1=1
+		<if test="map.serviceNameKeywords !=null and map.serviceNameKeywords !=''">
+			and service_name like '%${map.serviceNameKeywords}%'
+		</if>
+		<if test="map.regionNameKeywords !=null and map.regionNameKeywords !=''">
+			and region_name like '%${map.regionNameKeywords}%'
+		</if>
+		<if test="map.serviceTeamKeywords !=null and map.serviceTeamKeywords !=''">
+			and service_team like '%${map.serviceTeamKeywords}%'
+		</if>
+		<if test="map.serviceState !=null and map.serviceState !=''">
+			and service_state = ${map.serviceState}
+		</if>
+	</where>
+  </select>
+  <sql id="SQL_selectServicePfVoPageList">
+  	select ss.service_id,ss.service_name,ss.service_address,ss.service_team,ss.service_company,
+  	ss.create_time,ss.update_time,ss.service_state,sr.region_name,sb.basics_name
+	from sys_service ss
+	left join sys_region sr on sr.region_id=ss.region_id 
+	left join sys_basics sb on sb.basics_id=ss.basics_id
+	<where>
+		1=1
+		<if test="map.serviceNameKeywords !=null and map.serviceNameKeywords !=''">
+			and service_name like '%${map.serviceNameKeywords}%'
+		</if>
+		<if test="map.regionNameKeywords !=null and map.regionNameKeywords !=''">
+			and region_name like '%${map.regionNameKeywords}%'
+		</if>
+		<if test="map.serviceTeamKeywords !=null and map.serviceTeamKeywords !=''">
+			and service_team like '%${map.serviceTeamKeywords}%'
+		</if>
+		<if test="map.serviceState !=null and map.serviceState !=''">
+			and service_state = ${map.serviceState}
+		</if>
+	</where>
+  </sql>
+  <sql id="SQL_ID_selectServicePfVoPageList">
+  	service_id
+  </sql>
+  <select id="selectServicePfVoPageList" resultMap="SysServicePfVoResultMap" parameterType="java.util.Map">
+  	SELECT TOP ${map.onePageCount}
+		*
+	FROM 
+	(
+		<include refid="SQL_selectServicePfVoPageList" />
+	)
+	 t
+	WHERE t.<include refid="SQL_ID_selectServicePfVoPageList" /> 
+	NOT IN
+	(
+		SELECT TOP (${map.onePageCount} * ${map.startIndex}) 
+		nt.<include refid="SQL_ID_selectServicePfVoPageList" /> 
+		FROM 
+		(
+			<include refid="SQL_selectServicePfVoPageList" />
+		) nt ORDER BY create_time DESC
+	)
+	ORDER BY create_time DESC;
+   </select>
+       <select id="selectNewAddMonth" resultMap="sysPartnerNewAddMonthStatisticsVo">
+		SELECT
+			YEAR (create_time) create_year,
+			MONTH (create_time) create_month,
+			COUNT (create_time) count_add,
+			1 type
+		FROM
+			sys_service
+		GROUP BY
+			YEAR (create_time),
+			MONTH (create_time)
+		ORDER BY
+			create_year,
+			create_month
+	</select>
+	<select id="selectNewAddQuarter" resultMap="sysPartnerNewAddQuarterStatisticsVo">
+		SELECT
+			DATENAME(YEAR, create_time) create_year,
+			DATENAME(quarter, create_time) create_quarter,
+			COUNT (1) count_add, 
+			2 type
+		FROM
+			sys_service t
+		GROUP BY
+			DATENAME(YEAR, create_time),
+			DATENAME(quarter, create_time)
+		ORDER BY
+			CONVERT (
+				INT,
+				DATENAME(quarter, create_time)
+			)
+	</select>
+  
+
+
+
+</mapper>

@@ -1,0 +1,112 @@
+package com.lingang.core.service.impl;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.JsonResult;
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysPolicy;
+import com.lingang.api.domain.vo.SysIndustryVo;
+import com.lingang.api.domain.vo.SysNewsVo;
+import com.lingang.api.domain.vo.SysParkVo;
+import com.lingang.api.domain.vo.SysPartnerVo;
+import com.lingang.api.domain.vo.SysPublicVo;
+import com.lingang.api.domain.vo.SysServiceVo;
+import com.lingang.api.domain.vo.SysStationVo;
+import com.lingang.api.service.SysIndustryService;
+import com.lingang.api.service.SysNewsService;
+import com.lingang.api.service.SysParkService;
+import com.lingang.api.service.SysPartnerService;
+import com.lingang.api.service.SysPolicyService;
+import com.lingang.api.service.SysPublicService;
+import com.lingang.api.service.SysSearchService;
+import com.lingang.api.service.SysServiceService;
+import com.lingang.api.service.SysStationService;
+import com.lingang.common.constants.SystemConstants;
+
+@Service("sysSearchService")
+public class SysSearchServiceImpl implements SysSearchService {
+
+	@Resource
+	private SysParkService sysParkService;
+
+	@Resource
+	private SysPartnerService sysPartnerService;
+
+	@Resource
+	private SysServiceService sysServiceService;
+
+	@Resource
+	private SysStationService sysStationService;
+
+	@Resource
+	private SysPublicService sysPublicService;
+
+	@Resource
+	private SysIndustryService sysIndustryService;
+
+	@Resource
+	private SysNewsService sysNewsService;
+
+	@Resource
+	private SysPolicyService sysPolicyService;
+
+	@Override
+	public JsonResult searchStatisticsPageList(Integer type, String keywords, Integer pageIndex, Integer pageSize) {
+		JsonResult jsonResult = new JsonResult();
+		// 条件
+		Map<String, Object> map = new HashMap<>();
+		map.put("keywords", keywords);
+		map.put("pageIndex", pageIndex);
+		map.put("pageSize", pageSize);
+		if (type == SystemConstants.SYS_TYPE_PARK) {
+			// 产业园区
+			ServiceResult<Page<SysParkVo>> result = sysParkService.selectSysParkVoPageListByRegionIdAndIndustryIds(map);
+			jsonResult.setData(result.getData());
+			jsonResult.setStateCode(result.getStateCode());
+		} else if (type == SystemConstants.SYS_TYPE_PARTNER) {
+			// 合作伙伴
+			ServiceResult<Page<SysPartnerVo>> result = sysPartnerService.selectPartnerPageList(map);
+			jsonResult.setData(result.getData());
+			jsonResult.setStateCode(result.getStateCode());
+		} else if (type == SystemConstants.SYS_TYPE_SERVICE) {
+			// 服务机构
+			ServiceResult<Page<SysServiceVo>> result = sysServiceService.selectServicePageList(map);
+			jsonResult.setData(result.getData());
+			jsonResult.setStateCode(result.getStateCode());
+		} else if (type == SystemConstants.SYS_TYPE_STATION) {
+			// 入驻企业
+			ServiceResult<Page<SysStationVo>> result = sysStationService.selectSysStationAll(map);
+			jsonResult.setData(result.getData());
+			jsonResult.setStateCode(result.getStateCode());
+		} else if (type == SystemConstants.SYS_TYPE_PUBLIC) {
+			// 公共平台
+			ServiceResult<Page<SysPublicVo>> result = sysPublicService
+					.selectSysPublicVoPageListByRegionIdAndBasicsId(map);
+			jsonResult.setData(result.getData());
+			jsonResult.setStateCode(result.getStateCode());
+		} else if (type == SystemConstants.SYS_TYPE_INDUSTRY) {
+			// 产业集群
+			ServiceResult<Page<SysIndustryVo>> result = sysIndustryService.selectSysIndustryList(map);
+			jsonResult.setData(result.getData());
+			jsonResult.setStateCode(result.getStateCode());
+		} else if (type == SystemConstants.SYS_TYPE_NEWS) {
+			// 新闻列表
+			ServiceResult<Page<SysNewsVo>> result = sysNewsService.selectSysNewsAll(map);
+			jsonResult.setData(result.getData());
+			jsonResult.setStateCode(result.getStateCode());
+		} else if (type == SystemConstants.SYS_TYPE_POLICY) {
+			// 政策列表
+			ServiceResult<Page<SysPolicy>> result = sysPolicyService.selectSysPolicyAll(map);
+			jsonResult.setData(result.getData());
+			jsonResult.setStateCode(result.getStateCode());
+		}
+		return jsonResult;
+	}
+
+}

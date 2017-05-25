@@ -1,0 +1,40 @@
+package com.lingang.platform.controller.seek;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.lingang.api.domain.basic.JsonResult;
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.para.SysIndustryPara;
+import com.lingang.api.domain.pfvo.SysIndustryPfVo;
+import com.lingang.api.service.SysIndustryService;
+
+@Controller
+@RequestMapping("/sysIndustry")
+public class SysIndustryController {
+
+	@Resource
+	private SysIndustryService sysIndustryService;
+
+	/**
+	 * @Description: (查询产业集群列表_后台)
+	 * @return 参数注释
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月8日 下午6:39:43
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/sysIndustryPageList.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult sysIndustryPageList(@RequestBody SysIndustryPara para) {
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<Page<SysIndustryPfVo>> result = sysIndustryService.selectIndustryPfVoPageList(para);
+		jsonResult.setData(result.getData());
+		jsonResult.setStateCode(result.getStateCode());
+		return jsonResult;
+	}
+}

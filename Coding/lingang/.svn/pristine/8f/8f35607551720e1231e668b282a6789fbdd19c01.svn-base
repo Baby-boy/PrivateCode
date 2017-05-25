@@ -1,0 +1,77 @@
+package com.lingang.core.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+import com.lingang.api.domain.entity.SysFile;
+import com.lingang.api.domain.vo.SysFileVo;
+import com.lingang.api.domain.vo.SysParkVo;
+import com.lingang.api.service.SysParkService;
+import com.lingang.core.persistence.reader.SysFileReaderMapper;
+import com.lingang.core.persistence.reader.SysParkReaderMapper;
+
+@Service("sysParkService")
+public class SysParkServiceImpl implements SysParkService {
+
+	@Resource
+	private SysParkReaderMapper sysParkReaderMapper;
+	
+	@Resource
+	private SysFileReaderMapper  sysFileReaderMapper;
+
+	@Override
+	public ServiceResult<Page<SysParkVo>> selectSysParkVoPageListByRegionIdAndIndustryIds(Integer regionId,Integer regionTypeId,
+			List<Integer> industryIds, Integer pageIndex, Integer pageSize) {
+		ServiceResult<Page<SysParkVo>> result = new ServiceResult<Page<SysParkVo>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("regionTypeId", regionTypeId);
+		map.put("regionId", regionId);
+		map.put("industryIds", industryIds);
+		int countRecord = sysParkReaderMapper.selectSysParkVoCountByRegionIdAndIndustryIds(map);
+		Page<SysParkVo> page = new Page<SysParkVo>(pageIndex, countRecord, pageSize);
+		if (countRecord > 0) {
+			map.put("startIndex", page.getStartIndex());
+			map.put("onePageCount", pageSize);
+			List<SysParkVo> list = sysParkReaderMapper.selectSysParkVoPageListByRegionIdAndIndustryIds(map);
+			page.setList(list);
+		}
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<SysParkVo> selectSysParkDetailsByStationId(Integer parkId) {
+		ServiceResult<SysParkVo> result = new ServiceResult<SysParkVo>();
+		int countRecord = sysParkReaderMapper.selectSysParkDetailsCountByStationId(parkId);
+		if (countRecord > 0) {
+			SysParkVo sysParkVo = sysParkReaderMapper.selectSysParkDetailsByStationId(parkId);
+			result.setData(sysParkVo);
+		}
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<SysFileVo> selectClickPopup(Integer fileId,Integer userId) {
+		ServiceResult<SysFileVo> result=new ServiceResult<SysFileVo>();
+		//查询条件
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("fileId", fileId);
+		map.put("userId", userId);
+		SysFileVo fileVo=sysFileReaderMapper.selectFileByFileId(map);
+		//返回信息
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(fileVo);
+		return result;
+	}
+
+}

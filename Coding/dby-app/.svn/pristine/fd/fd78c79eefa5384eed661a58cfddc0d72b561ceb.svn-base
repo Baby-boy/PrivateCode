@@ -1,0 +1,189 @@
+package com.yd.dby.app.entity.vo;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+/**
+ * 说明: 商品详情
+ * 
+ * @Author: lgl(lgl@zwzyd.com)
+ * @date:2017年2月8日 下午2:38:29
+ * @Version:1.0
+ */
+public class GoodsDetailsVo {
+
+	private Integer goodsId;
+
+	private String goodsPics;
+
+	private String goodsName;
+
+	private BigDecimal goodsPrice;
+
+	private Float goodsAvgScore;
+
+	private String goodsContentPics;
+
+	private String goodsSummary;
+
+	private String goodsAttrSelect;
+
+	private String goodsAttrs;
+
+	private Integer goodsTotalFav;
+
+	private Integer favId;
+
+	private Integer storeId;
+
+	private String storeName;
+
+	private String storeBanner;
+
+	private List<Object> goodsAttrsList;
+
+	private List<Object> goodsAttrSelectList;
+
+	private List<GoodsDetailsCommentVo> commentList;
+
+	public Integer getGoodsId() {
+		return goodsId;
+	}
+
+	public void setGoodsId(Integer goodsId) {
+		this.goodsId = goodsId;
+	}
+
+	public String getGoodsPics() {
+		return goodsPics;
+	}
+
+	public void setGoodsPics(String goodsPics) {
+		this.goodsPics = goodsPics;
+	}
+
+	public String getGoodsName() {
+		return goodsName;
+	}
+
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
+	}
+
+	public BigDecimal getGoodsPrice() {
+		return goodsPrice;
+	}
+
+	public void setGoodsPrice(BigDecimal goodsPrice) {
+		this.goodsPrice = goodsPrice;
+	}
+
+	public Float getGoodsAvgScore() {
+		return goodsAvgScore;
+	}
+
+	public void setGoodsAvgScore(Float goodsAvgScore) {
+		this.goodsAvgScore = goodsAvgScore;
+	}
+
+	public String getGoodsContentPics() {
+		return goodsContentPics;
+	}
+
+	public void setGoodsContentPics(String goodsContentPics) {
+		this.goodsContentPics = goodsContentPics;
+	}
+
+	public String getGoodsSummary() {
+		return goodsSummary;
+	}
+
+	public void setGoodsSummary(String goodsSummary) {
+		this.goodsSummary = goodsSummary;
+	}
+
+	public String getGoodsAttrSelect() {
+		return goodsAttrSelect;
+	}
+
+	public void setGoodsAttrSelect(String goodsAttrSelect) {
+		this.goodsAttrSelect = goodsAttrSelect;
+	}
+
+	public String getGoodsAttrs() {
+		return goodsAttrs;
+	}
+
+	public void setGoodsAttrs(String goodsAttrs) {
+		this.goodsAttrs = goodsAttrs;
+	}
+
+	public Integer getGoodsTotalFav() {
+		return goodsTotalFav;
+	}
+
+	public void setGoodsTotalFav(Integer goodsTotalFav) {
+		this.goodsTotalFav = goodsTotalFav;
+	}
+
+	public List<GoodsDetailsCommentVo> getCommentList() {
+		return commentList;
+	}
+
+	public void setCommentList(List<GoodsDetailsCommentVo> commentList) {
+		this.commentList = commentList;
+	}
+
+	public Integer getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(Integer storeId) {
+		this.storeId = storeId;
+	}
+
+	public String getStoreName() {
+		return storeName;
+	}
+
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+
+	public String getStoreBanner() {
+		return storeBanner;
+	}
+
+	public void setStoreBanner(String storeBanner) {
+		this.storeBanner = storeBanner;
+	}
+
+	public List<Object> getGoodsAttrsList() {
+		return goodsAttrsList;
+	}
+
+	public void setGoodsAttrsList(List<Object> goodsAttrsList) {
+		this.goodsAttrsList = goodsAttrsList;
+	}
+
+	public List<Object> getGoodsAttrSelectList() {
+		return goodsAttrSelectList;
+	}
+
+	public void setGoodsAttrSelectList(List<Object> goodsAttrSelectList) {
+		this.goodsAttrSelectList = goodsAttrSelectList;
+	}
+
+	public Integer getFavId() {
+		return favId;
+	}
+
+	public void setFavId(Integer favId) {
+		if (null == favId) {
+			this.favId = 0;
+		} else {
+			this.favId = favId;
+		}
+	}
+
+}

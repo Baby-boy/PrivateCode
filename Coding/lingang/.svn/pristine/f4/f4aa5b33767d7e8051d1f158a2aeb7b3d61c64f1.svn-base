@@ -1,0 +1,20 @@
+package com.lingang.api.service;
+
+import java.util.List;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysBasics;
+
+public interface SysBasicsService {
+	/**
+	* @Description: (开放层级)
+	* @return    
+	* @author gsh(15136390655@163.com)
+	* @date: 2016年12月7日 下午4:10:05
+	 */
+	ServiceResult<List<SysBasics>> selectSysBasics();
+
+	ServiceResult<Page<SysBasics>> selectSysBasicsPageList(int currentPage, int onePageCount);
+
+}

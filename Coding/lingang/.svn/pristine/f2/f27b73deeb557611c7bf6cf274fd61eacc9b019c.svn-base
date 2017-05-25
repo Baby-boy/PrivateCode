@@ -1,0 +1,21 @@
+package com.lingang.common.constants;
+
+public interface SystemConstants {
+
+	public static final Integer SYS_TYPE_NEWS = 1;
+
+	public static final Integer SYS_TYPE_POLICY = 2;
+
+	public static final Integer SYS_TYPE_PARK = 3;
+
+	public static final Integer SYS_TYPE_PARTNER = 4;
+
+	public static final Integer SYS_TYPE_SERVICE = 5;
+
+	public static final Integer SYS_TYPE_STATION = 6;
+
+	public static final Integer SYS_TYPE_PUBLIC = 7;
+
+	public static final Integer SYS_TYPE_INDUSTRY = 8;
+
+}

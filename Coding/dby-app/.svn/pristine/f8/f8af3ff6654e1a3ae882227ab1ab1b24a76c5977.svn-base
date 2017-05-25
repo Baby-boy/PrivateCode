@@ -1,0 +1,25 @@
+package com.yd.dby.app.entity.vo;
+
+public class SeckillDetailsVo extends GoodsDetailsVo {
+
+	private Integer depotId;
+
+	private String endTime;
+
+	public Integer getDepotId() {
+		return depotId;
+	}
+
+	public void setDepotId(Integer depotId) {
+		this.depotId = depotId;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+}

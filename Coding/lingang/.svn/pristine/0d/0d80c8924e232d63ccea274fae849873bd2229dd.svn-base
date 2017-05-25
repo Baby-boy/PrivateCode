@@ -1,0 +1,99 @@
+package com.lingang.api.domain.vo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.lingang.api.domain.entity.SysLabel;
+import com.lingang.api.domain.entity.SysPublic;
+
+public class SysPublicVo extends SysPublic {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4409203622196932441L;
+
+	// 收藏的状态码
+	private Integer collectState;// 1:收藏 , 0:未收藏
+	
+	private Integer imgId;
+
+	private String imgPath;
+
+	private List<SysLabel> labels = new ArrayList<SysLabel>();
+
+	// 公共平台详情字段属性
+	private Integer wayId;
+	private String wayTel;
+	private String basicsName;
+	private List<SysParkVo> parks = new ArrayList<SysParkVo>();
+
+	public Integer getCollectState() {
+		return collectState;
+	}
+
+	public void setCollectState(Integer collectState) {
+		this.collectState = collectState;
+	}
+
+	public Integer getImgId() {
+		return imgId;
+	}
+
+	public void setImgId(Integer imgId) {
+		this.imgId = imgId;
+	}
+
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+
+	public List<SysLabel> getLabels() {
+		return labels;
+	}
+
+	public void setLabels(List<SysLabel> labels) {
+		this.labels = labels;
+	}
+
+	public Integer getWayId() {
+		return wayId;
+	}
+
+	public void setWayId(Integer wayId) {
+		this.wayId = wayId;
+	}
+
+	public String getWayTel() {
+		return wayTel;
+	}
+
+	public void setWayTel(String wayTel) {
+		this.wayTel = wayTel;
+	}
+
+	public String getBasicsName() {
+		return basicsName;
+	}
+
+	public void setBasicsName(String basicsName) {
+		this.basicsName = basicsName;
+	}
+
+	public List<SysParkVo> getParks() {
+		return parks;
+	}
+
+	public void setParks(List<SysParkVo> parks) {
+		this.parks = parks;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+}

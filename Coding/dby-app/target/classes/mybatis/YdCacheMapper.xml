@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdCacheMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdCache" >
+    <id column="cache_id" property="cacheId" jdbcType="INTEGER" />
+    <result column="cache_type" property="cacheType" jdbcType="VARCHAR" />
+    <result column="cache_created_time" property="cacheCreatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yd.dby.app.entity.YdCache" extends="BaseResultMap" >
+    <result column="cache_value" property="cacheValue" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cache_id, cache_type, cache_created_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    cache_value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from yd_cache
+    where cache_id = #{cacheId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_cache
+    where cache_id = #{cacheId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdCache" >
+    insert into yd_cache (cache_id, cache_type, cache_created_time, 
+      cache_value)
+    values (#{cacheId,jdbcType=INTEGER}, #{cacheType,jdbcType=VARCHAR}, #{cacheCreatedTime,jdbcType=TIMESTAMP}, 
+      #{cacheValue,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdCache" >
+    insert into yd_cache
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cacheId != null" >
+        cache_id,
+      </if>
+      <if test="cacheType != null" >
+        cache_type,
+      </if>
+      <if test="cacheCreatedTime != null" >
+        cache_created_time,
+      </if>
+      <if test="cacheValue != null" >
+        cache_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cacheId != null" >
+        #{cacheId,jdbcType=INTEGER},
+      </if>
+      <if test="cacheType != null" >
+        #{cacheType,jdbcType=VARCHAR},
+      </if>
+      <if test="cacheCreatedTime != null" >
+        #{cacheCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cacheValue != null" >
+        #{cacheValue,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdCache" >
+    update yd_cache
+    <set >
+      <if test="cacheType != null" >
+        cache_type = #{cacheType,jdbcType=VARCHAR},
+      </if>
+      <if test="cacheCreatedTime != null" >
+        cache_created_time = #{cacheCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cacheValue != null" >
+        cache_value = #{cacheValue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where cache_id = #{cacheId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yd.dby.app.entity.YdCache" >
+    update yd_cache
+    set cache_type = #{cacheType,jdbcType=VARCHAR},
+      cache_created_time = #{cacheCreatedTime,jdbcType=TIMESTAMP},
+      cache_value = #{cacheValue,jdbcType=LONGVARCHAR}
+    where cache_id = #{cacheId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdCache" >
+    update yd_cache
+    set cache_type = #{cacheType,jdbcType=VARCHAR},
+      cache_created_time = #{cacheCreatedTime,jdbcType=TIMESTAMP}
+    where cache_id = #{cacheId,jdbcType=INTEGER}
+  </update>
+</mapper>

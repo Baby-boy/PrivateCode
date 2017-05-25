@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysServiceParkReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysServicePark" >
+    <id column="service_park_id" property="serviceParkId" jdbcType="INTEGER" />
+    <result column="service_id" property="serviceId" jdbcType="INTEGER" />
+    <result column="park_id" property="parkId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    service_park_id, service_id, park_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_service_park
+    where service_park_id = #{serviceParkId,jdbcType=INTEGER}
+  </select>
+</mapper>

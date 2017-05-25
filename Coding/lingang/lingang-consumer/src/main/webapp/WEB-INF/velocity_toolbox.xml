@@ -1,0 +1,33 @@
+<toolbox>
+	<xhtml>true</xhtml>
+	<tool>
+		<key>dateTimeUtil</key>
+		<scope>application</scope>
+		<class>com.lingang.common.util.DateTimeUtils</class>
+	</tool>
+	<tool>
+		<key>staticSourcePathUtil</key>
+		<scope>application</scope>
+		<class>com.lingang.common.util.StaticSourcePathUtil</class>
+	</tool>
+	<tool>
+		<key>chackLanguageUtils</key>
+		<scope>application</scope>
+		<class>com.lingang.common.util.ChackLanguageUtils</class>
+	</tool>
+	<tool>
+	    <key>amountUtil</key>
+	    <scope>application</scope>
+	    <class>com.lingang.common.util.AmountUtils</class>
+	</tool>
+	<tool>
+        <key>stringUtils</key>
+        <scope>application</scope>
+        <class>com.lingang.common.util.StringUtils</class>
+    </tool>
+	<tool>
+        <key>propertyUtils</key>
+        <scope>application</scope>
+        <class>com.lingang.common.util.PropertyUtils</class>
+    </tool>
+</toolbox>

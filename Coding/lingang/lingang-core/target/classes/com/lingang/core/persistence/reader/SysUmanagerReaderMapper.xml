@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysUmanagerReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysUmanager" >
+    <id column="umanager_id" property="umanagerId" jdbcType="INTEGER" />
+    <result column="umanager_name" property="umanagerName" jdbcType="VARCHAR" />
+    <result column="umanager_company" property="umanagerCompany" jdbcType="VARCHAR" />
+    <result column="umanager_department" property="umanagerDepartment" jdbcType="VARCHAR" />
+    <result column="umanager_email" property="umanagerEmail" jdbcType="VARCHAR" />
+    <result column="umanager_tel" property="umanagerTel" jdbcType="VARCHAR" />
+    <result column="umanager_mobile" property="umanagerMobile" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    umanager_id, umanager_name, umanager_company, umanager_department, umanager_email, 
+    umanager_tel, umanager_mobile, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_umanager
+    where umanager_id = #{umanagerId,jdbcType=INTEGER}
+  </select>
+</mapper>

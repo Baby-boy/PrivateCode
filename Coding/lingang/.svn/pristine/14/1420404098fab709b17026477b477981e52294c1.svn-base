@@ -1,0 +1,33 @@
+/**
+ * Created by FxLsoft on 2015/12/3.
+ */
+'use strict';
+
+define(["serviceBase"], function (serviceBase) {
+	 var items = {};
+	    //获取列表
+	    items.sysParkPageList = function ($http,data) {
+	        var request = $http.post('sysPark/sysParkPageList.do', data, serviceBase.postConfig);
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+	    
+	    //获取详情
+	    items.getParkDetails = function ($http,data) {
+	        var request = $http.post('sysPark/parkDetails.do', data, {params:data});
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+	    
+	    //修改信息
+	    items.updateParkDetails = function ($http,data) {
+	        var request = $http.post('sysPark/updateParkDetails.do', data, serviceBase.postConfig);
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+	    
+	    //添加信息
+	    items.addParkDetails = function ($http,data) {
+	        var request = $http.post('sysPark/addParkDetails.do', data, serviceBase.postConfig);
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+
+    return ['sysParkService', items];
+});

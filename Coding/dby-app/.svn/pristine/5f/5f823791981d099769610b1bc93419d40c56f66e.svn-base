@@ -1,0 +1,6 @@
+package com.yd.dby.app.entity.vo;
+
+public class CtcOrderListVo {
+
+	
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysAssortReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysAssort" >
+    <id column="assort_id" property="assortId" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    <result column="assort_type" property="assortType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="obj_id" property="objId" jdbcType="INTEGER" />
+    <result column="sign_time" property="signTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    assort_id, company_id, assort_type, create_time, obj_id, sign_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_assort
+    where assort_id = #{assortId,jdbcType=INTEGER}
+  </select>
+  <select id="selectCompanyCascadeCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select 
+    count(assort_id)
+    from sys_assort
+    where assort_type = #{assortType,jdbcType=INTEGER} 
+    and obj_id = #{objId,jdbcType=INTEGER} 
+  </select>
+</mapper>

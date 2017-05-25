@@ -1,0 +1,10 @@
+package com.lingang.api.domain.para;
+
+public class CompanyPara extends BasePara{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 105622717774222405L;
+
+}

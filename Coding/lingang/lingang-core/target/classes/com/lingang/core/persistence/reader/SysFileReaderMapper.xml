@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysFileReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysFile" >
+    <id column="file_id" property="fileId" jdbcType="INTEGER" />
+    <result column="park_id" property="parkId" jdbcType="INTEGER" />
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="file_title" property="fileTitle" jdbcType="VARCHAR" />
+    <result column="file_address" property="fileAddress" jdbcType="VARCHAR" />
+    <result column="file_type" property="fileType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="file_size" property="fileSize" jdbcType="DOUBLE" />
+    <result column="share_number" property="shareNumber" jdbcType="INTEGER" />
+    <result column="father_id" property="fatherId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lingang.api.domain.entity.SysFile" extends="BaseResultMap" >
+    <result column="file_remark" property="fileRemark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.lingang.api.domain.vo.SysFileParkVo" id="ResultMapVo">
+  	<id column="park_id" property="parkId" jdbcType="INTEGER" />
+  	<result column="park_name" property="parkName" jdbcType="VARCHAR" />
+  	
+  	<collection property="files" ofType="com.lingang.api.domain.vo.SysFileVo">
+		<id column="file_id" property="fileId" jdbcType="INTEGER" />
+		<result column="file_title" property="fileTitle" jdbcType="VARCHAR" />
+		
+		<result column="img_id" property="imgId" jdbcType="INTEGER" />
+		<result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+		<result column="file_address" property="fileAddress" jdbcType="VARCHAR" />
+		<result column="file_type" property="fileType" jdbcType="INTEGER" />
+		<result column="file_update_time" property="fileUpdateTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="file_size" property="fileSize" jdbcType="DOUBLE" />
+		<result column="download_speed" property="downloadSpeed" jdbcType="DOUBLE" />
+		<result column="download_state" property="downloadState" jdbcType="INTEGER" />
+	</collection>
+  </resultMap>
+  
+  
+  <resultMap type="com.lingang.api.domain.vo.SysFileVo" id="ResultFileMapVo">
+  		<id column="file_id" property="fileId" jdbcType="INTEGER" />
+		<result column="file_title" property="fileTitle" jdbcType="VARCHAR" />
+		<result column="img_id" property="imgId" jdbcType="INTEGER" />
+		<result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+		<result column="file_address" property="fileAddress" jdbcType="VARCHAR" />
+		<result column="file_type" property="fileType" jdbcType="INTEGER" />
+		<result column="file_update_time" property="fileUpdateTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="file_size" property="fileSize" jdbcType="DOUBLE" />
+		<result column="download_speed" property="downloadSpeed" jdbcType="DOUBLE" />
+		<result column="download_state" property="downloadState" jdbcType="INTEGER" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    file_id, park_id, img_id, file_title, file_address, file_type, create_time, update_time, 
+    file_size, share_number,father_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    file_remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_file
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  <select id="selectAllFileCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  		select 
+		count(DISTINCT sp.park_id) 
+		from sys_park sp
+		left join sys_file sf on sf.park_id=sp.park_id 
+		where sf.file_id >0
+  </select>
+  <sql id="SQL_selectAllFilePageList" >
+		select park_id,park_name from sys_park
+	</sql>
+	<sql id="SQL_ID_selectAllFilePageList" >
+		park_id
+	</sql>
+  <sql id="PAGING_selectAllFilePageList">
+	SELECT TOP ${map.onePageCount}
+		*
+	FROM 
+	(
+		<include refid="SQL_selectAllFilePageList" />
+	)
+	 t
+	WHERE t.<include refid="SQL_ID_selectAllFilePageList" /> 
+	NOT IN
+	(
+		SELECT TOP (${map.onePageCount} * ${map.startIndex}) 
+		nt.<include refid="SQL_ID_selectAllFilePageList" /> 
+		FROM 
+		(
+			<include refid="SQL_selectAllFilePageList" />
+		) nt
+	)
+  </sql>
+  <select id="selectAllFilePageList" resultMap="ResultMapVo" parameterType="java.util.Map">
+		select 
+		sp.park_id,sp.park_name,
+		sf.file_id,sf.file_title,
+		sf.file_address,sf.file_type,sf.update_time,sf.file_size,
+		si.img_id,si.img_path,
+		sd.download_speed,sd.download_state,sd.file_update_time 
+		from (
+			<include refid="PAGING_selectAllFilePageList"/>
+		) sp
+		left join sys_file sf on sf.park_id=sp.park_id 
+		left join sys_images si on si.img_id=sf.img_id
+		left join (select * from sys_download where user_id=#{map.userId,jdbcType=INTEGER}) sd on sd.file_id=sf.file_id
+		where sf.file_id >0
+  </select>
+  
+  <select id="selectFileByFileId" resultMap="ResultFileMapVo" parameterType="java.util.Map">
+  		select 
+		sf.file_id,sf.file_title,
+		sf.file_address,sf.file_type,sf.update_time,sf.file_size,
+		si.img_id,si.img_path,
+		sd.download_speed,sd.download_state,sd.file_update_time 
+		from sys_file sf
+		left join sys_images si on si.img_id=sf.img_id
+		left join (select * from sys_download where user_id=#{map.userId,jdbcType=INTEGER}) sd on sd.file_id=sf.file_id
+		where sf.file_id =#{map.fileId,jdbcType=INTEGER}
+  </select>
+</mapper>

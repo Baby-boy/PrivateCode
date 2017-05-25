@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdRecommendMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdRecommend" >
+    <id column="rec_id" property="recId" jdbcType="INTEGER" />
+    <result column="rec_fid" property="recFid" jdbcType="INTEGER" />
+    <result column="rec_title" property="recTitle" jdbcType="VARCHAR" />
+    <result column="rec_cover" property="recCover" jdbcType="VARCHAR" />
+    <result column="rec_price" property="recPrice" jdbcType="DECIMAL" />
+    <result column="rec_code" property="recCode" jdbcType="VARCHAR" />
+    <result column="rec_sort" property="recSort" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rec_id, rec_fid, rec_title, rec_cover, rec_price, rec_code, rec_sort
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_recommend
+    where rec_id = #{recId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_recommend
+    where rec_id = #{recId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdRecommend" >
+    insert into yd_recommend (rec_id, rec_fid, rec_title, 
+      rec_cover, rec_price, rec_code, 
+      rec_sort)
+    values (#{recId,jdbcType=INTEGER}, #{recFid,jdbcType=INTEGER}, #{recTitle,jdbcType=VARCHAR}, 
+      #{recCover,jdbcType=VARCHAR}, #{recPrice,jdbcType=DECIMAL}, #{recCode,jdbcType=VARCHAR}, 
+      #{recSort,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdRecommend" >
+    insert into yd_recommend
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recId != null" >
+        rec_id,
+      </if>
+      <if test="recFid != null" >
+        rec_fid,
+      </if>
+      <if test="recTitle != null" >
+        rec_title,
+      </if>
+      <if test="recCover != null" >
+        rec_cover,
+      </if>
+      <if test="recPrice != null" >
+        rec_price,
+      </if>
+      <if test="recCode != null" >
+        rec_code,
+      </if>
+      <if test="recSort != null" >
+        rec_sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recId != null" >
+        #{recId,jdbcType=INTEGER},
+      </if>
+      <if test="recFid != null" >
+        #{recFid,jdbcType=INTEGER},
+      </if>
+      <if test="recTitle != null" >
+        #{recTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="recCover != null" >
+        #{recCover,jdbcType=VARCHAR},
+      </if>
+      <if test="recPrice != null" >
+        #{recPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="recCode != null" >
+        #{recCode,jdbcType=VARCHAR},
+      </if>
+      <if test="recSort != null" >
+        #{recSort,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdRecommend" >
+    update yd_recommend
+    <set >
+      <if test="recFid != null" >
+        rec_fid = #{recFid,jdbcType=INTEGER},
+      </if>
+      <if test="recTitle != null" >
+        rec_title = #{recTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="recCover != null" >
+        rec_cover = #{recCover,jdbcType=VARCHAR},
+      </if>
+      <if test="recPrice != null" >
+        rec_price = #{recPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="recCode != null" >
+        rec_code = #{recCode,jdbcType=VARCHAR},
+      </if>
+      <if test="recSort != null" >
+        rec_sort = #{recSort,jdbcType=TINYINT},
+      </if>
+    </set>
+    where rec_id = #{recId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdRecommend" >
+    update yd_recommend
+    set rec_fid = #{recFid,jdbcType=INTEGER},
+      rec_title = #{recTitle,jdbcType=VARCHAR},
+      rec_cover = #{recCover,jdbcType=VARCHAR},
+      rec_price = #{recPrice,jdbcType=DECIMAL},
+      rec_code = #{recCode,jdbcType=VARCHAR},
+      rec_sort = #{recSort,jdbcType=TINYINT}
+    where rec_id = #{recId,jdbcType=INTEGER}
+  </update>
+</mapper>

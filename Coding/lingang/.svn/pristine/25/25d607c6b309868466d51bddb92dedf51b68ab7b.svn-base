@@ -1,0 +1,156 @@
+package com.lingang.core.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.codehaus.jackson.io.SegmentedStringWriter;
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+import com.lingang.api.domain.entity.SysPartner;
+import com.lingang.api.domain.para.SysPartnerPara;
+import com.lingang.api.domain.pfvo.SysPartnerPfVo;
+import com.lingang.api.domain.vo.SysPartnerVo;
+import com.lingang.api.service.SysPartnerService;
+import com.lingang.core.persistence.reader.SysFileReaderMapper;
+import com.lingang.core.persistence.reader.SysPartnerReaderMapper;
+import com.lingang.core.persistence.writer.SysPartnerWriterMapper;
+
+@Service("sysPartnerService")
+public class SysPartnerServiceImpl implements SysPartnerService {
+	
+	@Resource
+	private SysPartnerReaderMapper sysPartnerReaderMapper;
+	
+	@Resource
+	private SysPartnerWriterMapper sysPartnerWriterMapper;
+	
+	@Resource
+	private SysFileReaderMapper sysFileReaderMapper;
+	
+	
+	
+	@Override
+	public ServiceResult<Page<SysPartnerVo>> selectPartnerPageList(Integer pageIndex, Integer pageSize) {
+		ServiceResult<Page<SysPartnerVo>> result=new ServiceResult<Page<SysPartnerVo>>();
+		//查询条件
+		Map<String, Object> map=new HashMap<String, Object>();
+		int countRecord=sysPartnerReaderMapper.selectPartnerCount(map);
+		Page<SysPartnerVo> page=new Page<>(pageIndex, countRecord, pageSize);
+		if(countRecord>0){
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", pageSize);
+			List<SysPartnerVo> list=sysPartnerReaderMapper.selectPartnerPageList(map);
+			page.setList(list);
+		}
+		//返回信息
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<SysPartnerVo> selectPartnerVoByPartnerId(Integer partnerId) {
+		ServiceResult<SysPartnerVo> result=new ServiceResult<SysPartnerVo>();
+		SysPartnerVo partnerVo=sysPartnerReaderMapper.selectPartnerVoByPartnerId(partnerId);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(partnerVo);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Page<SysPartnerPfVo>> selectSysPartnerPfVoPageList(SysPartnerPara para) {
+		ServiceResult<Page<SysPartnerPfVo>> result = new ServiceResult<>();
+		// 查询条件
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("partnerNameKeywords", para.getPartnerNameKeywords());
+		int countRecord = sysPartnerReaderMapper.selectSysPartnerPfVoCount(map);
+		Page<SysPartnerPfVo> page = new Page<>(para.getCurrentPage(), countRecord, para.getOnePageCount());
+		if (countRecord > 0) {
+			// 分页条件
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", page.getOnePageCount());
+			List<SysPartnerPfVo> list = sysPartnerReaderMapper.selectSysPartnerPfVoPageList(map);
+			page.setList(list);
+		}
+		result.setData(page);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+	
+	
+	/******后台******/
+	
+	@Override
+	public ServiceResult<Page<SysPartnerPfVo>> queryAllByPage(HashMap<String, Object> map) {
+		ServiceResult<Page<SysPartnerPfVo>> result = new ServiceResult<>();
+		Integer pageIndex = (Integer) map.get("currentPage");
+		Integer pageSize = (Integer) map.get("onePageCount");
+		int countRecord = sysPartnerReaderMapper.querySysPartnerPfVoCount(map);
+		map.put("partner_name", "'%"+map.get("partner_name")+"%'");
+		Page<SysPartnerPfVo> page = new Page<>(pageIndex, countRecord, pageSize);
+		if (countRecord > 0) {
+			// 分页条件
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", page.getOnePageCount());
+			List<SysPartnerPfVo> list = sysPartnerReaderMapper.queryAllByTop(map);
+			page.setList(list);
+		}
+		result.setData(page);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+	
+	@Override
+	public SysPartner selectByPrimaryKey(Integer partnerId) {
+		
+		return sysPartnerReaderMapper.selectByPrimaryKey(partnerId);
+	}
+
+
+	@Override
+	public int deleteByPrimaryKey(Integer partnerId) {
+		
+		return sysPartnerWriterMapper.deleteByPrimaryKey(partnerId);
+	}
+
+	@Override
+	public int insert(SysPartner record) {
+		
+		return sysPartnerWriterMapper.insert(record);
+	}
+
+	@Override
+	public int insertSelective(SysPartner record) {
+		
+		return sysPartnerWriterMapper.insertSelective(record);
+	}
+
+	@Override
+	public int updateByPrimaryKeySelective(SysPartner record) {
+		
+		return sysPartnerWriterMapper.updateByPrimaryKeySelective(record);
+	}
+
+	@Override
+	public int updateByPrimaryKeyWithBLOBs(SysPartner record) {
+		
+		return sysPartnerWriterMapper.updateByPrimaryKeyWithBLOBs(record);
+	}
+
+	@Override
+	public int updateByPrimaryKey(SysPartner record) {
+		
+		return sysPartnerWriterMapper.updateByPrimaryKey(record);
+	}
+
+}

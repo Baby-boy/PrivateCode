@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysIndustryUmanagerReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysIndustryUmanager" >
+    <id column="industry_umanager_id" property="industryUmanagerId" jdbcType="INTEGER" />
+    <result column="industry_id" property="industryId" jdbcType="INTEGER" />
+    <result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    industry_umanager_id, industry_id, user_account
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_industry_umanager
+    where industry_umanager_id = #{industryUmanagerId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByIndustryIdAndUserAccount" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_industry_umanager
+    where industry_id = #{industryId,jdbcType=INTEGER} and
+     user_account = #{userAccount,jdbcType=VARCHAR}
+  </select>
+</mapper>

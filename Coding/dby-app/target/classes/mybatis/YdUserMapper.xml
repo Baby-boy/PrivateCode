@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdUserMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdUser" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_sex" property="userSex" jdbcType="INTEGER" />
+    <result column="user_username" property="userUsername" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_payment_password" property="userPaymentPassword" jdbcType="VARCHAR" />
+    <result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
+    <result column="user_truename" property="userTruename" jdbcType="VARCHAR" />
+    <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR" />
+    <result column="user_mobile" property="userMobile" jdbcType="VARCHAR" />
+    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+    <result column="user_address" property="userAddress" jdbcType="VARCHAR" />
+    <result column="user_birthday" property="userBirthday" jdbcType="TIMESTAMP" />
+    <result column="user_grade" property="userGrade" jdbcType="INTEGER" />
+    <result column="user_money" property="userMoney" jdbcType="DECIMAL" />
+    <result column="user_role" property="userRole" jdbcType="VARCHAR" />
+    <result column="user_province_id" property="userProvinceId" jdbcType="INTEGER" />
+    <result column="user_city_id" property="userCityId" jdbcType="INTEGER" />
+    <result column="user_area_id" property="userAreaId" jdbcType="INTEGER" />
+    <result column="user_pca" property="userPca" jdbcType="VARCHAR" />
+    <result column="user_province_value" property="userProvinceValue" jdbcType="VARCHAR" />
+    <result column="user_city_value" property="userCityValue" jdbcType="VARCHAR" />
+    <result column="user_area_value" property="userAreaValue" jdbcType="VARCHAR" />
+    <result column="user_account_balance" property="userAccountBalance" jdbcType="DECIMAL" />
+    <result column="user_integration" property="userIntegration" jdbcType="INTEGER" />
+    <result column="user_empiric" property="userEmpiric" jdbcType="INTEGER" />
+    <result column="user_total_coupon" property="userTotalCoupon" jdbcType="INTEGER" />
+    <result column="user_total_bankcard" property="userTotalBankcard" jdbcType="INTEGER" />
+    <result column="user_login_time" property="userLoginTime" jdbcType="TIMESTAMP" />
+    <result column="user_old_login_time" property="userOldLoginTime" jdbcType="TIMESTAMP" />
+    <result column="user_state" property="userState" jdbcType="BIT" />
+    <result column="user_created_time" property="userCreatedTime" jdbcType="TIMESTAMP" />
+    <result column="user_im_token" property="userImToken" jdbcType="VARCHAR" />
+    <result column="ctc_sell_num" property="ctcSellNum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, user_sex, user_username, user_password, user_payment_password, user_nickname, 
+    user_truename, user_avatar, user_mobile, user_email, user_address, user_birthday, 
+    user_grade, user_money, user_role, user_province_id, user_city_id, user_area_id, 
+    user_pca, user_province_value, user_city_value, user_area_value, user_account_balance, 
+    user_integration, user_empiric, user_total_coupon, user_total_bankcard, user_login_time, 
+    user_old_login_time, user_state, user_created_time, user_im_token, ctc_sell_num
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdUser" >
+    insert into yd_user (user_id, user_sex, user_username, 
+      user_password, user_payment_password, user_nickname, 
+      user_truename, user_avatar, user_mobile, 
+      user_email, user_address, user_birthday, 
+      user_grade, user_money, user_role, 
+      user_province_id, user_city_id, user_area_id, 
+      user_pca, user_province_value, user_city_value, 
+      user_area_value, user_account_balance, user_integration, 
+      user_empiric, user_total_coupon, user_total_bankcard, 
+      user_login_time, user_old_login_time, user_state, 
+      user_created_time, user_im_token, ctc_sell_num
+      )
+    values (#{userId,jdbcType=INTEGER}, #{userSex,jdbcType=INTEGER}, #{userUsername,jdbcType=VARCHAR}, 
+      #{userPassword,jdbcType=VARCHAR}, #{userPaymentPassword,jdbcType=VARCHAR}, #{userNickname,jdbcType=VARCHAR}, 
+      #{userTruename,jdbcType=VARCHAR}, #{userAvatar,jdbcType=VARCHAR}, #{userMobile,jdbcType=VARCHAR}, 
+      #{userEmail,jdbcType=VARCHAR}, #{userAddress,jdbcType=VARCHAR}, #{userBirthday,jdbcType=TIMESTAMP}, 
+      #{userGrade,jdbcType=INTEGER}, #{userMoney,jdbcType=DECIMAL}, #{userRole,jdbcType=VARCHAR}, 
+      #{userProvinceId,jdbcType=INTEGER}, #{userCityId,jdbcType=INTEGER}, #{userAreaId,jdbcType=INTEGER}, 
+      #{userPca,jdbcType=VARCHAR}, #{userProvinceValue,jdbcType=VARCHAR}, #{userCityValue,jdbcType=VARCHAR}, 
+      #{userAreaValue,jdbcType=VARCHAR}, #{userAccountBalance,jdbcType=DECIMAL}, #{userIntegration,jdbcType=INTEGER}, 
+      #{userEmpiric,jdbcType=INTEGER}, #{userTotalCoupon,jdbcType=INTEGER}, #{userTotalBankcard,jdbcType=INTEGER}, 
+      #{userLoginTime,jdbcType=TIMESTAMP}, #{userOldLoginTime,jdbcType=TIMESTAMP}, #{userState,jdbcType=BIT}, 
+      #{userCreatedTime,jdbcType=TIMESTAMP}, #{userImToken,jdbcType=VARCHAR}, #{ctcSellNum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdUser" >
+    insert into yd_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userSex != null" >
+        user_sex,
+      </if>
+      <if test="userUsername != null" >
+        user_username,
+      </if>
+      <if test="userPassword != null" >
+        user_password,
+      </if>
+      <if test="userPaymentPassword != null" >
+        user_payment_password,
+      </if>
+      <if test="userNickname != null" >
+        user_nickname,
+      </if>
+      <if test="userTruename != null" >
+        user_truename,
+      </if>
+      <if test="userAvatar != null" >
+        user_avatar,
+      </if>
+      <if test="userMobile != null" >
+        user_mobile,
+      </if>
+      <if test="userEmail != null" >
+        user_email,
+      </if>
+      <if test="userAddress != null" >
+        user_address,
+      </if>
+      <if test="userBirthday != null" >
+        user_birthday,
+      </if>
+      <if test="userGrade != null" >
+        user_grade,
+      </if>
+      <if test="userMoney != null" >
+        user_money,
+      </if>
+      <if test="userRole != null" >
+        user_role,
+      </if>
+      <if test="userProvinceId != null" >
+        user_province_id,
+      </if>
+      <if test="userCityId != null" >
+        user_city_id,
+      </if>
+      <if test="userAreaId != null" >
+        user_area_id,
+      </if>
+      <if test="userPca != null" >
+        user_pca,
+      </if>
+      <if test="userProvinceValue != null" >
+        user_province_value,
+      </if>
+      <if test="userCityValue != null" >
+        user_city_value,
+      </if>
+      <if test="userAreaValue != null" >
+        user_area_value,
+      </if>
+      <if test="userAccountBalance != null" >
+        user_account_balance,
+      </if>
+      <if test="userIntegration != null" >
+        user_integration,
+      </if>
+      <if test="userEmpiric != null" >
+        user_empiric,
+      </if>
+      <if test="userTotalCoupon != null" >
+        user_total_coupon,
+      </if>
+      <if test="userTotalBankcard != null" >
+        user_total_bankcard,
+      </if>
+      <if test="userLoginTime != null" >
+        user_login_time,
+      </if>
+      <if test="userOldLoginTime != null" >
+        user_old_login_time,
+      </if>
+      <if test="userState != null" >
+        user_state,
+      </if>
+      <if test="userCreatedTime != null" >
+        user_created_time,
+      </if>
+      <if test="userImToken != null" >
+        user_im_token,
+      </if>
+      <if test="ctcSellNum != null" >
+        ctc_sell_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userSex != null" >
+        #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="userUsername != null" >
+        #{userUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userPaymentPassword != null" >
+        #{userPaymentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userNickname != null" >
+        #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userTruename != null" >
+        #{userTruename,jdbcType=VARCHAR},
+      </if>
+      <if test="userAvatar != null" >
+        #{userAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null" >
+        #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userBirthday != null" >
+        #{userBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userGrade != null" >
+        #{userGrade,jdbcType=INTEGER},
+      </if>
+      <if test="userMoney != null" >
+        #{userMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="userRole != null" >
+        #{userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="userProvinceId != null" >
+        #{userProvinceId,jdbcType=INTEGER},
+      </if>
+      <if test="userCityId != null" >
+        #{userCityId,jdbcType=INTEGER},
+      </if>
+      <if test="userAreaId != null" >
+        #{userAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="userPca != null" >
+        #{userPca,jdbcType=VARCHAR},
+      </if>
+      <if test="userProvinceValue != null" >
+        #{userProvinceValue,jdbcType=VARCHAR},
+      </if>
+      <if test="userCityValue != null" >
+        #{userCityValue,jdbcType=VARCHAR},
+      </if>
+      <if test="userAreaValue != null" >
+        #{userAreaValue,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccountBalance != null" >
+        #{userAccountBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="userIntegration != null" >
+        #{userIntegration,jdbcType=INTEGER},
+      </if>
+      <if test="userEmpiric != null" >
+        #{userEmpiric,jdbcType=INTEGER},
+      </if>
+      <if test="userTotalCoupon != null" >
+        #{userTotalCoupon,jdbcType=INTEGER},
+      </if>
+      <if test="userTotalBankcard != null" >
+        #{userTotalBankcard,jdbcType=INTEGER},
+      </if>
+      <if test="userLoginTime != null" >
+        #{userLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userOldLoginTime != null" >
+        #{userOldLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userState != null" >
+        #{userState,jdbcType=BIT},
+      </if>
+      <if test="userCreatedTime != null" >
+        #{userCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userImToken != null" >
+        #{userImToken,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcSellNum != null" >
+        #{ctcSellNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdUser" >
+    update yd_user
+    <set >
+      <if test="userSex != null" >
+        user_sex = #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="userUsername != null" >
+        user_username = #{userUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userPaymentPassword != null" >
+        user_payment_password = #{userPaymentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userNickname != null" >
+        user_nickname = #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userTruename != null" >
+        user_truename = #{userTruename,jdbcType=VARCHAR},
+      </if>
+      <if test="userAvatar != null" >
+        user_avatar = #{userAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        user_mobile = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null" >
+        user_address = #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userBirthday != null" >
+        user_birthday = #{userBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userGrade != null" >
+        user_grade = #{userGrade,jdbcType=INTEGER},
+      </if>
+      <if test="userMoney != null" >
+        user_money = #{userMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="userRole != null" >
+        user_role = #{userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="userProvinceId != null" >
+        user_province_id = #{userProvinceId,jdbcType=INTEGER},
+      </if>
+      <if test="userCityId != null" >
+        user_city_id = #{userCityId,jdbcType=INTEGER},
+      </if>
+      <if test="userAreaId != null" >
+        user_area_id = #{userAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="userPca != null" >
+        user_pca = #{userPca,jdbcType=VARCHAR},
+      </if>
+      <if test="userProvinceValue != null" >
+        user_province_value = #{userProvinceValue,jdbcType=VARCHAR},
+      </if>
+      <if test="userCityValue != null" >
+        user_city_value = #{userCityValue,jdbcType=VARCHAR},
+      </if>
+      <if test="userAreaValue != null" >
+        user_area_value = #{userAreaValue,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccountBalance != null" >
+        user_account_balance = #{userAccountBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="userIntegration != null" >
+        user_integration = #{userIntegration,jdbcType=INTEGER},
+      </if>
+      <if test="userEmpiric != null" >
+        user_empiric = #{userEmpiric,jdbcType=INTEGER},
+      </if>
+      <if test="userTotalCoupon != null" >
+        user_total_coupon = #{userTotalCoupon,jdbcType=INTEGER},
+      </if>
+      <if test="userTotalBankcard != null" >
+        user_total_bankcard = #{userTotalBankcard,jdbcType=INTEGER},
+      </if>
+      <if test="userLoginTime != null" >
+        user_login_time = #{userLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userOldLoginTime != null" >
+        user_old_login_time = #{userOldLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userState != null" >
+        user_state = #{userState,jdbcType=BIT},
+      </if>
+      <if test="userCreatedTime != null" >
+        user_created_time = #{userCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userImToken != null" >
+        user_im_token = #{userImToken,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcSellNum != null" >
+        ctc_sell_num = #{ctcSellNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdUser" >
+    update yd_user
+    set user_sex = #{userSex,jdbcType=INTEGER},
+      user_username = #{userUsername,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_payment_password = #{userPaymentPassword,jdbcType=VARCHAR},
+      user_nickname = #{userNickname,jdbcType=VARCHAR},
+      user_truename = #{userTruename,jdbcType=VARCHAR},
+      user_avatar = #{userAvatar,jdbcType=VARCHAR},
+      user_mobile = #{userMobile,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_address = #{userAddress,jdbcType=VARCHAR},
+      user_birthday = #{userBirthday,jdbcType=TIMESTAMP},
+      user_grade = #{userGrade,jdbcType=INTEGER},
+      user_money = #{userMoney,jdbcType=DECIMAL},
+      user_role = #{userRole,jdbcType=VARCHAR},
+      user_province_id = #{userProvinceId,jdbcType=INTEGER},
+      user_city_id = #{userCityId,jdbcType=INTEGER},
+      user_area_id = #{userAreaId,jdbcType=INTEGER},
+      user_pca = #{userPca,jdbcType=VARCHAR},
+      user_province_value = #{userProvinceValue,jdbcType=VARCHAR},
+      user_city_value = #{userCityValue,jdbcType=VARCHAR},
+      user_area_value = #{userAreaValue,jdbcType=VARCHAR},
+      user_account_balance = #{userAccountBalance,jdbcType=DECIMAL},
+      user_integration = #{userIntegration,jdbcType=INTEGER},
+      user_empiric = #{userEmpiric,jdbcType=INTEGER},
+      user_total_coupon = #{userTotalCoupon,jdbcType=INTEGER},
+      user_total_bankcard = #{userTotalBankcard,jdbcType=INTEGER},
+      user_login_time = #{userLoginTime,jdbcType=TIMESTAMP},
+      user_old_login_time = #{userOldLoginTime,jdbcType=TIMESTAMP},
+      user_state = #{userState,jdbcType=BIT},
+      user_created_time = #{userCreatedTime,jdbcType=TIMESTAMP},
+      user_im_token = #{userImToken,jdbcType=VARCHAR},
+      ctc_sell_num = #{ctcSellNum,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <!-- 所有查询 -->
+  <!-- 根据账号或者手机号查询 -->
+  <select id="selectUserByNameOrMobile" resultMap="BaseResultMap" parameterType="java.lang.String">
+   	select 
+    <include refid="Base_Column_List" />
+    from yd_user
+    where user_username = #{account,jdbcType=VARCHAR} or user_mobile = #{account,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 用户分页 -->
+   <select id="selectUserPageCount" resultType="java.lang.Integer" parameterType="com.yd.dby.app.entity.para.UserPara" >
+    select 
+    count(DISTINCT user_id)
+    from yd_user
+  </select>
+  <select id="selectUserPageList" resultMap="BaseResultMap" parameterType="com.yd.dby.app.entity.para.UserPara" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_user
+    order by user_id  
+    <if test="para.sort==0">desc</if>
+    <if test="para.sort==1">asc</if>
+    limit #{para.startIndex, jdbcType=INTEGER},#{para.onePageCount, jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectUserIntegrationByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    user_integration 
+    from yd_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  
+    <select id="selectUserByMobile" resultMap="BaseResultMap" parameterType="java.lang.String">
+   	select 
+    <include refid="Base_Column_List" />
+    from yd_user
+    where user_mobile = #{mobile,jdbcType=VARCHAR}
+  </select>
+</mapper>

@@ -1,0 +1,17 @@
+package com.lingang.api.service;
+
+import java.util.List;
+
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysRegion;
+
+public interface SysRegionService {
+
+	/**
+	* @Description: (获取地区信息)
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月5日 上午9:59:19
+	 */
+	ServiceResult<List<SysRegion>> selectRegionAllList();
+}

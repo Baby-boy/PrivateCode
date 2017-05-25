@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysIndustryWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_industry
+    where industry_id = #{industryId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysIndustry" >
+    insert into sys_industry (industry_id, min_img_id, max_img_id, 
+      industry_title, industry_simple, industry_link, 
+      industry_state, create_time, update_time, 
+      industry_content)
+    values (#{industryId,jdbcType=INTEGER}, #{minImgId,jdbcType=INTEGER}, #{maxImgId,jdbcType=INTEGER}, 
+      #{industryTitle,jdbcType=VARCHAR}, #{industrySimple,jdbcType=VARCHAR}, #{industryLink,jdbcType=VARCHAR}, 
+      #{industryState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{industryContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="industryId" parameterType="com.lingang.api.domain.entity.SysIndustry" >
+    insert into sys_industry
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="industryId != null" >
+        industry_id,
+      </if>
+      <if test="minImgId != null" >
+        min_img_id,
+      </if>
+      <if test="maxImgId != null" >
+        max_img_id,
+      </if>
+      <if test="industryTitle != null" >
+        industry_title,
+      </if>
+      <if test="industrySimple != null" >
+        industry_simple,
+      </if>
+      <if test="industryLink != null" >
+        industry_link,
+      </if>
+      <if test="industryState != null" >
+        industry_state,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="industryContent != null" >
+        industry_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="industryId != null" >
+        #{industryId,jdbcType=INTEGER},
+      </if>
+      <if test="minImgId != null" >
+        #{minImgId,jdbcType=INTEGER},
+      </if>
+      <if test="maxImgId != null" >
+        #{maxImgId,jdbcType=INTEGER},
+      </if>
+      <if test="industryTitle != null" >
+        #{industryTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="industrySimple != null" >
+        #{industrySimple,jdbcType=VARCHAR},
+      </if>
+      <if test="industryLink != null" >
+        #{industryLink,jdbcType=VARCHAR},
+      </if>
+      <if test="industryState != null" >
+        #{industryState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="industryContent != null" >
+        #{industryContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysIndustry" >
+    update sys_industry
+    <set >
+      <if test="minImgId != null" >
+        min_img_id = #{minImgId,jdbcType=INTEGER},
+      </if>
+      <if test="maxImgId != null" >
+        max_img_id = #{maxImgId,jdbcType=INTEGER},
+      </if>
+      <if test="industryTitle != null" >
+        industry_title = #{industryTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="industrySimple != null" >
+        industry_simple = #{industrySimple,jdbcType=VARCHAR},
+      </if>
+      <if test="industryLink != null" >
+        industry_link = #{industryLink,jdbcType=VARCHAR},
+      </if>
+      <if test="industryState != null" >
+        industry_state = #{industryState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="industryContent != null" >
+        industry_content = #{industryContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where industry_id = #{industryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lingang.api.domain.entity.SysIndustry" >
+    update sys_industry
+    set min_img_id = #{minImgId,jdbcType=INTEGER},
+      max_img_id = #{maxImgId,jdbcType=INTEGER},
+      industry_title = #{industryTitle,jdbcType=VARCHAR},
+      industry_simple = #{industrySimple,jdbcType=VARCHAR},
+      industry_link = #{industryLink,jdbcType=VARCHAR},
+      industry_state = #{industryState,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      industry_content = #{industryContent,jdbcType=LONGVARCHAR}
+    where industry_id = #{industryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysIndustry" >
+    update sys_industry
+    set min_img_id = #{minImgId,jdbcType=INTEGER},
+      max_img_id = #{maxImgId,jdbcType=INTEGER},
+      industry_title = #{industryTitle,jdbcType=VARCHAR},
+      industry_simple = #{industrySimple,jdbcType=VARCHAR},
+      industry_link = #{industryLink,jdbcType=VARCHAR},
+      industry_state = #{industryState,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where industry_id = #{industryId,jdbcType=INTEGER}
+  </update>
+</mapper>

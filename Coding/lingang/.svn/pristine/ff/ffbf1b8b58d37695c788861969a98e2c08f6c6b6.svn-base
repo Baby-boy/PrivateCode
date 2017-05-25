@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysParkIndustryReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysParkIndustry" >
+    <id column="park_industry_id" property="parkIndustryId" jdbcType="INTEGER" />
+    <result column="industry_id" property="industryId" jdbcType="INTEGER" />
+    <result column="park_id" property="parkId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    park_industry_id, industry_id, park_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_park_industry
+    where park_industry_id = #{parkIndustryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_park_industry
+    where park_industry_id = #{parkIndustryId,jdbcType=INTEGER}
+  </delete>
+</mapper>

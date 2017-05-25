@@ -1,0 +1,79 @@
+define(['mySession', 'route-config', 'serviceBase','layer','My97DatePicker'], function (mySession, routeConfig, serviceBase,My97DatePicker) {
+    var _controller = function($scope, $http, $routeParams, $location,sysMessageService){
+    	//分页设置
+    	$scope.paginationConf = {
+        	    currentPage: 1, //页数
+                totalItems: 0, //查询结果总数
+                perPageOptions: [1, 5, 10, 15, 20, 30, 50],
+                itemsPerPage: 5, //每页查询条数
+                rememberPerPage: 'sysMessagePageListCtrlPerPage',
+                autoLoadData: true,
+                onChange: function () {
+                    if (this.currentPage > 0) {
+                    	//调用方法
+                    	$scope.getManagerList();
+                    }
+                }
+        };
+    	//请求参数(信息纠错列表)
+    	$scope.para={
+    			managerAccount:"",
+    			managerIdcard:""
+    	};
+    	//列表数据(后台管理员)
+    	$scope.managerList=[];
+    	
+    	//获取列表(后台管理员)
+    	$scope.getMessageList=function(){
+    		//当前页与每页显示条数
+    		$scope.para.currentPage =$scope.paginationConf.currentPage;
+    		$scope.para.onePageCount = $scope.paginationConf.itemsPerPage;
+    		sysMessageService.sysMessagePagePageList($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				$scope.managerList=data.data.list;
+    				//页数获取
+    				$scope.paginationConf.totalItems=data.data.countRecord;
+    			}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    		});
+    	};
+    	
+    	
+    	
+    	//请求参数(后台管理员)
+    	$scope.manager={
+    			
+    	};
+    	//显示(后台管理员)
+    	$scope.showManagerDetails=function(m){
+    		$scope.manager=m;
+    		$('#myModal').modal();
+    	};
+    	
+    	//修改(后台管理员)
+    	$scope.updateSysManager=function(){
+    		var m={
+    				managerId:$scope.manager.managerId,
+    				managerAccount:$scope.manager.managerAccount,
+    				managerPassword:$scope.manager.managerPassword,
+    				managerName:$scope.manager.managerName,
+    				managerTel:$scope.manager.managerTel,
+    				managerIdcard:$scope.manager.managerIdcard,
+    				managerAddress:$scope.manager.managerAddress,
+    				managerState:$scope.manager.managerState
+    		};
+    		sysManagerService.updateSysManager($http,m).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				alert("修改成功");
+    			}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    			$('#myModal').modal('hide');
+    		});
+    	};
+    	
+    	$scope.getManagerList();
+    };
+    return ["sysManagerPageListCtrl", _controller];
+});

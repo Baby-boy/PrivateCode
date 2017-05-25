@@ -1,0 +1,31 @@
+package com.lingang.api.service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysMessage;
+import com.lingang.api.domain.entity.SysReply;
+import com.lingang.api.domain.vo.SysReplyVo;
+
+public interface SysMessageService {
+
+	/**
+	* @Description: (信息纠错/意见反馈列表)
+	* @param pageIndex
+	* @param pageSize
+	* @param messageType
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月5日 下午11:02:20
+	 */
+	ServiceResult<Page<SysMessage>> selectMessagePageList(Integer pageIndex,Integer pageSize,Integer messageType);
+	
+	/**
+	* @Description: (信息纠错/意见反馈 回复详情)
+	* @param messageId
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月6日 上午12:13:38
+	 */
+	ServiceResult<SysReplyVo> selectSysReply(Integer messageId);
+	
+}

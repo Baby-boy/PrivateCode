@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysPowerWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_power
+    where power_id = #{powerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysPower" >
+    insert into sys_power (power_id, manager_id, obj_id, 
+      power_modular_str)
+    values (#{powerId,jdbcType=INTEGER}, #{managerId,jdbcType=INTEGER}, #{objId,jdbcType=INTEGER}, 
+      #{powerModularStr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="powerId" parameterType="com.lingang.api.domain.entity.SysPower" >
+    insert into sys_power
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="powerId != null" >
+        power_id,
+      </if>
+      <if test="managerId != null" >
+        manager_id,
+      </if>
+      <if test="objId != null" >
+        obj_id,
+      </if>
+      <if test="powerModularStr != null" >
+        power_modular_str,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="powerId != null" >
+        #{powerId,jdbcType=INTEGER},
+      </if>
+      <if test="managerId != null" >
+        #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="objId != null" >
+        #{objId,jdbcType=INTEGER},
+      </if>
+      <if test="powerModularStr != null" >
+        #{powerModularStr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysPower" >
+    update sys_power
+    <set >
+      <if test="managerId != null" >
+        manager_id = #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="objId != null" >
+        obj_id = #{objId,jdbcType=INTEGER},
+      </if>
+      <if test="powerModularStr != null" >
+        power_modular_str = #{powerModularStr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where power_id = #{powerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysPower" >
+    update sys_power
+    set manager_id = #{managerId,jdbcType=INTEGER},
+      obj_id = #{objId,jdbcType=INTEGER},
+      power_modular_str = #{powerModularStr,jdbcType=VARCHAR}
+    where power_id = #{powerId,jdbcType=INTEGER}
+  </update>
+</mapper>

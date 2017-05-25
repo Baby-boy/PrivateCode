@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdGroupbuyMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdGroupbuy" >
+    <id column="gb_id" property="gbId" jdbcType="INTEGER" />
+    <result column="gb_title" property="gbTitle" jdbcType="VARCHAR" />
+    <result column="gb_subtitle" property="gbSubtitle" jdbcType="VARCHAR" />
+    <result column="gb_logo" property="gbLogo" jdbcType="VARCHAR" />
+    <result column="gb_cover" property="gbCover" jdbcType="VARCHAR" />
+    <result column="gb_sort" property="gbSort" jdbcType="TINYINT" />
+    <result column="gb_state" property="gbState" jdbcType="TINYINT" />
+    <result column="end_time" property="endTime" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    gb_id, gb_title, gb_subtitle, gb_logo, gb_cover, gb_sort, gb_state, end_time, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_groupbuy
+    where gb_id = #{gbId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_groupbuy
+    where gb_id = #{gbId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdGroupbuy" >
+    insert into yd_groupbuy (gb_id, gb_title, gb_subtitle, 
+      gb_logo, gb_cover, gb_sort, 
+      gb_state, end_time, create_time
+      )
+    values (#{gbId,jdbcType=INTEGER}, #{gbTitle,jdbcType=VARCHAR}, #{gbSubtitle,jdbcType=VARCHAR}, 
+      #{gbLogo,jdbcType=VARCHAR}, #{gbCover,jdbcType=VARCHAR}, #{gbSort,jdbcType=TINYINT}, 
+      #{gbState,jdbcType=TINYINT}, #{endTime,jdbcType=CHAR}, #{createTime,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdGroupbuy" >
+    insert into yd_groupbuy
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gbId != null" >
+        gb_id,
+      </if>
+      <if test="gbTitle != null" >
+        gb_title,
+      </if>
+      <if test="gbSubtitle != null" >
+        gb_subtitle,
+      </if>
+      <if test="gbLogo != null" >
+        gb_logo,
+      </if>
+      <if test="gbCover != null" >
+        gb_cover,
+      </if>
+      <if test="gbSort != null" >
+        gb_sort,
+      </if>
+      <if test="gbState != null" >
+        gb_state,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gbId != null" >
+        #{gbId,jdbcType=INTEGER},
+      </if>
+      <if test="gbTitle != null" >
+        #{gbTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="gbSubtitle != null" >
+        #{gbSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="gbLogo != null" >
+        #{gbLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="gbCover != null" >
+        #{gbCover,jdbcType=VARCHAR},
+      </if>
+      <if test="gbSort != null" >
+        #{gbSort,jdbcType=TINYINT},
+      </if>
+      <if test="gbState != null" >
+        #{gbState,jdbcType=TINYINT},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdGroupbuy" >
+    update yd_groupbuy
+    <set >
+      <if test="gbTitle != null" >
+        gb_title = #{gbTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="gbSubtitle != null" >
+        gb_subtitle = #{gbSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="gbLogo != null" >
+        gb_logo = #{gbLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="gbCover != null" >
+        gb_cover = #{gbCover,jdbcType=VARCHAR},
+      </if>
+      <if test="gbSort != null" >
+        gb_sort = #{gbSort,jdbcType=TINYINT},
+      </if>
+      <if test="gbState != null" >
+        gb_state = #{gbState,jdbcType=TINYINT},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where gb_id = #{gbId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdGroupbuy" >
+    update yd_groupbuy
+    set gb_title = #{gbTitle,jdbcType=VARCHAR},
+      gb_subtitle = #{gbSubtitle,jdbcType=VARCHAR},
+      gb_logo = #{gbLogo,jdbcType=VARCHAR},
+      gb_cover = #{gbCover,jdbcType=VARCHAR},
+      gb_sort = #{gbSort,jdbcType=TINYINT},
+      gb_state = #{gbState,jdbcType=TINYINT},
+      end_time = #{endTime,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=CHAR}
+    where gb_id = #{gbId,jdbcType=INTEGER}
+  </update>
+</mapper>

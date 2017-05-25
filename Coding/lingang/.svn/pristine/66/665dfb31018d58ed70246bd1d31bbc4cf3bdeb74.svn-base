@@ -1,0 +1,119 @@
+package com.lingang.core.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+import com.lingang.api.domain.entity.SysNews;
+import com.lingang.api.domain.vo.SysNewsVo;
+import com.lingang.api.service.SysNewsService;
+import com.lingang.core.persistence.reader.SysNewsReaderMapper;
+import com.lingang.core.persistence.writer.SysNewsWriterMapper;
+@Service("sysNewsService")
+public class SysNewsServiceImpl implements SysNewsService {
+	@Resource
+	private SysNewsReaderMapper sysNewsReaderMapper;
+	@Resource
+	private SysNewsWriterMapper sysNewsWriterMapper;
+	/**
+	 * 查询新闻列表
+	 */
+	@Override
+	public ServiceResult<Page<SysNewsVo>> selectSysNewsAll(Integer pageIndex,Integer pageSize) {
+		ServiceResult<Page<SysNewsVo>> result=new ServiceResult<Page<SysNewsVo>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		int countRecord=sysNewsReaderMapper.selectSysNewsCount();
+		Page<SysNewsVo> page = new Page<SysNewsVo>(pageIndex, countRecord, pageSize);
+		if(countRecord>0){
+			map.put("startIndex", page.getStartIndex());
+			map.put("onePageCount", pageSize);
+			List<SysNewsVo> list = sysNewsReaderMapper.selectSysNewsAll(map);
+			page.setList(list);
+		};
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+	/**
+	 * 查询新闻详情
+	 */
+	@Override
+	public ServiceResult<SysNews> selectByPrimaryKey(Integer newsId) {
+		ServiceResult<SysNews> result=new ServiceResult<SysNews>();
+		SysNews news=sysNewsReaderMapper.selectByPrimaryKey(newsId);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(news);
+		return result;
+	}
+	
+	
+
+	/*********后台*********/
+	
+	@Override
+	public ServiceResult<Page<SysNewsVo>> queryAllByPage(HashMap<String, Object> map) {
+		Integer pageIndex = (Integer) map.get("currentPage");
+		Integer pageSize = (Integer) map.get("onePageCount");
+		map.put("news_title","'%"+map.get("news_title")+"%'");
+		map.put("news_author","'%"+map.get("news_author")+"%'");
+		ServiceResult<Page<SysNewsVo>> result=new ServiceResult<Page<SysNewsVo>>();
+		int countRecord=sysNewsReaderMapper.selectSysNewsCount();
+		Page<SysNewsVo> page = new Page<SysNewsVo>(pageIndex, countRecord, pageSize);
+		if(countRecord>0){
+			map.put("startIndex", page.getStartIndex());
+			map.put("onePageCount", pageSize);
+			List<SysNewsVo> list = sysNewsReaderMapper.queryAllByPage(map);
+			int len = 12;
+			for(SysNewsVo sysNews : list){
+				String title = sysNews.getNewsTitle();
+				title = title.length()<len?title:title.substring(0,len)+"...";
+				sysNews.setNewsTitle(title);
+			}
+			page.setList(list);
+		};
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+	@Override
+	public int insert(SysNews record) {
+		SysNews sysNews = new SysNews();
+		return sysNewsWriterMapper.insert(record);
+	}
+	
+	@Override
+	public int insertSelective(SysNews record) {
+		SysNews sysNews = new SysNews();
+		return sysNewsWriterMapper.insertSelective(record);
+	}
+	
+	@Override
+	public int updateByPrimaryKeySelective(SysNews record) {
+		SysNews sysNews = new SysNews();
+		return sysNewsWriterMapper.updateByPrimaryKeySelective(record);
+	}
+	
+	@Override
+	public int updateByPrimaryKeyWithBLOBs(SysNews record) {
+		return sysNewsWriterMapper.updateByPrimaryKeyWithBLOBs(record);
+	}
+	
+	@Override
+	public int updateByPrimaryKey(SysNews record) {
+		SysNews sysNews = new SysNews();
+		return sysNewsWriterMapper.updateByPrimaryKey(sysNews);
+	}
+	
+	@Override
+	public int deleteByPrimaryKey(Integer news_id) {
+		return sysNewsWriterMapper.deleteByPrimaryKey(news_id);
+	}
+	
+}

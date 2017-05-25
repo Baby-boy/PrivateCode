@@ -1,0 +1,151 @@
+/*总体样式*/
+html,body,header,section,footer,div,span,ul,ol,li,dt,dd,th,img,a,i,em{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-family: .PingFangSC-Regular;
+}
+/*产业园区详情*/
+/*头部banner*/
+header{
+	background: #182246;
+	color: #fff;
+	height: 44px;
+}
+header .gar_title{
+	width: 100%;
+	height: 100%;
+}
+.gar_title span{
+	display: block;
+	line-height: 44px;
+	/*margin-left: 30%;*/
+	text-align: center;
+	font-size: 18px;
+	/*position: absolute;
+	left: 30%;
+	top: 20%;*/
+}
+.banner_letter{
+	width: 100%;
+	height: 180px;
+	text-align: center;
+	display: block;
+	position: relative;
+	background-image: url(css/img/Parkp-banner.png);
+}
+.banner_letter .b_center{
+	width: 240px;
+	height: 90px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate3d(-50%,-50%,0);
+	padding-top: 10px;
+	background: rgba(0,0,0,.4);
+	z-index: 999;
+}
+.banner_letter h4{
+	color: #fff;
+	display: block;
+	margin-bottom: 10px;
+	font-size: 18px;
+}
+.banner_letter ul li{
+	display: inline-block;
+}
+.banner_letter ul li a{
+	color: #fff;
+	font-size: 11px;
+	padding: 5px;
+	border: 1px solid #fff;
+	text-decoration: none;
+}
+.bar_border{
+	position: absolute;
+	top: 50%;
+	left: 50%;	
+	transform: translate3d(-50%,-50%,0);
+
+	display: block;
+	width: 230px;
+	height: 100px;
+	border: 1px solid #fff;
+}
+/*中间内容部分*/
+section{	
+	padding: 0 7.5px;
+
+}
+section .article{
+	margin-bottom:14px; 
+}
+section .article h4{
+	margin:21px 0 8px 0;
+	color: #A7A7A7;
+	font-size: 15px;
+}
+section .article p{
+	color: #4B4B4B;
+	font-size: 14px;
+	text-align:justify;
+}
+.gar_video video{
+	display: block;
+	width: 100%;
+
+}
+/*尾部*/
+footer{
+	padding: 0 7.5px 17px;
+	margin-top: 17px;
+}
+footer .foot{
+	background: #FBFBFB;
+	border: 1px solid #EAEAEA;
+}
+footer .foot p{
+	margin-bottom: 0;
+}
+footer .foot span,p{
+	color: #757575;
+	font-size: 12px;
+	display: block;
+	text-align: center;
+}
+/*新闻详情*/
+.news-litter{
+	margin-bottom: 10px;
+}
+.news-litter,.news-cont{
+	padding: 0 7.5px;
+}
+.news-litter .cent-top h2{
+	font-size: 18px;
+	margin-top: 10px;
+	margin-bottom: 5px;
+	color: #333;
+}
+.news-litter .cent-top .fabuzhe{
+	font-size: 12px;
+	color: #999;
+	display: -webkit-box;
+}
+.news-litter .cent-top .fabuzhe>div{
+	-webkit-box-flex:1;
+}
+.news-litter .cent-top .fabuzhe .top-center{
+	text-align: center;
+}
+.news-litter .cent-top .fabuzhe .top-right{
+	text-align: right;
+}
+.news-cont p{
+	text-align:justify;
+}
+.news-cont .box-img{
+	margin-bottom: 5px;
+}
+.news-cont .box-img img{
+	width: 100%;
+}

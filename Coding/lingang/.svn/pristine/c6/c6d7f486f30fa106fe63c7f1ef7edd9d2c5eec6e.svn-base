@@ -1,0 +1,57 @@
+package com.lingang.platform.filter;
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ *@Description: ()
+ *@Author: lgl(lgl1012dream@foxmail.com)
+ *@date:2016年12月6日 下午2:09:08
+ *@Version:1.0
+ */
+public class SessionFilter  implements Filter{
+	@Override
+	public void destroy() {
+	}
+
+	@Override
+	public void doFilter(ServletRequest arg0, ServletResponse arg1,
+			FilterChain arg2) throws IOException, ServletException {
+		HttpServletRequest request = (HttpServletRequest) arg0;
+		HttpServletResponse response = (HttpServletResponse) arg1;
+		// HttpSession session = request.getSession(); 
+		// JSONObject json = new JSONObject();
+		arg2.doFilter(request, response);
+		// if (request.getServletPath().equals("/login.htm")) {
+		// arg2.doFilter(request, response);
+		// } else {
+		// if (session.getAttribute(CommonConstants.LOGIN_USER_KEY) == null) {
+		// json.put("stateCode",Const.NOT_LOGIN);
+		// json.put("message","由于你长时间未操作或者未登录,请重新登录!");
+		// response.setContentType("text/javascript;charset=utf-8");
+		// try {
+		// PrintWriter out = response.getWriter();
+		// out.print(json);
+		// out.flush();
+		// out.close();
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
+		// } else{
+		// arg2.doFilter(request, response);
+		// }
+		// }
+	}
+
+	@Override
+	public void init(FilterConfig arg0) throws ServletException {
+
+	}
+}

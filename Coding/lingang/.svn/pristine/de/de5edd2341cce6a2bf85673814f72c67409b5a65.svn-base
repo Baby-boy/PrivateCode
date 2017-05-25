@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.aiyi</groupId>
+  <artifactId>lingang</artifactId>
+  <version>0.0.1</version>
+  <packaging>pom</packaging>
+
+  <name>lingang</name>
+
+ <properties>
+        <!-- Generic properties -->
+	    <java.version>1.7</java.version>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	
+		<!-- Spring -->
+		<spring-framework.version>3.2.4.RELEASE</spring-framework.version>
+		<spring-data-redis.version>1.1.0.RELEASE</spring-data-redis.version>
+		<jackson.version>1.9.9</jackson.version>
+		
+		<!-- AOP -->
+		<aspectj.version>1.7.2</aspectj.version>
+		
+		<!-- Logging -->
+		<slf4j.version>1.7.5</slf4j.version>
+		<slf4j-log4j12.version>1.7.2</slf4j-log4j12.version>
+		<log4j.version>1.2.17</log4j.version>
+		
+		<!-- Common -->
+        <io.version>2.2</io.version>
+		
+  </properties>
+
+  <dependencies>
+  
+  <!-- SPRING, SPRING, SPRINGITY SPRING -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring-framework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring-framework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring-framework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring-framework.version}</version>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>${spring-data-redis.version}</version>
+		</dependency>
+		
+		<dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>javax.servlet-api</artifactId>
+          <version>3.0.1</version>
+        </dependency>
+    
+		<!-- Logging with SLF4J & log4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j-log4j12.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		
+		<dependency>
+           <groupId>commons-io</groupId>
+           <artifactId>commons-io</artifactId>
+           <version>${io.version}</version>
+        </dependency>
+        <dependency>
+	       <groupId>org.apache.commons</groupId>
+	       <artifactId>commons-lang3</artifactId>
+	       <version>3.4</version>
+       </dependency>
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>fastjson</artifactId>
+		<version>1.2.7</version>
+	</dependency>
+	 <dependency>
+	    <groupId>redis.clients</groupId>
+	    <artifactId>jedis</artifactId>
+	    <version>2.1.0</version>
+	</dependency>
+  </dependencies>
+  
+  <modules>
+    <module>lingang-api</module>
+    <module>lingang-common</module>
+    <module>lingang-core</module>
+    <module>lingang-platform</module>
+    <module>lingang-consumer</module>
+  </modules>
+</project>

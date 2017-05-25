@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdGroupbuyGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdGroupbuyGoods" >
+    <id column="gbg_id" property="gbgId" jdbcType="INTEGER" />
+    <result column="groupbuy_id" property="groupbuyId" jdbcType="INTEGER" />
+    <result column="depot_id" property="depotId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="gbg_is_success" property="gbgIsSuccess" jdbcType="TINYINT" />
+    <result column="gbg_already_num" property="gbgAlreadyNum" jdbcType="INTEGER" />
+    <result column="gbg_open_num" property="gbgOpenNum" jdbcType="INTEGER" />
+    <result column="gbg_sort" property="gbgSort" jdbcType="TINYINT" />
+    <result column="gbg_success_time" property="gbgSuccessTime" jdbcType="CHAR" />
+    <result column="gbg_apply_time" property="gbgApplyTime" jdbcType="CHAR" />
+    <result column="gbg_state" property="gbgState" jdbcType="TINYINT" />
+    <result column="gbg_season" property="gbgSeason" jdbcType="VARCHAR" />
+    <result column="gbg_cover" property="gbgCover" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    gbg_id, groupbuy_id, depot_id, store_id, store_name, gbg_is_success, gbg_already_num, 
+    gbg_open_num, gbg_sort, gbg_success_time, gbg_apply_time, gbg_state, gbg_season, 
+    gbg_cover
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_groupbuy_goods
+    where gbg_id = #{gbgId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_groupbuy_goods
+    where gbg_id = #{gbgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdGroupbuyGoods" >
+    insert into yd_groupbuy_goods (gbg_id, groupbuy_id, depot_id, 
+      store_id, store_name, gbg_is_success, 
+      gbg_already_num, gbg_open_num, gbg_sort, 
+      gbg_success_time, gbg_apply_time, gbg_state, 
+      gbg_season, gbg_cover)
+    values (#{gbgId,jdbcType=INTEGER}, #{groupbuyId,jdbcType=INTEGER}, #{depotId,jdbcType=INTEGER}, 
+      #{storeId,jdbcType=INTEGER}, #{storeName,jdbcType=VARCHAR}, #{gbgIsSuccess,jdbcType=TINYINT}, 
+      #{gbgAlreadyNum,jdbcType=INTEGER}, #{gbgOpenNum,jdbcType=INTEGER}, #{gbgSort,jdbcType=TINYINT}, 
+      #{gbgSuccessTime,jdbcType=CHAR}, #{gbgApplyTime,jdbcType=CHAR}, #{gbgState,jdbcType=TINYINT}, 
+      #{gbgSeason,jdbcType=VARCHAR}, #{gbgCover,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdGroupbuyGoods" >
+    insert into yd_groupbuy_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gbgId != null" >
+        gbg_id,
+      </if>
+      <if test="groupbuyId != null" >
+        groupbuy_id,
+      </if>
+      <if test="depotId != null" >
+        depot_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="gbgIsSuccess != null" >
+        gbg_is_success,
+      </if>
+      <if test="gbgAlreadyNum != null" >
+        gbg_already_num,
+      </if>
+      <if test="gbgOpenNum != null" >
+        gbg_open_num,
+      </if>
+      <if test="gbgSort != null" >
+        gbg_sort,
+      </if>
+      <if test="gbgSuccessTime != null" >
+        gbg_success_time,
+      </if>
+      <if test="gbgApplyTime != null" >
+        gbg_apply_time,
+      </if>
+      <if test="gbgState != null" >
+        gbg_state,
+      </if>
+      <if test="gbgSeason != null" >
+        gbg_season,
+      </if>
+      <if test="gbgCover != null" >
+        gbg_cover,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gbgId != null" >
+        #{gbgId,jdbcType=INTEGER},
+      </if>
+      <if test="groupbuyId != null" >
+        #{groupbuyId,jdbcType=INTEGER},
+      </if>
+      <if test="depotId != null" >
+        #{depotId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="gbgIsSuccess != null" >
+        #{gbgIsSuccess,jdbcType=TINYINT},
+      </if>
+      <if test="gbgAlreadyNum != null" >
+        #{gbgAlreadyNum,jdbcType=INTEGER},
+      </if>
+      <if test="gbgOpenNum != null" >
+        #{gbgOpenNum,jdbcType=INTEGER},
+      </if>
+      <if test="gbgSort != null" >
+        #{gbgSort,jdbcType=TINYINT},
+      </if>
+      <if test="gbgSuccessTime != null" >
+        #{gbgSuccessTime,jdbcType=CHAR},
+      </if>
+      <if test="gbgApplyTime != null" >
+        #{gbgApplyTime,jdbcType=CHAR},
+      </if>
+      <if test="gbgState != null" >
+        #{gbgState,jdbcType=TINYINT},
+      </if>
+      <if test="gbgSeason != null" >
+        #{gbgSeason,jdbcType=VARCHAR},
+      </if>
+      <if test="gbgCover != null" >
+        #{gbgCover,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdGroupbuyGoods" >
+    update yd_groupbuy_goods
+    <set >
+      <if test="groupbuyId != null" >
+        groupbuy_id = #{groupbuyId,jdbcType=INTEGER},
+      </if>
+      <if test="depotId != null" >
+        depot_id = #{depotId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="gbgIsSuccess != null" >
+        gbg_is_success = #{gbgIsSuccess,jdbcType=TINYINT},
+      </if>
+      <if test="gbgAlreadyNum != null" >
+        gbg_already_num = #{gbgAlreadyNum,jdbcType=INTEGER},
+      </if>
+      <if test="gbgOpenNum != null" >
+        gbg_open_num = #{gbgOpenNum,jdbcType=INTEGER},
+      </if>
+      <if test="gbgSort != null" >
+        gbg_sort = #{gbgSort,jdbcType=TINYINT},
+      </if>
+      <if test="gbgSuccessTime != null" >
+        gbg_success_time = #{gbgSuccessTime,jdbcType=CHAR},
+      </if>
+      <if test="gbgApplyTime != null" >
+        gbg_apply_time = #{gbgApplyTime,jdbcType=CHAR},
+      </if>
+      <if test="gbgState != null" >
+        gbg_state = #{gbgState,jdbcType=TINYINT},
+      </if>
+      <if test="gbgSeason != null" >
+        gbg_season = #{gbgSeason,jdbcType=VARCHAR},
+      </if>
+      <if test="gbgCover != null" >
+        gbg_cover = #{gbgCover,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where gbg_id = #{gbgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdGroupbuyGoods" >
+    update yd_groupbuy_goods
+    set groupbuy_id = #{groupbuyId,jdbcType=INTEGER},
+      depot_id = #{depotId,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      gbg_is_success = #{gbgIsSuccess,jdbcType=TINYINT},
+      gbg_already_num = #{gbgAlreadyNum,jdbcType=INTEGER},
+      gbg_open_num = #{gbgOpenNum,jdbcType=INTEGER},
+      gbg_sort = #{gbgSort,jdbcType=TINYINT},
+      gbg_success_time = #{gbgSuccessTime,jdbcType=CHAR},
+      gbg_apply_time = #{gbgApplyTime,jdbcType=CHAR},
+      gbg_state = #{gbgState,jdbcType=TINYINT},
+      gbg_season = #{gbgSeason,jdbcType=VARCHAR},
+      gbg_cover = #{gbgCover,jdbcType=VARCHAR}
+    where gbg_id = #{gbgId,jdbcType=INTEGER}
+  </update>
+</mapper>

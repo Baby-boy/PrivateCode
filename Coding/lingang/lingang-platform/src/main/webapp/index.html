@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="renderer" content="webkit">
+
+<title>临港管理后台 - 主页</title>
+<meta name="keywords" content="临港管理后台 - 主页">
+<meta name="description" content="临港管理后台 - 主页">
+
+<link href="css/bootstrap.min.css?v=3.4.0" rel="stylesheet">
+
+<link href="font-awesome/css/font-awesome.css?v=4.3.0" rel="stylesheet">
+
+<!-- Morris -->
+<link href="css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+
+<!-- Gritter -->
+<link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+<link href="css/animate.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
+<link href="css/admin.css" rel="stylesheet">
+<link href="css/base.css" rel="stylesheet">
+
+</head>
+
+<body  ng-controller="BaseController">
+
+	<div id="wrapper">
+		<!--左侧菜单开始-->
+		<nav class="navbar-default navbar-static-side" role="navigation">
+			<div class="sidebar-collapse">
+				<ul class="nav" id="side-menu">
+					<li class="nav-header">
+						<div class="dropdown profile-element">
+							<span><img alt="image" class="img-circle" src="img/profile_small.jpg" /></span> 
+							<a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+							<span class="clear">
+								<span class="block m-t-xs"> 
+									<strong class="font-bold" ng-bind="adminUser.telephone"></strong>
+								</span> 
+								<span class="text-muted text-xs block" ng-bind="adminUser.name"><b class="caret"></b></span>
+							</span>
+							</a>
+							<!-- <ul class="dropdown-menu animated fadeInRight m-t-xs">
+								<li><a href="#adminUser/picture/index">修改头像</a></li>
+								<li><a >个人资料</a></li>
+								<li><a >联系我们</a></li>
+								<li><a >信箱</a></li>
+								<li class="divider"></li>
+								<li><a href="login.html">安全退出</a></li>
+							</ul> -->
+						</div>
+						<div class="logo-element">LinGang</div>
+					</li>
+					<li ng-show="pStr.indexOf('/1/') != -1"><a href="index.html#"><i class="fa fa-th-large"></i>
+						<span class="nav-label">基础设置</span><span class="fa arrow"></span></a>
+						<ul class="nav nav-second-level">
+						    <li ng-show="pStr.indexOf('/2/') != -1"><a href="#/basics/sysBasics/sysBasicsTypePageList/index">基础类型</a></li>
+						    <li ng-show="pStr.indexOf('/3/') != -1"><a href="#/basics/sysPartnerType/sysPartnerTypePageList/index">合作类型</a></li>
+							<li ng-show="pStr.indexOf('/4/') != -1"><a href="#/basics/sysLabel/sysLabelTypePageList/index">标签管理</a></li>
+							<li ng-show="pStr.indexOf('/27/') != -1"><a href="#/basics/sysRegion/sysRegionTypePageList/index">地区管理</a></li>
+							<li ng-show="pStr.indexOf('/5/') != -1"><a href="#/basics/sysCompany/sysCompanyPageList/index">公司信息</a></li>
+						</ul>
+					</li>
+					<li ng-show="pStr.indexOf('/6/') != -1"><a href="index.html#"><i class="fa fa fa-columns"></i>
+						<span class="nav-label">首页置顶</span><span class="fa arrow"></span></a>
+						<ul class="nav nav-second-level">
+							<li ng-show="pStr.indexOf('/7/') != -1"><a href="#/home/sysNews/sysNewsPageList/index">新闻列表</a></li>
+							<li ng-show="pStr.indexOf('/8/') != -1"><a href="#/home/topPartner/topPartnerPageList/index">最新合作</a></li>
+							<li ng-show="pStr.indexOf('/9/') != -1"><a href="#/home/topStation/topStationPageList/index">最新入驻</a></li>
+							<li ng-show="pStr.indexOf('/10/') != -1"><a href="#/home/sysPolicy/sysPolicyPageList/index">政策列表</a></li>
+							<!-- <li ng-show="p_list.indexOf(302) != -1"><a href="#/information/information/index">关键字搜索</a></li> -->
+						</ul></li>
+					<li ng-show="pStr.indexOf('/11/') != -1"><a href="index.html#"><i class="fa fa fa-bar-chart-o"></i>
+						<span class="nav-label">查询设置</span><span class="fa arrow"></span></a>
+						<ul class="nav nav-second-level">
+							<!-- <li ng-show="p_list.indexOf(401) != -1"><a href="#/seek/basic/index">查询记录</a></li> -->
+							<li ng-show="pStr.indexOf('/12/') != -1"><a href="#/seek/sysPark/sysParkPageList/index">产业园区</a></li>
+							<li ng-show="pStr.indexOf('/13/') != -1"><a href="#/seek/sysPartner/sysPartnerPageList/index">合作伙伴</a></li>
+							<li ng-show="pStr.indexOf('/14/') != -1"><a href="#/seek/sysIndustry/sysIndustryPageList/index">产业集群</a></li>
+							<li ng-show="pStr.indexOf('/15/') != -1"><a href="#/seek/sysService/sysServicePageList/index">服务机构</a></li>
+							<li ng-show="pStr.indexOf('/16/') != -1"><a href="#/seek/sysStation/sysStationPageList/index">入驻企业</a></li>
+							<li ng-show="pStr.indexOf('/17/') != -1"><a href="#/seek/sysPublic/sysPublicPageList/index">公共平台</a></li>
+						</ul></li>
+					<li ng-show="pStr.indexOf('/18/') != -1"><a href="index.html#"><i class="fa fa fa-globe"></i>
+							<span class="nav-label">APP设置</span><span class="fa arrow"></span></a>
+						<ul class="nav nav-second-level">
+							<li ng-show="pStr.indexOf('/19/') != -1"><a href="#/app/appManager/sysUserPageList/index">APP账户</a></li>
+						</ul></li>
+					<li ng-show="pStr.indexOf('/20/') != -1"><a href="index.html#"><i class="fa fa-desktop"></i> 
+							<span class="nav-label">客服管理</span><span class="fa arrow"></span></a>
+						<ul class="nav nav-second-level">
+							<li ng-show="pStr.indexOf('/21/') != -1"><a href="#/message/messageError/errorCorrection/index">信息纠错</a></li>
+							<li ng-show="pStr.indexOf('/22/') != -1"><a href="#/message/feedBack/opinion/index">意见反馈</a></li>
+						</ul></li>
+					<li ng-show="pStr.indexOf('/23/') != -1"><a href="index.html#"><i class="fa fa-edit"></i>
+						<span class="nav-label">系统设置</span><span class="fa arrow"></span></a>
+						<ul class="nav nav-second-level">
+							<li ng-show="pStr.indexOf('/24/') != -1"><a href="#/system/sysManager/sysManagerPageList/index">管理员账户</a></li>
+							<li ng-show="pStr.indexOf('/24/') != -1"><a href="#system/sysManager/sysLogPageList/index">操作日志</a></li>
+						</ul></li>
+					<li ng-show="pStr.indexOf('/25/') != -1"><a href="index.html#"><i class="fa fa-cutlery"></i>
+						<span class="nav-label">站点发布系统</span><span class="fa arrow"></span></a>
+						<ul class="nav nav-second-level">
+							<li ng-show="pStr.indexOf('/26/') != -1"><a href="#/site/trs/wcm/index">站点发布系统</a></li>
+						</ul></li>
+				</ul>
+			</div>
+		</nav>
+		<!--左侧菜单结束-->
+		<!--右侧开始-->
+		<div id="page-wrapper" class="gray-bg dashbard-1">
+			<!--右侧头部开始-->
+			<div class="row border-bottom">
+				<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+					<div class="navbar-header">
+						<a class="navbar-minimalize minimalize-styl-2 btn btn-primary "><i class="fa fa-bars"></i> </a>
+						<!-- <form role="search" class="navbar-form-custom" method="post"
+							action="search_results.html">
+							<div class="form-group">
+								<input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search" id="top-search">
+							</div>
+						</form> -->
+					</div>
+					<ul class="nav navbar-top-links navbar-right">
+						<li><span class="m-r-sm text-muted welcome-message">
+							<a href="index.html#/index" title="返回首页"><i class="fa fa-home"></i></a>欢迎进入临港</span>
+						</li>
+						<li><a ng-click="logout()"><i class="fa fa-sign-out"></i>
+								退出 </a>
+						</li>
+					</ul>
+
+				</nav>
+			</div>
+			<!--右侧头部结束-->
+			<!--右侧标题开始-->
+			<!-- <div class="row  border-bottom white-bg dashboard-header">
+				<span class="label " ng-bind="nav1"></span><span ng-show="nav1!=''" ng-bind="'>>'"></span>
+				<span class="label " ng-bind="nav2"></span><span ng-show="nav2!=''" ng-bind="'>>'"></span>
+				<span class="label " ng-bind="nav3"></span>
+			</div> -->
+			<!--右侧头部结束-->
+
+			<!--右侧变化内容开始-->
+			<div class="row">
+				<div ng-view class="ng-scope"></div>
+			</div>
+			<!--右侧变化内容结束-->
+
+		</div>
+		<!--右侧结束-->
+	</div> 
+		<!-- <script>
+		function js_method(){
+			post('http://10.40.201.201:8124/wcm/app/login_dowith.jsp', {UserName :'admin',PassWord:'trsadmin'}); 
+		}
+		function post(URL, PARAMS) {        
+		    var temp = document.createElement("form");        
+		    temp.action = URL;        
+		    temp.target="_blank"
+		    temp.method = "post";        
+		    temp.style.display = "none";        
+		    for (var x in PARAMS) {        
+		        var opt = document.createElement("textarea");        
+		        opt.name = x;        
+		        opt.value = PARAMS[x];        
+		        // alert(opt.name)        
+		        temp.appendChild(opt);        
+		    }        
+		    document.body.appendChild(temp);        
+		    temp.submit();        
+		    return temp;        
+		}        
+	</script>  -->
+	<!-- <script>
+	    var require = {
+	        urlArgs: 'v=FxLsoft' + new Date().getTime()
+	    };
+	</script> -->
+	<script data-main="main" src="library/require/require-2.1.14.min.js"></script>
+<!-- 	<script src="js/utils.js"></script> -->
+	<!--<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>-->
+	<!--统计代码，可删除-->
+</body>
+
+</html>

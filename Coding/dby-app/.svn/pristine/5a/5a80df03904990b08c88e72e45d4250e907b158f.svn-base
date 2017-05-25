@@ -1,0 +1,19 @@
+package com.yd.dby.app.mapper;
+
+import com.yd.dby.app.entity.YdMessageCtc;
+
+public interface YdMessageCtcMapper {
+    int deleteByPrimaryKey(Integer messaeCtcId);
+
+    int insert(YdMessageCtc record);
+
+    int insertSelective(YdMessageCtc record);
+
+    YdMessageCtc selectByPrimaryKey(Integer messaeCtcId);
+
+    int updateByPrimaryKeySelective(YdMessageCtc record);
+
+    int updateByPrimaryKeyWithBLOBs(YdMessageCtc record);
+
+    int updateByPrimaryKey(YdMessageCtc record);
+}

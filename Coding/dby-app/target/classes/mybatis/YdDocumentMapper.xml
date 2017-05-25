@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdDocumentMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdDocument" >
+    <id column="doc_id" property="docId" jdbcType="INTEGER" />
+    <result column="doc_code" property="docCode" jdbcType="VARCHAR" />
+    <result column="doc_title" property="docTitle" jdbcType="VARCHAR" />
+    <result column="doc_time" property="docTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yd.dby.app.entity.YdDocument" extends="BaseResultMap" >
+    <result column="doc_content" property="docContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    doc_id, doc_code, doc_title, doc_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    doc_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from yd_document
+    where doc_id = #{docId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_document
+    where doc_id = #{docId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdDocument" >
+    insert into yd_document (doc_id, doc_code, doc_title, 
+      doc_time, doc_content)
+    values (#{docId,jdbcType=INTEGER}, #{docCode,jdbcType=VARCHAR}, #{docTitle,jdbcType=VARCHAR}, 
+      #{docTime,jdbcType=TIMESTAMP}, #{docContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdDocument" >
+    insert into yd_document
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="docId != null" >
+        doc_id,
+      </if>
+      <if test="docCode != null" >
+        doc_code,
+      </if>
+      <if test="docTitle != null" >
+        doc_title,
+      </if>
+      <if test="docTime != null" >
+        doc_time,
+      </if>
+      <if test="docContent != null" >
+        doc_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="docId != null" >
+        #{docId,jdbcType=INTEGER},
+      </if>
+      <if test="docCode != null" >
+        #{docCode,jdbcType=VARCHAR},
+      </if>
+      <if test="docTitle != null" >
+        #{docTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="docTime != null" >
+        #{docTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="docContent != null" >
+        #{docContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdDocument" >
+    update yd_document
+    <set >
+      <if test="docCode != null" >
+        doc_code = #{docCode,jdbcType=VARCHAR},
+      </if>
+      <if test="docTitle != null" >
+        doc_title = #{docTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="docTime != null" >
+        doc_time = #{docTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="docContent != null" >
+        doc_content = #{docContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where doc_id = #{docId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yd.dby.app.entity.YdDocument" >
+    update yd_document
+    set doc_code = #{docCode,jdbcType=VARCHAR},
+      doc_title = #{docTitle,jdbcType=VARCHAR},
+      doc_time = #{docTime,jdbcType=TIMESTAMP},
+      doc_content = #{docContent,jdbcType=LONGVARCHAR}
+    where doc_id = #{docId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdDocument" >
+    update yd_document
+    set doc_code = #{docCode,jdbcType=VARCHAR},
+      doc_title = #{docTitle,jdbcType=VARCHAR},
+      doc_time = #{docTime,jdbcType=TIMESTAMP}
+    where doc_id = #{docId,jdbcType=INTEGER}
+  </update>
+</mapper>

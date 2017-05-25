@@ -1,0 +1,172 @@
+<link href="css/layout.css" rel="stylesheet">
+<link href="library/umeditor/themes/default/css/umeditor.css"
+	media="all" rel="stylesheet" type="text/css" />
+<div class="row" ng-controller="sysPublicAddCtrl">
+	<div class="col-lg-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>基础信息</h5>
+			</div>
+			<div class="ibox-content">
+				<form class="form-horizontal" role="form">
+
+					<div class="form-group">
+						<label for="publicTitle" class="col-sm-2 control-label">公共平台标题</label>
+						<div class="col-sm-3">
+							<input type="publicTitle" class="form-control" id="publicTitle"
+								placeholder="" ng-model="pPublic.publicTitle">
+						</div>
+
+						<label for="publicAddress" class="col-sm-2 control-label">详细地址</label>
+						<div class="col-sm-3">
+							<input type="publicAddress" class="form-control"
+								id="publicAddress" placeholder=""
+								ng-model="pPublic.publicAddress">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="publicFax" class="col-sm-2 control-label">传真</label>
+						<div class="col-sm-3">
+							<input type="publicFax" class="form-control" id="publicFax"
+								placeholder="" ng-model="pPublic.publicFax">
+						</div>
+
+						<label for="publicLink" class="col-sm-2 control-label">网址</label>
+						<div class="col-sm-3">
+							<input type="publicLink" class="form-control" id="publicLink"
+								placeholder="" ng-model="pPublic.publicLink">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="publicCompany" class="col-sm-2 control-label">所属公司</label>
+						<div class="col-sm-3">
+							<input type="publicCompany" class="form-control"
+								id="publicCompany" placeholder=""
+								ng-model="pPublic.publicCompany">
+						</div>
+
+						<label for="publicState" class="col-sm-2 control-label">状态</label>
+						<div class="col-sm-3">
+							<select type="publicState" class="form-control" id="publicState"
+								placeholder="" ng-model="pPublic.publicState">
+								<option value="1">上传</option>
+								<option value="2">发布</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="regionId" class="col-sm-2 control-label">地区名称</label>
+						<div class="col-sm-3">
+							<select id="regionId"
+								ng-options="region.regionId as region.regionName for region in regionList"
+								class="form-control" ng-model="pPublic.regionId">
+								<option value="">请选择</option>
+							</select>
+						</div>
+
+						<label for="basicsId" class="col-sm-2 control-label">开放层级</label>
+						<div class="col-sm-3">
+							<select id="basicsId"
+								ng-options="basics.basicsId as basics.basicsName for basics in basicsList"
+								class="form-control" ng-model="pPublic.basicsId">
+								<option value="">请选择</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="parkContent" class="col-md-2 control-label">详情图</label>
+						<div class="col-md-8">
+							<div class="white-bg mt-10 p-10">
+								<div class="col-lg-6">
+									<div class="img-load">
+										<img ng-src="{{imgSrcMax}}" />
+									</div>
+								</div>
+								<div class="col-lg-6 m-t-xs">
+									<div>
+										<div type="button" class="btn btn-w-m btn-primary file-btn">
+											<div file-input="fileMax" id="fileMax"
+												on-change="previewImageMax()"
+												accept="image/jpg,image/jpeg,image/png"></div>
+											浏览
+										</div>
+									</div>
+
+									<div class="mt-10">
+										<button type="button" class="btn btn-w-m btn-primary"
+											ng-click="uploadImageMax('fileMax')">上传</button>
+									</div>
+									<div class="row">
+										<div class="mt-10 col-md-6">
+											<!-- <input ng-model="home.url" type="text" class="form-control" placeholder="编辑链接(非必填)"/> -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="parkContent" class="col-md-2 control-label">缩略图</label>
+						<div class="col-md-8">
+							<div class="white-bg mt-10 p-10">
+								<div class="col-lg-6">
+									<div class="img-load">
+										<img ng-src="{{imgSrcMin}}" />
+									</div>
+								</div>
+								<div class="col-lg-6 m-t-xs">
+									<div>
+										<div type="button" class="btn btn-w-m btn-primary file-btn">
+											<div file-input="fileMin" id="fileMin"
+												on-change="previewImageMin()"
+												accept="image/jpg,image/jpeg,image/png"></div>
+											浏览
+										</div>
+									</div>
+
+									<div class="mt-10">
+										<button type="button" class="btn btn-w-m btn-primary"
+											ng-click="uploadImageMin('fileMin')">上传</button>
+									</div>
+									<div class="row">
+										<div class="mt-10 col-md-6">
+											<!-- <input ng-model="home.url" type="text" class="form-control" placeholder="编辑链接(非必填)"/> -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="publicContent" class="col-sm-2 control-label">园区简介</label>
+						<div class="col-sm-8">
+							<textarea class="form-control" name="publicContent"
+								id="publicContent"></textarea>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-2"></div>
+						<div class="col-sm-1">
+							<button type="button" class="btn btn-primary"
+								ng-click="addPublicDetails()">确认保存</button>
+						</div>
+						<!-- <div class="col-sm-1">
+					      <input type="button" class="btn btn-primary" onclick="javascript:history.go(-1)" value="返回列表"/>
+					    </div> -->
+					</div>
+
+				</form>
+				<div></div>
+			</div>
+		</div>
+	</div>
+
+</div>
+

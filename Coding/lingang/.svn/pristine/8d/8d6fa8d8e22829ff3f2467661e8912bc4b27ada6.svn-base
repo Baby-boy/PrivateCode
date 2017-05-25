@@ -1,0 +1,43 @@
+package com.lingang.api.domain.vo;
+
+import java.io.Serializable;
+
+public class SysPartnerNewAddStatisticsVo implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5186440807437867827L;
+
+    private String createYear;
+    
+    private String createMonth;
+    
+    private Integer countAdd;
+
+
+	public String getCreateYear() {
+		return createYear;
+	}
+
+	public void setCreateYear(String createYear) {
+		this.createYear = createYear;
+	}
+
+	public String getCreateMonth() {
+		return createMonth;
+	}
+
+	public void setCreateMonth(String createMonth) {
+		this.createMonth = createMonth;
+	}
+
+	public Integer getCountAdd() {
+		return countAdd;
+	}
+
+	public void setCountAdd(Integer countAdd) {
+		this.countAdd = countAdd;
+	}
+    
+    
+}

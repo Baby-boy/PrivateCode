@@ -1,0 +1,21 @@
+/*基础设置列表*/
+define(['mySession', 'route-config', 'serviceBase','layer','My97DatePicker'], function (mySession, routeConfig, serviceBase,My97DatePicker) {
+    var _controller = function($scope, $http, $routeParams, $location,sysBasicsService){
+
+    	//    	$scope.para={};
+//    	$scope.getSystemList=function(){
+//    		$scope.para.pageIndex =1;
+//    		$scope.para.pageSize =10;
+//    		sysManagerService.sysManagerPagePageList($http,$scope.para).then(function(data) {
+//    			if(data.stateCode=="1000"){
+//    				$scope.managerList=data.data.list;
+//    			}else{
+//    				alert("请求失败，请稍后再试");
+//    			}
+//    		});
+//    	};
+//    	
+//    	$scope.getSystemList();
+    };
+    return ["sysBasicsTypeCtrl", _controller];
+});

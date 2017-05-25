@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysStationWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_station
+    where station_id = #{stationId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysStation" >
+    insert into sys_station (station_id, region_id, img_id, 
+      station_title, station_simple, is_fictitious, 
+      reg_number, credit_code, station_company, 
+      create_time, update_time, loss_state, 
+      station_state, station_content)
+    values (#{stationId,jdbcType=INTEGER}, #{regionId,jdbcType=INTEGER}, #{imgId,jdbcType=INTEGER}, 
+      #{stationTitle,jdbcType=VARCHAR}, #{stationSimple,jdbcType=VARCHAR}, #{isFictitious,jdbcType=INTEGER}, 
+      #{regNumber,jdbcType=VARCHAR}, #{creditCode,jdbcType=VARCHAR}, #{stationCompany,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{lossState,jdbcType=INTEGER}, 
+      #{stationState,jdbcType=INTEGER}, #{stationContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="stationId" parameterType="com.lingang.api.domain.entity.SysStation" >
+    insert into sys_station
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stationId != null" >
+        station_id,
+      </if>
+      <if test="regionId != null" >
+        region_id,
+      </if>
+      <if test="imgId != null" >
+        img_id,
+      </if>
+      <if test="stationTitle != null" >
+        station_title,
+      </if>
+      <if test="stationSimple != null" >
+        station_simple,
+      </if>
+      <if test="isFictitious != null" >
+        is_fictitious,
+      </if>
+      <if test="regNumber != null" >
+        reg_number,
+      </if>
+      <if test="creditCode != null" >
+        credit_code,
+      </if>
+      <if test="stationCompany != null" >
+        station_company,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="lossState != null" >
+        loss_state,
+      </if>
+      <if test="stationState != null" >
+        station_state,
+      </if>
+      <if test="stationContent != null" >
+        station_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stationId != null" >
+        #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="regionId != null" >
+        #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="stationTitle != null" >
+        #{stationTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="stationSimple != null" >
+        #{stationSimple,jdbcType=VARCHAR},
+      </if>
+      <if test="isFictitious != null" >
+        #{isFictitious,jdbcType=INTEGER},
+      </if>
+      <if test="regNumber != null" >
+        #{regNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="creditCode != null" >
+        #{creditCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stationCompany != null" >
+        #{stationCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lossState != null" >
+        #{lossState,jdbcType=INTEGER},
+      </if>
+      <if test="stationState != null" >
+        #{stationState,jdbcType=INTEGER},
+      </if>
+      <if test="stationContent != null" >
+        #{stationContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+    <insert id="insertTopSelective" useGeneratedKeys="true" keyProperty="stationId" parameterType="com.lingang.api.domain.entity.SysStation" >
+    insert into sys_station
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stationId != null" >
+        station_id,
+      </if>
+      <if test="regionId != null" >
+        region_id,
+      </if>
+      <if test="imgId != null" >
+        img_id,
+      </if>
+      <if test="stationTitle != null" >
+        station_title,
+      </if>
+      <if test="stationSimple != null" >
+        station_simple,
+      </if>
+      <if test="isFictitious != null" >
+        is_fictitious,
+      </if>
+      <if test="regNumber != null" >
+        reg_number,
+      </if>
+      <if test="creditCode != null" >
+        credit_code,
+      </if>
+      <if test="stationCompany != null" >
+        station_company,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="lossState != null" >
+        loss_state,
+      </if>
+      <if test="stationState != null" >
+        station_state,
+      </if>
+      <if test="stationContent != null" >
+        station_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stationId != null" >
+        #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="regionId != null" >
+        #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="stationTitle != null" >
+        #{stationTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="stationSimple != null" >
+        #{stationSimple,jdbcType=VARCHAR},
+      </if>
+      <if test="isFictitious != null" >
+        #{isFictitious,jdbcType=INTEGER},
+      </if>
+      <if test="regNumber != null" >
+        #{regNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="creditCode != null" >
+        #{creditCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stationCompany != null" >
+        #{stationCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lossState != null" >
+        #{lossState,jdbcType=INTEGER},
+      </if>
+      <if test="stationState != null" >
+        #{stationState,jdbcType=INTEGER},
+      </if>
+      <if test="stationContent != null" >
+        #{stationContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysStation" >
+    update sys_station
+    <set >
+      <if test="regionId != null" >
+        region_id = #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="imgId != null" >
+        img_id = #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="stationTitle != null" >
+        station_title = #{stationTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="stationSimple != null" >
+        station_simple = #{stationSimple,jdbcType=VARCHAR},
+      </if>
+      <if test="isFictitious != null" >
+        is_fictitious = #{isFictitious,jdbcType=INTEGER},
+      </if>
+      <if test="regNumber != null" >
+        reg_number = #{regNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="creditCode != null" >
+        credit_code = #{creditCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stationCompany != null" >
+        station_company = #{stationCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lossState != null" >
+        loss_state = #{lossState,jdbcType=INTEGER},
+      </if>
+      <if test="stationState != null" >
+        station_state = #{stationState,jdbcType=INTEGER},
+      </if>
+      <if test="stationContent != null" >
+        station_content = #{stationContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="topState != null" >
+        top_state = #{topState,jdbcType=INTEGER},
+      </if>
+      <if test="topTime != null" >
+        top_time = #{topTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where station_id = #{stationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lingang.api.domain.entity.SysStation" >
+    update sys_station
+    set region_id = #{regionId,jdbcType=INTEGER},
+      img_id = #{imgId,jdbcType=INTEGER},
+      station_title = #{stationTitle,jdbcType=VARCHAR},
+      station_simple = #{stationSimple,jdbcType=VARCHAR},
+      is_fictitious = #{isFictitious,jdbcType=INTEGER},
+      reg_number = #{regNumber,jdbcType=VARCHAR},
+      credit_code = #{creditCode,jdbcType=VARCHAR},
+      station_company = #{stationCompany,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      loss_state = #{lossState,jdbcType=INTEGER},
+      station_state = #{stationState,jdbcType=CHAR},
+      station_content = #{stationContent,jdbcType=LONGVARCHAR}
+    where station_id = #{stationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysStation" >
+    update sys_station
+    set region_id = #{regionId,jdbcType=INTEGER},
+      img_id = #{imgId,jdbcType=INTEGER},
+      station_title = #{stationTitle,jdbcType=VARCHAR},
+      station_simple = #{stationSimple,jdbcType=VARCHAR},
+      is_fictitious = #{isFictitious,jdbcType=INTEGER},
+      reg_number = #{regNumber,jdbcType=VARCHAR},
+      credit_code = #{creditCode,jdbcType=VARCHAR},
+      station_company = #{stationCompany,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      loss_state = #{lossState,jdbcType=INTEGER},
+      station_state = #{stationState,jdbcType=CHAR}
+    where station_id = #{stationId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdFeedbackMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdFeedback" >
+    <id column="feedback_id" property="feedbackId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="feedback_created_time" property="feedbackCreatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yd.dby.app.entity.YdFeedback" extends="BaseResultMap" >
+    <result column="feedback_content" property="feedbackContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    feedback_id, user_id, feedback_created_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    feedback_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from yd_feedback
+    where feedback_id = #{feedbackId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_feedback
+    where feedback_id = #{feedbackId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdFeedback" >
+    insert into yd_feedback (feedback_id, user_id, feedback_created_time, 
+      feedback_content)
+    values (#{feedbackId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{feedbackCreatedTime,jdbcType=TIMESTAMP}, 
+      #{feedbackContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdFeedback" >
+    insert into yd_feedback
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="feedbackId != null" >
+        feedback_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="feedbackCreatedTime != null" >
+        feedback_created_time,
+      </if>
+      <if test="feedbackContent != null" >
+        feedback_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="feedbackId != null" >
+        #{feedbackId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="feedbackCreatedTime != null" >
+        #{feedbackCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="feedbackContent != null" >
+        #{feedbackContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdFeedback" >
+    update yd_feedback
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="feedbackCreatedTime != null" >
+        feedback_created_time = #{feedbackCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="feedbackContent != null" >
+        feedback_content = #{feedbackContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where feedback_id = #{feedbackId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yd.dby.app.entity.YdFeedback" >
+    update yd_feedback
+    set user_id = #{userId,jdbcType=INTEGER},
+      feedback_created_time = #{feedbackCreatedTime,jdbcType=TIMESTAMP},
+      feedback_content = #{feedbackContent,jdbcType=LONGVARCHAR}
+    where feedback_id = #{feedbackId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdFeedback" >
+    update yd_feedback
+    set user_id = #{userId,jdbcType=INTEGER},
+      feedback_created_time = #{feedbackCreatedTime,jdbcType=TIMESTAMP}
+    where feedback_id = #{feedbackId,jdbcType=INTEGER}
+  </update>
+</mapper>

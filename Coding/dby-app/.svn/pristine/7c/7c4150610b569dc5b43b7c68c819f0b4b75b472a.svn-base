@@ -1,0 +1,9 @@
+package com.yd.dby.app.mapper;
+
+import com.yd.dby.app.entity.YdThridpartyLogin;
+
+public interface YdThridpartyLoginMapper {
+    int insert(YdThridpartyLogin record);
+
+    int insertSelective(YdThridpartyLogin record);
+}

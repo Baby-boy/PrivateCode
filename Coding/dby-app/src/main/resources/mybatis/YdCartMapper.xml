@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdCartMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdCart" >
+    <id column="cart_id" property="cartId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="depot_id" property="depotId" jdbcType="INTEGER" />
+    <result column="cart_num" property="cartNum" jdbcType="INTEGER" />
+    <result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_summary" property="goodsSummary" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="goods_cover" property="goodsCover" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cart_id, user_id, store_id, depot_id, cart_num, goods_price, goods_name, goods_summary, 
+    store_name, goods_cover, created_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_cart
+    where cart_id = #{cartId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_cart
+    where cart_id = #{cartId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdCart" >
+    insert into yd_cart (cart_id, user_id, store_id, 
+      depot_id, cart_num, goods_price, 
+      goods_name, goods_summary, store_name, 
+      goods_cover, created_time)
+    values (#{cartId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, 
+      #{depotId,jdbcType=INTEGER}, #{cartNum,jdbcType=INTEGER}, #{goodsPrice,jdbcType=DECIMAL}, 
+      #{goodsName,jdbcType=VARCHAR}, #{goodsSummary,jdbcType=VARCHAR}, #{storeName,jdbcType=VARCHAR}, 
+      #{goodsCover,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdCart" >
+    insert into yd_cart
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cartId != null" >
+        cart_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="depotId != null" >
+        depot_id,
+      </if>
+      <if test="cartNum != null" >
+        cart_num,
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsSummary != null" >
+        goods_summary,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="goodsCover != null" >
+        goods_cover,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cartId != null" >
+        #{cartId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="depotId != null" >
+        #{depotId,jdbcType=INTEGER},
+      </if>
+      <if test="cartNum != null" >
+        #{cartNum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null" >
+        #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSummary != null" >
+        #{goodsSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCover != null" >
+        #{goodsCover,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdCart" >
+    update yd_cart
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="depotId != null" >
+        depot_id = #{depotId,jdbcType=INTEGER},
+      </if>
+      <if test="cartNum != null" >
+        cart_num = #{cartNum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSummary != null" >
+        goods_summary = #{goodsSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCover != null" >
+        goods_cover = #{goodsCover,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cart_id = #{cartId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdCart" >
+    update yd_cart
+    set user_id = #{userId,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
+      depot_id = #{depotId,jdbcType=INTEGER},
+      cart_num = #{cartNum,jdbcType=INTEGER},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_summary = #{goodsSummary,jdbcType=VARCHAR},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      goods_cover = #{goodsCover,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP}
+    where cart_id = #{cartId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 所有查询 -->
+  <!-- 购物车列表结果集Map -->
+  <resultMap id="CartVoMap" type="com.yd.dby.app.entity.vo.CartVo" >
+    <id column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="store_banner" property="storeBanner" jdbcType="VARCHAR" />
+    <result column="cart_store_name" property="cartStoreName" jdbcType="VARCHAR" />
+    <result column="store_expire" property="storeExpire" jdbcType="INTEGER" />
+    
+    <collection property="cartStoreGoodsList" ofType="com.yd.dby.app.entity.vo.CartStoreGoodsVo">
+  		<result column="cart_id" property="cartId" jdbcType="INTEGER" />
+  		<result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+  		<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+  		<result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+  		<result column="goods_cover" property="goodsCover" jdbcType="VARCHAR" />
+  		<result column="goods_summary" property="goodsSummary" jdbcType="VARCHAR" />
+  		<result column="goods_freight" property="goodsFreight" jdbcType="DECIMAL" />
+  		<result column="cart_num" property="cartNum" jdbcType="INTEGER" />
+  		<result column="cart_goods_name" property="cartGoodsName" jdbcType="VARCHAR" />
+  		<result column="cart_goods_price" property="cartGoodsPrice" jdbcType="DECIMAL" />
+  		<result column="cart_goods_cover" property="cartGoodsCover" jdbcType="VARCHAR" />
+  		<result column="cart_goods_summary" property="cartGoodsSummary" jdbcType="VARCHAR" />
+  		<result column="goods_expire" property="goodsExpire" jdbcType="INTEGER" />
+  	</collection>
+  </resultMap>
+  
+  <!-- 根据商品ID查询用户购物车 -->
+  <select id="selectGoodsFromCart" resultType="YdCart">
+  	select 
+  		cart_id,cart_num 
+  	from 
+  		yd_cart 
+  	where depot_id=#{depotId} and user_id=#{userId}
+  </select>
+  
+  <!-- 查询用户购物车列表 -->
+  <select id="selectCartPageList" resultMap="CartVoMap">
+  	select 
+  		yc.cart_id,yc.store_id,yc.cart_num,yc.store_name cart_store_name,ys.store_name,ys.store_banner,ys.store_id store_expire,
+		yc.goods_name cart_goods_name,yc.goods_price cart_goods_price,yc.goods_cover cart_goods_cover,yc.goods_summary cart_goods_summary,
+		yg.goods_id,yg.goods_name,yg.goods_price,yg.goods_cover,yg.goods_summary,yg.goods_freight,yd.depot_id goods_expire
+	from 
+		yd_cart yc
+	left join (select depot_id,goods_id from yd_depot where depot_is_available=1) yd on yd.depot_id=yc.depot_id
+	left join yd_goods yg on yd.goods_id=yg.goods_id 
+	left join (select store_id,store_name,store_banner from yd_store where store_is_available=1) ys on ys.store_id=yc.store_id
+	where yc.user_id=#{userId}
+	order by yc.created_time desc
+  </select>
+  
+  <!-- 编辑购物车购买数量 -->
+  <update id="updateCartGoodsNum">
+  	<foreach collection="paraList" item="cartPara" open="" close="" separator=";">
+		update 
+			yd_cart yc  
+		<set>
+			yc.cart_num = #{cartPara.cartNum}
+		</set>
+		where
+			yc.cart_id = #{cartPara.cartId}
+	 </foreach>
+  </update>
+  
+  <!-- 删除购物车中商品 -->
+  <delete id="deleteCartGoods">
+  	delete from 
+  		yd_cart
+	where 
+		cart_id in
+	<foreach collection="cartIds" item="cartIds" open="(" close=")" separator=",">
+		#{cartIds}
+	</foreach>
+  </delete>
+</mapper>

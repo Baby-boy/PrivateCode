@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysPublicLabelReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysPublicLabel" >
+    <id column="public_label_id" property="publicLabelId" jdbcType="INTEGER" />
+    <result column="label_id" property="labelId" jdbcType="INTEGER" />
+    <result column="public_id" property="publicId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    public_label_id, label_id, public_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_public_label
+    where public_label_id = #{publicLabelId,jdbcType=INTEGER}
+  </select>
+</mapper>

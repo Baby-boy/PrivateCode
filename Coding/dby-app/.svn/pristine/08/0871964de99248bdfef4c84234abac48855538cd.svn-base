@@ -1,0 +1,19 @@
+package com.yd.dby.app.mapper;
+
+import com.yd.dby.app.entity.YdDict;
+
+public interface YdDictMapper {
+    int deleteByPrimaryKey(Integer dictId);
+
+    int insert(YdDict record);
+
+    int insertSelective(YdDict record);
+
+    YdDict selectByPrimaryKey(Integer dictId);
+
+    int updateByPrimaryKeySelective(YdDict record);
+
+    int updateByPrimaryKeyWithBLOBs(YdDict record);
+
+    int updateByPrimaryKey(YdDict record);
+}

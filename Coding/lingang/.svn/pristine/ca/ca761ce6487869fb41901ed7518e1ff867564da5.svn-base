@@ -1,0 +1,23 @@
+package com.lingang.api.service;
+
+import org.apache.poi.hssf.record.formula.functions.T;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+
+/**
+ * 
+ * @author adminhgx
+ *
+ */
+public interface SysSearchService {
+
+	/**
+	 * 
+	 * @param pageIndex
+	 * @param pageSize
+	 * @return
+	 */
+	ServiceResult<Page<T>> searchStatisticsPageList(String keywords, Integer pageIndex, Integer pageSize);
+
+}

@@ -1,0 +1,15 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/resources=UTF-8
+encoding//src/main/resources/config=UTF-8
+encoding//src/main/webapp/views/index.html=UTF-8
+encoding//src/main/webapp/views/seek/sysPark/sysParkAdd.html=UTF-8
+encoding//src/main/webapp/views/seek/sysPark/sysParkDetails.html=UTF-8
+encoding//src/main/webapp/views/seek/sysPark/sysParkPageList.html=UTF-8
+encoding//src/main/webapp/views/seek/sysPublic/sysPublicPageList.html=UTF-8
+encoding//src/main/webapp/views/system/appManager/main.html=UTF-8
+encoding//src/main/webapp/views/system/appManager/sysUserPageList.html=UTF-8
+encoding//src/main/webapp/views/system/sysManager/main.html=UTF-8
+encoding//src/main/webapp/views/system/sysManager/sysManagerPageList.html=UTF-8
+encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8

@@ -1,0 +1,98 @@
+define(['mySession', 'route-config', 'serviceBase','layer','My97DatePicker','uEditor', 'uEditorConfig', 'uEditorCulture','ajaxUpload'], function (mySession, routeConfig, serviceBase,My97DatePicker) {
+    var _controller = function($scope, $http, $routeParams, $location,sysNewsService){
+    	var ue = UM.getEditor('newsContent',{
+	        initialFrameWidth:'100%',
+	        initialFrameHeight:200
+        });
+    	
+    	
+    	//请求参数
+    	$scope.para={
+    			newsTitle:"",
+    			newsAuthor:"",
+    			newsContent:"",
+    			newsIsup:2,
+    			imgId:""
+    	};
+    	//列表数据
+    	$scope.sysNewsAddMsg=[];
+    	
+    	ue.setContent($scope.para.newsContent);
+    	
+    	 //图片(大图)
+    	$scope.imgSrcMax = "";
+        $scope.previewImageMax = function(){
+    		$scope.imgSrcMax = window.imgUrl;
+  		};
+		$scope.delPreImgMax = function(){
+			$scope.imgSrcMax = "";
+		};
+    	//上传
+	      $scope.uploadImageMax = function(file){
+				if(!$scope.imgSrcMax){
+					layer.msg("未选择图片", 2, 2);
+					return;
+				}
+	  		var url = "fileUpload/imageUpload.do";
+	  		var data = {
+	  				objectId:0,
+	  				objectNo:0,
+	  				objectType:2
+	  		};
+	  		$.ajaxFileUpload({
+						url:url,
+						secureuri:false,
+						fileElementId:file,
+						dataType:'json',
+						data:data,
+						success:function(data){
+//							console.log(data);
+//							if(data.stateCode == "00"){ alert(data.message);
+//			  	        		mySession.logout();
+//			  	        		window.location=serviceBase.url+"login.html";
+//			  	        		return;
+//			   				}
+							if(data.stateCode="1000"){
+								$scope.$apply(function(){
+									$scope.para.imgId=data.data.imgId;
+//									$scope.park.maxImgPath=data.data.imgPath;
+//									$scope.imgSrc = "";
+								});
+								layer.msg('上传成功', 2, 1);
+							}
+						},
+						error:function(data){
+							layer.msg('系统繁忙，请稍后再试!', 2, 2);
+						}
+				});
+	  	};
+    	
+    	//获取列表
+    	$scope.getNewsAdd=function(){
+    		$scope.para.newsContent = ue.getContent();
+    		var para = $scope.para;
+    		if(para.newsTitle==null||para.newsTitle==""||para.newsAuthor==null||para.newsAuthor==""||para.newsContent==null||para.newsContent==""){
+    			alert("部分内容为空，请完善后再进行提交！");
+    			return;
+    		}
+    		sysNewsService.sysNewsAdd($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				if(window.confirm("添加成功！是否继续添加信息？")){
+    					$("input").val("");
+    					$("textarea").val("");
+    				}else{
+    					location.href="#/home/sysNews/sysNewsPageList/index";
+    				}
+    				//页数获取
+    				$scope.paginationConf.totalItems=data.data.data.countRecord;
+    			}else if(data.stateCode=="501"){
+					alert(data.message);
+				}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    		});
+    	};
+    	
+    };
+    return ["sysNewsAddCtrl", _controller];
+});

@@ -1,0 +1,43 @@
+package com.lingang.api.service;
+
+import java.util.List;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.para.SysStationPara;
+import com.lingang.api.domain.pfvo.SysStationPfVo;
+import com.lingang.api.domain.vo.SysStationVo;
+
+public interface SysStationService {
+	/**
+	 * @Description: (入驻列表)
+	 * @param regionId
+	 * @param industryIds
+	 * @param pageIndex
+	 * @param pageSize
+	 * @return
+	 * @author gsh(15136390655@163.com)
+	 * @date: 2016年12月5日 下午10:16:22
+	 */
+	ServiceResult<Page<SysStationVo>> selectSysStationAll(Integer regionId, Integer regionTypeId,
+			List<Integer> industryIds, List<Integer> label_ids, Integer pageIndex, Integer pageSize);
+
+	/**
+	 * @Description: (入驻详情)
+	 * @param stationId
+	 * @return
+	 * @author gsh(15136390655@163.com)
+	 * @date: 2016年12月6日 上午1:06:38
+	 */
+	ServiceResult<SysStationVo> selectByPrimaryKey(Integer stationId);
+
+	/**
+	 * @Description: (查询入驻企业列表_后台)
+	 * @param para
+	 * @return 参数注释
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月9日 上午12:55:52
+	 */
+	ServiceResult<Page<SysStationPfVo>> selectSysStationPfVoPageList(SysStationPara para);
+
+}

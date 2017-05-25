@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdMoneyRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdMoneyRecord" >
+    <id column="money_id" property="moneyId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="money_fid" property="moneyFid" jdbcType="INTEGER" />
+    <result column="money_pay_no" property="moneyPayNo" jdbcType="VARCHAR" />
+    <result column="money_num" property="moneyNum" jdbcType="DOUBLE" />
+    <result column="money_type" property="moneyType" jdbcType="TINYINT" />
+    <result column="money_content" property="moneyContent" jdbcType="VARCHAR" />
+    <result column="money_created_time" property="moneyCreatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    money_id, user_id, money_fid, money_pay_no, money_num, money_type, money_content, 
+    money_created_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_money_record
+    where money_id = #{moneyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_money_record
+    where money_id = #{moneyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdMoneyRecord" >
+    insert into yd_money_record (money_id, user_id, money_fid, 
+      money_pay_no, money_num, money_type, 
+      money_content, money_created_time)
+    values (#{moneyId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{moneyFid,jdbcType=INTEGER}, 
+      #{moneyPayNo,jdbcType=VARCHAR}, #{moneyNum,jdbcType=DOUBLE}, #{moneyType,jdbcType=TINYINT}, 
+      #{moneyContent,jdbcType=VARCHAR}, #{moneyCreatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdMoneyRecord" >
+    insert into yd_money_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="moneyId != null" >
+        money_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="moneyFid != null" >
+        money_fid,
+      </if>
+      <if test="moneyPayNo != null" >
+        money_pay_no,
+      </if>
+      <if test="moneyNum != null" >
+        money_num,
+      </if>
+      <if test="moneyType != null" >
+        money_type,
+      </if>
+      <if test="moneyContent != null" >
+        money_content,
+      </if>
+      <if test="moneyCreatedTime != null" >
+        money_created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="moneyId != null" >
+        #{moneyId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="moneyFid != null" >
+        #{moneyFid,jdbcType=INTEGER},
+      </if>
+      <if test="moneyPayNo != null" >
+        #{moneyPayNo,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyNum != null" >
+        #{moneyNum,jdbcType=DOUBLE},
+      </if>
+      <if test="moneyType != null" >
+        #{moneyType,jdbcType=TINYINT},
+      </if>
+      <if test="moneyContent != null" >
+        #{moneyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyCreatedTime != null" >
+        #{moneyCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdMoneyRecord" >
+    update yd_money_record
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="moneyFid != null" >
+        money_fid = #{moneyFid,jdbcType=INTEGER},
+      </if>
+      <if test="moneyPayNo != null" >
+        money_pay_no = #{moneyPayNo,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyNum != null" >
+        money_num = #{moneyNum,jdbcType=DOUBLE},
+      </if>
+      <if test="moneyType != null" >
+        money_type = #{moneyType,jdbcType=TINYINT},
+      </if>
+      <if test="moneyContent != null" >
+        money_content = #{moneyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyCreatedTime != null" >
+        money_created_time = #{moneyCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where money_id = #{moneyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdMoneyRecord" >
+    update yd_money_record
+    set user_id = #{userId,jdbcType=INTEGER},
+      money_fid = #{moneyFid,jdbcType=INTEGER},
+      money_pay_no = #{moneyPayNo,jdbcType=VARCHAR},
+      money_num = #{moneyNum,jdbcType=DOUBLE},
+      money_type = #{moneyType,jdbcType=TINYINT},
+      money_content = #{moneyContent,jdbcType=VARCHAR},
+      money_created_time = #{moneyCreatedTime,jdbcType=TIMESTAMP}
+    where money_id = #{moneyId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysPartnerWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_partner
+    where partner_id = #{partnerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysPartner" >
+    insert into sys_partner (partner_id, type_id, img_id, 
+      logo_img_id, basics_id, partner_name, 
+      partner_simple, partner_company, create_time, 
+      update_time, partner_state, partner_content
+      )
+    values (#{partnerId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{imgId,jdbcType=INTEGER}, 
+      #{logoImgId,jdbcType=INTEGER}, #{basicsId,jdbcType=INTEGER}, #{partnerName,jdbcType=VARCHAR}, 
+      #{partnerSimple,jdbcType=VARCHAR}, #{partnerCompany,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{partnerState,jdbcType=CHAR}, #{partnerContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="partnerId" parameterType="com.lingang.api.domain.entity.SysPartner" >
+    insert into sys_partner
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="partnerId != null" >
+        partner_id,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="imgId != null" >
+        img_id,
+      </if>
+      <if test="logoImgId != null" >
+        logo_img_id,
+      </if>
+      <if test="basicsId != null" >
+        basics_id,
+      </if>
+      <if test="partnerName != null" >
+        partner_name,
+      </if>
+      <if test="partnerSimple != null" >
+        partner_simple,
+      </if>
+      <if test="partnerCompany != null" >
+        partner_company,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="partnerState != null" >
+        partner_state,
+      </if>
+      <if test="partnerContent != null" >
+        partner_content,
+      </if>
+      <if test="signTime != null" >
+       sign_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="partnerId != null" >
+        #{partnerId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="logoImgId != null" >
+        #{logoImgId,jdbcType=INTEGER},
+      </if>
+      <if test="basicsId != null" >
+        #{basicsId,jdbcType=INTEGER},
+      </if>
+      <if test="partnerName != null" >
+        #{partnerName,jdbcType=VARCHAR},
+      </if>
+      <if test="partnerSimple != null" >
+        #{partnerSimple,jdbcType=VARCHAR},
+      </if>
+      <if test="partnerCompany != null" >
+        #{partnerCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partnerState != null" >
+        #{partnerState,jdbcType=CHAR},
+      </if>
+      <if test="partnerContent != null" >
+        #{partnerContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="signTime != null" >
+        #{signTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysPartner" >
+    update sys_partner
+    <set >
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="imgId != null" >
+        img_id = #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="logoImgId != null" >
+        logo_img_id = #{logoImgId,jdbcType=INTEGER},
+      </if>
+      <if test="basicsId != null" >
+        basics_id = #{basicsId,jdbcType=INTEGER},
+      </if>
+      <if test="partnerName != null" >
+        partner_name = #{partnerName,jdbcType=VARCHAR},
+      </if>
+      <if test="partnerSimple != null" >
+        partner_simple = #{partnerSimple,jdbcType=VARCHAR},
+      </if>
+      <if test="partnerCompany != null" >
+        partner_company = #{partnerCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partnerState != null" >
+        partner_state = #{partnerState,jdbcType=CHAR},
+      </if>
+      <if test="partnerContent != null" >
+        partner_content = #{partnerContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="topState != null" >
+        top_state = #{topState,jdbcType=INTEGER},
+      </if>
+      <if test="topTime != null" >
+        top_time = #{topTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signTime != null" >
+        sign_time = #{signTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where partner_id = #{partnerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lingang.api.domain.entity.SysPartner" >
+    update sys_partner
+    set type_id = #{typeId,jdbcType=INTEGER},
+      img_id = #{imgId,jdbcType=INTEGER},
+      logo_img_id = #{logoImgId,jdbcType=INTEGER},
+      basics_id = #{basicsId,jdbcType=INTEGER},
+      partner_name = #{partnerName,jdbcType=VARCHAR},
+      partner_simple = #{partnerSimple,jdbcType=VARCHAR},
+      partner_company = #{partnerCompany,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      partner_state = #{partnerState,jdbcType=CHAR},
+      partner_content = #{partnerContent,jdbcType=LONGVARCHAR}
+    where partner_id = #{partnerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysPartner" >
+    update sys_partner
+    set type_id = #{typeId,jdbcType=INTEGER},
+      img_id = #{imgId,jdbcType=INTEGER},
+      logo_img_id = #{logoImgId,jdbcType=INTEGER},
+      basics_id = #{basicsId,jdbcType=INTEGER},
+      partner_name = #{partnerName,jdbcType=VARCHAR},
+      partner_simple = #{partnerSimple,jdbcType=VARCHAR},
+      partner_company = #{partnerCompany,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      partner_state = #{partnerState,jdbcType=CHAR}
+    where partner_id = #{partnerId,jdbcType=INTEGER}
+  </update>
+</mapper>

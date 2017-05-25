@@ -1,0 +1,24 @@
+package com.lingang.api.domain.para;
+
+public class SysPartnerPara extends BasePara {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4272087504758372459L;
+
+	private String partnerNameKeywords;
+
+	public String getPartnerNameKeywords() {
+		return partnerNameKeywords;
+	}
+
+	public void setPartnerNameKeywords(String partnerNameKeywords) {
+		this.partnerNameKeywords = partnerNameKeywords;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+}

@@ -1,0 +1,259 @@
+<link href="css/layout.css" rel="stylesheet">
+<link href="library/umeditor/themes/default/css/umeditor.css" media="all" rel="stylesheet" type="text/css" />
+<div class="row" ng-controller="sysPartnerDetailsCtrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                	<form class="form-horizontal" role="form">
+					 
+					  <div class="form-group">
+					    <label for="partnerName" class="col-sm-2 control-label">合作伙伴名称</label>
+					    <div class="col-sm-3">
+					      <input type="partnerName" class="form-control" id="partnerName" placeholder="" ng-model="partner.partnerName">
+					    </div>
+					    
+					    <label for="partnerSimple" class="col-sm-2 control-label">简称</label>
+					    <div class="col-sm-3">
+					      <input type="partnerSimple" class="form-control" id="partnerSimple" placeholder="" ng-model="partner.partnerSimple">
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="partnerCompany" class="col-sm-2 control-label">所属公司</label>
+					    <div class="col-sm-3">
+					      <input type="partnerCompany" class="form-control" id="partnerCompany" placeholder="" ng-model="partner.partnerCompany">
+					    </div>
+					    
+					    <label for="partnerState" class="col-sm-2 control-label">状态</label>
+					   	 <div class="col-sm-3">
+					      <select type="partnerState" class="form-control" id="partnerState" placeholder="" ng-model="partner.partnerState">
+					      	<option value="1">上传</option>
+					      	<option value="2">发布</option>
+					      	<option value="3">删除</option>
+					      </select>
+					     </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="basicsId" class="col-sm-2 control-label">合作层级</label>
+					   	<div class="col-sm-3">
+					   	  <select id="basicsId" ng-options="basics.basicsId as basics.basicsName for basics in basicsList" class="form-control" ng-model="partner.basicsId">
+					      	<option value="">请选择</option>
+					      </select>
+					    </div>
+					    
+					    <label for="typeId" class="col-sm-2 control-label">合作类型</label>
+					   	<div class="col-sm-3">
+					   	  <select id="typeId" ng-options="type.typeId as type.typeName for type in typeList" class="form-control" ng-model="partner.typeId">
+					      	<option value="">请选择</option>
+					      </select>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="basicsId" class="col-sm-2 control-label">签署时间</label>
+					   	<div class="col-sm-3">
+					   	  	<input type="text" class="form-control" id="signTime" ng-model="partner.signTime" mindate="1900-10-10" date-picker placeholder="请选择时间..." >
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="parkContent" class="col-md-2 control-label">logo图</label>
+					    <div class="col-md-8">
+					   	  	<div class="white-bg mt-10 p-10">
+								<div class="col-lg-6">
+							 		<div class="img-load" >
+							 			<img ng-src="{{imgSrcMax}}" />
+							 		</div>
+							 	  </div>
+							 	<div class="col-lg-6 m-t-xs">
+							 		<div>
+							 			<div type="button" class="btn btn-w-m btn-primary file-btn">
+								            <div file-input="fileMax" id="fileMax" on-change="previewImageMax()" accept="image/jpg,image/jpeg,image/png"></div>浏览
+								         </div>
+							 		</div>
+							 		
+							 		<div class="mt-10">
+							 			<button type="button" class="btn btn-w-m btn-primary" ng-click="uploadImageMax('fileMax')">上传</button>
+							 		</div>
+							 		<div class="row">
+								 		<div class="mt-10 col-md-6">
+								 			<!-- <input ng-model="home.url" type="text" class="form-control" placeholder="编辑链接(非必填)"/> -->
+								 		</div>
+							 		</div>
+							 	</div>
+							</div>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="parkContent" class="col-md-2 control-label">缩略图</label>
+					    <div class="col-md-8">
+					   	  	<div class="white-bg mt-10 p-10">
+								<div class="col-lg-6">
+							 		<div class="img-load" >
+							 			<img ng-src="{{imgSrcMin}}" />
+							 		</div>
+							 	  </div>
+							 	<div class="col-lg-6 m-t-xs">
+							 		<div>
+							 			<div type="button" class="btn btn-w-m btn-primary file-btn">
+								            <div file-input="fileMin" id="fileMin" on-change="previewImageMin()" accept="image/jpg,image/jpeg,image/png"></div>浏览
+								         </div>
+							 		</div>
+							 		
+							 		<div class="mt-10">
+							 			<button type="button" class="btn btn-w-m btn-primary" ng-click="uploadImageMin('fileMin')">上传</button>
+							 		</div>
+							 		<div class="row">
+								 		<div class="mt-10 col-md-6">
+								 			<!-- <input ng-model="home.url" type="text" class="form-control" placeholder="编辑链接(非必填)"/> -->
+								 		</div>
+							 		</div>
+							 	</div>
+							</div>
+					    </div>
+					  </div>
+					  
+					  
+					  <div class="form-group">
+					    <label for="partnerContent" class="col-sm-2 control-label">合作伙伴简介</label>
+					    <div class="col-sm-8">
+					   	  <textarea class="form-control" name="partnerContent" id="partnerContent"></textarea>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <div class="col-sm-2"></div>
+					    <div class="col-sm-1">
+					      <button type="button" class="btn btn-primary" ng-click="updatePartnerDetails()"> 确认保存 </button>
+					    </div>
+					    <!-- <div class="col-sm-1">
+					      <input type="button" class="btn btn-primary" onclick="javascript:history.go(-1)" value="返回列表"/>
+					    </div> -->
+					  </div>
+					  
+					  <div class="form-group">
+					    <div class="col-sm-2"></div>
+					    <div class="col-sm-8">
+					      	<div class="panel-body">
+	                            <div class="panel-group" id="version">
+	                            
+	                            	<div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v40" aria-expanded="true" class="">客户经理</a>
+	                                                <code class="pull-right">
+	                                               		<!-- <a ng-click="addLab()" ng-style="{color:'red'}">添加标签</a> -->
+	                                               		<button  ng-click="showUmanAdd()" type="button" class="btn btn-warning">&nbsp;&nbsp;添加&nbsp;经理&nbsp;&nbsp;</button>
+	                                                </code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v40" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="uman in partner.umanagers">
+										    		<button type="button" class="btn btn-info" ng-click="showUman($index)">{{uman.umanagerName}}</button>
+										    		<a ng-click="delUman($index)" ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            
+	                                <div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v41" aria-expanded="true" class="">标签</a>
+	                                                <code class="pull-right">
+	                                               		<!-- <a ng-click="addLab()" ng-style="{color:'red'}">添加标签</a> -->
+	                                               		<button  ng-click="addLab()" type="button" class="btn btn-warning">&nbsp;&nbsp;添加&nbsp;标签&nbsp;&nbsp;</button>
+	                                                </code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v41" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="lab in partner.labels">
+										    		<button type="button" class="btn btn-default">{{lab.labelName}}</button>
+										    		<a ng-click="delLab($index)" ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                
+	                                </div>
+	                            </div>
+	                        </div>
+					    </div>
+					</form>
+		 	  <div >
+ 		       </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 客户经理 -->
+    <div class="modal fade" id="uMan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	        <h4 class="modal-title" id="myModalLabel">客户经理</h4>
+	      </div>
+	      <div class="modal-body">
+		  	<form class="form-horizontal" role="form">
+			 
+			 <div class="form-group">
+			    <label for="umanagerName" class="col-sm-2 control-label">经理名称</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="umanagerName" placeholder="" ng-model="uman.umanagerName">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="umanagerCompany" class="col-sm-2 control-label">所属公司</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="umanagerCompany" placeholder="" ng-model="uman.umanagerCompany">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="umanagerDepartment" class="col-sm-2 control-label">所属部门</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="umanagerDepartment" placeholder="" ng-model="uman.umanagerDepartment">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="umanagerEmail" class="col-sm-2 control-label">Email</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="umanagerEmail" placeholder="" ng-model="uman.umanagerEmail">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="umanagerTel" class="col-sm-2 control-label">联系电话</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="umanagerTel" placeholder="" ng-model="uman.umanagerTel">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="umanagerMobile" class="col-sm-2 control-label">联系手机</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="umanagerMobile" placeholder="" ng-model="uman.umanagerMobile">
+			    </div>
+			  </div>
+			  
+			</form>
+	      </div>
+	      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" style="margin-bottom: 0;" data-dismiss="modal">关闭</button>
+				<button ng-if="umanState==1" type="button" class="btn btn-primary" ng-click="updateUManager()">保存</button>
+				<button ng-if="umanState==2" type="button" class="btn btn-primary" ng-click="addUManager()">添加</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>
+

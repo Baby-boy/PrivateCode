@@ -1,0 +1,25 @@
+package com.lingang.core.persistence.reader;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.lingang.api.domain.entity.SysTop;
+import com.lingang.api.domain.vo.SysPartnerVo;
+import com.lingang.api.domain.vo.SysStationVo;
+
+public interface SysTopReaderMapper {
+
+    SysTop selectByPrimaryKey(Integer topId);
+
+    int selectTopPartnerCount(@Param("map")Map<String, Object> map);
+    
+    List<SysPartnerVo> selectTopPartnerVoPageList(@Param("map")Map<String, Object> map);
+    
+    int selectTopStationCount(@Param("map")Map<String, Object> map);
+    
+    List<SysStationVo> selectTopStationVoPageList(@Param("map")Map<String, Object> map);
+    
+    SysTop selectByObjIdAndTopType(@Param("objId")Integer objId,@Param("topType")Integer topType);
+}

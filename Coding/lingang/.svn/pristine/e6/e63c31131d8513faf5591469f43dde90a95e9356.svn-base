@@ -1,0 +1,30 @@
+package com.lingang.core.persistence.reader;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.lingang.api.domain.entity.SysPartner;
+import com.lingang.api.domain.pfvo.SysPartnerPfVo;
+import com.lingang.api.domain.vo.SysPartnerVo;
+
+public interface SysPartnerReaderMapper {
+
+	SysPartner selectByPrimaryKey(Integer partnerId);
+
+	int selectPartnerCount(@Param("map") Map<String, Object> map);
+
+	List<SysPartnerVo> selectPartnerPageList(@Param("map") Map<String, Object> map);
+
+	SysPartnerVo selectPartnerVoByPartnerId(Integer partnerId);
+
+	int selectUserCollectCount(@Param("map") Map<String, Object> map);
+
+	List<SysPartnerVo> selectUserCollectPageList(@Param("map") Map<String, Object> map);
+
+	/** 后台逻辑 */
+	int selectSysPartnerPfVoCount(@Param("map") Map<String, Object> map);
+
+	List<SysPartnerPfVo> selectSysPartnerPfVoPageList(@Param("map") Map<String, Object> map);
+}

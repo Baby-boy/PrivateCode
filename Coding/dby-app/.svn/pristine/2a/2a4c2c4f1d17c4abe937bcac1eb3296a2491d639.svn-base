@@ -1,0 +1,20 @@
+package com.yd.dby.app.mapper;
+
+import com.yd.dby.app.entity.YdDepot;
+import com.yd.dby.app.entity.vo.DepotAndGoodsVo;
+
+public interface YdDepotMapper {
+    int deleteByPrimaryKey(Integer depotId);
+
+    int insert(YdDepot record);
+
+    int insertSelective(YdDepot record);
+
+    YdDepot selectByPrimaryKey(Integer depotId);
+
+    int updateByPrimaryKeySelective(YdDepot record);
+
+    int updateByPrimaryKey(YdDepot record);
+    
+    DepotAndGoodsVo selectByGoodsId(Integer goodsId);
+}

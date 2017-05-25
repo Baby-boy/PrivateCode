@@ -1,0 +1,217 @@
+<link href="css/layout.css" rel="stylesheet">
+<link href="library/umeditor/themes/default/css/umeditor.css" media="all" rel="stylesheet" type="text/css" />
+<div class="row" ng-controller="topPartnerAdd">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                	<form class="form-horizontal" role="form">
+					 
+					  <div class="form-group">
+					    <label for="partnerName" class="col-sm-2 control-label">合作伙伴名称</label>
+					    <div class="col-sm-3">
+					      <input type="partnerName" class="form-control" id="partnerName" placeholder="" ng-model="partner.partnerName">
+					    </div>
+					    
+					    <label for="partnerSimple" class="col-sm-2 control-label">简称</label>
+					    <div class="col-sm-3">
+					      <input type="partnerSimple" class="form-control" id="partnerSimple" placeholder="" ng-model="partner.partnerSimple">
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="partnerCompany" class="col-sm-2 control-label">所属公司</label>
+					    <div class="col-sm-3">
+					      <input type="partnerCompany" class="form-control" id="partnerCompany" placeholder="" ng-model="partner.partnerCompany">
+					    </div>
+					    
+					    <label for="partnerState" class="col-sm-2 control-label">状态</label>
+					   	 <div class="col-sm-3">
+					      <select type="partnerState" class="form-control" id="partnerState" placeholder="" ng-model="partner.partnerState">
+					      	<option value="">请选择</option>
+					      	<option value="1">上传</option>
+					      	<option value="2">发布</option>
+					      </select>
+					     </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="basicsId" class="col-sm-2 control-label">开放层级</label>
+					   	<div class="col-sm-3">
+					   	  <select ng-options="basics.basicsId as basics.basicsName for basics in basicsList" class="form-control" ng-model="partner.basicsId">
+					      	<option value="">请选择</option>
+					      </select>
+					    </div>
+					    
+					    <label for="typeId" class="col-sm-2 control-label">合作类型</label>
+					   	<div class="col-sm-3">
+					   	  <select ng-options="type.typeId as type.typeName for type in typeList" class="form-control" ng-model="partner.typeId">
+					      	<option value="">请选择</option>
+					      </select>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="parkContent" class="col-md-2 control-label">logo图</label>
+					    <div class="col-md-8">
+					   	  	<div class="white-bg mt-10 p-10">
+								<div class="col-lg-6">
+							 		<div class="img-load" >
+							 			<img ng-src="{{imgSrcMax}}" />
+							 		</div>
+							 	  </div>
+							 	<div class="col-lg-6 m-t-xs">
+							 		<div>
+							 			<div type="button" class="btn btn-w-m btn-primary file-btn">
+								            <div file-input="fileMax" id="fileMax" on-change="previewImageMax()" accept="image/jpg,image/jpeg,image/png"></div>浏览
+								         </div>
+							 		</div>
+							 		
+							 		<div class="mt-10">
+							 			<button type="button" class="btn btn-w-m btn-primary" ng-click="uploadImageMax('fileMax')">上传</button>
+							 		</div>
+							 		<div class="row">
+								 		<div class="mt-10 col-md-6">
+								 			<!-- <input ng-model="home.url" type="text" class="form-control" placeholder="编辑链接(非必填)"/> -->
+								 		</div>
+							 		</div>
+							 	</div>
+							</div>
+					    </div>
+					  </div>
+					  
+					  
+					  <div class="form-group">
+					    <label for="parkContent" class="col-md-2 control-label">缩略图</label>
+					    <div class="col-md-8">
+					   	  	<div class="white-bg mt-10 p-10">
+								<div class="col-lg-6">
+							 		<div class="img-load" >
+							 			<img ng-src="{{imgSrcMin}}" />
+							 		</div>
+							 	  </div>
+							 	<div class="col-lg-6 m-t-xs">
+							 		<div>
+							 			<div type="button" class="btn btn-w-m btn-primary file-btn">
+								            <div file-input="fileMin" id="fileMin" on-change="previewImageMin()" accept="image/jpg,image/jpeg,image/png"></div>浏览
+								         </div>
+							 		</div>
+							 		
+							 		<div class="mt-10">
+							 			<button type="button" class="btn btn-w-m btn-primary" ng-click="uploadImageMin('fileMin')">上传</button>
+							 		</div>
+							 		<div class="row">
+								 		<div class="mt-10 col-md-6">
+								 			<!-- <input ng-model="home.url" type="text" class="form-control" placeholder="编辑链接(非必填)"/> -->
+								 		</div>
+							 		</div>
+							 	</div>
+							</div>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="partnerContent" class="col-sm-2 control-label">合作伙伴简介</label>
+					    <div class="col-sm-8">
+					   	  <textarea class="form-control" name="partnerContent" id="partnerContent"></textarea>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <div class="col-sm-2"></div>
+					    <div class="col-sm-1">
+					      <button type="button" class="btn btn-primary" ng-click="addTopPartnerDetails()"> 确认保存 </button>
+					    </div>
+					    <!-- <div class="col-sm-1">
+					      <input type="button" class="btn btn-primary" onclick="javascript:history.go(-1)" value="返回列表"/>
+					    </div> -->
+					  </div>
+					  
+					  
+					  <div class="form-group">
+					    <div class="col-sm-2"></div>
+					    <div class="col-sm-8">
+					      	<div class="panel-body">
+	                            <div class="panel-group" id="version">
+	                                <div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v41" aria-expanded="true" class="">标签</a>
+	                                                <code class="pull-right"><a ng-style="{color:'red'}">添加标签</a></code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v41" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="lab in partner.labels">
+										    		<button type="button" class="btn btn-default">{{lab.labelName}}</button><a ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                
+	                                <div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v42" aria-expanded="true" class="">覆盖产业</a>
+	                                                <code class="pull-right"><a ng-style="{color:'red'}">添加产业</a></code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v42" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="industry in partner.industrys">
+										    		<img src="" alt="{{industry.industryTitle}}" class="img-thumbnail"><a ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                
+	                                
+	                                <div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v43" aria-expanded="true" class="">宣传册</a>
+	                                                <code class="pull-right"><a ng-style="{color:'red'}">添加宣传册</a></code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v43" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="file in partner.files" ng-if="file.fileType==1">
+										    		<a>《{{file.fileTitle}}》</a><a ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                
+	                                <div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v44" aria-expanded="true" class="">宣传片</a>
+	                                                <code class="pull-right"><a ng-style="{color:'red'}">添加宣传片</a></code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v44" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="file in partner.files" ng-if="file.fileType==2">
+										    		<a>《{{file.fileTitle}}》</a><a ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                    
+	                                </div>
+	                            </div>
+	                        </div>
+					    </div>
+					  </div>
+					</form>
+		 	  <div >
+ 		       </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+

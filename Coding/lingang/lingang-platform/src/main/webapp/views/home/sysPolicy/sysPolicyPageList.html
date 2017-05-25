@@ -1,0 +1,68 @@
+<div class="row" ng-controller="sysPolicyPageListCtrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>{{title}}</h5>
+            </div> -->
+            <div class="ibox-content">
+                <form class="form-inline">
+	               <div class="row m-t">
+						<div class="form-group col-xs-3">
+							<label for="subTime">伙伴名称:</label>
+							<input type="text" class="form-control" ng-model="para.policyTitle" placeholder="请输入关键字" >
+						</div>
+						<div class="form-group col-xs-2">
+							<label for="subTime">状态:</label> 
+							<select class="form-control" id="policyState" ng-model="para.policyState" ng-change="getPolicyList()">
+								<option value="">全部</option>
+								<option value="1">已上传</option>
+								<option value="2">已发布</option>
+								<option value="3">已删除</option>
+							</select>
+						</div>
+						<div class="col-md-1">
+							<button type="button" class="btn btn-primary" ng-click="getPolicyList()">立即搜索</button>
+						</div>
+						<div class="col-md-2">
+							<a href="#/home/sysPolicy/sysPolicyAdd/index">
+							<button type="button" class="btn btn-primary" ng-click="getNewsList()">添加政策</button>
+							</a>
+						</div>
+					</div>
+					<div class="row m-t">
+						
+					</div>
+				  </form>
+		 	  <div >
+ 		       <table class="table table-striped table-bordered table-hover dataTables-example">
+                      	<tr>
+                            <th style="text-align: center;">序号</th>
+                            <th style="text-align: center;">标题</th>
+                            <th style="text-align: center;">创建时间 </th>
+                            <th style="text-align: center;">状态</th>
+                            <th style="text-align: center;">操作</th>
+                        </tr>
+                        <tr ng-repeat="policy in sysPolicyList">
+                            <td>{{$index + (paginationConf.currentPage-1)*onePageCount + 1}}</td>
+                            <td   style="width:10%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{policy.policyTitle}}</td>
+                            <td>{{policy.createTime | date:'yyyy-MM-dd HH:mm'}}</td>
+                            <td ng-if="policy.policyState == 1" ng-style="policy.policyState == 1?{color:'gray'}:''">已上传</td>
+                            <td ng-if="policy.policyState == 2" ng-style="policy.policyState == 2?{color:'blue'}:''">已发布</td>
+                            <td ng-if="policy.policyState == 3" ng-style="policy.policyState == 3?{color:'red'}:''">已删除</td>
+                            <td><a href="#/home/sysPolicy/sysPolicyMsg/{{policy.policyId}}">管理</a></td>
+                         </tr>
+            	   </table>
+                   <div class="row m-t">
+					  <div class="col-md-10 col-md-offset-1">
+					  		<!--分页开始-->
+							<ndtech-pagination class conf="paginationConf"></ndtech-pagination>
+							<!--分页结束-->
+					  </div>
+				   </div>
+ 		       </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+

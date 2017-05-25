@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdBrandMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdBrand" >
+    <id column="brand_id" property="brandId" jdbcType="INTEGER" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="brand_initial" property="brandInitial" jdbcType="VARCHAR" />
+    <result column="brand_class" property="brandClass" jdbcType="VARCHAR" />
+    <result column="brand_pic" property="brandPic" jdbcType="VARCHAR" />
+    <result column="brand_sort" property="brandSort" jdbcType="TINYINT" />
+    <result column="brand_recommend" property="brandRecommend" jdbcType="BIT" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="brand_apply" property="brandApply" jdbcType="BIT" />
+    <result column="class_id" property="classId" jdbcType="INTEGER" />
+    <result column="show_type" property="showType" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    brand_id, brand_name, brand_initial, brand_class, brand_pic, brand_sort, brand_recommend, 
+    store_id, brand_apply, class_id, show_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_brand
+    where brand_id = #{brandId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_brand
+    where brand_id = #{brandId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdBrand" >
+    insert into yd_brand (brand_id, brand_name, brand_initial, 
+      brand_class, brand_pic, brand_sort, 
+      brand_recommend, store_id, brand_apply, 
+      class_id, show_type)
+    values (#{brandId,jdbcType=INTEGER}, #{brandName,jdbcType=VARCHAR}, #{brandInitial,jdbcType=VARCHAR}, 
+      #{brandClass,jdbcType=VARCHAR}, #{brandPic,jdbcType=VARCHAR}, #{brandSort,jdbcType=TINYINT}, 
+      #{brandRecommend,jdbcType=BIT}, #{storeId,jdbcType=INTEGER}, #{brandApply,jdbcType=BIT}, 
+      #{classId,jdbcType=INTEGER}, #{showType,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdBrand" >
+    insert into yd_brand
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="brandId != null" >
+        brand_id,
+      </if>
+      <if test="brandName != null" >
+        brand_name,
+      </if>
+      <if test="brandInitial != null" >
+        brand_initial,
+      </if>
+      <if test="brandClass != null" >
+        brand_class,
+      </if>
+      <if test="brandPic != null" >
+        brand_pic,
+      </if>
+      <if test="brandSort != null" >
+        brand_sort,
+      </if>
+      <if test="brandRecommend != null" >
+        brand_recommend,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="brandApply != null" >
+        brand_apply,
+      </if>
+      <if test="classId != null" >
+        class_id,
+      </if>
+      <if test="showType != null" >
+        show_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="brandId != null" >
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="brandName != null" >
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandInitial != null" >
+        #{brandInitial,jdbcType=VARCHAR},
+      </if>
+      <if test="brandClass != null" >
+        #{brandClass,jdbcType=VARCHAR},
+      </if>
+      <if test="brandPic != null" >
+        #{brandPic,jdbcType=VARCHAR},
+      </if>
+      <if test="brandSort != null" >
+        #{brandSort,jdbcType=TINYINT},
+      </if>
+      <if test="brandRecommend != null" >
+        #{brandRecommend,jdbcType=BIT},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="brandApply != null" >
+        #{brandApply,jdbcType=BIT},
+      </if>
+      <if test="classId != null" >
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="showType != null" >
+        #{showType,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdBrand" >
+    update yd_brand
+    <set >
+      <if test="brandName != null" >
+        brand_name = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandInitial != null" >
+        brand_initial = #{brandInitial,jdbcType=VARCHAR},
+      </if>
+      <if test="brandClass != null" >
+        brand_class = #{brandClass,jdbcType=VARCHAR},
+      </if>
+      <if test="brandPic != null" >
+        brand_pic = #{brandPic,jdbcType=VARCHAR},
+      </if>
+      <if test="brandSort != null" >
+        brand_sort = #{brandSort,jdbcType=TINYINT},
+      </if>
+      <if test="brandRecommend != null" >
+        brand_recommend = #{brandRecommend,jdbcType=BIT},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="brandApply != null" >
+        brand_apply = #{brandApply,jdbcType=BIT},
+      </if>
+      <if test="classId != null" >
+        class_id = #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="showType != null" >
+        show_type = #{showType,jdbcType=BIT},
+      </if>
+    </set>
+    where brand_id = #{brandId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdBrand" >
+    update yd_brand
+    set brand_name = #{brandName,jdbcType=VARCHAR},
+      brand_initial = #{brandInitial,jdbcType=VARCHAR},
+      brand_class = #{brandClass,jdbcType=VARCHAR},
+      brand_pic = #{brandPic,jdbcType=VARCHAR},
+      brand_sort = #{brandSort,jdbcType=TINYINT},
+      brand_recommend = #{brandRecommend,jdbcType=BIT},
+      store_id = #{storeId,jdbcType=INTEGER},
+      brand_apply = #{brandApply,jdbcType=BIT},
+      class_id = #{classId,jdbcType=INTEGER},
+      show_type = #{showType,jdbcType=BIT}
+    where brand_id = #{brandId,jdbcType=INTEGER}
+  </update>
+</mapper>

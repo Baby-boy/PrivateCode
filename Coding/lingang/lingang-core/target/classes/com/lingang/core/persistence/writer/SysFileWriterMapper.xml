@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysFileWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_file
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysFile" >
+    insert into sys_file (file_id, park_id, img_id, 
+      file_title, file_address, file_type, 
+      create_time, update_time, file_size, 
+      share_number, father_id, file_remark)
+    values (#{fileId,jdbcType=INTEGER}, #{parkId,jdbcType=INTEGER}, #{imgId,jdbcType=INTEGER}, 
+      #{fileTitle,jdbcType=VARCHAR}, #{fileAddress,jdbcType=VARCHAR}, #{fileType,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{fileSize,jdbcType=DOUBLE}, 
+      #{shareNumber,jdbcType=INTEGER},#{fatherId,jdbcType=INTEGER}, #{fileRemark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="fileId" parameterType="com.lingang.api.domain.entity.SysFile" >
+    insert into sys_file
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        file_id,
+      </if>
+      <if test="parkId != null" >
+        park_id,
+      </if>
+      <if test="imgId != null" >
+        img_id,
+      </if>
+      <if test="fileTitle != null" >
+        file_title,
+      </if>
+      <if test="fileAddress != null" >
+        file_address,
+      </if>
+      <if test="fileType != null" >
+        file_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="fileSize != null" >
+        file_size,
+      </if>
+      <if test="shareNumber != null" >
+        share_number,
+      </if>
+      <if test="fatherId != null" >
+        father_id,
+      </if>
+      <if test="fileRemark != null" >
+        file_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="parkId != null" >
+        #{parkId,jdbcType=INTEGER},
+      </if>
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="fileTitle != null" >
+        #{fileTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="fileAddress != null" >
+        #{fileAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileSize != null" >
+        #{fileSize,jdbcType=DOUBLE},
+      </if>
+      <if test="shareNumber != null" >
+        #{shareNumber,jdbcType=INTEGER},
+      </if>
+      <if test="fatherId != null" >
+        #{fatherId,jdbcType=INTEGER},
+      </if>
+      <if test="fileRemark != null" >
+        #{fileRemark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysFile" >
+    update sys_file
+    <set >
+      <if test="parkId != null" >
+        park_id = #{parkId,jdbcType=INTEGER},
+      </if>
+      <if test="imgId != null" >
+        img_id = #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="fileTitle != null" >
+        file_title = #{fileTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="fileAddress != null" >
+        file_address = #{fileAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        file_type = #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileSize != null" >
+        file_size = #{fileSize,jdbcType=DOUBLE},
+      </if>
+      <if test="shareNumber != null" >
+        share_number = #{shareNumber,jdbcType=INTEGER},
+      </if>
+      <if test="fatherId != null" >
+        father_id = #{fatherId,jdbcType=INTEGER},
+      </if>
+      <if test="fileRemark != null" >
+        file_remark = #{fileRemark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lingang.api.domain.entity.SysFile" >
+    update sys_file
+    set park_id = #{parkId,jdbcType=INTEGER},
+      img_id = #{imgId,jdbcType=INTEGER},
+      file_title = #{fileTitle,jdbcType=VARCHAR},
+      file_address = #{fileAddress,jdbcType=VARCHAR},
+      file_type = #{fileType,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      file_size = #{fileSize,jdbcType=DOUBLE},
+      share_number = #{shareNumber,jdbcType=INTEGER},
+      father_id = #{fatherId,jdbcType=INTEGER},
+      file_remark = #{fileRemark,jdbcType=LONGVARCHAR}
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysFile" >
+    update sys_file
+    set park_id = #{parkId,jdbcType=INTEGER},
+      img_id = #{imgId,jdbcType=INTEGER},
+      file_title = #{fileTitle,jdbcType=VARCHAR},
+      file_address = #{fileAddress,jdbcType=VARCHAR},
+      file_type = #{fileType,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      file_size = #{fileSize,jdbcType=DOUBLE},
+      share_number = #{shareNumber,jdbcType=INTEGER},
+      father_id = #{fatherId,jdbcType=INTEGER}
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+</mapper>

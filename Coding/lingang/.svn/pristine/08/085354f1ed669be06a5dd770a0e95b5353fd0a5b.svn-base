@@ -1,0 +1,19 @@
+package com.lingang.api.service;
+
+import java.util.List;
+import java.util.Map;
+
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysLabel;
+import com.lingang.api.domain.vo.SysLabelVo;
+
+public interface SysLabelService {
+	/**
+	* @Description: (标签：入驻企业筛选)
+	* @return    
+	* @author gsh(15136390655@163.com)
+	* @date: 2016年12月7日 上午11:28:06
+	 */
+	ServiceResult<Map<String,Object>> selectSysLabelByType();
+
+}

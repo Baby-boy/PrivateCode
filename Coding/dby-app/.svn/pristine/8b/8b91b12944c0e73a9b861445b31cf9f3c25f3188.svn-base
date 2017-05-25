@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdGoodsBufMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdGoodsBuf" >
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_image" property="goodsImage" jdbcType="VARCHAR" />
+    <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+    <result column="depot_stock" property="depotStock" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="depot_price" property="depotPrice" jdbcType="DECIMAL" />
+    <result column="depot_original_price" property="depotOriginalPrice" jdbcType="DECIMAL" />
+    <result column="goods_total" property="goodsTotal" jdbcType="INTEGER" />
+    <result column="created_at" property="createdAt" jdbcType="INTEGER" />
+    <result column="updated_at" property="updatedAt" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdGoodsBuf" >
+    insert into yd_goods_buf (goods_id, type, goods_name, 
+      goods_image, goods_num, depot_stock, 
+      store_id, depot_price, depot_original_price, 
+      goods_total, created_at, updated_at
+      )
+    values (#{goodsId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, 
+      #{goodsImage,jdbcType=VARCHAR}, #{goodsNum,jdbcType=INTEGER}, #{depotStock,jdbcType=INTEGER}, 
+      #{storeId,jdbcType=INTEGER}, #{depotPrice,jdbcType=DECIMAL}, #{depotOriginalPrice,jdbcType=DECIMAL}, 
+      #{goodsTotal,jdbcType=INTEGER}, #{createdAt,jdbcType=INTEGER}, #{updatedAt,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdGoodsBuf" >
+    insert into yd_goods_buf
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsImage != null" >
+        goods_image,
+      </if>
+      <if test="goodsNum != null" >
+        goods_num,
+      </if>
+      <if test="depotStock != null" >
+        depot_stock,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="depotPrice != null" >
+        depot_price,
+      </if>
+      <if test="depotOriginalPrice != null" >
+        depot_original_price,
+      </if>
+      <if test="goodsTotal != null" >
+        goods_total,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="updatedAt != null" >
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsImage != null" >
+        #{goodsImage,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNum != null" >
+        #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="depotStock != null" >
+        #{depotStock,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="depotPrice != null" >
+        #{depotPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="depotOriginalPrice != null" >
+        #{depotOriginalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsTotal != null" >
+        #{goodsTotal,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

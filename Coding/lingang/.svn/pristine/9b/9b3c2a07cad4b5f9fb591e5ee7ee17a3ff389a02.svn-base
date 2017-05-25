@@ -1,0 +1,67 @@
+package com.lingang.consumer.controller.home;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.lingang.api.domain.basic.JsonResult;
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.vo.SysParkVo;
+import com.lingang.api.domain.vo.SysStationVo;
+import com.lingang.api.service.SysStationService;
+
+@Controller
+@RequestMapping("station")
+public class SysStationController {
+	@Resource
+	private SysStationService sysStationService;
+	/**
+	* @Description: (入住列表)
+	* @param pageIndex 当前
+	* @param pageSize  总页数
+	* @param regionId  地区ID
+	* @param industryIds 产业ID
+	* @param label_ids   标签ID
+	* @return    
+	* @author gsh(15136390655@163.com)
+	* @date: 2016年12月6日 上午1:16:24
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/stationPageList", method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult stationPageList(@RequestParam(value = "pageIndex", required = false, defaultValue = "1") Integer pageIndex,
+			@RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+			@RequestParam(value = "regionId", required = false) Integer regionId,
+			@RequestParam(value = "regionTypeId", required = false, defaultValue = "") Integer regionTypeId,
+			@RequestParam(value = "industryIds", required = false) List<Integer> industryIds,
+			@RequestParam(value = "label_ids", required = false) List<Integer> label_ids) {
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<Page<SysStationVo>> result = sysStationService.selectSysStationAll(regionId,regionTypeId, industryIds, label_ids, pageIndex, pageSize);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setData(result.getData());
+		return jsonResult;
+	}
+	/**
+	* @Description: (入驻详情)
+	* @param stationId 入驻商ID
+	* @return    
+	* @author gsh(15136390655@163.com)
+	* @date: 2016年12月6日 上午1:16:46
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/stationDetails", method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult stationDetails(@RequestParam(value = "stationId", required = true) Integer stationId) {
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<SysStationVo> result = sysStationService.selectByPrimaryKey(stationId);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setData(result.getData());
+		return jsonResult;
+	}
+
+}

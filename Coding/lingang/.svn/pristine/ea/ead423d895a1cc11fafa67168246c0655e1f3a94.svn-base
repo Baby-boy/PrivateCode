@@ -1,0 +1,15 @@
+package com.lingang.core.persistence.writer;
+
+import com.lingang.api.domain.entity.SysIndustryLabel;
+
+public interface SysIndustryLabelWriterMapper {
+    int deleteByPrimaryKey(Integer industryLabel);
+
+    int insert(SysIndustryLabel record);
+
+    int insertSelective(SysIndustryLabel record);
+
+    int updateByPrimaryKeySelective(SysIndustryLabel record);
+
+    int updateByPrimaryKey(SysIndustryLabel record);
+}

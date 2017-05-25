@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysServiceWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_service
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysServiceWithBLOBs" >
+    insert into sys_service (service_id, region_id, basics_id, 
+      min_img_id, logo_img_id, service_name, 
+      service_simple, service_address, service_fax, 
+      service_link, service_company, create_time, 
+      update_time, service_state, service_content, 
+      service_team)
+    values (#{serviceId,jdbcType=INTEGER}, #{regionId,jdbcType=INTEGER}, #{basicsId,jdbcType=INTEGER}, 
+      #{minImgId,jdbcType=INTEGER}, #{logoImgId,jdbcType=INTEGER}, #{serviceName,jdbcType=VARCHAR}, 
+      #{serviceSimple,jdbcType=VARCHAR}, #{serviceAddress,jdbcType=VARCHAR}, #{serviceFax,jdbcType=VARCHAR}, 
+      #{serviceLink,jdbcType=VARCHAR}, #{serviceCompany,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{serviceState,jdbcType=CHAR}, #{serviceContent,jdbcType=LONGVARCHAR}, 
+      #{serviceTeam,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="serviceId" parameterType="com.lingang.api.domain.entity.SysServiceWithBLOBs" >
+    insert into sys_service
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="serviceId != null" >
+        service_id,
+      </if>
+      <if test="regionId != null" >
+        region_id,
+      </if>
+      <if test="basicsId != null" >
+        basics_id,
+      </if>
+      <if test="minImgId != null" >
+        min_img_id,
+      </if>
+      <if test="logoImgId != null" >
+        logo_img_id,
+      </if>
+      <if test="serviceName != null" >
+        service_name,
+      </if>
+      <if test="serviceSimple != null" >
+        service_simple,
+      </if>
+      <if test="serviceAddress != null" >
+        service_address,
+      </if>
+      <if test="serviceFax != null" >
+        service_fax,
+      </if>
+      <if test="serviceLink != null" >
+        service_link,
+      </if>
+      <if test="serviceCompany != null" >
+        service_company,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="serviceState != null" >
+        service_state,
+      </if>
+      <if test="serviceContent != null" >
+        service_content,
+      </if>
+      <if test="serviceTeam != null" >
+        service_team,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="regionId != null" >
+        #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="basicsId != null" >
+        #{basicsId,jdbcType=INTEGER},
+      </if>
+      <if test="minImgId != null" >
+        #{minImgId,jdbcType=INTEGER},
+      </if>
+      <if test="logoImgId != null" >
+        #{logoImgId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceName != null" >
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceSimple != null" >
+        #{serviceSimple,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAddress != null" >
+        #{serviceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceFax != null" >
+        #{serviceFax,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLink != null" >
+        #{serviceLink,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCompany != null" >
+        #{serviceCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceState != null" >
+        #{serviceState,jdbcType=CHAR},
+      </if>
+      <if test="serviceContent != null" >
+        #{serviceContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="serviceTeam != null" >
+        #{serviceTeam,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysServiceWithBLOBs" >
+    update sys_service
+    <set >
+      <if test="regionId != null" >
+        region_id = #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="basicsId != null" >
+        basics_id = #{basicsId,jdbcType=INTEGER},
+      </if>
+      <if test="minImgId != null" >
+        min_img_id = #{minImgId,jdbcType=INTEGER},
+      </if>
+      <if test="logoImgId != null" >
+        logo_img_id = #{logoImgId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceName != null" >
+        service_name = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceSimple != null" >
+        service_simple = #{serviceSimple,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAddress != null" >
+        service_address = #{serviceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceFax != null" >
+        service_fax = #{serviceFax,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLink != null" >
+        service_link = #{serviceLink,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCompany != null" >
+        service_company = #{serviceCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceState != null" >
+        service_state = #{serviceState,jdbcType=CHAR},
+      </if>
+      <if test="serviceContent != null" >
+        service_content = #{serviceContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="serviceTeam != null" >
+        service_team = #{serviceTeam,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lingang.api.domain.entity.SysServiceWithBLOBs" >
+    update sys_service
+    set region_id = #{regionId,jdbcType=INTEGER},
+      basics_id = #{basicsId,jdbcType=INTEGER},
+      min_img_id = #{minImgId,jdbcType=INTEGER},
+      logo_img_id = #{logoImgId,jdbcType=INTEGER},
+      service_name = #{serviceName,jdbcType=VARCHAR},
+      service_simple = #{serviceSimple,jdbcType=VARCHAR},
+      service_address = #{serviceAddress,jdbcType=VARCHAR},
+      service_fax = #{serviceFax,jdbcType=VARCHAR},
+      service_link = #{serviceLink,jdbcType=VARCHAR},
+      service_company = #{serviceCompany,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      service_state = #{serviceState,jdbcType=CHAR},
+      service_content = #{serviceContent,jdbcType=LONGVARCHAR},
+      service_team = #{serviceTeam,jdbcType=LONGVARCHAR}
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysService" >
+    update sys_service
+    set region_id = #{regionId,jdbcType=INTEGER},
+      basics_id = #{basicsId,jdbcType=INTEGER},
+      min_img_id = #{minImgId,jdbcType=INTEGER},
+      logo_img_id = #{logoImgId,jdbcType=INTEGER},
+      service_name = #{serviceName,jdbcType=VARCHAR},
+      service_simple = #{serviceSimple,jdbcType=VARCHAR},
+      service_address = #{serviceAddress,jdbcType=VARCHAR},
+      service_fax = #{serviceFax,jdbcType=VARCHAR},
+      service_link = #{serviceLink,jdbcType=VARCHAR},
+      service_company = #{serviceCompany,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      service_state = #{serviceState,jdbcType=CHAR}
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
+</mapper>

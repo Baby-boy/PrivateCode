@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdOrderRefundMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdOrderRefund" >
+    <id column="refund_id" property="refundId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+    <result column="refund_sn" property="refundSn" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="buyer_id" property="buyerId" jdbcType="INTEGER" />
+    <result column="buyer_name" property="buyerName" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="order_goods_id" property="orderGoodsId" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+    <result column="refund_amount" property="refundAmount" jdbcType="DECIMAL" />
+    <result column="goods_image" property="goodsImage" jdbcType="VARCHAR" />
+    <result column="order_goods_type" property="orderGoodsType" jdbcType="TINYINT" />
+    <result column="refund_type" property="refundType" jdbcType="TINYINT" />
+    <result column="seller_state" property="sellerState" jdbcType="TINYINT" />
+    <result column="refund_state" property="refundState" jdbcType="TINYINT" />
+    <result column="return_type" property="returnType" jdbcType="TINYINT" />
+    <result column="order_lock" property="orderLock" jdbcType="TINYINT" />
+    <result column="goods_state" property="goodsState" jdbcType="TINYINT" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="seller_time" property="sellerTime" jdbcType="VARCHAR" />
+    <result column="admin_time" property="adminTime" jdbcType="VARCHAR" />
+    <result column="reason_id" property="reasonId" jdbcType="INTEGER" />
+    <result column="reason_info" property="reasonInfo" jdbcType="VARCHAR" />
+    <result column="pic_info" property="picInfo" jdbcType="VARCHAR" />
+    <result column="buyer_message" property="buyerMessage" jdbcType="VARCHAR" />
+    <result column="seller_message" property="sellerMessage" jdbcType="VARCHAR" />
+    <result column="admin_message" property="adminMessage" jdbcType="VARCHAR" />
+    <result column="express_id" property="expressId" jdbcType="BIT" />
+    <result column="invoice_no" property="invoiceNo" jdbcType="VARCHAR" />
+    <result column="ship_time" property="shipTime" jdbcType="VARCHAR" />
+    <result column="delay_time" property="delayTime" jdbcType="VARCHAR" />
+    <result column="receive_time" property="receiveTime" jdbcType="VARCHAR" />
+    <result column="receive_message" property="receiveMessage" jdbcType="VARCHAR" />
+    <result column="commis_rate" property="commisRate" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    refund_id, order_id, order_sn, refund_sn, store_id, store_name, buyer_id, buyer_name, 
+    goods_id, order_goods_id, goods_name, goods_num, refund_amount, goods_image, order_goods_type, 
+    refund_type, seller_state, refund_state, return_type, order_lock, goods_state, add_time, 
+    seller_time, admin_time, reason_id, reason_info, pic_info, buyer_message, seller_message, 
+    admin_message, express_id, invoice_no, ship_time, delay_time, receive_time, receive_message, 
+    commis_rate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_order_refund
+    where refund_id = #{refundId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_order_refund
+    where refund_id = #{refundId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdOrderRefund" >
+    insert into yd_order_refund (refund_id, order_id, order_sn, 
+      refund_sn, store_id, store_name, 
+      buyer_id, buyer_name, goods_id, 
+      order_goods_id, goods_name, goods_num, 
+      refund_amount, goods_image, order_goods_type, 
+      refund_type, seller_state, refund_state, 
+      return_type, order_lock, goods_state, 
+      add_time, seller_time, admin_time, 
+      reason_id, reason_info, pic_info, 
+      buyer_message, seller_message, admin_message, 
+      express_id, invoice_no, ship_time, 
+      delay_time, receive_time, receive_message, 
+      commis_rate)
+    values (#{refundId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{orderSn,jdbcType=VARCHAR}, 
+      #{refundSn,jdbcType=VARCHAR}, #{storeId,jdbcType=INTEGER}, #{storeName,jdbcType=VARCHAR}, 
+      #{buyerId,jdbcType=INTEGER}, #{buyerName,jdbcType=VARCHAR}, #{goodsId,jdbcType=INTEGER}, 
+      #{orderGoodsId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{goodsNum,jdbcType=INTEGER}, 
+      #{refundAmount,jdbcType=DECIMAL}, #{goodsImage,jdbcType=VARCHAR}, #{orderGoodsType,jdbcType=TINYINT}, 
+      #{refundType,jdbcType=TINYINT}, #{sellerState,jdbcType=TINYINT}, #{refundState,jdbcType=TINYINT}, 
+      #{returnType,jdbcType=TINYINT}, #{orderLock,jdbcType=TINYINT}, #{goodsState,jdbcType=TINYINT}, 
+      #{addTime,jdbcType=VARCHAR}, #{sellerTime,jdbcType=VARCHAR}, #{adminTime,jdbcType=VARCHAR}, 
+      #{reasonId,jdbcType=INTEGER}, #{reasonInfo,jdbcType=VARCHAR}, #{picInfo,jdbcType=VARCHAR}, 
+      #{buyerMessage,jdbcType=VARCHAR}, #{sellerMessage,jdbcType=VARCHAR}, #{adminMessage,jdbcType=VARCHAR}, 
+      #{expressId,jdbcType=BIT}, #{invoiceNo,jdbcType=VARCHAR}, #{shipTime,jdbcType=VARCHAR}, 
+      #{delayTime,jdbcType=VARCHAR}, #{receiveTime,jdbcType=VARCHAR}, #{receiveMessage,jdbcType=VARCHAR}, 
+      #{commisRate,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdOrderRefund" >
+    insert into yd_order_refund
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="refundId != null" >
+        refund_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderSn != null" >
+        order_sn,
+      </if>
+      <if test="refundSn != null" >
+        refund_sn,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="buyerId != null" >
+        buyer_id,
+      </if>
+      <if test="buyerName != null" >
+        buyer_name,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="orderGoodsId != null" >
+        order_goods_id,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsNum != null" >
+        goods_num,
+      </if>
+      <if test="refundAmount != null" >
+        refund_amount,
+      </if>
+      <if test="goodsImage != null" >
+        goods_image,
+      </if>
+      <if test="orderGoodsType != null" >
+        order_goods_type,
+      </if>
+      <if test="refundType != null" >
+        refund_type,
+      </if>
+      <if test="sellerState != null" >
+        seller_state,
+      </if>
+      <if test="refundState != null" >
+        refund_state,
+      </if>
+      <if test="returnType != null" >
+        return_type,
+      </if>
+      <if test="orderLock != null" >
+        order_lock,
+      </if>
+      <if test="goodsState != null" >
+        goods_state,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="sellerTime != null" >
+        seller_time,
+      </if>
+      <if test="adminTime != null" >
+        admin_time,
+      </if>
+      <if test="reasonId != null" >
+        reason_id,
+      </if>
+      <if test="reasonInfo != null" >
+        reason_info,
+      </if>
+      <if test="picInfo != null" >
+        pic_info,
+      </if>
+      <if test="buyerMessage != null" >
+        buyer_message,
+      </if>
+      <if test="sellerMessage != null" >
+        seller_message,
+      </if>
+      <if test="adminMessage != null" >
+        admin_message,
+      </if>
+      <if test="expressId != null" >
+        express_id,
+      </if>
+      <if test="invoiceNo != null" >
+        invoice_no,
+      </if>
+      <if test="shipTime != null" >
+        ship_time,
+      </if>
+      <if test="delayTime != null" >
+        delay_time,
+      </if>
+      <if test="receiveTime != null" >
+        receive_time,
+      </if>
+      <if test="receiveMessage != null" >
+        receive_message,
+      </if>
+      <if test="commisRate != null" >
+        commis_rate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="refundId != null" >
+        #{refundId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderSn != null" >
+        #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="refundSn != null" >
+        #{refundSn,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerId != null" >
+        #{buyerId,jdbcType=INTEGER},
+      </if>
+      <if test="buyerName != null" >
+        #{buyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="orderGoodsId != null" >
+        #{orderGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNum != null" >
+        #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="refundAmount != null" >
+        #{refundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsImage != null" >
+        #{goodsImage,jdbcType=VARCHAR},
+      </if>
+      <if test="orderGoodsType != null" >
+        #{orderGoodsType,jdbcType=TINYINT},
+      </if>
+      <if test="refundType != null" >
+        #{refundType,jdbcType=TINYINT},
+      </if>
+      <if test="sellerState != null" >
+        #{sellerState,jdbcType=TINYINT},
+      </if>
+      <if test="refundState != null" >
+        #{refundState,jdbcType=TINYINT},
+      </if>
+      <if test="returnType != null" >
+        #{returnType,jdbcType=TINYINT},
+      </if>
+      <if test="orderLock != null" >
+        #{orderLock,jdbcType=TINYINT},
+      </if>
+      <if test="goodsState != null" >
+        #{goodsState,jdbcType=TINYINT},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerTime != null" >
+        #{sellerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="adminTime != null" >
+        #{adminTime,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonId != null" >
+        #{reasonId,jdbcType=INTEGER},
+      </if>
+      <if test="reasonInfo != null" >
+        #{reasonInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="picInfo != null" >
+        #{picInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerMessage != null" >
+        #{buyerMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerMessage != null" >
+        #{sellerMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMessage != null" >
+        #{adminMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="expressId != null" >
+        #{expressId,jdbcType=BIT},
+      </if>
+      <if test="invoiceNo != null" >
+        #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="shipTime != null" >
+        #{shipTime,jdbcType=VARCHAR},
+      </if>
+      <if test="delayTime != null" >
+        #{delayTime,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveTime != null" >
+        #{receiveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveMessage != null" >
+        #{receiveMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="commisRate != null" >
+        #{commisRate,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdOrderRefund" >
+    update yd_order_refund
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderSn != null" >
+        order_sn = #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="refundSn != null" >
+        refund_sn = #{refundSn,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerId != null" >
+        buyer_id = #{buyerId,jdbcType=INTEGER},
+      </if>
+      <if test="buyerName != null" >
+        buyer_name = #{buyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="orderGoodsId != null" >
+        order_goods_id = #{orderGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNum != null" >
+        goods_num = #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="refundAmount != null" >
+        refund_amount = #{refundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsImage != null" >
+        goods_image = #{goodsImage,jdbcType=VARCHAR},
+      </if>
+      <if test="orderGoodsType != null" >
+        order_goods_type = #{orderGoodsType,jdbcType=TINYINT},
+      </if>
+      <if test="refundType != null" >
+        refund_type = #{refundType,jdbcType=TINYINT},
+      </if>
+      <if test="sellerState != null" >
+        seller_state = #{sellerState,jdbcType=TINYINT},
+      </if>
+      <if test="refundState != null" >
+        refund_state = #{refundState,jdbcType=TINYINT},
+      </if>
+      <if test="returnType != null" >
+        return_type = #{returnType,jdbcType=TINYINT},
+      </if>
+      <if test="orderLock != null" >
+        order_lock = #{orderLock,jdbcType=TINYINT},
+      </if>
+      <if test="goodsState != null" >
+        goods_state = #{goodsState,jdbcType=TINYINT},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerTime != null" >
+        seller_time = #{sellerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="adminTime != null" >
+        admin_time = #{adminTime,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonId != null" >
+        reason_id = #{reasonId,jdbcType=INTEGER},
+      </if>
+      <if test="reasonInfo != null" >
+        reason_info = #{reasonInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="picInfo != null" >
+        pic_info = #{picInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerMessage != null" >
+        buyer_message = #{buyerMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerMessage != null" >
+        seller_message = #{sellerMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMessage != null" >
+        admin_message = #{adminMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="expressId != null" >
+        express_id = #{expressId,jdbcType=BIT},
+      </if>
+      <if test="invoiceNo != null" >
+        invoice_no = #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="shipTime != null" >
+        ship_time = #{shipTime,jdbcType=VARCHAR},
+      </if>
+      <if test="delayTime != null" >
+        delay_time = #{delayTime,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveTime != null" >
+        receive_time = #{receiveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveMessage != null" >
+        receive_message = #{receiveMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="commisRate != null" >
+        commis_rate = #{commisRate,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where refund_id = #{refundId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdOrderRefund" >
+    update yd_order_refund
+    set order_id = #{orderId,jdbcType=INTEGER},
+      order_sn = #{orderSn,jdbcType=VARCHAR},
+      refund_sn = #{refundSn,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=INTEGER},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      buyer_id = #{buyerId,jdbcType=INTEGER},
+      buyer_name = #{buyerName,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      order_goods_id = #{orderGoodsId,jdbcType=INTEGER},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_num = #{goodsNum,jdbcType=INTEGER},
+      refund_amount = #{refundAmount,jdbcType=DECIMAL},
+      goods_image = #{goodsImage,jdbcType=VARCHAR},
+      order_goods_type = #{orderGoodsType,jdbcType=TINYINT},
+      refund_type = #{refundType,jdbcType=TINYINT},
+      seller_state = #{sellerState,jdbcType=TINYINT},
+      refund_state = #{refundState,jdbcType=TINYINT},
+      return_type = #{returnType,jdbcType=TINYINT},
+      order_lock = #{orderLock,jdbcType=TINYINT},
+      goods_state = #{goodsState,jdbcType=TINYINT},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      seller_time = #{sellerTime,jdbcType=VARCHAR},
+      admin_time = #{adminTime,jdbcType=VARCHAR},
+      reason_id = #{reasonId,jdbcType=INTEGER},
+      reason_info = #{reasonInfo,jdbcType=VARCHAR},
+      pic_info = #{picInfo,jdbcType=VARCHAR},
+      buyer_message = #{buyerMessage,jdbcType=VARCHAR},
+      seller_message = #{sellerMessage,jdbcType=VARCHAR},
+      admin_message = #{adminMessage,jdbcType=VARCHAR},
+      express_id = #{expressId,jdbcType=BIT},
+      invoice_no = #{invoiceNo,jdbcType=VARCHAR},
+      ship_time = #{shipTime,jdbcType=VARCHAR},
+      delay_time = #{delayTime,jdbcType=VARCHAR},
+      receive_time = #{receiveTime,jdbcType=VARCHAR},
+      receive_message = #{receiveMessage,jdbcType=VARCHAR},
+      commis_rate = #{commisRate,jdbcType=SMALLINT}
+    where refund_id = #{refundId,jdbcType=INTEGER}
+  </update>
+</mapper>

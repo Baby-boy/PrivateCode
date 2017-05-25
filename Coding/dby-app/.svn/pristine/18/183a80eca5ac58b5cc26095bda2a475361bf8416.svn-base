@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdOnlinebookingMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdOnlinebooking" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="address_pca" property="addressPca" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="user_address" property="userAddress" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_summary" property="goodsSummary" jdbcType="VARCHAR" />
+    <result column="goods_cover" property="goodsCover" jdbcType="VARCHAR" />
+    <result column="goods_pics" property="goodsPics" jdbcType="VARCHAR" />
+    <result column="address_province_id" property="addressProvinceId" jdbcType="CHAR" />
+    <result column="address_city_id" property="addressCityId" jdbcType="CHAR" />
+    <result column="address_area_id" property="addressAreaId" jdbcType="CHAR" />
+    <result column="province_value" property="provinceValue" jdbcType="VARCHAR" />
+    <result column="address_area_value" property="addressAreaValue" jdbcType="VARCHAR" />
+    <result column="city_value" property="cityValue" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="CHAR" />
+    <result column="classify_id1" property="classifyId1" jdbcType="INTEGER" />
+    <result column="classify_id2" property="classifyId2" jdbcType="INTEGER" />
+    <result column="details_address" property="detailsAddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, address_pca, type, user_id, user_name, user_phone, user_address, goods_name, 
+    goods_summary, goods_cover, goods_pics, address_province_id, address_city_id, address_area_id, 
+    province_value, address_area_value, city_value, created_time, classify_id1, classify_id2, 
+    details_address
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.yd.dby.app.entity.YdOnlinebookingKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_onlinebooking
+    where id = #{id,jdbcType=INTEGER}
+      and address_pca = #{addressPca,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.yd.dby.app.entity.YdOnlinebookingKey" >
+    delete from yd_onlinebooking
+    where id = #{id,jdbcType=INTEGER}
+      and address_pca = #{addressPca,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdOnlinebooking" >
+    insert into yd_onlinebooking (id, address_pca, type, 
+      user_id, user_name, user_phone, 
+      user_address, goods_name, goods_summary, 
+      goods_cover, goods_pics, address_province_id, 
+      address_city_id, address_area_id, province_value, 
+      address_area_value, city_value, created_time, 
+      classify_id1, classify_id2, details_address
+      )
+    values (#{id,jdbcType=INTEGER}, #{addressPca,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
+      #{userAddress,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{goodsSummary,jdbcType=VARCHAR}, 
+      #{goodsCover,jdbcType=VARCHAR}, #{goodsPics,jdbcType=VARCHAR}, #{addressProvinceId,jdbcType=CHAR}, 
+      #{addressCityId,jdbcType=CHAR}, #{addressAreaId,jdbcType=CHAR}, #{provinceValue,jdbcType=VARCHAR}, 
+      #{addressAreaValue,jdbcType=VARCHAR}, #{cityValue,jdbcType=VARCHAR}, #{createdTime,jdbcType=CHAR}, 
+      #{classifyId1,jdbcType=INTEGER}, #{classifyId2,jdbcType=INTEGER}, #{detailsAddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdOnlinebooking" >
+    insert into yd_onlinebooking
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="addressPca != null" >
+        address_pca,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userPhone != null" >
+        user_phone,
+      </if>
+      <if test="userAddress != null" >
+        user_address,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsSummary != null" >
+        goods_summary,
+      </if>
+      <if test="goodsCover != null" >
+        goods_cover,
+      </if>
+      <if test="goodsPics != null" >
+        goods_pics,
+      </if>
+      <if test="addressProvinceId != null" >
+        address_province_id,
+      </if>
+      <if test="addressCityId != null" >
+        address_city_id,
+      </if>
+      <if test="addressAreaId != null" >
+        address_area_id,
+      </if>
+      <if test="provinceValue != null" >
+        province_value,
+      </if>
+      <if test="addressAreaValue != null" >
+        address_area_value,
+      </if>
+      <if test="cityValue != null" >
+        city_value,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="classifyId1 != null" >
+        classify_id1,
+      </if>
+      <if test="classifyId2 != null" >
+        classify_id2,
+      </if>
+      <if test="detailsAddress != null" >
+        details_address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="addressPca != null" >
+        #{addressPca,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null" >
+        #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSummary != null" >
+        #{goodsSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCover != null" >
+        #{goodsCover,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPics != null" >
+        #{goodsPics,jdbcType=VARCHAR},
+      </if>
+      <if test="addressProvinceId != null" >
+        #{addressProvinceId,jdbcType=CHAR},
+      </if>
+      <if test="addressCityId != null" >
+        #{addressCityId,jdbcType=CHAR},
+      </if>
+      <if test="addressAreaId != null" >
+        #{addressAreaId,jdbcType=CHAR},
+      </if>
+      <if test="provinceValue != null" >
+        #{provinceValue,jdbcType=VARCHAR},
+      </if>
+      <if test="addressAreaValue != null" >
+        #{addressAreaValue,jdbcType=VARCHAR},
+      </if>
+      <if test="cityValue != null" >
+        #{cityValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=CHAR},
+      </if>
+      <if test="classifyId1 != null" >
+        #{classifyId1,jdbcType=INTEGER},
+      </if>
+      <if test="classifyId2 != null" >
+        #{classifyId2,jdbcType=INTEGER},
+      </if>
+      <if test="detailsAddress != null" >
+        #{detailsAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdOnlinebooking" >
+    update yd_onlinebooking
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null" >
+        user_address = #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSummary != null" >
+        goods_summary = #{goodsSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCover != null" >
+        goods_cover = #{goodsCover,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPics != null" >
+        goods_pics = #{goodsPics,jdbcType=VARCHAR},
+      </if>
+      <if test="addressProvinceId != null" >
+        address_province_id = #{addressProvinceId,jdbcType=CHAR},
+      </if>
+      <if test="addressCityId != null" >
+        address_city_id = #{addressCityId,jdbcType=CHAR},
+      </if>
+      <if test="addressAreaId != null" >
+        address_area_id = #{addressAreaId,jdbcType=CHAR},
+      </if>
+      <if test="provinceValue != null" >
+        province_value = #{provinceValue,jdbcType=VARCHAR},
+      </if>
+      <if test="addressAreaValue != null" >
+        address_area_value = #{addressAreaValue,jdbcType=VARCHAR},
+      </if>
+      <if test="cityValue != null" >
+        city_value = #{cityValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=CHAR},
+      </if>
+      <if test="classifyId1 != null" >
+        classify_id1 = #{classifyId1,jdbcType=INTEGER},
+      </if>
+      <if test="classifyId2 != null" >
+        classify_id2 = #{classifyId2,jdbcType=INTEGER},
+      </if>
+      <if test="detailsAddress != null" >
+        details_address = #{detailsAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and address_pca = #{addressPca,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdOnlinebooking" >
+    update yd_onlinebooking
+    set type = #{type,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_address = #{userAddress,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_summary = #{goodsSummary,jdbcType=VARCHAR},
+      goods_cover = #{goodsCover,jdbcType=VARCHAR},
+      goods_pics = #{goodsPics,jdbcType=VARCHAR},
+      address_province_id = #{addressProvinceId,jdbcType=CHAR},
+      address_city_id = #{addressCityId,jdbcType=CHAR},
+      address_area_id = #{addressAreaId,jdbcType=CHAR},
+      province_value = #{provinceValue,jdbcType=VARCHAR},
+      address_area_value = #{addressAreaValue,jdbcType=VARCHAR},
+      city_value = #{cityValue,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=CHAR},
+      classify_id1 = #{classifyId1,jdbcType=INTEGER},
+      classify_id2 = #{classifyId2,jdbcType=INTEGER},
+      details_address = #{detailsAddress,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+      and address_pca = #{addressPca,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 全部查询 -->
+  <!-- 线上预约总数 -->
+  <select id="selectCirculationOnlinebookingPageListCount" resultType="java.lang.Integer">
+  	select 
+  		count(distinct id)
+	from 	
+		yd_onlinebooking
+	where user_id=#{userId} and type=3
+  </select>
+  
+  <!-- 线上预约列表 -->
+  <select id="selectCirculationOnlinebookingPageList" resultType="YdOnlinebooking">
+  	select 
+  		id,user_name,user_phone,address_pca,details_address,goods_pics
+	from 
+		yd_onlinebooking
+	where user_id=#{userId} and type=3
+	order by created_time desc
+	limit #{para.startIndex},#{para.onePageCount}
+  </select>
+  
+  <!-- 线上预约详情 -->
+  <select id="selectCirculationOnlinebookingDetails" resultType="YdOnlinebooking">
+  	select 
+  		address_pca,details_address,user_name,user_phone,goods_name,goods_summary, goods_pics    
+	from 
+		yd_onlinebooking 
+	where id=#{id}
+  </select>
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdGoodsAttributeMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdGoodsAttribute" >
+    <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <id column="classify_id" property="classifyId" jdbcType="INTEGER" />
+    <id column="attr_value_id" property="attrValueId" jdbcType="INTEGER" />
+    <result column="depot_id" property="depotId" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="attr_id" property="attrId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goods_id, classify_id, attr_value_id, depot_id, type_id, attr_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.yd.dby.app.entity.YdGoodsAttributeKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_goods_attribute
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+      and classify_id = #{classifyId,jdbcType=INTEGER}
+      and attr_value_id = #{attrValueId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.yd.dby.app.entity.YdGoodsAttributeKey" >
+    delete from yd_goods_attribute
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+      and classify_id = #{classifyId,jdbcType=INTEGER}
+      and attr_value_id = #{attrValueId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdGoodsAttribute" >
+    insert into yd_goods_attribute (goods_id, classify_id, attr_value_id, 
+      depot_id, type_id, attr_id
+      )
+    values (#{goodsId,jdbcType=INTEGER}, #{classifyId,jdbcType=INTEGER}, #{attrValueId,jdbcType=INTEGER}, 
+      #{depotId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{attrId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdGoodsAttribute" >
+    insert into yd_goods_attribute
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="classifyId != null" >
+        classify_id,
+      </if>
+      <if test="attrValueId != null" >
+        attr_value_id,
+      </if>
+      <if test="depotId != null" >
+        depot_id,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="attrId != null" >
+        attr_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="classifyId != null" >
+        #{classifyId,jdbcType=INTEGER},
+      </if>
+      <if test="attrValueId != null" >
+        #{attrValueId,jdbcType=INTEGER},
+      </if>
+      <if test="depotId != null" >
+        #{depotId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="attrId != null" >
+        #{attrId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdGoodsAttribute" >
+    update yd_goods_attribute
+    <set >
+      <if test="depotId != null" >
+        depot_id = #{depotId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="attrId != null" >
+        attr_id = #{attrId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+      and classify_id = #{classifyId,jdbcType=INTEGER}
+      and attr_value_id = #{attrValueId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdGoodsAttribute" >
+    update yd_goods_attribute
+    set depot_id = #{depotId,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER},
+      attr_id = #{attrId,jdbcType=INTEGER}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+      and classify_id = #{classifyId,jdbcType=INTEGER}
+      and attr_value_id = #{attrValueId,jdbcType=INTEGER}
+  </update>
+</mapper>

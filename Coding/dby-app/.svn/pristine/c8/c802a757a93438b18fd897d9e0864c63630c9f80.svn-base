@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdAdsMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdAds" >
+    <id column="ads_id" property="adsId" jdbcType="INTEGER" />
+    <result column="tag_id" property="tagId" jdbcType="INTEGER" />
+    <result column="ads_sort" property="adsSort" jdbcType="INTEGER" />
+    <result column="ads_type" property="adsType" jdbcType="VARCHAR" />
+    <result column="ads_jump_type" property="adsJumpType" jdbcType="INTEGER" />
+    <result column="ads_jump_address" property="adsJumpAddress" jdbcType="VARCHAR" />
+    <result column="ads_is_open" property="adsIsOpen" jdbcType="INTEGER" />
+    <result column="ads_title" property="adsTitle" jdbcType="VARCHAR" />
+    <result column="ads_subtitle" property="adsSubtitle" jdbcType="VARCHAR" />
+    <result column="ads_imgsrc" property="adsImgsrc" jdbcType="VARCHAR" />
+    <result column="ads_price" property="adsPrice" jdbcType="REAL" />
+    <result column="ads_original_price" property="adsOriginalPrice" jdbcType="REAL" />
+    <result column="ads_created_time" property="adsCreatedTime" jdbcType="TIMESTAMP" />
+    <result column="ads_pid" property="adsPid" jdbcType="INTEGER" />
+    <result column="ads_begin_time" property="adsBeginTime" jdbcType="TIMESTAMP" />
+    <result column="ads_end_time" property="adsEndTime" jdbcType="TIMESTAMP" />
+    <result column="ads_store_name" property="adsStoreName" jdbcType="VARCHAR" />
+    <result column="ads_activity_title" property="adsActivityTitle" jdbcType="VARCHAR" />
+    <result column="ads_subtitly_subtitle" property="adsSubtitlySubtitle" jdbcType="VARCHAR" />
+    <result column="ads_total_bid" property="adsTotalBid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ads_id, tag_id, ads_sort, ads_type, ads_jump_type, ads_jump_address, ads_is_open, 
+    ads_title, ads_subtitle, ads_imgsrc, ads_price, ads_original_price, ads_created_time, 
+    ads_pid, ads_begin_time, ads_end_time, ads_store_name, ads_activity_title, ads_subtitly_subtitle, 
+    ads_total_bid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_ads
+    where ads_id = #{adsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_ads
+    where ads_id = #{adsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdAds" >
+    insert into yd_ads (ads_id, tag_id, ads_sort, 
+      ads_type, ads_jump_type, ads_jump_address, 
+      ads_is_open, ads_title, ads_subtitle, 
+      ads_imgsrc, ads_price, ads_original_price, 
+      ads_created_time, ads_pid, ads_begin_time, 
+      ads_end_time, ads_store_name, ads_activity_title, 
+      ads_subtitly_subtitle, ads_total_bid)
+    values (#{adsId,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER}, #{adsSort,jdbcType=INTEGER}, 
+      #{adsType,jdbcType=VARCHAR}, #{adsJumpType,jdbcType=INTEGER}, #{adsJumpAddress,jdbcType=VARCHAR}, 
+      #{adsIsOpen,jdbcType=INTEGER}, #{adsTitle,jdbcType=VARCHAR}, #{adsSubtitle,jdbcType=VARCHAR}, 
+      #{adsImgsrc,jdbcType=VARCHAR}, #{adsPrice,jdbcType=REAL}, #{adsOriginalPrice,jdbcType=REAL}, 
+      #{adsCreatedTime,jdbcType=TIMESTAMP}, #{adsPid,jdbcType=INTEGER}, #{adsBeginTime,jdbcType=TIMESTAMP}, 
+      #{adsEndTime,jdbcType=TIMESTAMP}, #{adsStoreName,jdbcType=VARCHAR}, #{adsActivityTitle,jdbcType=VARCHAR}, 
+      #{adsSubtitlySubtitle,jdbcType=VARCHAR}, #{adsTotalBid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdAds" >
+    insert into yd_ads
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adsId != null" >
+        ads_id,
+      </if>
+      <if test="tagId != null" >
+        tag_id,
+      </if>
+      <if test="adsSort != null" >
+        ads_sort,
+      </if>
+      <if test="adsType != null" >
+        ads_type,
+      </if>
+      <if test="adsJumpType != null" >
+        ads_jump_type,
+      </if>
+      <if test="adsJumpAddress != null" >
+        ads_jump_address,
+      </if>
+      <if test="adsIsOpen != null" >
+        ads_is_open,
+      </if>
+      <if test="adsTitle != null" >
+        ads_title,
+      </if>
+      <if test="adsSubtitle != null" >
+        ads_subtitle,
+      </if>
+      <if test="adsImgsrc != null" >
+        ads_imgsrc,
+      </if>
+      <if test="adsPrice != null" >
+        ads_price,
+      </if>
+      <if test="adsOriginalPrice != null" >
+        ads_original_price,
+      </if>
+      <if test="adsCreatedTime != null" >
+        ads_created_time,
+      </if>
+      <if test="adsPid != null" >
+        ads_pid,
+      </if>
+      <if test="adsBeginTime != null" >
+        ads_begin_time,
+      </if>
+      <if test="adsEndTime != null" >
+        ads_end_time,
+      </if>
+      <if test="adsStoreName != null" >
+        ads_store_name,
+      </if>
+      <if test="adsActivityTitle != null" >
+        ads_activity_title,
+      </if>
+      <if test="adsSubtitlySubtitle != null" >
+        ads_subtitly_subtitle,
+      </if>
+      <if test="adsTotalBid != null" >
+        ads_total_bid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adsId != null" >
+        #{adsId,jdbcType=INTEGER},
+      </if>
+      <if test="tagId != null" >
+        #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="adsSort != null" >
+        #{adsSort,jdbcType=INTEGER},
+      </if>
+      <if test="adsType != null" >
+        #{adsType,jdbcType=VARCHAR},
+      </if>
+      <if test="adsJumpType != null" >
+        #{adsJumpType,jdbcType=INTEGER},
+      </if>
+      <if test="adsJumpAddress != null" >
+        #{adsJumpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="adsIsOpen != null" >
+        #{adsIsOpen,jdbcType=INTEGER},
+      </if>
+      <if test="adsTitle != null" >
+        #{adsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="adsSubtitle != null" >
+        #{adsSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="adsImgsrc != null" >
+        #{adsImgsrc,jdbcType=VARCHAR},
+      </if>
+      <if test="adsPrice != null" >
+        #{adsPrice,jdbcType=REAL},
+      </if>
+      <if test="adsOriginalPrice != null" >
+        #{adsOriginalPrice,jdbcType=REAL},
+      </if>
+      <if test="adsCreatedTime != null" >
+        #{adsCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adsPid != null" >
+        #{adsPid,jdbcType=INTEGER},
+      </if>
+      <if test="adsBeginTime != null" >
+        #{adsBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adsEndTime != null" >
+        #{adsEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adsStoreName != null" >
+        #{adsStoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="adsActivityTitle != null" >
+        #{adsActivityTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="adsSubtitlySubtitle != null" >
+        #{adsSubtitlySubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="adsTotalBid != null" >
+        #{adsTotalBid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdAds" >
+    update yd_ads
+    <set >
+      <if test="tagId != null" >
+        tag_id = #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="adsSort != null" >
+        ads_sort = #{adsSort,jdbcType=INTEGER},
+      </if>
+      <if test="adsType != null" >
+        ads_type = #{adsType,jdbcType=VARCHAR},
+      </if>
+      <if test="adsJumpType != null" >
+        ads_jump_type = #{adsJumpType,jdbcType=INTEGER},
+      </if>
+      <if test="adsJumpAddress != null" >
+        ads_jump_address = #{adsJumpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="adsIsOpen != null" >
+        ads_is_open = #{adsIsOpen,jdbcType=INTEGER},
+      </if>
+      <if test="adsTitle != null" >
+        ads_title = #{adsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="adsSubtitle != null" >
+        ads_subtitle = #{adsSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="adsImgsrc != null" >
+        ads_imgsrc = #{adsImgsrc,jdbcType=VARCHAR},
+      </if>
+      <if test="adsPrice != null" >
+        ads_price = #{adsPrice,jdbcType=REAL},
+      </if>
+      <if test="adsOriginalPrice != null" >
+        ads_original_price = #{adsOriginalPrice,jdbcType=REAL},
+      </if>
+      <if test="adsCreatedTime != null" >
+        ads_created_time = #{adsCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adsPid != null" >
+        ads_pid = #{adsPid,jdbcType=INTEGER},
+      </if>
+      <if test="adsBeginTime != null" >
+        ads_begin_time = #{adsBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adsEndTime != null" >
+        ads_end_time = #{adsEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adsStoreName != null" >
+        ads_store_name = #{adsStoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="adsActivityTitle != null" >
+        ads_activity_title = #{adsActivityTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="adsSubtitlySubtitle != null" >
+        ads_subtitly_subtitle = #{adsSubtitlySubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="adsTotalBid != null" >
+        ads_total_bid = #{adsTotalBid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ads_id = #{adsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdAds" >
+    update yd_ads
+    set tag_id = #{tagId,jdbcType=INTEGER},
+      ads_sort = #{adsSort,jdbcType=INTEGER},
+      ads_type = #{adsType,jdbcType=VARCHAR},
+      ads_jump_type = #{adsJumpType,jdbcType=INTEGER},
+      ads_jump_address = #{adsJumpAddress,jdbcType=VARCHAR},
+      ads_is_open = #{adsIsOpen,jdbcType=INTEGER},
+      ads_title = #{adsTitle,jdbcType=VARCHAR},
+      ads_subtitle = #{adsSubtitle,jdbcType=VARCHAR},
+      ads_imgsrc = #{adsImgsrc,jdbcType=VARCHAR},
+      ads_price = #{adsPrice,jdbcType=REAL},
+      ads_original_price = #{adsOriginalPrice,jdbcType=REAL},
+      ads_created_time = #{adsCreatedTime,jdbcType=TIMESTAMP},
+      ads_pid = #{adsPid,jdbcType=INTEGER},
+      ads_begin_time = #{adsBeginTime,jdbcType=TIMESTAMP},
+      ads_end_time = #{adsEndTime,jdbcType=TIMESTAMP},
+      ads_store_name = #{adsStoreName,jdbcType=VARCHAR},
+      ads_activity_title = #{adsActivityTitle,jdbcType=VARCHAR},
+      ads_subtitly_subtitle = #{adsSubtitlySubtitle,jdbcType=VARCHAR},
+      ads_total_bid = #{adsTotalBid,jdbcType=INTEGER}
+    where ads_id = #{adsId,jdbcType=INTEGER}
+  </update>
+</mapper>

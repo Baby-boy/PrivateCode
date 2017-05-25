@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysReplyReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysReply" >
+    <id column="reply_id" property="replyId" jdbcType="INTEGER" />
+    <result column="manager_id" property="managerId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lingang.api.domain.entity.SysReply" extends="BaseResultMap" >
+    <result column="reply_content" property="replyContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+   <resultMap id="ResultMapVo" type="com.lingang.api.domain.vo.SysReplyVo" >
+     <id column="reply_id" property="replyId" jdbcType="INTEGER" />
+    <result column="reply_time" property="replyTime" jdbcType="TIMESTAMP" />
+    <result column="reply_content" property="replyContent" jdbcType="LONGVARCHAR" />
+    
+    <result column="message_id" property="messageId" jdbcType="INTEGER" />
+    <result column="message_type" property="messageType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="message_state" property="messageState" jdbcType="INTEGER" />
+    <result column="link_type" property="linkType" jdbcType="INTEGER" />
+    <result column="link_id" property="linkId" jdbcType="INTEGER" />
+    <result column="message_content" property="messageContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    reply_id, manager_id, create_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    reply_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_reply
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </select>
+   
+  <select id="selectSysReplyByMessageId" resultMap="ResultMapVo" parameterType="java.lang.Integer">
+  	select 
+	sm.message_id,sm.message_content,sm.create_time,sm.link_id,sm.link_type,
+	sr.reply_id,sr.create_time reply_time,sr.reply_content 
+	from sys_message sm 
+	left join sys_message_reply smr on smr.message_id=sm.message_id 
+	left join sys_reply sr on sr.reply_id=smr.reply_id
+	where sm.message_id=#{messageId,jdbcType=INTEGER}
+  </select>
+</mapper>

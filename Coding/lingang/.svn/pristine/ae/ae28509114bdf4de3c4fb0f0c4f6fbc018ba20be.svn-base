@@ -1,0 +1,1196 @@
+.bg1{
+	background: url(../img/bg.png) left top no-repeat;
+	background-size: 100% 100%;
+	min-height: 100%;
+	padding-top: 20px;
+	color: #214375;
+	overflow-x: hidden;
+}
+.bg2{
+	background: url(../img/frame1.png) left top no-repeat;
+	background-size: 100% 100%;
+	min-height: 100%;
+	color: #214375;
+	padding: 10px 10px 30px 10px;
+	overflow: hidden;
+}
+.bg3{
+	background: url(../img/frame10.png) left top no-repeat;
+	background-size: 100% 100%;
+	min-height: 300px;
+	color: #214375;
+	padding: 10px 10px 30px 10px;
+	overflow: hidden;
+}
+.bg3>.title{
+	text-align: center;
+	font-size: 16px;
+}
+.bg3>.body{
+	margin-top: 20px;
+}
+.bg4{
+	background: url(../img/frame1.png) left top no-repeat;
+	background-size: 100% 100%;
+	min-height: 500px;
+	color: white;
+	overflow: hidden;
+}
+.bg4>.body{
+	padding: 10px 10px 30px 10px;
+}
+.bg4>.body .col-xs-6{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.bg5{
+	background: url(../img/frame13.png) left top no-repeat;
+	background-size: 100% 100%;
+	height: 350px;
+	overflow: hidden;
+	color: white;
+	overflow: hidden;
+	position: relative;
+}
+.bg5>.state{
+	width: 25%;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+.bg5>.name{
+	padding-left: 16%;
+    padding-top: 4%;
+}
+.bg5>.icon{
+	position: absolute;
+    right: 6%;
+    width: 47%;
+    top: 13%;
+    height: 56%;
+}
+.bg5>.icon>.auto-img{
+	height: 100%;
+    width: 100%;
+}
+.bg5>.body{
+	padding: 15px 53% 10px 10px;
+}    
+.bg5>.body>.title{
+	font-size: 16px;
+}
+.bg5>.body>p{
+	margin: 0 0 3px;
+}
+.bg5>.sc{
+	position: absolute;
+	right: 0;
+	bottom: 15%;
+	width: 35%;
+}
+.bg5 .sc-btn{
+	background: url(../img/unlike3.png) left top no-repeat;
+	background-size: 100% 100%;
+	height: 40px;
+	width: 100%;
+    color: white;
+    line-height: 40px;
+    padding: 0;
+    padding-left: 50%;
+}
+.iframe3>.sc{
+	position: absolute;
+	right: 1%;
+	bottom: 0;
+	width: 30%;
+}
+.iframe3>.sc>.sc-btn{
+	background: url(../img/unlike2.png) center no-repeat;
+    background-size: 100% 100%;
+    height: 20px;
+    width: 100%;
+    color: white;
+    line-height: 20px;
+    padding: 0;
+    padding-left: 40%;
+    box-sizing: border-box;
+    display: inline-block;
+}
+.iframe3>.sc>.sc-btn2{
+	background: url(../img/like2.png) center no-repeat;
+    background-size: 100% 100%;
+    height: 20px;
+    width: 100%;
+    color: white;
+    line-height: 20px;
+    padding: 0;
+    padding-left: 40%;
+    box-sizing: border-box;
+    display: inline-block;
+}
+.bg5>.join{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 45%;
+}
+.bg5 .join-btn{
+	background: url(../img/addtocart2.png) left top no-repeat;
+    background-size: 100% 100%;
+    height: 52px;
+    width: 100%;
+    color: white;
+    line-height: 40px;
+    padding: 0;
+    padding-left: 50%;
+}
+.iframe2{
+	background: url(../img/frame2.png) left top no-repeat;
+	background-size: 100% 100%;
+	position: relative;
+}
+.iframe2>.title{
+	text-align: center;
+	font-size:16px;
+}
+.iframe2>.price{
+	text-align: center;
+	font-size: 18px;
+	background-color: #6082FE;
+	height: 30px;
+	line-height: 30px;
+}
+.iframe3{
+	background: url(../img/frame2.png) left top no-repeat;
+	background-size: 100% 100%;
+	position: relative;
+}
+.iframe3>.title{
+	text-align: center;
+	font-size:16px;
+}
+.iframe3>.price{
+	text-align: center;
+	font-size: 18px;
+	background-color: #6082FE;
+	height: 30px;
+	line-height: 30px;
+}
+.iframe3>.body{
+	padding: 10px;
+    padding-top: 20px;
+    padding-left: 15px;
+    padding-bottom: 20px;
+}
+.find-frame{
+	background: url(../img/frame1.png) left top no-repeat;
+	background-size: 100% 100%;
+	min-height: 280px;
+	padding: 5px 20px 20px;
+	position: relative;
+	color: white;
+}
+.msg-frame{
+	background: url(../img/frame24.png) left top no-repeat;
+	background-size: 100% 100%;
+	min-height: 500px;
+	padding: 10px;
+	position: relative;
+	color: white;
+	padding-top: 30px;
+}
+.msg-frame>.row{
+	margin-top: 10px;
+	line-height: 26px;
+}
+.d-frame{
+	background: url(../img/frame29.png) left top no-repeat;
+	background-size: 100% 100%;
+	min-height: 500px;
+	padding:10px;
+	position: relative;
+	color: white;
+	padding-top: 30px;
+}
+.xieyi-frame{
+	background: url(../img/frame31.png) left top no-repeat;
+	background-size: 100% 100%;
+	min-height: 500px;
+	padding:10px;
+	position: relative;
+	color: white;
+	padding-top: 40px;
+}
+.login{
+	background: url(../img/bg2.png);
+	background-size: 100% 100%;
+	min-height: 100%;
+}
+.login-frame{
+	background: url(../img/frame8.png) left top no-repeat;
+	background-size: 100% 100%;
+	min-height: 280px;
+	padding: 50px 20px;
+	position: relative;
+}
+.register-frame{
+	background: url(../img/frame9.png) left top no-repeat;
+	background-size: 100% 100%;
+	min-height: 280px;
+	padding: 50px 20px 10px;
+	position: relative;
+}
+.login-frame>.name{
+	position: absolute;
+	top: 5px;
+	left: 0;
+	width: 50%;
+	text-align: center;
+	color: white;
+}
+.login-frame>.next{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 50%;
+	text-align: center;
+	color: white;
+	background: url(../img/choice3.png) left top no-repeat;
+	background-size: 100% 100%;
+	height: 22px;
+	line-height: 22px;
+}
+.acDetai-frame{
+	background: url(../img/frame3.png) left top no-repeat;
+	background-size: 100% 100%;
+	height: 280px;
+	overflow: hidden;
+	padding: 50px 20px;
+	position: relative;
+	margin-top: -15px;
+}
+.acDetai-frame>.name{
+	position: absolute;
+	top: 5px;
+	left: 0;
+	width: 33%;
+	text-align: center;
+	color: white;
+}
+.acDetai-frame>.next{
+	position: absolute;
+	top: 0;
+	left: 34%;
+	width: 36%;
+	text-align: center;
+	color: white;
+	background: url(../img/choice1.png) left top no-repeat;
+	background-size: 100% 100%;
+	height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+}
+.login .form-control{
+	height: 30px;
+	border-radius: 0;
+}
+.register-frame>.name{
+	position: absolute;
+	top: 5px;
+	right: 0;
+	width: 50%;
+	text-align: center;
+	color: white;
+}
+.register-frame>.next{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 50%;
+	text-align: center;
+	color: white;
+	background: url(../img/choice2.png) left top no-repeat;
+	background-size: 100% 100%;
+	height: 26px;
+	line-height: 26px;
+}
+.login-btn{
+	background: url(../img/login.png) left top no-repeat;
+	background-size: 100% 100%;
+	height: 40px;
+}
+.register-btn{
+	background: url(../img/register.png) left top no-repeat;
+	background-size: 100% 100%;
+	height: 40px;
+}
+.js-frame{
+	background: url(../img/frame17.png) left top no-repeat;
+	background-size: 100% 100%;
+	min-height: 500px;
+	padding: 40px 20px;
+	position: relative;
+}
+.js-frame>.info,.order-frame>.info,.order-frame2>.info,.order-frame3>.info{
+	position: absolute;
+	bottom: 20px;
+	width: 100%;
+	text-align: center;
+	left:0;
+}
+.js-frame>.name{
+	position: absolute;
+	top: 5px;
+	right: 0;
+	width: 50%;
+	text-align: center;
+	color: white;
+}
+.js-frame>.next{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 48%;
+	text-align: center;
+	color: white;
+	background-color: #32418A;
+	height: 26px;
+	line-height: 26px;
+}
+.js-frame2{
+	background: url(../img/frame19.png) left top no-repeat;
+	background-size: 100% 100%;
+	min-height: 500px;
+	padding: 60px 20px 20px;
+	position: relative;
+}
+.js-frame2>.name{
+position: absolute;
+	top: 0px;
+	left: 0;
+	width: 50%;
+	text-align: center;
+	height: 42px;
+	line-height: 42px;
+	color: white;
+}
+.js-frame2>.name2{
+	position: absolute;
+	top: 0px;
+	left: 0;
+	width: 50%;
+	text-align: center;
+	height: 42px;
+	line-height: 42px;
+	color: white;
+	background-color: #32418A;
+}
+.js-frame2>.next{
+	position: absolute;
+	top: 0;
+	left: 52%;
+	width: 48%;
+	text-align: center;
+	color: white;
+	background-color: #32418A;
+	height: 42px;
+	line-height: 42px;
+}
+.js-frame2>.next2{
+	position: absolute;
+	top: 0;
+	left: 52%;
+	width: 48%;
+	text-align: center;
+	color: white;
+	height: 42px;
+	line-height: 42px;
+}
+.order-frame{
+	background: url(../img/frame20.png) left top no-repeat;
+	background-size: 100% 100%;
+	min-height: 500px;
+	padding: 40px 20px 100px;
+	position: relative;
+}
+.order-frame>.name{
+	position: absolute;
+	top: 5px;
+	left: 0;
+	width: 33%;
+	text-align: center;
+	color: white;
+}
+.order-frame>.next1{
+	position: absolute;
+	top: 0;
+	left: 33%;
+	width: 33%;
+	text-align: center;
+	color: white;
+	background-color: #32418A;
+	height: 26px;
+	line-height: 26px;
+}
+.order-frame>.next2{
+	position: absolute;
+	top: 0;
+	left: 67%;
+	width: 33%;
+	text-align: center;
+	color: white;
+	background-color: #32418A;
+	height: 26px;
+	line-height: 26px;
+}
+.order-frame2{
+	background: url(../img/frame21.png) left top no-repeat;
+	background-size: 100% 100%;
+	min-height: 500px;
+	padding: 40px 20px 100px;
+	position: relative;
+}
+.order-frame2>.name{
+	position: absolute;
+	top: 5px;
+	left: 33%;
+	width: 33%;
+	text-align: center;
+	color: white;
+}
+.order-frame2>.next1{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 32%;
+	text-align: center;
+	color: white;
+	background-color: #32418A;
+	height: 26px;
+	line-height: 26px;
+}
+.order-frame2>.next2{
+	position: absolute;
+	top: 0;
+	left: 68%;
+	width: 32%;
+	text-align: center;
+	color: white;
+	background-color: #32418A;
+	height: 26px;
+	line-height: 26px;
+}
+.order-frame3{
+	background: url(../img/frame22.png) left top no-repeat;
+	background-size: 100% 100%;
+	min-height: 500px;
+	padding: 40px 20px 100px;
+	position: relative;
+}
+.order-frame3>.name{
+	position: absolute;
+	top: 5px;
+	left: 67%;
+	width: 33%;
+	text-align: center;
+	color: white;
+}
+.order-frame3>.next1{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 32%;
+	text-align: center;
+	color: white;
+	background-color: #32418A;
+	height: 26px;
+	line-height: 26px;
+}
+.order-frame3>.next2{
+	position: absolute;
+	top: 0;
+	left: 33%;
+	width: 34%;
+	text-align: center;
+	color: white;
+	background-color: #32418A;
+	height: 26px;
+	line-height: 26px;
+}
+.active-list>.sub-div{
+	background: url(../img/frame1.png) left top no-repeat;
+	background-size: 100% 100%;
+	min-height: 100%;
+	color: white;
+	padding: 10px 10px 30px 10px;
+	margin-top: 20px;
+}
+.active-list>.sub-div>div{
+	margin-top: 20px;
+}
+.active-list>.sub-div>div:first-child{
+	margin-top: 0;
+}
+.active-list>.sub-div>div:last-child{
+	margin-top: 0;
+}
+.active-list>.sub-div>div>span{
+	margin-left: 10px;
+}
+.active-list>.sub-div>div>span:first-child{
+	margin-left: 0;
+}
+.yhj-list>.sub-div{
+	background: url(../img/frame1.png) left top no-repeat;
+	background-size: 100% 100%;
+	min-height: 100%;
+	color: white;
+	padding: 5px;
+	margin-top: 20px;
+	overflow: hidden;
+	position: relative;
+}
+.yhj-list>.sub-div p{
+	margin-bottom: 5px;
+}
+.yhj-list>.sub-div .state{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	z-index: 99;
+	max-height: 100%;
+	left: 10%;
+}
+.yhj-list>.sub-div .body{
+	padding: 5px;
+}
+.base-table thead{
+	text-align: center;
+	font-weight: bold;
+	background-color: #E7AE5D;
+}
+.base-table td{
+	border-right: 3px solid #6F8A98;
+}
+.base-table.no-border td{
+	border-right: 0;
+}
+.base-table td:last-child{
+	border-right: none;
+}
+.base-table tbody tr{
+	background-color: #A9B3C0;
+}
+.base-table tbody tr td{
+	border-top: none;
+}
+.base-table tbody tr:nth-child(2n){
+	background-color: #CAB290;
+}
+.color1{
+	color: #E7AE5D;
+}
+.color2{
+	color: #A9B3C0;
+}
+.color3{
+	color:#CAB290;
+}
+.bg11{
+	background-color:  #E7AE5D;
+}
+.jy-info{
+	margin-top: 10px;
+	padding: 5px;
+	background-color:  #E7AE5D;
+	color:white;
+}
+.btn-jy{
+	background-color: #6082FE;
+	font-weight: bold;
+	color: white;
+	font-size: 24px;
+    padding: 4px 38px;
+}
+.btn-jy:link{
+	color: white;
+}
+.btn-jy:visited{
+	color: white;
+}
+.btn-jy:hover{
+	color: white;
+}
+.btn-jy:active{
+	color: white;
+}
+.btn-select{
+	background-color: #E7AE5D;
+	color: white;
+    padding: 4px;
+    border-radius: 0;
+}
+.btn-select:link{
+	color: white;
+}
+.btn-select:visited{
+	color: white;
+}
+.btn-select:hover{
+	color: white;
+}
+.btn-select:active{
+	color: white;
+}
+.btn-pro{
+	background-color: #E7AE5D;
+	height: 20px;
+	color:white;
+	line-height: 20px;
+	width: 20px;
+	text-align: center;
+	display: inline-block;
+	border-radius: 50%;
+	margin-left: 10px;
+}
+.fade{
+	position: fixed;
+    background: black;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    opacity: .3;
+    display: none;
+}
+.fade-dialog{
+	position: fixed;
+    width: 80%;
+    left: 10%;
+    top: 30%;
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: 999;
+    padding: 20px 30px 10px;
+    display: none;
+}
+.fade-dialog.tk{
+	width: 90%;
+    left: 5%;
+    padding: 10px;
+}
+.fade-dialog.tk h4{
+	margin-top: 5px;
+}
+.fade-dialog.tk .col-xs-4,.fade-dialog.tk .col-xs-8,.fade-dialog.tk .col-xs-12{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.fade-dialog .text-primary{
+	color: #6082FE;
+}
+.fade-dialog .btn-primary{
+	background-color: #6082FE;
+	border-color: #6082FE;
+}
+.btn{
+	padding: 4px 12px;
+}
+.big-btn{
+	padding: 4px 24px;
+    border-radius: 0;
+}
+.big-btn2{
+	padding: 4px 34px;
+    border-radius: 0;
+}
+.order-list p{
+	white-space: nowrap;
+}
+.order-list .body{
+	padding: 10px 0;
+}
+.auto-img{
+	width: 100%;
+	height: auto;
+}
+.cy-list>.sub-div{
+	margin-top: 20px;
+}
+.pay-div{
+	background-color: #20275B;
+	text-align: right;
+	padding-right: 100px;
+	position: relative;
+	height: 40px;
+	line-height: 40px;
+	margin-top: 20px;
+}
+.pay-btn{
+	background: url(../img/paynow.png);
+	background-size: 100% 100%;
+	width: 100px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	height: 50px;
+}
+.pay-text{
+	position: absolute;
+	right: 20px;
+	bottom: 0;
+}
+.dg-btn{
+	background: url(../img/mycart.png);
+	background-size: 100% 100%;
+	width: 120px;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	height: 50px;
+}
+.bm-btn{
+	background: url(../img/enroll.png);
+	background-size: 100% 100%;
+	width: 120px;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	height: 50px;
+}
+.btn-default {
+    color: white;
+    background-color: #ccc;
+    border-color: #ccc;
+}
+.yue{
+	font-size: 26px;
+    color: #EE5F00;
+    font-weight: bold;
+}
+.yue>.price{
+	font-size: 48px;
+}
+.card-list>.sub-div{
+	width: 50%;
+	float: left;
+	padding: 10px;
+	text-align: center;
+}
+.card-list>.sub-div .icon{
+	width: 100%;
+	height: 120px;
+}
+.card-list>.sub-div .name{
+	font-size: 16px;
+	line-height: 25px;
+	height: 25px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.card-list>.sub-div .price{
+	line-height: 25px;
+	height: 25px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.btn-primary {
+    background-color: #6082FE;
+    border-color: #6082FE;
+}
+.fk-list>.sub-div{
+	background-color: #354455;
+	padding: 5px;
+	overflow: hidden;
+	margin-top: 20px;
+}
+.fk-list>.sub-div>.title{
+	height: 30px;
+	line-height: 30px;
+}
+.fk-list>.sub-div>.body{
+	padding: 10px 0;
+}
+.fk-list>.sub-div .auto-img{
+	height: 80px;
+}
+.jy-list{
+	margin-top: 10px;
+	overflow: hidden;
+	position: relative;
+}
+.jy-list>.sub-div{
+	background: url(../img/Rectangle-1.png) left top no-repeat;
+	background-size: 100% 100%;
+	overflow: hidden;
+	width: 48%;
+	float: left;
+	margin-right: 2%;
+	position: relative;
+	margin-top: 10px;
+}
+.jy-list>.sub-div:nth-child(2n){
+	margin-right: 0;
+	margin-left: 2%;
+}
+.jy-list>.sub-div>.icon{
+	width: 100%;
+	height: 140px;
+}
+.jy-list>.sub-div>.state{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 50%;
+}
+.jy-list>.sub-div>.body{
+	padding: 5px;
+	overflow: hidden;
+}
+.jy-list>.sub-div>.body .delete{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 50%;
+	height: 30px;
+}
+.jy-list>.sub-div>.body .delete>.auto-img{
+	width: 100%;
+	height: 100%;
+}
+.btn1{
+	background: url(../img/continue.png) left top no-repeat;
+	background-size: 100% 100%;
+	height: 40px;
+}
+.btn2{
+	background: url(../img/startborrow.png) left top no-repeat;
+	background-size: 100% 100%;
+	height: 40px;
+}
+.btn3{
+	background: url(../img/return.png) left top no-repeat;
+	background-size: 100% 100%;
+	height: 40px;
+}
+.btn4{
+	background: url(../img/saveorder.png) left top no-repeat;
+	background-size: 100% 100%;
+	height: 40px;
+}
+.btn5{
+	background: url(../img/payorder.png) left top no-repeat;
+	background-size: 100% 100%;
+	height: 40px;
+}
+.btn6{
+	background: url(../img/ok.png) left top no-repeat;
+	background-size: 100% 100%;
+	height: 40px;
+	width: 90%;
+    margin-left: 5%;
+}
+.sd-list{
+	margin-top: 10px;
+}
+.sd-list>.sub-div{
+	width: 95%;
+	margin-left: 5%;
+	margin-top: 10px;
+	background: url(../img/frame1.png) left top no-repeat;
+	background-size: 100% 100%;
+	position: relative;
+}
+.sd-list>.sub-div .icon{
+	width: 50%;
+	height: calc(100% - 2px);;
+	position: absolute;
+	left: 1px;
+	top: 0;
+}
+.sd-list>.sub-div>.body{
+	padding: 5px;
+	font-size:12px;
+	margin-left: 50%;
+}
+.sd-list>.sub-div>.state{
+	position: absolute;
+    top: 10px;
+    left: -8%;
+    width: 30%;
+}
+.dh-div{
+	overflow: hidden;
+}
+.dh-div>input{
+	width: 75%;
+    float: left;
+    border-radius: 0;
+}
+.dh-div>button,.dh-div>a{
+	width: 25%;
+    float: left;
+    border-radius: 0;
+    padding: 0;
+    height: 34px;
+    line-height: 34px;
+}
+.js-select{
+	background-color: #6082FE;
+	line-height: 30px;
+	height: 30px;
+	margin-top: 10px;
+}
+.js-select select{
+	border: 0;
+	background-color: #6082FE;
+	outline: none;
+}
+.mycart{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 40%;
+}
+.order-input{
+	border-radius: 0;
+	height: 27px;
+	display: inline-block;
+	width: 100px;
+}
+.active{
+	background-image: url(../img/actindex.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	min-height: 100%;
+	position: relative;
+	transition: background-image .2s;
+	-webkit-transition: background-image .2s;
+}
+.active>.item1{
+	position: absolute;
+    width: 18%;
+    height: 30px;
+    left: 37%;
+    top: 28%;
+}
+.active>.item2{
+	position: absolute;
+    width: 28%;
+    height: 40px;
+    left: 28%;
+    top: 36%;
+}
+.active>.item3{
+	position: absolute;
+    width: 40%;
+    height: 40px;
+    left: 19%;
+    top: 47%;
+}
+.active>.item4{
+	position: absolute;
+    width: 52%;
+    height: 45px;
+    left: 10%;
+    top: 58%;
+}
+.active>ul{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	display: none;
+}
+.active>ul>li{
+	width: 80px;
+	border-bottom: 1px solid white;
+	color: white;
+	margin-top: 5px;
+}
+.item1-ul{
+	position: absolute;
+    top: 20%;
+    left: 63%;
+    width: 100px;
+}
+.item2-ul{
+	position: absolute;
+    top: 29%;
+    left: 63%;
+    width: 100px;
+}
+.item3-ul{
+	position: absolute;
+    top: 38%;
+    left: 63%;
+    width: 100px;
+}
+.item4-ul{
+	position: absolute;
+    top: 38%;
+    left: 63%;
+    width: 100px;
+}
+.carousel img{
+	width: 100%;
+	height: 160px !important;
+}
+
+.acDetai-frame2{
+	background: url(../img/frame4.png) left top no-repeat;
+	background-size: 100% 100%;
+	height: 280px;
+	overflow: hidden;
+	padding: 50px 20px;
+	position: relative;
+	margin-top: -15px;
+}
+.acDetai-frame2>.name{
+	position: absolute;
+	top: 0;
+	left: 34%;
+	width: 36%;
+	text-align: center;
+	color: white;
+}
+.acDetai-frame2>.next{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 33%;
+	text-align: center;
+	color: white;
+	background: url(../img/choice2.png) left top no-repeat;
+	background-size: 100% 100%;
+	height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+}
+.fade-mask{
+	background: none;
+	display: block;
+}
+.load4 .loader {
+  font-size: 12px;
+  margin: 5em auto;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-animation: load4 1.3s infinite linear;
+  animation: load4 1.3s infinite linear;
+}
+@-webkit-keyframes load4 {
+  0%,
+  100% {
+    box-shadow: 0em -3em 0em 0.2em #ffffff, 2em -2em 0 0em #ffffff, 3em 0em 0 -0.5em #ffffff, 2em 2em 0 -0.5em #ffffff, 0em 3em 0 -0.5em #ffffff, -2em 2em 0 -0.5em #ffffff, -3em 0em 0 -0.5em #ffffff, -2em -2em 0 0em #ffffff;
+  }
+  12.5% {
+    box-shadow: 0em -3em 0em 0em #ffffff, 2em -2em 0 0.2em #ffffff, 3em 0em 0 0em #ffffff, 2em 2em 0 -0.5em #ffffff, 0em 3em 0 -0.5em #ffffff, -2em 2em 0 -0.5em #ffffff, -3em 0em 0 -0.5em #ffffff, -2em -2em 0 -0.5em #ffffff;
+  }
+  25% {
+    box-shadow: 0em -3em 0em -0.5em #ffffff, 2em -2em 0 0em #ffffff, 3em 0em 0 0.2em #ffffff, 2em 2em 0 0em #ffffff, 0em 3em 0 -0.5em #ffffff, -2em 2em 0 -0.5em #ffffff, -3em 0em 0 -0.5em #ffffff, -2em -2em 0 -0.5em #ffffff;
+  }
+  37.5% {
+    box-shadow: 0em -3em 0em -0.5em #ffffff, 2em -2em 0 -0.5em #ffffff, 3em 0em 0 0em #ffffff, 2em 2em 0 0.2em #ffffff, 0em 3em 0 0em #ffffff, -2em 2em 0 -0.5em #ffffff, -3em 0em 0 -0.5em #ffffff, -2em -2em 0 -0.5em #ffffff;
+  }
+  50% {
+    box-shadow: 0em -3em 0em -0.5em #ffffff, 2em -2em 0 -0.5em #ffffff, 3em 0em 0 -0.5em #ffffff, 2em 2em 0 0em #ffffff, 0em 3em 0 0.2em #ffffff, -2em 2em 0 0em #ffffff, -3em 0em 0 -0.5em #ffffff, -2em -2em 0 -0.5em #ffffff;
+  }
+  62.5% {
+    box-shadow: 0em -3em 0em -0.5em #ffffff, 2em -2em 0 -0.5em #ffffff, 3em 0em 0 -0.5em #ffffff, 2em 2em 0 -0.5em #ffffff, 0em 3em 0 0em #ffffff, -2em 2em 0 0.2em #ffffff, -3em 0em 0 0em #ffffff, -2em -2em 0 -0.5em #ffffff;
+  }
+  75% {
+    box-shadow: 0em -3em 0em -0.5em #ffffff, 2em -2em 0 -0.5em #ffffff, 3em 0em 0 -0.5em #ffffff, 2em 2em 0 -0.5em #ffffff, 0em 3em 0 -0.5em #ffffff, -2em 2em 0 0em #ffffff, -3em 0em 0 0.2em #ffffff, -2em -2em 0 0em #ffffff;
+  }
+  87.5% {
+    box-shadow: 0em -3em 0em 0em #ffffff, 2em -2em 0 -0.5em #ffffff, 3em 0em 0 -0.5em #ffffff, 2em 2em 0 -0.5em #ffffff, 0em 3em 0 -0.5em #ffffff, -2em 2em 0 0em #ffffff, -3em 0em 0 0em #ffffff, -2em -2em 0 0.2em #ffffff;
+  }
+}
+@keyframes load4 {
+  0%,
+  100% {
+    box-shadow: 0em -3em 0em 0.2em #ffffff, 2em -2em 0 0em #ffffff, 3em 0em 0 -0.5em #ffffff, 2em 2em 0 -0.5em #ffffff, 0em 3em 0 -0.5em #ffffff, -2em 2em 0 -0.5em #ffffff, -3em 0em 0 -0.5em #ffffff, -2em -2em 0 0em #ffffff;
+  }
+  12.5% {
+    box-shadow: 0em -3em 0em 0em #ffffff, 2em -2em 0 0.2em #ffffff, 3em 0em 0 0em #ffffff, 2em 2em 0 -0.5em #ffffff, 0em 3em 0 -0.5em #ffffff, -2em 2em 0 -0.5em #ffffff, -3em 0em 0 -0.5em #ffffff, -2em -2em 0 -0.5em #ffffff;
+  }
+  25% {
+    box-shadow: 0em -3em 0em -0.5em #ffffff, 2em -2em 0 0em #ffffff, 3em 0em 0 0.2em #ffffff, 2em 2em 0 0em #ffffff, 0em 3em 0 -0.5em #ffffff, -2em 2em 0 -0.5em #ffffff, -3em 0em 0 -0.5em #ffffff, -2em -2em 0 -0.5em #ffffff;
+  }
+  37.5% {
+    box-shadow: 0em -3em 0em -0.5em #ffffff, 2em -2em 0 -0.5em #ffffff, 3em 0em 0 0em #ffffff, 2em 2em 0 0.2em #ffffff, 0em 3em 0 0em #ffffff, -2em 2em 0 -0.5em #ffffff, -3em 0em 0 -0.5em #ffffff, -2em -2em 0 -0.5em #ffffff;
+  }
+  50% {
+    box-shadow: 0em -3em 0em -0.5em #ffffff, 2em -2em 0 -0.5em #ffffff, 3em 0em 0 -0.5em #ffffff, 2em 2em 0 0em #ffffff, 0em 3em 0 0.2em #ffffff, -2em 2em 0 0em #ffffff, -3em 0em 0 -0.5em #ffffff, -2em -2em 0 -0.5em #ffffff;
+  }
+  62.5% {
+    box-shadow: 0em -3em 0em -0.5em #ffffff, 2em -2em 0 -0.5em #ffffff, 3em 0em 0 -0.5em #ffffff, 2em 2em 0 -0.5em #ffffff, 0em 3em 0 0em #ffffff, -2em 2em 0 0.2em #ffffff, -3em 0em 0 0em #ffffff, -2em -2em 0 -0.5em #ffffff;
+  }
+  75% {
+    box-shadow: 0em -3em 0em -0.5em #ffffff, 2em -2em 0 -0.5em #ffffff, 3em 0em 0 -0.5em #ffffff, 2em 2em 0 -0.5em #ffffff, 0em 3em 0 -0.5em #ffffff, -2em 2em 0 0em #ffffff, -3em 0em 0 0.2em #ffffff, -2em -2em 0 0em #ffffff;
+  }
+  87.5% {
+    box-shadow: 0em -3em 0em 0em #ffffff, 2em -2em 0 -0.5em #ffffff, 3em 0em 0 -0.5em #ffffff, 2em 2em 0 -0.5em #ffffff, 0em 3em 0 -0.5em #ffffff, -2em 2em 0 0em #ffffff, -3em 0em 0 0em #ffffff, -2em -2em 0 0.2em #ffffff;
+  }
+}
+
+.js-select{
+	overflow: hidden;
+}
+.js-select>.col-xs-3{
+	padding-left: 0;
+	padding-right: 0;
+}
+.js-select>.col-xs-3:first-child{
+	padding-left: 15px;
+}
+.js-select>.col-xs-3:last-child{
+	padding-right: 15px;
+}
+.js-select select{
+	width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+}
+.sd-list>.sub-div .icon {
+    height: -webkit-calc(100% - 2px);
+}
+.active-list>.sub-div {
+    color: #214375;
+}
+.fk-list>.sub-div {
+    color: white;
+}
+.msg-frame,.d-frame,.find-frame,.xieyi-frame{
+	color: #214375;
+}
+.yhj-list>.sub-div {
+    color: #214375;
+}
+.js-select{
+	color: white;
+}
+.base-table thead {
+    color: white;
+}
+.row.add-person{
+	line-height:34px;
+}
+.row.add-person>.col-xs-3{
+	padding-right: 0;
+}
+.row.add-person>.col-xs-4{
+	padding-right: 0;
+}
+.book-detai{
+	display: none;
+}
+.book-detai>.next{
+	height: 22px;
+	line-height: 22px;
+}
+.card-list>li>.body>.info>.price {
+    font-size: 12px;
+}
+.card-list>li>.body>.info>.name {
+    font-size: 12px;
+}

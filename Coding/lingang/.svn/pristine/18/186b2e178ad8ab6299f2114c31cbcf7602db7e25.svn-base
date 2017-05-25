@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+  
+    <!-- ========================= dubbo RESOURCE DEFINITIONS ========================= -->
+    
+    <!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+    <dubbo:application name="lingang-consumer"  />
+ 
+    <!-- 使用multicast广播注册中心暴露发现服务地址 -->
+    <!--  <dubbo:registry address="${zookeeper.address}" />-->
+    <dubbo:registry protocol="zookeeper" address="${zookeeper.address}" />
+ 
+    <!-- 服务消费者过期时间配置 -->
+    <dubbo:consumer timeout="1000000" retries="0" check = "${consumer_check}"/>
+    <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
+    <dubbo:reference id="sysUserService" interface="com.lingang.api.service.SysUserService" />
+    <dubbo:reference id="sysNewsService" interface="com.lingang.api.service.SysNewsService" />
+    <dubbo:reference id="sysPolicyService" interface="com.lingang.api.service.SysPolicyService" />
+    <dubbo:reference id="sysParkService" interface="com.lingang.api.service.SysParkService" />
+    <dubbo:reference id="sysIndustryService" interface="com.lingang.api.service.SysIndustryService" />
+    <dubbo:reference id="sysRegionService" interface="com.lingang.api.service.SysRegionService" />
+    <dubbo:reference id="sysPartnerTypeService" interface="com.lingang.api.service.SysPartnerTypeService" />
+    <dubbo:reference id="sysPartnerService" interface="com.lingang.api.service.SysPartnerService" />
+    <dubbo:reference id="sysServiceService" interface="com.lingang.api.service.SysServiceService" />
+    <dubbo:reference id="sysMessageService" interface="com.lingang.api.service.SysMessageService" />
+    <dubbo:reference id="sysPublicService" interface="com.lingang.api.service.SysPublicService" />
+    <dubbo:reference id="sysStationService" interface="com.lingang.api.service.SysStationService" />
+    <dubbo:reference id="sysHomeService" interface="com.lingang.api.service.SysHomeService" />
+    <dubbo:reference id="sysLabelService" interface="com.lingang.api.service.SysLabelService" />
+    <dubbo:reference id="sysBasicsService" interface="com.lingang.api.service.SysBasicsService" />
+    <dubbo:reference id="sysSearchService" interface="com.lingang.api.service.SysSearchService" />
+    <dubbo:reference id="sysImagesService" interface="com.lingang.api.service.SysImagesService" />
+    <!-- wcm -->
+    <dubbo:reference id="wcmCountService" interface="com.lingang.api.service.WcmCountService" />
+</beans>

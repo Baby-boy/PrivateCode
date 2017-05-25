@@ -1,0 +1,41 @@
+package com.lingang.api.service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.para.SysPartnerPara;
+import com.lingang.api.domain.pfvo.SysPartnerPfVo;
+import com.lingang.api.domain.vo.SysPartnerVo;
+
+public interface SysPartnerService {
+
+	/**
+	* @Description: (合作伙伴列表)
+	* @param pageIndex
+	* @param pageSize
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月5日 下午12:23:11
+	 */
+	ServiceResult<Page<SysPartnerVo>> selectPartnerPageList(Integer pageIndex,Integer pageSize);
+	
+	
+	/**
+	* @Description: (合作伙伴详情)
+	* @param partnerId
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月5日 下午2:48:45
+	 */
+	ServiceResult<SysPartnerVo> selectPartnerVoByPartnerId(Integer partnerId);
+
+
+	/**
+	 * @Description: (查询合作伙伴列表_后台)
+	 * @param para
+	 * @return 参数注释 
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月8日 下午4:12:46 
+	 */
+	ServiceResult<Page<SysPartnerPfVo>> selectSysPartnerPfVoPageList(SysPartnerPara para);
+	
+}

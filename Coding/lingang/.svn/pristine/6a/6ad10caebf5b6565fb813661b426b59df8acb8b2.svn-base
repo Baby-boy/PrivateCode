@@ -1,0 +1,20 @@
+package com.lingang.core.persistence.reader;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.lingang.api.domain.entity.SysMessage;
+import com.lingang.api.domain.pfvo.SysMessagePfvo;
+
+public interface SysMessageReaderMapper {
+
+	SysMessage selectByPrimaryKey(Integer messageId);
+
+	int selectMessageCount(@Param("map") Map<String, Object> map);
+
+	List<SysMessage> selectMessagePageList(@Param("map") Map<String, Object> map);
+
+	List<SysMessagePfvo> selectMessageAll(@Param("map") Map<String, Object> map);
+}

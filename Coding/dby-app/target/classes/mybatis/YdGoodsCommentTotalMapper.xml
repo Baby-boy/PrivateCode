@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdGoodsCommentTotalMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdGoodsCommentTotal" >
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="gct_pic" property="gctPic" jdbcType="INTEGER" />
+    <result column="gct_good" property="gctGood" jdbcType="INTEGER" />
+    <result column="gct_neutral" property="gctNeutral" jdbcType="INTEGER" />
+    <result column="gct_bad" property="gctBad" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdGoodsCommentTotal" >
+    insert into yd_goods_comment_total (goods_id, gct_pic, gct_good, 
+      gct_neutral, gct_bad)
+    values (#{goodsId,jdbcType=INTEGER}, #{gctPic,jdbcType=INTEGER}, #{gctGood,jdbcType=INTEGER}, 
+      #{gctNeutral,jdbcType=INTEGER}, #{gctBad,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdGoodsCommentTotal" >
+    insert into yd_goods_comment_total
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="gctPic != null" >
+        gct_pic,
+      </if>
+      <if test="gctGood != null" >
+        gct_good,
+      </if>
+      <if test="gctNeutral != null" >
+        gct_neutral,
+      </if>
+      <if test="gctBad != null" >
+        gct_bad,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="gctPic != null" >
+        #{gctPic,jdbcType=INTEGER},
+      </if>
+      <if test="gctGood != null" >
+        #{gctGood,jdbcType=INTEGER},
+      </if>
+      <if test="gctNeutral != null" >
+        #{gctNeutral,jdbcType=INTEGER},
+      </if>
+      <if test="gctBad != null" >
+        #{gctBad,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

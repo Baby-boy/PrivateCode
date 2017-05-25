@@ -1,0 +1,80 @@
+package com.lingang.api.domain.para;
+
+public class SysPartnerPara extends BasePara {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4272087504758372459L;
+
+	// 模糊查询关键字
+	private String partnerNameKeywords;
+
+	private Integer partnerId;
+	private String partnerName;
+	private String partnerCompany;
+	private String partnerSimple;
+	private String partnerState;
+	private String partnerContent;
+
+	public String getPartnerNameKeywords() {
+		return partnerNameKeywords;
+	}
+
+	public void setPartnerNameKeywords(String partnerNameKeywords) {
+		this.partnerNameKeywords = partnerNameKeywords;
+	}
+
+	public Integer getPartnerId() {
+		return partnerId;
+	}
+
+	public void setPartnerId(Integer partnerId) {
+		this.partnerId = partnerId;
+	}
+
+	public String getPartnerName() {
+		return partnerName;
+	}
+
+	public void setPartnerName(String partnerName) {
+		this.partnerName = partnerName;
+	}
+
+	public String getPartnerCompany() {
+		return partnerCompany;
+	}
+
+	public void setPartnerCompany(String partnerCompany) {
+		this.partnerCompany = partnerCompany;
+	}
+
+	public String getPartnerSimple() {
+		return partnerSimple;
+	}
+
+	public void setPartnerSimple(String partnerSimple) {
+		this.partnerSimple = partnerSimple;
+	}
+
+	public String getPartnerState() {
+		return partnerState;
+	}
+
+	public void setPartnerState(String partnerState) {
+		this.partnerState = partnerState;
+	}
+
+	public String getPartnerContent() {
+		return partnerContent;
+	}
+
+	public void setPartnerContent(String partnerContent) {
+		this.partnerContent = partnerContent;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+}

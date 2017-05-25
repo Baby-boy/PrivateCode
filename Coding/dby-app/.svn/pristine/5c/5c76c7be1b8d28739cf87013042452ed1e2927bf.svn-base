@@ -1,0 +1,17 @@
+package com.yd.dby.app.mapper;
+
+import com.yd.dby.app.entity.YdMessage;
+
+public interface YdMessageMapper {
+    int deleteByPrimaryKey(Integer messageId);
+
+    int insert(YdMessage record);
+
+    int insertSelective(YdMessage record);
+
+    YdMessage selectByPrimaryKey(Integer messageId);
+
+    int updateByPrimaryKeySelective(YdMessage record);
+
+    int updateByPrimaryKey(YdMessage record);
+}

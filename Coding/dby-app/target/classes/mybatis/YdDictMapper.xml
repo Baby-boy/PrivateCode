@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdDictMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdDict" >
+    <id column="dict_id" property="dictId" jdbcType="INTEGER" />
+    <result column="dt_code" property="dtCode" jdbcType="VARCHAR" />
+    <result column="dict_type" property="dictType" jdbcType="VARCHAR" />
+    <result column="dict_key" property="dictKey" jdbcType="VARCHAR" />
+    <result column="dict_created_time" property="dictCreatedTime" jdbcType="TIME" />
+    <result column="dict_pid" property="dictPid" jdbcType="INTEGER" />
+    <result column="dict_sort" property="dictSort" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yd.dby.app.entity.YdDict" extends="BaseResultMap" >
+    <result column="dict_value" property="dictValue" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dict_id, dt_code, dict_type, dict_key, dict_created_time, dict_pid, dict_sort
+  </sql>
+  <sql id="Blob_Column_List" >
+    dict_value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from yd_dict
+    where dict_id = #{dictId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_dict
+    where dict_id = #{dictId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdDict" >
+    insert into yd_dict (dict_id, dt_code, dict_type, 
+      dict_key, dict_created_time, dict_pid, 
+      dict_sort, dict_value)
+    values (#{dictId,jdbcType=INTEGER}, #{dtCode,jdbcType=VARCHAR}, #{dictType,jdbcType=VARCHAR}, 
+      #{dictKey,jdbcType=VARCHAR}, #{dictCreatedTime,jdbcType=TIME}, #{dictPid,jdbcType=INTEGER}, 
+      #{dictSort,jdbcType=INTEGER}, #{dictValue,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdDict" >
+    insert into yd_dict
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dictId != null" >
+        dict_id,
+      </if>
+      <if test="dtCode != null" >
+        dt_code,
+      </if>
+      <if test="dictType != null" >
+        dict_type,
+      </if>
+      <if test="dictKey != null" >
+        dict_key,
+      </if>
+      <if test="dictCreatedTime != null" >
+        dict_created_time,
+      </if>
+      <if test="dictPid != null" >
+        dict_pid,
+      </if>
+      <if test="dictSort != null" >
+        dict_sort,
+      </if>
+      <if test="dictValue != null" >
+        dict_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dictId != null" >
+        #{dictId,jdbcType=INTEGER},
+      </if>
+      <if test="dtCode != null" >
+        #{dtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictType != null" >
+        #{dictType,jdbcType=VARCHAR},
+      </if>
+      <if test="dictKey != null" >
+        #{dictKey,jdbcType=VARCHAR},
+      </if>
+      <if test="dictCreatedTime != null" >
+        #{dictCreatedTime,jdbcType=TIME},
+      </if>
+      <if test="dictPid != null" >
+        #{dictPid,jdbcType=INTEGER},
+      </if>
+      <if test="dictSort != null" >
+        #{dictSort,jdbcType=INTEGER},
+      </if>
+      <if test="dictValue != null" >
+        #{dictValue,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdDict" >
+    update yd_dict
+    <set >
+      <if test="dtCode != null" >
+        dt_code = #{dtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictType != null" >
+        dict_type = #{dictType,jdbcType=VARCHAR},
+      </if>
+      <if test="dictKey != null" >
+        dict_key = #{dictKey,jdbcType=VARCHAR},
+      </if>
+      <if test="dictCreatedTime != null" >
+        dict_created_time = #{dictCreatedTime,jdbcType=TIME},
+      </if>
+      <if test="dictPid != null" >
+        dict_pid = #{dictPid,jdbcType=INTEGER},
+      </if>
+      <if test="dictSort != null" >
+        dict_sort = #{dictSort,jdbcType=INTEGER},
+      </if>
+      <if test="dictValue != null" >
+        dict_value = #{dictValue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where dict_id = #{dictId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yd.dby.app.entity.YdDict" >
+    update yd_dict
+    set dt_code = #{dtCode,jdbcType=VARCHAR},
+      dict_type = #{dictType,jdbcType=VARCHAR},
+      dict_key = #{dictKey,jdbcType=VARCHAR},
+      dict_created_time = #{dictCreatedTime,jdbcType=TIME},
+      dict_pid = #{dictPid,jdbcType=INTEGER},
+      dict_sort = #{dictSort,jdbcType=INTEGER},
+      dict_value = #{dictValue,jdbcType=LONGVARCHAR}
+    where dict_id = #{dictId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdDict" >
+    update yd_dict
+    set dt_code = #{dtCode,jdbcType=VARCHAR},
+      dict_type = #{dictType,jdbcType=VARCHAR},
+      dict_key = #{dictKey,jdbcType=VARCHAR},
+      dict_created_time = #{dictCreatedTime,jdbcType=TIME},
+      dict_pid = #{dictPid,jdbcType=INTEGER},
+      dict_sort = #{dictSort,jdbcType=INTEGER}
+    where dict_id = #{dictId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 全部查询 -->
+  <!-- 查询懒鱼商品几层新 -->
+  <select id="selectQualityListByDictType" resultType="YdDict">
+  	select 
+  		dict_id,dict_value,dict_type
+	from 
+		yd_dict
+	where dict_type=#{dictType}
+	order by dict_sort desc
+  </select>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdAuctionMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdAuction" >
+    <id column="auction_id" property="auctionId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="depot_id" property="depotId" jdbcType="INTEGER" />
+    <result column="auction_price" property="auctionPrice" jdbcType="DOUBLE" />
+    <result column="auction_created_time" property="auctionCreatedTime" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    auction_id, user_id, depot_id, auction_price, auction_created_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_auction
+    where auction_id = #{auctionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_auction
+    where auction_id = #{auctionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdAuction" >
+    insert into yd_auction (auction_id, user_id, depot_id, 
+      auction_price, auction_created_time)
+    values (#{auctionId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{depotId,jdbcType=INTEGER}, 
+      #{auctionPrice,jdbcType=DOUBLE}, #{auctionCreatedTime,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdAuction" >
+    insert into yd_auction
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="auctionId != null" >
+        auction_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="depotId != null" >
+        depot_id,
+      </if>
+      <if test="auctionPrice != null" >
+        auction_price,
+      </if>
+      <if test="auctionCreatedTime != null" >
+        auction_created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="auctionId != null" >
+        #{auctionId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="depotId != null" >
+        #{depotId,jdbcType=INTEGER},
+      </if>
+      <if test="auctionPrice != null" >
+        #{auctionPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="auctionCreatedTime != null" >
+        #{auctionCreatedTime,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdAuction" >
+    update yd_auction
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="depotId != null" >
+        depot_id = #{depotId,jdbcType=INTEGER},
+      </if>
+      <if test="auctionPrice != null" >
+        auction_price = #{auctionPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="auctionCreatedTime != null" >
+        auction_created_time = #{auctionCreatedTime,jdbcType=INTEGER},
+      </if>
+    </set>
+    where auction_id = #{auctionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdAuction" >
+    update yd_auction
+    set user_id = #{userId,jdbcType=INTEGER},
+      depot_id = #{depotId,jdbcType=INTEGER},
+      auction_price = #{auctionPrice,jdbcType=DOUBLE},
+      auction_created_time = #{auctionCreatedTime,jdbcType=INTEGER}
+    where auction_id = #{auctionId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,29 @@
+package com.lingang.platform.controller.trs;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.lingang.api.domain.basic.JsonResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+
+@Controller
+@RequestMapping("/trs")
+public class TrsController {
+
+	@RequestMapping("/trsPost.do")
+	@ResponseBody
+	public JsonResult trsPost(){
+		JsonResult jsonResult = new JsonResult();
+		Map<String, Object> map=new HashMap<String,Object>();
+		map.put("url", "http://10.40.201.201:8124/wcm/app/login_dowith.jsp");
+		map.put("userName", "admin");
+		map.put("passWord", "trsadmin");
+		jsonResult.setDataMap(map);
+		jsonResult.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return jsonResult;
+	}
+}

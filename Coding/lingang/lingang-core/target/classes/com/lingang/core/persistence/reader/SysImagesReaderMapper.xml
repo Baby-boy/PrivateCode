@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysImagesReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysImages" >
+    <id column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="img_type" property="imgType" jdbcType="INTEGER" />
+    <result column="obj_id" property="objId" jdbcType="INTEGER" />
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+    <result column="img_link" property="imgLink" jdbcType="VARCHAR" />
+    <result column="img_remark" property="imgRemark" jdbcType="VARCHAR" />
+    <result column="img_state" property="imgState" jdbcType="INTEGER" />
+    <result column="img_order" property="imgOrder" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    img_id, img_type, obj_id, img_path, img_link, img_remark, img_state, img_order
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_images
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </select>
+  
+   <select id="selectSysImagesByImgTypeAndObjId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_images
+    where img_type = #{imgType,jdbcType=INTEGER} 
+    and obj_id = #{objId,jdbcType=INTEGER} 
+    and img_state = 1
+  </select>
+</mapper>

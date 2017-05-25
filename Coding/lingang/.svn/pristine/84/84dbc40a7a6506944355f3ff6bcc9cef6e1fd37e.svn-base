@@ -1,0 +1,54 @@
+define(['mySession', 'route-config', 'serviceBase','layer','My97DatePicker','uEditor', 'uEditorConfig', 'uEditorCulture','ajaxUpload'], function (mySession, routeConfig, serviceBase,My97DatePicker) {
+    var _controller = function($scope, $http, $routeParams, $location,sysStationService){
+    	if($routeParams.value==null || $routeParams.value==""){
+    		alert("信息异常..");
+    	}
+    	var ue = UM.getEditor('stationContent',{
+	        initialFrameWidth:'100%',
+	        initialFrameHeight:200
+        });
+    	//获取园区详情
+    	$scope.getStationDetails=function(){
+    		$scope.para={
+    				stationId:$routeParams.value
+    		};
+    		sysStationService.getStationDetails($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				$scope.station=data.data;
+    				ue.setContent($scope.station.stationContent);
+    			}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    		});
+    	};
+    	
+    	//修改园区基本信息
+    	$scope.updateStationDetails=function(){
+    		$scope.para={
+    				stationId:$scope.station.stationId,
+    				stationTitle:$scope.station.stationTitle,
+    				stationSimple:$scope.station.stationSimple,
+    				regNumber:$scope.station.regNumber,
+    				creditCode:$scope.station.creditCode,
+    				stationCompany:$scope.station.stationCompany,
+    				isFictitious:$scope.station.isFictitious,
+    				stationState:$scope.station.stationState,
+    				lossState:$scope.station.lossState,
+    				stationContent:ue.getContent()
+    		
+    		};
+    		sysStationService.updateStationDetails($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				alert("修改成功");
+    			}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    		});
+    	};
+    	
+    	
+    	
+    	$scope.getStationDetails();
+    };
+    return ["sysStationDetailsCtrl", _controller];
+});

@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdCtcMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdCtc" >
+    <id column="ctc_id" property="ctcId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="ctc_name" property="ctcName" jdbcType="VARCHAR" />
+    <result column="ctc_is_available" property="ctcIsAvailable" jdbcType="INTEGER" />
+    <result column="ctc_cover" property="ctcCover" jdbcType="VARCHAR" />
+    <result column="ctc_pics" property="ctcPics" jdbcType="VARCHAR" />
+    <result column="ctc_classify_id1" property="ctcClassifyId1" jdbcType="INTEGER" />
+    <result column="ctc_classify_id2" property="ctcClassifyId2" jdbcType="INTEGER" />
+    <result column="ctc_total_message" property="ctcTotalMessage" jdbcType="INTEGER" />
+    <result column="ctc_total_fav" property="ctcTotalFav" jdbcType="INTEGER" />
+    <result column="ctc_price" property="ctcPrice" jdbcType="DECIMAL" />
+    <result column="ctc_logistics_price" property="ctcLogisticsPrice" jdbcType="DECIMAL" />
+    <result column="ctc_province_id" property="ctcProvinceId" jdbcType="INTEGER" />
+    <result column="ctc_city_id" property="ctcCityId" jdbcType="INTEGER" />
+    <result column="ctc_area_id" property="ctcAreaId" jdbcType="INTEGER" />
+    <result column="ctc_province_value" property="ctcProvinceValue" jdbcType="VARCHAR" />
+    <result column="ctc_city_value" property="ctcCityValue" jdbcType="VARCHAR" />
+    <result column="ctc_area_value" property="ctcAreaValue" jdbcType="VARCHAR" />
+    <result column="ctc_created_time" property="ctcCreatedTime" jdbcType="TIMESTAMP" />
+    <result column="ctc_quality_id" property="ctcQualityId" jdbcType="INTEGER" />
+    <result column="ctc_quality_text" property="ctcQualityText" jdbcType="VARCHAR" />
+    <result column="ctc_pca" property="ctcPca" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yd.dby.app.entity.YdCtc" extends="BaseResultMap" >
+    <result column="ctc_summary" property="ctcSummary" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ctc_id, user_id, ctc_name, ctc_is_available, ctc_cover, ctc_pics, ctc_classify_id1, 
+    ctc_classify_id2, ctc_total_message, ctc_total_fav, ctc_price, ctc_logistics_price, 
+    ctc_province_id, ctc_city_id, ctc_area_id, ctc_province_value, ctc_city_value, ctc_area_value, 
+    ctc_created_time, ctc_quality_id, ctc_quality_text, ctc_pca
+  </sql>
+  <sql id="Blob_Column_List" >
+    ctc_summary
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from yd_ctc
+    where ctc_id = #{ctcId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_ctc
+    where ctc_id = #{ctcId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdCtc" >
+    insert into yd_ctc (ctc_id, user_id, ctc_name, 
+      ctc_is_available, ctc_cover, ctc_pics, 
+      ctc_classify_id1, ctc_classify_id2, ctc_total_message, 
+      ctc_total_fav, ctc_price, ctc_logistics_price, 
+      ctc_province_id, ctc_city_id, ctc_area_id, 
+      ctc_province_value, ctc_city_value, ctc_area_value, 
+      ctc_created_time, ctc_quality_id, ctc_quality_text, 
+      ctc_pca, ctc_summary)
+    values (#{ctcId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{ctcName,jdbcType=VARCHAR}, 
+      #{ctcIsAvailable,jdbcType=INTEGER}, #{ctcCover,jdbcType=VARCHAR}, #{ctcPics,jdbcType=VARCHAR}, 
+      #{ctcClassifyId1,jdbcType=INTEGER}, #{ctcClassifyId2,jdbcType=INTEGER}, #{ctcTotalMessage,jdbcType=INTEGER}, 
+      #{ctcTotalFav,jdbcType=INTEGER}, #{ctcPrice,jdbcType=DECIMAL}, #{ctcLogisticsPrice,jdbcType=DECIMAL}, 
+      #{ctcProvinceId,jdbcType=INTEGER}, #{ctcCityId,jdbcType=INTEGER}, #{ctcAreaId,jdbcType=INTEGER}, 
+      #{ctcProvinceValue,jdbcType=VARCHAR}, #{ctcCityValue,jdbcType=VARCHAR}, #{ctcAreaValue,jdbcType=VARCHAR}, 
+      #{ctcCreatedTime,jdbcType=TIMESTAMP}, #{ctcQualityId,jdbcType=INTEGER}, #{ctcQualityText,jdbcType=VARCHAR}, 
+      #{ctcPca,jdbcType=VARCHAR}, #{ctcSummary,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdCtc" >
+    insert into yd_ctc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ctcId != null" >
+        ctc_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="ctcName != null" >
+        ctc_name,
+      </if>
+      <if test="ctcIsAvailable != null" >
+        ctc_is_available,
+      </if>
+      <if test="ctcCover != null" >
+        ctc_cover,
+      </if>
+      <if test="ctcPics != null" >
+        ctc_pics,
+      </if>
+      <if test="ctcClassifyId1 != null" >
+        ctc_classify_id1,
+      </if>
+      <if test="ctcClassifyId2 != null" >
+        ctc_classify_id2,
+      </if>
+      <if test="ctcTotalMessage != null" >
+        ctc_total_message,
+      </if>
+      <if test="ctcTotalFav != null" >
+        ctc_total_fav,
+      </if>
+      <if test="ctcPrice != null" >
+        ctc_price,
+      </if>
+      <if test="ctcLogisticsPrice != null" >
+        ctc_logistics_price,
+      </if>
+      <if test="ctcProvinceId != null" >
+        ctc_province_id,
+      </if>
+      <if test="ctcCityId != null" >
+        ctc_city_id,
+      </if>
+      <if test="ctcAreaId != null" >
+        ctc_area_id,
+      </if>
+      <if test="ctcProvinceValue != null" >
+        ctc_province_value,
+      </if>
+      <if test="ctcCityValue != null" >
+        ctc_city_value,
+      </if>
+      <if test="ctcAreaValue != null" >
+        ctc_area_value,
+      </if>
+      <if test="ctcCreatedTime != null" >
+        ctc_created_time,
+      </if>
+      <if test="ctcQualityId != null" >
+        ctc_quality_id,
+      </if>
+      <if test="ctcQualityText != null" >
+        ctc_quality_text,
+      </if>
+      <if test="ctcPca != null" >
+        ctc_pca,
+      </if>
+      <if test="ctcSummary != null" >
+        ctc_summary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ctcId != null" >
+        #{ctcId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="ctcName != null" >
+        #{ctcName,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcIsAvailable != null" >
+        #{ctcIsAvailable,jdbcType=INTEGER},
+      </if>
+      <if test="ctcCover != null" >
+        #{ctcCover,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcPics != null" >
+        #{ctcPics,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcClassifyId1 != null" >
+        #{ctcClassifyId1,jdbcType=INTEGER},
+      </if>
+      <if test="ctcClassifyId2 != null" >
+        #{ctcClassifyId2,jdbcType=INTEGER},
+      </if>
+      <if test="ctcTotalMessage != null" >
+        #{ctcTotalMessage,jdbcType=INTEGER},
+      </if>
+      <if test="ctcTotalFav != null" >
+        #{ctcTotalFav,jdbcType=INTEGER},
+      </if>
+      <if test="ctcPrice != null" >
+        #{ctcPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ctcLogisticsPrice != null" >
+        #{ctcLogisticsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ctcProvinceId != null" >
+        #{ctcProvinceId,jdbcType=INTEGER},
+      </if>
+      <if test="ctcCityId != null" >
+        #{ctcCityId,jdbcType=INTEGER},
+      </if>
+      <if test="ctcAreaId != null" >
+        #{ctcAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="ctcProvinceValue != null" >
+        #{ctcProvinceValue,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcCityValue != null" >
+        #{ctcCityValue,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcAreaValue != null" >
+        #{ctcAreaValue,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcCreatedTime != null" >
+        #{ctcCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ctcQualityId != null" >
+        #{ctcQualityId,jdbcType=INTEGER},
+      </if>
+      <if test="ctcQualityText != null" >
+        #{ctcQualityText,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcPca != null" >
+        #{ctcPca,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcSummary != null" >
+        #{ctcSummary,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdCtc" >
+    update yd_ctc
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="ctcName != null" >
+        ctc_name = #{ctcName,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcIsAvailable != null" >
+        ctc_is_available = #{ctcIsAvailable,jdbcType=INTEGER},
+      </if>
+      <if test="ctcCover != null" >
+        ctc_cover = #{ctcCover,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcPics != null" >
+        ctc_pics = #{ctcPics,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcClassifyId1 != null" >
+        ctc_classify_id1 = #{ctcClassifyId1,jdbcType=INTEGER},
+      </if>
+      <if test="ctcClassifyId2 != null" >
+        ctc_classify_id2 = #{ctcClassifyId2,jdbcType=INTEGER},
+      </if>
+      <if test="ctcTotalMessage != null" >
+        ctc_total_message = #{ctcTotalMessage,jdbcType=INTEGER},
+      </if>
+      <if test="ctcTotalFav != null" >
+        ctc_total_fav = #{ctcTotalFav,jdbcType=INTEGER},
+      </if>
+      <if test="ctcPrice != null" >
+        ctc_price = #{ctcPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ctcLogisticsPrice != null" >
+        ctc_logistics_price = #{ctcLogisticsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ctcProvinceId != null" >
+        ctc_province_id = #{ctcProvinceId,jdbcType=INTEGER},
+      </if>
+      <if test="ctcCityId != null" >
+        ctc_city_id = #{ctcCityId,jdbcType=INTEGER},
+      </if>
+      <if test="ctcAreaId != null" >
+        ctc_area_id = #{ctcAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="ctcProvinceValue != null" >
+        ctc_province_value = #{ctcProvinceValue,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcCityValue != null" >
+        ctc_city_value = #{ctcCityValue,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcAreaValue != null" >
+        ctc_area_value = #{ctcAreaValue,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcCreatedTime != null" >
+        ctc_created_time = #{ctcCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ctcQualityId != null" >
+        ctc_quality_id = #{ctcQualityId,jdbcType=INTEGER},
+      </if>
+      <if test="ctcQualityText != null" >
+        ctc_quality_text = #{ctcQualityText,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcPca != null" >
+        ctc_pca = #{ctcPca,jdbcType=VARCHAR},
+      </if>
+      <if test="ctcSummary != null" >
+        ctc_summary = #{ctcSummary,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ctc_id = #{ctcId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yd.dby.app.entity.YdCtc" >
+    update yd_ctc
+    set user_id = #{userId,jdbcType=INTEGER},
+      ctc_name = #{ctcName,jdbcType=VARCHAR},
+      ctc_is_available = #{ctcIsAvailable,jdbcType=INTEGER},
+      ctc_cover = #{ctcCover,jdbcType=VARCHAR},
+      ctc_pics = #{ctcPics,jdbcType=VARCHAR},
+      ctc_classify_id1 = #{ctcClassifyId1,jdbcType=INTEGER},
+      ctc_classify_id2 = #{ctcClassifyId2,jdbcType=INTEGER},
+      ctc_total_message = #{ctcTotalMessage,jdbcType=INTEGER},
+      ctc_total_fav = #{ctcTotalFav,jdbcType=INTEGER},
+      ctc_price = #{ctcPrice,jdbcType=DECIMAL},
+      ctc_logistics_price = #{ctcLogisticsPrice,jdbcType=DECIMAL},
+      ctc_province_id = #{ctcProvinceId,jdbcType=INTEGER},
+      ctc_city_id = #{ctcCityId,jdbcType=INTEGER},
+      ctc_area_id = #{ctcAreaId,jdbcType=INTEGER},
+      ctc_province_value = #{ctcProvinceValue,jdbcType=VARCHAR},
+      ctc_city_value = #{ctcCityValue,jdbcType=VARCHAR},
+      ctc_area_value = #{ctcAreaValue,jdbcType=VARCHAR},
+      ctc_created_time = #{ctcCreatedTime,jdbcType=TIMESTAMP},
+      ctc_quality_id = #{ctcQualityId,jdbcType=INTEGER},
+      ctc_quality_text = #{ctcQualityText,jdbcType=VARCHAR},
+      ctc_pca = #{ctcPca,jdbcType=VARCHAR},
+      ctc_summary = #{ctcSummary,jdbcType=LONGVARCHAR}
+    where ctc_id = #{ctcId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdCtc" >
+    update yd_ctc
+    set user_id = #{userId,jdbcType=INTEGER},
+      ctc_name = #{ctcName,jdbcType=VARCHAR},
+      ctc_is_available = #{ctcIsAvailable,jdbcType=INTEGER},
+      ctc_cover = #{ctcCover,jdbcType=VARCHAR},
+      ctc_pics = #{ctcPics,jdbcType=VARCHAR},
+      ctc_classify_id1 = #{ctcClassifyId1,jdbcType=INTEGER},
+      ctc_classify_id2 = #{ctcClassifyId2,jdbcType=INTEGER},
+      ctc_total_message = #{ctcTotalMessage,jdbcType=INTEGER},
+      ctc_total_fav = #{ctcTotalFav,jdbcType=INTEGER},
+      ctc_price = #{ctcPrice,jdbcType=DECIMAL},
+      ctc_logistics_price = #{ctcLogisticsPrice,jdbcType=DECIMAL},
+      ctc_province_id = #{ctcProvinceId,jdbcType=INTEGER},
+      ctc_city_id = #{ctcCityId,jdbcType=INTEGER},
+      ctc_area_id = #{ctcAreaId,jdbcType=INTEGER},
+      ctc_province_value = #{ctcProvinceValue,jdbcType=VARCHAR},
+      ctc_city_value = #{ctcCityValue,jdbcType=VARCHAR},
+      ctc_area_value = #{ctcAreaValue,jdbcType=VARCHAR},
+      ctc_created_time = #{ctcCreatedTime,jdbcType=TIMESTAMP},
+      ctc_quality_id = #{ctcQualityId,jdbcType=INTEGER},
+      ctc_quality_text = #{ctcQualityText,jdbcType=VARCHAR},
+      ctc_pca = #{ctcPca,jdbcType=VARCHAR}
+    where ctc_id = #{ctcId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 全部查询 -->
+  <!-- 查询用户发布商品总数 -->
+  <select id="selectUserCtcGoodsPageListCount" resultType="java.lang.Integer">
+  	select 
+  		count(distinct ctc_id) 
+	from 
+		yd_ctc 
+	where user_id=#{userId}
+  </select>
+  
+  <!-- 查询用户发布商品列表 -->
+  <select id="selectUserCtcGoodsPageList" resultType="CtcGoodsListVo">
+  	select 
+  		ctc_id,ctc_cover,ctc_name,ctc_summary,ctc_price,ctc_is_available,
+  		<!-- 编辑功能预留属性字段 -->
+  		ctc_pca,ctc_pics,ctc_classify_id1 classify_one,ctc_classify_id2 classify_two,
+  		ycc.cc_name cc_name_two,yd.dict_id,yd.dict_value
+	from 
+		yd_ctc yc
+	left join yd_ctc_class ycc on ycc.cc_id=yc.ctc_classify_id2
+	left join yd_dict yd on yd.dict_id=yc.ctc_quality_id 
+	where yc.user_id=#{userId}
+	order by yc.ctc_created_time desc
+	limit #{para.startIndex},#{para.onePageCount}
+  </select>
+  
+  <!-- 删除懒鱼商品 -->
+  <delete id="deleteUserCtcGoods">
+  	delete from 
+  		yd_ctc 
+  	where ctc_id in 
+	<foreach collection="ctcIdList" item="ctcId" open="(" close=")" separator=",">
+		#{ctcId}
+	</foreach>
+  </delete>
+  
+  <!-- 懒鱼首页分类商品总数 -->
+  <select id="selectCtcGoodsPageListCount" resultType="java.lang.Integer" parameterType="CtcHomePara">
+  	select 
+  		count(distinct yc.ctc_id)
+	from 
+		yd_ctc_class ycc
+	<if test="ccPid == 0">
+		left join (select * from yd_ctc where ctc_is_available=1) yc on ycc.cc_id=yc.ctc_classify_id1
+	</if>
+	<if test="ccPid > 0">
+		left join (select * from yd_ctc where ctc_is_available=1) yc on ycc.cc_id=yc.ctc_classify_id2
+	</if>
+	where 
+		ycc.cc_pid=#{ccPid} and ycc.cc_id=#{ccId}
+	<if test="lowPrice !=null and lowPrice !=''">
+		and yc.ctc_price >= #{lowPrice}
+	</if>
+	<if test="highPrice !=null and highPrice !=''">
+		and yc.ctc_price <![CDATA[<=]]> #{highPrice}
+	</if>
+  </select>
+  
+  <!-- 懒鱼首页分类商品列表 -->
+  <select id="selectCtcGoodsPageList" resultType="CtcGoodsListVo" parameterType="CtcHomePara">
+  	select 
+  		yc.ctc_id,yu.user_id,yu.user_nickname,yu.user_avatar,yc.ctc_pics,yc.ctc_summary,yc.ctc_pca,yc.ctc_price
+	from 
+		yd_ctc_class ycc
+	<if test="ccPid == 0">
+		left join (select * from yd_ctc where ctc_is_available=1) yc on ycc.cc_id=yc.ctc_classify_id1
+	</if>
+	<if test="ccPid > 0">
+		left join (select * from yd_ctc where ctc_is_available=1) yc on ycc.cc_id=yc.ctc_classify_id2
+	</if>
+	left join yd_user yu on yu.user_id=yc.user_id
+	where 
+		ycc.cc_pid=#{ccPid} and ycc.cc_id=#{ccId}
+	<if test="lowPrice !=null and lowPrice !=''">
+		and yc.ctc_price >= #{lowPrice}
+	</if>
+	<if test="highPrice !=null and highPrice !=''">
+		and yc.ctc_price <![CDATA[<=]]> #{highPrice}
+	</if>
+	<if test="ctcPriceKey == 1">
+		order by yc.ctc_price
+	</if>
+	<if test="ctcPriceKey == 0">
+		order by yc.ctc_price desc
+	</if>
+	<if test="ctcTotalMessageKey == 1">
+		order by yc.ctc_total_message
+	</if>
+	<if test="ctcTotalMessageKey == 0">
+		order by yc.ctc_total_message desc
+	</if>
+	<if test="ctcTotalFavKey == 1">
+		order by yc.ctc_total_fav
+	</if>
+	<if test="ctcTotalFavKey == 0">
+		order by yc.ctc_total_fav desc
+	</if>
+	<if test="ctcTotalFavKey == null and ctcPriceKey == null and ctcTotalMessageKey == null">
+		order by yc.ctc_created_time desc
+	</if>
+	limit #{startIndex},#{onePageCount}
+  </select>
+  
+  <!-- 懒鱼商品详情 -->
+  <select id="selectCtcGoodsDetails" resultType="CtcGoodsDetailsVo">
+  	select 
+		yc.ctc_id,yc.ctc_pics,yc.user_id,yc.ctc_name,yc.ctc_price,yc.ctc_summary,yc.ctc_total_fav,yc.ctc_cover,yc.ctc_created_time,
+		yu.user_avatar,yu.user_nickname,yu.user_pca,yu.user_grade,yf.fav_id
+	from 
+		yd_ctc yc 
+	left join yd_user yu on yu.user_id=yc.user_id 
+	left join (select fav_fid,fav_id from yd_favorite where user_id=#{userId}) yf on yf.fav_fid=yc.ctc_id
+	where yc.ctc_id=#{ctcId}
+  </select>
+  
+  <!-- 查询他人主页发布商品总数 -->
+  <select id="selectCtcOthersHomepageCount" resultType="java.lang.Integer" parameterType="CtcPara">
+  	select 
+		count(distinct yc.ctc_id)
+	from yd_ctc yc
+	where yc.ctc_is_available=1 and yc.user_id=#{userId}
+  </select>
+  
+  <!-- 查询他人主页发布商品列表 -->
+  <select id="selectCtcOthersHomepage" resultType="CtcGoodsListVo" parameterType="CtcPara">
+  	select 
+		yc.ctc_id,yu.user_nickname,yu.user_avatar,yc.ctc_created_time,
+		yc.ctc_pics,yc.ctc_summary,yc.ctc_pca,yc.ctc_price
+	from yd_ctc yc
+	left join yd_user yu on yu.user_id=yc.user_id
+	<!-- 这里过滤的是:查询他人发布的商品必须是正常出售中的商品 -->
+	where yc.ctc_is_available=1 and yc.user_id=#{userId}
+	order by yc.ctc_created_time desc
+	limit #{startIndex},#{onePageCount}
+  </select>
+  
+  <!-- 更新收藏总数 +1 -->
+  <update id="updateCtcTotalFav" parameterType="YdFavorite">
+  	update 
+		yd_ctc yc
+	inner join (select fav_fid from yd_favorite where fav_type=#{favType} and fav_fid=#{favFid}) yf on yc.ctc_id=yf.fav_fid
+	set yc.ctc_total_fav=yc.ctc_total_fav + 1
+  </update>
+  
+  <!-- 更新收藏总数 -1 -->
+  <update id="updateBatchCtcTotalFav">
+  	update 
+		yd_ctc yc
+	inner join (select fav_fid from yd_favorite where fav_type=#{para.favType} and fav_id in
+	<foreach collection="favIdList" item="favId" open="(" close=")" separator=",">
+		#{favId}
+	</foreach>
+	) yf on yc.ctc_id=yf.fav_fid
+	set yc.ctc_total_fav=yc.ctc_total_fav - 1
+  </update>
+  
+  <!-- 更新留言总数 +1 -->
+  <update id="updateCtcTotalMessage">
+  	update 
+		yd_ctc yc
+	set yc.ctc_total_message=yc.ctc_total_message + 1
+	where yc.ctc_id=#{ctcId}
+  </update>
+</mapper>

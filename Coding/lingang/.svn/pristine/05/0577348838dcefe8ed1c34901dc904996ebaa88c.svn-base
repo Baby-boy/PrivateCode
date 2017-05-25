@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysParkUmanagerReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysParkUmanager" >
+    <id column="park_umanager_id" property="parkUmanagerId" jdbcType="INTEGER" />
+    <result column="park_id" property="parkId" jdbcType="INTEGER" />
+    <result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    park_umanager_id, park_id, user_account
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_park_umanager
+    where park_umanager_id = #{parkUmanagerId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByParkIdAndUserAccount" resultMap="BaseResultMap">
+  	 select 
+    <include refid="Base_Column_List" />
+    from sys_park_umanager
+    where park_id = #{parkId,jdbcType=INTEGER} and 
+    user_account = #{userAccount,jdbcType=VARCHAR}
+  </select>
+</mapper>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysNewsWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_news
+    where news_id = #{newsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysNews" >
+    insert into sys_news (news_id, img_id, news_title, 
+      news_author, look_number, create_time, 
+      update_time, news_state, share_number, 
+      news_content)
+    values (#{newsId,jdbcType=INTEGER}, #{imgId,jdbcType=INTEGER}, #{newsTitle,jdbcType=VARCHAR}, 
+      #{newsAuthor,jdbcType=VARCHAR}, #{lookNumber,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{newsState,jdbcType=INTEGER}, #{shareNumber,jdbcType=INTEGER}, 
+      #{newsContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="newsId" parameterType="com.lingang.api.domain.entity.SysNews" >
+    insert into sys_news
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="newsId != null" >
+        news_id,
+      </if>
+      <if test="imgId != null" >
+        img_id,
+      </if>
+      <if test="newsTitle != null" >
+        news_title,
+      </if>
+      <if test="newsAuthor != null" >
+        news_author,
+      </if>
+      <if test="lookNumber != null" >
+        look_number,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="newsState != null" >
+        news_state,
+      </if>
+      <if test="shareNumber != null" >
+        share_number,
+      </if>
+      <if test="newsContent != null" >
+        news_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="newsId != null" >
+        #{newsId,jdbcType=INTEGER},
+      </if>
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="newsTitle != null" >
+        #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsAuthor != null" >
+        #{newsAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="lookNumber != null" >
+        #{lookNumber,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newsState != null" >
+        #{newsState,jdbcType=INTEGER},
+      </if>
+      <if test="shareNumber != null" >
+        #{shareNumber,jdbcType=INTEGER},
+      </if>
+      <if test="newsContent != null" >
+        #{newsContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysNews" >
+    update sys_news
+    <set >
+      <if test="imgId != null" >
+        img_id = #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="newsTitle != null" >
+        news_title = #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsAuthor != null" >
+        news_author = #{newsAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="lookNumber != null" >
+        look_number = #{lookNumber,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newsState != null" >
+        news_state = #{newsState,jdbcType=INTEGER},
+      </if>
+      <if test="shareNumber != null" >
+        share_number = #{shareNumber,jdbcType=INTEGER},
+      </if>
+      <if test="newsContent != null" >
+        news_content = #{newsContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where news_id = #{newsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lingang.api.domain.entity.SysNews" >
+    update sys_news
+    set img_id = #{imgId,jdbcType=INTEGER},
+      news_title = #{newsTitle,jdbcType=VARCHAR},
+      news_author = #{newsAuthor,jdbcType=VARCHAR},
+      look_number = #{lookNumber,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      news_state = #{newsState,jdbcType=INTEGER},
+      share_number = #{shareNumber,jdbcType=INTEGER},
+      news_content = #{newsContent,jdbcType=LONGVARCHAR}
+    where news_id = #{newsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysNews" >
+    update sys_news
+    set img_id = #{imgId,jdbcType=INTEGER},
+      news_title = #{newsTitle,jdbcType=VARCHAR},
+      news_author = #{newsAuthor,jdbcType=VARCHAR},
+      look_number = #{lookNumber,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      news_state = #{newsState,jdbcType=INTEGER},
+      share_number = #{shareNumber,jdbcType=INTEGER}
+    where news_id = #{newsId,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  <!-- 后台 -->
+  <insert id="sysInsert" parameterType="com.lingang.api.domain.entity.SysNews" >
+    insert into sys_news (img_id, news_title, 
+      news_author, look_number, create_time, 
+      update_time, news_state, share_number, 
+      news_content)
+    values (#{imgId,jdbcType=INTEGER}, #{newsTitle,jdbcType=VARCHAR}, 
+      #{newsAuthor,jdbcType=VARCHAR}, #{lookNumber,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{newsState,jdbcType=INTEGER}, #{shareNumber,jdbcType=INTEGER}, 
+      #{newsContent,jdbcType=LONGVARCHAR})
+  </insert>
+  
+  <delete id="del">
+    update sys_news set news_state = 3
+    where news_id = #{newsId}
+  </delete>
+  
+  <update id="update" parameterType="com.lingang.api.domain.entity.SysNews" >
+    update sys_news
+    <set>
+    	<trim prefixOverrides=",">
+    		<if test="newsTitle != null">news_title = #{newsTitle},</if>
+    		<if test="newsAuthor != null">news_author = #{newsAuthor},</if>
+    		<if test="updateTime != null">update_time = #{updateTime},</if>
+    		<if test="newsState != null">news_state = #{newsState},</if>
+    		<if test="newsContent != null">news_content = #{newsContent},</if>
+    	</trim>
+    </set>
+    where news_id = #{newsId}
+  </update>
+  
+</mapper>

@@ -1,0 +1,307 @@
+package com.lingang.core.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+import com.lingang.api.domain.entity.SysCollect;
+import com.lingang.api.domain.entity.SysImages;
+import com.lingang.api.domain.entity.SysMessage;
+import com.lingang.api.domain.entity.SysUser;
+import com.lingang.api.domain.para.SysUserPara;
+import com.lingang.api.domain.vo.SysDownloadVo;
+import com.lingang.api.domain.vo.SysFileParkVo;
+import com.lingang.api.domain.vo.SysParkVo;
+import com.lingang.api.domain.vo.SysPartnerVo;
+import com.lingang.api.domain.vo.SysPublicVo;
+import com.lingang.api.domain.vo.SysServiceVo;
+import com.lingang.api.domain.vo.SysStationVo;
+import com.lingang.api.domain.vo.SysUserVo;
+import com.lingang.api.service.SysUserService;
+import com.lingang.core.persistence.reader.SysCollectReaderMapper;
+import com.lingang.core.persistence.reader.SysDownloadReaderMapper;
+import com.lingang.core.persistence.reader.SysFileReaderMapper;
+import com.lingang.core.persistence.reader.SysImagesReaderMapper;
+import com.lingang.core.persistence.reader.SysParkReaderMapper;
+import com.lingang.core.persistence.reader.SysPartnerReaderMapper;
+import com.lingang.core.persistence.reader.SysPublicReaderMapper;
+import com.lingang.core.persistence.reader.SysServiceReaderMapper;
+import com.lingang.core.persistence.reader.SysStationReaderMapper;
+import com.lingang.core.persistence.reader.SysUserReaderMapper;
+import com.lingang.core.persistence.writer.SysCollectWriterMapper;
+import com.lingang.core.persistence.writer.SysImagesWriterMapper;
+import com.lingang.core.persistence.writer.SysMessageWriterMapper;
+import com.lingang.core.persistence.writer.SysUserWriterMapper;
+
+@Service("sysUserService")
+public class SysUserServiceImpl implements SysUserService {
+
+	@Resource
+	private SysUserReaderMapper sysUserReaderMapper;
+
+	@Resource
+	private SysUserWriterMapper sysUserWriterMapper;
+
+	@Resource
+	private SysParkReaderMapper sysParkReaderMapper;
+	
+	@Resource
+	private SysPartnerReaderMapper sysPartnerReaderMapper;
+	
+	@Resource
+	private SysServiceReaderMapper sysServiceReaderMapper;
+	
+	@Resource
+	private SysStationReaderMapper sysStationReaderMapper;
+	
+	@Resource
+	private SysPublicReaderMapper sysPublicReaderMapper;
+	
+	@Resource
+	private SysDownloadReaderMapper sysDownloadReaderMapper;
+	
+	@Resource
+	private SysFileReaderMapper sysFileReaderMapper;
+	
+	@Resource
+	private SysMessageWriterMapper sysMessageWriterMapper;
+	
+	@Resource
+	private SysCollectWriterMapper sysCollectWriterMapper;
+	
+	@Resource
+	private SysCollectReaderMapper sysCollectReaderMapper;
+	
+	@Resource
+	private SysImagesReaderMapper sysImagesReaderMapper;
+	
+	@Resource
+	private SysImagesWriterMapper sysImagesWriterMapper;
+ 
+	@Override
+	public ServiceResult<SysUserVo> selectSysUserLoginByUserAccount(Integer loginType,String userAccount, String userPassword) {
+		ServiceResult<SysUserVo> result = new ServiceResult<SysUserVo>();
+		SysUserVo user = sysUserReaderMapper.selectSysUserVoLoginByUserAccount(userAccount);
+		if (user == null) {
+			result.setStateCode(StateCodeConstant.ERROR_CODE_ACCOUNT_NULL);
+			result.setMessage("查询不到此用户");
+			return result;
+		}
+		if (user.getUserState() != 1) {
+			result.setStateCode(StateCodeConstant.ERROR_CODE_ACCOUNT_STATE);
+			result.setMessage("用户状态信息异常");
+			return result;
+		}
+		if (loginType==1 && !user.getUserPassword().equals(userPassword)) {
+			result.setStateCode(StateCodeConstant.ERROR_CODE_ACCOUNT_PWD);
+			result.setMessage("账户或密码错误");
+			return result;
+		}
+		if (loginType==2 && !user.getGesturePwd().equals(userPassword)) {
+			result.setStateCode(StateCodeConstant.ERROR_CODE_ACCOUNT_PWD);
+			result.setMessage("账户或密码错误");
+			return result;
+		}
+		user.setUserPassword(null);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setMessage("登录成功");
+		result.setData(user);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<SysUserVo> updateSysUser(SysUser sysUser) {
+		ServiceResult<SysUserVo> result = new ServiceResult<SysUserVo>();
+		int i = sysUserWriterMapper.updateByPrimaryKeySelective(sysUser);
+		if (sysUser.getImgId() != null) {
+			SysImages img = sysImagesReaderMapper.selectByPrimaryKey(sysUser.getImgId());
+			if (img.getImgState() != 1) {
+				img.setImgState(1);
+				sysImagesWriterMapper.updateByPrimaryKeySelective(img);
+			}
+		}
+		if (i != 1) {
+			result.setStateCode(StateCodeConstant.ERROR_CODE);
+			result.setMessage("修改失败");
+			return result;
+		}
+		SysUserVo user = sysUserReaderMapper.selectSysUserVoByUserId(sysUser.getUserId());
+		user.setUserPassword(null);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setMessage("修改成功");
+		result.setData(user);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Object> selectUserCollect(Integer pageIndex, Integer pageSize, Integer collectType,
+			Integer userId) {
+		ServiceResult<Object> result = new ServiceResult<Object>();
+		// 查询条件
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("collectType", collectType);
+		map.put("userId", userId);
+		if (collectType == 1) {
+			int countRecord = sysParkReaderMapper.selectUserCollectCount(map);
+			Page<SysParkVo> page = new Page<SysParkVo>(pageIndex, countRecord, pageSize);
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", pageSize);
+			List<SysParkVo> list = sysParkReaderMapper.selectUserCollectPageList(map);
+			page.setList(list);
+			result.setData(page);
+		} else if (collectType == 2) {
+			int countRecord=sysPartnerReaderMapper.selectUserCollectCount(map);
+			Page<SysPartnerVo> page = new Page<SysPartnerVo>(pageIndex, countRecord, pageSize);
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", pageSize);
+			List<SysPartnerVo> list = sysPartnerReaderMapper.selectUserCollectPageList(map);
+			page.setList(list);
+			result.setData(page);
+		} else if (collectType == 3) {
+			int countRecord = sysServiceReaderMapper.selectUserCollectCount(map);
+			Page<SysServiceVo> page = new Page<SysServiceVo>(pageIndex, countRecord, pageSize);
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", pageSize);
+			List<SysServiceVo> list = sysServiceReaderMapper.selectUserCollectPageList(map);
+			page.setList(list);
+			result.setData(page);
+		} else if (collectType == 4) {
+			int countRecord = sysStationReaderMapper.selectUserCollectCount(map);
+			Page<SysStationVo> page = new Page<SysStationVo>(pageIndex, countRecord, pageSize);
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", pageSize);
+			List<SysStationVo> list = sysStationReaderMapper.selectUserCollectPageList(map);
+			page.setList(list);
+			result.setData(page);
+		} else if (collectType == 5) {
+			int countRecord = sysPublicReaderMapper.selectUserCollectCount(map);
+			Page<SysPublicVo> page = new Page<SysPublicVo>(pageIndex, countRecord, pageSize);
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", pageSize);
+			List<SysPublicVo> list = sysPublicReaderMapper.selectUserCollectPageList(map);
+			page.setList(list);
+			result.setData(page);
+		}
+		// 返回信息
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Page<SysDownloadVo>> selectUserDownload(Integer pageIndex, Integer pageSize, Integer userId) {
+		ServiceResult<Page<SysDownloadVo>> result=new ServiceResult<Page<SysDownloadVo>>();
+		//查询条件
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("userId", userId);
+		int countRecord=sysDownloadReaderMapper.selectSysDownloadVoCount(map);
+		Page<SysDownloadVo> page=new Page<SysDownloadVo>(pageIndex, countRecord, pageSize);
+		if(countRecord>0){
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", pageSize);
+			List<SysDownloadVo> list=sysDownloadReaderMapper.selectSysDownloadVoPageList(map);
+			page.setList(list);
+		}
+		//返回信息
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Page<SysFileParkVo>> selectAllFile(Integer pageIndex, Integer pageSize, Integer userId) {
+		ServiceResult<Page<SysFileParkVo>> result=new ServiceResult<Page<SysFileParkVo>>();
+		//查询条件
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("userId", userId);
+		int countRecord=sysFileReaderMapper.selectAllFileCount(map);
+		Page<SysFileParkVo> page=new Page<SysFileParkVo>(pageIndex, countRecord, pageSize);
+		if(countRecord>0){
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", pageSize);
+			List<SysFileParkVo> list=sysFileReaderMapper.selectAllFilePageList(map);
+			page.setList(list);
+		}
+		//返回信息
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Object> insertUserOpinion(SysMessage message) {
+		ServiceResult<Object> result=new ServiceResult<Object>();
+		int i=sysMessageWriterMapper.insertSelective(message);
+		if(i!=1){
+			result.setStateCode(StateCodeConstant.ERROR_CODE);
+			result.setMessage("操作失败");
+			return result;
+		}
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setMessage("操作成功");
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Page<SysUser>> selectSysUserPageList(SysUserPara para) {
+		ServiceResult<Page<SysUser>> result=new ServiceResult<Page<SysUser>>();
+		//查询条件
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("userAccount", para.getUserAccount());
+		map.put("userName", para.getUserName());
+		int countRecord=sysUserReaderMapper.selectSysUserCount(map);
+		Page<SysUser> page=new Page<>(para.getCurrentPage(), countRecord, para.getOnePageCount());
+		if(countRecord>0){
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", para.getOnePageCount());
+			List<SysUser> list=sysUserReaderMapper.selectSysUserPageList(map);
+			page.setList(list);
+		}
+		//返回信息
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Object> insertSysCollect(SysCollect collect) {
+		ServiceResult<Object> result=new ServiceResult<Object>();
+ 		SysCollect c=sysCollectReaderMapper.selectByUserIdAndCollectTypeAndObjId(collect.getUserId(), collect.getCollectType(), collect.getObjId());
+		if(c!=null){
+			result.setStateCode(StateCodeConstant.ERROR_CODE_HAVE);
+			result.setMessage("已经收藏");
+			return result;
+		}
+		int i=sysCollectWriterMapper.insertSelective(collect);
+		if(i!=1){
+			result.setStateCode(StateCodeConstant.ERROR_CODE);
+			result.setMessage("收藏失败");
+			return result;
+		}
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setMessage("收藏成功");
+		result.setData(collect);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Object> delSysCollect(Integer collectId) {
+		ServiceResult<Object> result=new ServiceResult<Object>();
+		int i=sysCollectWriterMapper.deleteByPrimaryKey(collectId);
+		if(i!=1){
+			result.setStateCode(StateCodeConstant.ERROR_CODE);
+			result.setMessage("取消失败");
+			return result;
+		}
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setMessage("取消成功");
+		return result;
+	}
+
+}

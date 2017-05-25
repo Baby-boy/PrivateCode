@@ -1,0 +1,74 @@
+package com.yd.dby.app.controller.ctc;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.yd.dby.app.basic.Page;
+import com.yd.dby.app.common.JsonResult;
+import com.yd.dby.app.common.ServiceResult;
+import com.yd.dby.app.controller.BaseController;
+import com.yd.dby.app.entity.YdUser;
+import com.yd.dby.app.entity.para.CtcOrderPara;
+import com.yd.dby.app.entity.vo.CtcOrderListVo;
+import com.yd.dby.app.entity.vo.OrderDetailsVo;
+import com.yd.dby.app.service.YdCtcOrderService;
+
+@RestController
+@RequestMapping(value = "/ctcOrder", produces = "application/json;charset=UTF-8")
+public class CtcOrderController extends BaseController {
+
+	@Autowired
+	private YdCtcOrderService ydCtcOrderService;
+
+	/**
+	 * 说明: ctc订单列表
+	 * 
+	 * @param para
+	 * @return
+	 * @author lgl(lgl@zwzyd.com)
+	 * @date: 2017年2月10日 上午11:50:33
+	 */
+	@RequestMapping(value = "/orderList", method = RequestMethod.POST)
+	public JsonResult queryOrderList(@RequestBody CtcOrderPara para, HttpServletRequest request) throws Exception {
+		JsonResult jsonResult = new JsonResult();
+
+		// 获取当前用户
+		YdUser user = (YdUser) redisGet(request.getHeader("token") + "User", YdUser.class);
+
+		para.setUserId(user.getUserId());
+
+		ServiceResult<Page<CtcOrderListVo>> result = ydCtcOrderService.selectOrderPageList(para);
+
+		jsonResult.setStatusCode(result.getStatusCode());
+		jsonResult.setMsg(result.getMsg());
+		jsonResult.setData(result.getData());
+		return jsonResult;
+	}
+
+	/**
+	 * 说明: ctc订单详情
+	 * 
+	 * @param ogId
+	 * @return
+	 * @author lgl(lgl@zwzyd.com)
+	 * @date: 2017年2月10日 上午10:25:38
+	 */
+	@RequestMapping(value = "/orderDetails", method = RequestMethod.GET)
+	public JsonResult queryOrderDetails(@RequestParam(value = "orderId", required = true) Integer ogId) {
+		JsonResult jsonResult = new JsonResult();
+
+//		ServiceResult<OrderDetailsVo> result = ydCtcOrderService.selectOrderDetails(ogId);
+//
+//		jsonResult.setStatusCode(result.getStatusCode());
+//		jsonResult.setMsg(result.getMsg());
+//		jsonResult.setData(result.getData());
+		return jsonResult;
+	}
+
+}

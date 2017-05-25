@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdWishMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdWish" >
+    <id column="wish_id" property="wishId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="wish_created_time" property="wishCreatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yd.dby.app.entity.YdWish" extends="BaseResultMap" >
+    <result column="wish_content" property="wishContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    wish_id, user_id, wish_created_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    wish_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from yd_wish
+    where wish_id = #{wishId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_wish
+    where wish_id = #{wishId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdWish" >
+    insert into yd_wish (wish_id, user_id, wish_created_time, 
+      wish_content)
+    values (#{wishId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{wishCreatedTime,jdbcType=TIMESTAMP}, 
+      #{wishContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdWish" >
+    insert into yd_wish
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wishId != null" >
+        wish_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="wishCreatedTime != null" >
+        wish_created_time,
+      </if>
+      <if test="wishContent != null" >
+        wish_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wishId != null" >
+        #{wishId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="wishCreatedTime != null" >
+        #{wishCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wishContent != null" >
+        #{wishContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdWish" >
+    update yd_wish
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="wishCreatedTime != null" >
+        wish_created_time = #{wishCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wishContent != null" >
+        wish_content = #{wishContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where wish_id = #{wishId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yd.dby.app.entity.YdWish" >
+    update yd_wish
+    set user_id = #{userId,jdbcType=INTEGER},
+      wish_created_time = #{wishCreatedTime,jdbcType=TIMESTAMP},
+      wish_content = #{wishContent,jdbcType=LONGVARCHAR}
+    where wish_id = #{wishId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdWish" >
+    update yd_wish
+    set user_id = #{userId,jdbcType=INTEGER},
+      wish_created_time = #{wishCreatedTime,jdbcType=TIMESTAMP}
+    where wish_id = #{wishId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 所有查询 -->
+  <!-- 查询许愿池总数 -->
+  <select id="selectUserWishPageListCount" resultType="java.lang.Integer">
+  	select 
+  		count(distinct wish_id)
+	from 
+		yd_wish
+	where user_id=#{userId}
+  </select>
+  
+  <!-- 查询许愿池列表 -->
+  <select id="selectUserWishPageList" resultType="YdWish">
+  	select 
+  		yw.wish_id,yw.wish_content,yw.wish_created_time
+	from 
+		yd_wish yw
+	where yw.user_id=#{userId}
+	order by yw.wish_created_time desc
+	limit #{para.startIndex},#{para.onePageCount}
+  </select>
+</mapper>

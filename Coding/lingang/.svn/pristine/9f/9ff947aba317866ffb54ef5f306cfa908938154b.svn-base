@@ -1,0 +1,5 @@
+package com.lingang.api.domain.para;
+
+public class SysLogPara extends BasePara {
+
+}

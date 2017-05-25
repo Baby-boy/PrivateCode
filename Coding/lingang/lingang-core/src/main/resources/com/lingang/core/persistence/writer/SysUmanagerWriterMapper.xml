@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysUmanagerWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_umanager
+    where umanager_id = #{umanagerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysUmanager" >
+    insert into sys_umanager (umanager_id, umanager_name, umanager_company, 
+      umanager_department, umanager_email, umanager_tel, 
+      umanager_mobile, create_time, update_time
+      )
+    values (#{umanagerId,jdbcType=INTEGER}, #{umanagerName,jdbcType=VARCHAR}, #{umanagerCompany,jdbcType=VARCHAR}, 
+      #{umanagerDepartment,jdbcType=VARCHAR}, #{umanagerEmail,jdbcType=VARCHAR}, #{umanagerTel,jdbcType=VARCHAR}, 
+      #{umanagerMobile,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="umanagerId" parameterType="com.lingang.api.domain.entity.SysUmanager" >
+    insert into sys_umanager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="umanagerId != null" >
+        umanager_id,
+      </if>
+      <if test="umanagerName != null" >
+        umanager_name,
+      </if>
+      <if test="umanagerCompany != null" >
+        umanager_company,
+      </if>
+      <if test="umanagerDepartment != null" >
+        umanager_department,
+      </if>
+      <if test="umanagerEmail != null" >
+        umanager_email,
+      </if>
+      <if test="umanagerTel != null" >
+        umanager_tel,
+      </if>
+      <if test="umanagerMobile != null" >
+        umanager_mobile,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="umanagerId != null" >
+        #{umanagerId,jdbcType=INTEGER},
+      </if>
+      <if test="umanagerName != null" >
+        #{umanagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="umanagerCompany != null" >
+        #{umanagerCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="umanagerDepartment != null" >
+        #{umanagerDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="umanagerEmail != null" >
+        #{umanagerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="umanagerTel != null" >
+        #{umanagerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="umanagerMobile != null" >
+        #{umanagerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysUmanager" >
+    update sys_umanager
+    <set >
+      <if test="umanagerName != null" >
+        umanager_name = #{umanagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="umanagerCompany != null" >
+        umanager_company = #{umanagerCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="umanagerDepartment != null" >
+        umanager_department = #{umanagerDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="umanagerEmail != null" >
+        umanager_email = #{umanagerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="umanagerTel != null" >
+        umanager_tel = #{umanagerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="umanagerMobile != null" >
+        umanager_mobile = #{umanagerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where umanager_id = #{umanagerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysUmanager" >
+    update sys_umanager
+    set umanager_name = #{umanagerName,jdbcType=VARCHAR},
+      umanager_company = #{umanagerCompany,jdbcType=VARCHAR},
+      umanager_department = #{umanagerDepartment,jdbcType=VARCHAR},
+      umanager_email = #{umanagerEmail,jdbcType=VARCHAR},
+      umanager_tel = #{umanagerTel,jdbcType=VARCHAR},
+      umanager_mobile = #{umanagerMobile,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where umanager_id = #{umanagerId,jdbcType=INTEGER}
+  </update>
+</mapper>

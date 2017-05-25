@@ -1,0 +1,42 @@
+package com.lingang.api.domain.para;
+
+public class SysPublicPara extends BasePara {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6579035003161763029L;
+
+	private String publicTitleKeywords;
+	private String regionNameKeywords;
+	private String parkNameKeywords;
+
+	public String getPublicTitleKeywords() {
+		return publicTitleKeywords;
+	}
+
+	public void setPublicTitleKeywords(String publicTitleKeywords) {
+		this.publicTitleKeywords = publicTitleKeywords;
+	}
+
+	public String getRegionNameKeywords() {
+		return regionNameKeywords;
+	}
+
+	public void setRegionNameKeywords(String regionNameKeywords) {
+		this.regionNameKeywords = regionNameKeywords;
+	}
+
+	public String getParkNameKeywords() {
+		return parkNameKeywords;
+	}
+
+	public void setParkNameKeywords(String parkNameKeywords) {
+		this.parkNameKeywords = parkNameKeywords;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+}

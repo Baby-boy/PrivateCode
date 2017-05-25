@@ -1,0 +1,55 @@
+package com.lingang.core.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+import com.lingang.api.domain.entity.SysNews;
+import com.lingang.api.domain.entity.SysPolicy;
+import com.lingang.api.domain.vo.SysPolicyVo;
+import com.lingang.api.service.SysPolicyService;
+import com.lingang.core.persistence.reader.SysPolicyReaderMapper;
+@Service("sysPolicyService")
+public class SysPolicyServiceImpl implements SysPolicyService{
+	@Resource
+	private SysPolicyReaderMapper sysPolicyReaderMapper;
+
+	/**
+	 * 查询政策列表
+	 */
+	@Override
+	public ServiceResult<Page<SysPolicy>> selectSysPolicyAll(int pageIndex,int pageSize) {
+		ServiceResult<Page<SysPolicy>> result=new ServiceResult<Page<SysPolicy>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		int countRecord=sysPolicyReaderMapper.selectSysPolicyCount();
+		Page<SysPolicy> page = new Page<SysPolicy>(pageIndex, countRecord, pageSize);
+		if(countRecord>0){
+			map.put("startIndex", page.getStartIndex());
+			map.put("onePageCount", pageSize);
+			List<SysPolicy> list = sysPolicyReaderMapper.selectSysPolicyAll(map);
+			page.setList(list);
+		};
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+	/**
+	 * 查询政策信息
+	 */
+	@Override
+	public ServiceResult<SysPolicyVo> selectByPrimaryKey(Integer policyId) {
+		ServiceResult<SysPolicyVo> result=new ServiceResult<SysPolicyVo>();
+		SysPolicyVo policy=sysPolicyReaderMapper.selectByPrimaryKey(policyId);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(policy);
+		return result;
+	}
+
+}

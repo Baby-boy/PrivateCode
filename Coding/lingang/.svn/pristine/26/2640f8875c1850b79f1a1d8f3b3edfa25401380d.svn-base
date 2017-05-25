@@ -1,0 +1,15 @@
+package com.lingang.core.persistence.writer;
+
+import com.lingang.api.domain.entity.SysParkIndustry;
+
+public interface SysParkIndustryWriterMapper {
+    int deleteByPrimaryKey(Integer parkIndustryId);
+
+    int insert(SysParkIndustry record);
+
+    int insertSelective(SysParkIndustry record);
+
+    int updateByPrimaryKeySelective(SysParkIndustry record);
+
+    int updateByPrimaryKey(SysParkIndustry record);
+}

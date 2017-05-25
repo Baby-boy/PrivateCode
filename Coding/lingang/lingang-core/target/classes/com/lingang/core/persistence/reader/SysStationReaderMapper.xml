@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysStationReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysStation" >
+    <id column="station_id" property="stationId" jdbcType="INTEGER" />
+    <result column="region_id" property="regionId" jdbcType="INTEGER" />
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="station_title" property="stationTitle" jdbcType="VARCHAR" />
+    <result column="station_simple" property="stationSimple" jdbcType="VARCHAR" />
+    <result column="is_fictitious" property="isFictitious" jdbcType="INTEGER" />
+    <result column="reg_number" property="regNumber" jdbcType="VARCHAR" />
+    <result column="credit_code" property="creditCode" jdbcType="VARCHAR" />
+    <result column="station_company" property="stationCompany" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="loss_state" property="lossState" jdbcType="INTEGER" />
+    <result column="station_state" property="stationState" jdbcType="INTEGER" />
+    <result column="station_content" property="stationContent" jdbcType="VARCHAR" />
+    <result column="top_state" property="topState" jdbcType="INTEGER" />
+    <result column="top_time" property="topTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="TopStationResultMap" type="com.lingang.api.domain.vo.SysStationVo" >
+    <id column="station_id" property="stationId" jdbcType="INTEGER" />
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+    <result column="station_title" property="stationTitle" jdbcType="VARCHAR" />
+    <result column="station_simple" property="stationSimple" jdbcType="VARCHAR" />
+	
+	<collection property="parks" ofType="com.lingang.api.domain.entity.SysPark">
+		<id column="park_id" property="parkId" jdbcType="INTEGER" />
+		<result column="park_name" property="parkName" jdbcType="VARCHAR" />
+	</collection>
+	
+	<collection property="labels" ofType="com.lingang.api.domain.entity.SysLabel">
+		<id column="label_id" property="labelId" jdbcType="INTEGER" />
+		<result column="label_name" property="labelName" jdbcType="VARCHAR" />
+	</collection>
+  </resultMap>
+    <resultMap type="com.lingang.api.domain.vo.SysCompanyVo" id="sysCompanyVoMap">
+  	<result column="company_id" property="companyId" jdbcType="INTEGER"></result>
+  	<result column="company_name" property="companyName" jdbcType="VARCHAR"></result>
+  	<result column="count_company" property="countCompany" jdbcType="INTEGER"></result>
+    </resultMap>
+    
+    <resultMap id="sysPartnerNewAddMonthStatisticsVo"
+		type="com.lingang.api.domain.vo.SysNewAddMonthStatisticsVo">
+		<result column="create_year" property="createYear" jdbcType="VARCHAR" />
+		<result column="create_month" property="createMonth" jdbcType="VARCHAR" />
+		<result column="count_add" property="countAdd" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="sysPartnerNewAddQuarterStatisticsVo"
+		type="com.lingang.api.domain.vo.SysNewAddQuarterStatisticsVo">
+		<result column="create_year" property="createYear" jdbcType="VARCHAR" />
+		<result column="create_quarter" property="createQuarter" jdbcType="VARCHAR" />
+		<result column="count_add" property="countAdd" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+	</resultMap>
+	
+  <resultMap id="SysStationVoResultMap" type="com.lingang.api.domain.vo.SysStationVo" extends="BaseResultMap">
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+    
+    <!-- 收藏相关字段 -->
+	<result column="collect_id" property="collectId" jdbcType="INTEGER" />
+    
+	<collection property="parks" ofType="com.lingang.api.domain.entity.SysPark">
+		<id column="park_id" property="parkId" jdbcType="INTEGER" />
+		<result column="park_name" property="parkName" jdbcType="VARCHAR" />
+	</collection>
+	<!-- 入驻:（园区） -->
+	<collection property="parksvo" ofType="com.lingang.api.domain.vo.SysParkVo">
+		<id column="station_park_id" property="parkId" jdbcType="INTEGER" />
+		<result column="parkImgId" property="parkImgId" jdbcType="INTEGER" />
+		<result column="station_park_name" property="parkName" jdbcType="VARCHAR" />
+		<result column="parkImgPath" property="parkImgPath" jdbcType="VARCHAR" />
+	</collection>
+	 
+	<!-- 入驻:（集群） -->
+	<collection property="industrys" ofType="com.lingang.api.domain.vo.SysIndustryVo">
+		<id column="industry_id" property="industryId" jdbcType="INTEGER" />
+		<result column="industry_title" property="industryTitle" jdbcType="VARCHAR" />
+		<result column="industryImgId" property="industryImgId" jdbcType="INTEGER" />
+		<result column="industryImgPath" property="industryImgPath" jdbcType="VARCHAR" />
+	</collection>
+	<!-- 入驻:（客户经理） -->
+	<collection property="umanagers" ofType="com.lingang.api.domain.entity.SysUmanager">
+		<id column="umanager_id" property="umanagerId" jdbcType="INTEGER" />
+		<result column="umanager_name" property="umanagerName" jdbcType="VARCHAR" />
+		<result column="umanager_company" property="umanagerCompany" jdbcType="VARCHAR" />
+		<result column="umanager_department" property="umanagerDepartment" jdbcType="VARCHAR" />
+		<result column="umanager_email" property="umanagerEmail" jdbcType="VARCHAR" />
+		<result column="umanager_tel" property="umanagerTel" jdbcType="VARCHAR" />
+		<result column="umanager_mobile" property="umanagerMobile" jdbcType="VARCHAR" />
+	</collection>
+	
+  	<collection property="labels" ofType="com.lingang.api.domain.entity.SysLabel">
+		<id column="label_id" property="labelId" jdbcType="INTEGER" />
+		<result column="label_name" property="labelName" jdbcType="VARCHAR" />
+	</collection>
+	
+	<!-- 管理公司 -->
+	<collection property="companys" ofType="com.lingang.api.domain.entity.SysCompany">
+		<id column="company_id" property="companyId" jdbcType="INTEGER" />
+		<result column="company_name" property="companyName" jdbcType="VARCHAR" />
+	</collection>
+	
+	<!-- 客户经理 -->
+	<collection property="sumans"
+		ofType="com.lingang.api.domain.entity.SysStationUmanager">
+		<id column="station_umanager_id" property="stationUmanagerId" jdbcType="INTEGER" />
+		<result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+	</collection>
+  </resultMap>
+  
+  <!-- 后台逻辑 -->
+  <resultMap id="SysStationPfVoResultMap" type="com.lingang.api.domain.pfvo.SysStationPfVo" extends="BaseResultMap">
+  	<result column="region_name" property="regionName" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    station_id, region_id, img_id, station_title, station_simple, is_fictitious, reg_number, 
+    credit_code, station_company, create_time, update_time, loss_state, station_state
+  </sql>
+  <sql id="Blob_Column_List" >
+    station_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysStationVoResultMap" parameterType="java.lang.Integer" >
+	SELECT  
+	st.station_id,st.region_id,st.station_title,st.station_simple,st.is_fictitious,sm.img_id,sm.img_path,st.loss_state,
+	sl.label_id,sl.label_name,st.reg_number,st.credit_code,st.station_content,sp.park_id AS station_park_id,
+	sp.park_name AS station_park_name,smp.img_id AS parkImgId,smp.img_path AS parkImgPath,si.industry_id,si.industry_title,
+	smi.img_id AS industryImgId,smi.img_path AS industryImgPath,
+	st.station_company,st.create_time,st.station_state,
+	<!-- sc.company_id,sc.company_name两字段为后来添加,实现一对多 -->
+	sc.company_id,sc.company_name,
+	ssu.station_umanager_id,ssu.user_account
+	from sys_station st 
+	LEFT JOIN (SELECT * from sys_images where img_state=1) sm ON st.img_id=sm.img_id
+	LEFT JOIN sys_station_label ssl ON st.station_id=ssl.station_id
+	LEFT JOIN (SELECT * from sys_label where label_state=1) sl on ssl.label_id=sl.label_id
+	LEFT JOIN sys_station_park stp on st.station_id=stp.station_id
+	LEFT JOIN (SELECT * from sys_park where park_state=2) sp ON stp.park_id=sp.park_id
+	LEFT JOIN sys_station_industry ssi on st.station_id=ssi.station_id
+	LEFT JOIN (SELECT * from sys_industry where industry_state=2) si ON ssi.industry_id=si.industry_id
+	LEFT JOIN sys_station_umanager ssu ON st.station_id=ssu.station_id
+	LEFT JOIN (SELECT * from sys_images where img_state=1) smp ON sp.min_img_id=smp.img_id
+	LEFT JOIN (SELECT * from sys_images where img_state=1) smi on si.min_img_id=smi.img_id
+	<!-- sys_assort,sys_company两数据库表为后来添加,实现一对多 -->
+	LEFT JOIN (SELECT * FROM sys_assort WHERE assort_type=4) sa ON sa.obj_id=st.station_id
+	LEFT JOIN (SELECT * FROM sys_company WHERE company_state=2)sc ON sc.company_id=sa.company_id
+  	where st.station_id = #{stationId,jdbcType=INTEGER}
+  </select>
+   
+  <sql id="SQL_SysStation_id">
+     station_id
+  </sql>
+ 
+  <!-- app列表重写 -->
+  <sql id="where_selectSysStationPageList">
+  	<where>
+       st.station_state=2 
+       <if test="map.industryIds !=null and map.industryIds !=''">
+           and si.industry_id in
+           <foreach collection="map.industryIds" item="industryIds" open="(" close=")" separator=",">
+					#{industryIds}
+			</foreach>
+       </if>
+       <if test="map.labelIds !=null and map.labelIds !=''">
+            and sl.label_id in
+             <foreach collection="map.labelIds" item="labelIds" open="(" close=")" separator=",">
+					#{labelIds}
+			</foreach>
+       </if>
+       <!-- <if test="map.regionId !=null and map.regionId !=''">
+            and st.region_id= #{map.regionId,jdbcType=INTEGER}
+       </if> -->
+       <if test="map.regionTypeId !=null and map.regionTypeId !=''">
+            and sr.region_type= #{map.regionTypeId,jdbcType=INTEGER}
+       </if>
+        <if test="map.parkId !=null and map.parkId !=''">
+            and sp.park_id= #{map.parkId,jdbcType=INTEGER}
+       </if>
+       <if test="map.beninTime !=null and map.beninTime !=''">
+       		 and st.create_time >= #{map.beninTime}
+       </if>
+       <if test="map.endTime !=null and map.endTime !=''">
+       		 and st.create_time <![CDATA[ < ]]> #{map.endTime}
+       </if>
+       <if test="map.companyId !=null and map.companyId !=''">
+            and sa.company_id= #{map.companyId,jdbcType=INTEGER}
+       </if>
+       <if test="map.keywords !=null and map.keywords !=''">
+       		and (CONTAINS (st.station_title, '${map.keywords}')
+			OR CONTAINS (st.station_content, '${map.keywords}')
+			OR CONTAINS (st.station_simple, '${map.keywords}'))
+       </if>
+    </where>   
+  </sql>
+  <!-- 关联表 -->
+  <sql id="relation_selectSysStationPageList">
+  	left join sys_station_industry sti on st.station_id=sti.station_id
+	left join sys_industry si on sti.industry_id=si.industry_id
+	left join sys_station_label stl on st.station_id=stl.station_id
+	left join (select * from sys_label where label_state=1) sl on stl.label_id=sl.label_id
+	left join (select * from sys_images where img_state=1) sm on st.img_id=sm.img_id
+	left join sys_station_park ssp on ssp.station_id=st.station_id
+	left join (select * from sys_park where park_state=2) sp on sp.park_id=ssp.park_id
+	left join sys_region sr on sr.region_id=sp.region_id
+	left join (select * from sys_assort where assort_type=4) sa on st.station_id=sa.obj_id
+  </sql>
+  <select id="selectSysStationCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+	select COUNT(DISTINCT st.station_id) 
+	from sys_station st
+	<include refid="relation_selectSysStationPageList"/>
+	<include refid="where_selectSysStationPageList"/>
+  </select>
+  <select id="selectSysStationPageList" resultMap="SysStationVoResultMap" parameterType="java.util.Map" >
+    WITH cte AS(
+		select st.station_id,
+			ROW_NUMBER() OVER(ORDER BY st.create_time DESC) AS rownum
+		from sys_station st
+		<include refid="relation_selectSysStationPageList"/>
+		<include refid="where_selectSysStationPageList"/>
+		GROUP BY st.station_id,st.create_time
+	)
+
+	select st.station_id,st.station_title,st.img_id,st.station_simple,st.station_content,sm.img_path,sl.label_id,sl.label_name,
+	    sp.park_id,sp.park_name
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) stt
+	left join sys_station st on st.station_id=stt.station_id
+	<include refid="relation_selectSysStationPageList"/>
+  </select>
+  
+  <!-- 多点布局统计列表 -->
+  <select id="selectMoreSysStationPageList" resultMap="SysStationVoResultMap" parameterType="java.util.Map" >
+  	WITH cte AS(
+		select tt.station_id,
+			ROW_NUMBER() OVER(ORDER BY tt.create_time DESC) AS rownum
+		from (
+			select COUNT(st.station_id) num,st.station_id,st.create_time
+			from sys_station_park ssp
+			left join (select * from sys_station where station_state=2) st on ssp.station_id=st.station_id
+			left join (select * from sys_park where park_state=2) sp on ssp.park_id=sp.park_id
+			group by st.station_id,st.create_time
+		) tt
+		<if test="map.sysNum == 1">
+			WHERE tt.num = 1
+		</if>
+		<if test="map.sysNum == 2">
+			WHERE tt.num != 1
+		</if>
+		GROUP BY tt.station_id,tt.create_time
+	)
+
+	select st.station_id,st.station_title,st.img_id,st.station_simple,st.station_content,sm.img_path,sl.label_id,sl.label_name,
+	    sp.park_id,sp.park_name
+	from 
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) stt
+	left join sys_station_park ssp on ssp.station_id=stt.station_id
+	left join (select * from sys_station where station_state=2) st on ssp.station_id=st.station_id
+	left join (select * from sys_park where park_state=2) sp on ssp.park_id=sp.park_id
+	left join sys_station_label stl on st.station_id=stl.station_id
+	left join (select * from sys_label where label_state=1) sl on stl.label_id=sl.label_id
+	left join (select * from sys_images where img_state=1) sm on st.img_id=sm.img_id	
+  </select>
+  
+  <!-- 后台逻辑 -->
+  <sql id="where_selectSysStationPfVoPageList">
+  	<where>
+		1=1
+		<if test="map.stationTitleKeywords !=null and map.stationTitleKeywords !=''">
+			and ss.station_title like '%${map.stationTitleKeywords}%'
+		</if>
+		<if test="map.regionNameKeywords !=null and map.regionNameKeywords !=''">
+			and sr.region_name like '%${map.regionNameKeywords}%'
+		</if>
+		<if test="map.stationState !=null and map.stationState !=''">
+			and ss.station_state = #{map.stationState}
+		</if>
+	</where>
+  </sql>
+  <sql id="relation_selectSysStationPfVoPageList">
+  	left join sys_region sr on sr.region_id=ss.region_id
+  </sql>
+  <select id="selectSysStationPfVoCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select COUNT(DISTINCT ss.station_id)
+	from sys_station ss
+  	<include refid="relation_selectSysStationPfVoPageList"/>
+  	<include refid="where_selectSysStationPfVoPageList"/>
+  </select>
+  <select id="selectSysStationPfVoPageList" resultMap="SysStationPfVoResultMap" parameterType="java.util.Map">
+  	WITH cte AS(
+		select ss.station_id,
+			ROW_NUMBER() OVER(ORDER BY ss.create_time DESC) AS rownum
+		from sys_station ss
+		<include refid="relation_selectSysStationPfVoPageList"/>
+  		<include refid="where_selectSysStationPfVoPageList"/>
+		GROUP BY ss.station_id,ss.create_time
+	)
+					 
+	select ss.station_id,ss.station_title,ss.is_fictitious,ss.reg_number,ss.station_company,
+		ss.create_time,ss.update_time,ss.station_state,ss.loss_state,sr.region_name
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st 
+	left join sys_station ss on ss.station_id=st.station_id
+	<include refid="relation_selectSysStationPfVoPageList"/>
+  </select>
+ 
+	<select id="selectNewAddMonth" resultMap="sysPartnerNewAddMonthStatisticsVo">
+		SELECT
+			YEAR (create_time) create_year,
+			MONTH (create_time) create_month,
+			COUNT (create_time) count_add,
+			1 type
+		FROM
+			sys_station
+		WHERE station_state=2
+		GROUP BY
+			YEAR (create_time),
+			MONTH (create_time)
+		ORDER BY
+			create_year,
+			create_month
+	</select>
+	<select id="selectNewAddQuarter" resultMap="sysPartnerNewAddQuarterStatisticsVo">
+		SELECT
+			DATENAME(YEAR, create_time) create_year, 
+			DATENAME(quarter, create_time) create_quarter,
+			COUNT (1) count_add, 
+			2 type
+		FROM
+			sys_station t
+		WHERE t.station_state=2
+		GROUP BY
+			DATENAME(YEAR, create_time),
+			DATENAME(quarter, create_time)
+		ORDER BY
+			CONVERT (
+				INT,
+				DATENAME(quarter, create_time)
+			)
+	</select>
+	<select id="selectNewAddMonthMax" resultType="java.lang.Integer">
+		SELECT
+			MAX (count_add)
+		FROM
+			(
+				SELECT
+					YEAR (create_time) create_year,
+					MONTH (create_time) create_month,
+					COUNT (create_time) count_add,
+					1 type
+				FROM
+					sys_station
+				WHERE station_state=2
+				GROUP BY
+					YEAR (create_time),
+					MONTH (create_time)
+			) temp
+	</select>
+	<select id="selectNewAddQuarterMax" resultType="java.lang.Integer">
+		SELECT
+			MAX (count_add)
+		FROM
+			(
+				SELECT
+					DATENAME(YEAR, create_time) create_year,
+					DATENAME(quarter, create_time) create_quarter,
+					COUNT (1) count_add,
+					2 type
+				FROM
+					sys_station t
+				WHERE t.station_state=2
+				GROUP BY
+					DATENAME(YEAR, create_time),
+					DATENAME(quarter, create_time)
+			) temp
+	</select>
+  
+  <select id="selectStationCount" resultType="java.lang.Integer">
+  	select COUNT(t.num) from (
+		select COUNT(ss.station_id) num
+		from sys_station_park ssp
+		left join (select * from sys_station where station_state=2) ss on ssp.station_id=ss.station_id
+		left join (select * from sys_park where park_state=2) sp on ssp.park_id=sp.park_id
+		group by ss.station_id
+	) t
+	<if test="sysNum == 1">
+		where t.num = 1
+	</if> 
+	<if test="sysNum == 2">
+		where t.num != 1
+	</if> 
+  </select>
+  
+  <!-- 最新入驻企业列表 -->
+  <sql id="where_queryAllByPage">
+  	<where>
+  		st.top_state =1 and st.station_state != 3
+  		<if test="map.stationState !=null and map.stationState !=''">
+			and st.station_state = #{map.stationState,jdbcType=INTEGER}
+		</if>
+		<if test="map.stationTitle !=null and map.stationTitle !=''">
+			and st.station_title like '%${map.stationTitle}%'
+		</if>
+  	</where>
+  </sql>
+  <select id="querySysStationCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+  	select COUNT(DISTINCT st.station_id)
+	from sys_station st
+  	<include refid="where_queryAllByPage"/>
+  </select>
+  <select id="queryAllByPage" resultMap="SysStationVoResultMap" parameterType="java.util.Map" >
+	WITH cte AS(
+		select st.station_id,
+			ROW_NUMBER() OVER(ORDER BY st.top_time DESC) AS rownum
+		from sys_station st
+		<include refid="where_queryAllByPage"/>
+		GROUP BY st.station_id,st.top_time
+	)
+					 
+	select st.station_id,st.station_title,st.station_simple,st.station_company,st.create_time,st.loss_state,st.station_state,st.top_time
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) stt
+	left join sys_station st on st.station_id=stt.station_id
+  </select>
+  
+  <!--创建单位统计  -->
+  <select id="selectStationCompanyTotalCount" resultType = "java.lang.Integer"> 
+	select
+		max (count_company)
+	from (
+		select
+			s2.company_id,
+			s2.company_name,
+			count (s2.company_id) as count_company
+		from
+			sys_assort s1
+		inner join (select * from sys_company where company_state=2) s2 on s1.company_id = s2.company_id
+		and s1.assort_type = 4
+		group by
+			s2.company_id,
+			s2.company_name
+	) temp
+  </select>
+  
+  <!--创建单位统计  -->
+  <select id="selectStationCompanyCount" resultMap = "sysCompanyVoMap"> 
+	select
+		s2.company_id,
+		s2.company_name,
+		COUNT (s2.company_id) as count_company
+	from
+		sys_assort s1
+	inner join (select * from sys_company where company_state=2) s2 on s1.company_id = s2.company_id
+	and s1.assort_type = 4
+	group by
+		s2.company_id,
+		s2.company_name
+  </select>
+  
+  <!-- 我的收藏 -->
+  <sql id="where_selectUserCollectPageList">
+  	<where>
+  		sc.collect_type=4 and sc.user_id= #{map.userId,jdbcType=INTEGER}
+  	</where>
+  </sql>
+  <!-- 关联表 -->
+  <sql id="relation_selectUserCollectPageList">
+  	left join sys_station st on st.station_id=sc.obj_id
+    left join sys_station_industry sti on st.station_id=sti.station_id
+    left join sys_region sr on st.region_id=sr.region_id
+    left join sys_industry si on sti.industry_id=si.industry_id
+    left join sys_station_label stl on st.station_id=stl.station_id
+    left join (select * from sys_label where label_state=1) sl on stl.label_id=sl.label_id
+    left join (select * from sys_images where img_state=1) sm on st.img_id=sm.img_id
+    left join sys_station_park stp on st.station_id=stp.park_id
+    left join (select * from sys_park where park_state=2) sp on stp.park_id=sp.park_id
+  </sql>
+  <select id="selectUserCollectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select COUNT(DISTINCT sc.collect_id)
+	from sys_collect sc
+	<include refid="where_selectUserCollectPageList"/>
+  </select>
+  <select id="selectUserCollectPageList" resultMap="SysStationVoResultMap" parameterType="java.util.Map">
+  	WITH cte AS(
+		select sc.collect_id,
+			ROW_NUMBER() OVER(ORDER BY sc.create_time DESC) AS rownum
+		from sys_collect sc
+		<include refid="where_selectUserCollectPageList"/>
+		GROUP BY sc.collect_id,sc.create_time
+	)
+				 
+	select sc.collect_id,st.station_id,st.station_title,st.img_id,sm.img_path,sl.label_id,sl.label_name,sp.park_id,sp.park_name
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st 
+	left join sys_collect sc on sc.collect_id=st.collect_id
+  	<include refid="relation_selectUserCollectPageList"/>
+  </select>
+
+  <!-- 最新入驻企业列表 -->  
+  <sql id="where_selectTopStationVoPageList">
+  	<where>
+  		ss.station_state=2 and ss.top_state = 1
+  	</where>
+  </sql>
+  <!-- 关联表 -->
+  <sql id="relation_selectTopStationVoPageList">
+  	left join (select * from sys_images where img_state=1) si on si.img_id=ss.img_id 
+	left join sys_station_park spp on spp.station_id=ss.station_id 
+	left join (select * from sys_park where park_state=2) spa on spa.park_id=spp.park_id 
+	left join sys_station_label spl on spl.station_id=ss.station_id 
+	left join (select * from sys_label where label_state=1) sl on sl.label_id=spl.label_id 
+  </sql>
+  <select id="selectTopStationCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select COUNT(DISTINCT ss.station_id)
+	from 
+		sys_station ss
+	<include refid="relation_selectTopStationVoPageList"/>
+	<include refid="where_selectTopStationVoPageList"/>
+  </select>
+  <select id="selectTopStationVoPageList" resultMap="TopStationResultMap" parameterType="java.util.Map">
+	WITH cte AS(
+		select ss.station_id,
+			ROW_NUMBER() OVER(ORDER BY ss.create_time DESC) AS rownum
+		from
+			sys_station ss
+		<include refid="relation_selectTopStationVoPageList"/>
+		<include refid="where_selectTopStationVoPageList"/>		
+		GROUP BY ss.station_id,ss.create_time
+	)
+
+	select ss.station_id,ss.station_title,ss.station_simple,ss.top_state,ss.top_time,si.img_id,si.img_path,spa.park_id,spa.park_name,sl.label_id,sl.label_name 
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st
+	left join sys_station ss on ss.station_id=st.station_id
+	<include refid="relation_selectTopStationVoPageList"/>	
+  </select>  
+</mapper>

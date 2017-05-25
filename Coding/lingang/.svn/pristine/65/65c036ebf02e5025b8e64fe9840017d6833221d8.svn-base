@@ -1,0 +1,33 @@
+package com.lingang.api.domain.entity;
+
+public class SysIndustryLabel {
+    private Integer industryLabel;
+
+    private Integer industryId;
+
+    private Integer labelId;
+
+    public Integer getIndustryLabel() {
+        return industryLabel;
+    }
+
+    public void setIndustryLabel(Integer industryLabel) {
+        this.industryLabel = industryLabel;
+    }
+
+    public Integer getIndustryId() {
+        return industryId;
+    }
+
+    public void setIndustryId(Integer industryId) {
+        this.industryId = industryId;
+    }
+
+    public Integer getLabelId() {
+        return labelId;
+    }
+
+    public void setLabelId(Integer labelId) {
+        this.labelId = labelId;
+    }
+}

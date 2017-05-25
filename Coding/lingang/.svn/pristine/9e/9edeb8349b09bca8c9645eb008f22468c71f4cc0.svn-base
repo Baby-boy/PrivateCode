@@ -1,0 +1,141 @@
+<div class="row" ng-controller="sysMessageOpinionListCtrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form class="form-inline">
+	               <div class="row m-t">
+						<div class="form-group col-xs-2">
+							<label for="subTime">状态:</label>
+							<select class="form-control" id="messageState" ng-model="para.messageState" ng-change="getMessageList()">
+								<option value="">全部</option>
+								<option value="1">未回复</option>
+								<option value="2">用户未读</option>
+								<option value="3">用户已读</option>
+								<option value="4">用户已删除</option>
+							</select>
+						</div>
+					</div>
+					<div class="row m-t">
+						
+					</div>
+				  </form>
+		 	  <div >
+ 		       <table class="table table-striped table-bordered table-hover dataTables-example">
+                      <tr>
+                            <th style="text-align: center;">序号</th>
+                            <th style="text-align: center;">详细内容</th>
+                            <!-- <th style="text-align: center;">意见类型</th> -->
+                            <th style="text-align: center;">创建时间</th>
+                            <th style="text-align: center;">创建者</th>
+                            <th style="text-align: center;">状态</th>
+                            <th style="text-align: center;">操作</th>
+                        </tr>
+                        <tr ng-repeat="message in messageList">
+                            <td>{{$index + (paginationConf.currentPage-1)*onePageCount + 1}}<input type="hidden" name="parkId" value="{{message.messageId}}"/></td>
+                            <!--详细内容  -->
+                            <td><a href="" ng-click="showMessageContent(message)">查看</a></td>
+                            <!--纠错类型  -->
+                           <!--  <td>
+                            <span ng-if="message.linkType == 1">新闻列表</span>
+                            <span ng-if="message.linkType == 2">政策列表</span>
+                            <span ng-if="message.linkType == 3">产业园区</span>
+                            <span ng-if="message.linkType == 4">合作伙伴</span>
+                            <span ng-if="message.linkType == 5">产业集群</span>
+                            <span ng-if="message.linkType == 6">服务机构</span>
+                            <span ng-if="message.linkType == 7">入驻企业</span>
+                            <span ng-if="message.linkType == 8">公共平台</span>
+                            </td> -->
+                            <!--创建时间 -->
+                            <td>{{message.createTime | date:'yyyy-MM-dd HH:mm'}}</td>
+                            <td>{{message.username}}</td> 
+                            <td>
+                               <span ng-if="message.messageState == 1" ng-style="message.messageState == 1?{color:'red'}:''">未回复</span>
+                               <span ng-if="message.messageState == 4 " ng-style="message.messageState == 4?{color:'gray'}:''">用户已删除</span>
+                               <span ng-if="message.messageState == 2 " ng-style="message.messageState == 2?{color:'blue'}:''">用户未读</span>
+                               <span ng-if="message.messageState == 3 " ng-style="message.messageState == 3?{color:'gray'}:''">用户已读</span>
+                            </td>
+                            <td>
+                            <a href="" ng-if="message.messageState != 1"  ng-style="message.messageState != 1?{color:'gray'}:''">已回复</a>
+                            <a href="" ng-if="message.messageState == 1" ng-click="messageReply(message)" >回复</a>
+                            </td>
+                        </tr>
+            	   </table>
+                   <div class="row m-t">
+					  <div class="col-md-10 col-md-offset-1">
+							<ndtech-pagination class conf="paginationConf"></ndtech-pagination>
+					  </div>
+				   </div>
+ 		       </div>
+            </div>
+        </div>
+    </div>
+    
+   	<!-- 意见反馈内容详情 -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	        <h4 class="modal-title" id="myModalLabel">意见反馈详情</h4>
+	      </div>
+	      <div class="modal-body">
+					<div class="chat-discussion">
+						<div class="chat-message">
+						<!-- <label class="message-avatar">纠错</label> -->
+						 <img class="message-avatar" src="img/youke.png" alt=""> 
+							<div class="message">
+						             <a class="message-author" href=""> 反馈内容</a>
+									 <span class="message-content">
+									 <textarea class="form-control" ng-model="message.messageContent" readonly="readonly" style="background-color: white;">
+	                                 </textarea>
+									 </span> 
+							</div>
+						</div>
+						<div class="chat-message">
+							<img class="message-avatar" src="img/profile_small.jpg" alt=""> 
+							<!-- <label class="message-avatar">回复</label> -->
+							<div class="message" >
+								    <a class="message-author" href=""> 回复内容 </a>
+									<span class="message-content">
+									<textarea class="form-control" ng-model="message.replyContent" readonly="readonly" style="background-color: white;">
+	                                </textarea>
+									</span>
+							</div>
+						</div>
+					</div>
+	      </div>
+	      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" style="margin-bottom: 0;" data-dismiss="modal">关闭</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- 回复 -->
+	<div class="modal fade" id="myReply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	        <h4 class="modal-title" id="myModalLabel">意见反馈详情</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<input id="messageId" ng-model="message.messageId" type="hidden"></input>
+	        <label class="control-label">回复内容</label>
+	         <textarea class="form-control" ng-model="message.replyContent" id="replyContent">
+	         </textarea>
+	      </div>
+	      <div class="modal-footer">
+      	 	<div class="form-group col-xs-10">
+            	<button type="button" class="btn btn-primary" ng-click="sysMessageReply()">回复</button>
+	     	</div>   
+	     	<div class="form-group col-xs-1">
+	        	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	      	</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+    
+</div>
+

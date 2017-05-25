@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdRefundReasonMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdRefundReason" >
+    <id column="reason_id" property="reasonId" jdbcType="INTEGER" />
+    <result column="reason_info" property="reasonInfo" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="TINYINT" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    reason_id, reason_info, sort, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_refund_reason
+    where reason_id = #{reasonId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_refund_reason
+    where reason_id = #{reasonId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdRefundReason" >
+    insert into yd_refund_reason (reason_id, reason_info, sort, 
+      update_time)
+    values (#{reasonId,jdbcType=INTEGER}, #{reasonInfo,jdbcType=VARCHAR}, #{sort,jdbcType=TINYINT}, 
+      #{updateTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdRefundReason" >
+    insert into yd_refund_reason
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reasonId != null" >
+        reason_id,
+      </if>
+      <if test="reasonInfo != null" >
+        reason_info,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reasonId != null" >
+        #{reasonId,jdbcType=INTEGER},
+      </if>
+      <if test="reasonInfo != null" >
+        #{reasonInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=TINYINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdRefundReason" >
+    update yd_refund_reason
+    <set >
+      <if test="reasonInfo != null" >
+        reason_info = #{reasonInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=TINYINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where reason_id = #{reasonId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdRefundReason" >
+    update yd_refund_reason
+    set reason_info = #{reasonInfo,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=TINYINT},
+      update_time = #{updateTime,jdbcType=VARCHAR}
+    where reason_id = #{reasonId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectRefundReasonList" resultMap="BaseResultMap">
+  	 select 
+    <include refid="Base_Column_List" />
+    from yd_refund_reason
+  </select>
+</mapper>

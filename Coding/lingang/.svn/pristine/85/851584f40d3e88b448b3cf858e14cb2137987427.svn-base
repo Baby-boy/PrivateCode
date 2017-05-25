@@ -1,0 +1,42 @@
+define(['mySession', 'route-config', 'serviceBase','layer','My97DatePicker','uEditor', 'uEditorConfig', 'uEditorCulture','ajaxUpload'], function (mySession, routeConfig, serviceBase,My97DatePicker) {
+    var _controller = function($scope, $http, $routeParams, $location,sysPartnerService){
+//    	if($routeParams.value==null || $routeParams.value==""){
+//    		alert("信息异常..");
+//    	}
+    	var ue = UM.getEditor('partnerContent',{
+	        initialFrameWidth:'100%',
+	        initialFrameHeight:200
+        });
+    	$scope.partner={
+				partnerName:"",
+				partnerCompany:"",
+				partnerSimple:"",
+				partnerState:"",
+				partnerContent:""
+    	};
+    	
+    	ue.setContent($scope.partner.partnerContent);
+    	//添加园区
+    	$scope.addPartnerDetails=function(){
+    		$scope.para={
+    				partnerName:$scope.partner.partnerName,
+    				partnerCompany:$scope.partner.partnerCompany,
+    				partnerSimple:$scope.partner.partnerSimple,
+    				partnerState:$scope.partner.partnerState,
+    				partnerContent:ue.getContent()
+    		};
+    		sysPartnerService.addPartnerDetails($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				alert("添加成功");
+    				location.href="#/seek/sysPartner/sysPartnerPageList/index";
+    			}else{
+    				alert("请求失败，请稍后再试");
+    				location.href="#/seek/sysPartner/sysPartnerPageList/index";
+    			}
+    		});
+    	};
+    	
+    	
+    };
+    return ["sysPartnerAddCtrl", _controller];
+});

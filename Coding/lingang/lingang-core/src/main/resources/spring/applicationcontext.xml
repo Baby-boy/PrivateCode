@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Application context definition
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+ 
+    <!-- ========================= RESOURCE DEFINITIONS ========================= -->
+    
+    <import resource="dubbo-provider-config.xml"/>
+   <!--  <import resource="dubbo-consumer-config.xml"/> -->
+   
+    <!-- import the dao definition -->
+    <import resource="dao-reader-config.xml"/>
+    <import resource="dao-writer-config.xml"/>
+    <import resource="datasource-config.xml"/>
+    <import resource="redis-config.xml"/>
+    
+    <context:component-scan  base-package="com.lingang.core"/>
+    <!-- Configurer that replaces ${...} placeholders with values from a properties file -->
+    <!-- (in this case, JDBC-related settings for the JPA EntityManager definition below) 
+    <context:property-placeholder location="classpath:config/data-access.properties"/>
+    -->
+    
+    <bean id="propertyConfigurer"
+		class="com.lingang.common.util.PropertyUtils">
+		<property name="locations">
+			<list>
+				<value>classpath:config/test/system.properties</value>
+			</list>
+		</property>
+	</bean>
+    
+    <bean id="aspectNewBean" class="com.lingang.core.aop.NoBackAspect" ></bean>
+    <aop:config>
+        <aop:aspect id="NoBackAspect" ref="aspectNewBean">
+           <!--  配置com.spring.service包下所有类或接口的所有方法 -->
+            <aop:pointcut id="getService" expression="execution(* com.lingang.api.service.*.*.*(..))" />
+            <aop:before pointcut-ref="getService" method="doBefore"/>  
+            <aop:after pointcut-ref="getService" method="doAfter"/>  
+            <aop:around pointcut-ref="getService" method="doAround"/>  
+            <aop:after-throwing pointcut-ref="getService" method="doThrowing" throwing="ex"/>  
+        </aop:aspect>  
+    </aop:config> 
+</beans>

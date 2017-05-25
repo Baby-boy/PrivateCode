@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdAddressMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdAddress" >
+    <id column="ad_id" property="adId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="ad_is_default" property="adIsDefault" jdbcType="INTEGER" />
+    <result column="ad_linkman" property="adLinkman" jdbcType="VARCHAR" />
+    <result column="ad_linktel" property="adLinktel" jdbcType="VARCHAR" />
+    <result column="ad_sex" property="adSex" jdbcType="INTEGER" />
+    <result column="ad_province_id" property="adProvinceId" jdbcType="INTEGER" />
+    <result column="ad_city_id" property="adCityId" jdbcType="INTEGER" />
+    <result column="ad_area_id" property="adAreaId" jdbcType="INTEGER" />
+    <result column="ad_pca" property="adPca" jdbcType="VARCHAR" />
+    <result column="ad_street" property="adStreet" jdbcType="VARCHAR" />
+    <result column="ad_more" property="adMore" jdbcType="VARCHAR" />
+    <result column="ad_created_time" property="adCreatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ad_id, user_id, ad_is_default, ad_linkman, ad_linktel, ad_sex, ad_province_id, ad_city_id, 
+    ad_area_id, ad_pca, ad_street, ad_more, ad_created_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_address
+    where ad_id = #{adId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_address
+    where ad_id = #{adId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdAddress" >
+    insert into yd_address (ad_id, user_id, ad_is_default, 
+      ad_linkman, ad_linktel, ad_sex, 
+      ad_province_id, ad_city_id, ad_area_id, 
+      ad_pca, ad_street, ad_more, 
+      ad_created_time)
+    values (#{adId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{adIsDefault,jdbcType=INTEGER}, 
+      #{adLinkman,jdbcType=VARCHAR}, #{adLinktel,jdbcType=VARCHAR}, #{adSex,jdbcType=INTEGER}, 
+      #{adProvinceId,jdbcType=INTEGER}, #{adCityId,jdbcType=INTEGER}, #{adAreaId,jdbcType=INTEGER}, 
+      #{adPca,jdbcType=VARCHAR}, #{adStreet,jdbcType=VARCHAR}, #{adMore,jdbcType=VARCHAR}, 
+      #{adCreatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdAddress" >
+    insert into yd_address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adId != null" >
+        ad_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="adIsDefault != null" >
+        ad_is_default,
+      </if>
+      <if test="adLinkman != null" >
+        ad_linkman,
+      </if>
+      <if test="adLinktel != null" >
+        ad_linktel,
+      </if>
+      <if test="adSex != null" >
+        ad_sex,
+      </if>
+      <if test="adProvinceId != null" >
+        ad_province_id,
+      </if>
+      <if test="adCityId != null" >
+        ad_city_id,
+      </if>
+      <if test="adAreaId != null" >
+        ad_area_id,
+      </if>
+      <if test="adPca != null" >
+        ad_pca,
+      </if>
+      <if test="adStreet != null" >
+        ad_street,
+      </if>
+      <if test="adMore != null" >
+        ad_more,
+      </if>
+      <if test="adCreatedTime != null" >
+        ad_created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adId != null" >
+        #{adId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="adIsDefault != null" >
+        #{adIsDefault,jdbcType=INTEGER},
+      </if>
+      <if test="adLinkman != null" >
+        #{adLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="adLinktel != null" >
+        #{adLinktel,jdbcType=VARCHAR},
+      </if>
+      <if test="adSex != null" >
+        #{adSex,jdbcType=INTEGER},
+      </if>
+      <if test="adProvinceId != null" >
+        #{adProvinceId,jdbcType=INTEGER},
+      </if>
+      <if test="adCityId != null" >
+        #{adCityId,jdbcType=INTEGER},
+      </if>
+      <if test="adAreaId != null" >
+        #{adAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="adPca != null" >
+        #{adPca,jdbcType=VARCHAR},
+      </if>
+      <if test="adStreet != null" >
+        #{adStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="adMore != null" >
+        #{adMore,jdbcType=VARCHAR},
+      </if>
+      <if test="adCreatedTime != null" >
+        #{adCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdAddress" >
+    update yd_address
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="adIsDefault != null" >
+        ad_is_default = #{adIsDefault,jdbcType=INTEGER},
+      </if>
+      <if test="adLinkman != null" >
+        ad_linkman = #{adLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="adLinktel != null" >
+        ad_linktel = #{adLinktel,jdbcType=VARCHAR},
+      </if>
+      <if test="adSex != null" >
+        ad_sex = #{adSex,jdbcType=INTEGER},
+      </if>
+      <if test="adProvinceId != null" >
+        ad_province_id = #{adProvinceId,jdbcType=INTEGER},
+      </if>
+      <if test="adCityId != null" >
+        ad_city_id = #{adCityId,jdbcType=INTEGER},
+      </if>
+      <if test="adAreaId != null" >
+        ad_area_id = #{adAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="adPca != null" >
+        ad_pca = #{adPca,jdbcType=VARCHAR},
+      </if>
+      <if test="adStreet != null" >
+        ad_street = #{adStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="adMore != null" >
+        ad_more = #{adMore,jdbcType=VARCHAR},
+      </if>
+      <if test="adCreatedTime != null" >
+        ad_created_time = #{adCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ad_id = #{adId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdAddress" >
+    update yd_address
+    set user_id = #{userId,jdbcType=INTEGER},
+      ad_is_default = #{adIsDefault,jdbcType=INTEGER},
+      ad_linkman = #{adLinkman,jdbcType=VARCHAR},
+      ad_linktel = #{adLinktel,jdbcType=VARCHAR},
+      ad_sex = #{adSex,jdbcType=INTEGER},
+      ad_province_id = #{adProvinceId,jdbcType=INTEGER},
+      ad_city_id = #{adCityId,jdbcType=INTEGER},
+      ad_area_id = #{adAreaId,jdbcType=INTEGER},
+      ad_pca = #{adPca,jdbcType=VARCHAR},
+      ad_street = #{adStreet,jdbcType=VARCHAR},
+      ad_more = #{adMore,jdbcType=VARCHAR},
+      ad_created_time = #{adCreatedTime,jdbcType=TIMESTAMP}
+    where ad_id = #{adId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 所有查询 -->
+  <!-- 重置所有收货地址为非默认状态 -->
+  <update id="updateAllAddressState">
+  	update 
+  		yd_address ya
+	set 
+		ya.ad_is_default=0 
+	where ya.user_id=#{userId}
+  </update>
+  
+  <!-- 查询用户收货地址总数 -->
+  <select id="selectAddressCount" resultType="java.lang.Integer">
+  	select 
+  		count(distinct ad_id)
+	from 
+		yd_address
+	where user_id=#{userId}
+  </select>
+  
+  <!-- 查询用户收货地址列表 -->
+  <select id="selectAddressList" resultType="YdAddress">
+  	select 
+  		ya.ad_id,ya.ad_linkman,ya.ad_linktel,ya.ad_pca,ya.ad_street,ya.ad_more,ya.ad_is_default 
+	from 
+		yd_address ya
+	where ya.user_id=#{userId} and ya.ad_is_default=#{state}
+  </select>
+  
+  <!-- 删除用户收货地址 -->
+  <delete id="deleteUserAddress">
+  	delete from 
+  		yd_address
+	where 
+		ad_id in
+	<foreach collection="adIdList" item="adId" open="(" close=")" separator=",">
+		#{adId}
+	</foreach>
+  </delete>
+</mapper>

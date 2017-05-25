@@ -1,0 +1,295 @@
+define(['mySession', 'route-config', 'serviceBase','layer','My97DatePicker'], function (mySession, routeConfig, serviceBase,My97DatePicker) {
+    var _controller = function($scope, $http, $routeParams, $location,sysManagerService){
+    	//分页设置 
+    	$scope.paginationConf = {
+        	    currentPage: 1, //页数
+                totalItems: 0, //查询结果总数
+                perPageOptions: [5, 10, 15, 20, 30, 50],
+                itemsPerPage: 15, //每页查询条数
+                rememberPerPage: 'sysManagerPageListCtrlPerPage',
+                autoLoadData: true,
+                onChange: function () {
+                    if (this.currentPage > 0) {
+                    	//调用方法
+                    	$scope.getManagerList();
+                    }
+                }
+        };
+    	
+    	//请求参数(后台管理员列表)
+    	$scope.para={
+    			managerAccount:"",
+    			managerIdcard:"",
+    			managerState:""
+    	};
+    	
+    	//列表数据(后台管理员)
+    	$scope.managerList=[];
+    	$scope.currentPage="";
+    	$scope.onePageCount="";
+    	
+    	//获取列表(后台管理员)
+    	$scope.getManagerList=function(){
+    		//当前页与每页显示条数
+    		$scope.para.currentPage =$scope.paginationConf.currentPage;
+    		$scope.para.onePageCount = $scope.paginationConf.itemsPerPage;
+    		sysManagerService.sysManagerPagePageList($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				$scope.managerList=data.data.list;
+    				// 当前页与每页条数
+    				$scope.currentPage=data.data.currentPage;
+    				$scope.onePageCount=data.data.onePageCount;
+    				//页数获取
+    				$scope.paginationConf.totalItems=data.data.countRecord;
+    			}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    		});
+    	};
+    	
+    	
+    	
+    	//请求参数(后台管理员)
+    	$scope.manager={
+    	};
+    	//显示(后台管理员)
+    	$scope.showManagerDetails=function(m){
+    		$scope.manager=m;
+    		$('#myModal').modal();
+    	};
+    	
+    	//修改(后台管理员)
+    	$scope.updateSysManager=function(){
+    		/** JS校验 **/
+    		// 账户
+    		if ($scope.manager.managerAccount == "" || $scope.manager.managerAccount == null) {
+    			checkSingle("managerAccount","账户不能为空");
+    			return;
+			}
+    		if ($scope.manager.managerAccount != "" && $scope.manager.managerAccount != null) {
+    			var reg = /^[a-zA-Z]\w{2,9}$/;
+        		if(!reg.test($scope.manager.managerAccount)){
+        			check("managerAccount","账户长度3-10字节,需以字母开头");
+        			return;
+        		}
+			}
+    		// 密码
+    		if ($scope.manager.managerPassword != "" && $scope.manager.managerPassword != null) {
+    			var reg = /^(\w){6,12}$/;
+        		if(!reg.test($scope.manager.managerPassword)){
+        			checkSingle("managerPassword","密码长度6-12字节");
+        			return;
+        		}
+    		}
+    		// 名称
+    		if ($scope.manager.managerName == "" || $scope.manager.managerName == null) {
+    			checkSingle("managerName","名称不能为空");
+    			return;
+    		}
+    		// 联系方式
+    		if ($scope.manager.managerTel == "" || $scope.manager.managerTel == null) {
+    			checkSingle("managerTel","联系方式不能为空");
+    			return;
+    		}
+    		if ($scope.manager.managerTel != "" && $scope.manager.managerTel != null) {
+    			var reg = /^(^(\d{3,4}-)?\d{7,8})$|(1(3[0-9]|4[57]|5[0-35-9]|7[0135678]|8[0-9])\d{8})$/;
+    			if(!reg.test($scope.manager.managerTel)){
+    				check("managerTel","联系方式格式不正确");
+    				return;
+    			}
+    		}
+    		// 身份证号码
+    		if ($scope.manager.managerIdcard == "" || $scope.manager.managerIdcard == null) {
+    			check("managerIdcard","身份证号码不能为空");
+    			return;
+    		}
+    		if ($scope.manager.managerIdcard != "" && $scope.manager.managerIdcard != null) {
+    			var reg = /^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/;
+        		if(!reg.test($scope.manager.managerIdcard)){
+        			check("managerIdcard","身份证号码格式不正确");
+        			return;
+        		}
+    		}
+    		// 地址
+    		if ($scope.manager.managerAddress == "" || $scope.manager.managerAddress == null) {
+    			checkSingle("managerAddress","地址不能为空");
+    			return;
+    		}
+    		// Email
+    		if ($scope.manager.managerEmail == "" || $scope.manager.managerEmail == null) {
+    			checkSingle("managerEmail","Email不能为空");
+    			return;
+    		}
+    		if ($scope.manager.managerEmail != "" && $scope.manager.managerEmail !== null) {
+    			var reg = /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/;
+        		if(!reg.test($scope.manager.managerEmail)){
+        			checkSingle("managerEmail","Email格式不正确");
+        			return;
+        		}
+    		}
+    		
+    		var m={
+    				managerId:$scope.manager.managerId,
+    				managerAccount:$scope.manager.managerAccount,
+    				managerPassword:$scope.manager.managerPassword,
+    				managerName:$scope.manager.managerName,
+    				managerTel:$scope.manager.managerTel,
+    				managerIdcard:$scope.manager.managerIdcard,
+    				managerAddress:$scope.manager.managerAddress,
+    				managerEmail:$scope.manager.managerEmail,
+    				managerState:$scope.manager.managerState
+    		};
+    		sysManagerService.updateSysManager($http,m).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				alert("修改成功");
+    			}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    			$('#myModal').modal('hide');
+    		});
+    	};
+    	
+    	
+    	//请求参数(添加后台管理员)
+    	$scope.managerAdd={
+    		managerState:1,
+    		managerAccount:"",
+    		managerPassword:"",
+    		managerName:"",
+    		managerTel:"",
+    		managerIdcard:"",
+    		managerAddress:"",
+    		managerEmail:""
+    	};
+    	
+    	// 显示弹窗
+     	$scope.showManagerAdd = function(){
+     		$('#managerAdd').modal();
+     	}
+     	
+    	//添加(后台管理员)
+    	$scope.addSysManager=function(){
+    		/** JS校验 **/
+    		// 账户
+    		if ($scope.managerAdd.managerAccount == "") {
+    			checkSingle("managerAccountAdd","账户不能为空");
+    			return;
+			}
+    		if ($scope.managerAdd.managerAccount != "") {
+    			var reg = /^[a-zA-Z]\w{2,9}$/;
+    			if(!reg.test($scope.managerAdd.managerAccount)){
+        			check("managerAccountAdd","账户长度3-10字节,需以字母开头");
+        			return;
+        		}
+    		}
+    		// 密码
+    		if ($scope.managerAdd.managerPassword == "") {
+    			checkSingle("managerPasswordAdd","密码不能为空");
+    			return;
+    		}
+    		if ($scope.managerAdd.managerPassword != "") {
+    			var reg = /^(\w){6,12}$/;
+        		if(!reg.test($scope.managerAdd.managerPassword)){
+        			checkSingle("managerPasswordAdd","密码长度6-12字节");
+        			return;
+        		}
+    		}
+    		// 名称
+    		if ($scope.managerAdd.managerName == "") {
+    			checkSingle("managerNameAdd","名称不能为空");
+    			return;
+    		}
+    		// 联系方式
+    		if ($scope.managerAdd.managerTel == "") {
+    			checkSingle("managerTelAdd","联系方式不能为空");
+    			return;
+    		}
+    		if ($scope.managerAdd.managerTel != "") {
+    			var reg = /^(^(\d{3,4}-)?\d{7,8})$|(1(3[0-9]|4[57]|5[0-35-9]|7[0135678]|8[0-9])\d{8})$/;
+    			if(!reg.test($scope.managerAdd.managerTel)){
+    				check("managerTelAdd","联系方式格式不正确");
+    				return;
+    			}
+    		}
+    		// 身份证号码
+    		if ($scope.managerAdd.managerIdcard == "") {
+    			check("managerIdcardAdd","身份证号码不能为空");
+    			return;
+    		}
+    		if ($scope.managerAdd.managerIdcard != "") {
+    			var reg = /^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/;
+        		if(!reg.test($scope.managerAdd.managerIdcard)){
+        			check("managerIdcardAdd","身份证号码格式不正确");
+        			return;
+        		}
+    		}
+    		// 地址
+    		if ($scope.managerAdd.managerAddress == "") {
+    			checkSingle("managerAddressAdd","地址不能为空");
+    			return;
+    		}
+    		// Email
+    		if ($scope.managerAdd.managerEmail == "") {
+    			checkSingle("managerEmailAdd","Email不能为空");
+    			return;
+    		}
+    		if ($scope.managerAdd.managerEmail != "") {
+    			var reg = /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/;
+        		if(!reg.test($scope.managerAdd.managerEmail)){
+        			checkSingle("managerEmailAdd","Email格式不正确");
+        			return;
+        		}
+    		}
+    		
+    		var m={
+    				managerAccount:$scope.managerAdd.managerAccount,
+    				managerPassword:$scope.managerAdd.managerPassword,
+    				managerName:$scope.managerAdd.managerName,
+    				managerTel:$scope.managerAdd.managerTel,
+    				managerIdcard:$scope.managerAdd.managerIdcard,
+    				managerAddress:$scope.managerAdd.managerAddress,
+    				managerEmail:$scope.managerAdd.managerEmail,
+    				managerState:$scope.managerAdd.managerState
+    		};
+    		sysManagerService.addSysManager($http,m).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				alert("添加成功");
+    				$scope.getManagerList();
+    			}else{
+    				alert("请求失败，请稍后再试");
+    				$scope.getManagerList();
+    			}
+    			$('#managerAdd').modal('hide');
+    		});
+    	};
+    	
+    	// JS校验的方法
+		var checkSingle = function(id,msg){
+			$("#" + id).tips({
+				side : 2,// 
+				color:'#F00',// 字体颜色
+				msg : msg,// 提示信息
+				bg : '#FFF',// 背景颜色
+				time : 2,// 显示时间
+				x : 10,//横向偏移
+				y : 2//纵向偏移 
+			});
+			$("#" + id).focus();
+		};
+		var check = function(id,msg){
+			$("#" + id).tips({
+				side : 2,// 
+				color:'#F00',// 字体颜色
+				msg : msg,// 提示信息
+				bg : '#FFF',// 背景颜色
+				time : 2,// 显示时间
+				x : 0,//横向偏移
+				y : 2//纵向偏移 
+			});
+			$("#" + id).focus();
+		};
+    	
+    	$scope.getManagerList();
+    };
+    return ["sysManagerPageListCtrl", _controller];
+});

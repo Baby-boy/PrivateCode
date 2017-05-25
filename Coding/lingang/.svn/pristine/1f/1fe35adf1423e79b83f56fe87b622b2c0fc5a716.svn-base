@@ -1,0 +1,39 @@
+package com.lingang.platform.controller.seek;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.lingang.api.domain.basic.JsonResult;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysBasics;
+import com.lingang.api.service.SysBasicsService;
+
+@Controller
+@RequestMapping("/sysBasics")
+public class BasicsController {
+
+	@Resource
+	private SysBasicsService sysBasicsService;
+
+	/**
+	 * @Description: (查询开放层级列表_后台)
+	 * @return 参数注释 
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月13日 下午7:49:01 
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getBasicsAll.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public JsonResult getBasicsAll() {
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<List<SysBasics>> result = sysBasicsService.selectSysBasics();
+		jsonResult.setData(result.getData());
+		jsonResult.setStateCode(result.getStateCode());
+		return jsonResult;
+	}
+}

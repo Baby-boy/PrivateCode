@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysBasicsReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysBasics" >
+    <id column="basics_id" property="basicsId" jdbcType="INTEGER" />
+    <result column="basics_type" property="basicsType" jdbcType="INTEGER" />
+    <result column="basics_name" property="basicsName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="basics_state" property="basicsState" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    basics_id, basics_type, basics_name, create_time, update_time, basics_state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_basics
+    where basics_id = #{basicsId,jdbcType=INTEGER}
+  </select>
+  <select id="selectSysBasics" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+   select * from sys_basics where basics_type=2
+  </select>
+</mapper>

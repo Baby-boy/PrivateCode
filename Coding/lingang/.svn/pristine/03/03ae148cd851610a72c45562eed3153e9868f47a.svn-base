@@ -1,0 +1,15 @@
+/**
+ * Created by FxLsoft on 2015/12/3.
+ */
+'use strict';
+
+define(["serviceBase"], function (serviceBase) {
+	 var items = {};
+	    //获取管理员列表
+	    items.sysParkPageList = function ($http,data) {
+	        var request = $http.post('sysPark/sysParkPageList.do', data, serviceBase.postConfig);
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+
+    return ['sysParkService', items];
+});

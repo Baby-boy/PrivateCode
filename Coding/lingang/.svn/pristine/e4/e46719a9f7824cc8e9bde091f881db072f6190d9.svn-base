@@ -1,0 +1,120 @@
+package com.lingang.api.domain.vo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.lingang.api.domain.entity.SysFile;
+import com.lingang.api.domain.entity.SysLabel;
+import com.lingang.api.domain.entity.SysPark;
+
+public class SysParkVo extends SysPark {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5663360930640100320L;
+
+	private Integer imgId;
+
+	private String imgPath;
+
+	private Integer parkImgId;
+	private String parkImgPath;
+	// 产业园区详情属性字段
+	private String maxImgPath;
+
+	private Integer wayId;
+
+	private String wayTel;
+
+	private List<SysLabel> labels = new ArrayList<SysLabel>();
+
+	private List<SysIndustryVo> industrys = new ArrayList<SysIndustryVo>();
+
+	private List<SysFile> files = new ArrayList<SysFile>();
+
+	public Integer getImgId() {
+		return imgId;
+	}
+
+	public void setImgId(Integer imgId) {
+		this.imgId = imgId;
+	}
+
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+
+	public String getMaxImgPath() {
+		return maxImgPath;
+	}
+
+	public void setMaxImgPath(String maxImgPath) {
+		this.maxImgPath = maxImgPath;
+	}
+
+	public Integer getWayId() {
+		return wayId;
+	}
+
+	public void setWayId(Integer wayId) {
+		this.wayId = wayId;
+	}
+
+	public String getWayTel() {
+		return wayTel;
+	}
+
+	public void setWayTel(String wayTel) {
+		this.wayTel = wayTel;
+	}
+
+	public List<SysLabel> getLabels() {
+		return labels;
+	}
+
+	public void setLabels(List<SysLabel> labels) {
+		this.labels = labels;
+	}
+
+	public List<SysIndustryVo> getIndustrys() {
+		return industrys;
+	}
+
+	public void setIndustrys(List<SysIndustryVo> industrys) {
+		this.industrys = industrys;
+	}
+
+	public List<SysFile> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<SysFile> files) {
+		this.files = files;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Integer getParkImgId() {
+		return parkImgId;
+	}
+
+	public void setParkImgId(Integer parkImgId) {
+		this.parkImgId = parkImgId;
+	}
+
+	public String getParkImgPath() {
+		return parkImgPath;
+	}
+
+	public void setParkImgPath(String parkImgPath) {
+		this.parkImgPath = parkImgPath;
+	}
+
+}

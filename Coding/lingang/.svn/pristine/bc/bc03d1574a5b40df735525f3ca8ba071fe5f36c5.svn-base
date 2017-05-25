@@ -1,0 +1,41 @@
+package com.lingang.core.service.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+import com.lingang.api.domain.entity.SysBasics;
+import com.lingang.api.domain.pfvo.SysManagerPfVo;
+
+import com.lingang.api.service.SysBasicsService;
+import com.lingang.core.persistence.reader.SysBasicsReaderMapper;
+@Service("sysBasicsService")
+public class SysBasicsServiceImpl implements SysBasicsService {
+	@Resource
+	private SysBasicsReaderMapper sysBasicsReaderMapper;
+
+	/**
+	 * 开放层级
+	 */
+	@Override
+	public ServiceResult<List<SysBasics>> selectSysBasics() {
+		ServiceResult<List<SysBasics>> result = new ServiceResult<List<SysBasics>>();
+		List<SysBasics> list=sysBasicsReaderMapper.selectSysBasics();
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(list);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Page<SysBasics>> selectSysBasicsPageList(int currentPage, int onePageCount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

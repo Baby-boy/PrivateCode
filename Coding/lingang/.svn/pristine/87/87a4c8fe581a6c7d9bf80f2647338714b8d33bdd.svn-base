@@ -1,0 +1,174 @@
+package com.lingang.core.service.impl;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+import com.lingang.api.domain.entity.SysPublic;
+import com.lingang.api.domain.para.SysPublicPara;
+import com.lingang.api.domain.pfvo.SysPublicPfVo;
+import com.lingang.api.domain.vo.SysNewPublicStatisticsVo;
+import com.lingang.api.domain.vo.SysPublicVo;
+import com.lingang.api.service.SysPublicService;
+import com.lingang.common.util.DateTimeUtils;
+import com.lingang.core.persistence.reader.SysPublicReaderMapper;
+import com.lingang.core.persistence.writer.SysPublicWriterMapper;
+
+@Service("sysPublicService")
+public class SysPublicServiceImpl implements SysPublicService {
+
+	@Resource
+	private SysPublicReaderMapper sysPublicReaderMapper;
+
+	@Resource
+	private SysPublicWriterMapper sysPublicWriterMapper;
+
+	@Override
+	public ServiceResult<Page<SysPublicVo>> selectSysPublicVoPageListByRegionIdAndBasicsId(Integer regionId,
+			Integer regionTypeId, Integer basicsId, Integer pageIndex, Integer pageSize) {
+		ServiceResult<Page<SysPublicVo>> result = new ServiceResult<Page<SysPublicVo>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("regionTypeId", regionTypeId);
+		map.put("regionId", regionId);
+		map.put("basicsId", basicsId);
+		int countRecord = sysPublicReaderMapper.selectSysPublicVoCountByRegionIdAndBasicsId(map);
+		Page<SysPublicVo> page = new Page<SysPublicVo>(pageIndex, countRecord, pageSize);
+		if (countRecord > 0) {
+			map.put("startIndex", page.getCurrentPage() - 1);
+			map.put("onePageCount", pageSize);
+			List<SysPublicVo> list = sysPublicReaderMapper.selectSysPublicVoPageListByRegionIdAndBasicsId(map);
+			page.setList(list);
+		}
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<SysPublicVo> selectSysPublicDetailsByPublicId(Integer publicId) {
+		ServiceResult<SysPublicVo> result = new ServiceResult<SysPublicVo>();
+		int countRecord = sysPublicReaderMapper.selectSysPublicDetailsCountByPublicId(publicId);
+		if (countRecord == 1) {
+			SysPublicVo sysPublicVo = sysPublicReaderMapper.selectSysPublicDetailsByPublicId(publicId);
+			result.setData(sysPublicVo);
+		}
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Page<SysPublicPfVo>> selectSysPublicPfVoPageList(SysPublicPara para) {
+		ServiceResult<Page<SysPublicPfVo>> result = new ServiceResult<>();
+		// 查询条件
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("publicTitleKeywords", para.getPublicTitleKeywords());
+		map.put("regionNameKeywords", para.getRegionNameKeywords());
+		map.put("parkNameKeywords", para.getParkNameKeywords());
+		map.put("publicState", para.getPublicState());
+		int countRecord = sysPublicReaderMapper.selectSysPublicPfVoCount(map);
+		Page<SysPublicPfVo> page = new Page<>(para.getCurrentPage(), countRecord, para.getOnePageCount());
+		if (countRecord > 0) {
+			// 分页条件
+			map.put("startIndex", page.getCurrentPage() - 1);
+			map.put("onePageCount", page.getOnePageCount());
+			List<SysPublicPfVo> list = sysPublicReaderMapper.selectSysPublicPfVoPageList(map);
+			page.setList(list);
+		}
+		result.setData(page);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Object> updatePublicDetails(SysPublic sysPublic) {
+		ServiceResult<Object> result = new ServiceResult<>();
+		int info = sysPublicWriterMapper.updateByPrimaryKeySelective(sysPublic);
+		if (info == 1) {
+			result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+			result.setMessage("更新成功!");
+		} else {
+			result.setStateCode(StateCodeConstant.ERROR_CODE);
+			result.setMessage("更新失败!");
+		}
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Object> addPublicDetails(SysPublic sysPublic) {
+		ServiceResult<Object> result = new ServiceResult<>();
+		int info = sysPublicWriterMapper.insertSelective(sysPublic);
+		if (info == 1) {
+			result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+			result.setMessage("添加成功!");
+		} else {
+			result.setStateCode(StateCodeConstant.ERROR_CODE);
+			result.setMessage("添加失败!");
+		}
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Page<SysNewPublicStatisticsVo>> selectNewPublicStatisticsList(Integer pageIndex,
+			Integer pageSize) {
+		ServiceResult<Page<SysNewPublicStatisticsVo>> result = new ServiceResult<Page<SysNewPublicStatisticsVo>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> numMap = new HashMap<String, Object>();
+		int maxNum = 0;
+		int countRecord = sysPublicReaderMapper.selectNewPublicStatisticsCount(map);
+		Page<SysNewPublicStatisticsVo> page = new Page<SysNewPublicStatisticsVo>(pageIndex, countRecord, pageSize);
+		if (countRecord > 0) {
+			// 分页条件
+			map.put("startIndex", page.getCurrentPage() - 1);
+			map.put("onePageCount", page.getOnePageCount());
+			List<SysNewPublicStatisticsVo> list = sysPublicReaderMapper.selectNewPublicStatisticsPageList(map);
+			page.setList(list);
+			// 最大数查询
+			maxNum = sysPublicReaderMapper.selectNewPublicStatisticsCountMax(map);
+		}
+		numMap.put("maxNum", maxNum);
+		result.setDataMap(numMap);
+		;
+		result.setData(page);
+
+		// 月、季统计
+		String monthDate = DateTimeUtils.format(new Date(), "YYYY-MM");
+		String mStr = DateTimeUtils.format(new Date(), "MM");
+		Integer mInt = Integer.valueOf(mStr);
+		if (mInt >= 1 && mInt <= 3) {
+			mStr = DateTimeUtils.format(new Date(), "YYYY-") + "01-01";
+		} else if (mInt >= 4 && mInt <= 6) {
+			mStr = DateTimeUtils.format(new Date(), "YYYY-") + "04-01";
+		} else if (mInt >= 7 && mInt <= 9) {
+			mStr = DateTimeUtils.format(new Date(), "YYYY-") + "07-01";
+		} else if (mInt >= 10 && mInt <= 12) {
+			mStr = DateTimeUtils.format(new Date(), "YYYY-") + "10-01";
+		}
+		int monthNum = sysPublicReaderMapper.selectNewPublicStatisticsCountThanDate(monthDate + "-01");
+		int seasonNum = sysPublicReaderMapper.selectNewPublicStatisticsCountThanDate(mStr);
+		numMap.put("monthNum", monthNum);
+		numMap.put("seasonNum", seasonNum);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<SysPublicVo> selectSysPublicDetails(Integer publicId) {
+		ServiceResult<SysPublicVo> result = new ServiceResult<SysPublicVo>();
+		int countRecord = sysPublicReaderMapper.selectSysPublicDetailsCountByPublicId(publicId);
+		if (countRecord == 1) {
+			SysPublicVo sysPublicVo = sysPublicReaderMapper.selectSysPublicDetails(publicId);
+			result.setData(sysPublicVo);
+		}
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+}

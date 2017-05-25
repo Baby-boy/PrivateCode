@@ -1,0 +1,51 @@
+package com.lingang.platform.controller.basics;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.lingang.api.domain.basic.JsonResult;
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysBasics;
+import com.lingang.api.domain.para.SysManagerPara;
+import com.lingang.api.service.SysBasicsService;
+import com.lingang.common.custom.RequestBean;
+
+
+/**
+ *@Description: (基础设置信息控制)
+ *@Author: zf(18817590078@163.com)
+ *@date:2016年12月7日 上午12:09:38
+ *@Version:1.0
+ */
+@Controller
+@RequestMapping("/sysBasics")
+public class SysBasicsController {
+	
+	@Resource
+	private SysBasicsService sysBasicsService;
+
+	/**
+	* @Description: (基础设置列表)
+	* @param pageIndex
+	* @param pageSize
+	* @return    
+	* @author zf(18817590078@163.com)
+	* @date: 2016年12月6日 下午7:43:42
+	 */
+	@RequestMapping(value="/sysBasicsPagePageList.do",method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public JsonResult sysBasicsPagePageList(@RequestBean SysManagerPara para) {
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<Page<SysBasics>> result=sysBasicsService.selectSysBasicsPageList(para.getCurrentPage(), para.getOnePageCount());
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setData(result.getData());
+		return jsonResult;
+	}
+}

@@ -1,0 +1,9 @@
+package com.lingang.core.persistence.reader;
+
+import com.lingang.api.domain.entity.SysCollect;
+
+public interface SysCollectReaderMapper {
+
+    SysCollect selectByPrimaryKey(Integer collectId);
+
+}

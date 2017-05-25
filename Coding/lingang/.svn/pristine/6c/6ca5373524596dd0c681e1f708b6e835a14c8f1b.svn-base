@@ -1,0 +1,39 @@
+package com.lingang.api.service;
+
+import java.util.List;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysBasics;
+import com.lingang.api.domain.para.SysBasicsPara;
+
+public interface SysBasicsService {
+
+	/**
+	* @Description: ()
+	* @return    
+	* @author zf(18817590078@163.com)
+	* @date: 2016年12月8日 下午2:36:11
+	 */
+	ServiceResult<List<SysBasics>> selectSysBasics();
+
+	/**
+	* @Description: (查询出所有的基础类型列表)
+	* @param para
+	* @return    
+	* @author zf(18817590078@163.com)
+	* @date: 2016年12月8日 下午2:38:04
+	 */
+	ServiceResult<Page<SysBasics>> selectSysBasicsPageList(SysBasicsPara para);
+
+	/**
+	* @Description: (修改修改基础类型的方法)
+	* @param basics
+	* @return    
+	* @author zf(18817590078@163.com)
+	* @date: 2016年12月8日 下午2:44:23
+	 */
+	ServiceResult<SysBasics> updateSysBasics(SysBasics basics);
+	
+	
+}

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdBannerMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdBanner" >
+    <id column="banner_id" property="bannerId" jdbcType="INTEGER" />
+    <result column="banner_type" property="bannerType" jdbcType="VARCHAR" />
+    <result column="banner_title" property="bannerTitle" jdbcType="VARCHAR" />
+    <result column="banner_cover" property="bannerCover" jdbcType="VARCHAR" />
+    <result column="banner_open_type" property="bannerOpenType" jdbcType="BIT" />
+    <result column="banner_key_id" property="bannerKeyId" jdbcType="INTEGER" />
+    <result column="banner_url" property="bannerUrl" jdbcType="VARCHAR" />
+    <result column="banner_is_show" property="bannerIsShow" jdbcType="BIT" />
+    <result column="banner_sort" property="bannerSort" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    banner_id, banner_type, banner_title, banner_cover, banner_open_type, banner_key_id, 
+    banner_url, banner_is_show, banner_sort
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_banner
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_banner
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdBanner" >
+    insert into yd_banner (banner_id, banner_type, banner_title, 
+      banner_cover, banner_open_type, banner_key_id, 
+      banner_url, banner_is_show, banner_sort
+      )
+    values (#{bannerId,jdbcType=INTEGER}, #{bannerType,jdbcType=VARCHAR}, #{bannerTitle,jdbcType=VARCHAR}, 
+      #{bannerCover,jdbcType=VARCHAR}, #{bannerOpenType,jdbcType=BIT}, #{bannerKeyId,jdbcType=INTEGER}, 
+      #{bannerUrl,jdbcType=VARCHAR}, #{bannerIsShow,jdbcType=BIT}, #{bannerSort,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdBanner" >
+    insert into yd_banner
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bannerId != null" >
+        banner_id,
+      </if>
+      <if test="bannerType != null" >
+        banner_type,
+      </if>
+      <if test="bannerTitle != null" >
+        banner_title,
+      </if>
+      <if test="bannerCover != null" >
+        banner_cover,
+      </if>
+      <if test="bannerOpenType != null" >
+        banner_open_type,
+      </if>
+      <if test="bannerKeyId != null" >
+        banner_key_id,
+      </if>
+      <if test="bannerUrl != null" >
+        banner_url,
+      </if>
+      <if test="bannerIsShow != null" >
+        banner_is_show,
+      </if>
+      <if test="bannerSort != null" >
+        banner_sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bannerId != null" >
+        #{bannerId,jdbcType=INTEGER},
+      </if>
+      <if test="bannerType != null" >
+        #{bannerType,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerTitle != null" >
+        #{bannerTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerCover != null" >
+        #{bannerCover,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerOpenType != null" >
+        #{bannerOpenType,jdbcType=BIT},
+      </if>
+      <if test="bannerKeyId != null" >
+        #{bannerKeyId,jdbcType=INTEGER},
+      </if>
+      <if test="bannerUrl != null" >
+        #{bannerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerIsShow != null" >
+        #{bannerIsShow,jdbcType=BIT},
+      </if>
+      <if test="bannerSort != null" >
+        #{bannerSort,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdBanner" >
+    update yd_banner
+    <set >
+      <if test="bannerType != null" >
+        banner_type = #{bannerType,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerTitle != null" >
+        banner_title = #{bannerTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerCover != null" >
+        banner_cover = #{bannerCover,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerOpenType != null" >
+        banner_open_type = #{bannerOpenType,jdbcType=BIT},
+      </if>
+      <if test="bannerKeyId != null" >
+        banner_key_id = #{bannerKeyId,jdbcType=INTEGER},
+      </if>
+      <if test="bannerUrl != null" >
+        banner_url = #{bannerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerIsShow != null" >
+        banner_is_show = #{bannerIsShow,jdbcType=BIT},
+      </if>
+      <if test="bannerSort != null" >
+        banner_sort = #{bannerSort,jdbcType=TINYINT},
+      </if>
+    </set>
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdBanner" >
+    update yd_banner
+    set banner_type = #{bannerType,jdbcType=VARCHAR},
+      banner_title = #{bannerTitle,jdbcType=VARCHAR},
+      banner_cover = #{bannerCover,jdbcType=VARCHAR},
+      banner_open_type = #{bannerOpenType,jdbcType=BIT},
+      banner_key_id = #{bannerKeyId,jdbcType=INTEGER},
+      banner_url = #{bannerUrl,jdbcType=VARCHAR},
+      banner_is_show = #{bannerIsShow,jdbcType=BIT},
+      banner_sort = #{bannerSort,jdbcType=TINYINT}
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 所有查询 -->
+  <resultMap type="com.yd.dby.app.entity.vo.HomeBannerVo" id="HomeBannerVoResultMap">
+  	<id column="banner_id" property="bannerId" jdbcType="INTEGER" />
+  	<result column="banner_open_type" property="bannerOpenType" jdbcType="VARCHAR" />
+  	<result column="banner_cover" property="bannerCover" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectHomeBannerListByType" resultMap="HomeBannerVoResultMap" parameterType="java.lang.String">
+  	select 
+  		banner_id,banner_open_type,banner_cover 
+  	from 
+  		yd_banner 
+  	where banner_is_show=1 and banner_type=#{bannerType,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 根据类型查询banner图 -->
+  <select id="selectBannerByBannerType" resultType="YdBanner" >
+	select 
+  		banner_id,banner_title,banner_open_type,banner_cover 
+  	from 
+  		yd_banner 
+  	where banner_is_show=1 and banner_type=#{bannerType}
+  </select>
+</mapper>

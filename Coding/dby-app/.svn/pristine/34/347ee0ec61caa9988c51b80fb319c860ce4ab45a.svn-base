@@ -1,0 +1,17 @@
+package com.yd.dby.app.entity.para;
+
+import com.yd.dby.app.entity.YdOrderGoods;
+
+public class OrderAddDBGoodsPara extends YdOrderGoods {
+
+	private Integer depotStock;
+
+	public Integer getDepotStock() {
+		return depotStock;
+	}
+
+	public void setDepotStock(Integer depotStock) {
+		this.depotStock = depotStock;
+	}
+
+}

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysReplyWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.util.List" >
+    delete from sys_reply
+    where reply_id in 
+    <foreach collection="replyId" item="Ids" index="index"
+            open="(" close=")" separator=",">
+            (#{Ids.replyId})
+    </foreach>
+  </delete>
+  
+  
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysReply" >
+    insert into sys_reply (reply_id, manager_id, create_time, 
+      reply_content)
+    values (#{replyId,jdbcType=INTEGER}, #{managerId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{replyContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="replyId" parameterType="com.lingang.api.domain.entity.SysReply" >
+    insert into sys_reply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        reply_id,
+      </if>
+      <if test="managerId != null" >
+        manager_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="replyContent != null" >
+        reply_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        #{replyId,jdbcType=INTEGER},
+      </if>
+      <if test="managerId != null" >
+        #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyContent != null" >
+        #{replyContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+   <!-- ************添加回复************** -->
+    <insert id="addSysReply" useGeneratedKeys="true" keyProperty="reply.replyId" parameterType="com.lingang.api.domain.entity.SysReply" >
+    insert into sys_reply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reply.replyId != null" >
+        reply_id,
+      </if>
+      <if test="reply.managerId != null" >
+        manager_id,
+      </if>
+      <if test="reply.createTime != null" >
+        create_time,
+      </if>
+      <if test="reply.replyContent != null" >
+        reply_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reply.replyId != null" >
+        #{reply.replyId,jdbcType=INTEGER},
+      </if>
+      <if test="reply.managerId != null" >
+        #{reply.managerId,jdbcType=INTEGER},
+      </if>
+      <if test="reply.createTime != null" >
+        #{reply.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reply.replyContent != null" >
+        #{reply.replyContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysReply" >
+    update sys_reply
+    <set >
+      <if test="managerId != null" >
+        manager_id = #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyContent != null" >
+        reply_content = #{replyContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lingang.api.domain.entity.SysReply" >
+    update sys_reply
+    set manager_id = #{managerId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      reply_content = #{replyContent,jdbcType=LONGVARCHAR}
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysReply" >
+    update sys_reply
+    set manager_id = #{managerId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </update>
+</mapper>

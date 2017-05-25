@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysServiceUmanagerReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysServiceUmanager" >
+    <id column="service_umanager_id" property="serviceUmanagerId" jdbcType="INTEGER" />
+    <result column="service_id" property="serviceId" jdbcType="INTEGER" />
+    <result column="umanager_id" property="umanagerId" jdbcType="INTEGER" />
+    <result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    service_umanager_id, service_id, umanager_id, user_account
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_service_umanager
+    where service_umanager_id = #{serviceUmanagerId,jdbcType=INTEGER}
+  </select>
+  
+    <select id="selectByServiceIdAndUserAccount" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_service_umanager
+    where service_id = #{serviceId,jdbcType=INTEGER} and 
+    user_account = #{userAccount,jdbcType=VARCHAR}
+  </select>
+</mapper>

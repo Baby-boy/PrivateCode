@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdJsonMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdJson" >
+    <id column="yd_id" property="ydId" jdbcType="INTEGER" />
+    <result column="yd_key" property="ydKey" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yd.dby.app.entity.YdJson" extends="BaseResultMap" >
+    <result column="yd_value" property="ydValue" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    yd_id, yd_key
+  </sql>
+  <sql id="Blob_Column_List" >
+    yd_value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from yd_json
+    where yd_id = #{ydId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_json
+    where yd_id = #{ydId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdJson" >
+    insert into yd_json (yd_id, yd_key, yd_value
+      )
+    values (#{ydId,jdbcType=INTEGER}, #{ydKey,jdbcType=VARCHAR}, #{ydValue,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdJson" >
+    insert into yd_json
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ydId != null" >
+        yd_id,
+      </if>
+      <if test="ydKey != null" >
+        yd_key,
+      </if>
+      <if test="ydValue != null" >
+        yd_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ydId != null" >
+        #{ydId,jdbcType=INTEGER},
+      </if>
+      <if test="ydKey != null" >
+        #{ydKey,jdbcType=VARCHAR},
+      </if>
+      <if test="ydValue != null" >
+        #{ydValue,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdJson" >
+    update yd_json
+    <set >
+      <if test="ydKey != null" >
+        yd_key = #{ydKey,jdbcType=VARCHAR},
+      </if>
+      <if test="ydValue != null" >
+        yd_value = #{ydValue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where yd_id = #{ydId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yd.dby.app.entity.YdJson" >
+    update yd_json
+    set yd_key = #{ydKey,jdbcType=VARCHAR},
+      yd_value = #{ydValue,jdbcType=LONGVARCHAR}
+    where yd_id = #{ydId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdJson" >
+    update yd_json
+    set yd_key = #{ydKey,jdbcType=VARCHAR}
+    where yd_id = #{ydId,jdbcType=INTEGER}
+  </update>
+</mapper>

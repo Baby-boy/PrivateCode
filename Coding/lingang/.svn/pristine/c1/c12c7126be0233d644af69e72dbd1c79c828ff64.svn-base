@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysPublicWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_public
+    where public_id = #{publicId,jdbcType=INTEGER}
+  </delete>
+  <update id="delPark" parameterType="java.lang.Integer">
+  	update sys_public set park_id=null where public_id=#{publicId,jdbcType=INTEGER}
+  </update>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysPublic" >
+    insert into sys_public (public_id, region_id, min_img_id, 
+      park_id, max_img_id, sys_region_id, 
+      basics_id, public_title, public_address, 
+      public_fax, public_link, public_company, 
+      create_time, update_time, public_state, 
+      public_content)
+    values (#{publicId,jdbcType=INTEGER}, #{regionId,jdbcType=INTEGER}, #{minImgId,jdbcType=INTEGER}, 
+      #{parkId,jdbcType=INTEGER}, #{maxImgId,jdbcType=INTEGER}, #{sysRegionId,jdbcType=INTEGER}, 
+      #{basicsId,jdbcType=INTEGER}, #{publicTitle,jdbcType=VARCHAR}, #{publicAddress,jdbcType=VARCHAR}, 
+      #{publicFax,jdbcType=VARCHAR}, #{publicLink,jdbcType=VARCHAR}, #{publicCompany,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{publicState,jdbcType=INTEGER}, 
+      #{publicContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="publicId" parameterType="com.lingang.api.domain.entity.SysPublic" >
+    insert into sys_public
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="publicId != null" >
+        public_id,
+      </if>
+      <if test="regionId != null" >
+        region_id,
+      </if>
+      <if test="minImgId != null" >
+        min_img_id,
+      </if>
+      <if test="parkId != null" >
+        park_id,
+      </if>
+      <if test="maxImgId != null" >
+        max_img_id,
+      </if>
+      <if test="sysRegionId != null" >
+        sys_region_id,
+      </if>
+      <if test="basicsId != null" >
+        basics_id,
+      </if>
+      <if test="publicTitle != null" >
+        public_title,
+      </if>
+      <if test="publicAddress != null" >
+        public_address,
+      </if>
+      <if test="publicFax != null" >
+        public_fax,
+      </if>
+      <if test="publicLink != null" >
+        public_link,
+      </if>
+      <if test="publicCompany != null" >
+        public_company,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="publicState != null" >
+        public_state,
+      </if>
+      <if test="publicContent != null" >
+        public_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="publicId != null" >
+        #{publicId,jdbcType=INTEGER},
+      </if>
+      <if test="regionId != null" >
+        #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="minImgId != null" >
+        #{minImgId,jdbcType=INTEGER},
+      </if>
+      <if test="parkId != null" >
+        #{parkId,jdbcType=INTEGER},
+      </if>
+      <if test="maxImgId != null" >
+        #{maxImgId,jdbcType=INTEGER},
+      </if>
+      <if test="sysRegionId != null" >
+        #{sysRegionId,jdbcType=INTEGER},
+      </if>
+      <if test="basicsId != null" >
+        #{basicsId,jdbcType=INTEGER},
+      </if>
+      <if test="publicTitle != null" >
+        #{publicTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="publicAddress != null" >
+        #{publicAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="publicFax != null" >
+        #{publicFax,jdbcType=VARCHAR},
+      </if>
+      <if test="publicLink != null" >
+        #{publicLink,jdbcType=VARCHAR},
+      </if>
+      <if test="publicCompany != null" >
+        #{publicCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publicState != null" >
+        #{publicState,jdbcType=INTEGER},
+      </if>
+      <if test="publicContent != null" >
+        #{publicContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysPublic" >
+    update sys_public
+    <set >
+      <if test="regionId != null" >
+        region_id = #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="minImgId != null" >
+        min_img_id = #{minImgId,jdbcType=INTEGER},
+      </if>
+      <if test="parkId != null" >
+        park_id = #{parkId,jdbcType=INTEGER},
+      </if>
+      <if test="maxImgId != null" >
+        max_img_id = #{maxImgId,jdbcType=INTEGER},
+      </if>
+      <if test="sysRegionId != null" >
+        sys_region_id = #{sysRegionId,jdbcType=INTEGER},
+      </if>
+      <if test="basicsId != null" >
+        basics_id = #{basicsId,jdbcType=INTEGER},
+      </if>
+      <if test="publicTitle != null" >
+        public_title = #{publicTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="publicAddress != null" >
+        public_address = #{publicAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="publicFax != null" >
+        public_fax = #{publicFax,jdbcType=VARCHAR},
+      </if>
+      <if test="publicLink != null" >
+        public_link = #{publicLink,jdbcType=VARCHAR},
+      </if>
+      <if test="publicCompany != null" >
+        public_company = #{publicCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publicState != null" >
+        public_state = #{publicState,jdbcType=INTEGER},
+      </if>
+      <if test="publicContent != null" >
+        public_content = #{publicContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where public_id = #{publicId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lingang.api.domain.entity.SysPublic" >
+    update sys_public
+    set region_id = #{regionId,jdbcType=INTEGER},
+      min_img_id = #{minImgId,jdbcType=INTEGER},
+      park_id = #{parkId,jdbcType=INTEGER},
+      max_img_id = #{maxImgId,jdbcType=INTEGER},
+      sys_region_id = #{sysRegionId,jdbcType=INTEGER},
+      basics_id = #{basicsId,jdbcType=INTEGER},
+      public_title = #{publicTitle,jdbcType=VARCHAR},
+      public_address = #{publicAddress,jdbcType=VARCHAR},
+      public_fax = #{publicFax,jdbcType=VARCHAR},
+      public_link = #{publicLink,jdbcType=VARCHAR},
+      public_company = #{publicCompany,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      public_state = #{publicState,jdbcType=INTEGER},
+      public_content = #{publicContent,jdbcType=LONGVARCHAR}
+    where public_id = #{publicId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysPublic" >
+    update sys_public
+    set region_id = #{regionId,jdbcType=INTEGER},
+      min_img_id = #{minImgId,jdbcType=INTEGER},
+      park_id = #{parkId,jdbcType=INTEGER},
+      max_img_id = #{maxImgId,jdbcType=INTEGER},
+      sys_region_id = #{sysRegionId,jdbcType=INTEGER},
+      basics_id = #{basicsId,jdbcType=INTEGER},
+      public_title = #{publicTitle,jdbcType=VARCHAR},
+      public_address = #{publicAddress,jdbcType=VARCHAR},
+      public_fax = #{publicFax,jdbcType=VARCHAR},
+      public_link = #{publicLink,jdbcType=VARCHAR},
+      public_company = #{publicCompany,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      public_state = #{publicState,jdbcType=INTEGER}
+    where public_id = #{publicId,jdbcType=INTEGER}
+  </update>
+</mapper>

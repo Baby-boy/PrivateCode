@@ -1,0 +1,15 @@
+/**
+ * Created by FxLsoft on 2015/12/3.
+ */
+'use strict';
+
+define(["serviceBase"], function (serviceBase) {
+	 var items = {};
+	    //获取合作伙伴列表
+	    items.sysPartnerPageList = function ($http,data) {
+	        var request = $http.post('sysPartner/sysPartnerPageList.do', data, serviceBase.postConfig);
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+
+    return ['sysPartnerService', items];
+});

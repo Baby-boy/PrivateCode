@@ -1,0 +1,280 @@
+package com.lingang.core.service.impl;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+import com.lingang.api.domain.entity.SysPark;
+import com.lingang.api.domain.para.SysParkPara;
+import com.lingang.api.domain.pfvo.SysParkPfVo;
+import com.lingang.api.domain.vo.SysFileVo;
+import com.lingang.api.domain.vo.SysNewParkStatisticsVo;
+import com.lingang.api.domain.vo.SysNewServiceStatisticsVo;
+import com.lingang.api.domain.vo.SysParkStatisticsVo;
+import com.lingang.api.domain.vo.SysParkVo;
+import com.lingang.api.service.SysParkService;
+import com.lingang.common.util.DateTimeUtils;
+import com.lingang.core.persistence.reader.SysFileReaderMapper;
+import com.lingang.core.persistence.reader.SysParkReaderMapper;
+import com.lingang.core.persistence.writer.SysParkWriterMapper;
+
+@Service("sysParkService")
+public class SysParkServiceImpl implements SysParkService {
+
+	@Resource
+	private SysParkReaderMapper sysParkReaderMapper;
+	
+	@Resource
+	private SysParkWriterMapper sysParkWriterMapper;
+
+	@Resource
+	private SysFileReaderMapper sysFileReaderMapper;
+
+	@Override
+	public ServiceResult<Page<SysParkVo>> selectSysParkVoPageListByRegionIdAndIndustryIds(Integer regionId,
+			Integer regionTypeId, List<Integer> industryIds, Integer pageIndex, Integer pageSize) {
+		ServiceResult<Page<SysParkVo>> result = new ServiceResult<Page<SysParkVo>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("regionTypeId", regionTypeId);
+		map.put("regionId", regionId);
+		map.put("industryIds", industryIds);
+		int countRecord = sysParkReaderMapper.selectSysParkVoCountByRegionIdAndIndustryIds(map);
+		Page<SysParkVo> page = new Page<SysParkVo>(pageIndex, countRecord, pageSize);
+		if (countRecord > 0) {
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", pageSize);
+			List<SysParkVo> list = sysParkReaderMapper.selectSysParkVoPageListByRegionIdAndIndustryIds(map);
+			page.setList(list);
+		}
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<SysParkVo> selectSysParkDetailsByStationId(Integer parkId) {
+		ServiceResult<SysParkVo> result = new ServiceResult<SysParkVo>();
+		int countRecord = sysParkReaderMapper.selectSysParkDetailsCountByStationId(parkId);
+		if (countRecord > 0) {
+			SysParkVo sysParkVo = sysParkReaderMapper.selectSysParkDetailsByStationId(parkId);
+			result.setData(sysParkVo);
+		}
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<SysFileVo> selectClickPopup(Integer fileId, Integer userId) {
+		ServiceResult<SysFileVo> result = new ServiceResult<SysFileVo>();
+		// 查询条件
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("fileId", fileId);
+		map.put("userId", userId);
+		SysFileVo fileVo = sysFileReaderMapper.selectFileByFileId(map);
+		// 返回信息
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(fileVo);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Page<SysParkPfVo>> selectSysParkPfVoPageList(SysParkPara para) {
+		ServiceResult<Page<SysParkPfVo>> result = new ServiceResult<>();
+		// 查询条件
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("parkNameKeywords", para.getParkNameKeywords());
+		map.put("parkAddrKeywords", para.getParkAddrKeywords());
+		map.put("parkState", para.getParkState());
+		int countRecord = sysParkReaderMapper.selectSysParkPfVoCount(map);
+		Page<SysParkPfVo> page = new Page<>(para.getCurrentPage(), countRecord, para.getOnePageCount());
+		if (countRecord > 0) {
+			// 分页条件
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", page.getOnePageCount());
+			List<SysParkPfVo> list = sysParkReaderMapper.selectSysParkPfVoPageList(map);
+			page.setList(list);
+		}
+		result.setData(page);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Object> updateParkDetails(SysPark park) {
+		ServiceResult<Object> result=new ServiceResult<Object>();
+		int i=sysParkWriterMapper.updateByPrimaryKeySelective(park);
+		if(i==1){
+			result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+			result.setMessage("修改成功");
+		}else{
+			result.setStateCode(StateCodeConstant.ERROR_CODE);
+			result.setMessage("修改失败");
+		}
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Object> addParkDetails(SysPark park) {
+		ServiceResult<Object> result=new ServiceResult<Object>();
+		int i=sysParkWriterMapper.insertSelective(park);
+		if(i==1){
+			result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+			result.setMessage("添加成功");
+		}else{
+			result.setStateCode(StateCodeConstant.ERROR_CODE);
+			result.setMessage("添加失败");
+		}
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Page<SysParkStatisticsVo>> selectParkStationStatisticsList(Integer pageIndex, Integer pageSize) {
+		ServiceResult<Page<SysParkStatisticsVo>> result=new ServiceResult<Page<SysParkStatisticsVo>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> numMap = new HashMap<String, Object>();
+		int maxNum=0;
+		int countRecord=sysParkReaderMapper.selectParkStationStatisticsCount(map);
+		Page<SysParkStatisticsVo> page=new Page<SysParkStatisticsVo>(pageIndex, countRecord, pageSize);
+		if(countRecord>0){
+			// 分页条件
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", page.getOnePageCount());
+			List<SysParkStatisticsVo> list=sysParkReaderMapper.selectParkStationStatisticsPageList(map);
+			page.setList(list);
+			//最大数查询
+			maxNum=sysParkReaderMapper.selectParkStationStatisticsCountMax(map);
+		}
+		numMap.put("maxNum", maxNum);
+		result.setDataMap(numMap);;
+		result.setData(page);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Page<SysParkStatisticsVo>> selectParkServiceStatisticsList(Integer pageIndex,
+			Integer pageSize) {
+		ServiceResult<Page<SysParkStatisticsVo>> result=new ServiceResult<Page<SysParkStatisticsVo>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> numMap = new HashMap<String, Object>();
+		int maxNum=0;
+		int countRecord=sysParkReaderMapper.selectParkServiceStatisticsCount(map);
+		Page<SysParkStatisticsVo> page=new Page<SysParkStatisticsVo>(pageIndex, countRecord, pageSize);
+		if(countRecord>0){
+			// 分页条件
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", page.getOnePageCount());
+			List<SysParkStatisticsVo> list=sysParkReaderMapper.selectParkServiceStatisticsPageList(map);
+			page.setList(list);
+			//最大数查询
+			maxNum=sysParkReaderMapper.selectParkServiceStatisticsCountMax(map);
+		}
+		numMap.put("maxNum", maxNum);
+		result.setDataMap(numMap);;
+		result.setData(page);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Page<SysNewParkStatisticsVo>> selectNewParkStatisticsList(Integer pageIndex,
+			Integer pageSize) {
+		ServiceResult<Page<SysNewParkStatisticsVo>> result=new ServiceResult<Page<SysNewParkStatisticsVo>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> numMap = new HashMap<String, Object>();
+		int maxNum=0;
+		int countRecord=sysParkReaderMapper.selectNewParkStatisticsCount(map);
+		Page<SysNewParkStatisticsVo> page=new Page<SysNewParkStatisticsVo>(pageIndex, countRecord, pageSize);
+		if(countRecord>0){
+			// 分页条件
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", page.getOnePageCount());
+			List<SysNewParkStatisticsVo> list=sysParkReaderMapper.selectNewParkStatisticsPageList(map);
+			page.setList(list);
+			//最大数查询
+			maxNum=sysParkReaderMapper.selectNewParkStatisticsCountMax(map);
+		}
+		numMap.put("maxNum", maxNum);
+		result.setDataMap(numMap);;
+		result.setData(page);
+		
+		//月、季统计
+		String monthDate=DateTimeUtils.format(new Date(), "YYYY-MM");
+		String mStr=DateTimeUtils.format(new Date(), "MM");
+		Integer mInt=Integer.valueOf(mStr);
+		if(mInt>=1 && mInt<=3){
+			mStr=DateTimeUtils.format(new Date(), "YYYY-")+"01-01";
+		}else if(mInt>=4 && mInt<=6){
+			mStr=DateTimeUtils.format(new Date(), "YYYY-")+"04-01";
+		}else if(mInt>=7 && mInt<=9){
+			mStr=DateTimeUtils.format(new Date(), "YYYY-")+"07-01";
+		}else if(mInt>=10 && mInt<=12){
+			mStr=DateTimeUtils.format(new Date(), "YYYY-")+"10-01";
+		}
+		int monthNum=sysParkReaderMapper.selectNewParkStatisticsCountThanDate(monthDate+"-01");
+		int seasonNum=sysParkReaderMapper.selectNewParkStatisticsCountThanDate(mStr);
+		numMap.put("monthNum", monthNum);
+		numMap.put("seasonNum", seasonNum);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Page<SysParkStatisticsVo>> selectParkIndustryStatisticsList(Integer pageIndex,
+			Integer pageSize) {
+		ServiceResult<Page<SysParkStatisticsVo>> result=new ServiceResult<Page<SysParkStatisticsVo>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> numMap = new HashMap<String, Object>();
+		int maxNum=0;
+		int countRecord=sysParkReaderMapper.selectParkIndustryStatisticsCount(map);
+		Page<SysParkStatisticsVo> page=new Page<SysParkStatisticsVo>(pageIndex, countRecord, pageSize);
+		if(countRecord>0){
+			// 分页条件
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", page.getOnePageCount());
+			List<SysParkStatisticsVo> list=sysParkReaderMapper.selectParkIndustryStatisticsPageList(map);
+			page.setList(list);
+			//最大数查询
+			maxNum=sysParkReaderMapper.selectParkIndustryStatisticsCountMax(map);
+		}
+		numMap.put("maxNum", maxNum);
+		result.setDataMap(numMap);;
+		result.setData(page);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Page<SysParkStatisticsVo>> selectParkPublicStatisticsList(Integer pageIndex,
+			Integer pageSize) {
+		ServiceResult<Page<SysParkStatisticsVo>> result=new ServiceResult<Page<SysParkStatisticsVo>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> numMap = new HashMap<String, Object>();
+		int maxNum=0;
+		int countRecord=sysParkReaderMapper.selectParkPublicStatisticsCount(map);
+		Page<SysParkStatisticsVo> page=new Page<SysParkStatisticsVo>(pageIndex, countRecord, pageSize);
+		if(countRecord>0){
+			// 分页条件
+			map.put("startIndex", page.getCurrentPage()-1);
+			map.put("onePageCount", page.getOnePageCount());
+			List<SysParkStatisticsVo> list=sysParkReaderMapper.selectParkPublicStatisticsPageList(map);
+			page.setList(list);
+			//最大数查询
+			maxNum=sysParkReaderMapper.selectParkPublicStatisticsCountMax(map);
+		}
+		numMap.put("maxNum", maxNum);
+		result.setDataMap(numMap);;
+		result.setData(page);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+}

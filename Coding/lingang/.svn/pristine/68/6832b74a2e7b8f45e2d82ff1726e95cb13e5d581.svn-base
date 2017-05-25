@@ -1,0 +1,33 @@
+/**
+ * Created by FxLsoft on 2015/12/3.
+ */
+'use strict';
+
+define(["serviceBase"], function (serviceBase) {
+	 var items = {};
+	    //获取服务机构列表
+	    items.sysServicePageList = function ($http,data) {
+	        var request = $http.post('sysService/sysServicePageList.do', data, serviceBase.postConfig);
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+	    
+	    //获取详情
+	    items.getServiceDetails = function ($http,data) {
+	        var request = $http.post('sysService/serviceDetails.do', data, {params:data});
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+	    
+	    //修改信息
+	    items.updateServiceDetails = function ($http,data) {
+	        var request = $http.post('sysService/updateServiceDetails.do', data, serviceBase.postConfig);
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+	    
+	    //添加信息
+	    items.addServiceDetails = function ($http,data) {
+	        var request = $http.post('sysService/addServiceDetails.do', data, serviceBase.postConfig);
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+
+    return ['sysServiceService', items];
+});

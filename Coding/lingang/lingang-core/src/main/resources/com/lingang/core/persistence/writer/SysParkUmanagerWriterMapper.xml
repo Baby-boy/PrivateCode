@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysParkUmanagerWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_park_umanager
+    where park_umanager_id = #{parkUmanagerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysParkUmanager" >
+    insert into sys_park_umanager (park_umanager_id, park_id, user_account
+      )
+    values (#{parkUmanagerId,jdbcType=INTEGER}, #{parkId,jdbcType=INTEGER}, #{userAccount,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="parkUmanagerId" parameterType="com.lingang.api.domain.entity.SysParkUmanager" >
+    insert into sys_park_umanager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="parkUmanagerId != null" >
+        park_umanager_id,
+      </if>
+      <if test="parkId != null" >
+        park_id,
+      </if>
+      <if test="userAccount != null" >
+        user_account,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="parkUmanagerId != null" >
+        #{parkUmanagerId,jdbcType=INTEGER},
+      </if>
+      <if test="parkId != null" >
+        #{parkId,jdbcType=INTEGER},
+      </if>
+      <if test="userAccount != null" >
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysParkUmanager" >
+    update sys_park_umanager
+    <set >
+      <if test="parkId != null" >
+        park_id = #{parkId,jdbcType=INTEGER},
+      </if>
+      <if test="userAccount != null" >
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where park_umanager_id = #{parkUmanagerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysParkUmanager" >
+    update sys_park_umanager
+    set park_id = #{parkId,jdbcType=INTEGER},
+      user_account = #{userAccount,jdbcType=VARCHAR}
+    where park_umanager_id = #{parkUmanagerId,jdbcType=INTEGER}
+  </update>
+</mapper>

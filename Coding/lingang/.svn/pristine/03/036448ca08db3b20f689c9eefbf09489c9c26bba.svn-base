@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysCompanyReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysCompany" >
+    <id column="company_id" property="companyId" jdbcType="INTEGER" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="company_state" property="companyState" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    company_id, company_name, create_time, update_time, company_state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_company
+    where company_id = #{companyId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 后台 -->
+  <sql id="where_selectCompanyPageList">
+  	<where>
+  		1=1
+  		<if test="map.companyName !=null and map.companyName !=''">
+			and company_name like '%${map.companyName}%'
+		</if>
+  	</where>
+  </sql>
+  <select id="selectCompanyCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select COUNT(DISTINCT sc.company_id)
+	from sys_company sc
+  	<include refid="where_selectCompanyPageList"/>
+  </select>
+  <select id="selectCompanyPageList" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	WITH cte AS(
+		select sc.company_id,
+			ROW_NUMBER() OVER(ORDER BY sc.create_time DESC) AS rownum
+		from sys_company sc
+		<include refid="where_selectCompanyPageList"/>
+		GROUP BY sc.company_id,sc.create_time
+	)
+
+	select  sc.company_id, sc.company_name, sc.create_time, sc.update_time, sc.company_state
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st 
+	left join sys_company sc on sc.company_id=st.company_id
+  </select>
+</mapper>

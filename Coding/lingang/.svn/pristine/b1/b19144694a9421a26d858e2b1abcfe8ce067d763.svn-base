@@ -1,0 +1,214 @@
+<link href="css/layout.css" rel="stylesheet">
+<link href="library/umeditor/themes/default/css/umeditor.css" media="all" rel="stylesheet" type="text/css" />
+<div class="row" ng-controller="topStationAdd">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                	<form class="form-horizontal" role="form">
+					 
+					  <div class="form-group">
+					    <label for="stationTitle" class="col-sm-2 control-label">入驻企业标题</label>
+					    <div class="col-sm-3">
+					      <input type="stationTitle" class="form-control" id="stationTitle" placeholder="" ng-model="station.stationTitle">
+					    </div>
+					    
+					    <label for="stationSimple" class="col-sm-2 control-label">简称</label>
+					    <div class="col-sm-3">
+					      <input type="stationSimple" class="form-control" id="stationSimple" placeholder="" ng-model="station.stationSimple">
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					  	<label for="regNumber" class="col-sm-2 control-label">注册号</label>
+					   	 <div class="col-sm-3">
+					      <input type="regNumber" class="form-control" id="regNumber" placeholder="" ng-model="station.regNumber">
+					    </div>
+					    
+					    <label for="creditCode" class="col-sm-2 control-label">社会信用代码</label>
+					    <div class="col-sm-3">
+					      <input type="creditCode" class="form-control" id="creditCode" placeholder="" ng-model="station.creditCode">
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					  	<label for="stationCompany" class="col-sm-2 control-label">所属公司</label>
+					   	 <div class="col-sm-3">
+					      <input type="stationCompany" class="form-control" id="stationCompany" placeholder="" ng-model="station.stationCompany">
+					    </div>
+					    
+					    <label for="isFictitious" class="col-sm-2 control-label">虚拟注册</label>
+					    <div class="col-sm-3">
+					      <!-- <input type="isFictitious" class="form-control" id="isFictitious" placeholder="" ng-model="station.isFictitious"> -->
+					      <select type="isFictitious" class="form-control" id="isFictitious" placeholder="" ng-model="station.isFictitious">
+					      	<option value="1">是</option>
+					      	<option value="2">否</option>
+					      </select>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					  	<label for="lossState" class="col-sm-2 control-label">流失状态</label>
+					   	 <div class="col-sm-3">
+					      <select type="lossState" class="form-control" id="lossState" placeholder="" ng-model="station.lossState">
+					      	<option value="">请选择</option>
+					      	<option value="1">在园区</option>
+					      	<option value="2">淘汰</option>
+					      	<option value="3">流失</option>
+					      </select>
+					     </div>
+					     
+					  	<label for="stationState" class="col-sm-2 control-label">状态</label>
+					   	 <div class="col-sm-3">
+					      <select type="stationState" class="form-control" id="stationState" placeholder="" ng-model="station.stationState">
+					      	<option value="">请选择</option>
+					      	<option value="1">上传</option>
+					      	<option value="2">发布</option>
+					      </select>
+					     </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="regionId" class="col-sm-2 control-label">地区名称</label>
+					   	<div class="col-sm-3">
+					   	  <select ng-options="region.regionId as region.regionName for region in regionList" class="form-control" ng-model="station.regionId">
+					      	<option value="">请选择</option>
+					      </select>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="parkContent" class="col-md-2 control-label">缩略图</label>
+					    <div class="col-md-8">
+					   	  	<div class="white-bg mt-10 p-10">
+								<div class="col-lg-6">
+							 		<div class="img-load" >
+							 			<img ng-src="{{imgSrcMin}}" />
+							 		</div>
+							 	  </div>
+							 	<div class="col-lg-6 m-t-xs">
+							 		<div>
+							 			<div type="button" class="btn btn-w-m btn-primary file-btn">
+								            <div file-input="fileMin" id="fileMin" on-change="previewImageMin()" accept="image/jpg,image/jpeg,image/png"></div>浏览
+								         </div>
+							 		</div>
+							 		
+							 		<div class="mt-10">
+							 			<button type="button" class="btn btn-w-m btn-primary" ng-click="uploadImageMin('fileMin')">上传</button>
+							 		</div>
+							 		<div class="row">
+								 		<div class="mt-10 col-md-6">
+								 			<!-- <input ng-model="home.url" type="text" class="form-control" placeholder="编辑链接(非必填)"/> -->
+								 		</div>
+							 		</div>
+							 	</div>
+							</div>
+					    </div>
+					  </div>
+					  
+					  
+					  <div class="form-group">
+					    <label for="stationContent" class="col-sm-2 control-label">入驻企业简介</label>
+					    <div class="col-sm-8">
+					   	  <textarea class="form-control" name="stationContent" id="stationContent"></textarea>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <div class="col-sm-2"></div>
+					    <div class="col-sm-1">
+					      <button type="button" class="btn btn-primary" ng-click="addTopStationDetails()"> 确认保存 </button>
+					    </div>
+					    <!-- <div class="col-sm-1">
+					      <input type="button" class="btn btn-primary" onclick="javascript:history.go(-1)" value="返回列表"/>
+					    </div> -->
+					  </div>
+					  
+					  
+					  <div class="form-group">
+					    <div class="col-sm-2"></div>
+					    <div class="col-sm-8">
+					      	<div class="panel-body">
+	                            <div class="panel-group" id="version">
+	                                <div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v41" aria-expanded="true" class="">标签</a>
+	                                                <code class="pull-right"><a ng-style="{color:'red'}">添加标签</a></code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v41" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="lab in station.labels">
+										    		<button type="button" class="btn btn-default">{{lab.labelName}}</button><a ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                
+	                                <div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v42" aria-expanded="true" class="">覆盖产业</a>
+	                                                <code class="pull-right"><a ng-style="{color:'red'}">添加产业</a></code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v42" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="industry in station.industrys">
+										    		<img src="" alt="{{industry.industryTitle}}" class="img-thumbnail"><a ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                
+	                                
+	                                <div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v43" aria-expanded="true" class="">宣传册</a>
+	                                                <code class="pull-right"><a ng-style="{color:'red'}">添加宣传册</a></code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v43" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="file in station.files" ng-if="file.fileType==1">
+										    		<a>《{{file.fileTitle}}》</a><a ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                
+	                                <div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v44" aria-expanded="true" class="">宣传片</a>
+	                                                <code class="pull-right"><a ng-style="{color:'red'}">添加宣传片</a></code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v44" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="file in station.files" ng-if="file.fileType==2">
+										    		<a>《{{file.fileTitle}}》</a><a ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                    
+	                                </div>
+	                            </div>
+	                        </div>
+					    </div>
+					  </div>
+					</form>
+		 	  <div >
+ 		       </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+

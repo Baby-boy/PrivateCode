@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdDepotMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdDepot" >
+    <id column="depot_id" property="depotId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <result column="depot_type" property="depotType" jdbcType="INTEGER" />
+    <result column="depot_is_available" property="depotIsAvailable" jdbcType="INTEGER" />
+    <result column="depot_is_bail" property="depotIsBail" jdbcType="BIT" />
+    <result column="depot_is_pre" property="depotIsPre" jdbcType="BIT" />
+    <result column="depot_classify0" property="depotClassify0" jdbcType="VARCHAR" />
+    <result column="depot_classify1" property="depotClassify1" jdbcType="INTEGER" />
+    <result column="depot_classify2" property="depotClassify2" jdbcType="INTEGER" />
+    <result column="depot_classify3" property="depotClassify3" jdbcType="INTEGER" />
+    <result column="depot_classify11" property="depotClassify11" jdbcType="INTEGER" />
+    <result column="depot_classify12" property="depotClassify12" jdbcType="INTEGER" />
+    <result column="depot_classify13" property="depotClassify13" jdbcType="INTEGER" />
+    <result column="depot_classify10" property="depotClassify10" jdbcType="VARCHAR" />
+    <result column="depot_stock" property="depotStock" jdbcType="INTEGER" />
+    <result column="depot_pre_stock" property="depotPreStock" jdbcType="INTEGER" />
+    <result column="depot_pay_stock" property="depotPayStock" jdbcType="INTEGER" />
+    <result column="depot_price" property="depotPrice" jdbcType="DECIMAL" />
+    <result column="depot_original_price" property="depotOriginalPrice" jdbcType="DECIMAL" />
+    <result column="depot_current_bid" property="depotCurrentBid" jdbcType="DECIMAL" />
+    <result column="depot_reserve_price" property="depotReservePrice" jdbcType="DECIMAL" />
+    <result column="depot_min_bid" property="depotMinBid" jdbcType="DECIMAL" />
+    <result column="depot_bail" property="depotBail" jdbcType="DECIMAL" />
+    <result column="depot_latestbid_user_id" property="depotLatestbidUserId" jdbcType="INTEGER" />
+    <result column="depot_is_available_time" property="depotIsAvailableTime" jdbcType="INTEGER" />
+    <result column="depot_created_time" property="depotCreatedTime" jdbcType="INTEGER" />
+    <result column="depot_total_view" property="depotTotalView" jdbcType="INTEGER" />
+    <result column="tag_id" property="tagId" jdbcType="INTEGER" />
+    <result column="depot_total_bid" property="depotTotalBid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    depot_id, goods_id, store_id, activity_id, depot_type, depot_is_available, depot_is_bail, 
+    depot_is_pre, depot_classify0, depot_classify1, depot_classify2, depot_classify3, 
+    depot_classify11, depot_classify12, depot_classify13, depot_classify10, depot_stock, 
+    depot_pre_stock, depot_pay_stock, depot_price, depot_original_price, depot_current_bid, 
+    depot_reserve_price, depot_min_bid, depot_bail, depot_latestbid_user_id, depot_is_available_time, 
+    depot_created_time, depot_total_view, tag_id, depot_total_bid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_depot
+    where depot_id = #{depotId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_depot
+    where depot_id = #{depotId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdDepot" >
+    insert into yd_depot (depot_id, goods_id, store_id, 
+      activity_id, depot_type, depot_is_available, 
+      depot_is_bail, depot_is_pre, depot_classify0, 
+      depot_classify1, depot_classify2, depot_classify3, 
+      depot_classify11, depot_classify12, depot_classify13, 
+      depot_classify10, depot_stock, depot_pre_stock, 
+      depot_pay_stock, depot_price, depot_original_price, 
+      depot_current_bid, depot_reserve_price, depot_min_bid, 
+      depot_bail, depot_latestbid_user_id, depot_is_available_time, 
+      depot_created_time, depot_total_view, tag_id, 
+      depot_total_bid)
+    values (#{depotId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, 
+      #{activityId,jdbcType=INTEGER}, #{depotType,jdbcType=INTEGER}, #{depotIsAvailable,jdbcType=INTEGER}, 
+      #{depotIsBail,jdbcType=BIT}, #{depotIsPre,jdbcType=BIT}, #{depotClassify0,jdbcType=VARCHAR}, 
+      #{depotClassify1,jdbcType=INTEGER}, #{depotClassify2,jdbcType=INTEGER}, #{depotClassify3,jdbcType=INTEGER}, 
+      #{depotClassify11,jdbcType=INTEGER}, #{depotClassify12,jdbcType=INTEGER}, #{depotClassify13,jdbcType=INTEGER}, 
+      #{depotClassify10,jdbcType=VARCHAR}, #{depotStock,jdbcType=INTEGER}, #{depotPreStock,jdbcType=INTEGER}, 
+      #{depotPayStock,jdbcType=INTEGER}, #{depotPrice,jdbcType=DECIMAL}, #{depotOriginalPrice,jdbcType=DECIMAL}, 
+      #{depotCurrentBid,jdbcType=DECIMAL}, #{depotReservePrice,jdbcType=DECIMAL}, #{depotMinBid,jdbcType=DECIMAL}, 
+      #{depotBail,jdbcType=DECIMAL}, #{depotLatestbidUserId,jdbcType=INTEGER}, #{depotIsAvailableTime,jdbcType=INTEGER}, 
+      #{depotCreatedTime,jdbcType=INTEGER}, #{depotTotalView,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER}, 
+      #{depotTotalBid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdDepot" >
+    insert into yd_depot
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="depotId != null" >
+        depot_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="depotType != null" >
+        depot_type,
+      </if>
+      <if test="depotIsAvailable != null" >
+        depot_is_available,
+      </if>
+      <if test="depotIsBail != null" >
+        depot_is_bail,
+      </if>
+      <if test="depotIsPre != null" >
+        depot_is_pre,
+      </if>
+      <if test="depotClassify0 != null" >
+        depot_classify0,
+      </if>
+      <if test="depotClassify1 != null" >
+        depot_classify1,
+      </if>
+      <if test="depotClassify2 != null" >
+        depot_classify2,
+      </if>
+      <if test="depotClassify3 != null" >
+        depot_classify3,
+      </if>
+      <if test="depotClassify11 != null" >
+        depot_classify11,
+      </if>
+      <if test="depotClassify12 != null" >
+        depot_classify12,
+      </if>
+      <if test="depotClassify13 != null" >
+        depot_classify13,
+      </if>
+      <if test="depotClassify10 != null" >
+        depot_classify10,
+      </if>
+      <if test="depotStock != null" >
+        depot_stock,
+      </if>
+      <if test="depotPreStock != null" >
+        depot_pre_stock,
+      </if>
+      <if test="depotPayStock != null" >
+        depot_pay_stock,
+      </if>
+      <if test="depotPrice != null" >
+        depot_price,
+      </if>
+      <if test="depotOriginalPrice != null" >
+        depot_original_price,
+      </if>
+      <if test="depotCurrentBid != null" >
+        depot_current_bid,
+      </if>
+      <if test="depotReservePrice != null" >
+        depot_reserve_price,
+      </if>
+      <if test="depotMinBid != null" >
+        depot_min_bid,
+      </if>
+      <if test="depotBail != null" >
+        depot_bail,
+      </if>
+      <if test="depotLatestbidUserId != null" >
+        depot_latestbid_user_id,
+      </if>
+      <if test="depotIsAvailableTime != null" >
+        depot_is_available_time,
+      </if>
+      <if test="depotCreatedTime != null" >
+        depot_created_time,
+      </if>
+      <if test="depotTotalView != null" >
+        depot_total_view,
+      </if>
+      <if test="tagId != null" >
+        tag_id,
+      </if>
+      <if test="depotTotalBid != null" >
+        depot_total_bid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="depotId != null" >
+        #{depotId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="activityId != null" >
+        #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="depotType != null" >
+        #{depotType,jdbcType=INTEGER},
+      </if>
+      <if test="depotIsAvailable != null" >
+        #{depotIsAvailable,jdbcType=INTEGER},
+      </if>
+      <if test="depotIsBail != null" >
+        #{depotIsBail,jdbcType=BIT},
+      </if>
+      <if test="depotIsPre != null" >
+        #{depotIsPre,jdbcType=BIT},
+      </if>
+      <if test="depotClassify0 != null" >
+        #{depotClassify0,jdbcType=VARCHAR},
+      </if>
+      <if test="depotClassify1 != null" >
+        #{depotClassify1,jdbcType=INTEGER},
+      </if>
+      <if test="depotClassify2 != null" >
+        #{depotClassify2,jdbcType=INTEGER},
+      </if>
+      <if test="depotClassify3 != null" >
+        #{depotClassify3,jdbcType=INTEGER},
+      </if>
+      <if test="depotClassify11 != null" >
+        #{depotClassify11,jdbcType=INTEGER},
+      </if>
+      <if test="depotClassify12 != null" >
+        #{depotClassify12,jdbcType=INTEGER},
+      </if>
+      <if test="depotClassify13 != null" >
+        #{depotClassify13,jdbcType=INTEGER},
+      </if>
+      <if test="depotClassify10 != null" >
+        #{depotClassify10,jdbcType=VARCHAR},
+      </if>
+      <if test="depotStock != null" >
+        #{depotStock,jdbcType=INTEGER},
+      </if>
+      <if test="depotPreStock != null" >
+        #{depotPreStock,jdbcType=INTEGER},
+      </if>
+      <if test="depotPayStock != null" >
+        #{depotPayStock,jdbcType=INTEGER},
+      </if>
+      <if test="depotPrice != null" >
+        #{depotPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="depotOriginalPrice != null" >
+        #{depotOriginalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="depotCurrentBid != null" >
+        #{depotCurrentBid,jdbcType=DECIMAL},
+      </if>
+      <if test="depotReservePrice != null" >
+        #{depotReservePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="depotMinBid != null" >
+        #{depotMinBid,jdbcType=DECIMAL},
+      </if>
+      <if test="depotBail != null" >
+        #{depotBail,jdbcType=DECIMAL},
+      </if>
+      <if test="depotLatestbidUserId != null" >
+        #{depotLatestbidUserId,jdbcType=INTEGER},
+      </if>
+      <if test="depotIsAvailableTime != null" >
+        #{depotIsAvailableTime,jdbcType=INTEGER},
+      </if>
+      <if test="depotCreatedTime != null" >
+        #{depotCreatedTime,jdbcType=INTEGER},
+      </if>
+      <if test="depotTotalView != null" >
+        #{depotTotalView,jdbcType=INTEGER},
+      </if>
+      <if test="tagId != null" >
+        #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="depotTotalBid != null" >
+        #{depotTotalBid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdDepot" >
+    update yd_depot
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="activityId != null" >
+        activity_id = #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="depotType != null" >
+        depot_type = #{depotType,jdbcType=INTEGER},
+      </if>
+      <if test="depotIsAvailable != null" >
+        depot_is_available = #{depotIsAvailable,jdbcType=INTEGER},
+      </if>
+      <if test="depotIsBail != null" >
+        depot_is_bail = #{depotIsBail,jdbcType=BIT},
+      </if>
+      <if test="depotIsPre != null" >
+        depot_is_pre = #{depotIsPre,jdbcType=BIT},
+      </if>
+      <if test="depotClassify0 != null" >
+        depot_classify0 = #{depotClassify0,jdbcType=VARCHAR},
+      </if>
+      <if test="depotClassify1 != null" >
+        depot_classify1 = #{depotClassify1,jdbcType=INTEGER},
+      </if>
+      <if test="depotClassify2 != null" >
+        depot_classify2 = #{depotClassify2,jdbcType=INTEGER},
+      </if>
+      <if test="depotClassify3 != null" >
+        depot_classify3 = #{depotClassify3,jdbcType=INTEGER},
+      </if>
+      <if test="depotClassify11 != null" >
+        depot_classify11 = #{depotClassify11,jdbcType=INTEGER},
+      </if>
+      <if test="depotClassify12 != null" >
+        depot_classify12 = #{depotClassify12,jdbcType=INTEGER},
+      </if>
+      <if test="depotClassify13 != null" >
+        depot_classify13 = #{depotClassify13,jdbcType=INTEGER},
+      </if>
+      <if test="depotClassify10 != null" >
+        depot_classify10 = #{depotClassify10,jdbcType=VARCHAR},
+      </if>
+      <if test="depotStock != null" >
+        depot_stock = #{depotStock,jdbcType=INTEGER},
+      </if>
+      <if test="depotPreStock != null" >
+        depot_pre_stock = #{depotPreStock,jdbcType=INTEGER},
+      </if>
+      <if test="depotPayStock != null" >
+        depot_pay_stock = #{depotPayStock,jdbcType=INTEGER},
+      </if>
+      <if test="depotPrice != null" >
+        depot_price = #{depotPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="depotOriginalPrice != null" >
+        depot_original_price = #{depotOriginalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="depotCurrentBid != null" >
+        depot_current_bid = #{depotCurrentBid,jdbcType=DECIMAL},
+      </if>
+      <if test="depotReservePrice != null" >
+        depot_reserve_price = #{depotReservePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="depotMinBid != null" >
+        depot_min_bid = #{depotMinBid,jdbcType=DECIMAL},
+      </if>
+      <if test="depotBail != null" >
+        depot_bail = #{depotBail,jdbcType=DECIMAL},
+      </if>
+      <if test="depotLatestbidUserId != null" >
+        depot_latestbid_user_id = #{depotLatestbidUserId,jdbcType=INTEGER},
+      </if>
+      <if test="depotIsAvailableTime != null" >
+        depot_is_available_time = #{depotIsAvailableTime,jdbcType=INTEGER},
+      </if>
+      <if test="depotCreatedTime != null" >
+        depot_created_time = #{depotCreatedTime,jdbcType=INTEGER},
+      </if>
+      <if test="depotTotalView != null" >
+        depot_total_view = #{depotTotalView,jdbcType=INTEGER},
+      </if>
+      <if test="tagId != null" >
+        tag_id = #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="depotTotalBid != null" >
+        depot_total_bid = #{depotTotalBid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where depot_id = #{depotId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdDepot" >
+    update yd_depot
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
+      activity_id = #{activityId,jdbcType=INTEGER},
+      depot_type = #{depotType,jdbcType=INTEGER},
+      depot_is_available = #{depotIsAvailable,jdbcType=INTEGER},
+      depot_is_bail = #{depotIsBail,jdbcType=BIT},
+      depot_is_pre = #{depotIsPre,jdbcType=BIT},
+      depot_classify0 = #{depotClassify0,jdbcType=VARCHAR},
+      depot_classify1 = #{depotClassify1,jdbcType=INTEGER},
+      depot_classify2 = #{depotClassify2,jdbcType=INTEGER},
+      depot_classify3 = #{depotClassify3,jdbcType=INTEGER},
+      depot_classify11 = #{depotClassify11,jdbcType=INTEGER},
+      depot_classify12 = #{depotClassify12,jdbcType=INTEGER},
+      depot_classify13 = #{depotClassify13,jdbcType=INTEGER},
+      depot_classify10 = #{depotClassify10,jdbcType=VARCHAR},
+      depot_stock = #{depotStock,jdbcType=INTEGER},
+      depot_pre_stock = #{depotPreStock,jdbcType=INTEGER},
+      depot_pay_stock = #{depotPayStock,jdbcType=INTEGER},
+      depot_price = #{depotPrice,jdbcType=DECIMAL},
+      depot_original_price = #{depotOriginalPrice,jdbcType=DECIMAL},
+      depot_current_bid = #{depotCurrentBid,jdbcType=DECIMAL},
+      depot_reserve_price = #{depotReservePrice,jdbcType=DECIMAL},
+      depot_min_bid = #{depotMinBid,jdbcType=DECIMAL},
+      depot_bail = #{depotBail,jdbcType=DECIMAL},
+      depot_latestbid_user_id = #{depotLatestbidUserId,jdbcType=INTEGER},
+      depot_is_available_time = #{depotIsAvailableTime,jdbcType=INTEGER},
+      depot_created_time = #{depotCreatedTime,jdbcType=INTEGER},
+      depot_total_view = #{depotTotalView,jdbcType=INTEGER},
+      tag_id = #{tagId,jdbcType=INTEGER},
+      depot_total_bid = #{depotTotalBid,jdbcType=INTEGER}
+    where depot_id = #{depotId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 全部查询 -->
+  <!-- 结果集 -->
+  <resultMap type="com.yd.dby.app.entity.vo.DepotAndGoodsVo" id="DepotAndGoodsVoResultMap" extends="BaseResultMap">
+  	<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+  	<result column="goods_summary" property="goodsSummary" jdbcType="VARCHAR" />
+  	<result column="goods_cover" property="goodsCover" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.yd.dby.app.entity.vo.GroupBuyVo" id="GroupBuyVoResultMap">
+  	<id column="depot_id" property="depotId" jdbcType="INTEGER" />
+  	<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+  	<result column="goods_summary" property="goodsSummary" jdbcType="VARCHAR" />
+  	<result column="goods_cover" property="goodsCover" jdbcType="VARCHAR" />
+  	<result column="depot_price" property="depotPrice" jdbcType="DECIMAL" />
+    <result column="depot_original_price" property="depotOriginalPrice" jdbcType="DECIMAL" />
+    <result column="gbg_already_num" property="gbgAlreadyNum" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap type="com.yd.dby.app.entity.vo.GroupBuyDetailsVo" id="GroupBuyDetailsVoResultMap">
+  	<id column="depot_id" property="depotId" jdbcType="INTEGER" />
+  	<result column="end_time" property="endTime" jdbcType="CHAR" />
+  	<result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+  	<result column="goods_pics" property="goodsPics" jdbcType="VARCHAR" />
+  	<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+  	<result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+  	<result column="goods_avg_score" property="goodsAvgScore" jdbcType="REAL" />
+  	<result column="goods_content_pics" property="goodsContentPics" jdbcType="LONGVARCHAR" />
+  	<result column="goods_summary" property="goodsSummary" jdbcType="VARCHAR" />
+  	<result column="goods_attr_select" property="goodsAttrSelect" jdbcType="VARCHAR" />
+  	<result column="goods_attrs" property="goodsAttrs" jdbcType="VARCHAR" />
+  	<result column="goods_total_fav" property="goodsTotalFav" jdbcType="INTEGER" />
+  	<result column="goods_cover" property="goodsCover" jdbcType="VARCHAR" />
+  	<result column="goods_freight" property="goodsFreight" jdbcType="DECIMAL" />
+  	<result column="fav_id" property="favId" jdbcType="INTEGER" />
+  	<result column="store_id" property="storeId" jdbcType="INTEGER" />
+  	<result column="store_name" property="storeName" jdbcType="VARCHAR" />
+  	<result column="store_banner" property="storeBanner" jdbcType="VARCHAR" />
+  	<result column="depot_price" property="depotPrice" jdbcType="DECIMAL" />
+    <result column="depot_original_price" property="depotOriginalPrice" jdbcType="DECIMAL" />
+  	
+  	<collection property="commentList" ofType="com.yd.dby.app.entity.vo.GoodsDetailsCommentVo">
+  		<result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
+  		<result column="user_avatar" property="userAvatar" jdbcType="VARCHAR" />
+  		<result column="comment_score" property="commentScore" jdbcType="REAL" />
+  		<result column="comment_created_time" property="commentCreatedTime" jdbcType="VARCHAR" />
+  		<result column="comment_content" property="commentContent" jdbcType="VARCHAR" />
+  		<result column="comment_pics" property="commentPics" jdbcType="VARCHAR" />
+  	</collection>
+  </resultMap>
+  
+  <resultMap type="com.yd.dby.app.entity.vo.SeckillVo" id="SeckillVoResultMap">
+  	<id column="depot_id" property="depotId" jdbcType="INTEGER" />
+  	<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+  	<result column="goods_summary" property="goodsSummary" jdbcType="VARCHAR" />
+  	<result column="goods_cover" property="goodsCover" jdbcType="VARCHAR" />
+  	<result column="depot_price" property="depotPrice" jdbcType="DECIMAL" />
+    <result column="depot_original_price" property="depotOriginalPrice" jdbcType="DECIMAL" />
+    <result column="depot_pre_stock" property="depotPreStock" jdbcType="INTEGER" />
+    <result column="depot_pay_stock" property="depotPayStock" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap type="com.yd.dby.app.entity.vo.SeckillDetailsVo" id="SeckillDetailsVoResultMap">
+  	<id column="depot_id" property="depotId" jdbcType="INTEGER" />
+  	<result column="end_time" property="endTime" jdbcType="CHAR" />
+  	<result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+  	<result column="goods_pics" property="goodsPics" jdbcType="VARCHAR" />
+  	<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+  	<result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+  	<result column="goods_avg_score" property="goodsAvgScore" jdbcType="REAL" />
+  	<result column="goods_content_pics" property="goodsContentPics" jdbcType="LONGVARCHAR" />
+  	<result column="goods_summary" property="goodsSummary" jdbcType="VARCHAR" />
+  	<result column="goods_attr_select" property="goodsAttrSelect" jdbcType="VARCHAR" />
+  	<result column="goods_attrs" property="goodsAttrs" jdbcType="VARCHAR" />
+  	<result column="goods_total_fav" property="goodsTotalFav" jdbcType="INTEGER" />
+  	<result column="goods_cover" property="goodsCover" jdbcType="VARCHAR" />
+  	<result column="goods_freight" property="goodsFreight" jdbcType="DECIMAL" />
+  	<result column="fav_id" property="favId" jdbcType="INTEGER" />
+  	<result column="store_id" property="storeId" jdbcType="INTEGER" />
+  	<result column="store_name" property="storeName" jdbcType="VARCHAR" />
+  	<result column="store_banner" property="storeBanner" jdbcType="VARCHAR" />
+  	<result column="depot_price" property="depotPrice" jdbcType="DECIMAL" />
+    <result column="depot_original_price" property="depotOriginalPrice" jdbcType="DECIMAL" />
+  	
+  	<collection property="commentList" ofType="com.yd.dby.app.entity.vo.GoodsDetailsCommentVo">
+  		<result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
+  		<result column="user_avatar" property="userAvatar" jdbcType="VARCHAR" />
+  		<result column="comment_score" property="commentScore" jdbcType="REAL" />
+  		<result column="comment_created_time" property="commentCreatedTime" jdbcType="VARCHAR" />
+  		<result column="comment_content" property="commentContent" jdbcType="VARCHAR" />
+  		<result column="comment_pics" property="commentPics" jdbcType="VARCHAR" />
+  	</collection>
+  </resultMap>
+  
+  <sql id="DepotAndGoodsVo_Column_List" >
+    yd.depot_id, yd.goods_id, yd.store_id, yd.activity_id, yd.depot_type, yd.depot_is_available, yd.depot_is_bail, 
+    yd.depot_is_pre, yd.depot_classify0, yd.depot_classify1, yd.depot_classify2, yd.depot_classify3, 
+    yd.depot_classify11, yd.depot_classify12, yd.depot_classify13, yd.depot_classify10, yd.depot_stock, 
+    yd.depot_pre_stock, yd.depot_pay_stock, yd.depot_price, yd.depot_original_price, yd.depot_current_bid, 
+    yd.depot_reserve_price, yd.depot_min_bid, yd.depot_bail, yd.depot_latestbid_user_id, yd.depot_is_available_time, 
+    yd.depot_created_time, yd.depot_total_view, yd.tag_id, yd.depot_total_bid
+  </sql>
+   <select id="selectByGoodsId" resultMap="DepotAndGoodsVoResultMap" parameterType="java.lang.Integer" >
+    select 
+		<include refid="DepotAndGoodsVo_Column_List"/>,
+		yg.goods_name,yg.goods_summary,yg.goods_cover
+    from yd_depot yd
+	left join yd_goods yg on yg.goods_id=yd.goods_id
+    where yd.goods_id =  #{goodsId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 修改仓库 库存 -->
+  <update id="updateStockByGoodsId">
+  	update yd_depot set depot_stock=#{depotStock,jdbcType=INTEGER} where goods_id=#{goodsId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 根据购物车ID查询商品库存 -->
+  <select id="selectDepotStockByCartId" resultType="YdDepot">
+  	select 
+  		yd.depot_stock 
+	from 
+		yd_cart yc
+	left join yd_depot yd on yd.depot_id=yc.depot_id
+	where yc.cart_id=#{cartId}
+  </select>
+  
+    <select id="selectGroupBuyPageCount" parameterType="com.yd.dby.app.entity.para.GroupBuyPara" resultType="java.lang.Integer">
+  	select  count(DISTINCT yd.depot_id)  
+	from yd_depot yd 
+	left join yd_goods yg on yg.goods_id=yd.goods_id
+	left join yd_groupbuy_goods ygg on ygg.depot_id=yd.depot_id
+	left join yd_groupbuy ygb on ygb.gb_id=ygg.groupbuy_id
+	where yd.depot_type=4 and ygg.gbg_state=2 and ygb.gb_state=1
+  </select>
+  <select id="selectGroupBuyPageList" parameterType="com.yd.dby.app.entity.para.GroupBuyPara" resultMap="GroupBuyVoResultMap">
+  	select yd.depot_id,yd.depot_original_price,yd.depot_price,
+	yg.goods_cover,yg.goods_name,yg.goods_summary,
+	ygg.gbg_already_num 
+	from yd_depot yd 
+	left join yd_goods yg on yg.goods_id=yd.goods_id
+	left join yd_groupbuy_goods ygg on ygg.depot_id=yd.depot_id
+	left join yd_groupbuy ygb on ygb.gb_id=ygg.groupbuy_id
+	where yd.depot_type=4 and ygg.gbg_state=2 and ygb.gb_state=1
+	order by yd.depot_id desc
+	limit #{para.startIndex},#{para.onePageCount}
+  </select>
+  
+  <select id="selectGroupBuyDetails" parameterType="java.lang.Integer" resultMap="GroupBuyDetailsVoResultMap">
+  	select ygb.end_time,yd.depot_original_price,yd.depot_price,
+		yg.goods_id,yg.goods_pics,yg.goods_name,yg.goods_price,yg.goods_avg_score,yg.goods_content_pics,
+		yg.goods_summary,yg.goods_attr_select,yg.goods_attrs,yg.goods_total_fav,yg.goods_cover,yg.goods_freight,
+		yc.comment_score,yc.comment_created_time,yc.comment_content,yc.comment_pics,
+		yu.user_nickname,yu.user_avatar,yf.fav_id,ys.store_id,ys.store_banner,ys.store_name
+	from yd_depot yd
+	left join yd_goods yg on yg.goods_id=yd.goods_id
+	left join yd_comment yc on yc.goods_id=yg.goods_id
+	left join yd_user yu on yu.user_id=yc.user_id
+	left join (select fav_id,fav_fid from yd_favorite) yf on yf.fav_fid=yg.goods_id
+	left join yd_store ys on yg.store_id=ys.store_id
+	left join yd_groupbuy_goods ygg on ygg.depot_id=yd.depot_id
+	left join yd_groupbuy ygb on ygb.gb_id=ygg.groupbuy_id
+	where yd.depot_id=#{depotId,jdbcType=INTEGER}
+	order by yc.comment_id desc
+	limit 0,2
+  </select>
+  
+  <select id="selectSeckillPageCount" parameterType="com.yd.dby.app.entity.para.SeckillPara" resultType="java.lang.Integer">
+  	select count(DISTINCT yd.depot_id)
+	from yd_depot yd 
+	left join yd_goods yg on yg.goods_id=yd.goods_id
+	left join yd_seckill_goods ysg on ysg.depot_id=yd.depot_id
+	left join yd_seckill ys on ys.seckill_id=ysg.seckill_id
+	where yd.depot_type=5 and ys.seckill_state=1 and ysg.sg_state=2 and ys.start_time=#{para.startTime}
+  </select>
+  
+  <select id="selectSeckillPageList" parameterType="com.yd.dby.app.entity.para.SeckillPara" resultMap="SeckillVoResultMap">
+  	select yd.depot_id,yd.depot_original_price,yd.depot_price,yd.depot_pre_stock,yd.depot_pay_stock,
+	yg.goods_cover,yg.goods_name,yg.goods_summary
+	from yd_depot yd 
+	left join yd_goods yg on yg.goods_id=yd.goods_id
+	left join yd_seckill_goods ysg on ysg.depot_id=yd.depot_id
+	left join yd_seckill ys on ys.seckill_id=ysg.seckill_id
+	where yd.depot_type=5 and ys.seckill_state=1 and ysg.sg_state=2 and ys.start_time=#{para.startTime}
+	order by yd.depot_id desc
+	limit #{para.startIndex},#{para.onePageCount}
+  </select>
+  
+    <select id="selectSeckillDetails" parameterType="java.lang.Integer" resultMap="SeckillDetailsVoResultMap">
+  	select ysk.end_time,yd.depot_original_price,yd.depot_price,
+		yg.goods_id,yg.goods_pics,yg.goods_name,yg.goods_price,yg.goods_avg_score,yg.goods_content_pics,
+		yg.goods_summary,yg.goods_attr_select,yg.goods_attrs,yg.goods_total_fav,yg.goods_cover,yg.goods_freight,
+		yc.comment_score,yc.comment_created_time,yc.comment_content,yc.comment_pics,
+		yu.user_nickname,yu.user_avatar,yf.fav_id,ys.store_id,ys.store_banner,ys.store_name
+	from yd_depot yd
+	left join yd_goods yg on yg.goods_id=yd.goods_id
+	left join yd_comment yc on yc.goods_id=yg.goods_id
+	left join yd_user yu on yu.user_id=yc.user_id
+	left join (select fav_id,fav_fid from yd_favorite) yf on yf.fav_fid=yg.goods_id
+	left join yd_store ys on yg.store_id=ys.store_id
+	left join yd_seckill_goods ysg on ysg.depot_id=yd.depot_id
+	left join yd_seckill ysk on ysk.seckill_id=ysg.seckill_id
+	where yd.depot_id=#{depotId,jdbcType=INTEGER}
+	order by yc.comment_id desc
+	limit 0,2
+  </select>
+</mapper>

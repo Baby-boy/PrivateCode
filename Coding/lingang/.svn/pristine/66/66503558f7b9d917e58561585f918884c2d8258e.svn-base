@@ -1,0 +1,78 @@
+package com.lingang.api.domain.vo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.lingang.api.domain.entity.SysLabel;
+import com.lingang.api.domain.entity.SysPark;
+import com.lingang.api.domain.entity.SysPartner;
+import com.lingang.api.domain.entity.SysUmanager;
+
+public class SysPartnerVo extends SysPartner {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7894234648382315228L;
+
+	private String imgPath;
+
+	private String basicsName;
+
+	private Integer minImgId;
+
+	private List<SysPark> parks = new ArrayList<SysPark>();
+
+	private List<SysLabel> labels = new ArrayList<SysLabel>();
+
+	private List<SysUmanager> umanagers = new ArrayList<SysUmanager>();
+
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+
+	public List<SysPark> getParks() {
+		return parks;
+	}
+
+	public void setParks(List<SysPark> parks) {
+		this.parks = parks;
+	}
+
+	public List<SysLabel> getLabels() {
+		return labels;
+	}
+
+	public void setLabels(List<SysLabel> labels) {
+		this.labels = labels;
+	}
+
+	public String getBasicsName() {
+		return basicsName;
+	}
+
+	public void setBasicsName(String basicsName) {
+		this.basicsName = basicsName;
+	}
+
+	public List<SysUmanager> getUmanagers() {
+		return umanagers;
+	}
+
+	public void setUmanagers(List<SysUmanager> umanagers) {
+		this.umanagers = umanagers;
+	}
+
+	public Integer getMinImgId() {
+		return minImgId;
+	}
+
+	public void setMinImgId(Integer minImgId) {
+		this.minImgId = minImgId;
+	}
+
+}

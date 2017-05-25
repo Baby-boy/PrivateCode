@@ -1,0 +1,50 @@
+define(['mySession', 'route-config', 'serviceBase','layer','My97DatePicker','uEditor', 'uEditorConfig', 'uEditorCulture','ajaxUpload'], function (mySession, routeConfig, serviceBase,My97DatePicker) {
+    var _controller = function($scope, $http, $routeParams, $location,sysNewsService){
+    	var ue = UM.getEditor('newsContent',{
+	        initialFrameWidth:'100%',
+	        initialFrameHeight:200
+        });
+    	
+    	
+    	//请求参数
+    	$scope.para={
+    			newsTitle:"",
+    			newsAuthor:"",
+    			newsContent:"",
+    			newsIsup:2,
+    			newsImgId:1
+    	};
+    	//列表数据
+    	$scope.sysNewsAddMsg=[];
+    	
+    	ue.setContent($scope.para.newsContent);
+    	
+    	//获取列表
+    	$scope.getNewsAdd=function(){
+    		$scope.para.newsContent = ue.getContent();
+    		var para = $scope.para;
+    		if(para.newsTitle==null||para.newsTitle==""||para.newsAuthor==null||para.newsAuthor==""||para.newsContent==null||para.newsContent==""){
+    			alert("部分内容为空，请完善后再进行提交！");
+    			return;
+    		}
+    		sysNewsService.sysNewsAdd($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				if(window.confirm("添加成功！是否继续添加信息？")){
+    					$("input").val("");
+    					$("textarea").val("");
+    				}else{
+    					location.href="#/home/sysNews/sysNewsPageList/index";
+    				}
+    				//页数获取
+    				$scope.paginationConf.totalItems=data.data.data.countRecord;
+    			}else if(data.stateCode=="501"){
+					alert(data.message);
+				}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    		});
+    	};
+    	
+    };
+    return ["sysNewsAddCtrl", _controller];
+});

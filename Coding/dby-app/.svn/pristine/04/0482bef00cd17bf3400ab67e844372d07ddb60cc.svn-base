@@ -1,0 +1,20 @@
+package com.yd.dby.app.mapper;
+
+import com.yd.dby.app.entity.YdCtcOrder;
+import com.yd.dby.app.entity.YdCtcOrderWithBLOBs;
+
+public interface YdCtcOrderMapper {
+    int deleteByPrimaryKey(Integer ctcOrderId);
+
+    int insert(YdCtcOrderWithBLOBs record);
+
+    int insertSelective(YdCtcOrderWithBLOBs record);
+
+    YdCtcOrderWithBLOBs selectByPrimaryKey(Integer ctcOrderId);
+
+    int updateByPrimaryKeySelective(YdCtcOrderWithBLOBs record);
+
+    int updateByPrimaryKeyWithBLOBs(YdCtcOrderWithBLOBs record);
+
+    int updateByPrimaryKey(YdCtcOrder record);
+}

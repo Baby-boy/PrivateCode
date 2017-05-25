@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysParkReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysPark" >
+    <id column="park_id" property="parkId" jdbcType="INTEGER" />
+    <result column="region_id" property="regionId" jdbcType="INTEGER" />
+    <result column="min_img_id" property="minImgId" jdbcType="INTEGER" />
+    <result column="max_img_id" property="maxImgId" jdbcType="INTEGER" />
+    <result column="park_name" property="parkName" jdbcType="VARCHAR" />
+    <result column="park_address" property="parkAddress" jdbcType="VARCHAR" />
+    <result column="park_fax" property="parkFax" jdbcType="VARCHAR" />
+    <result column="park_link" property="parkLink" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="park_state" property="parkState" jdbcType="INTEGER" />
+    <result column="detail_link" property="detailLink" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lingang.api.domain.entity.SysPark" extends="BaseResultMap" >
+    <result column="park_content" property="parkContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="SysParkVoResultMap" type="com.lingang.api.domain.vo.SysParkVo" extends="ResultMapWithBLOBs">
+  	<result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+	
+  	<collection property="labels" ofType="com.lingang.api.domain.entity.SysLabel">
+		<id column="label_id" property="labelId" jdbcType="INTEGER" />
+		<result column="label_name" property="labelName" jdbcType="VARCHAR" />
+	</collection>
+  </resultMap>
+  <!-- 产业园区详情字段 -->
+  <resultMap id="SysParkDetailsResultMap" type="com.lingang.api.domain.vo.SysParkVo" extends="ResultMapWithBLOBs" >
+  	<result column="max_img_id" property="maxImgId" jdbcType="INTEGER"/>
+  	<result column="img_path" property="maxImgPath" jdbcType="VARCHAR"/>
+  	<result column="way_id" property="wayId" jdbcType="INTEGER"/>
+  	<result column="way_tel" property="wayTel" jdbcType="VARCHAR"/>
+  	
+  	<collection property="labels" ofType="com.lingang.api.domain.entity.SysLabel">
+		<id column="label_id" property="labelId" jdbcType="INTEGER" />
+		<result column="label_name" property="labelName" jdbcType="VARCHAR" />
+	</collection>
+	<collection property="industrys" ofType="com.lingang.api.domain.vo.SysIndustryVo">
+		<id column="industry_id" property="industryId" jdbcType="INTEGER" />
+		<result column="industry_img_id" property="industryImgId" jdbcType="INTEGER"/>
+	  	<result column="industry_img_path" property="industryImgPath" jdbcType="VARCHAR"/>
+		<result column="industry_title" property="industryTitle" jdbcType="VARCHAR" />
+	</collection>
+	<collection property="files" ofType="com.lingang.api.domain.entity.SysFile">
+		<id column="file_id" property="fileId" jdbcType="INTEGER" />
+		<result column="file_type" property="fileType" jdbcType="INTEGER" />
+		<result column="file_title" property="fileTitle" jdbcType="VARCHAR" />
+		<result column="file_address" property="fileAddress" jdbcType="VARCHAR" />
+	</collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    park_id, region_id, min_img_id, max_img_id, park_name, park_address, park_fax, park_link, 
+    create_time, update_time, park_state, detail_link
+  </sql>
+  <sql id="Blob_Column_List" >
+    park_content
+  </sql>
+  <select id="selectSysParkVoCountByRegionIdAndIndustryIds" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select count (DISTINCT sp.park_id)
+	from sys_park sp
+	left join sys_park_industry spi on sp.park_id = spi.park_id
+	LEFT JOIN sys_region sr on sp.region_id=sr.region_id
+	<where>
+		1=1
+		<if test="map.industryIds !=null">
+			and sp.park_id in 
+			<foreach collection="map.industryIds" item="industryIds" open="(" close=")" separator=",">
+					#{industryIds}
+			</foreach>
+		</if>
+		<if test="map.regionId !=null and map.regionId !=''">
+			and sp.region_id= #{map.regionId,jdbcType=INTEGER}
+		</if>
+		<if test="map.regionTypeId !=null and map.regionTypeId !=''">
+			and sr.region_type= #{map.regionTypeId,jdbcType=INTEGER}
+		</if>
+	</where>
+  </select>
+  <sql id="SQL_selectSysParkVoPageListByRegionIdAndIndustryIds" >
+  	select sp.park_id,sp.park_name,sp.park_content,si.img_id,si.img_path,sl.label_id,sl.label_name 
+  	from sys_park sp
+	left join sys_park_industry spi on sp.park_id=spi.park_id
+	left join (select * from sys_images where img_state=1) si on si.img_id = sp.min_img_id
+	left join sys_park_label spl on sp.park_id=spl.park_id
+	left join (select * from sys_label where label_state=1) sl on spl.label_id=sl.label_id
+	LEFT JOIN sys_region sr on sp.region_id=sr.region_id
+	<where>
+		1=1
+		<if test="map.industryIds !=null">
+			and sp.park_id in 
+			<foreach collection="map.industryIds" item="industryIds" open="(" close=")" separator=",">
+					#{industryIds}
+			</foreach>
+		</if>
+		<if test="map.regionId !=null and map.regionId !=''">
+			and sp.region_id= #{map.regionId,jdbcType=INTEGER}
+		</if>
+		<if test="map.regionTypeId !=null and map.regionTypeId !=''">
+			and sr.region_type= #{map.regionTypeId,jdbcType=INTEGER}
+		</if>
+	</where>
+  </sql>
+  <sql id="SQL_ID_selectSysParkVoPageListByRegionIdAndIndustryIds" >
+		park_id
+	</sql>
+  <select id="selectSysParkVoPageListByRegionIdAndIndustryIds" resultMap="SysParkVoResultMap" parameterType="java.util.Map">
+  	SELECT TOP ${map.onePageCount}
+		*
+	FROM 
+	(
+		<include refid="SQL_selectSysParkVoPageListByRegionIdAndIndustryIds" />
+	)
+	 t
+	WHERE t.<include refid="SQL_ID_selectSysParkVoPageListByRegionIdAndIndustryIds" /> 
+	NOT IN
+	(
+		SELECT TOP (${map.onePageCount} * ${map.startIndex}) 
+		nt.<include refid="SQL_ID_selectSysParkVoPageListByRegionIdAndIndustryIds" /> 
+		FROM 
+		(
+			<include refid="SQL_selectSysParkVoPageListByRegionIdAndIndustryIds" />
+		) nt
+	)
+  </select>
+  <select id="selectSysParkDetailsCountByStationId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  	select count(distinct park_id) from sys_park where park_id = #{parkId,jdbcType=INTEGER}; 
+  </select>
+  <select id="selectSysParkDetailsByStationId" resultMap="SysParkDetailsResultMap" parameterType="java.lang.Integer">
+  	select sp.park_id,sp.park_name,sp.park_content,sp.park_address,sp.park_fax,sp.detail_link,sp.park_link,sp.max_img_id,si.img_path,
+  	sl.label_id,sl.label_name,sd.industry_id,sd.industry_title,sd.min_img_id industry_img_id,sii.img_path industry_img_path,
+  	sw.way_id,sw.way_tel,sf.file_id,sf.file_type,sf.file_title,sf.file_address from sys_park sp
+	left join (select * from sys_images where img_state=1) si on si.img_id = sp.max_img_id
+	left join sys_park_label spl on sp.park_id=spl.park_id
+	left join (select * from sys_label where label_state=1) sl on spl.label_id=sl.label_id
+	left join sys_park_industry spi on spi.park_id=sp.park_id
+	left join (select * from sys_industry where industry_state=2) sd on sd.industry_id=spi.industry_id
+	left join (select * from sys_images where img_state=1) sii on sii.img_id=sd.min_img_id
+	left join (select * from sys_way where way_type=1) sw on sw.way_obj_id=sp.park_id
+	left join  sys_file sf on sf.park_id=sp.park_id
+	where sp.park_id = #{parkId,jdbcType=INTEGER}; 
+  </select>
+  
+  <select id="selectUserCollectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select count(DISTINCT sc.collect_id) 
+  	from sys_collect sc
+	left join sys_park sp on sp.park_id=sc.obj_id
+	left join sys_park_industry spi on sp.park_id=spi.park_id
+	left join (select * from sys_images where img_state=1) si on si.img_id = sp.min_img_id
+	left join sys_park_label spl on sp.park_id=spl.park_id
+	left join (select * from sys_label where label_state=1) sl on spl.label_id=sl.label_id
+	where sc.user_id= #{map.userId,jdbcType=INTEGER} and sc.collect_type=1
+  </select>
+  <sql id="SQL_selectUserCollectPageList" >
+  	select sc.collect_id,sp.park_id,sp.park_name,sp.park_content,si.img_id,si.img_path,sl.label_id,sl.label_name 
+  	from sys_collect sc
+	left join sys_park sp on sp.park_id=sc.obj_id
+	left join sys_park_industry spi on sp.park_id=spi.park_id
+	left join (select * from sys_images where img_state=1) si on si.img_id = sp.min_img_id
+	left join sys_park_label spl on sp.park_id=spl.park_id
+	left join (select * from sys_label where label_state=1) sl on spl.label_id=sl.label_id
+	where sc.user_id= #{map.userId,jdbcType=INTEGER} and sc.collect_type=1
+  </sql>
+  <sql id="SQL_ID_selectUserCollectPageList" >
+		collect_id
+	</sql>
+  <select id="selectUserCollectPageList" resultMap="SysParkVoResultMap" parameterType="java.util.Map">
+  	SELECT TOP ${map.onePageCount}
+		*
+	FROM 
+	(
+		<include refid="SQL_selectUserCollectPageList" />
+	)
+	 t
+	WHERE t.<include refid="SQL_ID_selectUserCollectPageList" /> 
+	NOT IN
+	(
+		SELECT TOP (${map.onePageCount} * ${map.startIndex}) 
+		nt.<include refid="SQL_ID_selectUserCollectPageList" /> 
+		FROM 
+		(
+			<include refid="SQL_selectUserCollectPageList" />
+		) nt
+	)
+  </select>
+</mapper>

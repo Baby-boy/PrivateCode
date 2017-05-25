@@ -1,0 +1,84 @@
+package com.lingang.platform.controller.system;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.lingang.api.domain.basic.JsonResult;
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysManager;
+import com.lingang.api.domain.para.SysManagerPara;
+import com.lingang.api.domain.pfvo.SysManagerPfVo;
+import com.lingang.api.service.SysManagerService;
+
+/**
+ * @Description: (管理员信息控制)
+ * @Author: lgl(lgl1012dream@foxmail.com)
+ * @date:2016年12月6日 下午7:32:04
+ * @Version:1.0
+ */
+@Controller
+@RequestMapping("/sysManager")
+public class SysManagerController {
+	
+	@Resource
+	private SysManagerService sysManagerService;
+
+	/**
+	* @Description: (管理员列表)
+	* @param pageIndex
+	* @param pageSize
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月6日 下午7:43:42
+	 */
+	@RequestMapping(value="/sysManagerPagePageList.do",method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public JsonResult sysManagerPagePageList(@RequestBody SysManagerPara para) {
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<Page<SysManagerPfVo>> result=sysManagerService.selectSysManagerPageList(para);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setData(result.getData());
+		return jsonResult;
+	}
+	
+	/**
+	* @Description: (修改管理员信息)
+	* @param manager
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月7日 下午8:08:12
+	 */
+	@RequestMapping(value="/updateSysManager.do",method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public JsonResult updateSysManager(@RequestBody SysManager manager){
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<SysManager> result=sysManagerService.updateSysManager(manager);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setMessage(result.getMessage());
+		jsonResult.setData(result.getData());
+		return jsonResult;
+	}
+	
+	/**
+	 * @Description: (添加管理员)
+	 * @param manager
+	 * @return 参数注释 
+	 * @author fqh (qihao.fu@outlook.com)
+	 * @date: 2016年12月20日 上午11:42:45 
+	 */
+	@ResponseBody
+	@RequestMapping(value="/addSysManager.do",method={RequestMethod.GET,RequestMethod.POST})
+	public JsonResult addSysManager(@RequestBody SysManager manager){
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<SysManager> result = sysManagerService.addSysManager(manager);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setMessage(result.getMessage());
+		return jsonResult;
+	}
+}

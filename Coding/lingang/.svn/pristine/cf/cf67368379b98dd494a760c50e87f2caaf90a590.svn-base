@@ -1,0 +1,25 @@
+package com.lingang.api.service;
+
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysPolicy;
+import com.lingang.api.domain.vo.SysPolicyVo;
+
+public interface SysPolicyService {
+	/**
+	* @Description: (查询政策列表)
+	* @return    
+	* @author gsh(15136390655@163.com)
+	* @date: 2016年12月3日 下午3:33:11
+	 */
+	ServiceResult<Page<SysPolicy>> selectSysPolicyAll(int pageIndex,int pageSize);
+	/**
+	* @Description: (查询政策详情)
+	* @param 政策ID
+	* @return    
+	* @author gsh(15136390655@163.com)
+	* @date: 2016年12月3日 下午3:34:57
+	 */
+	ServiceResult<SysPolicyVo> selectByPrimaryKey(Integer policyId);
+}

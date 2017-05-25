@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysParkWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_park
+    where park_id = #{parkId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysPark" >
+    insert into sys_park (park_id, region_id, min_img_id, 
+      max_img_id, park_name, park_address, 
+      park_fax, park_link, create_time, 
+      update_time, park_state, detail_link, 
+      park_content)
+    values (#{parkId,jdbcType=INTEGER}, #{regionId,jdbcType=INTEGER}, #{minImgId,jdbcType=INTEGER}, 
+      #{maxImgId,jdbcType=INTEGER}, #{parkName,jdbcType=VARCHAR}, #{parkAddress,jdbcType=VARCHAR}, 
+      #{parkFax,jdbcType=VARCHAR}, #{parkLink,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{parkState,jdbcType=INTEGER}, #{detailLink,jdbcType=CHAR}, 
+      #{parkContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="parkId" parameterType="com.lingang.api.domain.entity.SysPark" >
+    insert into sys_park
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="parkId != null" >
+        park_id,
+      </if>
+      <if test="regionId != null" >
+        region_id,
+      </if>
+      <if test="minImgId != null" >
+        min_img_id,
+      </if>
+      <if test="maxImgId != null" >
+        max_img_id,
+      </if>
+      <if test="parkName != null" >
+        park_name,
+      </if>
+      <if test="parkAddress != null" >
+        park_address,
+      </if>
+      <if test="parkFax != null" >
+        park_fax,
+      </if>
+      <if test="parkLink != null" >
+        park_link,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="parkState != null" >
+        park_state,
+      </if>
+      <if test="detailLink != null" >
+        detail_link,
+      </if>
+      <if test="parkContent != null" >
+        park_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="parkId != null" >
+        #{parkId,jdbcType=INTEGER},
+      </if>
+      <if test="regionId != null" >
+        #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="minImgId != null" >
+        #{minImgId,jdbcType=INTEGER},
+      </if>
+      <if test="maxImgId != null" >
+        #{maxImgId,jdbcType=INTEGER},
+      </if>
+      <if test="parkName != null" >
+        #{parkName,jdbcType=VARCHAR},
+      </if>
+      <if test="parkAddress != null" >
+        #{parkAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="parkFax != null" >
+        #{parkFax,jdbcType=VARCHAR},
+      </if>
+      <if test="parkLink != null" >
+        #{parkLink,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parkState != null" >
+        #{parkState,jdbcType=INTEGER},
+      </if>
+      <if test="detailLink != null" >
+        #{detailLink,jdbcType=CHAR},
+      </if>
+      <if test="parkContent != null" >
+        #{parkContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysPark" >
+    update sys_park
+    <set >
+      <if test="regionId != null" >
+        region_id = #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="minImgId != null" >
+        min_img_id = #{minImgId,jdbcType=INTEGER},
+      </if>
+      <if test="maxImgId != null" >
+        max_img_id = #{maxImgId,jdbcType=INTEGER},
+      </if>
+      <if test="parkName != null" >
+        park_name = #{parkName,jdbcType=VARCHAR},
+      </if>
+      <if test="parkAddress != null" >
+        park_address = #{parkAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="parkFax != null" >
+        park_fax = #{parkFax,jdbcType=VARCHAR},
+      </if>
+      <if test="parkLink != null" >
+        park_link = #{parkLink,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parkState != null" >
+        park_state = #{parkState,jdbcType=INTEGER},
+      </if>
+      <if test="detailLink != null" >
+        detail_link = #{detailLink,jdbcType=CHAR},
+      </if>
+      <if test="parkContent != null" >
+        park_content = #{parkContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where park_id = #{parkId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lingang.api.domain.entity.SysPark" >
+    update sys_park
+    set region_id = #{regionId,jdbcType=INTEGER},
+      min_img_id = #{minImgId,jdbcType=INTEGER},
+      max_img_id = #{maxImgId,jdbcType=INTEGER},
+      park_name = #{parkName,jdbcType=VARCHAR},
+      park_address = #{parkAddress,jdbcType=VARCHAR},
+      park_fax = #{parkFax,jdbcType=VARCHAR},
+      park_link = #{parkLink,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      park_state = #{parkState,jdbcType=INTEGER},
+      detail_link = #{detailLink,jdbcType=CHAR},
+      park_content = #{parkContent,jdbcType=LONGVARCHAR}
+    where park_id = #{parkId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysPark" >
+    update sys_park
+    set region_id = #{regionId,jdbcType=INTEGER},
+      min_img_id = #{minImgId,jdbcType=INTEGER},
+      max_img_id = #{maxImgId,jdbcType=INTEGER},
+      park_name = #{parkName,jdbcType=VARCHAR},
+      park_address = #{parkAddress,jdbcType=VARCHAR},
+      park_fax = #{parkFax,jdbcType=VARCHAR},
+      park_link = #{parkLink,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      park_state = #{parkState,jdbcType=INTEGER},
+      detail_link = #{detailLink,jdbcType=CHAR}
+    where park_id = #{parkId,jdbcType=INTEGER}
+  </update>
+</mapper>

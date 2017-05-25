@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdComment" >
+    <id column="comment_id" property="commentId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="comment_grade" property="commentGrade" jdbcType="INTEGER" />
+    <result column="comment_score" property="commentScore" jdbcType="TINYINT" />
+    <result column="comment_content" property="commentContent" jdbcType="VARCHAR" />
+    <result column="comment_pics" property="commentPics" jdbcType="VARCHAR" />
+    <result column="comment_is_name" property="commentIsName" jdbcType="INTEGER" />
+    <result column="comment_is_pic" property="commentIsPic" jdbcType="INTEGER" />
+    <result column="comment_total_like" property="commentTotalLike" jdbcType="INTEGER" />
+    <result column="comment_total_reply" property="commentTotalReply" jdbcType="INTEGER" />
+    <result column="comment_created_time" property="commentCreatedTime" jdbcType="CHAR" />
+    <result column="comment_buy_time" property="commentBuyTime" jdbcType="CHAR" />
+    <result column="comment_state" property="commentState" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    comment_id, user_id, order_id, goods_id, comment_grade, comment_score, comment_content, 
+    comment_pics, comment_is_name, comment_is_pic, comment_total_like, comment_total_reply, 
+    comment_created_time, comment_buy_time, comment_state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_comment
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_comment
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdComment" >
+    insert into yd_comment (comment_id, user_id, order_id, 
+      goods_id, comment_grade, comment_score, 
+      comment_content, comment_pics, comment_is_name, 
+      comment_is_pic, comment_total_like, comment_total_reply, 
+      comment_created_time, comment_buy_time, comment_state
+      )
+    values (#{commentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, 
+      #{goodsId,jdbcType=INTEGER}, #{commentGrade,jdbcType=INTEGER}, #{commentScore,jdbcType=TINYINT}, 
+      #{commentContent,jdbcType=VARCHAR}, #{commentPics,jdbcType=VARCHAR}, #{commentIsName,jdbcType=INTEGER}, 
+      #{commentIsPic,jdbcType=INTEGER}, #{commentTotalLike,jdbcType=INTEGER}, #{commentTotalReply,jdbcType=INTEGER}, 
+      #{commentCreatedTime,jdbcType=CHAR}, #{commentBuyTime,jdbcType=CHAR}, #{commentState,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdComment" >
+    insert into yd_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        comment_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="commentGrade != null" >
+        comment_grade,
+      </if>
+      <if test="commentScore != null" >
+        comment_score,
+      </if>
+      <if test="commentContent != null" >
+        comment_content,
+      </if>
+      <if test="commentPics != null" >
+        comment_pics,
+      </if>
+      <if test="commentIsName != null" >
+        comment_is_name,
+      </if>
+      <if test="commentIsPic != null" >
+        comment_is_pic,
+      </if>
+      <if test="commentTotalLike != null" >
+        comment_total_like,
+      </if>
+      <if test="commentTotalReply != null" >
+        comment_total_reply,
+      </if>
+      <if test="commentCreatedTime != null" >
+        comment_created_time,
+      </if>
+      <if test="commentBuyTime != null" >
+        comment_buy_time,
+      </if>
+      <if test="commentState != null" >
+        comment_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="commentGrade != null" >
+        #{commentGrade,jdbcType=INTEGER},
+      </if>
+      <if test="commentScore != null" >
+        #{commentScore,jdbcType=TINYINT},
+      </if>
+      <if test="commentContent != null" >
+        #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentPics != null" >
+        #{commentPics,jdbcType=VARCHAR},
+      </if>
+      <if test="commentIsName != null" >
+        #{commentIsName,jdbcType=INTEGER},
+      </if>
+      <if test="commentIsPic != null" >
+        #{commentIsPic,jdbcType=INTEGER},
+      </if>
+      <if test="commentTotalLike != null" >
+        #{commentTotalLike,jdbcType=INTEGER},
+      </if>
+      <if test="commentTotalReply != null" >
+        #{commentTotalReply,jdbcType=INTEGER},
+      </if>
+      <if test="commentCreatedTime != null" >
+        #{commentCreatedTime,jdbcType=CHAR},
+      </if>
+      <if test="commentBuyTime != null" >
+        #{commentBuyTime,jdbcType=CHAR},
+      </if>
+      <if test="commentState != null" >
+        #{commentState,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdComment" >
+    update yd_comment
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="commentGrade != null" >
+        comment_grade = #{commentGrade,jdbcType=INTEGER},
+      </if>
+      <if test="commentScore != null" >
+        comment_score = #{commentScore,jdbcType=TINYINT},
+      </if>
+      <if test="commentContent != null" >
+        comment_content = #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentPics != null" >
+        comment_pics = #{commentPics,jdbcType=VARCHAR},
+      </if>
+      <if test="commentIsName != null" >
+        comment_is_name = #{commentIsName,jdbcType=INTEGER},
+      </if>
+      <if test="commentIsPic != null" >
+        comment_is_pic = #{commentIsPic,jdbcType=INTEGER},
+      </if>
+      <if test="commentTotalLike != null" >
+        comment_total_like = #{commentTotalLike,jdbcType=INTEGER},
+      </if>
+      <if test="commentTotalReply != null" >
+        comment_total_reply = #{commentTotalReply,jdbcType=INTEGER},
+      </if>
+      <if test="commentCreatedTime != null" >
+        comment_created_time = #{commentCreatedTime,jdbcType=CHAR},
+      </if>
+      <if test="commentBuyTime != null" >
+        comment_buy_time = #{commentBuyTime,jdbcType=CHAR},
+      </if>
+      <if test="commentState != null" >
+        comment_state = #{commentState,jdbcType=BIT},
+      </if>
+    </set>
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdComment" >
+    update yd_comment
+    set user_id = #{userId,jdbcType=INTEGER},
+      order_id = #{orderId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      comment_grade = #{commentGrade,jdbcType=INTEGER},
+      comment_score = #{commentScore,jdbcType=TINYINT},
+      comment_content = #{commentContent,jdbcType=VARCHAR},
+      comment_pics = #{commentPics,jdbcType=VARCHAR},
+      comment_is_name = #{commentIsName,jdbcType=INTEGER},
+      comment_is_pic = #{commentIsPic,jdbcType=INTEGER},
+      comment_total_like = #{commentTotalLike,jdbcType=INTEGER},
+      comment_total_reply = #{commentTotalReply,jdbcType=INTEGER},
+      comment_created_time = #{commentCreatedTime,jdbcType=CHAR},
+      comment_buy_time = #{commentBuyTime,jdbcType=CHAR},
+      comment_state = #{commentState,jdbcType=BIT}
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 所有查询 -->
+  <!-- 评论级别 -->
+  <resultMap type="com.yd.dby.app.entity.vo.CommentLevelVo" id="CommentLevelVoResultMap">
+  	<result column="all_num" property="allNum" jdbcType="INTEGER" />
+  	<result column="good_num" property="goodNum" jdbcType="INTEGER" />
+  	<result column="just_num" property="justNum" jdbcType="INTEGER" />
+  	<result column="bad_num" property="badNum" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <!-- 评论信息 -->
+  <resultMap type="com.yd.dby.app.entity.vo.GoodsDetailsCommentVo" id="GoodsDetailsCommentVoResultMap">
+   	<result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
+ 	<result column="user_avatar" property="userAvatar" jdbcType="VARCHAR" />
+ 	<result column="comment_score" property="commentScore" jdbcType="REAL" />
+ 	<result column="comment_created_time" property="commentCreatedTime" jdbcType="INTEGER" />
+ 	<result column="comment_content" property="commentContent" jdbcType="VARCHAR" />
+ 	<result column="comment_pics" property="commentPics" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <!-- 评论级别统计 -->
+  <select id="selectCommentLevelVo" resultMap="CommentLevelVoResultMap">
+  	select 
+	yc1.all_num,yc2.good_num,yc3.just_num,yc4.bad_num 
+	from 
+	(select count(comment_id) all_num from yd_comment) yc1,
+	(select count(comment_id) good_num from yd_comment where comment_score>3) yc2,
+	(select count(comment_id) just_num from yd_comment where comment_score=3) yc3,
+	(select count(comment_id) bad_num from yd_comment where comment_score <![CDATA[ < ]]> 3) yc4
+  </select>
+  
+  <!-- 评论列表 -->
+  <sql id="selectCommentPageList_Where">
+		<where>
+			yc.goods_id=#{para.goodsId, jdbcType=INTEGER} 
+			<if test="para.commentLevel==2">
+				and yc.comment_score > 3
+			</if>
+			<if test="para.commentLevel==3">
+				and yc.comment_score = 3
+			</if>
+			<if test="para.commentLevel==4">
+				and yc.comment_score <![CDATA[ < ]]> 3
+			</if>
+		</where>
+	</sql>
+  <select id="selectCommentPageCount" resultType="java.lang.Integer" parameterType="com.yd.dby.app.entity.para.CommentPara">
+  	select 
+	COUNT(DISTINCT yc.comment_id)  
+	from yd_comment yc
+	<include refid="selectCommentPageList_Where"/>
+  </select>
+  <select id="selectCommentPageList" resultMap="GoodsDetailsCommentVoResultMap" parameterType="com.yd.dby.app.entity.para.CommentPara">
+  	select 
+	yc.comment_score,yc.comment_created_time,yc.comment_content,yc.comment_pics,
+	yu.user_nickname,yu.user_avatar  
+	from yd_comment yc
+	left join yd_user yu on yu.user_id=yc.user_id
+	<include refid="selectCommentPageList_Where"/>
+	order by yc.comment_id 
+	<if test="para.sort==0">desc</if>
+    <if test="para.sort==1">asc</if>
+	limit #{para.startIndex, jdbcType=INTEGER},#{para.onePageCount, jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询未评价总数 -->
+  <select id="selectCommentCount" resultType="java.lang.Integer">
+  	select 
+  		count(*)
+	from 
+		yd_order yo
+	left join yd_order_goods yog on yo.order_id=yog.order_id
+	left join (select goods_id,order_id from yd_comment where user_id=#{userId}) yc 
+		on yc.goods_id=yog.goods_id and yc.order_id=yog.order_id
+	where yo.state=4 and yo.buyer_id=#{userId} and yc.goods_id is null
+  </select>
+</mapper>

@@ -1,0 +1,33 @@
+/**
+ * Created by FxLsoft on 2015/12/3.
+ */
+'use strict';
+
+define(["serviceBase"], function (serviceBase) {
+	 var items = {};
+	    //获取入驻企业列表
+	    items.sysStationPageList = function ($http,data) {
+	        var request = $http.post('sysStation/sysStationPageList.do', data, serviceBase.postConfig);
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+	    
+	    //获取详情
+	    items.getStationDetails = function ($http,data) {
+	        var request = $http.post('sysStation/stationDetails.do', data, {params:data});
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+	    
+	    //修改信息
+	    items.updateStationDetails = function ($http,data) {
+	        var request = $http.post('sysStation/updateStationDetails.do', data, serviceBase.postConfig);
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+	    
+	    //添加信息
+	    items.addStationDetails = function ($http,data) {
+	        var request = $http.post('sysStation/addStationDetails.do', data, serviceBase.postConfig);
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+
+    return ['sysStationService', items];
+});

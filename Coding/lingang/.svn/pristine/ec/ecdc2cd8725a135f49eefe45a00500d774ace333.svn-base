@@ -1,0 +1,4 @@
+<div class="text-center" ng-controller="wcmCtrl" >
+	<h1>欢迎来到临港后台管理中心</h1>
+	<img alt="" src="img/adminIndex.jpg">
+</div>

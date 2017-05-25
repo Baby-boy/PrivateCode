@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdStoreNavMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdStoreNav" >
+    <id column="nav_id" property="navId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="nav_title" property="navTitle" jdbcType="VARCHAR" />
+    <result column="nav_pid" property="navPid" jdbcType="INTEGER" />
+    <result column="nav_sort" property="navSort" jdbcType="INTEGER" />
+    <result column="nav_url" property="navUrl" jdbcType="VARCHAR" />
+    <result column="is_show" property="isShow" jdbcType="TINYINT" />
+    <result column="is_open" property="isOpen" jdbcType="TINYINT" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    nav_id, store_id, nav_title, nav_pid, nav_sort, nav_url, is_show, is_open, created_at, 
+    updated_at
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_store_nav
+    where nav_id = #{navId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_store_nav
+    where nav_id = #{navId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdStoreNav" >
+    insert into yd_store_nav (nav_id, store_id, nav_title, 
+      nav_pid, nav_sort, nav_url, 
+      is_show, is_open, created_at, 
+      updated_at)
+    values (#{navId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{navTitle,jdbcType=VARCHAR}, 
+      #{navPid,jdbcType=INTEGER}, #{navSort,jdbcType=INTEGER}, #{navUrl,jdbcType=VARCHAR}, 
+      #{isShow,jdbcType=TINYINT}, #{isOpen,jdbcType=TINYINT}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdStoreNav" >
+    insert into yd_store_nav
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="navId != null" >
+        nav_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="navTitle != null" >
+        nav_title,
+      </if>
+      <if test="navPid != null" >
+        nav_pid,
+      </if>
+      <if test="navSort != null" >
+        nav_sort,
+      </if>
+      <if test="navUrl != null" >
+        nav_url,
+      </if>
+      <if test="isShow != null" >
+        is_show,
+      </if>
+      <if test="isOpen != null" >
+        is_open,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="updatedAt != null" >
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="navId != null" >
+        #{navId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="navTitle != null" >
+        #{navTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="navPid != null" >
+        #{navPid,jdbcType=INTEGER},
+      </if>
+      <if test="navSort != null" >
+        #{navSort,jdbcType=INTEGER},
+      </if>
+      <if test="navUrl != null" >
+        #{navUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null" >
+        #{isShow,jdbcType=TINYINT},
+      </if>
+      <if test="isOpen != null" >
+        #{isOpen,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdStoreNav" >
+    update yd_store_nav
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="navTitle != null" >
+        nav_title = #{navTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="navPid != null" >
+        nav_pid = #{navPid,jdbcType=INTEGER},
+      </if>
+      <if test="navSort != null" >
+        nav_sort = #{navSort,jdbcType=INTEGER},
+      </if>
+      <if test="navUrl != null" >
+        nav_url = #{navUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null" >
+        is_show = #{isShow,jdbcType=TINYINT},
+      </if>
+      <if test="isOpen != null" >
+        is_open = #{isOpen,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where nav_id = #{navId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdStoreNav" >
+    update yd_store_nav
+    set store_id = #{storeId,jdbcType=INTEGER},
+      nav_title = #{navTitle,jdbcType=VARCHAR},
+      nav_pid = #{navPid,jdbcType=INTEGER},
+      nav_sort = #{navSort,jdbcType=INTEGER},
+      nav_url = #{navUrl,jdbcType=VARCHAR},
+      is_show = #{isShow,jdbcType=TINYINT},
+      is_open = #{isOpen,jdbcType=TINYINT},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+    where nav_id = #{navId,jdbcType=INTEGER}
+  </update>
+</mapper>

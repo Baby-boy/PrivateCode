@@ -1,0 +1,201 @@
+package com.lingang.core.service.impl;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeMap;
+
+import javax.annotation.Resource;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.JsonResult;
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysPolicy;
+import com.lingang.api.domain.vo.SysIndustryVo;
+import com.lingang.api.domain.vo.SysNewsVo;
+import com.lingang.api.domain.vo.SysParkVo;
+import com.lingang.api.domain.vo.SysPartnerVo;
+import com.lingang.api.domain.vo.SysPublicVo;
+import com.lingang.api.domain.vo.SysServiceVo;
+import com.lingang.api.domain.vo.SysStationVo;
+import com.lingang.api.service.SysIndustryService;
+import com.lingang.api.service.SysNewsService;
+import com.lingang.api.service.SysParkService;
+import com.lingang.api.service.SysPartnerService;
+import com.lingang.api.service.SysPolicyService;
+import com.lingang.api.service.SysPublicService;
+import com.lingang.api.service.SysSearchService;
+import com.lingang.api.service.SysServiceService;
+import com.lingang.api.service.SysStationService;
+import com.lingang.common.constants.SystemConstants;
+import com.lingang.core.persistence.reader.SysIndustryReaderMapper;
+import com.lingang.core.persistence.reader.SysNewsReaderMapper;
+import com.lingang.core.persistence.reader.SysParkReaderMapper;
+import com.lingang.core.persistence.reader.SysPartnerReaderMapper;
+import com.lingang.core.persistence.reader.SysPolicyReaderMapper;
+import com.lingang.core.persistence.reader.SysPublicReaderMapper;
+import com.lingang.core.persistence.reader.SysServiceReaderMapper;
+import com.lingang.core.persistence.reader.SysStationReaderMapper;
+
+@Service("sysSearchService")
+public class SysSearchServiceImpl implements SysSearchService {
+
+	@Resource
+	private SysParkService sysParkService;
+	@Resource
+	private SysParkReaderMapper sysParkReaderMapper;
+
+	@Resource
+	private SysPartnerService sysPartnerService;
+	@Resource
+	private SysPartnerReaderMapper sysPartnerReaderMapper;
+
+	@Resource
+	private SysServiceService sysServiceService;
+	@Resource
+	private SysServiceReaderMapper sysServiceReaderMapper;
+
+	@Resource
+	private SysStationService sysStationService;
+	@Resource
+	private SysStationReaderMapper sysStationReaderMapper;
+
+	@Resource
+	private SysPublicService sysPublicService;
+	@Resource
+	private SysPublicReaderMapper sysPublicReaderMapper;
+
+	@Resource
+	private SysIndustryService sysIndustryService;
+	@Resource
+	private SysIndustryReaderMapper sysIndustryReaderMapper;
+
+	@Resource
+	private SysNewsService sysNewsService;
+	@Resource
+	private SysNewsReaderMapper sysNewsReaderMapper;
+
+	@Resource
+	private SysPolicyService sysPolicyService;
+	@Resource
+	private SysPolicyReaderMapper sysPolicyReaderMapper;
+
+	@Override
+	public JsonResult searchStatisticsPageList(String type, String keywords, Integer pageIndex, Integer pageSize) {
+		JsonResult jsonResult = new JsonResult();
+		// 条件
+		Map<String, Object> map = new HashMap<>();
+		map.put("keywords", keywords);
+		map.put("pageIndex", pageIndex);
+		map.put("pageSize", pageSize);
+
+		// 查询哪些模块需要显示
+		Map<String, Object> typeMap = showList(map);
+		Set<Entry<String, Object>> entrySet = typeMap.entrySet();
+		// 如果没有传入类型type使用了默认的值,需要展示查询存在的数据,
+		if (StringUtils.isBlank(type) || type.equals(SystemConstants.SYS_TYPE_NEWS)) {
+			for (Entry<String, Object> entry : entrySet) {
+				type = entry.getKey();
+				break;
+			}
+		}
+
+		if (type.equals(SystemConstants.SYS_TYPE_NEWS)) {
+			// 新闻列表 -- 1
+			ServiceResult<Page<SysNewsVo>> result = sysNewsService.selectSysNewsAll(map);
+			jsonResult.setData(result.getData());
+			jsonResult.setStateCode(result.getStateCode());
+		} else if (type.equals(SystemConstants.SYS_TYPE_POLICY)) {
+			// 政策列表 -- 2
+			ServiceResult<Page<SysPolicy>> result = sysPolicyService.selectSysPolicyAll(map);
+			jsonResult.setData(result.getData());
+			jsonResult.setStateCode(result.getStateCode());
+		} else if (type.equals(SystemConstants.SYS_TYPE_PARK)) {
+			// 产业园区 -- 3
+			ServiceResult<Page<SysParkVo>> result = sysParkService.selectSysParkVoPageListByRegionIdAndIndustryIds(map);
+			jsonResult.setData(result.getData());
+			jsonResult.setStateCode(result.getStateCode());
+		} else if (type.equals(SystemConstants.SYS_TYPE_PARTNER)) {
+			// 合作伙伴 -- 4
+			ServiceResult<Page<SysPartnerVo>> result = sysPartnerService.selectPartnerPageList(map);
+			jsonResult.setData(result.getData());
+			jsonResult.setStateCode(result.getStateCode());
+		} else if (type.equals(SystemConstants.SYS_TYPE_SERVICE)) {
+			// 服务机构 -- 5
+			ServiceResult<Page<SysServiceVo>> result = sysServiceService.selectServicePageList(map);
+			jsonResult.setData(result.getData());
+			jsonResult.setStateCode(result.getStateCode());
+		} else if (type.equals(SystemConstants.SYS_TYPE_STATION)) {
+			// 入驻企业 -- 6
+			ServiceResult<Page<SysStationVo>> result = sysStationService.selectSysStationAll(map);
+			jsonResult.setData(result.getData());
+			jsonResult.setStateCode(result.getStateCode());
+		} else if (type.equals(SystemConstants.SYS_TYPE_PUBLIC)) {
+			// 公共平台 -- 7
+			ServiceResult<Page<SysPublicVo>> result = sysPublicService
+					.selectSysPublicVoPageListByRegionIdAndBasicsId(map);
+			jsonResult.setData(result.getData());
+			jsonResult.setStateCode(result.getStateCode());
+		} else if (type.equals(SystemConstants.SYS_TYPE_INDUSTRY)) {
+			// 产业集群 -- 8
+			ServiceResult<Page<SysIndustryVo>> result = sysIndustryService.selectSysIndustryList(map);
+			jsonResult.setData(result.getData());
+			jsonResult.setStateCode(result.getStateCode());
+		}
+
+		jsonResult.setDataMap(typeMap);
+
+		return jsonResult;
+	}
+
+	private Map<String, Object> showList(Map<String, Object> map) {
+		// 进行列表展示,查询总数
+		Map<String, Object> typeMap = new TreeMap<>();
+		Integer newsCount = sysNewsReaderMapper.selectSysNewsCount(map);
+		if (null != newsCount && 0 != newsCount) {
+			typeMap.put(SystemConstants.SYS_TYPE_NEWS, "新闻");
+		}
+
+		Integer policyCount = sysPolicyReaderMapper.selectSysPolicyCount(map);
+		if (null != policyCount && 0 != policyCount) {
+			typeMap.put(SystemConstants.SYS_TYPE_POLICY, "政策");
+		}
+
+		Integer parkCount = sysParkReaderMapper.selectSysParkVoCountByRegionIdAndIndustryIds(map);
+		if (null != parkCount && 0 != parkCount) {
+			typeMap.put(SystemConstants.SYS_TYPE_PARK, "产业园区");
+		}
+
+		Integer partnerCount = sysPartnerReaderMapper.selectPartnerCount(map);
+		if (null != partnerCount && 0 != partnerCount) {
+			typeMap.put(SystemConstants.SYS_TYPE_PARTNER, "合作伙伴");
+		}
+
+		Integer serviceCount = sysServiceReaderMapper.selectServiceCount(map);
+		if (null != serviceCount && 0 != serviceCount) {
+			typeMap.put(SystemConstants.SYS_TYPE_SERVICE, "服务机构");
+		}
+
+		Integer stationCount = sysStationReaderMapper.selectSysStationCount(map);
+		if (null != stationCount && 0 != stationCount) {
+			typeMap.put(SystemConstants.SYS_TYPE_STATION, "入驻企业");
+		}
+
+		Integer publicCount = sysPublicReaderMapper.selectSysPublicVoCountByRegionIdAndBasicsId(map);
+		if (null != publicCount && 0 != publicCount) {
+			typeMap.put(SystemConstants.SYS_TYPE_PUBLIC, "公共平台");
+		}
+
+		Integer industryCount = sysIndustryReaderMapper.selectSysIndustryCount(map);
+		if (null != industryCount && 0 != industryCount) {
+			typeMap.put(SystemConstants.SYS_TYPE_INDUSTRY, "产业集群");
+		}
+
+		return typeMap;
+	}
+
+}

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysTopReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysTop" >
+    <id column="top_id" property="topId" jdbcType="INTEGER" />
+    <result column="top_type" property="topType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="obj_id" property="objId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="TopPartnerResultMap" type="com.lingang.api.domain.vo.SysPartnerVo" >
+    <id column="partner_id" property="partnerId" jdbcType="INTEGER" />
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+    <result column="partner_name" property="partnerName" jdbcType="VARCHAR" />
+	
+	<collection property="parks" ofType="com.lingang.api.domain.entity.SysPark">
+		<id column="park_id" property="parkId" jdbcType="INTEGER" />
+		<result column="park_name" property="parkName" jdbcType="VARCHAR" />
+	</collection>
+	
+	<collection property="labels" ofType="com.lingang.api.domain.entity.SysLabel">
+		<id column="label_id" property="labelId" jdbcType="INTEGER" />
+		<result column="label_name" property="labelName" jdbcType="VARCHAR" />
+	</collection>
+  </resultMap>
+  
+    <resultMap id="TopStationResultMap" type="com.lingang.api.domain.vo.SysStationVo" >
+    <id column="station_id" property="stationId" jdbcType="INTEGER" />
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+    <result column="station_title" property="station_title" jdbcType="VARCHAR" />
+	
+	<collection property="parks" ofType="com.lingang.api.domain.entity.SysPark">
+		<id column="park_id" property="parkId" jdbcType="INTEGER" />
+		<result column="park_name" property="parkName" jdbcType="VARCHAR" />
+	</collection>
+	
+	<collection property="labels" ofType="com.lingang.api.domain.entity.SysLabel">
+		<id column="label_id" property="labelId" jdbcType="INTEGER" />
+		<result column="label_name" property="labelName" jdbcType="VARCHAR" />
+	</collection>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    top_id, top_type, create_time, obj_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_top
+    where top_id = #{topId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectTopPartnerCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select count(DISTINCT st.top_id) 
+	from sys_top st
+	left join (select * from sys_partner where partner_state=2) sp on sp.partner_id=st.obj_id 
+	left join (select * from sys_images where img_state=1) si on si.img_id=sp.img_id 
+	left join sys_partner_park spp on spp.partner_id=sp.partner_id 
+	left join (select * from sys_park where park_state=2) spa on spa.park_id=spp.park_id 
+	left join sys_partner_label spl on spl.partner_id=sp.partner_id 
+	left join (select * from sys_label where label_state=1) sl on sl.label_id=spl.label_id 
+	where st.top_type=2 
+  </select>
+  <sql id="SQL_selectTopPartnerVoPageList" >
+		select st.top_id,sp.partner_id,sp.partner_name,si.img_id,si.img_path,spa.park_id,spa.park_name,sl.label_id,sl.label_name 
+		from sys_top st
+		left join (select * from sys_partner where partner_state=2) sp on sp.partner_id=st.obj_id 
+		left join (select * from sys_images where img_state=1) si on si.img_id=sp.img_id 
+		left join sys_partner_park spp on spp.partner_id=sp.partner_id 
+		left join (select * from sys_park where park_state=2) spa on spa.park_id=spp.park_id 
+		left join sys_partner_label spl on spl.partner_id=sp.partner_id 
+		left join (select * from sys_label where label_state=1) sl on sl.label_id=spl.label_id 
+		where st.top_type=2
+	</sql>
+	<sql id="SQL_ID_selectTopPartnerVoPageList" >
+		top_id
+	</sql>
+  <select id="selectTopPartnerVoPageList" resultMap="TopPartnerResultMap" parameterType="java.util.Map">
+	SELECT TOP ${map.onePageCount}
+		*
+	FROM 
+	(
+		<include refid="SQL_selectTopPartnerVoPageList" />
+	)
+	 t
+	WHERE t.<include refid="SQL_ID_selectTopPartnerVoPageList" /> 
+	NOT IN
+	(
+		SELECT TOP (${map.onePageCount} * ${map.startIndex}) 
+		nt.<include refid="SQL_ID_selectTopPartnerVoPageList" /> 
+		FROM 
+		(
+			<include refid="SQL_selectTopPartnerVoPageList" />
+		) nt
+	)
+  </select>
+  
+  
+  <select id="selectTopStationCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select count(st.top_id) 
+	from sys_top st
+	left join (select * from sys_station where station_state=2) sp on sp.station_id=st.obj_id 
+	left join (select * from sys_images where img_state=1) si on si.img_id=sp.img_id 
+	left join sys_station_park spp on spp.station_id=sp.station_id 
+	left join (select * from sys_park where park_state=2) spa on spa.park_id=spp.park_id 
+	left join sys_station_label spl on spl.station_id=sp.station_id 
+	left join (select * from sys_label where label_state=1) sl on sl.label_id=spl.label_id 
+	where st.top_type=3 
+  </select>
+  <sql id="SQL_selectTopStationVoPageList" >
+		select st.top_id,sp.station_id,sp.station_title,si.img_id,si.img_path,spa.park_id,spa.park_name,sl.label_id,sl.label_name 
+		from sys_top st
+		left join (select * from sys_station where station_state=2) sp on sp.station_id=st.obj_id 
+		left join (select * from sys_images where img_state=1) si on si.img_id=sp.img_id 
+		left join sys_station_park spp on spp.station_id=sp.station_id 
+		left join (select * from sys_park where park_state=2) spa on spa.park_id=spp.park_id 
+		left join sys_station_label spl on spl.station_id=sp.station_id 
+		left join (select * from sys_label where label_state=1) sl on sl.label_id=spl.label_id 
+		where st.top_type=2
+	</sql>
+	<sql id="SQL_ID_selectTopStationVoPageList" >
+		top_id
+	</sql>
+  <select id="selectTopStationVoPageList" resultMap="TopStationResultMap" parameterType="java.util.Map">
+	SELECT TOP ${map.onePageCount}
+		*
+	FROM 
+	(
+		<include refid="SQL_selectTopStationVoPageList" />
+	)
+	 t
+	WHERE t.<include refid="SQL_ID_selectTopStationVoPageList" /> 
+	NOT IN
+	(
+		SELECT TOP (${map.onePageCount} * ${map.startIndex}) 
+		nt.<include refid="SQL_ID_selectTopStationVoPageList" /> 
+		FROM 
+		(
+			<include refid="SQL_selectTopStationVoPageList" />
+		) nt
+	)
+  </select>
+</mapper>

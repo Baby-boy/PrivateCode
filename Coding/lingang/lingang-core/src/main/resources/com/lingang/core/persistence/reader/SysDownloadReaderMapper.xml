@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysDownloadReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysDownload" >
+    <id column="download_id" property="downloadId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="file_title" property="fileTitle" jdbcType="VARCHAR" />
+    <result column="file_address" property="fileAddress" jdbcType="VARCHAR" />
+    <result column="file_type" property="fileType" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="file_update_time" property="fileUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="file_size" property="fileSize" jdbcType="DOUBLE" />
+    <result column="download_speed" property="downloadSpeed" jdbcType="DOUBLE" />
+    <result column="download_state" property="downloadState" jdbcType="INTEGER" />
+    <result column="file_id" property="fileId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lingang.api.domain.entity.SysDownload" extends="BaseResultMap" >
+    <result column="file_remark" property="fileRemark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ResultMapVo" type="com.lingang.api.domain.vo.SysDownloadVo" extends="ResultMapWithBLOBs" >
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    download_id, user_id, img_id, file_title, file_address, file_type, update_time, file_update_time, 
+    file_size, download_speed, download_state,file_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    file_remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_download
+    where download_id = #{downloadId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 我的下载 -->
+  <sql id="where_selectSysDownloadVoPageList">
+  	<where>
+  		sd.user_id=#{map.userId,jdbcType=INTEGER}
+  	</where>
+  </sql>
+  <!-- 关联表 -->
+  <sql id="relation_selectSysDownloadVoPageList">
+  	left join (select * from sys_images where img_state=1) si on si.img_id=sd.img_id
+  </sql>
+  <select id="selectSysDownloadVoCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select COUNT(DISTINCT sd.download_id)
+	from sys_download sd
+  	<include refid="where_selectSysDownloadVoPageList"/>
+  </select>
+  <select id="selectSysDownloadVoPageList" resultMap="ResultMapVo" parameterType="java.util.Map">
+	WITH cte AS(
+		select sd.download_id,
+			ROW_NUMBER() OVER(ORDER BY sd.download_id) AS rownum
+		from sys_download sd
+  		<include refid="where_selectSysDownloadVoPageList"/>
+		GROUP BY sd.download_id
+	)
+				 
+	select sd.*,si.img_path 
+	from
+		(select * from cte where rownum between 1 and 100) st 
+	left join sys_download sd on sd.download_id=st.download_id
+	<include refid="relation_selectSysDownloadVoPageList"/>
+  </select>
+</mapper>

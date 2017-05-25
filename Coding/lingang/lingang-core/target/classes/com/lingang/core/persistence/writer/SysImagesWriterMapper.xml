@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysImagesWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_images
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysImages" >
+    insert into sys_images (img_id, img_type, obj_id, 
+      img_path, img_link, img_remark, 
+      img_state, img_order)
+    values (#{imgId,jdbcType=INTEGER}, #{imgType,jdbcType=INTEGER}, #{objId,jdbcType=INTEGER}, 
+      #{imgPath,jdbcType=VARCHAR}, #{imgLink,jdbcType=VARCHAR}, #{imgRemark,jdbcType=VARCHAR}, 
+      #{imgState,jdbcType=INTEGER}, #{imgOrder,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective"  useGeneratedKeys="true" keyProperty="imgId" parameterType="com.lingang.api.domain.entity.SysImages" >
+    insert into sys_images
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="imgId != null" >
+        img_id,
+      </if>
+      <if test="imgType != null" >
+        img_type,
+      </if>
+      <if test="objId != null" >
+        obj_id,
+      </if>
+      <if test="imgPath != null" >
+        img_path,
+      </if>
+      <if test="imgLink != null" >
+        img_link,
+      </if>
+      <if test="imgRemark != null" >
+        img_remark,
+      </if>
+      <if test="imgState != null" >
+        img_state,
+      </if>
+      <if test="imgOrder != null" >
+        img_order,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="imgType != null" >
+        #{imgType,jdbcType=INTEGER},
+      </if>
+      <if test="objId != null" >
+        #{objId,jdbcType=INTEGER},
+      </if>
+      <if test="imgPath != null" >
+        #{imgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="imgLink != null" >
+        #{imgLink,jdbcType=VARCHAR},
+      </if>
+      <if test="imgRemark != null" >
+        #{imgRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="imgState != null" >
+        #{imgState,jdbcType=INTEGER},
+      </if>
+      <if test="imgOrder != null" >
+        #{imgOrder,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysImages" >
+    update sys_images
+    <set >
+      <if test="imgType != null" >
+        img_type = #{imgType,jdbcType=INTEGER},
+      </if>
+      <if test="objId != null" >
+        obj_id = #{objId,jdbcType=INTEGER},
+      </if>
+      <if test="imgPath != null" >
+        img_path = #{imgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="imgLink != null" >
+        img_link = #{imgLink,jdbcType=VARCHAR},
+      </if>
+      <if test="imgRemark != null" >
+        img_remark = #{imgRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="imgState != null" >
+        img_state = #{imgState,jdbcType=INTEGER},
+      </if>
+      <if test="imgOrder != null" >
+        img_order = #{imgOrder,jdbcType=INTEGER},
+      </if>
+    </set>
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysImages" >
+    update sys_images
+    set img_type = #{imgType,jdbcType=INTEGER},
+      obj_id = #{objId,jdbcType=INTEGER},
+      img_path = #{imgPath,jdbcType=VARCHAR},
+      img_link = #{imgLink,jdbcType=VARCHAR},
+      img_remark = #{imgRemark,jdbcType=VARCHAR},
+      img_state = #{imgState,jdbcType=INTEGER},
+      img_order = #{imgOrder,jdbcType=INTEGER}
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </update>
+</mapper>

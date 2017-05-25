@@ -1,0 +1,230 @@
+package com.lingang.core.service.impl;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.JsonResult;
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+import com.lingang.api.domain.entity.SysImages;
+import com.lingang.api.domain.entity.SysStation;
+import com.lingang.api.domain.para.SysStationPara;
+import com.lingang.api.domain.pfvo.SysStationPfVo;
+import com.lingang.api.domain.vo.SysNewAddMonthStatisticsVo;
+import com.lingang.api.domain.vo.SysNewAddQuarterStatisticsVo;
+import com.lingang.api.domain.vo.SysNewAddStatisticsVo;
+import com.lingang.api.domain.vo.SysStationVo;
+import com.lingang.api.service.SysStationService;
+import com.lingang.core.persistence.reader.SysImagesReaderMapper;
+import com.lingang.core.persistence.reader.SysStationReaderMapper;
+import com.lingang.core.persistence.writer.SysImagesWriterMapper;
+import com.lingang.core.persistence.writer.SysStationWriterMapper;
+
+@Service("sysStationService")
+public class SysStationServiceImpl implements SysStationService {
+	@Resource
+	private SysStationReaderMapper sysStationReaderMapper;
+	@Resource
+	private SysStationWriterMapper sysStationWriterMapper;
+	
+	@Resource
+	private SysImagesReaderMapper sysImagesReaderMapper;
+	
+	@Resource
+	private SysImagesWriterMapper sysImagesWriterMapper;
+
+	/**
+	 * 入驻列表
+	 */
+	@Override
+	public ServiceResult<Page<SysStationVo>> selectSysStationAll(Integer regionId, Integer regionTypeId,
+			List<Integer> industryIds, List<Integer> label_ids, Integer pageIndex, Integer pageSize) {
+		ServiceResult<Page<SysStationVo>> result = new ServiceResult<Page<SysStationVo>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("regionId", regionId);
+		map.put("regionTypeId", regionTypeId);
+		map.put("industryIds", industryIds);
+		map.put("label_ids", label_ids);
+		int countRecord = sysStationReaderMapper.selectSysStationCount(map);
+		Page<SysStationVo> page = new Page<SysStationVo>(pageIndex, countRecord, pageSize);
+		if (countRecord > 0) {
+			map.put("startIndex", page.getCurrentPage() - 1);
+			map.put("onePageCount", pageSize);
+			List<SysStationVo> list = sysStationReaderMapper.selectSysStationPageList(map);
+			page.setList(list);
+		}
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+
+	/**
+	 * 入驻详情
+	 */
+	@Override
+	public ServiceResult<SysStationVo> selectByPrimaryKey(Integer stationId) {
+		ServiceResult<SysStationVo> result = new ServiceResult<SysStationVo>();
+		SysStationVo sysStationVo = sysStationReaderMapper.selectByPrimaryKey(stationId);
+		result.setData(sysStationVo);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+	/********* 后台 ********/
+
+	@Override
+	public JsonResult selectAll(Map<String, Object> map) {
+			int countRecord = sysStationReaderMapper.querySysStationCount(map);
+			Integer pageIndex = (Integer) map.get("currentPage");
+			Integer pageSize = (Integer) map.get("onePageCount");
+			Page<SysStationVo> page = new Page<SysStationVo>(pageIndex, countRecord, pageSize);
+			if (countRecord > 0) {
+				map.put("startIndex", page.getCurrentPage()-1);
+				map.put("onePageCount", pageSize);
+				List<SysStationVo> list = sysStationReaderMapper.queryAllByPage(map);
+				page.setList(list);
+			}
+			JsonResult jsonResult = new JsonResult();
+			jsonResult.setData(page);
+			jsonResult.setStateCode(StateCodeConstant.SUCCESS_CODE);
+			return jsonResult;
+	}
+
+	@Override
+	public int insert(SysStation station) {
+
+		return sysStationWriterMapper.insert(station);
+	}
+
+	@Override
+	public int updateByPrimaryKey(SysStation station) {
+
+		return sysStationWriterMapper.updateByPrimaryKey(station);
+	}
+
+	@Override
+	public int deleteByPrimaryKey(Integer station_id) {
+
+		return sysStationWriterMapper.deleteByPrimaryKey(station_id);
+	}
+
+	@Override
+	public ServiceResult<Page<SysStationPfVo>> selectSysStationPfVoPageList(SysStationPara para) {
+		ServiceResult<Page<SysStationPfVo>> result = new ServiceResult<>();
+		// 查询条件
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("stationTitleKeywords", para.getStationTitleKeywords());
+		map.put("regionNameKeywords", para.getRegionNameKeywords());
+		map.put("stationState", para.getStationState());
+		int countRecord = sysStationReaderMapper.selectSysStationPfVoCount(map);
+		Page<SysStationPfVo> page = new Page<>(para.getCurrentPage(), countRecord, para.getOnePageCount());
+		if (countRecord > 0) {
+			// 分页条件
+			map.put("startIndex", page.getCurrentPage() - 1);
+			map.put("onePageCount", page.getOnePageCount());
+			List<SysStationPfVo> list = sysStationReaderMapper.selectSysStationPfVoPageList(map);
+			page.setList(list);
+		}
+		result.setData(page);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<List<SysNewAddStatisticsVo>> selectNewStationStatisticsList( ) {
+		ServiceResult<List<SysNewAddStatisticsVo>> result = new ServiceResult<List<SysNewAddStatisticsVo>>();
+		Map<String, Object> numMap = new HashMap<String, Object>();
+		List<SysNewAddStatisticsVo> newAddStatisticsVoList = new ArrayList<SysNewAddStatisticsVo>();
+		List<SysNewAddMonthStatisticsVo> sysNewAddMonthStatisticsVoList = sysStationReaderMapper.selectNewAddMonth();
+		List<SysNewAddQuarterStatisticsVo> sysNewAddQuarterStatisticsVoList = sysStationReaderMapper.selectNewAddQuarter();
+		if(sysNewAddMonthStatisticsVoList!=null&&sysNewAddMonthStatisticsVoList.size()>0){      //当按月查询有数据时，按季度也有数据
+			SysNewAddStatisticsVo SysNewAddStatisticsVo = new SysNewAddStatisticsVo();
+			SysNewAddStatisticsVo.setMonthList(sysNewAddMonthStatisticsVoList);
+			SysNewAddStatisticsVo.setQuarterList(sysNewAddQuarterStatisticsVoList);
+			newAddStatisticsVoList.add(SysNewAddStatisticsVo);
+		}
+		result.setDataMap(numMap);
+		result.setData(newAddStatisticsVoList);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Object> selectmoreStationStatisticsCount() {
+		ServiceResult<Object> result = new ServiceResult<Object>();
+		int allNum = sysStationReaderMapper.selectStationAllCount();
+		int moreNum = sysStationReaderMapper.selectmoreStationStatisticsCount();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("allNum", allNum);
+		map.put("moreNum", moreNum);
+		map.put("singleNum", allNum - moreNum);
+		result.setDataMap(map);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Object> updateStationDetails(SysStation station) {
+		ServiceResult<Object> result = new ServiceResult<>();
+		int info = sysStationWriterMapper.updateByPrimaryKeySelective(station);
+		if(station.getImgId() !=null){
+			SysImages minImg=sysImagesReaderMapper.selectByPrimaryKey(station.getImgId());
+			if(minImg.getImgState() !=1){
+				minImg.setImgState(1);
+				sysImagesWriterMapper.updateByPrimaryKeySelective(minImg);
+			}
+		}
+		if (info == 1) {
+			result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+			result.setMessage("更新成功!");
+		} else {
+			result.setStateCode(StateCodeConstant.ERROR_CODE);
+			result.setMessage("更新失败!");
+		}
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Object> addStationDetails(SysStation station) {
+		ServiceResult<Object> result = new ServiceResult<>();
+		int info = sysStationWriterMapper.insertSelective(station);
+		if (info == 1) {
+			result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+			result.setMessage("添加成功!");
+			
+			if(station.getImgId() !=null){
+				 SysImages minImg=new SysImages();
+				 minImg.setImgId(station.getImgId());
+				 minImg.setObjId(station.getStationId());
+				 minImg.setImgState(1);
+				 sysImagesWriterMapper.updateByPrimaryKeySelective(minImg);
+			 }
+		} else {
+			result.setStateCode(StateCodeConstant.ERROR_CODE);
+			result.setMessage("添加失败!");
+		}
+		return result;
+	}
+
+	// public static void main(String[] args) {
+	// String mStr=DateTimeUtils.format(new Date(), "MM");
+	// Integer mInt=Integer.valueOf(mStr);
+	// if(mInt>=1 && mInt<=3){
+	// mStr=DateTimeUtils.format(new Date(), "YYYY-")+"01-01";
+	// }else if(mInt>=4 && mInt<=6){
+	// mStr=DateTimeUtils.format(new Date(), "YYYY-")+"04-01";
+	// }else if(mInt>=7 && mInt<=9){
+	// mStr=DateTimeUtils.format(new Date(), "YYYY-")+"07-01";
+	// }else if(mInt>=10 && mInt<=12){
+	// mStr=DateTimeUtils.format(new Date(), "YYYY-")+"10-01";
+	// }
+	// System.out.println(mStr);
+	// System.out.println(DateTimeUtils.parseStr(mStr));
+	// }
+}

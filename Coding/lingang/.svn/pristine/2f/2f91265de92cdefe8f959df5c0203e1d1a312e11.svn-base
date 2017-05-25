@@ -1,0 +1,33 @@
+package com.lingang.api.domain.entity;
+
+public class SysStationUmanager {
+    private Integer stationUmanagerId;
+
+    private Integer umanagerId;
+
+    private Integer stationId;
+
+    public Integer getStationUmanagerId() {
+        return stationUmanagerId;
+    }
+
+    public void setStationUmanagerId(Integer stationUmanagerId) {
+        this.stationUmanagerId = stationUmanagerId;
+    }
+
+    public Integer getUmanagerId() {
+        return umanagerId;
+    }
+
+    public void setUmanagerId(Integer umanagerId) {
+        this.umanagerId = umanagerId;
+    }
+
+    public Integer getStationId() {
+        return stationId;
+    }
+
+    public void setStationId(Integer stationId) {
+        this.stationId = stationId;
+    }
+}

@@ -1,0 +1,32 @@
+package com.lingang.api.domain.para;
+
+public class SysLabelPara extends BasePara {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2382794666743670425L;
+
+	private Integer labelType;
+	
+	private Integer labelState;
+
+	public Integer getLabelType() {
+		return labelType;
+	}
+
+	public void setLabelType(Integer labelType) {
+		this.labelType = labelType;
+	}
+
+	public Integer getLabelState() {
+		return labelState;
+	}
+
+	public void setLabelState(Integer labelState) {
+		this.labelState = labelState;
+	}
+
+	
+	
+}

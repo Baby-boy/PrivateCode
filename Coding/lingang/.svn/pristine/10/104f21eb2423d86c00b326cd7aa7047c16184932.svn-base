@@ -1,0 +1,231 @@
+<div class="row" ng-controller="sysManagerPageListCtrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form class="form-inline">
+	               <div class="row m-t">
+						<div class="form-group col-xs-3">
+							<label for="subTime">账号:</label>
+							<input type="text" class="form-control" ng-model="para.managerAccount" placeholder="请输入登录账号.." >
+						</div>
+						<div class="form-group col-xs-3">
+							<label for="subTime">身份证号:</label>
+							<input type="text" class="form-control" ng-model="para.managerIdcard" placeholder="请输入身份证号.." >
+						</div>
+						<div class="form-group col-xs-2">
+							<label for="subTime">状态:</label>
+							<select class="form-control" id="managerState" ng-model="para.managerState" ng-change="getManagerList()">
+								<option value="">请选择</option>
+								<option value="1">正常</option>
+								<option value="2">异常</option>
+							</select>
+						</div>
+						<div class="col-md-1">
+							<button type="button" class="btn btn-primary" ng-click="getManagerList()">立即搜索</button>
+						</div>
+						<div class="col-md-3">
+							<button type="button" class="btn btn-primary" ng-click="showManagerAdd()">添加管理员 </button>
+						</div>
+					</div>
+					<div class="row m-t">
+						
+					</div>
+				  </form>
+ 		       <table class="table table-striped table-bordered table-hover dataTables-example">
+                      <tr>
+                            <th style="text-align: center;">序号</th>
+                            <th style="text-align: center;">账号</th>
+                            <th style="text-align: center;">名称</th>
+                            <th style="text-align: center;">联系方式</th>
+                            <th style="text-align: center;">身份证</th>
+                            <th style="text-align: center;">账号状态</th>
+                            <th style="text-align: center;">操作</th>
+                        </tr>
+                        <tr ng-repeat="manager in managerList">
+                            <td>{{$index + (currentPage-1)*onePageCount + 1}}</td>
+                            <td>{{manager.managerAccount}}</td>
+                            <td>{{manager.managerName}}</td>
+                            <td>{{manager.managerTel}}</td>
+                            <td>{{manager.managerIdcard}}</td>
+                            <td>
+                               <span ng-if="manager.managerState == 1" ng-style="manager.managerState == 1?{color:'blue'}:''">正常</span>
+                               <span ng-if="manager.managerState == 2" ng-style="manager.managerState == 2?{color:'red'}:''">异常</span>
+                            </td>
+                            <td class="center"><a href="" ng-click="showManagerDetails(manager)">管理</a>&nbsp;
+                        </tr>
+            	   </table>
+                   <div class="row m-t">
+					  <div class="col-md-10 col-md-offset-1">
+					  		<!--分页开始-->
+							<ndtech-pagination class conf="paginationConf"></ndtech-pagination>
+							<!--分页结束-->
+					  </div>
+				   </div>
+ 		       </div>
+            </div>
+        </div>
+    </div>
+    
+    
+	<!-- 管理员详情 -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	        <h4 class="modal-title" id="myModalLabel">管理员详情</h4>
+	      </div>
+	      <div class="modal-body">
+		  	<form class="form-horizontal" role="form">
+			 
+			  <div class="form-group">
+			    <label for="managerAccount" class="col-sm-2 control-label">账号</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="managerAccount" placeholder="" ng-model="manager.managerAccount">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="managerPassword" class="col-sm-2 control-label">密码</label>
+			    <div class="col-sm-6">
+			      <input type="password" class="form-control" id="managerPassword" placeholder="" ng-model="manager.managerPassword">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="managerName" class="col-sm-2 control-label">名称</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="managerName" placeholder="" ng-model="manager.managerName">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="managerTel" class="col-sm-2 control-label">联系方式</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="managerTel" placeholder="" ng-model="manager.managerTel">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="managerIdcard" class="col-sm-2 control-label">身份证</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="managerIdcard" placeholder="" ng-model="manager.managerIdcard">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="managerAddress" class="col-sm-2 control-label">地址</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="managerAddress" placeholder="" ng-model="manager.managerAddress">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="managerEmail" class="col-sm-2 control-label">Email</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="managerEmail" placeholder="" ng-model="manager.managerEmail">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="managerState" class="col-sm-2 control-label">状态</label>
+			      <div class="col-sm-3">
+			      	<select class="form-control" ng-model="manager.managerState">
+					  <option  value="1">正常</option>
+			      	  <option  value="2">异常</option>
+					</select>
+			      </div>
+			    </div>
+			</form>
+	      </div>
+	      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" style="margin-bottom: 0;" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" ng-click="updateSysManager()">保存</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	<!-- 添加管理员 -->
+	<div class="modal fade" id="managerAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	        <h4 class="modal-title" id="myModalLabel">添加管理员</h4>
+	      </div>
+	      <div class="modal-body">
+		  	<form class="form-horizontal" role="form">
+			 
+			  <div class="form-group">
+			    <label for="managerAccount" class="col-sm-2 control-label">账号</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="managerAccountAdd" placeholder="" ng-model="managerAdd.managerAccount">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="managerPassword" class="col-sm-2 control-label">密码</label>
+			    <div class="col-sm-6">
+			      <input type="password" class="form-control" id="managerPasswordAdd" placeholder="" ng-model="managerAdd.managerPassword">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="managerName" class="col-sm-2 control-label">名称</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="managerNameAdd" placeholder="" ng-model="managerAdd.managerName">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="managerTel" class="col-sm-2 control-label">联系方式</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="managerTelAdd" placeholder="" ng-model="managerAdd.managerTel">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="managerIdcard" class="col-sm-2 control-label">身份证</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="managerIdcardAdd" placeholder="" ng-model="managerAdd.managerIdcard">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="managerAddress" class="col-sm-2 control-label">地址</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="managerAddressAdd" placeholder="" ng-model="managerAdd.managerAddress">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="managerEmail" class="col-sm-2 control-label">Email</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="managerEmailAdd" placeholder="" ng-model="managerAdd.managerEmail">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="managerState" class="col-sm-2 control-label">状态</label>
+			      <div class="col-sm-3">
+			      	<select id="managerStateAdd" class="form-control" ng-model="managerAdd.managerState">
+					  <option  value="1">正常</option>
+			      	  <option  value="2">异常</option>
+					</select>
+			      </div>
+			    </div>
+			</form>
+	      </div>
+	      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" style="margin-bottom: 0;" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" ng-click="addSysManager()">保存</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+</div>
+

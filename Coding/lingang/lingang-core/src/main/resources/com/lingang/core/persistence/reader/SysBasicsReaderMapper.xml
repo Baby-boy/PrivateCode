@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysBasicsReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysBasics" >
+    <id column="basics_id" property="basicsId" jdbcType="INTEGER" />
+    <result column="basics_type" property="basicsType" jdbcType="INTEGER" />
+    <result column="basics_name" property="basicsName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="basics_state" property="basicsState" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="BaseResultMapVo" type="com.lingang.api.domain.vo.SysBasicsVo" >
+    <id column="basics_id" property="basicsId" jdbcType="INTEGER" />
+    <result column="basics_name" property="basicsName" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    basics_id, basics_type, basics_name, create_time, update_time, basics_state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_basics
+    where basics_id = #{basicsId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 后台 -->
+  <sql id="where_selectSysBasicsPageList">
+  	<where>
+		 1=1
+		 <if test="map.basicsType !=null and map.basicsType !=''">
+  			and sb.basics_type = #{map.basicsType,jdbcType=INTEGER}
+  		</if>
+  		<if test="map.basicsState !=null and map.basicsState !=''">
+  			and sb.basics_state = #{map.basicsState,jdbcType=INTEGER}
+  		</if>
+	</where>
+  </sql>
+  <select id="selectSysBasicsCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select COUNT(DISTINCT sb.basics_id)
+	from sys_basics sb
+    <include refid="where_selectSysBasicsPageList" /> 
+  </select>
+  <select id="selectSysBasicsPageList" resultMap="BaseResultMap" parameterType="java.util.Map">
+	WITH cte AS(
+		select sb.basics_id,
+			ROW_NUMBER() OVER(ORDER BY sb.create_time DESC) AS rownum
+		from sys_basics sb
+		<include refid="where_selectSysBasicsPageList" /> 
+		GROUP BY sb.basics_id,sb.create_time
+	)
+
+	select sb.basics_id,sb.basics_type,sb.basics_name,sb.create_time,sb.update_time,sb.basics_state
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st 
+	left join sys_basics sb on sb.basics_id=st.basics_id
+  </select>
+  
+  <select id="selectSysBasics" resultMap="BaseResultMap" >
+   select * from sys_basics where basics_state=2
+  </select>
+  
+  <select id="selectBasicsListByBasicsType" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select 
+    <include refid="Base_Column_List" />
+    from sys_basics
+    where basics_type = #{basicsType,jdbcType=INTEGER} and basics_state=2
+  </select>
+  
+  <select id="selectTypeServiceStatisticsList" resultMap="BaseResultMapVo" >
+	select sb.basics_id,sb.basics_name,count (ss.service_id) num
+	from
+		sys_basics sb
+	left join (select *from sys_service where service_state=2) ss on ss.basics_id = sb.basics_id
+	where
+		sb.basics_type = 1 and sb.basics_state = 2
+	group by
+		sb.basics_id,sb.basics_name
+  </select>
+  
+  <select id="selectTypePublicStatisticsList" resultMap="BaseResultMapVo" >
+	select sb.basics_id,sb.basics_name,count (sp.public_id) num
+	from
+		sys_basics sb
+	left join  (select * from sys_public where public_state=2) sp on sp.basics_id = sb.basics_id
+	where
+		sb.basics_type = 3 and sb.basics_state = 2
+	group by
+		sb.basics_id,sb.basics_name
+  </select>
+</mapper>

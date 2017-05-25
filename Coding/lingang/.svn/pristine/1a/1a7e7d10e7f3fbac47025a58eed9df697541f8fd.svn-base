@@ -1,0 +1,105 @@
+package com.lingang.core.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+import com.lingang.api.domain.entity.SysMessage;
+import com.lingang.api.domain.entity.SysReply;
+import com.lingang.api.domain.para.SysMessagePara;
+import com.lingang.api.domain.pfvo.SysMessagePfvo;
+import com.lingang.api.domain.vo.SysReplyVo;
+import com.lingang.api.service.SysMessageService;
+import com.lingang.core.persistence.reader.SysMessageReaderMapper;
+import com.lingang.core.persistence.reader.SysReplyReaderMapper;
+
+@Service("sysMessageService")
+public class SysMessageServiceImpl implements SysMessageService {
+	
+	@Resource
+	private SysMessageReaderMapper sysMessageReaderMapper;
+	
+	@Resource
+	private SysReplyReaderMapper sysReplyReaderMapper;
+
+	@Override
+	public ServiceResult<Page<SysMessage>> selectMessagePageList(Integer pageIndex, Integer pageSize, Integer messageType) {
+		ServiceResult<Page<SysMessage>> result=new ServiceResult<Page<SysMessage>>();
+		// 查询条件
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("messageType", messageType);
+		int countRecord = sysMessageReaderMapper.selectMessageCount(map);
+		Page<SysMessage> page=new Page<>(pageIndex, countRecord, pageSize);
+		if (countRecord > 0) {
+			map.put("startIndex", page.getStartIndex());
+			map.put("onePageCount", pageSize);
+			List<SysMessage> list=sysMessageReaderMapper.selectMessagePageList(map);
+			page.setList(list);
+		}
+		// 返回信息
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<SysReplyVo> selectSysReply(Integer messageId) {
+		ServiceResult<SysReplyVo> result=new ServiceResult<SysReplyVo>();
+		SysReplyVo replyVo=sysReplyReaderMapper.selectSysReplyByMessageId(messageId);
+		// 返回信息
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(replyVo);
+		return result;
+	}
+
+	/**
+	 * 信息纠错/意见反馈列表（后台）
+	 */
+	@Override
+	public ServiceResult<Page<SysMessagePfvo>> selectMessageAll(SysMessagePara para) {
+		ServiceResult<Page<SysMessagePfvo>> result=new ServiceResult<Page<SysMessagePfvo>>();
+		Integer messageType=para.getMessageType();
+		// 查询条件
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("messageType", messageType);
+		map.put("linkType", para.getLinkType());
+		int countRecord = sysMessageReaderMapper.selectMessageCount(map);
+		Page<SysMessagePfvo> page=new Page<SysMessagePfvo>(para.getCurrentPage(),countRecord,para.getOnePageCount());
+		if (countRecord > 0) {
+			map.put("startIndex", page.getStartIndex());
+			map.put("onePageCount", para.getOnePageCount());
+			List<SysMessagePfvo> list=sysMessageReaderMapper.selectMessageAll(map);
+			page.setList(list);
+		}
+		// 返回信息
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+	/**
+	 * 修改回复状态
+	 */
+	@Override
+	public ServiceResult<Integer> updateMessageType(Integer messageType) {
+		ServiceResult<Integer> result=new ServiceResult<Integer>();
+		int i=sysMessageReaderMapper.updateMessageByKey(messageType);
+		if(i==1){
+			//返回信息
+			result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+			result.setMessage("修改成功");
+			result.setData(messageType);
+		}else{
+			result.setMessage(StateCodeConstant.ERROR_CODE);
+			result.setMessage("修改失败");
+		}
+		return result;
+	}
+
+}

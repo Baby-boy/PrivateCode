@@ -1,0 +1,31 @@
+package com.lingang.api.service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.vo.SysServiceVo;
+
+public interface SysServiceService {
+
+	/**
+	 * @Description: (服务机构列表)
+	 * @param pageIndex
+	 * @param pageSize
+	 * @param regionId
+	 * @param basicsId
+	 * @return
+	 * @author lgl(lgl1012dream@foxmail.com)
+	 * @date: 2016年12月5日 下午6:33:44
+	 */
+	ServiceResult<Page<SysServiceVo>> selectServicePageList(Integer pageIndex,Integer regionTypeId, Integer pageSize, Integer regionId,
+			Integer basicsId);
+	
+	/**
+	* @Description: (服务机构详情)
+	* @param serviceId
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月5日 下午8:27:28
+	 */
+	ServiceResult<SysServiceVo> selectServiceByServiceId(Integer serviceId);
+	
+}

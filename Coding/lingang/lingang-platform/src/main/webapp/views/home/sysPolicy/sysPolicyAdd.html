@@ -1,0 +1,89 @@
+<link href="css/layout.css" rel="stylesheet">
+<link href="library/umeditor/themes/default/css/umeditor.css" media="all" rel="stylesheet" type="text/css" />
+<div class="row" ng-controller="sysPolicyMsg">
+	<div class="col-lg-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-content">
+				<form class="form-horizontal" role="form">
+
+					<div class="form-group">
+					<input type="hidden" ng-model="policy.policyId"/>
+					<!-- <input type="text" ng-model="policy.imgId"/> -->
+						<label for="policyTitle" class="col-sm-2 control-label">政策标题</label>
+						<div class="col-sm-3">
+							<input type="policyTitle" class="form-control" id="policyTitle"
+								placeholder="" ng-model="policy.policyTitle">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="policyIsup" class="col-sm-2 control-label">是否发布</label>
+						<div class="col-sm-3">
+							<select type="policyState" class="form-control" id="policyState" placeholder="" ng-model="policy.policyState">
+								<option value="1">上传</option>
+								<option value="2">发布</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="policyContent" class="col-md-2 control-label">政策图片</label>
+						<div class="col-md-8">
+							<div class="white-bg mt-10 p-10">
+								<div class="col-lg-6">
+									<div class="img-load">
+										<img ng-src="{{imgSrcMax}}" />
+									</div>
+								</div>
+								<div class="col-lg-6 m-t-xs">
+									<div>
+										<div type="button" class="btn btn-w-m btn-primary file-btn">
+											<div file-input="fileMax" id="fileMax"
+												on-change="previewImageMax()"
+												accept="image/jpg,image/jpeg,image/png"></div>
+											浏览
+										</div>
+									</div>
+
+									<div class="mt-10">
+										<button type="button" class="btn btn-w-m btn-primary"
+											ng-click="uploadImageMax('fileMax')">上传</button>
+									</div>
+									<div class="row">
+										<div class="mt-10 col-md-6">
+											<!-- <input ng-model="home.url" type="text" class="form-control" placeholder="�༭����(�Ǳ���)"/> -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="policyContent" class="col-sm-2 control-label">政策内容</label>
+						<div class="col-sm-8">
+							<textarea class="form-control" name="policyContent"
+								id="policyContent" ng-model="policy.policyContent"></textarea>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-2"></div>
+						<div class="col-sm-1">
+							<button type="button" class="btn btn-primary"
+								ng-click="addPolicyDetails()">确认保存</button>
+						</div>
+						<div class="col-sm-1">
+							<button type="button" class="btn btn-primary"
+								onclick="javascript:history.go(-1)">返会列表</button>
+						</div>
+						<!-- 					    <div class="col-sm-1">
+					      <button type="button" class="btn btn-primary" ng-click="delNewsMsg()">删除</button>
+					    </div> -->
+					</div>
+				</form>
+			</div>
+			<div></div>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdGoodsPicMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdGoodsPic" >
+    <id column="pic_id" property="picId" jdbcType="INTEGER" />
+    <id column="type" property="type" jdbcType="BIT" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="pic_sort" property="picSort" jdbcType="INTEGER" />
+    <result column="pic_path" property="picPath" jdbcType="VARCHAR" />
+    <result column="is_default" property="isDefault" jdbcType="TINYINT" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pic_id, type, goods_id, store_id, pic_sort, pic_path, is_default, created_at, updated_at
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.yd.dby.app.entity.YdGoodsPicKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_goods_pic
+    where pic_id = #{picId,jdbcType=INTEGER}
+      and type = #{type,jdbcType=BIT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.yd.dby.app.entity.YdGoodsPicKey" >
+    delete from yd_goods_pic
+    where pic_id = #{picId,jdbcType=INTEGER}
+      and type = #{type,jdbcType=BIT}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdGoodsPic" >
+    insert into yd_goods_pic (pic_id, type, goods_id, 
+      store_id, pic_sort, pic_path, 
+      is_default, created_at, updated_at
+      )
+    values (#{picId,jdbcType=INTEGER}, #{type,jdbcType=BIT}, #{goodsId,jdbcType=INTEGER}, 
+      #{storeId,jdbcType=INTEGER}, #{picSort,jdbcType=INTEGER}, #{picPath,jdbcType=VARCHAR}, 
+      #{isDefault,jdbcType=TINYINT}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdGoodsPic" >
+    insert into yd_goods_pic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="picId != null" >
+        pic_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="picSort != null" >
+        pic_sort,
+      </if>
+      <if test="picPath != null" >
+        pic_path,
+      </if>
+      <if test="isDefault != null" >
+        is_default,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="updatedAt != null" >
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="picId != null" >
+        #{picId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=BIT},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="picSort != null" >
+        #{picSort,jdbcType=INTEGER},
+      </if>
+      <if test="picPath != null" >
+        #{picPath,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdGoodsPic" >
+    update yd_goods_pic
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="picSort != null" >
+        pic_sort = #{picSort,jdbcType=INTEGER},
+      </if>
+      <if test="picPath != null" >
+        pic_path = #{picPath,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null" >
+        is_default = #{isDefault,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pic_id = #{picId,jdbcType=INTEGER}
+      and type = #{type,jdbcType=BIT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdGoodsPic" >
+    update yd_goods_pic
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
+      pic_sort = #{picSort,jdbcType=INTEGER},
+      pic_path = #{picPath,jdbcType=VARCHAR},
+      is_default = #{isDefault,jdbcType=TINYINT},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+    where pic_id = #{picId,jdbcType=INTEGER}
+      and type = #{type,jdbcType=BIT}
+  </update>
+</mapper>

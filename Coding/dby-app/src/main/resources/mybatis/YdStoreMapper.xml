@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdStoreMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdStore" >
+    <id column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="store_is_available" property="storeIsAvailable" jdbcType="BIT" />
+    <result column="store_is_self" property="storeIsSelf" jdbcType="BIT" />
+    <result column="store_is_brand" property="storeIsBrand" jdbcType="BIT" />
+    <result column="store_is_verify" property="storeIsVerify" jdbcType="BIT" />
+    <result column="store_classify1" property="storeClassify1" jdbcType="INTEGER" />
+    <result column="store_classify2" property="storeClassify2" jdbcType="INTEGER" />
+    <result column="store_classify3" property="storeClassify3" jdbcType="INTEGER" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="store_summary" property="storeSummary" jdbcType="VARCHAR" />
+    <result column="store_logo" property="storeLogo" jdbcType="VARCHAR" />
+    <result column="store_cover" property="storeCover" jdbcType="VARCHAR" />
+    <result column="store_telephone" property="storeTelephone" jdbcType="VARCHAR" />
+    <result column="store_mobile" property="storeMobile" jdbcType="VARCHAR" />
+    <result column="store_qq" property="storeQq" jdbcType="VARCHAR" />
+    <result column="store_address" property="storeAddress" jdbcType="VARCHAR" />
+    <result column="store_longitude" property="storeLongitude" jdbcType="DOUBLE" />
+    <result column="store_latitude" property="storeLatitude" jdbcType="DOUBLE" />
+    <result column="store_avg_score" property="storeAvgScore" jdbcType="REAL" />
+    <result column="store_total_fav" property="storeTotalFav" jdbcType="INTEGER" />
+    <result column="store_keywords" property="storeKeywords" jdbcType="VARCHAR" />
+    <result column="store_description" property="storeDescription" jdbcType="VARCHAR" />
+    <result column="store_open_time" property="storeOpenTime" jdbcType="TIMESTAMP" />
+    <result column="store_created_time" property="storeCreatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yd.dby.app.entity.YdStoreWithBLOBs" extends="BaseResultMap" >
+    <result column="store_verify_message" property="storeVerifyMessage" jdbcType="LONGVARCHAR" />
+    <result column="store_banner" property="storeBanner" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    store_id, user_id, store_is_available, store_is_self, store_is_brand, store_is_verify, 
+    store_classify1, store_classify2, store_classify3, store_name, store_summary, store_logo, 
+    store_cover, store_telephone, store_mobile, store_qq, store_address, store_longitude, 
+    store_latitude, store_avg_score, store_total_fav, store_keywords, store_description, 
+    store_open_time, store_created_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    store_verify_message, store_banner
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from yd_store
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_store
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdStoreWithBLOBs" >
+    insert into yd_store (store_id, user_id, store_is_available, 
+      store_is_self, store_is_brand, store_is_verify, 
+      store_classify1, store_classify2, store_classify3, 
+      store_name, store_summary, store_logo, 
+      store_cover, store_telephone, store_mobile, 
+      store_qq, store_address, store_longitude, 
+      store_latitude, store_avg_score, store_total_fav, 
+      store_keywords, store_description, store_open_time, 
+      store_created_time, store_verify_message, 
+      store_banner)
+    values (#{storeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{storeIsAvailable,jdbcType=BIT}, 
+      #{storeIsSelf,jdbcType=BIT}, #{storeIsBrand,jdbcType=BIT}, #{storeIsVerify,jdbcType=BIT}, 
+      #{storeClassify1,jdbcType=INTEGER}, #{storeClassify2,jdbcType=INTEGER}, #{storeClassify3,jdbcType=INTEGER}, 
+      #{storeName,jdbcType=VARCHAR}, #{storeSummary,jdbcType=VARCHAR}, #{storeLogo,jdbcType=VARCHAR}, 
+      #{storeCover,jdbcType=VARCHAR}, #{storeTelephone,jdbcType=VARCHAR}, #{storeMobile,jdbcType=VARCHAR}, 
+      #{storeQq,jdbcType=VARCHAR}, #{storeAddress,jdbcType=VARCHAR}, #{storeLongitude,jdbcType=DOUBLE}, 
+      #{storeLatitude,jdbcType=DOUBLE}, #{storeAvgScore,jdbcType=REAL}, #{storeTotalFav,jdbcType=INTEGER}, 
+      #{storeKeywords,jdbcType=VARCHAR}, #{storeDescription,jdbcType=VARCHAR}, #{storeOpenTime,jdbcType=TIMESTAMP}, 
+      #{storeCreatedTime,jdbcType=TIMESTAMP}, #{storeVerifyMessage,jdbcType=LONGVARCHAR}, 
+      #{storeBanner,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdStoreWithBLOBs" >
+    insert into yd_store
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="storeIsAvailable != null" >
+        store_is_available,
+      </if>
+      <if test="storeIsSelf != null" >
+        store_is_self,
+      </if>
+      <if test="storeIsBrand != null" >
+        store_is_brand,
+      </if>
+      <if test="storeIsVerify != null" >
+        store_is_verify,
+      </if>
+      <if test="storeClassify1 != null" >
+        store_classify1,
+      </if>
+      <if test="storeClassify2 != null" >
+        store_classify2,
+      </if>
+      <if test="storeClassify3 != null" >
+        store_classify3,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="storeSummary != null" >
+        store_summary,
+      </if>
+      <if test="storeLogo != null" >
+        store_logo,
+      </if>
+      <if test="storeCover != null" >
+        store_cover,
+      </if>
+      <if test="storeTelephone != null" >
+        store_telephone,
+      </if>
+      <if test="storeMobile != null" >
+        store_mobile,
+      </if>
+      <if test="storeQq != null" >
+        store_qq,
+      </if>
+      <if test="storeAddress != null" >
+        store_address,
+      </if>
+      <if test="storeLongitude != null" >
+        store_longitude,
+      </if>
+      <if test="storeLatitude != null" >
+        store_latitude,
+      </if>
+      <if test="storeAvgScore != null" >
+        store_avg_score,
+      </if>
+      <if test="storeTotalFav != null" >
+        store_total_fav,
+      </if>
+      <if test="storeKeywords != null" >
+        store_keywords,
+      </if>
+      <if test="storeDescription != null" >
+        store_description,
+      </if>
+      <if test="storeOpenTime != null" >
+        store_open_time,
+      </if>
+      <if test="storeCreatedTime != null" >
+        store_created_time,
+      </if>
+      <if test="storeVerifyMessage != null" >
+        store_verify_message,
+      </if>
+      <if test="storeBanner != null" >
+        store_banner,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="storeIsAvailable != null" >
+        #{storeIsAvailable,jdbcType=BIT},
+      </if>
+      <if test="storeIsSelf != null" >
+        #{storeIsSelf,jdbcType=BIT},
+      </if>
+      <if test="storeIsBrand != null" >
+        #{storeIsBrand,jdbcType=BIT},
+      </if>
+      <if test="storeIsVerify != null" >
+        #{storeIsVerify,jdbcType=BIT},
+      </if>
+      <if test="storeClassify1 != null" >
+        #{storeClassify1,jdbcType=INTEGER},
+      </if>
+      <if test="storeClassify2 != null" >
+        #{storeClassify2,jdbcType=INTEGER},
+      </if>
+      <if test="storeClassify3 != null" >
+        #{storeClassify3,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeSummary != null" >
+        #{storeSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="storeLogo != null" >
+        #{storeLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="storeCover != null" >
+        #{storeCover,jdbcType=VARCHAR},
+      </if>
+      <if test="storeTelephone != null" >
+        #{storeTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="storeMobile != null" >
+        #{storeMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="storeQq != null" >
+        #{storeQq,jdbcType=VARCHAR},
+      </if>
+      <if test="storeAddress != null" >
+        #{storeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="storeLongitude != null" >
+        #{storeLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="storeLatitude != null" >
+        #{storeLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="storeAvgScore != null" >
+        #{storeAvgScore,jdbcType=REAL},
+      </if>
+      <if test="storeTotalFav != null" >
+        #{storeTotalFav,jdbcType=INTEGER},
+      </if>
+      <if test="storeKeywords != null" >
+        #{storeKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="storeDescription != null" >
+        #{storeDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="storeOpenTime != null" >
+        #{storeOpenTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeCreatedTime != null" >
+        #{storeCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeVerifyMessage != null" >
+        #{storeVerifyMessage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="storeBanner != null" >
+        #{storeBanner,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdStoreWithBLOBs" >
+    update yd_store
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="storeIsAvailable != null" >
+        store_is_available = #{storeIsAvailable,jdbcType=BIT},
+      </if>
+      <if test="storeIsSelf != null" >
+        store_is_self = #{storeIsSelf,jdbcType=BIT},
+      </if>
+      <if test="storeIsBrand != null" >
+        store_is_brand = #{storeIsBrand,jdbcType=BIT},
+      </if>
+      <if test="storeIsVerify != null" >
+        store_is_verify = #{storeIsVerify,jdbcType=BIT},
+      </if>
+      <if test="storeClassify1 != null" >
+        store_classify1 = #{storeClassify1,jdbcType=INTEGER},
+      </if>
+      <if test="storeClassify2 != null" >
+        store_classify2 = #{storeClassify2,jdbcType=INTEGER},
+      </if>
+      <if test="storeClassify3 != null" >
+        store_classify3 = #{storeClassify3,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeSummary != null" >
+        store_summary = #{storeSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="storeLogo != null" >
+        store_logo = #{storeLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="storeCover != null" >
+        store_cover = #{storeCover,jdbcType=VARCHAR},
+      </if>
+      <if test="storeTelephone != null" >
+        store_telephone = #{storeTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="storeMobile != null" >
+        store_mobile = #{storeMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="storeQq != null" >
+        store_qq = #{storeQq,jdbcType=VARCHAR},
+      </if>
+      <if test="storeAddress != null" >
+        store_address = #{storeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="storeLongitude != null" >
+        store_longitude = #{storeLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="storeLatitude != null" >
+        store_latitude = #{storeLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="storeAvgScore != null" >
+        store_avg_score = #{storeAvgScore,jdbcType=REAL},
+      </if>
+      <if test="storeTotalFav != null" >
+        store_total_fav = #{storeTotalFav,jdbcType=INTEGER},
+      </if>
+      <if test="storeKeywords != null" >
+        store_keywords = #{storeKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="storeDescription != null" >
+        store_description = #{storeDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="storeOpenTime != null" >
+        store_open_time = #{storeOpenTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeCreatedTime != null" >
+        store_created_time = #{storeCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeVerifyMessage != null" >
+        store_verify_message = #{storeVerifyMessage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="storeBanner != null" >
+        store_banner = #{storeBanner,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yd.dby.app.entity.YdStoreWithBLOBs" >
+    update yd_store
+    set user_id = #{userId,jdbcType=INTEGER},
+      store_is_available = #{storeIsAvailable,jdbcType=BIT},
+      store_is_self = #{storeIsSelf,jdbcType=BIT},
+      store_is_brand = #{storeIsBrand,jdbcType=BIT},
+      store_is_verify = #{storeIsVerify,jdbcType=BIT},
+      store_classify1 = #{storeClassify1,jdbcType=INTEGER},
+      store_classify2 = #{storeClassify2,jdbcType=INTEGER},
+      store_classify3 = #{storeClassify3,jdbcType=INTEGER},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      store_summary = #{storeSummary,jdbcType=VARCHAR},
+      store_logo = #{storeLogo,jdbcType=VARCHAR},
+      store_cover = #{storeCover,jdbcType=VARCHAR},
+      store_telephone = #{storeTelephone,jdbcType=VARCHAR},
+      store_mobile = #{storeMobile,jdbcType=VARCHAR},
+      store_qq = #{storeQq,jdbcType=VARCHAR},
+      store_address = #{storeAddress,jdbcType=VARCHAR},
+      store_longitude = #{storeLongitude,jdbcType=DOUBLE},
+      store_latitude = #{storeLatitude,jdbcType=DOUBLE},
+      store_avg_score = #{storeAvgScore,jdbcType=REAL},
+      store_total_fav = #{storeTotalFav,jdbcType=INTEGER},
+      store_keywords = #{storeKeywords,jdbcType=VARCHAR},
+      store_description = #{storeDescription,jdbcType=VARCHAR},
+      store_open_time = #{storeOpenTime,jdbcType=TIMESTAMP},
+      store_created_time = #{storeCreatedTime,jdbcType=TIMESTAMP},
+      store_verify_message = #{storeVerifyMessage,jdbcType=LONGVARCHAR},
+      store_banner = #{storeBanner,jdbcType=LONGVARCHAR}
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdStore" >
+    update yd_store
+    set user_id = #{userId,jdbcType=INTEGER},
+      store_is_available = #{storeIsAvailable,jdbcType=BIT},
+      store_is_self = #{storeIsSelf,jdbcType=BIT},
+      store_is_brand = #{storeIsBrand,jdbcType=BIT},
+      store_is_verify = #{storeIsVerify,jdbcType=BIT},
+      store_classify1 = #{storeClassify1,jdbcType=INTEGER},
+      store_classify2 = #{storeClassify2,jdbcType=INTEGER},
+      store_classify3 = #{storeClassify3,jdbcType=INTEGER},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      store_summary = #{storeSummary,jdbcType=VARCHAR},
+      store_logo = #{storeLogo,jdbcType=VARCHAR},
+      store_cover = #{storeCover,jdbcType=VARCHAR},
+      store_telephone = #{storeTelephone,jdbcType=VARCHAR},
+      store_mobile = #{storeMobile,jdbcType=VARCHAR},
+      store_qq = #{storeQq,jdbcType=VARCHAR},
+      store_address = #{storeAddress,jdbcType=VARCHAR},
+      store_longitude = #{storeLongitude,jdbcType=DOUBLE},
+      store_latitude = #{storeLatitude,jdbcType=DOUBLE},
+      store_avg_score = #{storeAvgScore,jdbcType=REAL},
+      store_total_fav = #{storeTotalFav,jdbcType=INTEGER},
+      store_keywords = #{storeKeywords,jdbcType=VARCHAR},
+      store_description = #{storeDescription,jdbcType=VARCHAR},
+      store_open_time = #{storeOpenTime,jdbcType=TIMESTAMP},
+      store_created_time = #{storeCreatedTime,jdbcType=TIMESTAMP}
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 所有查询 -->
+  <!-- 店铺分类(筛选) -->
+  <resultMap type="com.yd.dby.app.entity.vo.StoreClassifyVo" id="StoreClassifyVoResultMap">
+  	<result column="sc_id_one" property="scIdOne" jdbcType="INTEGER" />
+  	<result column="title_one" property="titleOne" jdbcType="VARCHAR" />
+  	<result column="pid_one" property="pidOne" jdbcType="INTEGER" />
+  	
+  	<collection property="twoClassify" ofType="com.yd.dby.app.entity.vo.StoreClassifyTwoVo">
+		<result column="sc_id_two" property="scIdTwo" jdbcType="INTEGER" />
+	  	<result column="title_two" property="titleTwo" jdbcType="VARCHAR" />
+	  	<result column="pid_two" property="pidTwo" jdbcType="INTEGER" />
+  	</collection>
+  </resultMap>
+  
+  <!-- 查询店铺分类 -->
+  <select id="selectStoreClassifyList" resultMap="StoreClassifyVoResultMap" parameterType="java.lang.Integer">
+  	select 
+  		ysgc.title title_one,ysgc.pid pid_one,ysgc.sc_id sc_id_one,
+		ysgc2.sc_id sc_id_two,ysgc2.title title_two,ysgc2.pid pid_two
+	from 
+		yd_store_goods_classify ysgc
+	left join (select sc_id,title,pid from yd_store_goods_classify where pid>0) ysgc2  on ysgc2.pid=ysgc.sc_id
+	where 
+		ysgc.store_id=#{storeId,jdbcType=INTEGER} and ysgc.pid=0
+	order by ysgc.sort desc
+  </select>
+  
+  <!-- 店铺总数 -->
+  <select id="selectStorePageListCount" resultType="java.lang.Integer" parameterType="StorePara">
+  	select
+		count(distinct store_id)
+	from
+		yd_store
+	where store_is_available=1
+	<if test="keywords !=null and keywords !=''">
+		and store_name like '%${keywords}%'
+	</if>
+  </select>
+  
+  <!-- 店铺列表 -->
+  <select id="selectStorePageList" resultType="StoreVo" parameterType="StorePara">
+  	select
+		yf.fav_id,ys.store_id,ys.store_name,ys.store_cover,ys.store_avg_score,ys.store_total_fav,ys.store_description,ys.store_banner,
+		ROUND(
+			ASIN(SQRT(
+				POW(SIN((#{latitude} * PI() / 180 - ys.store_latitude * PI() / 180) / 2),2) + 
+					COS(#{latitude} * PI() / 180) * COS(ys.store_latitude * PI() / 180) * 
+				POW(SIN((#{longitude} * PI() / 180 - ys.store_longitude * PI() / 180) / 2),2)
+					)
+			) * 6378.138 * 2 * 1000
+		) AS distance
+	from
+		yd_store ys
+	left join (select fav_fid,fav_id from yd_favorite where fav_type=1 and user_id=#{userId}) yf on yf.fav_fid=ys.store_id 
+	where ys.store_is_available=1 
+	<if test="keywords !=null and keywords !=''">
+		and ys.store_name like '%${keywords}%'
+	</if>
+	order by distance
+	limit #{startIndex},#{onePageCount}
+  </select>
+  
+  <!-- 查询店铺详情 -->
+  <select id="selectStoreDetails" resultType="StoreVo" parameterType="StorePara">
+  	select 
+  		ys.store_banner,ys.store_name,ys.store_avg_score,ys.store_total_fav,ys.store_description,
+  		ys.store_telephone,ys.store_mobile,ys.store_qq,ys.store_address,yf.fav_id
+	from 
+		yd_store ys
+	left join (select fav_fid,fav_id from yd_favorite where user_id=#{userId}) yf on yf.fav_fid=ys.store_id 
+	where ys.store_id = #{storeId}
+  </select>
+  
+  <!-- 查询店铺商品分类 -->
+  <select id="selectStoreGoodsClassify" resultType="YdStoreGoodsClassify" parameterType="StorePara">
+  	select 
+  		ysgc.sc_id,ysgc.title,ysgc.pid
+	from 
+		yd_store_goods_classify ysgc
+	where 
+		ysgc.store_id=#{storeId} and pid=0
+	order by ysgc.sort desc
+  </select>
+  
+  <!-- 查询流通需要显示的店铺总数 -->
+  <select id="selectCirculationStorePageListCount" resultType="java.lang.Integer" parameterType="StorePara">
+  	select
+		count(distinct store_id)
+	from
+		yd_store
+	where store_is_available=1
+	<if test="keywords !=null and keywords !=''">
+		and store_name like '%${keywords}%'
+	</if>
+  </select>
+  
+  <!-- 查询流通需要显示的店铺列表 -->
+  <select id="selectCirculationStorePageList" resultType="StoreCirculationVo" parameterType="StorePara">
+  	select
+		ys.store_id,ys.store_name,ys.store_cover,ys.store_avg_score,ys.store_banner,ys.store_longitude,ys.store_latitude,
+		ROUND(
+			ASIN(SQRT(
+				POW(SIN((#{latitude} * PI() / 180 - ys.store_latitude * PI() / 180) / 2),2) + 
+					COS(#{latitude} * PI() / 180) * COS(ys.store_latitude * PI() / 180) * 
+				POW(SIN((#{longitude} * PI() / 180 - ys.store_longitude * PI() / 180) / 2),2)
+					)
+			) * 6378.138 * 2 * 1000
+		) AS distance
+	from
+		yd_store ys
+	where ys.store_is_available=1 
+	<if test="keywords !=null and keywords !=''">
+		and ys.store_name like '%${keywords}%'
+	</if>
+	order by distance
+	limit #{startIndex},#{onePageCount}
+  </select>
+  
+  <!-- 更新收藏总数 +1 -->
+  <update id="updateStoreTotalFav" parameterType="YdFavorite">
+  	update 
+		yd_store ys
+	inner join (select fav_fid from yd_favorite where fav_type=#{favType} and fav_fid=#{favFid}) yf on ys.store_id=yf.fav_fid
+	set ys.store_total_fav=ys.store_total_fav + 1
+  </update>
+  
+  <!-- 更新收藏总数 -1 -->
+  <update id="updateBatchStoreTotalFav" >
+  	update 
+		yd_store ys
+	inner join (select fav_fid from yd_favorite where fav_type=#{para.favType} and fav_id in
+	<foreach collection="favIdList" item="favId" open="(" close=")" separator=",">
+		#{favId}
+	</foreach>
+	) yf on ys.store_id=yf.fav_fid
+	set ys.store_total_fav=ys.store_total_fav - 1
+  </update>
+</mapper>

@@ -1,0 +1,13 @@
+.service-con {
+  width: 100%;
+}
+.service-con h1 {
+  text-align: center;
+  font-size: 32px;
+  color: #333333;
+}
+.service-con .sub-title {
+  text-align: center;
+  color: #8c8c8d;
+  font-size: 14px;
+}

@@ -1,0 +1,54 @@
+define(['mySession', 'route-config', 'serviceBase','layer','My97DatePicker','uEditor', 'uEditorConfig', 'uEditorCulture','ajaxUpload'], function (mySession, routeConfig, serviceBase,My97DatePicker) {
+    var _controller = function($scope, $http, $routeParams, $location,sysServiceService){
+    	if($routeParams.value==null || $routeParams.value==""){
+    		alert("信息异常..");
+    	}
+    	var ue = UM.getEditor('serviceContent',{
+	        initialFrameWidth:'100%',
+	        initialFrameHeight:200
+        });
+    	//获取园区详情
+    	$scope.getServiceDetails=function(){
+    		$scope.para={
+    				serviceId:$routeParams.value
+    		};
+    		sysServiceService.getServiceDetails($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				$scope.service=data.data;
+    				ue.setContent($scope.service.serviceContent);
+    			}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    		});
+    	};
+    	
+    	//修改园区基本信息
+    	$scope.updateServiceDetails=function(){
+    		$scope.para={
+    				serviceId:$scope.service.serviceId,
+    				serviceName:$scope.service.serviceName,
+    				serviceSimple:$scope.service.serviceSimple,
+    				serviceTeam:$scope.service.serviceTeam,
+    				serviceAddress:$scope.service.serviceAddress,
+    				serviceFax:$scope.service.serviceFax,
+    				serviceLink:$scope.service.serviceLink,
+    				serviceCompany:$scope.service.serviceCompany,
+    				serviceState:$scope.service.serviceState,
+    				serviceContent:ue.getContent()
+    		
+    		};
+    		sysServiceService.updateServiceDetails($http,$scope.para).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				alert("修改成功");
+    				location.href="#/seek/sysService/sysServicePageList/index";
+    			}else{
+    				alert("请求失败，请稍后再试");
+    				location.href="#/seek/sysService/sysServicePageList/index";
+    			}
+    		});
+    	};
+    	
+    	$scope.getServiceDetails();
+    };
+    return ["sysServiceDetailsCtrl", _controller];
+});

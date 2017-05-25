@@ -1,0 +1,82 @@
+<link href="css/layout.css" rel="stylesheet">
+<link href="library/umeditor/themes/default/css/umeditor.css" media="all" rel="stylesheet" type="text/css" />
+<div class="row" ng-controller="sysNewsAddCtrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                	<form class="form-horizontal" role="form">
+					 
+					  <div class="form-group">
+					    <label for="parkName" class="col-sm-2 control-label">新闻标题：</label>
+					    <div class="col-sm-3">
+					      <input type="parkName" class="form-control" id="parkName" placeholder="" ng-model="para.news_title">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="parkAddress" class="col-sm-2 control-label">作者：</label>
+					    <div class="col-sm-3">
+					      <input type="parkAddress" class="form-control" id="parkAddress" placeholder="" ng-model="para.news_author">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					  	<label for="parkFax" class="col-sm-2 control-label">选择图片:</label>
+					   	 <div class="col-sm-3">
+					   	  <input type="button" style="border:1px solid #cccccc;cursor: point;" onclick="javascript:$('.filebtn').click()" value="选择图片"/>
+					      <input type="file" class="filebtn" onchange="previewImage(this,'.nwesImg')" accept="image/jpg,image/png,image/jpeg" style="display:none;">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					  	<label for="parkFax" class="col-sm-2 control-label"></label>
+					   	 <div class="col-sm-3">
+					      <img class="nwesImg" src="http://imgsrc.baidu.com/forum/w%3D580/sign=81383e8a523d26972ed3085565fab24f/a40ce024b899a9016ddc58761e950a7b0308f545.jpg" style="max-width:200px;max-height:200px;border:1px solid #cccccc;"/>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					  	<label for="parkFax" class="col-sm-2 control-label">是否立即发布:</label>
+					   	 <div class="col-sm-3">
+					      <input type="radio" id="isNewsUpIdY" name="news_isup" ng-model="para.news_isup" value="2"  ng-checked="true" ng-click="testOn()"><label for="isNewsUpIdY">&nbsp;是</label>&emsp;&emsp;
+					      <input type="radio" id="isNewsUpIdN"  name="news_isup" ng-model="para.news_isup" value="1"><label for="isNewsUpIdN">&nbsp;否</label>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="parkContent" class="col-sm-2 control-label">新闻内容:</label>
+					    <div class="col-sm-8">
+					   	  <textarea class="form-control" name="parkContent" id="parkContent" ng-model="para.news_content"></textarea>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <div class="col-sm-2"></div>
+					    <div class="col-sm-2">
+					      <button type="button" class="btn btn-primary" ng-click="getNewsAdd()"> 确认保存 </button>
+					    </div>
+					  </div>
+					  
+					  </div>
+					</form>
+		 	  <div >
+ 		       </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+		function previewImage(file,imgtag){
+		    if (file.files && file.files[0])
+		    {
+		        var reader = new FileReader();
+		        reader.onload = function(evt){$(imgtag).attr('src',evt.target.result);};
+		        reader.readAsDataURL(file.files[0]);
+		    }
+		    else //兼容IE
+		    {
+		        var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+		        file.select();
+		        var src = document.selection.createRange().text;
+		        alert(1);
+		        $(imgtag).attr('src',src);
+		    }
+		}
+	</script>
+</div>
+

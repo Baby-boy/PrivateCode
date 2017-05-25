@@ -1,0 +1,240 @@
+<link href="css/layout.css" rel="stylesheet">
+<link href="library/umeditor/themes/default/css/umeditor.css" media="all" rel="stylesheet" type="text/css" />
+<div class="row" ng-controller="sysServiceDetailsCtrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                	<form class="form-horizontal" role="form">
+					 
+					  <div class="form-group">
+					    <label for="serviceName" class="col-sm-2 control-label">服务机构名称</label>
+					    <div class="col-sm-3">
+					      <input type="serviceName" class="form-control" id="serviceName" placeholder="" ng-model="service.serviceName">
+					    </div>
+					    
+					    <label for="serviceSimple" class="col-sm-2 control-label">简称</label>
+					    <div class="col-sm-3">
+					      <input type="serviceSimple" class="form-control" id="serviceSimple" placeholder="" ng-model="service.serviceSimple">
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					  	<label for="serviceTeam" class="col-sm-2 control-label">服务项目</label>
+					   	 <div class="col-sm-3">
+					      <input type="serviceTeam" class="form-control" id="serviceTeam" placeholder="" ng-model="service.serviceTeam">
+					    </div>
+					    
+					    <label for="serviceAddress" class="col-sm-2 control-label">详细地址</label>
+					    <div class="col-sm-3">
+					      <input type="serviceAddress" class="form-control" id="serviceAddress" placeholder="" ng-model="service.serviceAddress">
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					  	<label for="serviceFax" class="col-sm-2 control-label">传真</label>
+					   	 <div class="col-sm-3">
+					      <input type="serviceFax" class="form-control" id="serviceFax" placeholder="" ng-model="service.serviceFax">
+					    </div>
+					    
+					    <label for="serviceLink" class="col-sm-2 control-label">网址</label>
+					    <div class="col-sm-3">
+					      <input type="serviceLink" class="form-control" id="serviceLink" placeholder="" ng-model="service.serviceLink">
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					  	<label for="serviceCompany" class="col-sm-2 control-label">所属公司</label>
+					   	 <div class="col-sm-3">
+					      <input type="serviceCompany" class="form-control" id="serviceCompany" placeholder="" ng-model="service.serviceCompany">
+					    </div>
+					    
+					    <label for="serviceState" class="col-sm-2 control-label">状态</label>
+					   	 <div class="col-sm-3">
+					      <select type="serviceState" class="form-control" id="serviceState" placeholder="" ng-model="service.serviceState">
+					      	<option value="1">上传</option>
+					      	<option value="2">发布</option>
+					      	<option value="2">删除</option>
+					      </select>
+					     </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="regionId" class="col-sm-2 control-label">地区名称</label>
+					   	<div class="col-sm-3">
+					   	  <select ng-options="region.regionId as region.regionName for region in regionList" class="form-control" ng-model="service.regionId">
+					      	<option value="">请选择</option>
+					      </select>
+					    </div>
+					    
+					    <label for="basicsId" class="col-sm-2 control-label">开放层级</label>
+					   	<div class="col-sm-3">
+					   	  <select ng-options="basics.basicsId as basics.basicsName for basics in basicsList" class="form-control" ng-model="service.basicsId">
+					      	<option value="">请选择</option>
+					      </select>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="parkContent" class="col-md-2 control-label">logo图</label>
+					    <div class="col-md-8">
+					   	  	<div class="white-bg mt-10 p-10">
+								<div class="col-lg-6">
+							 		<div class="img-load" >
+							 			<img ng-src="{{imgSrcMax}}" />
+							 		</div>
+							 	  </div>
+							 	<div class="col-lg-6 m-t-xs">
+							 		<div>
+							 			<div type="button" class="btn btn-w-m btn-primary file-btn">
+								            <div file-input="fileMax" id="fileMax" on-change="previewImageMax()" accept="image/jpg,image/jpeg,image/png"></div>浏览
+								         </div>
+							 		</div>
+							 		
+							 		<div class="mt-10">
+							 			<button type="button" class="btn btn-w-m btn-primary" ng-click="uploadImageMax('fileMax')">上传</button>
+							 		</div>
+							 		<div class="row">
+								 		<div class="mt-10 col-md-6">
+								 			<!-- <input ng-model="home.url" type="text" class="form-control" placeholder="编辑链接(非必填)"/> -->
+								 		</div>
+							 		</div>
+							 	</div>
+							</div>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="parkContent" class="col-md-2 control-label">缩略图</label>
+					    <div class="col-md-8">
+					   	  	<div class="white-bg mt-10 p-10">
+								<div class="col-lg-6">
+							 		<div class="img-load" >
+							 			<img ng-src="{{imgSrcMin}}" />
+							 		</div>
+							 	  </div>
+							 	<div class="col-lg-6 m-t-xs">
+							 		<div>
+							 			<div type="button" class="btn btn-w-m btn-primary file-btn">
+								            <div file-input="fileMin" id="fileMin" on-change="previewImageMin()" accept="image/jpg,image/jpeg,image/png"></div>浏览
+								         </div>
+							 		</div>
+							 		
+							 		<div class="mt-10">
+							 			<button type="button" class="btn btn-w-m btn-primary" ng-click="uploadImageMin('fileMin')">上传</button>
+							 		</div>
+							 		<div class="row">
+								 		<div class="mt-10 col-md-6">
+								 			<!-- <input ng-model="home.url" type="text" class="form-control" placeholder="编辑链接(非必填)"/> -->
+								 		</div>
+							 		</div>
+							 	</div>
+							</div>
+					    </div>
+					  </div>
+					  
+					  
+					  <div class="form-group">
+					    <label for="serviceContent" class="col-sm-2 control-label">服务机构简介</label>
+					    <div class="col-sm-8">
+					   	  <textarea class="form-control" name="serviceContent" id="serviceContent"></textarea>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <div class="col-sm-2"></div>
+					    <div class="col-sm-1">
+					      <button type="button" class="btn btn-primary" ng-click="updateServiceDetails()"> 确认保存 </button>
+					    </div>
+					    <div class="col-sm-1">
+					      <input type="button" class="btn btn-primary" onclick="javascript:history.go(-1)" value="返回列表"/>
+					    </div>
+					  </div>
+					  
+					  
+					  <div class="form-group">
+					    <div class="col-sm-2"></div>
+					    <div class="col-sm-8">
+					      	<div class="panel-body">
+	                            <div class="panel-group" id="version">
+	                                <div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v41" aria-expanded="true" class="">标签</a>
+	                                                <code class="pull-right"><a ng-style="{color:'red'}">添加标签</a></code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v41" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="lab in service.labels">
+										    		<button type="button" class="btn btn-default">{{lab.labelName}}</button><a ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                
+	                                <div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v42" aria-expanded="true" class="">覆盖产业</a>
+	                                                <code class="pull-right"><a ng-style="{color:'red'}">添加产业</a></code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v42" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="service in service.services">
+										    		<img src="..." alt="{{service.serviceTitle}}" class="img-thumbnail"><a ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                
+	                                
+	                                <div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v43" aria-expanded="true" class="">宣传册</a>
+	                                                <code class="pull-right"><a ng-style="{color:'red'}">添加宣传册</a></code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v43" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="file in service.files" ng-if="file.fileType==1">
+										    		<a>《{{file.fileTitle}}》</a><a ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                
+	                                <div class="panel panel-default">
+	                                    <div class="panel-heading">
+	                                        <h5 class="panel-title">
+	                                                <a data-toggle="collapse" data-parent="#version" href="#v44" aria-expanded="true" class="">宣传片</a>
+	                                                <code class="pull-right"><a ng-style="{color:'red'}">添加宣传片</a></code>
+	                                            </h5>
+	                                    </div>
+	                                    <div id="v44" class="panel-collapse collapse" aria-expanded="true">
+	                                        <div class="panel-body">
+	                                            <span ng-repeat="file in service.files" ng-if="file.fileType==2">
+										    		<a>《{{file.fileTitle}}》</a><a ng-style="{color:'red'}">X </a>&nbsp;
+										    	</span>
+										    	
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                    
+	                                </div>
+	                            </div>
+	                        </div>
+					    </div>
+					</form>
+		 	  <div >
+ 		       </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysDownloadWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_download
+    where download_id = #{downloadId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysDownload" >
+    insert into sys_download (download_id, user_id, img_id, 
+      file_title, file_address, file_type, 
+      update_time, file_update_time, file_size, 
+      download_speed, download_state, file_id, file_remark
+      )
+    values (#{downloadId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{imgId,jdbcType=INTEGER}, 
+      #{fileTitle,jdbcType=VARCHAR}, #{fileAddress,jdbcType=VARCHAR}, #{fileType,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{fileUpdateTime,jdbcType=TIMESTAMP}, #{fileSize,jdbcType=DOUBLE}, 
+      #{downloadSpeed,jdbcType=DOUBLE}, #{downloadState,jdbcType=INTEGER},#{fileId,jdbcType=INTEGER}, #{fileRemark,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="downloadId"  parameterType="com.lingang.api.domain.entity.SysDownload" >
+    insert into sys_download
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="downloadId != null" >
+        download_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="imgId != null" >
+        img_id,
+      </if>
+      <if test="fileTitle != null" >
+        file_title,
+      </if>
+      <if test="fileAddress != null" >
+        file_address,
+      </if>
+      <if test="fileType != null" >
+        file_type,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="fileUpdateTime != null" >
+        file_update_time,
+      </if>
+      <if test="fileSize != null" >
+        file_size,
+      </if>
+      <if test="downloadSpeed != null" >
+        download_speed,
+      </if>
+      <if test="downloadState != null" >
+        download_state,
+      </if>
+      <if test="fileId != null" >
+        file_id,
+      </if>
+      <if test="fileRemark != null" >
+        file_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="downloadId != null" >
+        #{downloadId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="fileTitle != null" >
+        #{fileTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="fileAddress != null" >
+        #{fileAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileUpdateTime != null" >
+        #{fileUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileSize != null" >
+        #{fileSize,jdbcType=DOUBLE},
+      </if>
+      <if test="downloadSpeed != null" >
+        #{downloadSpeed,jdbcType=DOUBLE},
+      </if>
+      <if test="downloadState != null" >
+        #{downloadState,jdbcType=INTEGER},
+      </if>
+      <if test="fileId != null" >
+        #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="fileRemark != null" >
+        #{fileRemark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysDownload" >
+    update sys_download
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="imgId != null" >
+        img_id = #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="fileTitle != null" >
+        file_title = #{fileTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="fileAddress != null" >
+        file_address = #{fileAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        file_type = #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileUpdateTime != null" >
+        file_update_time = #{fileUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileSize != null" >
+        file_size = #{fileSize,jdbcType=DOUBLE},
+      </if>
+      <if test="downloadSpeed != null" >
+        download_speed = #{downloadSpeed,jdbcType=DOUBLE},
+      </if>
+      <if test="downloadState != null" >
+        download_state = #{downloadState,jdbcType=INTEGER},
+      </if>
+      <if test="fileId != null" >
+        file_id = #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="fileRemark != null" >
+        file_remark = #{fileRemark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where download_id = #{downloadId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lingang.api.domain.entity.SysDownload" >
+    update sys_download
+    set user_id = #{userId,jdbcType=INTEGER},
+      img_id = #{imgId,jdbcType=INTEGER},
+      file_title = #{fileTitle,jdbcType=VARCHAR},
+      file_address = #{fileAddress,jdbcType=VARCHAR},
+      file_type = #{fileType,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      file_update_time = #{fileUpdateTime,jdbcType=TIMESTAMP},
+      file_size = #{fileSize,jdbcType=DOUBLE},
+      download_speed = #{downloadSpeed,jdbcType=DOUBLE},
+      download_state = #{downloadState,jdbcType=INTEGER},
+      file_id = #{fileId,jdbcType=INTEGER},
+      file_remark = #{fileRemark,jdbcType=LONGVARCHAR}
+    where download_id = #{downloadId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysDownload" >
+    update sys_download
+    set user_id = #{userId,jdbcType=INTEGER},
+      img_id = #{imgId,jdbcType=INTEGER},
+      file_title = #{fileTitle,jdbcType=VARCHAR},
+      file_address = #{fileAddress,jdbcType=VARCHAR},
+      file_type = #{fileType,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      file_update_time = #{fileUpdateTime,jdbcType=TIMESTAMP},
+      file_size = #{fileSize,jdbcType=DOUBLE},
+      download_speed = #{downloadSpeed,jdbcType=DOUBLE},
+      download_state = #{downloadState,jdbcType=INTEGER},
+      file_id = #{fileId,jdbcType=INTEGER}
+    where download_id = #{downloadId,jdbcType=INTEGER}
+  </update>
+</mapper>

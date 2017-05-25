@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysManagerWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_manager
+    where manager_id = #{managerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysManager" >
+    insert into sys_manager (manager_id, img_id, manager_account, 
+      manager_password, manager_name, manager_tel, 
+      manager_idcard, manager_address, manager_state, 
+      create_time, update_time, manager_email
+      )
+    values (#{managerId,jdbcType=INTEGER}, #{imgId,jdbcType=INTEGER}, #{managerAccount,jdbcType=VARCHAR}, 
+      #{managerPassword,jdbcType=VARCHAR}, #{managerName,jdbcType=VARCHAR}, #{managerTel,jdbcType=VARCHAR}, 
+      #{managerIdcard,jdbcType=VARCHAR}, #{managerAddress,jdbcType=VARCHAR}, #{managerState,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{managerEmail,jdbcType=VARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="managerId" parameterType="com.lingang.api.domain.entity.SysManager" >
+    insert into sys_manager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="managerId != null" >
+        manager_id,
+      </if>
+      <if test="imgId != null" >
+        img_id,
+      </if>
+      <if test="managerAccount != null" >
+        manager_account,
+      </if>
+      <if test="managerPassword != null" >
+        manager_password,
+      </if>
+      <if test="managerName != null" >
+        manager_name,
+      </if>
+      <if test="managerTel != null" >
+        manager_tel,
+      </if>
+      <if test="managerIdcard != null" >
+        manager_idcard,
+      </if>
+      <if test="managerAddress != null" >
+        manager_address,
+      </if>
+      <if test="managerState != null" >
+        manager_state,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="managerEmail != null" >
+        manager_email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="managerId != null" >
+        #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="managerAccount != null" >
+        #{managerAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="managerPassword != null" >
+        #{managerPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="managerName != null" >
+        #{managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="managerTel != null" >
+        #{managerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="managerIdcard != null" >
+        #{managerIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="managerAddress != null" >
+        #{managerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="managerState != null" >
+        #{managerState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="managerEmail != null" >
+        #{managerEmail,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysManager" >
+    update sys_manager
+    <set >
+      <if test="imgId != null" >
+        img_id = #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="managerAccount != null" >
+        manager_account = #{managerAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="managerPassword != null" >
+        manager_password = #{managerPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="managerName != null" >
+        manager_name = #{managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="managerTel != null" >
+        manager_tel = #{managerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="managerIdcard != null" >
+        manager_idcard = #{managerIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="managerAddress != null" >
+        manager_address = #{managerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="managerState != null" >
+        manager_state = #{managerState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="managerEmail != null" >
+        manager_email = #{managerEmail,jdbcType=VARBINARY},
+      </if>
+    </set>
+    where manager_id = #{managerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lingang.api.domain.entity.SysManager" >
+    update sys_manager
+    set img_id = #{imgId,jdbcType=INTEGER},
+      manager_account = #{managerAccount,jdbcType=VARCHAR},
+      manager_password = #{managerPassword,jdbcType=VARCHAR},
+      manager_name = #{managerName,jdbcType=VARCHAR},
+      manager_tel = #{managerTel,jdbcType=VARCHAR},
+      manager_idcard = #{managerIdcard,jdbcType=VARCHAR},
+      manager_address = #{managerAddress,jdbcType=VARCHAR},
+      manager_state = #{managerState,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      manager_email = #{managerEmail,jdbcType=VARBINARY}
+    where manager_id = #{managerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysManager" >
+    update sys_manager
+    set img_id = #{imgId,jdbcType=INTEGER},
+      manager_account = #{managerAccount,jdbcType=VARCHAR},
+      manager_password = #{managerPassword,jdbcType=VARCHAR},
+      manager_name = #{managerName,jdbcType=VARCHAR},
+      manager_tel = #{managerTel,jdbcType=VARCHAR},
+      manager_idcard = #{managerIdcard,jdbcType=VARCHAR},
+      manager_address = #{managerAddress,jdbcType=VARCHAR},
+      manager_state = #{managerState,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where manager_id = #{managerId,jdbcType=INTEGER}
+  </update>
+</mapper>

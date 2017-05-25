@@ -1,0 +1,12 @@
+package com.lingang.core.persistence.reader;
+
+import java.util.List;
+
+import com.lingang.api.domain.entity.SysRegion;
+
+public interface SysRegionReaderMapper {
+
+    SysRegion selectByPrimaryKey(Integer regionId);
+
+    List<SysRegion> selectRegionAllList();
+}

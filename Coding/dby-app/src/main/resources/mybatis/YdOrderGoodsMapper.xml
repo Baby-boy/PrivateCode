@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdOrderGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdOrderGoods" >
+    <id column="og_id" property="ogId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="og_state" property="ogState" jdbcType="INTEGER" />
+    <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+    <result column="refund_num" property="refundNum" jdbcType="SMALLINT" />
+    <result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+    <result column="goods_pay_price" property="goodsPayPrice" jdbcType="DECIMAL" />
+    <result column="discount_price" property="discountPrice" jdbcType="DECIMAL" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="buyer_id" property="buyerId" jdbcType="INTEGER" />
+    <result column="goods_summary" property="goodsSummary" jdbcType="VARCHAR" />
+    <result column="goods_cover" property="goodsCover" jdbcType="VARCHAR" />
+    <result column="goods_original_price" property="goodsOriginalPrice" jdbcType="DECIMAL" />
+    <result column="og_num" property="ogNum" jdbcType="INTEGER" />
+    <result column="og_return_state" property="ogReturnState" jdbcType="INTEGER" />
+    <result column="og_price" property="ogPrice" jdbcType="DECIMAL" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    og_id, order_id, goods_id, goods_name, og_state, goods_num, refund_num, goods_price, 
+    goods_pay_price, discount_price, store_id, buyer_id, goods_summary, goods_cover, 
+    goods_original_price, og_num, og_return_state, og_price, created_at
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_order_goods
+    where og_id = #{ogId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_order_goods
+    where og_id = #{ogId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdOrderGoods" >
+    insert into yd_order_goods (og_id, order_id, goods_id, 
+      goods_name, og_state, goods_num, 
+      refund_num, goods_price, goods_pay_price, 
+      discount_price, store_id, buyer_id, 
+      goods_summary, goods_cover, goods_original_price, 
+      og_num, og_return_state, og_price, 
+      created_at)
+    values (#{ogId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, 
+      #{goodsName,jdbcType=VARCHAR}, #{ogState,jdbcType=INTEGER}, #{goodsNum,jdbcType=INTEGER}, 
+      #{refundNum,jdbcType=SMALLINT}, #{goodsPrice,jdbcType=DECIMAL}, #{goodsPayPrice,jdbcType=DECIMAL}, 
+      #{discountPrice,jdbcType=DECIMAL}, #{storeId,jdbcType=INTEGER}, #{buyerId,jdbcType=INTEGER}, 
+      #{goodsSummary,jdbcType=VARCHAR}, #{goodsCover,jdbcType=VARCHAR}, #{goodsOriginalPrice,jdbcType=DECIMAL}, 
+      #{ogNum,jdbcType=INTEGER}, #{ogReturnState,jdbcType=INTEGER}, #{ogPrice,jdbcType=DECIMAL}, 
+      #{createdAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdOrderGoods" >
+    insert into yd_order_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ogId != null" >
+        og_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="ogState != null" >
+        og_state,
+      </if>
+      <if test="goodsNum != null" >
+        goods_num,
+      </if>
+      <if test="refundNum != null" >
+        refund_num,
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price,
+      </if>
+      <if test="goodsPayPrice != null" >
+        goods_pay_price,
+      </if>
+      <if test="discountPrice != null" >
+        discount_price,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="buyerId != null" >
+        buyer_id,
+      </if>
+      <if test="goodsSummary != null" >
+        goods_summary,
+      </if>
+      <if test="goodsCover != null" >
+        goods_cover,
+      </if>
+      <if test="goodsOriginalPrice != null" >
+        goods_original_price,
+      </if>
+      <if test="ogNum != null" >
+        og_num,
+      </if>
+      <if test="ogReturnState != null" >
+        og_return_state,
+      </if>
+      <if test="ogPrice != null" >
+        og_price,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ogId != null" >
+        #{ogId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="ogState != null" >
+        #{ogState,jdbcType=INTEGER},
+      </if>
+      <if test="goodsNum != null" >
+        #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="refundNum != null" >
+        #{refundNum,jdbcType=SMALLINT},
+      </if>
+      <if test="goodsPrice != null" >
+        #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsPayPrice != null" >
+        #{goodsPayPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discountPrice != null" >
+        #{discountPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="buyerId != null" >
+        #{buyerId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSummary != null" >
+        #{goodsSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCover != null" >
+        #{goodsCover,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsOriginalPrice != null" >
+        #{goodsOriginalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ogNum != null" >
+        #{ogNum,jdbcType=INTEGER},
+      </if>
+      <if test="ogReturnState != null" >
+        #{ogReturnState,jdbcType=INTEGER},
+      </if>
+      <if test="ogPrice != null" >
+        #{ogPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdOrderGoods" >
+    update yd_order_goods
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="ogState != null" >
+        og_state = #{ogState,jdbcType=INTEGER},
+      </if>
+      <if test="goodsNum != null" >
+        goods_num = #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="refundNum != null" >
+        refund_num = #{refundNum,jdbcType=SMALLINT},
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsPayPrice != null" >
+        goods_pay_price = #{goodsPayPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discountPrice != null" >
+        discount_price = #{discountPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="buyerId != null" >
+        buyer_id = #{buyerId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSummary != null" >
+        goods_summary = #{goodsSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCover != null" >
+        goods_cover = #{goodsCover,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsOriginalPrice != null" >
+        goods_original_price = #{goodsOriginalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ogNum != null" >
+        og_num = #{ogNum,jdbcType=INTEGER},
+      </if>
+      <if test="ogReturnState != null" >
+        og_return_state = #{ogReturnState,jdbcType=INTEGER},
+      </if>
+      <if test="ogPrice != null" >
+        og_price = #{ogPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where og_id = #{ogId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdOrderGoods" >
+    update yd_order_goods
+    set order_id = #{orderId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      og_state = #{ogState,jdbcType=INTEGER},
+      goods_num = #{goodsNum,jdbcType=INTEGER},
+      refund_num = #{refundNum,jdbcType=SMALLINT},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      goods_pay_price = #{goodsPayPrice,jdbcType=DECIMAL},
+      discount_price = #{discountPrice,jdbcType=DECIMAL},
+      store_id = #{storeId,jdbcType=INTEGER},
+      buyer_id = #{buyerId,jdbcType=INTEGER},
+      goods_summary = #{goodsSummary,jdbcType=VARCHAR},
+      goods_cover = #{goodsCover,jdbcType=VARCHAR},
+      goods_original_price = #{goodsOriginalPrice,jdbcType=DECIMAL},
+      og_num = #{ogNum,jdbcType=INTEGER},
+      og_return_state = #{ogReturnState,jdbcType=INTEGER},
+      og_price = #{ogPrice,jdbcType=DECIMAL},
+      created_at = #{createdAt,jdbcType=TIMESTAMP}
+    where og_id = #{ogId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 所有查询 -->
+  <!-- 订单详情视图 -->
+  <resultMap type="com.yd.dby.app.entity.vo.OrderDetailsVo" id="OrderDetailsVoResultMap">
+  	<id column="og_id" property="ogId" jdbcType="INTEGER" />
+  	<result column="order_sn" property="orderSn" jdbcType="BIGINT" />
+  	<result column="goods_cover" property="goodsCover" jdbcType="VARCHAR" />
+  	<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+  	<result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+  	<result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+  	<result column="goods_pay_price" property="goodsPayPrice" jdbcType="DECIMAL" />
+  	<result column="transport_fid" property="transportFid" jdbcType="INTEGER" />
+  	<result column="invoice_type" property="invoiceType" jdbcType="TINYINT" />
+  	<result column="invoice_no" property="invoiceNo" jdbcType="VARCHAR" />
+  	<result column="state" property="state" jdbcType="TINYINT" />
+  	<result column="receiving_time" property="receivingTime" jdbcType="VARCHAR" />
+  	<result column="shipping_code" property="shippingCode" jdbcType="VARCHAR" />
+    <result column="logis_code" property="logisCode" jdbcType="VARCHAR" />
+    <result column="logis_title" property="logisTitle" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 查询订单详情 -->
+  <select id="selectOrderDetails" resultMap="OrderDetailsVoResultMap" parameterType="java.lang.Integer">
+  	select 
+	yog.og_id,yog.goods_cover,yog.goods_name,yog.goods_num,yog.goods_price,yog.goods_pay_price,
+	yo.order_sn,yo.transport_fid,yo.invoice_type,yo.invoice_no,yo.state,yo.receiving_time,yo.logis_code,yo.shipping_code,
+	yl.logis_id,yl.logis_title
+	from yd_order_goods yog 
+	left join yd_order yo on yo.order_id=yog.order_id
+	left join yd_logis yl on yl.logis_code=yo.logis_code
+	where yog.og_id=#{ogId,jdbcType=INTEGER}
+  </select>
+</mapper>

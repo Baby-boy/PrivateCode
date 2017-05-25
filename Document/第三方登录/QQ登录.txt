@@ -1,0 +1,45 @@
+http://wiki.connect.qq.com/开发攻略_server-side
+
+第一步: 请求地址
+https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101384210&redirect_uri=http://ydgcj.tunnel.2bdata.com/user/userThirdLogin&state=test
+
+	将会跳转回回调地址,带有十分钟权限的code
+	http://ydgcj.tunnel.2bdata.com/login?code=668DCB571BBE9302C055FC5E648CC51E
+
+第二步: 获取Access Token
+https://graph.qq.com/oauth2.0/token?grant_type=authorization_code&client_id=101384210&client_secret=209458c5aec0bfa9fefa9c848ae270ed&code=668DCB571BBE9302C055FC5E648CC51E&state=test&redirect_uri=http://ydgcj.tunnel.2bdata.com/login
+
+	返回Access Token
+	access_token=178525B128E6FAE677795A09CDC3BEA2&expires_in=7776000&refresh_token=22C63543E1D3F66860903D6D6217B9FE
+
+第三步: 使用Access Token来获取用户的OpenID
+https://graph.qq.com/oauth2.0/me?access_token=178525B128E6FAE677795A09CDC3BEA2
+
+	返回OpenID
+	callback( {"client_id":"101384210","openid":"3E824F7246A702B048398FC71E5B4BAC"} );
+
+第四步: 使用Access Token以及OpenID来访问和修改用户数据
+https://graph.qq.com/user/get_user_info?access_token=178525B128E6FAE677795A09CDC3BEA2&oauth_consumer_key=101384210&openid=3E824F7246A702B048398FC71E5B4BAC
+
+	{
+		"ret": 0,
+		"msg": "",
+		"is_lost": 0,
+		"nickname": "变化灬无常",
+		"gender": "男",
+		"province": "上海",
+		"city": "浦东新区",
+		"year": "1994",
+		"figureurl": "http://qzapp.qlogo.cn/qzapp/101384210/3E824F7246A702B048398FC71E5B4BAC/30",
+		"figureurl_1": "http://qzapp.qlogo.cn/qzapp/101384210/3E824F7246A702B048398FC71E5B4BAC/50",
+		"figureurl_2": "http://qzapp.qlogo.cn/qzapp/101384210/3E824F7246A702B048398FC71E5B4BAC/100",
+		"figureurl_qq_1": "http://q.qlogo.cn/qqapp/101384210/3E824F7246A702B048398FC71E5B4BAC/40",
+		"figureurl_qq_2": "http://q.qlogo.cn/qqapp/101384210/3E824F7246A702B048398FC71E5B4BAC/100",
+		"is_yellow_vip": "0",
+		"vip": "0",
+		"yellow_vip_level": "0",
+		"level": "0",
+		"is_yellow_year_vip": "0"
+	}
+	
+https://graph.qq.com/user/get_vip_info?access_token=178525B128E6FAE677795A09CDC3BEA2&oauth_consumer_key=101384210&openid=3E824F7246A702B048398FC71E5B4BAC&format=json

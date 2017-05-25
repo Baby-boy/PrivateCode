@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysMessageReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysMessage" >
+    <id column="message_id" property="messageId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="message_type" property="messageType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="message_state" property="messageState" jdbcType="INTEGER" />
+    <result column="link_type" property="linkType" jdbcType="INTEGER" />
+    <result column="link_id" property="linkId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lingang.api.domain.entity.SysMessage" extends="BaseResultMap" >
+    <result column="message_content" property="messageContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapByUserName" type="com.lingang.api.domain.pfvo.SysMessagePfvo" extends="ResultMapWithBLOBs" >
+    <result column="user_name" property="username" jdbcType="VARCHAR" />
+    <!-- <result column="reply_content" property="replyContent" jdbcType="VARCHAR" /> -->
+    
+    <collection property="replys" ofType="com.lingang.api.domain.entity.SysReply">
+    	<result column="reply_id" property="replyId" jdbcType="INTEGER"/>
+		<result column="reply_content" property="replyContent" jdbcType="VARCHAR" />
+	</collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    message_id, user_id, message_type, create_time, message_state, link_type, link_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    message_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_message
+    where message_id = #{messageId,jdbcType=INTEGER} 
+  </select>
+  
+  <select id="selectMessageCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+ 	select 
+	count(message_id) 
+	from sys_message 
+    where message_state !=4 
+    and user_id=#{map.userId,jdbcType=INTEGER} 
+    and message_type=#{map.messageType,jdbcType=INTEGER} 
+    <if test="map.linkType !=null and map.linkType !=''">
+		and link_type= #{map.linkType,jdbcType=INTEGER}
+    </if>
+  </select>
+  <sql id="SQL_selectMessagePageList" >
+	select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_message 
+    where message_state !=4
+    and user_id=#{map.userId,jdbcType=INTEGER} 
+    and message_type=#{map.messageType,jdbcType=INTEGER}
+  </sql>
+  <sql id="SQL_ID_selectMessagePageList" >
+	message_id
+  </sql>
+  <select id="selectMessagePageList" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map" >
+    SELECT TOP ${map.onePageCount}
+		*
+	FROM 
+	(
+		<include refid="SQL_selectMessagePageList" />
+	)
+	 t
+	WHERE t.<include refid="SQL_ID_selectMessagePageList" /> 
+	NOT IN
+	(
+		SELECT TOP (${map.onePageCount} * ${map.startIndex}) 
+		nt.<include refid="SQL_ID_selectMessagePageList" /> 
+		FROM 
+		(
+			<include refid="SQL_selectMessagePageList" />
+		) nt
+	)
+  </select>
+  
+  <!-- 逻辑改变后的代码 -->
+  <select id="queryMessageAll" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+	select message_id,user_id,message_type,create_time,message_state,link_type,link_id,message_content
+	from
+		sys_message
+	where
+		message_type = #{map.messageType,jdbcType=INTEGER}
+		and message_state = #{map.messageState,jdbcType=INTEGER} 
+		and user_id = #{map.userId,jdbcType=INTEGER} 
+	order by
+		create_time desc
+  </select>
+  
+  <!-- 所有未读消息 -->
+  <select id="selectAllUnreadMessage" resultMap="BaseResultMap" parameterType="java.util.Map">
+	select
+		message_id
+	from
+		sys_message
+	where
+		message_state = 2
+		and user_id = #{map.userId,jdbcType=INTEGER} 
+		<if test="map.messageType !=null and map.messageType !=''">
+			and message_type= #{map.messageType,jdbcType=INTEGER}
+	    </if>
+  </select>
+  
+  <!-- 后台逻辑 -->
+  <sql id="where_selectMessageByMessageState">
+  	 <where>
+		sm.message_type=#{map.messageType,jdbcType=INTEGER}
+		<if test="map.linkType !=null and map.linkType !=''">
+			and sm.link_type= #{map.linkType,jdbcType=INTEGER}
+		</if>
+		<if test="map.messageState !=null and map.messageState !=''">
+			and sm.message_state= #{map.messageState,jdbcType=INTEGER}
+		</if>
+	</where>
+  </sql>
+  <!-- 关系表 -->
+  <sql id="relation_selectMessageByMessageState">
+  	left join (select * from sys_user where user_state=1) su on sm.user_id=su.user_id
+	left join sys_message_reply smr on sm.message_id=smr.message_id
+    left join sys_reply sr on smr.reply_id=sr.reply_id
+  </sql>
+  <select id="queryMessageCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select count(DISTINCT sm.message_id)
+	from sys_message sm
+	<include refid="relation_selectMessageByMessageState"/>
+	<include refid="where_selectMessageByMessageState"/>
+  </select>
+  <select id="selectMessageByMessageState" resultMap="ResultMapByUserName" parameterType="java.util.Map" >
+   	WITH cte AS(
+		select sm.message_id,
+			ROW_NUMBER() OVER(ORDER BY sm.create_time DESC) AS rownum
+		from sys_message sm
+		<include refid="relation_selectMessageByMessageState"/>
+		<include refid="where_selectMessageByMessageState"/>
+		GROUP BY sm.message_id,sm.create_time
+	)
+
+	select sm.message_id,sm.message_content,sm.link_type,sm.message_state,sm.create_time,su.user_name,sr.reply_id,sr.reply_content
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st
+	left join sys_message sm on sm.message_id=st.message_id
+	<include refid="relation_selectMessageByMessageState"/>
+  </select>
+  <select id="selectMessageByMessageStateASC" resultMap="ResultMapByUserName" parameterType="java.util.Map" >
+   	WITH cte AS(
+		select sm.message_id,
+			ROW_NUMBER() OVER(ORDER BY sm.create_time) AS rownum
+		from sys_message sm
+		<include refid="relation_selectMessageByMessageState"/>
+		<include refid="where_selectMessageByMessageState"/>
+		GROUP BY sm.message_id,sm.create_time
+	)
+
+	select sm.message_id,sm.message_content,sm.link_type,sm.message_state,sm.create_time,su.user_name,sr.reply_id,sr.reply_content
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st
+	left join sys_message sm on sm.message_id=st.message_id
+	<include refid="relation_selectMessageByMessageState"/>
+  </select>
+  <select id="selectMessageAllByMessageState" resultMap="ResultMapByUserName" parameterType="java.util.Map">
+  	select sm.message_id,sm.message_content,sm.link_type,sm.message_state,sm.create_time,su.user_name,sr.reply_id,sr.reply_content
+	from sys_message sm
+	<include refid="relation_selectMessageByMessageState"/>
+	<include refid="where_selectMessageByMessageState"/>
+	ORDER BY sm.create_time DESC
+  </select>
+  
+  <!-- 查询总数 -->
+  <select id="selectOpinionCount" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  	select count(DISTINCT message_id) 
+  	from sys_message 
+  	where message_state=2 
+  	and message_type=2 
+  	and user_id=#{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectErrorCount" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  	select count(DISTINCT message_id) 
+  	from sys_message 
+  	where message_state=2 
+  	and message_type=1
+  	and user_id=#{userId,jdbcType=INTEGER}
+  </select>
+</mapper>

@@ -1,0 +1,58 @@
+<link href="css/layout.css" rel="stylesheet">
+<link href="library/umeditor/themes/default/css/umeditor.css" media="all" rel="stylesheet" type="text/css" />
+<div class="row" ng-controller="sysNewsMsgCtrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                	<form class="form-horizontal" role="form">
+					 
+					  <div class="form-group">
+					    <label for="newsTitle" class="col-sm-2 control-label">新闻标题：</label>
+					    <div class="col-sm-3">
+					      <input type="newsTitle" class="form-control" id="newsTitle" placeholder="" ng-model="para.newsTitle">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="newsAuthor" class="col-sm-2 control-label">作者：</label>
+					    <div class="col-sm-3">
+					      <input type="newsAuthor" class="form-control" id="newsAuthor" placeholder="" ng-model="para.newsAuthor">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					  	<label for="newsIsup" class="col-sm-2 control-label">是否发布：</label>
+					  	<div class="col-sm-3">
+					      <select ng-model="para.newsState">
+					  		<option value="1">已上传</option>
+					  		<option value="2">已发布</option>
+					  	</select>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="newsContent" class="col-sm-2 control-label">新闻内容：</label>
+					    <div class="col-sm-8">
+					   	  <textarea class="form-control" name="newsContent" id="newsContent" ng-model="para.newsContent"></textarea>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <div class="col-sm-2"></div>
+					    <div class="col-sm-1">
+					      <button type="button" class="btn btn-primary" ng-click="updateNewsMsg()"> 确认修改 </button>
+					    </div>
+					    <div class="col-sm-1">
+					      <button type="button" class="btn btn-primary" onclick="javascript:history.go(-1)"> 返回列表 </button>
+					    </div>
+					    <div class="col-sm-1">
+					      <button type="button" class="btn btn-primary" ng-click="delNewsMsg()"> 删除新闻 </button>
+					    </div>
+					  </div>
+					  </div>
+					</form>
+		 	  <div >
+ 		       </div>
+            </div>
+        </div>
+    </div>
+</div>
+

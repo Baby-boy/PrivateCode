@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysUserReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysUser" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_department" property="userDepartment" jdbcType="VARCHAR" />
+    <result column="user_post" property="userPost" jdbcType="VARCHAR" />
+    <result column="user_tel" property="userTel" jdbcType="VARCHAR" />
+    <result column="user_mobile" property="userMobile" jdbcType="VARCHAR" />
+    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_company" property="userCompany" jdbcType="VARCHAR" />
+    <result column="user_state" property="userState" jdbcType="INTEGER" />
+    <result column="manager_id" property="managerId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="gesture_state" property="gestureState" jdbcType="INTEGER" />
+     <result column="gesture_pwd" property="gesturePwd" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultVoMap" type="com.lingang.api.domain.vo.SysUserVo" extends="BaseResultMap">
+  	<result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, img_id, user_account, user_password, user_department, user_post, user_tel, 
+    user_mobile, user_email, user_name, user_company, user_state, manager_id, create_time,gesture_state,gesture_pwd
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  
+  <sql id="BaseVo_Column_List" >
+    su.user_id, su.img_id, su.user_account, su.user_password, su.user_department, su.user_post, su.user_tel, 
+    su.user_mobile, su.user_email, su.user_name, su.user_company, su.user_state, su.gesture_state,su.gesture_pwd,si.img_path
+  </sql>
+  <select id="selectSysUserVoLoginByUserAccount" resultMap="BaseResultVoMap" parameterType="java.lang.String" >
+    select 
+    <include refid="BaseVo_Column_List" /> 
+    from sys_user su 
+	left join sys_images si on si.img_id=su.img_id 
+	where su.user_account=#{userAccount,jdbcType=VARCHAR}
+  </select>
+  <select id="selectSysUserVoByUserId" resultMap="BaseResultVoMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="BaseVo_Column_List" /> 
+    from sys_user su 
+	left join sys_images si on si.img_id=su.img_id 
+	where su.user_id=#{userId,jdbcType=INTEGER} and si.img_state=1
+  </select>
+  
+  <!-- 后台 -->
+  <sql id="where_selectSysUserPageList">
+  	<where>
+  		1=1 
+  		<if test="map.userAccount !=null and map.userAccount !=''">
+  			and user_account like '%${map.userAccount}%'
+  		</if>
+  		<if test="map.userName !=null and map.userName !=''">
+  			and user_name like '%${map.userName}%'
+  		</if>
+  	</where>
+  </sql>
+  <select id="selectSysUserCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select COUNT(DISTINCT su.user_id)
+	from sys_user su
+    <include refid="where_selectSysUserPageList"/>
+  </select>
+  <select id="selectSysUserPageList" resultMap="BaseResultMap" parameterType="java.util.Map">
+	WITH cte AS(
+		select su.user_id,
+			ROW_NUMBER() OVER(ORDER BY su.create_time) AS rownum
+		from sys_user su
+ 		<include refid="where_selectSysUserPageList"/>
+		GROUP BY su.user_id,su.create_time
+	)
+				 
+	select su.user_id,su.img_id,su.user_account,su.user_password,su.user_department,su.user_post,su.user_tel, 
+    su.user_mobile,su.user_email,su.user_name,su.user_company,su.user_state,su.manager_id,su.create_time,su.gesture_state,su.gesture_pwd
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st 
+	left join sys_user su on su.user_id=st.user_id
+  </select>
+</mapper>

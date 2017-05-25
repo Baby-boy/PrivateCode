@@ -1,0 +1,20 @@
+package com.lingang.consumer.controller.statistics;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.lingang.consumer.controller.BaseController;
+
+/**
+ * @Description: (APP合作伙伴统计接口)
+ * @Author: hgx 
+ * @Version:1.0
+ */
+@Controller
+@RequestMapping("/partnerstatistics")
+public class PartnerStatisticsController extends BaseController {
+
+
+
+	
+}

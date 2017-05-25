@@ -1,0 +1,97 @@
+package com.yd.dby.app.service.impl;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.yd.dby.app.common.HttpCode;
+import com.yd.dby.app.common.ServiceResult;
+import com.yd.dby.app.entity.YdCoupon;
+import com.yd.dby.app.entity.para.CouponPara;
+import com.yd.dby.app.entity.vo.UserCoupon;
+import com.yd.dby.app.mapper.YdCouponMapper;
+import com.yd.dby.app.service.YdCouponService;
+
+@Service("ydCouponService")
+public class YdCouponServiceImpl implements YdCouponService {
+
+	@Autowired
+	private YdCouponMapper ydCouponMapper;
+
+	@Override
+	public ServiceResult<List<UserCoupon>> selectCouponList(CouponPara para) {
+		ServiceResult<List<UserCoupon>> result = new ServiceResult<List<UserCoupon>>();
+
+		// 数据转换
+		String storeIdStr = para.getStoreIdStr();
+		String moneyStr = para.getMoneyStr();
+		String[] ids = storeIdStr.split(",");
+
+		String[] moneys = moneyStr.split(",");
+
+		// 根据商铺查询我的优惠券信息
+		List<Object> paraList = new ArrayList<>();
+		for (String string : ids) {
+			paraList.add(Integer.parseInt(string));
+		}
+		para.setIds(paraList);
+
+		List<UserCoupon> list = ydCouponMapper.selectCouponList(para);
+
+		// 订单的总金额
+		Double countMoney = 0.00;
+		Map<String, String> map = new HashMap<String, String>();
+		for (int i = 0; i < ids.length; i++) {
+			map.put(ids[i], moneys[i]);
+			countMoney = countMoney + Double.valueOf(moneys[i]);
+		}
+		// System.out.println("---------------------");
+		// System.out.println("支付总金额：" + countMoney);
+
+		// 可用的优惠券
+		Date nowDate = new Date();
+		for (UserCoupon uc : list) {
+			for (YdCoupon yc : uc.getCoupons()) {
+				// 下单时间必须早于优惠券结束时间
+				Date endDate = yc.getCouponEndTime();
+				if (yc != null && endDate != null && nowDate.before(endDate)) {
+					// 满金额数
+					Double fullMoney = yc.getCouponFullMoney();
+
+					// 两种优惠券类型处理
+					if (yc.getCouponType()) {
+						// 下单金额必须符合优惠券 满金额
+						if (countMoney < fullMoney) {
+							// resultData.add(yc);
+							uc.getCoupons().remove(yc);
+						}
+					} else {
+						// 下单金额必须符合优惠券 满金额
+						String idS = yc.getStoreId().toString();
+						boolean isKey = StringUtils.isEmpty(map.get(idS));
+						boolean isVal = Double.valueOf(map.get(idS)) < fullMoney;
+						if (isKey || isVal) {
+							// resultData.add(yc);
+							uc.getCoupons().remove(yc);
+						}
+					}
+				}
+			}
+		}
+
+		// 返回可用优惠券信息
+		result.setStatusCode(HttpCode.OK);
+		result.setData(list);
+		// Map<String, Object> dataMap = new HashMap<String, Object>();
+		// result.setDataMap(dataMap);
+
+		return result;
+	}
+
+}

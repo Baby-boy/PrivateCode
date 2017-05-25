@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysModularReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysModular" >
+    <id column="modular_id" property="modularId" jdbcType="INTEGER" />
+    <result column="modular_level" property="modularLevel" jdbcType="INTEGER" />
+    <result column="modular_father" property="modularFather" jdbcType="INTEGER" />
+    <result column="modular_number" property="modularNumber" jdbcType="INTEGER" />
+    <result column="modular_name" property="modularName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    modular_id, modular_level, modular_father, modular_number, modular_name, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_modular
+    where modular_id = #{modularId,jdbcType=INTEGER}
+  </select>
+</mapper>

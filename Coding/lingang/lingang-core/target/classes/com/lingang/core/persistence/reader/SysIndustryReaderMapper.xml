@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysIndustryReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysIndustry" >
+    <id column="industry_id" property="industryId" jdbcType="INTEGER" />
+    <result column="min_img_id" property="minImgId" jdbcType="INTEGER" />
+    <result column="max_img_id" property="maxImgId" jdbcType="INTEGER" />
+    <result column="industry_title" property="industryTitle" jdbcType="VARCHAR" />
+    <result column="industry_simple" property="industrySimple" jdbcType="VARCHAR" />
+    <result column="industry_link" property="industryLink" jdbcType="VARCHAR" />
+    <result column="industry_state" property="industryState" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="ResultMapWithBLOBs" type="com.lingang.api.domain.entity.SysIndustry" extends="BaseResultMap" >
+    <result column="industry_content" property="industryContent" jdbcType="LONGVARCHAR" />
+    
+  </resultMap>
+  
+  <resultMap id="ResultMapIndustryStatisticsVo" type="com.lingang.api.domain.vo.SysIndustryStatisticsVo" >
+    <id column="industry_id" property="industryId" jdbcType="INTEGER" />
+    <result column="industry_title" property="industryTitle" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="SysIndustryResultMap" type="com.lingang.api.domain.vo.SysIndustryVo" extends="ResultMapWithBLOBs">
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="max_img_id" property="imgId" jdbcType="INTEGER" />
+ 	<result column="imin_img_id" property="iminImgId" jdbcType="INTEGER" />
+		
+	<collection property="parks" ofType="com.lingang.api.domain.vo.SysParkVo">
+		<id column="park_id" property="parkId" jdbcType="INTEGER" />
+		<result column="park_name" property="parkName" jdbcType="VARCHAR" />
+		<result column="park_content" property="parkContent" jdbcType="VARCHAR" />
+	    <result column="min_img_Id" property="parkImgId" jdbcType="INTEGER" />
+		<result column="path_img" property="parkImgPath" jdbcType="VARCHAR" />
+		
+	    <collection property="labels" ofType="com.lingang.api.domain.entity.SysLabel">
+		<id column="park_lb_id" property="labelId" jdbcType="INTEGER" />
+		<result column="park_lb_name" property="labelName" jdbcType="VARCHAR" />
+	   </collection>	
+	</collection>
+	
+	<collection property="labels" ofType="com.lingang.api.domain.entity.SysLabel">
+		<id column="label_id" property="labelId" jdbcType="INTEGER" />
+		<result column="label_name" property="labelName" jdbcType="VARCHAR" />
+	</collection>
+	
+	<!-- 客户经理 -->
+	<collection property="iumans"
+		ofType="com.lingang.api.domain.entity.SysIndustryUmanager">
+		<id column="industry_umanager_id" property="industryUmanagerId" jdbcType="INTEGER" />
+		<result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+	</collection>
+  </resultMap>
+  
+  <!-- 后台逻辑 -->
+  <resultMap id="sysIndustryPfVoResultMap" type="com.lingang.api.domain.pfvo.SysIndustryPfVo" extends="ResultMapWithBLOBs">
+  	<!-- 为后来者先铺好路 -->
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    industry_id, min_img_id, max_img_id, industry_title, industry_simple, industry_link, 
+    industry_state, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    industry_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_industry
+    where industry_id = #{industryId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- app列表重写 -->
+  <sql id="where_selectSysIndustryVoPageList">
+  	<where>
+     	industry_state=2
+     	<if test="map.parkId !=null and map.parkId !=''">
+     	 	and spi.park_id =#{map.parkId,jdbcType=INTEGER}
+     	</if>
+     	<if test="map.keywords !=null and map.keywords !=''">
+     		and (CONTAINS (si.industry_title, '${map.keywords}')
+     		OR CONTAINS (si.industry_simple, '${map.keywords}'))
+     	</if>
+    </where>
+  </sql>
+  <!-- 关联表 -->
+  <sql id="relation_selectSysIndustryVoPageList">
+  	left join (select * from sys_images where img_state=1) sm on si.min_img_id=sm.img_id
+	left join sys_park_industry spi on spi.industry_id =si.industry_id
+  </sql>
+  <select id="selectSysIndustryCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+   	select COUNT(DISTINCT si.industry_id) from sys_industry si
+	<include refid="relation_selectSysIndustryVoPageList"/>
+	<include refid="where_selectSysIndustryVoPageList"/>
+  </select>
+  <select id="selectSysIndustryVoPageList" resultMap="SysIndustryResultMap" parameterType="java.util.Map" >
+    WITH cte AS(
+	select si.industry_id,
+		ROW_NUMBER() OVER(ORDER BY si.create_time DESC) AS rownum
+	from sys_industry si
+	<include refid="relation_selectSysIndustryVoPageList"/>
+	<include refid="where_selectSysIndustryVoPageList"/>
+		GROUP BY si.industry_id,si.create_time
+	)
+
+	select si.industry_id,sm.img_id,sm.img_path,si.industry_title,si.industry_simple 
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st 
+	left join sys_industry si on si.industry_id=st.industry_id
+	<include refid="relation_selectSysIndustryVoPageList"/>
+  </select>
+  
+  <select id="selectSysIndustryVoById" resultMap="SysIndustryResultMap" parameterType="java.lang.Integer" >
+	SELECT si.industry_id,si.max_img_id,si.min_img_id imin_img_id,sm.img_path,si.industry_title,si.industry_simple,si.industry_state,
+    sl.label_id,sl.label_name,si.industry_content,si.industry_link,sp.park_id,
+    sp.min_img_id,sm2.img_path as path_img,sp.park_name,sp.park_content,sl2.label_id as park_lb_id,sl2.label_name as park_lb_name
+   	,siu.industry_umanager_id,siu.user_account
+    from sys_industry si
+	  left join sys_park_industry spi on si.industry_id=spi.industry_id
+	  left join (select * from sys_park where park_state=2) sp on spi.park_id=sp.park_id
+	  left join sys_industry_label sil on si.industry_id=sil.industry_id
+	  left join (select * from sys_label where label_state=1) sl on sil.label_id=sl.label_id
+    LEFT JOIN sys_park_label spl on sp.park_id=spl.park_id
+    LEFT JOIN (select * from sys_label where label_state=1) sl2 on spl.label_id=sl2.label_id
+    left join (select * from sys_images where img_state=1) sm on si.max_img_id=sm.img_id  
+    LEFT JOIN (select * from sys_images where img_state=1) sm2 on sp.min_img_id=sm2.img_id
+    left join sys_industry_umanager siu on siu.industry_id=si.industry_id
+    where si.industry_id = #{industryId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 产业集群 -->
+  <sql id="where_selectIndustryList">
+  	<where>
+  		industry_state = 2
+  	</where>
+  </sql>
+  <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select COUNT(DISTINCT si.industry_id)
+	from sys_industry si
+	<include refid="where_selectIndustryList"/>
+  </select>
+  <select id="selectIndustryList" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map" >
+   WITH cte AS(
+		select si.industry_id,
+			ROW_NUMBER() OVER(ORDER BY si.industry_id) AS rownum
+		from sys_industry si
+		<include refid="where_selectIndustryList"/>
+		GROUP BY si.industry_id
+	)
+				 
+	select  si.industry_id,si.industry_simple 
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st
+	left join sys_industry si on si.industry_id=st.industry_id
+  </select>
+  
+  <!-- 后台逻辑 -->
+  <sql id="where_selectIndustryPfVoPageList">
+  	<where>
+		1=1
+		<if test="map.industryTitleKeywords !=null and map.industryTitleKeywords !=''">
+			and si.industry_title like '%${map.industryTitleKeywords}%'
+		</if>
+		<if test="map.industryState !=null and map.industryState !=''">
+			and si.industry_state = #{map.industryState}
+		</if>
+	</where>
+  </sql>
+  <select id="selectIndustryPfVoCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select count(DISTINCT si.industry_id) 
+  	from sys_industry si
+  	<include refid="where_selectIndustryPfVoPageList"/>
+  </select>
+  <select id="selectIndustryPfVoPageList" resultMap="sysIndustryPfVoResultMap" parameterType="java.util.Map">
+  	WITH cte AS(
+		select si.industry_id,
+			ROW_NUMBER() OVER(ORDER BY si.create_time desc) AS rownum
+		from sys_industry si
+		<include refid="where_selectIndustryPfVoPageList"/>
+		GROUP BY si.industry_id,si.create_time
+	)
+				 
+	select si.industry_id,si.industry_title,si.industry_link,si.create_time,si.update_time,si.industry_state 
+	from
+		(select * from cte where rownum between #{map.startIndex} and (#{map.startIndex} + #{map.onePageCount} - 1)) st
+	left join sys_industry si on si.industry_id=st.industry_id
+  </select>
+  
+  <!-- 产业分布统计 -->
+  <!-- <sql id="where_selectIndustryStatisticsPageList">
+  	<where>
+  		si.industry_state=2 
+  	</where>
+  </sql>
+  <sql id="relation_selectIndustryStatisticsPageList">
+  	left join sys_station_industry ssi on ssi.industry_id=si.industry_id
+	left join sys_station ss on ss.station_id=ssi.station_id
+  </sql> -->
+  <select id="selectIndustryStatisticsCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select 
+	count(DISTINCT si.industry_id) 
+	from sys_industry si 
+	left join sys_station_industry ssi on ssi.industry_id=si.industry_id
+	left join (select * from sys_station where station_state=2) ss on ss.station_id=ssi.station_id
+	where si.industry_state=2 
+  </select>
+  <sql id="SQL_selectIndustryStatisticsPageList" >
+	select 
+	si.industry_id,si.industry_title,count(ss.station_id) num
+	from sys_industry si 
+	left join sys_station_industry ssi on ssi.industry_id=si.industry_id
+	left join (select * from sys_station where station_state=2) ss on ss.station_id=ssi.station_id
+	where si.industry_state=2 
+	group by si.industry_id,si.industry_title
+  </sql>
+  <sql id="SQL_ID_selectIndustryStatisticsPageList" >
+	industry_id
+  </sql>
+  <select id="selectIndustryStatisticsPageList" resultMap="ResultMapIndustryStatisticsVo" parameterType="java.util.Map">
+	SELECT TOP ${map.onePageCount}
+		*
+	FROM 
+	(
+		<include refid="SQL_selectIndustryStatisticsPageList" />
+	)
+	 t
+	WHERE t.<include refid="SQL_ID_selectIndustryStatisticsPageList" /> 
+	NOT IN
+	(
+		SELECT TOP (${map.onePageCount} * ${map.startIndex}) 
+		nt.<include refid="SQL_ID_selectIndustryStatisticsPageList" /> 
+		FROM 
+		(
+			<include refid="SQL_selectIndustryStatisticsPageList" />
+		) nt order by nt.num desc
+	) order by t.num desc
+  </select>
+  <select id="selectIndustryStatisticsCountMax" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select max(num) from 
+	(
+			<include refid="SQL_selectIndustryStatisticsPageList" />
+	) t
+  </select>
+</mapper>

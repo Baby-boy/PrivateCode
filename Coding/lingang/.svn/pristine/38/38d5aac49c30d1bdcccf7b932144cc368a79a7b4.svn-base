@@ -1,0 +1,81 @@
+package com.lingang.core.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.basic.StateCodeConstant;
+import com.lingang.api.domain.para.SysServicePara;
+import com.lingang.api.domain.pfvo.SysServicePfVo;
+import com.lingang.api.domain.vo.SysServiceVo;
+import com.lingang.api.service.SysServiceService;
+import com.lingang.core.persistence.reader.SysServiceReaderMapper;
+
+@Service("sysServiceService")
+public class SysServiceServiceImpl implements SysServiceService {
+
+	@Resource
+	private SysServiceReaderMapper sysServiceReaderMapper;
+
+	@Override
+	public ServiceResult<Page<SysServiceVo>> selectServicePageList(Integer pageIndex,Integer regionTypeId, Integer pageSize,
+			Integer regionId, Integer basicsId) {
+		ServiceResult<Page<SysServiceVo>> result = new ServiceResult<Page<SysServiceVo>>();
+		// 查询条件
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("regionTypeId", regionTypeId);
+		map.put("regionId", regionId);
+		map.put("basicsId", basicsId);
+		int countRecord = sysServiceReaderMapper.selectServiceCount(map);
+		Page<SysServiceVo> page = new Page<SysServiceVo>(pageIndex, countRecord, pageSize);
+		if (countRecord > 0) {
+			map.put("startIndex", page.getStartIndex());
+			map.put("onePageCount", pageSize);
+			List<SysServiceVo> list = sysServiceReaderMapper.selectServicePageList(map);
+			page.setList(list);
+		}
+		// 返回信息
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(page);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<SysServiceVo> selectServiceByServiceId(Integer serviceId) {
+		ServiceResult<SysServiceVo> result=new ServiceResult<SysServiceVo>();
+		SysServiceVo serviceVo=sysServiceReaderMapper.selectServiceVoByServiceId(serviceId);
+		// 返回信息
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		result.setData(serviceVo);
+		return result;
+	}
+
+	@Override
+	public ServiceResult<Page<SysServicePfVo>> selectServicePfVoPageList(SysServicePara para) {
+		ServiceResult<Page<SysServicePfVo>> result = new ServiceResult<>();
+		// 查询条件
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("serviceNameKeywords", para.getServiceNameKeywords());
+		map.put("regionNameKeywords", para.getRegionNameKeywords());
+		map.put("serviceTeamKeywords", para.getServiceTeamKeywords());
+		int countRecord = sysServiceReaderMapper.selectServicePfVoCount(map);
+		Page<SysServicePfVo> page = new Page<>(para.getCurrentPage(), countRecord, para.getOnePageCount());
+		if (countRecord > 0) {
+			// 分页条件
+			map.put("startIndex", page.getStartIndex());
+			map.put("onePageCount", page.getOnePageCount());
+			List<SysServicePfVo> list = sysServiceReaderMapper.selectServicePfVoPageList(map);
+			page.setList(list);
+		}
+		result.setData(page);
+		result.setStateCode(StateCodeConstant.SUCCESS_CODE);
+		return result;
+	}
+
+}

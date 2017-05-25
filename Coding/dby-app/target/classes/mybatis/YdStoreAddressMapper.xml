@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdStoreAddressMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdStoreAddress" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sa_title" property="saTitle" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="sa_sort" property="saSort" jdbcType="INTEGER" />
+    <result column="is_default" property="isDefault" jdbcType="INTEGER" />
+    <result column="sa_linkman" property="saLinkman" jdbcType="VARCHAR" />
+    <result column="sa_linktel" property="saLinktel" jdbcType="VARCHAR" />
+    <result column="sa_province_id" property="saProvinceId" jdbcType="CHAR" />
+    <result column="sa_city_id" property="saCityId" jdbcType="CHAR" />
+    <result column="sa_area_id" property="saAreaId" jdbcType="CHAR" />
+    <result column="sa_pca" property="saPca" jdbcType="VARCHAR" />
+    <result column="sa_street" property="saStreet" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sa_title, store_id, sa_sort, is_default, sa_linkman, sa_linktel, sa_province_id, 
+    sa_city_id, sa_area_id, sa_pca, sa_street, created_at, updated_at
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_store_address
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_store_address
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdStoreAddress" >
+    insert into yd_store_address (id, sa_title, store_id, 
+      sa_sort, is_default, sa_linkman, 
+      sa_linktel, sa_province_id, sa_city_id, 
+      sa_area_id, sa_pca, sa_street, 
+      created_at, updated_at)
+    values (#{id,jdbcType=INTEGER}, #{saTitle,jdbcType=VARCHAR}, #{storeId,jdbcType=INTEGER}, 
+      #{saSort,jdbcType=INTEGER}, #{isDefault,jdbcType=INTEGER}, #{saLinkman,jdbcType=VARCHAR}, 
+      #{saLinktel,jdbcType=VARCHAR}, #{saProvinceId,jdbcType=CHAR}, #{saCityId,jdbcType=CHAR}, 
+      #{saAreaId,jdbcType=CHAR}, #{saPca,jdbcType=VARCHAR}, #{saStreet,jdbcType=VARCHAR}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdStoreAddress" >
+    insert into yd_store_address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="saTitle != null" >
+        sa_title,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="saSort != null" >
+        sa_sort,
+      </if>
+      <if test="isDefault != null" >
+        is_default,
+      </if>
+      <if test="saLinkman != null" >
+        sa_linkman,
+      </if>
+      <if test="saLinktel != null" >
+        sa_linktel,
+      </if>
+      <if test="saProvinceId != null" >
+        sa_province_id,
+      </if>
+      <if test="saCityId != null" >
+        sa_city_id,
+      </if>
+      <if test="saAreaId != null" >
+        sa_area_id,
+      </if>
+      <if test="saPca != null" >
+        sa_pca,
+      </if>
+      <if test="saStreet != null" >
+        sa_street,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="updatedAt != null" >
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="saTitle != null" >
+        #{saTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="saSort != null" >
+        #{saSort,jdbcType=INTEGER},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="saLinkman != null" >
+        #{saLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="saLinktel != null" >
+        #{saLinktel,jdbcType=VARCHAR},
+      </if>
+      <if test="saProvinceId != null" >
+        #{saProvinceId,jdbcType=CHAR},
+      </if>
+      <if test="saCityId != null" >
+        #{saCityId,jdbcType=CHAR},
+      </if>
+      <if test="saAreaId != null" >
+        #{saAreaId,jdbcType=CHAR},
+      </if>
+      <if test="saPca != null" >
+        #{saPca,jdbcType=VARCHAR},
+      </if>
+      <if test="saStreet != null" >
+        #{saStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdStoreAddress" >
+    update yd_store_address
+    <set >
+      <if test="saTitle != null" >
+        sa_title = #{saTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="saSort != null" >
+        sa_sort = #{saSort,jdbcType=INTEGER},
+      </if>
+      <if test="isDefault != null" >
+        is_default = #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="saLinkman != null" >
+        sa_linkman = #{saLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="saLinktel != null" >
+        sa_linktel = #{saLinktel,jdbcType=VARCHAR},
+      </if>
+      <if test="saProvinceId != null" >
+        sa_province_id = #{saProvinceId,jdbcType=CHAR},
+      </if>
+      <if test="saCityId != null" >
+        sa_city_id = #{saCityId,jdbcType=CHAR},
+      </if>
+      <if test="saAreaId != null" >
+        sa_area_id = #{saAreaId,jdbcType=CHAR},
+      </if>
+      <if test="saPca != null" >
+        sa_pca = #{saPca,jdbcType=VARCHAR},
+      </if>
+      <if test="saStreet != null" >
+        sa_street = #{saStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdStoreAddress" >
+    update yd_store_address
+    set sa_title = #{saTitle,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=INTEGER},
+      sa_sort = #{saSort,jdbcType=INTEGER},
+      is_default = #{isDefault,jdbcType=INTEGER},
+      sa_linkman = #{saLinkman,jdbcType=VARCHAR},
+      sa_linktel = #{saLinktel,jdbcType=VARCHAR},
+      sa_province_id = #{saProvinceId,jdbcType=CHAR},
+      sa_city_id = #{saCityId,jdbcType=CHAR},
+      sa_area_id = #{saAreaId,jdbcType=CHAR},
+      sa_pca = #{saPca,jdbcType=VARCHAR},
+      sa_street = #{saStreet,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

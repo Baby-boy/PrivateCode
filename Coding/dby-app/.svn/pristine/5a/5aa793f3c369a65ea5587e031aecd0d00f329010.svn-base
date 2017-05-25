@@ -1,0 +1,41 @@
+package com.yd.dby.app.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.yd.dby.app.basic.Page;
+import com.yd.dby.app.common.HttpCode;
+import com.yd.dby.app.common.ServiceResult;
+import com.yd.dby.app.entity.para.CtcOrderPara;
+import com.yd.dby.app.entity.vo.CtcOrderListVo;
+import com.yd.dby.app.mapper.YdCtcOrderMapper;
+import com.yd.dby.app.service.YdCtcOrderService;
+
+@Service("ydCtcOrderService")
+public class YdCtcOrderServiceImpl implements YdCtcOrderService {
+
+	@Autowired
+	private YdCtcOrderMapper ydCtcOrderMapper;
+
+	@Override
+	public ServiceResult<Page<CtcOrderListVo>> selectOrderPageList(CtcOrderPara para) {
+		ServiceResult<Page<CtcOrderListVo>> result = new ServiceResult<Page<CtcOrderListVo>>();
+
+		int countRecord = ydCtcOrderMapper.selectOrderPageCount(para);
+		Page<CtcOrderListVo> page = new Page<CtcOrderListVo>(para.getCurrentPage(), countRecord,
+				para.getOnePageCount());
+		if (para.getCurrentPage() <= page.getCountPage()) {
+			para.setStartIndex(page.getStartIndex());
+			List<CtcOrderListVo> list = ydCtcOrderMapper.selectOrderPageList(para);
+			page.setList(list);
+		}
+
+		result.setData(page);
+		result.setStatusCode(HttpCode.OK);
+
+		return result;
+	}
+
+}

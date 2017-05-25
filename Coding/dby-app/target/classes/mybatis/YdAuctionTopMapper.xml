@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdAuctionTopMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdAuctionTop" >
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="depot_id" property="depotId" jdbcType="INTEGER" />
+    <result column="top_id" property="topId" jdbcType="INTEGER" />
+    <result column="top_price" property="topPrice" jdbcType="REAL" />
+    <result column="is_pay" property="isPay" jdbcType="INTEGER" />
+    <result column="is_receipt" property="isReceipt" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdAuctionTop" >
+    insert into yd_auction_top (user_id, depot_id, top_id, 
+      top_price, is_pay, is_receipt
+      )
+    values (#{userId,jdbcType=INTEGER}, #{depotId,jdbcType=INTEGER}, #{topId,jdbcType=INTEGER}, 
+      #{topPrice,jdbcType=REAL}, #{isPay,jdbcType=INTEGER}, #{isReceipt,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdAuctionTop" >
+    insert into yd_auction_top
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="depotId != null" >
+        depot_id,
+      </if>
+      <if test="topId != null" >
+        top_id,
+      </if>
+      <if test="topPrice != null" >
+        top_price,
+      </if>
+      <if test="isPay != null" >
+        is_pay,
+      </if>
+      <if test="isReceipt != null" >
+        is_receipt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="depotId != null" >
+        #{depotId,jdbcType=INTEGER},
+      </if>
+      <if test="topId != null" >
+        #{topId,jdbcType=INTEGER},
+      </if>
+      <if test="topPrice != null" >
+        #{topPrice,jdbcType=REAL},
+      </if>
+      <if test="isPay != null" >
+        #{isPay,jdbcType=INTEGER},
+      </if>
+      <if test="isReceipt != null" >
+        #{isReceipt,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

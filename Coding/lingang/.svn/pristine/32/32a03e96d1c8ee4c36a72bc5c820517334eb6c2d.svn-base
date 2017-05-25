@@ -1,0 +1,33 @@
+package com.lingang.core.persistence.reader;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.lingang.api.domain.entity.SysPark;
+import com.lingang.api.domain.pfvo.SysParkPfVo;
+import com.lingang.api.domain.vo.SysParkVo;
+
+public interface SysParkReaderMapper {
+
+	SysPark selectByPrimaryKey(Integer parkId);
+
+	int selectSysParkVoCountByRegionIdAndIndustryIds(@Param("map") Map<String, Object> map);
+
+	List<SysParkVo> selectSysParkVoPageListByRegionIdAndIndustryIds(@Param("map") Map<String, Object> map);
+
+	int selectSysParkDetailsCountByStationId(@Param("parkId") Integer parkId);
+
+	SysParkVo selectSysParkDetailsByStationId(@Param("parkId") Integer parkId);
+
+	int selectUserCollectCount(@Param("map") Map<String, Object> map);
+
+	List<SysParkVo> selectUserCollectPageList(@Param("map") Map<String, Object> map);
+
+	/** 后台逻辑 */
+	int selectSysParkPfVoCount(@Param("map") Map<String, Object> map);
+
+	List<SysParkPfVo> selectSysParkPfVoPageList(@Param("map") Map<String, Object> map);
+
+}

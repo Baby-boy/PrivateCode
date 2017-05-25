@@ -1,0 +1,42 @@
+https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419316505&token=3687ef81d0817e5d73e4161edec6f05756ec59f7&lang=zh_CN
+
+关于微信网站应用的授权回调域的书写问题:
+	这个授权回调域的地址必须为站域名.但是在请求地址的书写上,我们必须加上http或者https,同时地址的请求资源也可以任意跳转,只要站域名是设置的授权回调域即可
+	
+第一步: 请求地址(回调地址为: ydgcj.tunnel.2bdata.com)
+https://open.weixin.qq.com/connect/qrconnect?appid=wxa517d463f51813d1&redirect_uri=http://ydgcj.tunnel.2bdata.com/user/wxLogin&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect
+
+第二步: 通过code获取access_token
+https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxa517d463f51813d1&secret=93af3cd349dccf7057e525326a4a1974&code=001jkexl19D3Gj0YxMzl1nv5xl1jkexA&grant_type=authorization_code
+	
+	返回Access Token
+	{
+    "access_token": "TQDQDdY6a79dJxfSTgOdj3k3mjkYO3WYMZ7cG7vYgTcyQmW-EqEf1UUIBzruiuhDjRlhBS0P5qEV40_r_wUiaXpV2KrZm3oSTNMoegoukFg",
+    "expires_in": 7200,
+    "refresh_token": "4p_AEvwJNgfZ9TJMgv2HTwbqpwEdMMNy16S6CsUKvFJie3UO6pHzxQ3jvzvBLqCIjWNLiolKV6JwPkbw9Dn88yLja7eL1QDu-GuqnyNsTTw",
+    "openid": "oGRqG0tpX86koSa_CKkWNeFGUUE0",
+    "scope": "snsapi_login",
+    "unionid": "okR-kwu5A62Ot81o-yVTb3njfieE"
+	}
+	
+第三步: 使用Access Token以及OpenID来访问和修改用户数据
+https://api.weixin.qq.com/sns/userinfo?access_token=IZJtp_yyCDILABqvWbcEuKZEcQHErpFqFw9TupeMa2hGz23OGSARNkVE7bnIl6uQUU0nVjs6Bmy4LywPGzt6hpMj-PawG8UJaVJMW8chjLk&openid=oGRqG0tpX86koSa_CKkWNeFGUUE0
+	
+	{
+	"openid": "oGRqG0tpX86koSa_CKkWNeFGUUE0",
+	"nickname": "变化灬无常",
+	"sex": 1,
+	"language": "zh_CN",
+	"city": "Pudong New District",
+	"province": "Shanghai",
+	"country": "CN",
+	"headimgurl": "http://wx.qlogo.cn/mmopen/3lUSf3gcVwVoNLoSOm7hakuYh6un2JTy9KiaScDgIibRFowS42Itxd0UCLKia3vVp64zNz7hoKjE1KRHmp2DWsR7iavs8FZwGicBib/0",
+	"privilege": [],
+	"unionid": "okR-kwu5A62Ot81o-yVTb3njfieE"
+	}
+	
+额外请求:
+	刷新access_token
+https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=wxa517d463f51813d1&grant_type=refresh_token&refresh_token=REFRESH_TOKEN
+
+

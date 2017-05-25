@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdThridpartyLoginMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdThridpartyLogin" >
+    <result column="tpl_id" property="tplId" jdbcType="INTEGER" />
+    <result column="tpl_user_id" property="tplUserId" jdbcType="INTEGER" />
+    <result column="tpl_type" property="tplType" jdbcType="INTEGER" />
+    <result column="tpl_openid" property="tplOpenid" jdbcType="VARCHAR" />
+    <result column="tpl_created_time" property="tplCreatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdThridpartyLogin" >
+    insert into yd_thridparty_login (tpl_id, tpl_user_id, tpl_type, 
+      tpl_openid, tpl_created_time)
+    values (#{tplId,jdbcType=INTEGER}, #{tplUserId,jdbcType=INTEGER}, #{tplType,jdbcType=INTEGER}, 
+      #{tplOpenid,jdbcType=VARCHAR}, #{tplCreatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdThridpartyLogin" >
+    insert into yd_thridparty_login
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tplId != null" >
+        tpl_id,
+      </if>
+      <if test="tplUserId != null" >
+        tpl_user_id,
+      </if>
+      <if test="tplType != null" >
+        tpl_type,
+      </if>
+      <if test="tplOpenid != null" >
+        tpl_openid,
+      </if>
+      <if test="tplCreatedTime != null" >
+        tpl_created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tplId != null" >
+        #{tplId,jdbcType=INTEGER},
+      </if>
+      <if test="tplUserId != null" >
+        #{tplUserId,jdbcType=INTEGER},
+      </if>
+      <if test="tplType != null" >
+        #{tplType,jdbcType=INTEGER},
+      </if>
+      <if test="tplOpenid != null" >
+        #{tplOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="tplCreatedTime != null" >
+        #{tplCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="selectByOpenidAndType" resultMap="BaseResultMap">
+  	select tpl_id,tpl_user_id,tpl_type,tpl_openid,tpl_created_time from yd_thridparty_login 
+  	where tpl_openid=#{tplOpenid,jdbcType=VARCHAR} and tpl_type=#{tplType,jdbcType=INTEGER}
+  </select>
+</mapper>

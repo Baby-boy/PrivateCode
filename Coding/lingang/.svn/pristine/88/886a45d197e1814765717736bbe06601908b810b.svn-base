@@ -1,0 +1,45 @@
+/**
+ * Created by FxLsoft on 2015/12/3.
+ */
+'use strict';
+
+define(["serviceBase"], function (serviceBase) {
+	 var items = {};
+	    //获取公共平台列表
+	    items.sysPublicPageList = function ($http,data) {
+	        var request = $http.post('sysPublic/sysPublicPageList.do', data, serviceBase.postConfig);
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+	    
+	    //获取详情
+	    items.getPublicDetails = function ($http,data) {
+	        var request = $http.post('sysPublic/publicDetails.do', data, {params:data});
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+	    
+	    //修改信息
+	    items.updatePublicDetails = function ($http,data) {
+	        var request = $http.post('sysPublic/updatePublicDetails.do', data, serviceBase.postConfig);
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+	    
+	    //添加信息
+	    items.addPublicDetails = function ($http,data) {
+	        var request = $http.post('sysPublic/addPublicDetails.do', data, serviceBase.postConfig);
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+	    
+	    //获取所有已发布开放层级
+	    items.getBasicsAll = function ($http,data) {
+	        var request = $http.post('sysBasics/getBasicsAll.do', data, serviceBase.postConfig);
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+	    
+	    // 获取所有地区
+	    items.getRegionAll = function ($http,data) {
+	        var request = $http.post('sysRegion/getRegionAll.do', data, serviceBase.postConfig);
+	        return( request.then(serviceBase.handleSuccess, serviceBase.handleError) );
+	    };
+
+    return ['sysPublicService', items];
+});

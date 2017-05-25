@@ -1,0 +1,21 @@
+package com.lingang.core.persistence.reader;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.lingang.api.domain.entity.SysBasics;
+import com.lingang.api.domain.entity.SysRegion;
+
+public interface SysRegionReaderMapper {
+
+    SysRegion selectByPrimaryKey(Integer regionId);
+
+    List<SysRegion> selectRegionAllList();
+
+	int selectSysRegionCount(@Param("map")Map map);
+
+	List<SysRegion> selectSysRegionPageList(@Param("map") Map map);
+
+}

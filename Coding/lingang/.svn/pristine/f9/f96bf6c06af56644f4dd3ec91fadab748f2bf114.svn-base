@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+		<meta name="renderer" content="webkit">
+		<title>活动首页</title>
+		<meta name="renderer" content="webkit">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="css/animations.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/main.css" />
+		<link rel="stylesheet" href="css/base.css" />
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="">
+					<div id="carousel-home" class="carousel slide carousel-home" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-target="#carousel-home" data-slide-to="0" class="active"></li>
+						    <li data-target="#carousel-home" data-slide-to="1"></li>
+						    <li data-target="#carousel-home" data-slide-to="2"></li>
+						</ol>
+						<div class="carousel-inner" role="listbox">
+							<div class="item active">
+						    	<img class="item-img" src="img/banner2.png" alt="轮播图">
+						    </div>
+						    <div class="item">
+						    	<img class="item-img" src="img/banner2.png" alt="轮播图">
+						    </div>
+						    <div class="item">
+						    	<img class="item-img" src="img/banner2.png" alt="轮播图">
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row ptm-10 bg-qs">
+				<div class="col-xs-12">
+					<div class="search">
+						<input type="text" class="form-control">
+						<a><img src="img/search.png"></a>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="selects">
+					<div class="items">
+						<select>
+							<option>系列</option>
+						</select>
+					</div>
+					<div class="items">
+						<select>
+							<option>科目</option>
+						</select>
+					</div>
+					<div class="items">
+						<select>
+							<option>年龄</option>
+						</select>
+					</div>
+					<div class="items">
+						<select>
+							<option>排序</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="active-list">
+					<div class="items">
+						<div class="col-xs-4">
+							<div class="icon">
+								<div class="state">
+									<span>报名中</span>
+								</div>
+								<img class="auto-img" src="img/details.png"  />
+							</div>
+						</div>
+						<div class="col-xs-8 body">
+							<div class="title">活动：收纳整理小助手</div>
+							<div>[时间]2016/1/1-2016/1/1</div>
+							<div>[适宜年龄]3-7岁</div>
+							<div class="collect mt-10">
+								<span class="price">￥868/人</span>
+								<a class="fl-right">
+									<img src="img/Star2.png">
+									<span>已收藏</span>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="items">
+						<div class="col-xs-4">
+							<div class="icon">
+								<div class="state">
+									<span>报名中</span>
+								</div>
+								<img class="auto-img" src="img/details.png"  />
+							</div>
+						</div>
+						<div class="col-xs-8 body">
+							<div class="title">活动：收纳整理小助手</div>
+							<div>[时间]2016/1/1-2016/1/1</div>
+							<div>[适宜年龄]3-7岁</div>
+							<div class="collect mt-10">
+								<span class="price">￥868/人</span>
+								<a class="fl-right">
+									<img src="img/Star2.png">
+									<span>已收藏</span>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="items">
+						<div class="col-xs-4">
+							<div class="icon">
+								<div class="state">
+									<span>报名中</span>
+								</div>
+								<img class="auto-img" src="img/details.png"  />
+							</div>
+						</div>
+						<div class="col-xs-8 body">
+							<div class="title">活动：收纳整理小助手</div>
+							<div>[时间]2016/1/1-2016/1/1</div>
+							<div>[适宜年龄]3-7岁</div>
+							<div class="collect mt-10">
+								<span class="price">￥868/人</span>
+								<a class="fl-right">
+									<img src="img/Star2.png">
+									<span>已收藏</span>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="items">
+						<div class="col-xs-4">
+							<div class="icon">
+								<div class="state">
+									<span>报名中</span>
+								</div>
+								<img class="auto-img" src="img/details.png"  />
+							</div>
+						</div>
+						<div class="col-xs-8 body">
+							<div class="title">活动：收纳整理小助手</div>
+							<div>[时间]2016/1/1-2016/1/1</div>
+							<div>[适宜年龄]3-7岁</div>
+							<div class="collect mt-10">
+								<span class="price">￥868/人</span>
+								<a class="fl-right">
+									<img src="img/Star2.png">
+									<span>已收藏</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-2.1.1.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+	</body>
+</html>
+

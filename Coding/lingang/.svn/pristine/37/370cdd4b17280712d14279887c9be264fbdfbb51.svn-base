@@ -1,0 +1,99 @@
+'use strict';
+
+define([
+		'app',
+		'route-config'
+	],
+
+	function (app, routeConfig) {
+	    return app.config(['$routeProvider', function ($routeProvider) {
+	    	/***********************************************************************/
+            $routeProvider.when("/index",routeConfig.config('views/index.html',
+                'controllers/IndexController',{
+                    directives: [],
+                    services: [],
+                    filters: [],
+                    parameters:{title:'首页'}
+                }));
+            
+            $routeProvider.when("/system/sysManager/:childModule/:value", routeConfig.config('views/system/sysManager/main.html',
+            		'controllers/system/sysManager/mainSysManagerCtrl', {
+		            	directives: ["directives/common/ndtech.pagination.js", "directives/common/datePicker.js"],
+		                services: ["services/sysManagerService"],
+		                filters: [],
+		                parameters:{title:'系统账户_管理员'}
+            }));
+            
+            $routeProvider.when("/system/appManager/:childModule/:value", routeConfig.config('views/system/appManager/main.html',
+            		'controllers/system/appManager/mainSysUserCtrl', {
+		            	directives: ["directives/common/ndtech.pagination.js", "directives/common/datePicker.js"],
+		                services: ["services/sysUserService"],
+		                filters: [],
+		                parameters:{title:'系统账户_APP用户'}
+            }));
+            
+            $routeProvider.when("/basics/sysBasics/:childModule/:value", routeConfig.config('views/basics/sysBasics/main.html',
+            		'controllers/message/messagEerror/mainSysBasicsCtrl', {
+		            	directives: ["directives/common/ndtech.pagination.js", "directives/common/datePicker.js"],
+		                services: ["services/sysBasicsService"],
+		                filters: [],
+		                parameters:{title:'基础设置_管理员'}
+            }));
+            /*************************客服管理——信息纠错******************************/
+            $routeProvider.when("/message/messagEerror/:childModule/:value", routeConfig.config('views/basics/sysBasics/main.html',
+            		'controllers/basics/sysBasics/mainSysBasicsCtrl', {
+		            	directives: ["directives/common/ndtech.pagination.js", "directives/common/datePicker.js"],
+		                services: ["services/sysMessageService"],
+		                filters: [],
+		                parameters:{title:'客服管理_管理员'}
+            }));
+            /*************************客服管理——意见反馈******************************/
+            $routeProvider.when("/customerservice/InformationErrorCorrection/:childModule/:value", routeConfig.config('views/basics/sysBasics/main.html',
+            		'controllers/basics/sysBasics/mainSysBasicsCtrl', {
+		            	directives: ["directives/common/ndtech.pagination.js", "directives/common/datePicker.js"],
+		                services: ["services/sysBasicsService"],
+		                filters: [],
+		                parameters:{title:'客服管理_管理员'}
+            }));
+            
+            /*************************查询设置_产业园区******************************/
+            $routeProvider.when("/seek/sysPark/:childModule/:value", routeConfig.config('views/seek/sysPark/main.html',
+            		'controllers/seek/sysPark/mainSysParkCtrl', {
+		            	directives: ["directives/common/ndtech.pagination.js", "directives/common/datePicker.js"],
+		                services: ["services/sysParkService"],
+		                filters: [],
+		                parameters:{title:'查询设置_产业园区'}
+            }));
+            
+            /*************************查询设置_合作伙伴******************************/
+            $routeProvider.when("/seek/sysPartner/:childModule/:value", routeConfig.config('views/seek/sysPartner/main.html',
+            		'controllers/seek/sysPartner/mainSysPartnerCtrl', {
+            	directives: ["directives/common/ndtech.pagination.js", "directives/common/datePicker.js"],
+            	services: ["services/sysPartnerService"],
+            	filters: [],
+            	parameters:{title:'查询设置_合作伙伴'}
+            }));
+            
+            /*************************查询设置_产业集群******************************/
+            $routeProvider.when("/seek/sysIndustry/:childModule/:value", routeConfig.config('views/seek/sysIndustry/main.html',
+            		'controllers/seek/sysIndustry/mainSysIndustryCtrl', {
+            	directives: ["directives/common/ndtech.pagination.js", "directives/common/datePicker.js"],
+            	services: ["services/sysIndustryService"],
+            	filters: [],
+            	parameters:{title:'查询设置_产业集群'}
+            }));
+            
+            /*************************查询设置_服务机构******************************/
+            $routeProvider.when("/seek/sysService/:childModule/:value", routeConfig.config('views/seek/sysService/main.html',
+            		'controllers/seek/sysService/mainSysServiceCtrl', {
+            	directives: ["directives/common/ndtech.pagination.js", "directives/common/datePicker.js"],
+            	services: ["services/sysServiceService"],
+            	filters: [],
+            	parameters:{title:'查询设置_服务机构'}
+            }));
+            
+            $routeProvider.otherwise({redirectTo:function(route,path,search){
+                return "/index";
+            }});
+		}]);
+});

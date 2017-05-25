@@ -1,0 +1,19 @@
+package com.yd.dby.app.service;
+
+import com.yd.dby.app.basic.Page;
+import com.yd.dby.app.common.ServiceResult;
+import com.yd.dby.app.entity.para.CtcOrderPara;
+import com.yd.dby.app.entity.vo.CtcOrderListVo;
+
+public interface YdCtcOrderService {
+
+	/**
+	 * 说明: 订单列表
+	 * 
+	 * @param para
+	 * @return
+	 * @author lgl(lgl@zwzyd.com)
+	 * @date: 2017年2月23日 上午10:38:04
+	 */
+	ServiceResult<Page<CtcOrderListVo>> selectOrderPageList(CtcOrderPara para);
+}

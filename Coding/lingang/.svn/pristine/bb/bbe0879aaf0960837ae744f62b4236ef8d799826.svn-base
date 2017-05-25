@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.writer.SysPublicUmanagerWriterMapper" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_public_umanager
+    where public_umanager_id = #{publicUmanagerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingang.api.domain.entity.SysPublicUmanager" >
+    insert into sys_public_umanager (public_umanager_id, public_id, umanager_id, 
+      user_account)
+    values (#{publicUmanagerId,jdbcType=INTEGER}, #{publicId,jdbcType=INTEGER}, #{umanagerId,jdbcType=INTEGER}, 
+      #{userAccount,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="publicUmanagerId" parameterType="com.lingang.api.domain.entity.SysPublicUmanager" >
+    insert into sys_public_umanager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="publicUmanagerId != null" >
+        public_umanager_id,
+      </if>
+      <if test="publicId != null" >
+        public_id,
+      </if>
+      <if test="umanagerId != null" >
+        umanager_id,
+      </if>
+      <if test="userAccount != null" >
+        user_account,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="publicUmanagerId != null" >
+        #{publicUmanagerId,jdbcType=INTEGER},
+      </if>
+      <if test="publicId != null" >
+        #{publicId,jdbcType=INTEGER},
+      </if>
+      <if test="umanagerId != null" >
+        #{umanagerId,jdbcType=INTEGER},
+      </if>
+      <if test="userAccount != null" >
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lingang.api.domain.entity.SysPublicUmanager" >
+    update sys_public_umanager
+    <set >
+      <if test="publicId != null" >
+        public_id = #{publicId,jdbcType=INTEGER},
+      </if>
+      <if test="umanagerId != null" >
+        umanager_id = #{umanagerId,jdbcType=INTEGER},
+      </if>
+      <if test="userAccount != null" >
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where public_umanager_id = #{publicUmanagerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lingang.api.domain.entity.SysPublicUmanager" >
+    update sys_public_umanager
+    set public_id = #{publicId,jdbcType=INTEGER},
+      umanager_id = #{umanagerId,jdbcType=INTEGER},
+      user_account = #{userAccount,jdbcType=VARCHAR}
+    where public_umanager_id = #{publicUmanagerId,jdbcType=INTEGER}
+  </update>
+</mapper>

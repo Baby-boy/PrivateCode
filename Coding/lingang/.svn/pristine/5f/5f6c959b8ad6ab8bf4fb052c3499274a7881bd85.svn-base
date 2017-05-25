@@ -1,0 +1,80 @@
+package com.lingang.platform.controller.message;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.lingang.api.domain.basic.JsonResult;
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysMessage;
+import com.lingang.api.domain.entity.SysReply;
+import com.lingang.api.domain.para.SysManagerPara;
+import com.lingang.api.domain.para.SysMessagePara;
+import com.lingang.api.domain.pfvo.SysManagerPfVo;
+import com.lingang.api.domain.pfvo.SysMessagePfvo;
+import com.lingang.api.service.SysMessageService;
+import com.lingang.common.custom.RequestBean;
+
+@Controller
+@RequestMapping("/sysMessage")
+public class SysMessageConstroller {
+	@Resource
+	private SysMessageService sysMessageService;
+	/**
+	* @Description: (信息纠错/意见反馈)
+	* @param pageIndex
+	* @param pageSize
+	* @param messageType
+	* @return    
+	* @author gsh(15136390655@163.com)
+	* @date: 2016年12月8日 上午12:09:55
+	 */
+	@RequestMapping(value="/sysMessagePagePageList.do",method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public JsonResult sysMessagePagePageList(@RequestBody SysMessagePara para){
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<Page<SysMessagePfvo>> result=sysMessageService.selectMessageAll(para);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setData(result.getData());
+		return jsonResult;
+	};
+	/**
+	 * 
+	* @Description: (修改回复状态)
+	* @param para
+	* @return    
+	* @author gsh(15136390655@163.com)
+	* @date: 2016年12月9日 下午1:53:11
+	 */
+	@RequestMapping(value="/sysMessageReply.do",method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public JsonResult sysMessageReply(@RequestBody SysMessagePara para){
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<SysReply> result=sysMessageService.updateMessageType(para);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setData(result.getData());
+		return jsonResult;
+	};
+	/**
+	* @Description: (删除)
+	* @param para
+	* @return    
+	* @author gsh(15136390655@163.com)
+	* @date: 2016年12月9日 下午5:32:56
+	 */
+	@RequestMapping(value="/delMessage.do",method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public JsonResult delMessage(@RequestBody SysMessagePara para){
+		JsonResult jsonResult = new JsonResult();
+		ServiceResult<Integer> result=sysMessageService.delMessage(para);
+		jsonResult.setStateCode(result.getStateCode());
+		jsonResult.setData(result.getData());
+		return jsonResult;
+	};
+
+}

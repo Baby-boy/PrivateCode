@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdStoreLinkMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdStoreLink" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="sl_sort" property="slSort" jdbcType="INTEGER" />
+    <result column="sl_title" property="slTitle" jdbcType="VARCHAR" />
+    <result column="sl_url" property="slUrl" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, store_id, sl_sort, sl_title, sl_url, created_at, updated_at
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_store_link
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_store_link
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdStoreLink" >
+    insert into yd_store_link (id, store_id, sl_sort, 
+      sl_title, sl_url, created_at, 
+      updated_at)
+    values (#{id,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{slSort,jdbcType=INTEGER}, 
+      #{slTitle,jdbcType=VARCHAR}, #{slUrl,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdStoreLink" >
+    insert into yd_store_link
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="slSort != null" >
+        sl_sort,
+      </if>
+      <if test="slTitle != null" >
+        sl_title,
+      </if>
+      <if test="slUrl != null" >
+        sl_url,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="updatedAt != null" >
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="slSort != null" >
+        #{slSort,jdbcType=INTEGER},
+      </if>
+      <if test="slTitle != null" >
+        #{slTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="slUrl != null" >
+        #{slUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdStoreLink" >
+    update yd_store_link
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="slSort != null" >
+        sl_sort = #{slSort,jdbcType=INTEGER},
+      </if>
+      <if test="slTitle != null" >
+        sl_title = #{slTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="slUrl != null" >
+        sl_url = #{slUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdStoreLink" >
+    update yd_store_link
+    set store_id = #{storeId,jdbcType=INTEGER},
+      sl_sort = #{slSort,jdbcType=INTEGER},
+      sl_title = #{slTitle,jdbcType=VARCHAR},
+      sl_url = #{slUrl,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

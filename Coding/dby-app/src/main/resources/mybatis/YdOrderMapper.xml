@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdOrderMapper" >
+ <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdOrder" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="order_sn" property="orderSn" jdbcType="BIGINT" />
+    <result column="pay_sn" property="paySn" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="buyer_id" property="buyerId" jdbcType="INTEGER" />
+    <result column="buyer_name" property="buyerName" jdbcType="VARCHAR" />
+    <result column="payment_code" property="paymentCode" jdbcType="VARCHAR" />
+    <result column="payment_time" property="paymentTime" jdbcType="CHAR" />
+    <result column="finnshed_time" property="finnshedTime" jdbcType="CHAR" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="state_service" property="stateService" jdbcType="TINYINT" />
+    <result column="processing_status" property="processingStatus" jdbcType="TINYINT" />
+    <result column="state" property="state" jdbcType="TINYINT" />
+    <result column="delete_state" property="deleteState" jdbcType="TINYINT" />
+    <result column="coupon_id" property="couponId" jdbcType="INTEGER" />
+    <result column="coupon_price" property="couponPrice" jdbcType="DECIMAL" />
+    <result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+    <result column="total_price" property="totalPrice" jdbcType="DECIMAL" />
+    <result column="refund_price" property="refundPrice" jdbcType="DECIMAL" />
+    <result column="transport_price" property="transportPrice" jdbcType="DECIMAL" />
+    <result column="transport_fid" property="transportFid" jdbcType="INTEGER" />
+    <result column="transport_address" property="transportAddress" jdbcType="VARCHAR" />
+    <result column="invoice_type" property="invoiceType" jdbcType="TINYINT" />
+    <result column="invoice_no" property="invoiceNo" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="cancel_reason" property="cancelReason" jdbcType="VARCHAR" />
+    <result column="receipt_name" property="receiptName" jdbcType="VARCHAR" />
+    <result column="receipt_mobile" property="receiptMobile" jdbcType="VARCHAR" />
+    <result column="receipt_address" property="receiptAddress" jdbcType="VARCHAR" />
+    <result column="shipping_address" property="shippingAddress" jdbcType="VARCHAR" />
+    <result column="shipping_id" property="shippingId" jdbcType="INTEGER" />
+    <result column="shipping_express" property="shippingExpress" jdbcType="VARCHAR" />
+    <result column="shipping_code" property="shippingCode" jdbcType="VARCHAR" />
+    <result column="logis_code" property="logisCode" jdbcType="VARCHAR" />
+    <result column="receiving_time" property="receivingTime" jdbcType="VARCHAR" />
+    <result column="shipping_time" property="shippingTime" jdbcType="VARCHAR" />
+    <result column="integral" property="integral" jdbcType="INTEGER" />
+    <result column="evaluation_time" property="evaluationTime" jdbcType="VARCHAR" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yd.dby.app.entity.YdOrderWithBLOBs" extends="BaseResultMap" >
+    <result column="order_message" property="orderMessage" jdbcType="LONGVARCHAR" />
+    <result column="deliver_explain" property="deliverExplain" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_id, order_sn, pay_sn, store_id, store_name, buyer_id, buyer_name, payment_code, 
+    payment_time, finnshed_time, type, state_service, processing_status, state, delete_state, 
+    coupon_id, coupon_price, goods_price, total_price, refund_price, transport_price, 
+    transport_fid, transport_address, invoice_type, invoice_no, created_at, cancel_reason, 
+    receipt_name, receipt_mobile, receipt_address, shipping_address, shipping_id, shipping_express, 
+    shipping_code, logis_code, receiving_time, shipping_time, integral, evaluation_time, 
+    updated_at
+  </sql>
+  <sql id="Blob_Column_List" >
+    order_message, deliver_explain
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from yd_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdOrderWithBLOBs" >
+    insert into yd_order (order_id, order_sn, pay_sn, 
+      store_id, store_name, buyer_id, 
+      buyer_name, payment_code, payment_time, 
+      finnshed_time, type, state_service, 
+      processing_status, state, delete_state, 
+      coupon_id, coupon_price, goods_price, 
+      total_price, refund_price, transport_price, 
+      transport_fid, transport_address, invoice_type, 
+      invoice_no, created_at, cancel_reason, 
+      receipt_name, receipt_mobile, receipt_address, 
+      shipping_address, shipping_id, shipping_express, 
+      shipping_code, logis_code, receiving_time, 
+      shipping_time, integral, evaluation_time, 
+      updated_at, order_message, deliver_explain
+      )
+    values (#{orderId,jdbcType=INTEGER}, #{orderSn,jdbcType=BIGINT}, #{paySn,jdbcType=VARCHAR}, 
+      #{storeId,jdbcType=INTEGER}, #{storeName,jdbcType=VARCHAR}, #{buyerId,jdbcType=INTEGER}, 
+      #{buyerName,jdbcType=VARCHAR}, #{paymentCode,jdbcType=VARCHAR}, #{paymentTime,jdbcType=CHAR}, 
+      #{finnshedTime,jdbcType=CHAR}, #{type,jdbcType=TINYINT}, #{stateService,jdbcType=TINYINT}, 
+      #{processingStatus,jdbcType=TINYINT}, #{state,jdbcType=TINYINT}, #{deleteState,jdbcType=TINYINT}, 
+      #{couponId,jdbcType=INTEGER}, #{couponPrice,jdbcType=DECIMAL}, #{goodsPrice,jdbcType=DECIMAL}, 
+      #{totalPrice,jdbcType=DECIMAL}, #{refundPrice,jdbcType=DECIMAL}, #{transportPrice,jdbcType=DECIMAL}, 
+      #{transportFid,jdbcType=INTEGER}, #{transportAddress,jdbcType=VARCHAR}, #{invoiceType,jdbcType=TINYINT}, 
+      #{invoiceNo,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{cancelReason,jdbcType=VARCHAR}, 
+      #{receiptName,jdbcType=VARCHAR}, #{receiptMobile,jdbcType=VARCHAR}, #{receiptAddress,jdbcType=VARCHAR}, 
+      #{shippingAddress,jdbcType=VARCHAR}, #{shippingId,jdbcType=INTEGER}, #{shippingExpress,jdbcType=VARCHAR}, 
+      #{shippingCode,jdbcType=VARCHAR}, #{logisCode,jdbcType=VARCHAR}, #{receivingTime,jdbcType=VARCHAR}, 
+      #{shippingTime,jdbcType=VARCHAR}, #{integral,jdbcType=INTEGER}, #{evaluationTime,jdbcType=VARCHAR}, 
+      #{updatedAt,jdbcType=TIMESTAMP}, #{orderMessage,jdbcType=LONGVARCHAR}, #{deliverExplain,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdOrderWithBLOBs" >
+    insert into yd_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderSn != null" >
+        order_sn,
+      </if>
+      <if test="paySn != null" >
+        pay_sn,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="buyerId != null" >
+        buyer_id,
+      </if>
+      <if test="buyerName != null" >
+        buyer_name,
+      </if>
+      <if test="paymentCode != null" >
+        payment_code,
+      </if>
+      <if test="paymentTime != null" >
+        payment_time,
+      </if>
+      <if test="finnshedTime != null" >
+        finnshed_time,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="stateService != null" >
+        state_service,
+      </if>
+      <if test="processingStatus != null" >
+        processing_status,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="deleteState != null" >
+        delete_state,
+      </if>
+      <if test="couponId != null" >
+        coupon_id,
+      </if>
+      <if test="couponPrice != null" >
+        coupon_price,
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price,
+      </if>
+      <if test="totalPrice != null" >
+        total_price,
+      </if>
+      <if test="refundPrice != null" >
+        refund_price,
+      </if>
+      <if test="transportPrice != null" >
+        transport_price,
+      </if>
+      <if test="transportFid != null" >
+        transport_fid,
+      </if>
+      <if test="transportAddress != null" >
+        transport_address,
+      </if>
+      <if test="invoiceType != null" >
+        invoice_type,
+      </if>
+      <if test="invoiceNo != null" >
+        invoice_no,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="cancelReason != null" >
+        cancel_reason,
+      </if>
+      <if test="receiptName != null" >
+        receipt_name,
+      </if>
+      <if test="receiptMobile != null" >
+        receipt_mobile,
+      </if>
+      <if test="receiptAddress != null" >
+        receipt_address,
+      </if>
+      <if test="shippingAddress != null" >
+        shipping_address,
+      </if>
+      <if test="shippingId != null" >
+        shipping_id,
+      </if>
+      <if test="shippingExpress != null" >
+        shipping_express,
+      </if>
+      <if test="shippingCode != null" >
+        shipping_code,
+      </if>
+      <if test="logisCode != null" >
+        logis_code,
+      </if>
+      <if test="receivingTime != null" >
+        receiving_time,
+      </if>
+      <if test="shippingTime != null" >
+        shipping_time,
+      </if>
+      <if test="integral != null" >
+        integral,
+      </if>
+      <if test="evaluationTime != null" >
+        evaluation_time,
+      </if>
+      <if test="updatedAt != null" >
+        updated_at,
+      </if>
+      <if test="orderMessage != null" >
+        order_message,
+      </if>
+      <if test="deliverExplain != null" >
+        deliver_explain,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderSn != null" >
+        #{orderSn,jdbcType=BIGINT},
+      </if>
+      <if test="paySn != null" >
+        #{paySn,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerId != null" >
+        #{buyerId,jdbcType=INTEGER},
+      </if>
+      <if test="buyerName != null" >
+        #{buyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentCode != null" >
+        #{paymentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentTime != null" >
+        #{paymentTime,jdbcType=CHAR},
+      </if>
+      <if test="finnshedTime != null" >
+        #{finnshedTime,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="stateService != null" >
+        #{stateService,jdbcType=TINYINT},
+      </if>
+      <if test="processingStatus != null" >
+        #{processingStatus,jdbcType=TINYINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="deleteState != null" >
+        #{deleteState,jdbcType=TINYINT},
+      </if>
+      <if test="couponId != null" >
+        #{couponId,jdbcType=INTEGER},
+      </if>
+      <if test="couponPrice != null" >
+        #{couponPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsPrice != null" >
+        #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="totalPrice != null" >
+        #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="refundPrice != null" >
+        #{refundPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="transportPrice != null" >
+        #{transportPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="transportFid != null" >
+        #{transportFid,jdbcType=INTEGER},
+      </if>
+      <if test="transportAddress != null" >
+        #{transportAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceType != null" >
+        #{invoiceType,jdbcType=TINYINT},
+      </if>
+      <if test="invoiceNo != null" >
+        #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelReason != null" >
+        #{cancelReason,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptName != null" >
+        #{receiptName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptMobile != null" >
+        #{receiptMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptAddress != null" >
+        #{receiptAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingAddress != null" >
+        #{shippingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingId != null" >
+        #{shippingId,jdbcType=INTEGER},
+      </if>
+      <if test="shippingExpress != null" >
+        #{shippingExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingCode != null" >
+        #{shippingCode,jdbcType=VARCHAR},
+      </if>
+      <if test="logisCode != null" >
+        #{logisCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingTime != null" >
+        #{receivingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingTime != null" >
+        #{shippingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="integral != null" >
+        #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="evaluationTime != null" >
+        #{evaluationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderMessage != null" >
+        #{orderMessage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="deliverExplain != null" >
+        #{deliverExplain,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdOrderWithBLOBs" >
+    update yd_order
+    <set >
+      <if test="orderSn != null" >
+        order_sn = #{orderSn,jdbcType=BIGINT},
+      </if>
+      <if test="paySn != null" >
+        pay_sn = #{paySn,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerId != null" >
+        buyer_id = #{buyerId,jdbcType=INTEGER},
+      </if>
+      <if test="buyerName != null" >
+        buyer_name = #{buyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentCode != null" >
+        payment_code = #{paymentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentTime != null" >
+        payment_time = #{paymentTime,jdbcType=CHAR},
+      </if>
+      <if test="finnshedTime != null" >
+        finnshed_time = #{finnshedTime,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="stateService != null" >
+        state_service = #{stateService,jdbcType=TINYINT},
+      </if>
+      <if test="processingStatus != null" >
+        processing_status = #{processingStatus,jdbcType=TINYINT},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="deleteState != null" >
+        delete_state = #{deleteState,jdbcType=TINYINT},
+      </if>
+      <if test="couponId != null" >
+        coupon_id = #{couponId,jdbcType=INTEGER},
+      </if>
+      <if test="couponPrice != null" >
+        coupon_price = #{couponPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="totalPrice != null" >
+        total_price = #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="refundPrice != null" >
+        refund_price = #{refundPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="transportPrice != null" >
+        transport_price = #{transportPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="transportFid != null" >
+        transport_fid = #{transportFid,jdbcType=INTEGER},
+      </if>
+      <if test="transportAddress != null" >
+        transport_address = #{transportAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceType != null" >
+        invoice_type = #{invoiceType,jdbcType=TINYINT},
+      </if>
+      <if test="invoiceNo != null" >
+        invoice_no = #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelReason != null" >
+        cancel_reason = #{cancelReason,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptName != null" >
+        receipt_name = #{receiptName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptMobile != null" >
+        receipt_mobile = #{receiptMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptAddress != null" >
+        receipt_address = #{receiptAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingAddress != null" >
+        shipping_address = #{shippingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingId != null" >
+        shipping_id = #{shippingId,jdbcType=INTEGER},
+      </if>
+      <if test="shippingExpress != null" >
+        shipping_express = #{shippingExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingCode != null" >
+        shipping_code = #{shippingCode,jdbcType=VARCHAR},
+      </if>
+      <if test="logisCode != null" >
+        logis_code = #{logisCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingTime != null" >
+        receiving_time = #{receivingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingTime != null" >
+        shipping_time = #{shippingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="integral != null" >
+        integral = #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="evaluationTime != null" >
+        evaluation_time = #{evaluationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedAt != null" >
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderMessage != null" >
+        order_message = #{orderMessage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="deliverExplain != null" >
+        deliver_explain = #{deliverExplain,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yd.dby.app.entity.YdOrderWithBLOBs" >
+    update yd_order
+    set order_sn = #{orderSn,jdbcType=BIGINT},
+      pay_sn = #{paySn,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=INTEGER},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      buyer_id = #{buyerId,jdbcType=INTEGER},
+      buyer_name = #{buyerName,jdbcType=VARCHAR},
+      payment_code = #{paymentCode,jdbcType=VARCHAR},
+      payment_time = #{paymentTime,jdbcType=CHAR},
+      finnshed_time = #{finnshedTime,jdbcType=CHAR},
+      type = #{type,jdbcType=TINYINT},
+      state_service = #{stateService,jdbcType=TINYINT},
+      processing_status = #{processingStatus,jdbcType=TINYINT},
+      state = #{state,jdbcType=TINYINT},
+      delete_state = #{deleteState,jdbcType=TINYINT},
+      coupon_id = #{couponId,jdbcType=INTEGER},
+      coupon_price = #{couponPrice,jdbcType=DECIMAL},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      total_price = #{totalPrice,jdbcType=DECIMAL},
+      refund_price = #{refundPrice,jdbcType=DECIMAL},
+      transport_price = #{transportPrice,jdbcType=DECIMAL},
+      transport_fid = #{transportFid,jdbcType=INTEGER},
+      transport_address = #{transportAddress,jdbcType=VARCHAR},
+      invoice_type = #{invoiceType,jdbcType=TINYINT},
+      invoice_no = #{invoiceNo,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      cancel_reason = #{cancelReason,jdbcType=VARCHAR},
+      receipt_name = #{receiptName,jdbcType=VARCHAR},
+      receipt_mobile = #{receiptMobile,jdbcType=VARCHAR},
+      receipt_address = #{receiptAddress,jdbcType=VARCHAR},
+      shipping_address = #{shippingAddress,jdbcType=VARCHAR},
+      shipping_id = #{shippingId,jdbcType=INTEGER},
+      shipping_express = #{shippingExpress,jdbcType=VARCHAR},
+      shipping_code = #{shippingCode,jdbcType=VARCHAR},
+      logis_code = #{logisCode,jdbcType=VARCHAR},
+      receiving_time = #{receivingTime,jdbcType=VARCHAR},
+      shipping_time = #{shippingTime,jdbcType=VARCHAR},
+      integral = #{integral,jdbcType=INTEGER},
+      evaluation_time = #{evaluationTime,jdbcType=VARCHAR},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      order_message = #{orderMessage,jdbcType=LONGVARCHAR},
+      deliver_explain = #{deliverExplain,jdbcType=LONGVARCHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdOrder" >
+    update yd_order
+    set order_sn = #{orderSn,jdbcType=BIGINT},
+      pay_sn = #{paySn,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=INTEGER},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      buyer_id = #{buyerId,jdbcType=INTEGER},
+      buyer_name = #{buyerName,jdbcType=VARCHAR},
+      payment_code = #{paymentCode,jdbcType=VARCHAR},
+      payment_time = #{paymentTime,jdbcType=CHAR},
+      finnshed_time = #{finnshedTime,jdbcType=CHAR},
+      type = #{type,jdbcType=TINYINT},
+      state_service = #{stateService,jdbcType=TINYINT},
+      processing_status = #{processingStatus,jdbcType=TINYINT},
+      state = #{state,jdbcType=TINYINT},
+      delete_state = #{deleteState,jdbcType=TINYINT},
+      coupon_id = #{couponId,jdbcType=INTEGER},
+      coupon_price = #{couponPrice,jdbcType=DECIMAL},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      total_price = #{totalPrice,jdbcType=DECIMAL},
+      refund_price = #{refundPrice,jdbcType=DECIMAL},
+      transport_price = #{transportPrice,jdbcType=DECIMAL},
+      transport_fid = #{transportFid,jdbcType=INTEGER},
+      transport_address = #{transportAddress,jdbcType=VARCHAR},
+      invoice_type = #{invoiceType,jdbcType=TINYINT},
+      invoice_no = #{invoiceNo,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      cancel_reason = #{cancelReason,jdbcType=VARCHAR},
+      receipt_name = #{receiptName,jdbcType=VARCHAR},
+      receipt_mobile = #{receiptMobile,jdbcType=VARCHAR},
+      receipt_address = #{receiptAddress,jdbcType=VARCHAR},
+      shipping_address = #{shippingAddress,jdbcType=VARCHAR},
+      shipping_id = #{shippingId,jdbcType=INTEGER},
+      shipping_express = #{shippingExpress,jdbcType=VARCHAR},
+      shipping_code = #{shippingCode,jdbcType=VARCHAR},
+      logis_code = #{logisCode,jdbcType=VARCHAR},
+      receiving_time = #{receivingTime,jdbcType=VARCHAR},
+      shipping_time = #{shippingTime,jdbcType=VARCHAR},
+      integral = #{integral,jdbcType=INTEGER},
+      evaluation_time = #{evaluationTime,jdbcType=VARCHAR},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  
+<!--   <resultMap type="com.yd.dby.app.entity.vo.OrderListVo" id="OrderListVoResultMap">
+  	<id column="order_id" property="orderId" jdbcType="INTEGER" />
+  	<result column="store_id" property="storeId" jdbcType="INTEGER" />
+  	
+  	<collection property="goods" column="order_id" select="selectTestVoCollection">
+  		<id column="og_id" property="ogId" jdbcType="INTEGER" />
+  		<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+  	</collection>
+  </resultMap>
+  <select id="selectTestVoCollection" resultType="com.yd.dby.app.entity.vo.OrderListGoodsVo">
+  	select og_id,goods_name from yd_order_goods
+	where order_id=#{order_id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectTestVo" resultMap="OrderListVoResultMap" parameterType="java.util.Map">
+  	select order_id,store_id from yd_order
+  </select> -->
+   <select id="selectTestVo" resultMap="OrderListVoResultMap" parameterType="java.util.Map">
+  	select order_id,store_id from yd_order
+  </select>
+  
+  <!-- 订单列表 -->
+  <resultMap type="com.yd.dby.app.entity.vo.OrderListVo" id="OrderListVoResultMap">
+  	<result column="order_id" property="orderId" jdbcType="INTEGER" />
+  	<result column="store_id" property="storeId" jdbcType="INTEGER" />
+  	<result column="store_name" property="storeName" jdbcType="VARCHAR" />
+  	<result column="state" property="state" jdbcType="TINYINT" />
+  	<result column="receiving_time" property="receivingTime" jdbcType="VARCHAR" />
+  	<result column="type" property="type" jdbcType="TINYINT" />
+  	
+  	<collection property="goods" ofType="com.yd.dby.app.entity.vo.OrderListGoodsVo">
+  		<result column="og_id" property="ogId" jdbcType="INTEGER" />
+  		<result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+  		<result column="goods_cover" property="goodsCover" jdbcType="VARCHAR" />
+  		<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+  		<result column="goods_summary" property="goodsSummary" jdbcType="VARCHAR" />
+  		<result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+  		<result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+  		<result column="goods_pay_price" property="goodsPayPrice" jdbcType="DECIMAL" />
+  	</collection>
+  </resultMap>
+  
+  <!-- 订单列表的查询 -->
+  <sql id="selectOrderPageList_Where">
+  	<where>
+  		yo.buyer_id=#{para.userId,jdbcType=INTEGER}
+  		<if test="para.states !=null">
+  			and yo.state in 
+  			<foreach collection="para.states" item="orderState" open="(" close=")" separator=",">
+				#{orderState,jdbcType=INTEGER}
+			</foreach>
+  		</if>
+  	</where>
+  </sql>
+  <select id="selectOrderPageCount" resultType="java.lang.Integer" parameterType="com.yd.dby.app.entity.para.OrderPara">
+  	select 
+  	count(DISTINCT yo.order_id)
+	from yd_order yo
+	<include refid="selectOrderPageList_Where"/>
+  </select>
+  <select id="selectOrderPageList" resultMap="OrderListVoResultMap" parameterType="com.yd.dby.app.entity.para.OrderPara">
+  	select 
+	yo.order_id,yo.store_id,yo.store_name,yo.state,ys.store_banner,yo.receiving_time,yo.type,
+	yog.og_id,yog.goods_id,yog.goods_cover,yog.goods_name,yog.goods_summary,yog.goods_num,yog.goods_price,yog.goods_pay_price,yo.order_id
+	from yd_order yo
+	left join yd_order_goods yog on yog.order_id=yo.order_id
+	left join (select store_id,store_banner from yd_store where store_is_available=1) ys on ys.store_id=yo.store_id
+	<include refid="selectOrderPageList_Where"/>
+	order by yo.order_id desc
+    limit #{para.startIndex, jdbcType=INTEGER},#{para.onePageCount, jdbcType=INTEGER} 
+  </select>
+  
+  <!-- 根据状态查询订单总数 -->
+  <select id="selectOrderCount" resultType="java.lang.Integer">
+  	select 
+  		count(distinct yo.order_id)
+	from 
+		yd_order yo
+	where yo.buyer_id=#{userId} and state=#{state}
+  </select>
+  
+  <update id="updateSuccessPingPay" parameterType="com.yd.dby.app.entity.para.PayPara">
+  	update yd_order set pay_sn=#{para.paySn},state=2 where order_id in 
+  	<foreach collection="para.orderIds" item="orderId" open="(" close=")" separator=",">
+		#{orderId}
+	</foreach>
+  </update>
+</mapper>

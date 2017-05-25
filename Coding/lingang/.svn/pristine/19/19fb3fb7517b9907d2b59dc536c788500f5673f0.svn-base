@@ -1,0 +1,103 @@
+define(['mySession', 'route-config', 'serviceBase','layer','My97DatePicker'], function (mySession, routeConfig, serviceBase,My97DatePicker) {
+	var _controller = function($scope, $http, $routeParams, $location,sysLabelService){
+    	//分页设置 
+    	$scope.paginationConf = {
+        	    currentPage: 1, //页数
+                totalItems: 0, //查询结果总数
+                perPageOptions: [1, 5, 10, 15, 20, 30, 50],
+                itemsPerPage: 5, //每页查询条数
+                rememberPerPage: 'sysLabelPageListCtrlPerPage',
+                autoLoadData: true,
+                onChange: function () {
+                    if (this.currentPage > 0) {
+                    	//调用方法
+                    	$scope.getLabelList();
+                    }
+                }
+        };
+    	//请求参数(后台管理员列表)
+    	$scope.para={
+    			labelType:"",
+    			labelState:""	
+    	};
+    	//列表数据(后台管理员)
+    	$scope.labelList=[];
+    	
+    	//获取列表(后台管理员)
+    	$scope.getLabelList=function(){
+    		//当前页与每页显示条数
+    		$scope.para.currentPage =$scope.paginationConf.currentPage;
+    		$scope.para.onePageCount = $scope.paginationConf.itemsPerPage;
+    		
+    		sysLabelService.sysLabelPagePageList($http,$scope.para).then(function(data) {
+    			
+    			if(data.stateCode=="1000"){
+    				$scope.labelList=data.data.list;
+    				//页数获取
+    				$scope.paginationConf.totalItems=data.data.countRecord;
+    			}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    		});
+    	};
+    	
+    	//显示(基础设置)
+    	$scope.showLabelDetails=function(m){
+    		$scope.label=m;
+    		$('#myModalLabel').modal();
+    	};
+    	
+    	//修改(基础设置)
+    	$scope.updateSysLabel=function(){
+    		var m={
+    				labelId:$scope.label.labelId,
+    				labelName:$scope.label.labelName,
+    				labelType:$scope.label.labelType,
+//    				createTime:$scope.label.createTime,
+//    				updateTime:$scope.label.updateTime,
+    				labelState:$scope.label.labelState
+    				
+    		};
+    		
+    		sysLabelService.updateSysLabel($http,m).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				alert("修改成功");
+    			}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    			$('#myModalLabel').modal('hide');
+    		});
+    	};
+    	
+    	
+    	$scope.labelAdd={};
+    	//添加(标签)
+    	$scope.labelAdd=function(m){
+    		$scope.labelAdd=m;
+    		$('#myModalLabelAdd').modal();
+    	};
+    	
+    	//添加(标签)
+    	$scope.sysLabelAdd=function(){
+    		var m={
+    				labelId:$scope.labelAdd.labelId,
+    				labelType:$scope.labelAdd.labelType,
+    				labelName:$scope.labelAdd.labelName,
+    				labelState:$scope.labelAdd.labelState
+    				
+    		};
+    		sysLabelService.sysLabelAdd($http,m).then(function(data) {
+    			if(data.stateCode=="1000"){
+    				alert("添加成功");
+    				$scope.getLabelList();
+    			}else{
+    				alert("请求失败，请稍后再试");
+    			}
+    			$('#myModalLabelAdd').modal('hide');
+    		});
+    	};
+    	
+    	$scope.getLabelList();
+    };
+    return ["sysLabelPageListCtrl", _controller];
+});

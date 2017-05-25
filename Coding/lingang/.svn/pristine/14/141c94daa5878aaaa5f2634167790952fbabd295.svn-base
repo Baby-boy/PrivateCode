@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysStationIndustryReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysStationIndustry" >
+    <id column="station_industry_id" property="stationIndustryId" jdbcType="INTEGER" />
+    <result column="station_id" property="stationId" jdbcType="INTEGER" />
+    <result column="industry_id" property="industryId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    station_industry_id, station_id, industry_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_station_industry
+    where station_industry_id = #{stationIndustryId,jdbcType=INTEGER}
+  </select>
+</mapper>

@@ -1,0 +1,30 @@
+package com.lingang.api.service;
+
+import java.util.List;
+
+import com.lingang.api.domain.basic.Page;
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysLabel;
+import com.lingang.api.domain.entity.SysRegion;
+import com.lingang.api.domain.para.SysRegionPara;
+
+public interface SysRegionService {
+
+	/**
+	* @Description: (获取地区信息)
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月5日 上午9:59:19
+	 */
+	ServiceResult<List<SysRegion>> selectRegionAllList();
+
+	/**
+	* @Description: (获取地区信息后台)
+	* @param para
+	* @return    
+	* @author zf(18817590078@163.com)
+	* @date: 2016年12月8日 下午8:52:32
+	 */
+	ServiceResult<Page<SysRegion>> selectSysRegionPageList(SysRegionPara para);
+
+}

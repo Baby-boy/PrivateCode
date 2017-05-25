@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lingang.core.persistence.reader.SysRegionReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.lingang.api.domain.entity.SysRegion" >
+    <id column="region_id" property="regionId" jdbcType="INTEGER" />
+    <result column="region_name" property="regionName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="region_type" property="regionType" jdbcType="INTEGER" />
+    <result column="name_type" property="nameType" jdbcType="INTEGER" />
+  </resultMap>
+  
+    <resultMap id="BaseResultMapStatisticsVo" type="com.lingang.api.domain.vo.SysRegionStatisticsVo" >
+    <id column="region_id" property="regionId" jdbcType="INTEGER" />
+    <result column="region_name" property="regionName" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    region_id, region_name, create_time, update_time, region_type,name_type
+  </sql>
+  <sql id="SQL_ID_selectSysRegionPageList" >
+		region_id
+  </sql>
+  <sql id="SQL_WHERE_selectSysRegionPageList" >
+  		<where>
+	    	1=1 
+	    	<if test="map.regionType !=null and map.regionType !=''">
+	  			and sr.region_type = #{map.regionType,jdbcType=INTEGER}
+	  		</if>
+    	 </where>
+  </sql>
+  <sql id="SQL_selectSysRegionPageList" >
+		select sr.region_id, sr.region_name,  sr.create_time,  sr.update_time,  sr.region_type
+		from sys_region sr
+		<where>
+	    	1=1 
+	    	<if test="map.regionType !=null and map.regionType !=''">
+	  			and sr.region_type = #{map.regionType,jdbcType=INTEGER}
+	  		</if>
+    	 </where>
+  </sql>
+  <sql id="SQL_WHERE_selectSysPageList">
+  	 <where>
+    	1=1 
+    	<if test="map.regionType !=null and map.regionType !=''">
+  			and sr.region_type = #{map.regionType,jdbcType=INTEGER}
+  		</if>
+     </where>
+   </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_region
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectRegionAllList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select 
+    <include refid="Base_Column_List" />
+    from sys_region 
+  </select>
+  
+  <select id="selectSysRegionCount" resultType="java.lang.Integer" parameterType="java.util.Map"  >
+  	select count(*)
+  	from sys_region sr
+  	<include refid="SQL_WHERE_selectSysRegionPageList"></include>
+  </select>
+  
+  <select id="selectSysRegionPageList" resultMap="BaseResultMap" parameterType="java.util.Map">
+	SELECT TOP ${map.onePageCount}
+		*
+	FROM 
+	(
+		<include refid="SQL_selectSysRegionPageList" />
+	)
+	 t
+	WHERE t.<include refid="SQL_ID_selectSysRegionPageList" /> 
+	NOT IN
+	(
+		SELECT TOP (${map.onePageCount} * ${map.startIndex}) 
+		nt.<include refid="SQL_ID_selectSysRegionPageList" /> 
+		FROM 
+		(
+			<include refid="SQL_selectSysRegionPageList" />
+		) nt order by create_time DESC
+	) order by create_time DESC;
+  </select>
+  
+  <!-- 产业园区区位分布 -->
+  <select id="selectRegionParkStatisticsCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+	select count(DISTINCT sr.region_id) num from sys_region sr
+	inner join (select * from sys_park where park_state=2) sp on sp.region_id=sr.region_id
+	where sr.region_type=#{map.regionType,jdbcType=INTEGER}
+	</select>
+  <sql id="SQL_selectRegionParkStatisticsPageList" >
+	select sr.region_id,sr.region_name,count(sr.region_id) num from sys_region sr
+	inner join (select * from sys_park where park_state=2) sp on sp.region_id=sr.region_id
+	where sr.region_type=#{map.regionType,jdbcType=INTEGER}
+	group by sr.region_id,sr.region_name
+  </sql>
+  <sql id="SQL_ID_selectRegionParkStatisticsPageList" >
+	region_id
+  </sql>
+  <select id="selectRegionParkStatisticsPageList" resultMap="BaseResultMapStatisticsVo" parameterType="java.util.Map">
+	SELECT TOP ${map.onePageCount}
+		*
+	FROM 
+	(
+		<include refid="SQL_selectRegionParkStatisticsPageList" />
+	)
+	 t
+	WHERE t.<include refid="SQL_ID_selectRegionParkStatisticsPageList" /> 
+	NOT IN
+	(
+		SELECT TOP (${map.onePageCount} * ${map.startIndex}) 
+		nt.<include refid="SQL_ID_selectRegionParkStatisticsPageList" /> 
+		FROM 
+		(
+			<include refid="SQL_selectRegionParkStatisticsPageList" />
+		) nt order by nt.num DESC
+	) order by t.num DESC;
+  </select>
+  <select id="selectRegionParkStatisticsCountMax" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select max(num) from 
+	(
+			<include refid="SQL_selectRegionParkStatisticsPageList" />
+	) t
+  </select>
+</mapper>

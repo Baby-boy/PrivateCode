@@ -1,0 +1,46 @@
+package com.yd.dby.app.controller.ctc;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.yd.dby.app.common.JsonResult;
+import com.yd.dby.app.common.ServiceResult;
+import com.yd.dby.app.controller.BaseController;
+import com.yd.dby.app.entity.YdUser;
+import com.yd.dby.app.entity.para.CtcMessagePara;
+import com.yd.dby.app.service.YdMessageService;
+
+@RestController
+@RequestMapping("message")
+public class MessageController extends BaseController {
+
+	@Autowired
+	private YdMessageService ydMessageService;
+
+	/**
+	 * 说明: 买家留言
+	 * 
+	 * @param para
+	 * @return
+	 * @author fqh(fqh@zwzyd.com)
+	 * @throws Exception
+	 * @date: 2017年2月21日 下午6:34:48
+	 */
+	@RequestMapping(value = "leaveMessage", method = RequestMethod.POST)
+	public JsonResult addUserLeaveMessage(@RequestBody CtcMessagePara para, HttpServletRequest request) throws Exception {
+		JsonResult jsonResult = new JsonResult();
+
+		// 获取当前用户
+		YdUser user = (YdUser) redisGet(request.getHeader("token") + "User", YdUser.class);
+
+		ServiceResult<Object> result = ydMessageService.insertUserLeaveMessage(para, user);
+		jsonResult.setMsg(result.getMsg());
+		jsonResult.setStatusCode(result.getStatusCode());
+		return jsonResult;
+	}
+}

@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.dby.app.mapper.YdGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.yd.dby.app.entity.YdGoods" >
+    <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+    <result column="goods_serialnumber" property="goodsSerialnumber" jdbcType="VARCHAR" />
+    <result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+    <result column="goods_summary" property="goodsSummary" jdbcType="VARCHAR" />
+    <result column="goods_total_sell" property="goodsTotalSell" jdbcType="INTEGER" />
+    <result column="goods_total_fav" property="goodsTotalFav" jdbcType="INTEGER" />
+    <result column="goods_total_comment" property="goodsTotalComment" jdbcType="INTEGER" />
+    <result column="goods_total_see" property="goodsTotalSee" jdbcType="INTEGER" />
+    <result column="goods_attr_select" property="goodsAttrSelect" jdbcType="VARCHAR" />
+    <result column="goods_attrs" property="goodsAttrs" jdbcType="VARCHAR" />
+    <result column="goods_pics" property="goodsPics" jdbcType="VARCHAR" />
+    <result column="goods_cover" property="goodsCover" jdbcType="VARCHAR" />
+    <result column="goods_province_id" property="goodsProvinceId" jdbcType="CHAR" />
+    <result column="goods_city_id" property="goodsCityId" jdbcType="CHAR" />
+    <result column="goods_freight" property="goodsFreight" jdbcType="DECIMAL" />
+    <result column="brand_id" property="brandId" jdbcType="SMALLINT" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="goods_avg_score" property="goodsAvgScore" jdbcType="REAL" />
+    <result column="goods_created_time" property="goodsCreatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yd.dby.app.entity.YdGoodsWithBLOBs" extends="BaseResultMap" >
+    <result column="goods_content" property="goodsContent" jdbcType="LONGVARCHAR" />
+    <result column="goods_content_pics" property="goodsContentPics" jdbcType="LONGVARCHAR" />
+    <result column="goods_afterservice" property="goodsAfterservice" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goods_id, store_id, goods_name, goods_num, goods_serialnumber, goods_price, goods_summary, 
+    goods_total_sell, goods_total_fav, goods_total_comment, goods_total_see, goods_attr_select, 
+    goods_attrs, goods_pics, goods_cover, goods_province_id, goods_city_id, goods_freight, 
+    brand_id, brand_name, goods_avg_score, goods_created_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    goods_content, goods_content_pics, goods_afterservice
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from yd_goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.dby.app.entity.YdGoodsWithBLOBs" >
+    insert into yd_goods (goods_id, store_id, goods_name, 
+      goods_num, goods_serialnumber, goods_price, 
+      goods_summary, goods_total_sell, goods_total_fav, 
+      goods_total_comment, goods_total_see, goods_attr_select, 
+      goods_attrs, goods_pics, goods_cover, 
+      goods_province_id, goods_city_id, goods_freight, 
+      brand_id, brand_name, goods_avg_score, 
+      goods_created_time, goods_content, goods_content_pics, 
+      goods_afterservice)
+    values (#{goodsId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, 
+      #{goodsNum,jdbcType=INTEGER}, #{goodsSerialnumber,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DECIMAL}, 
+      #{goodsSummary,jdbcType=VARCHAR}, #{goodsTotalSell,jdbcType=INTEGER}, #{goodsTotalFav,jdbcType=INTEGER}, 
+      #{goodsTotalComment,jdbcType=INTEGER}, #{goodsTotalSee,jdbcType=INTEGER}, #{goodsAttrSelect,jdbcType=VARCHAR}, 
+      #{goodsAttrs,jdbcType=VARCHAR}, #{goodsPics,jdbcType=VARCHAR}, #{goodsCover,jdbcType=VARCHAR}, 
+      #{goodsProvinceId,jdbcType=CHAR}, #{goodsCityId,jdbcType=CHAR}, #{goodsFreight,jdbcType=DECIMAL}, 
+      #{brandId,jdbcType=SMALLINT}, #{brandName,jdbcType=VARCHAR}, #{goodsAvgScore,jdbcType=REAL}, 
+      #{goodsCreatedTime,jdbcType=TIMESTAMP}, #{goodsContent,jdbcType=LONGVARCHAR}, #{goodsContentPics,jdbcType=LONGVARCHAR}, 
+      #{goodsAfterservice,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.dby.app.entity.YdGoodsWithBLOBs" >
+    insert into yd_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsNum != null" >
+        goods_num,
+      </if>
+      <if test="goodsSerialnumber != null" >
+        goods_serialnumber,
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price,
+      </if>
+      <if test="goodsSummary != null" >
+        goods_summary,
+      </if>
+      <if test="goodsTotalSell != null" >
+        goods_total_sell,
+      </if>
+      <if test="goodsTotalFav != null" >
+        goods_total_fav,
+      </if>
+      <if test="goodsTotalComment != null" >
+        goods_total_comment,
+      </if>
+      <if test="goodsTotalSee != null" >
+        goods_total_see,
+      </if>
+      <if test="goodsAttrSelect != null" >
+        goods_attr_select,
+      </if>
+      <if test="goodsAttrs != null" >
+        goods_attrs,
+      </if>
+      <if test="goodsPics != null" >
+        goods_pics,
+      </if>
+      <if test="goodsCover != null" >
+        goods_cover,
+      </if>
+      <if test="goodsProvinceId != null" >
+        goods_province_id,
+      </if>
+      <if test="goodsCityId != null" >
+        goods_city_id,
+      </if>
+      <if test="goodsFreight != null" >
+        goods_freight,
+      </if>
+      <if test="brandId != null" >
+        brand_id,
+      </if>
+      <if test="brandName != null" >
+        brand_name,
+      </if>
+      <if test="goodsAvgScore != null" >
+        goods_avg_score,
+      </if>
+      <if test="goodsCreatedTime != null" >
+        goods_created_time,
+      </if>
+      <if test="goodsContent != null" >
+        goods_content,
+      </if>
+      <if test="goodsContentPics != null" >
+        goods_content_pics,
+      </if>
+      <if test="goodsAfterservice != null" >
+        goods_afterservice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNum != null" >
+        #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSerialnumber != null" >
+        #{goodsSerialnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null" >
+        #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsSummary != null" >
+        #{goodsSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTotalSell != null" >
+        #{goodsTotalSell,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTotalFav != null" >
+        #{goodsTotalFav,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTotalComment != null" >
+        #{goodsTotalComment,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTotalSee != null" >
+        #{goodsTotalSee,jdbcType=INTEGER},
+      </if>
+      <if test="goodsAttrSelect != null" >
+        #{goodsAttrSelect,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsAttrs != null" >
+        #{goodsAttrs,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPics != null" >
+        #{goodsPics,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCover != null" >
+        #{goodsCover,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsProvinceId != null" >
+        #{goodsProvinceId,jdbcType=CHAR},
+      </if>
+      <if test="goodsCityId != null" >
+        #{goodsCityId,jdbcType=CHAR},
+      </if>
+      <if test="goodsFreight != null" >
+        #{goodsFreight,jdbcType=DECIMAL},
+      </if>
+      <if test="brandId != null" >
+        #{brandId,jdbcType=SMALLINT},
+      </if>
+      <if test="brandName != null" >
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsAvgScore != null" >
+        #{goodsAvgScore,jdbcType=REAL},
+      </if>
+      <if test="goodsCreatedTime != null" >
+        #{goodsCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsContent != null" >
+        #{goodsContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsContentPics != null" >
+        #{goodsContentPics,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsAfterservice != null" >
+        #{goodsAfterservice,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.app.entity.YdGoodsWithBLOBs" >
+    update yd_goods
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNum != null" >
+        goods_num = #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSerialnumber != null" >
+        goods_serialnumber = #{goodsSerialnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsSummary != null" >
+        goods_summary = #{goodsSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTotalSell != null" >
+        goods_total_sell = #{goodsTotalSell,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTotalFav != null" >
+        goods_total_fav = #{goodsTotalFav,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTotalComment != null" >
+        goods_total_comment = #{goodsTotalComment,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTotalSee != null" >
+        goods_total_see = #{goodsTotalSee,jdbcType=INTEGER},
+      </if>
+      <if test="goodsAttrSelect != null" >
+        goods_attr_select = #{goodsAttrSelect,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsAttrs != null" >
+        goods_attrs = #{goodsAttrs,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPics != null" >
+        goods_pics = #{goodsPics,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCover != null" >
+        goods_cover = #{goodsCover,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsProvinceId != null" >
+        goods_province_id = #{goodsProvinceId,jdbcType=CHAR},
+      </if>
+      <if test="goodsCityId != null" >
+        goods_city_id = #{goodsCityId,jdbcType=CHAR},
+      </if>
+      <if test="goodsFreight != null" >
+        goods_freight = #{goodsFreight,jdbcType=DECIMAL},
+      </if>
+      <if test="brandId != null" >
+        brand_id = #{brandId,jdbcType=SMALLINT},
+      </if>
+      <if test="brandName != null" >
+        brand_name = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsAvgScore != null" >
+        goods_avg_score = #{goodsAvgScore,jdbcType=REAL},
+      </if>
+      <if test="goodsCreatedTime != null" >
+        goods_created_time = #{goodsCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsContent != null" >
+        goods_content = #{goodsContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsContentPics != null" >
+        goods_content_pics = #{goodsContentPics,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsAfterservice != null" >
+        goods_afterservice = #{goodsAfterservice,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yd.dby.app.entity.YdGoodsWithBLOBs" >
+    update yd_goods
+    set store_id = #{storeId,jdbcType=INTEGER},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_num = #{goodsNum,jdbcType=INTEGER},
+      goods_serialnumber = #{goodsSerialnumber,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      goods_summary = #{goodsSummary,jdbcType=VARCHAR},
+      goods_total_sell = #{goodsTotalSell,jdbcType=INTEGER},
+      goods_total_fav = #{goodsTotalFav,jdbcType=INTEGER},
+      goods_total_comment = #{goodsTotalComment,jdbcType=INTEGER},
+      goods_total_see = #{goodsTotalSee,jdbcType=INTEGER},
+      goods_attr_select = #{goodsAttrSelect,jdbcType=VARCHAR},
+      goods_attrs = #{goodsAttrs,jdbcType=VARCHAR},
+      goods_pics = #{goodsPics,jdbcType=VARCHAR},
+      goods_cover = #{goodsCover,jdbcType=VARCHAR},
+      goods_province_id = #{goodsProvinceId,jdbcType=CHAR},
+      goods_city_id = #{goodsCityId,jdbcType=CHAR},
+      goods_freight = #{goodsFreight,jdbcType=DECIMAL},
+      brand_id = #{brandId,jdbcType=SMALLINT},
+      brand_name = #{brandName,jdbcType=VARCHAR},
+      goods_avg_score = #{goodsAvgScore,jdbcType=REAL},
+      goods_created_time = #{goodsCreatedTime,jdbcType=TIMESTAMP},
+      goods_content = #{goodsContent,jdbcType=LONGVARCHAR},
+      goods_content_pics = #{goodsContentPics,jdbcType=LONGVARCHAR},
+      goods_afterservice = #{goodsAfterservice,jdbcType=LONGVARCHAR}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.dby.app.entity.YdGoods" >
+    update yd_goods
+    set store_id = #{storeId,jdbcType=INTEGER},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_num = #{goodsNum,jdbcType=INTEGER},
+      goods_serialnumber = #{goodsSerialnumber,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      goods_summary = #{goodsSummary,jdbcType=VARCHAR},
+      goods_total_sell = #{goodsTotalSell,jdbcType=INTEGER},
+      goods_total_fav = #{goodsTotalFav,jdbcType=INTEGER},
+      goods_total_comment = #{goodsTotalComment,jdbcType=INTEGER},
+      goods_total_see = #{goodsTotalSee,jdbcType=INTEGER},
+      goods_attr_select = #{goodsAttrSelect,jdbcType=VARCHAR},
+      goods_attrs = #{goodsAttrs,jdbcType=VARCHAR},
+      goods_pics = #{goodsPics,jdbcType=VARCHAR},
+      goods_cover = #{goodsCover,jdbcType=VARCHAR},
+      goods_province_id = #{goodsProvinceId,jdbcType=CHAR},
+      goods_city_id = #{goodsCityId,jdbcType=CHAR},
+      goods_freight = #{goodsFreight,jdbcType=DECIMAL},
+      brand_id = #{brandId,jdbcType=SMALLINT},
+      brand_name = #{brandName,jdbcType=VARCHAR},
+      goods_avg_score = #{goodsAvgScore,jdbcType=REAL},
+      goods_created_time = #{goodsCreatedTime,jdbcType=TIMESTAMP}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 所有查询 -->
+  <!-- 商品列表 -->
+  <resultMap type="com.yd.dby.app.entity.vo.GoodsListVo" id="GoodsListVoResultMap">
+  	<id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+  	<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+  	<result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+  	<result column="goods_cover" property="goodsCover" jdbcType="VARCHAR" />
+  	<result column="goods_summary" property="goodsSummary" jdbcType="VARCHAR" />
+  	<result column="goods_total_comment" property="goodsTotalComment" jdbcType="INTEGER" />
+  	<result column="goods_total_fav" property="goodsTotalFav" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <!-- 商品详情 -->
+  <resultMap type="com.yd.dby.app.entity.vo.GoodsDetailsVo" id="GoodsDetailsVoResultMap">
+  	<id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+  	<result column="goods_pics" property="goodsPics" jdbcType="VARCHAR" />
+  	<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+  	<result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+  	<result column="goods_avg_score" property="goodsAvgScore" jdbcType="REAL" />
+  	<result column="goods_content_pics" property="goodsContentPics" jdbcType="LONGVARCHAR" />
+  	<result column="goods_summary" property="goodsSummary" jdbcType="VARCHAR" />
+  	<result column="goods_attr_select" property="goodsAttrSelect" jdbcType="VARCHAR" />
+  	<result column="goods_attrs" property="goodsAttrs" jdbcType="VARCHAR" />
+  	<result column="goods_total_fav" property="goodsTotalFav" jdbcType="INTEGER" />
+  	<result column="goods_cover" property="goodsCover" jdbcType="VARCHAR" />
+  	<result column="goods_freight" property="goodsFreight" jdbcType="DECIMAL" />
+  	<result column="fav_id" property="favId" jdbcType="INTEGER" />
+  	<result column="store_id" property="storeId" jdbcType="INTEGER" />
+  	<result column="store_name" property="storeName" jdbcType="VARCHAR" />
+  	<result column="store_banner" property="storeBanner" jdbcType="VARCHAR" />
+  	
+  	<collection property="commentList" ofType="com.yd.dby.app.entity.vo.GoodsDetailsCommentVo">
+  		<result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
+  		<result column="user_avatar" property="userAvatar" jdbcType="VARCHAR" />
+  		<result column="comment_score" property="commentScore" jdbcType="REAL" />
+  		<result column="comment_created_time" property="commentCreatedTime" jdbcType="VARCHAR" />
+  		<result column="comment_content" property="commentContent" jdbcType="VARCHAR" />
+  		<result column="comment_pics" property="commentPics" jdbcType="VARCHAR" />
+  	</collection>
+  </resultMap>
+  
+  <!-- 查询普通商品列表 -->
+  <select id="selectGoodsPageCount" resultType="java.lang.Integer" parameterType="com.yd.dby.app.entity.para.HomePara">
+	select 
+		count(DISTINCT yd.depot_id) 
+	from 
+		yd_depot yd 
+	right join yd_goods yg on yg.goods_id=yd.goods_id
+	where yg.goods_name like '%${para.goodsName}%' and depot_type=1 and depot_is_available=1
+  </select>
+  <select id="selectGoodsPageList" resultMap="GoodsListVoResultMap" parameterType="com.yd.dby.app.entity.para.HomePara">
+	select 
+		yg.goods_id,yg.goods_name,yg.goods_price,yg.goods_cover,yg.goods_summary,yg.goods_total_comment,yg.goods_total_fav 
+	from 
+		yd_depot yd
+	right join yd_goods yg on yg.goods_id=yd.goods_id
+	where yg.goods_name like '%${para.goodsName}%' and depot_type=1 and depot_is_available=1
+	order by yd.depot_id  
+    <if test="para.sort==0">desc</if>
+    <if test="para.sort==1">asc</if>
+    limit #{para.startIndex, jdbcType=INTEGER},#{para.onePageCount, jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询商品详情 -->
+  <select id="selectGoodsDetails" resultMap="GoodsDetailsVoResultMap" parameterType="java.lang.Integer">
+  	select 
+		yg.goods_id,yg.goods_pics,yg.goods_name,yg.goods_price,yg.goods_avg_score,yg.goods_content_pics,
+		yg.goods_summary,yg.goods_attr_select,yg.goods_attrs,yg.goods_total_fav,yg.goods_cover,yg.goods_freight,
+		yc.comment_score,yc.comment_created_time,yc.comment_content,yc.comment_pics,
+		yu.user_nickname,yu.user_avatar,yf.fav_id,ys.store_id,ys.store_banner,ys.store_name
+	from 
+		yd_goods yg 
+	left join yd_comment yc on yc.goods_id=yg.goods_id
+	left join yd_user yu on yu.user_id=yc.user_id
+	left join (select fav_id,fav_fid from yd_favorite) yf on yf.fav_fid=yg.goods_id
+	left join yd_store ys on yg.store_id=ys.store_id
+	where yg.goods_id=#{goodsId, jdbcType=INTEGER}
+	order by yc.comment_id desc
+	limit 0,2
+  </select>
+  
+  <!-- 按分类查询商品列表 -->
+  <select id="selectClassifyGoodsPageCount" resultType="java.lang.Integer" parameterType="com.yd.dby.app.entity.para.GoodsPara">
+	select  count(DISTINCT yd.depot_id) from yd_depot yd 
+	where yd.depot_classify3=#{para.clyId, jdbcType=INTEGER} and depot_type=1
+  </select>
+  <select id="selectClassifyGoodsPageList" resultMap="GoodsListVoResultMap" parameterType="com.yd.dby.app.entity.para.GoodsPara">
+	select 
+		yg.goods_id,yg.goods_name,yg.goods_price,yg.goods_cover,yg.goods_summary,yg.goods_total_comment,yg.goods_total_fav 
+	from 
+		yd_depot yd
+	left join yd_goods yg on yg.goods_id=yd.goods_id
+	where yd.depot_classify3=#{para.clyId, jdbcType=INTEGER} and depot_type=1 and depot_is_available=1 
+	order by yd.depot_id  
+    <if test="para.sort==0">desc</if>
+    <if test="para.sort==1">asc</if>
+    limit #{para.startIndex, jdbcType=INTEGER},#{para.onePageCount, jdbcType=INTEGER}
+  </select>
+  
+  <!-- 首页商品推荐 -->
+  <select id="selectHomeGoodsPageCount" resultType="java.lang.Integer" parameterType="com.yd.dby.app.entity.para.HomePara">
+	select  
+		count(DISTINCT yd.id) 
+	from 
+		yd_data yd 
+	inner join (select goods_id from yd_depot where depot_is_available=1 and depot_type=1) ydd on ydd.goods_id=yd.id1
+	where yd.type=4
+  </select>
+  <select id="selectHomeGoodsPageList" resultMap="GoodsListVoResultMap" parameterType="com.yd.dby.app.entity.para.HomePara">
+	select 
+		yd.id,yg.* 
+	from 
+		yd_data yd 
+	left join (select goods_id,goods_name,goods_price,goods_cover,goods_summary,goods_total_comment,goods_total_fav from yd_goods) yg on yg.goods_id=yd.id1
+	inner join (select goods_id from yd_depot where depot_is_available=1 and depot_type=1) ydd on ydd.goods_id=yd.id1
+	where yd.type=4
+	order by yd.sort 
+    <if test="para.sort==0">desc</if>
+    <if test="para.sort==1">asc</if>
+    limit #{para.startIndex, jdbcType=INTEGER},#{para.onePageCount, jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询店铺热销商品总数 -->
+  <select id="selectStoreHotGoodsPageListCount" resultType="java.lang.Integer" parameterType="StorePara">
+  	select 
+  		count(distinct yg.goods_id) 
+  	from 
+  		yd_goods yg 
+  	<!-- 过滤该商品是正常出售的商品 -->
+	left join (select goods_id from yd_depot where depot_is_available=1 and depot_type=1) yd on yd.goods_id=yg.goods_id
+  	where yg.store_id=#{storeId}
+  	order by yg.goods_total_sell desc
+  </select>
+  
+  <!-- 查询店铺热销商品列表 -->
+  <select id="selectStoreHotGoodsPageList" resultType="GoodsListVo" parameterType="StorePara">
+  	select 
+  		yg.goods_id,yg.goods_name,yg.goods_price,goods_cover,yg.goods_total_comment,yg.goods_total_fav
+	from 
+		yd_goods yg 
+	<!-- 过滤该商品是正常出售的商品 -->
+	left join (select goods_id from yd_depot where depot_is_available=1 and depot_type=1) yd on yd.goods_id=yg.goods_id
+	where yg.store_id=#{storeId}
+	order by yg.goods_total_sell desc
+	limit #{startIndex},#{onePageCount}
+  </select>
+  
+  <!-- 查询店铺所有商品总数 -->
+  <select id="selectStoreGoodsPageListCount" resultType="java.lang.Integer" parameterType="StorePara">
+  	select 
+  		count(distinct yd.goods_id)
+	from 
+		yd_store_goods_classify ysgc
+	<if test="pid == 0">
+		left join (select goods_id,depot_classify11 from yd_depot where depot_is_available=1 and depot_type=1) yd on ysgc.sc_id=yd.depot_classify11
+	</if>
+	<if test="pid > 0">
+		left join (select goods_id,depot_classify12 from yd_depot where depot_is_available=1 and depot_type=1) yd on ysgc.sc_id=yd.depot_classify12
+	</if>
+	left join yd_goods yg on yg.goods_id=yd.goods_id
+	where 
+		ysgc.store_id=#{storeId} and pid=#{pid} and sc_id=#{scId}
+	<if test="lowPrice !=null and lowPrice !=''">
+		and yg.goods_price >= #{lowPrice}
+	</if>
+	<if test="highPrice !=null and highPrice !=''">
+		and yg.goods_price <![CDATA[<=]]> #{highPrice}
+	</if>
+	<if test="keywords !=null and keywords !=''">
+		and yg.goods_name like '%${keywords}%'
+	</if>
+  </select>
+  
+  <!-- 查询店铺所有商品列表 -->
+  <select id="selectStoreGoodsPageList" resultType="GoodsListVo" parameterType="StorePara">
+  	select 
+  		yg.goods_id,yg.goods_name,yg.goods_price,yg.goods_cover,yg.goods_summary,yg.goods_total_comment,yg.goods_total_fav
+	from 
+		yd_store_goods_classify ysgc
+	<if test="pid == 0">
+		left join (select depot_id,goods_id,depot_classify11 from yd_depot where depot_is_available=1 and depot_type=1) yd on ysgc.sc_id=yd.depot_classify11
+	</if>
+	<if test="pid > 0">
+		left join (select depot_id,goods_id,depot_classify12 from yd_depot where depot_is_available=1 and depot_type=1) yd on ysgc.sc_id=yd.depot_classify12
+	</if>
+	left join yd_goods yg on yg.goods_id=yd.goods_id
+	left join yd_comment yc on yc.goods_id=yg.goods_id
+	where 
+		ysgc.store_id=#{storeId} and pid=#{pid} and sc_id=#{scId}
+	<if test="lowPrice !=null and lowPrice !=''">
+		and yg.goods_price >= #{lowPrice}
+	</if>
+	<if test="highPrice !=null and highPrice !=''">
+		and yg.goods_price <![CDATA[<=]]> #{highPrice}
+	</if>
+	<if test="keywords !=null and keywords !=''">
+		and yg.goods_name like '%${keywords}%'
+	</if>
+	<!-- 这个分组过滤掉所有重复数据 -->
+	group by yg.goods_id
+	<if test="goodsPriceKey == 1">
+		order by yg.goods_price
+	</if>
+	<if test="goodsPriceKey == 0">
+		order by yg.goods_price desc
+	</if>
+	<if test="goodRateKey == 1">
+		order by yc.comment_score
+	</if>
+	<if test="goodRateKey == 0">
+		order by yc.comment_score desc
+	</if>
+	<if test="saleNumKey == 1">
+		order by yg.goods_total_sell
+	</if>
+	<if test="saleNumKey == 0">
+		order by yg.goods_total_sell desc
+	</if>
+	<if test="goodsPriceKey == null and goodRateKey == null and saleNumKey == null">
+		order by yd.depot_id desc
+	</if>
+	limit #{startIndex},#{onePageCount}
+  </select>
+  
+  <!-- 添加到购物车的商品详细 -->
+  <select id="selectGoodsToCartDetails" resultType="YdCart" parameterType="java.lang.Integer">
+  	select 
+  		ys.store_id,yd.depot_id,yg.goods_price,yg.goods_name,yg.goods_summary,yg.goods_cover,ys.store_name
+	from 
+		yd_goods yg
+	<!-- 过滤该商品是正常出售的商品 -->
+	left join (select depot_id,goods_id from yd_depot where depot_is_available=1) yd on yd.goods_id=yg.goods_id 
+	left join (select store_id,store_name from yd_store where store_is_available=1) ys on yg.store_id=ys.store_id
+	where yg.goods_id=#{goodsId}
+  </select>
+  
+  <!-- 更新收藏总数 +1 -->
+  <update id="updateGoodsTotalFav" parameterType="YdFavorite">
+  	update 
+		yd_goods yg
+	inner join (select fav_fid from yd_favorite where fav_type=#{favType} and fav_fid=#{favFid}) yf on yg.goods_id=yf.fav_fid
+	set yg.goods_total_fav=yg.goods_total_fav + 1
+  </update>
+  
+  <!-- 更新收藏总数 -1 -->
+  <update id="updateBatchGoodsTotalFav" parameterType="FavoritePara">
+  	update 
+		yd_goods yg
+	inner join (select fav_fid from yd_favorite where fav_type=#{para.favType} and fav_id in
+	<foreach collection="favIdList" item="favId" open="(" close=")" separator=",">
+		#{favId}
+	</foreach>
+	) yf on yg.goods_id=yf.fav_fid
+	set yg.goods_total_fav=yg.goods_total_fav - 1
+  </update>
+  
+  <!-- 查询养护商品总数 -->
+  <select id="selectMaintainGoodsPageListCount" resultType="java.lang.Integer">
+  	select 
+		count(DISTINCT yd.depot_id) 
+	from 
+		yd_depot yd 
+	right join yd_goods yg on yg.goods_id=yd.goods_id
+	where yg.goods_name like '%${para.goodsName}%' and depot_type=2 and depot_is_available=1
+  </select>
+  
+  <!-- 查询养护商品列表 -->
+  <select id="selectMaintainGoodsPageList" resultType="GoodsListVo">
+  	select 
+		yg.goods_id,yg.goods_name,yg.goods_price,yg.goods_cover,yg.goods_summary
+	from 
+		yd_depot yd
+	right join yd_goods yg on yg.goods_id=yd.goods_id
+	where yg.goods_name like '%${para.goodsName}%' and depot_type=2 and depot_is_available=1
+	order by yd.depot_id  
+    <if test="para.sort==0">desc</if>
+    <if test="para.sort==1">asc</if>
+    limit #{para.startIndex},#{para.onePageCount}
+  </select>
+</mapper>

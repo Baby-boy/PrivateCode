@@ -1,0 +1,23 @@
+package com.lingang.core.persistence.reader;
+
+import java.util.List;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.lingang.api.domain.entity.SysBasics;
+
+import com.lingang.api.domain.pfvo.SysManagerPfVo;
+
+public interface SysBasicsReaderMapper {
+
+    SysBasics selectByPrimaryKey(Integer basicsId);
+    List<SysBasics> selectSysBasics();
+
+	int selectSysManagerCount(@Param("map")Map map);
+
+	List<SysBasics> selectSysBasicsPageList(@Param("map")Map map);
+
+}

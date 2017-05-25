@@ -1,0 +1,16 @@
+package com.lingang.api.service;
+
+import com.lingang.api.domain.basic.ServiceResult;
+import com.lingang.api.domain.entity.SysImages;
+
+public interface SysImagesService {
+
+	/**
+	* @Description: (添加图片)
+	* @param images
+	* @return    
+	* @author lgl(lgl1012dream@foxmail.com)
+	* @date: 2016年12月12日 上午10:22:17
+	 */
+	ServiceResult<SysImages> addSysImages(SysImages images);
+}
