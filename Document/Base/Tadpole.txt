@@ -1,4 +1,114 @@
 1. 枚举
 	成员变量默认 public static final
+	默认是成员变量形式,需要什么样的形式,就要有对于的构造方法
+	public emun HttpCode{
+		
+		// 枚举常量,以下三种方式都OK
+		STATE(1){
+			
+		},CODE(500),BAD_REQUEST(100, "reasonPhase");
+		
+		// 成员变量
+		private int code;
+		private String reasonPhase;
+		
+		// 单参数构造
+		private HttpCode(int code){
+			this.code = code;
+		}
+		
+		// 多参数构造
+		private HttpCode(int code, String reasonPhase){
+			this.code = code;
+			this.reasonPhase = reasonPhase;
+		}
+		
+		public int getCode(){
+			return code;
+		}
+		
+		public String getReasonPhase(){
+			return reasonPhase;
+		}
+	}
 2. 自定义异常类
-3. 自定义注解
+
+3. 注解
+3.1. JDK1.5的四个元注解meta-annotation(java.lang.annotation)
+3.1.1. @Target 目标
+	作: 用于描述注解的使用范围（即：被描述的注解可以用在什么地方）
+	取值(ElementType)有:
+		1.CONSTRUCTOR:用于描述构造器
+		2.FIELD:用于描述域
+		3.LOCAL_VARIABLE:用于描述局部变量
+		4.METHOD:用于描述方法
+		5.PACKAGE:用于描述包
+		6.PARAMETER:用于描述参数
+		7.TYPE:用于描述类、接口(包括注解类型) 或enum声明
+3.1.2. @Retention 保留
+	作用: 表示需要在什么级别保存该注释信息,用于描述注解的生命周期（即：被描述的注解在什么范围内有效）
+	取值（RetentionPoicy）有:
+		1.SOURCE: 在源文件中有效（即源文件保留）
+		2.CLASS: 在class文件中有效（即class保留）
+		3.RUNTIME: 在运行时有效（即运行时保留）
+	注意: @Retention meta-annotation类型有唯一的value作为成员,它的取值来自java.lang.annotation.RetentionPolicy的枚举类型值.具体实例如下:
+		@Target(ElementType.FIELD)
+		@Retention(RetentionPolicy.RUNTIME)
+		public @interface Column {
+			public String name() default "fieldName";
+			public String setFuncName() default "setField";
+			public String getFuncName() default "getField"; 
+			public boolean defaultDBValue() default false;
+		}
+3.1.3. @Documented 记录
+	作用: Documented是一个标记注解,没有成员.
+3.1.4. @Inherited 继承
+	作用: @Inherited阐述了某个被标注的类型是被继承的
+	解释: 如果一个使用了@Inherited修饰的annotation类型被用于一个class,则这个annotation将被用于该class的子类.
+	注意: 当@Inherited annotation类型标注的annotation的Retention是RetentionPolicy.RUNTIME,则反射API增强了这种继承性.
+	如果我们使用java.lang.reflect去查询一个@Inherited annotation类型的annotation时,
+	反射代码检查将展开工作:检查class和其父类,直到发现指定的annotation类型被发现,或者到达类继承结构的顶层.
+
+3.2. 自定义注解
+3.2.1. 定义注解格式：
+　　public @interface 注解名 {定义体}
+	注意: 使用@interface自定义注解时,自动继承了java.lang.annotation.Annotation接口,由编译程序自动完成其他细节.
+	在自定义注解时,不能继承其他的注解或接口
+3.2.2. Annotation类型里面的参数该怎么设定: 
+　　第一,只能用public或默认(default)这两个访问权修饰.例如,String value();这里把方法设为defaul默认类型；　 　
+　　第二,参数成员只能用基本类型byte,short,char,int,long,float,double,boolean八种基本数据类型和 							String,Enum,Class,annotations等数据类型,以及这一些类型的数组.例如,String value();这里的参数成员就为String;　　
+　　第三,如果只有一个参数成员,最好把参数名称设为"value",后加小括号
+3.2.3. 注解元素的默认值：
+　　注解元素必须有确定的值,要么在定义注解的默认值中指定,要么在使用注解时指定,非基本类型的注解元素的值不可为null.		因此, 使用空字符串或0作为默认值是一种常用的做法.
+	这个约束使得处理器很难表现一个元素的存在或缺失的状态,因为每个注解的声明中,所有元素都存在,并且都具有相应的值,
+	为了绕开这个约束,我们只能定义一些特殊的值,例如空字符串或者负数,一次表示某个元素不存在,
+	在定义注解时,这已经成为一个习惯用法.
+	使用 default 关键字...
+
+	例: 
+	package annotation;
+
+	import java.lang.annotation.Documented;
+	import java.lang.annotation.ElementType;
+	import java.lang.annotation.Retention;
+	import java.lang.annotation.RetentionPolicy;
+	import java.lang.annotation.Target;
+
+	@Target(ElementType.FIELD)
+	@Retention(RetentionPolicy.RUNTIME)
+	@Documented
+	public @interface FruitProvider {
+		
+		public int id() default -1;
+		
+		public String name() default "";
+		
+		public String address() default "";
+	}
+	
+	注解的成员不可以入参,不可以抛异常
+
+4. 公共类书写注意点	(考虑线程和性能问题,对象能不新建就尽量减少新建)
+	1. 要对多线程调用情况下的后果在注释里进行明确说明
+　　2. 对线程环境下，对每一个共享的可变变量都要注意其线程安全性(可以考虑用线程池)
+　　3. 我们的类和方法在做设计的时候，要尽量设计成无状态的
