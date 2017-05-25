@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperTaskModel">
+	
+	<select id="$queryByTid" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerTaskModel">
+		select 
+			taskmd_id,taskmd_tid,taskmd_title,taskmd_ptime,taskmd_etime,taskmd_desc,taskmd_state,taskmd_uid,taskmd_create_time,taskmd_update_time
+		from 
+			yd_task_model
+		where 
+			taskmd_tid = #{taskmd_tid}
+	</select>
+	
+	<select id="$queryById" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerTaskModel">
+		select 
+			taskmd_id,taskmd_tid,taskmd_title,taskmd_ptime,taskmd_etime,taskmd_desc,taskmd_state,taskmd_uid,taskmd_create_time,taskmd_update_time
+		from 
+			yd_task_model
+		where 
+			taskmd_id = #{taskmd_id}
+	</select>
+	
+	<update id="$update" parameterType="com.yd.gcj.entity.YdMangerTaskModel">
+		update yd_task_model
+		<set>
+			<trim suffixOverrides=",">
+				<if test="taskmd_tid != null">taskmd_tid = #{taskmd_tid}</if>
+				<if test="taskmd_title != null">taskmd_title = #{taskmd_title}</if>
+				<if test="taskmd_ptime != null">taskmd_ptime = #{taskmd_ptime}</if>
+				<if test="taskmd_etime != null">taskmd_etime = #{taskmd_etime}</if>
+				<if test="taskmd_desc != null">taskmd_desc = #{taskmd_desc}</if>
+				<if test="taskmd_state != null">taskmd_state = #{taskmd_state}</if>
+				<if test="taskmd_uid != null">taskmd_uid = #{taskmd_uid}</if>
+				<if test="taskmd_create_time != null">taskmd_create_time = #{taskmd_create_time}</if>
+				<if test="taskmd_update_time != null">taskmd_update_time = #{taskmd_update_time}</if>
+			</trim>
+		</set>
+		where taskmd_id = #{taskmd_id}
+	</update>
+	
+	<update id="$updateState" parameterType="java.lang.Integer">
+		update from yd_task_model
+		set taskmd_state = #{taskmd_state},taskmd_update_time = #{taskmd_update_time}
+		where taskmd_id = #{taskmd_id}
+	</update>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerTaskModel" useGeneratedKeys="true" keyProperty="taskmd_id">
+		insert into yd_task_model
+			(taskmd_tid,taskmd_title,taskmd_price,taskmd_ptime,taskmd_etime,taskmd_desc,taskmd_state,taskmd_uid,taskmd_create_time,taskmd_update_time)
+		value
+			(#{taskmd_tid},#{taskmd_title},#{taskmd_price},#{taskmd_ptime},#{taskmd_etime},#{taskmd_desc},#{taskmd_state},#{taskmd_uid},#{taskmd_create_time},#{taskmd_update_time})
+	</insert>
+	
+	<delete id="$delete" parameterType="java.lang.Integer">
+		delete from yd_task_model
+		where taskmd_id = #{taskmd_id}
+	</delete>
+	
+</mapper>
+

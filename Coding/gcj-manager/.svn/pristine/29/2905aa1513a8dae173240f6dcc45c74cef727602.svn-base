@@ -1,0 +1,456 @@
+package com.yd.gcj.router;
+
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.yd.gcj.entity.YdMangerAttention;
+import com.yd.gcj.entity.YdMangerCollection;
+import com.yd.gcj.entity.YdMangerContract;
+import com.yd.gcj.entity.YdMangerEpcs;
+import com.yd.gcj.entity.YdMangerFiles;
+import com.yd.gcj.entity.YdMangerTaskModel;
+import com.yd.gcj.entity.YdMangerTaskPM;
+import com.yd.gcj.entity.YdMangerVerified;
+import com.yd.gcj.entity.vo.PageNum;
+import com.yd.gcj.entity.vo.TaskVoNums;
+import com.yd.gcj.entity.vo.YdMangerMessageVo;
+import com.yd.gcj.entity.vo.YdMangerTaskVo;
+import com.yd.gcj.entity.vo.YdMangerTenderVo;
+import com.yd.gcj.entity.vo.YdMangerUserVo;
+import com.yd.gcj.service.YdMangerServiceAttention;
+import com.yd.gcj.service.YdMangerServiceBankTR;
+import com.yd.gcj.service.YdMangerServiceCollection;
+import com.yd.gcj.service.YdMangerServiceContract;
+import com.yd.gcj.service.YdMangerServiceEpcs;
+import com.yd.gcj.service.YdMangerServiceFiles;
+import com.yd.gcj.service.YdMangerServiceMessage;
+import com.yd.gcj.service.YdMangerServiceTask;
+import com.yd.gcj.service.YdMangerServiceTaskModel;
+import com.yd.gcj.service.YdMangerServiceTaskPM;
+import com.yd.gcj.service.YdMangerServiceTender;
+import com.yd.gcj.service.YdMangerServiceUser;
+import com.yd.gcj.service.YdMangerServiceVerified;
+
+@Controller
+@RequestMapping("/list-fuwushang")
+public class YdMangerPageRouterListFuwushang {
+	
+	private static final String pageFiles = "list-fuwushang/";
+	
+	@Autowired
+	private YdMangerServiceTask serviceTask;
+	
+	@Autowired
+	private YdMangerServiceCollection servideCollection;
+	
+	@Autowired
+	private YdMangerServiceAttention serviceAttention;
+	
+	@Autowired
+	private YdMangerServiceMessage serviceMessage;
+	
+	@Autowired
+	private YdMangerServiceTaskModel serviceTaskModel;
+	
+	@Autowired
+	private YdMangerServiceTaskPM serviceTaskPM;
+	
+	@Autowired
+	private YdMangerServiceEpcs serviceEpcs;
+	
+	@Autowired
+	private YdMangerServiceContract serviceContract;
+	
+	@Autowired
+	private YdMangerServiceFiles serviceFiles;
+	
+	@Autowired
+	private YdMangerServiceBankTR serviceBankTR;
+	
+	@Autowired
+	private YdMangerServiceTender serviceTender;
+	
+	@Autowired
+	private YdMangerServiceVerified serviceVerified;
+	
+	@Autowired
+	private YdMangerServiceUser serviceUser;
+	
+	@Autowired
+	private HttpSession session;
+	
+	private YdMangerUserVo userVo = null;
+	
+	@RequestMapping("/daiqianhetong")
+	public String daiqianhetong(Model model) {
+		if(isLogin()){
+			List<YdMangerTaskVo> taskVos = serviceTask.$queryBySId(userVo.getUser_id(),1);
+			model.addAttribute("taskVos", taskVos);
+		}
+		return isLogin("daiqianhetong");
+	}
+	
+	@RequestMapping("/fabugonggao/{taskId}")
+	public String fabugonggao(@PathVariable Integer taskId,Model model) {
+		if(isLogin()){
+			YdMangerTaskVo taskVo = serviceTask.$queryById(taskId,userVo.getUser_id());
+			List<YdMangerTaskModel> taskModels = serviceTaskModel.$queryByTid(taskId);
+			List<YdMangerTaskPM> taskPMs = serviceTaskPM.$queryByTid(taskId);
+			List<YdMangerFiles> files = serviceFiles.$queryAllByTaskId(taskId);
+			model.addAttribute("files", files);
+			model.addAttribute("taskDetail", taskVo);
+			model.addAttribute("tasdId", taskId);
+			model.addAttribute("taskModels", taskModels);
+			model.addAttribute("taskPM", taskPMs);
+		}
+		return isLogin("fabugonggao");
+	}
+	
+	@RequestMapping("/fuwushang")
+	public String fuwushang(Model model) {
+		if(isLogin()){
+			List<YdMangerTaskVo> taskVos = serviceTask.$queryBySId(userVo.getUser_id(),0);
+			TaskVoNums nums = serviceTask.$queryByTask(1, userVo.getUser_id());
+			session.setAttribute("nums", nums);
+			model.addAttribute("taskVos", taskVos);
+		}
+		return isLogin("fuwushang");
+	}
+	
+	@RequestMapping("/gongzuotai-zuyuan")
+	public String gongzuotaiZuyuan() {
+		return isLogin("gongzuotai-zuyuan");
+	}
+	
+	@RequestMapping("/gongzuozhong")
+	public String gongzuozhong(Model model) {
+		if(isLogin()){
+			List<YdMangerTaskVo> taskVos = serviceTask.$queryBySId(userVo.getUser_id(),2);
+			model.addAttribute("taskVos", taskVos);
+		}
+		return isLogin("gongzuozhong");
+	}
+	
+	@RequestMapping("/hetong/{taskId}")
+	public String hetong(@PathVariable Integer taskId,Model model){
+		
+		if(isLogin()){
+			String result = "hetongweiqian";
+			YdMangerTaskVo taskVo = serviceTask.$queryById(taskId, userVo.getUser_id());
+			if(taskVo != null && taskVo.getTask_state() == 3){
+				switch (taskVo.getTask_contract_state()) {
+				
+				case 0:
+					result = "hetongweiqian";
+					break;
+					
+				case 1:
+					YdMangerContract contract = serviceContract.$queryByTaskId(taskId);
+					List<YdMangerTaskPM> taskPMs = serviceTaskPM.$queryByTid(taskId);
+					if(contract == null){
+						contract = new YdMangerContract();
+					}
+					model.addAttribute("contract", contract);
+					model.addAttribute("taskPM", taskPMs);
+					result="hetongbianji";
+					break;
+					
+				case 2:
+					result="hetongweiqian";
+					break;
+					
+				case 3:
+					 contract = serviceContract.$queryByTaskId(taskId);
+					 taskPMs = serviceTaskPM.$queryByTid(taskId);
+					if(contract == null){
+						contract = new YdMangerContract();
+					}
+					model.addAttribute("contract", contract);
+					model.addAttribute("taskPM", taskPMs);
+					result="hetongyiqian";
+					
+					break;
+				case 4:
+					result="hetongweiqian";
+					break;
+				}
+				
+				model.addAttribute("taskId", taskId);
+				model.addAttribute("taskVo", taskVo);
+				
+			}else if(taskVo.getTask_state() > 3){
+				YdMangerContract contract = serviceContract.$queryByTaskId(taskId);
+				List<YdMangerTaskPM> taskPMs = serviceTaskPM.$queryByTid(taskId);
+				if(contract == null){
+					contract = new YdMangerContract();
+				}
+				model.addAttribute("contract", contract);
+				model.addAttribute("taskPM", taskPMs);
+				result = "hetongyiqian";
+			}
+			model.addAttribute("task", taskVo);
+			return isLogin(result);
+		}else{
+			return "list-login/login";
+		}
+	}
+	
+	
+	@RequestMapping("/hetongbianji/{taskId}")
+	public String hetongbianji(@PathVariable Integer taskId,Model model) {
+		if(isLogin()){
+			model.addAttribute("taskId", taskId);
+			YdMangerTaskVo taskVo = serviceTask.$queryById(taskId, userVo.getUser_id());
+			model.addAttribute("taskVo", taskVo);
+			YdMangerContract contract = serviceContract.$queryByTaskId(taskId);
+			List<YdMangerTaskPM> taskPMs = serviceTaskPM.$queryByTid(taskId);
+			if(contract == null){
+				contract = new YdMangerContract();
+			}
+			model.addAttribute("contract", contract);
+			model.addAttribute("taskPM", taskPMs);
+		}
+		return isLogin("hetongbianji");
+	}
+	
+	@RequestMapping("/hetongyiqian/{taskId}")
+	public String hetongyiqian(Model model,@PathVariable Integer taskId) {
+		String resultPage = "hetongweiqian";
+		if(isLogin()){
+			model.addAttribute("taskId", taskId);
+			YdMangerTaskVo taskVo = serviceTask.$queryById(taskId,userVo.getUser_id());
+			model.addAttribute("taskDetail", taskVo);
+			if(taskVo.getTask_contract_state()==1 || taskVo.getTask_contract_state() == 4){
+				resultPage = "hetongyiqian";
+			}else{
+				resultPage = "hetongweiqian";
+			}
+		}
+		return isLogin(resultPage);
+		
+	}
+	
+	@RequestMapping("/jiaoyisuccess")
+	public String jiaoyisuccess(Model model) {
+		if(isLogin()){
+			List<YdMangerTaskVo> taskVos = serviceTask.$queryBySId(userVo.getUser_id(),4);
+			model.addAttribute("taskVos", taskVos);
+		}
+		return isLogin("jiaoyisuccess");
+	}
+	
+	@RequestMapping("/pingjia")
+	public String pingjia(Model model) {
+		if(isLogin()){
+			List<YdMangerTaskVo> taskVos = serviceTask.$queryBySId(userVo.getUser_id(),3);
+			model.addAttribute("taskVos", taskVos);
+		}
+		return isLogin("pingjia");
+	}
+	
+	@RequestMapping("/shenqingrenwu-bj/{taskId}")
+	public String shenqingrenwuBj(@PathVariable Integer taskId,Model model) {
+		if(isLogin()){
+			model.addAttribute("taskId", taskId);
+			Integer isVerified = serviceUser.$queryVerifiedByUserId(userVo.getUser_id());
+			if(isVerified!=1){
+				return "public/noverified";
+			}else{
+				return isLogin("shenqingrenwu-bj");
+			}
+		}else{
+			return isLogin("shenqingrenwu-bj");
+		}
+		
+		
+	}
+	
+	@RequestMapping("/shenqingrenwu-ck/{tenderId}")
+	public String shenqingrenwuCk(@PathVariable Integer tenderId,Model model) {
+		if(isLogin()){
+			YdMangerTenderVo tenderVo = serviceTender.$queryByIdAndUserMsg(tenderId);
+			model.addAttribute("tender", tenderVo);
+		}
+		return isLogin("shenqingrenwu-ck");
+	}
+	
+	@RequestMapping("/shenqingziliao")
+	public String shenqingziliao() {
+		return isLogin("shenqingziliao");
+	}
+	
+	@RequestMapping("/tuikuanzhong")
+	public String tuikuanzhong(Model model) {
+		if(isLogin()){
+			List<YdMangerTaskVo> taskVos = serviceTask.$queryBySId(userVo.getUser_id(),5);
+			model.addAttribute("taskVos", taskVos);
+		}
+		return isLogin("tuikuanzhong");
+	}
+	
+	@RequestMapping("/wodeguanzhu-xq")
+	public String wodeguanzhuXq() {
+		if(isLogin()){
+			serviceAttention.$queryAll(userVo.getUser_id());
+		}
+		return isLogin("wodeguanzhu-xq", "index");
+	}
+	
+	@RequestMapping("/wodeguanzhu")
+	public String wodeguanzhu(Model model) {
+		if(isLogin()){
+			List<YdMangerAttention> attentions = serviceAttention.$queryAll(userVo.getUser_id());
+			model.addAttribute("attentions", attentions);
+		}
+		return isLogin("wodeguanzhu", "index");
+	}
+	
+	@RequestMapping("/wodejianli")
+	public String wodejianli() {
+		return isLogin("wodejianli");
+	}
+	
+	@RequestMapping("/wodepingjia")
+	public String wodepingjia(Model model) {
+		if(isLogin()){
+			List<YdMangerEpcs> epcs = serviceEpcs.$queryAllByUserId(userVo.getUser_id());
+			model.addAttribute("epcs", epcs);
+		}
+		return isLogin("wodepingjia");
+	}
+	
+	@RequestMapping("/woderenzheng-shiming")
+	public String woderenzhengShiming(Model model) {
+		if(isLogin()){
+			Integer vId = 0;
+			if(userVo.getUser_verified() == 1 || userVo.getUser_verified() == 3){
+				YdMangerVerified verified = serviceVerified.queryByUserId(userVo.getUser_id());
+				vId = verified.getV_id();
+				model.addAttribute("verified",verified);
+				Integer isV = serviceUser.$queryVerifiedByUserId(userVo.getUser_id());
+				userVo.setUser_verified(isV);
+				session.setAttribute("user", userVo);
+			}else{
+				vId = serviceVerified.queryIdByUserId(userVo.getUser_id());
+			}
+			model.addAttribute("vId", vId);
+		}
+		return isLogin("woderenzheng-shiming");
+	}
+	
+	@RequestMapping("/woderenzheng-jineng")
+	public String woderenzhengJineng() {
+		return isLogin("woderenzheng-jineng");
+	}
+	
+	@RequestMapping("/woderenzheng")
+	public String woderenzheng() {
+		return isLogin("woderenzheng");
+	}
+	
+	@RequestMapping("/wodeshoucang")
+	public String wodeshoucang(Model model) {
+		if(isLogin()){
+			List<YdMangerCollection> collections = servideCollection.$queryAllByPageNum(userVo.getUser_id(), 0, 10);
+			model.addAttribute("collections", collections);
+		}
+		return isLogin("wodeshoucang");
+	}
+	
+	@RequestMapping("/wodexiaoxi-huifu")
+	public String wodexiaoxiHuifu(Model model) {
+		if(isLogin()){
+			List<YdMangerMessageVo> msgs = serviceMessage.$queryByUserIdAndByPageNum(userVo.getUser_id(),0,1);
+			model.addAttribute("msgs", msgs);
+		}
+		return isLogin("wodexiaoxi-huifu");
+	}
+	
+	@RequestMapping("/wodexiaoxi-huifu-task")
+	public String wodexiaoxiHuifuTask(Model model) {
+		if(isLogin()){
+			List<YdMangerMessageVo> msgs = serviceMessage.$queryByUserIdAndByPageNum(userVo.getUser_id(),1,1);
+			model.addAttribute("msgs", msgs);
+		}
+		return isLogin("wodexiaoxi-huifu-task");
+	}
+	
+	@RequestMapping("/wodexiaoxi-huifu-msg")
+	public String wodexiaoxiHuifuMsg(Model model) {
+		if(isLogin()){
+			List<YdMangerMessageVo> msgs = serviceMessage.$queryByUserIdAndByPageNum(userVo.getUser_id(),2,1);
+			model.addAttribute("msgs", msgs);
+		}
+		return isLogin("wodexiaoxi-huifu-msg");
+	}
+	
+	@RequestMapping("/wodexiaoxi")
+	public String wodexiaoxi(Model model) {
+		
+		return isLogin("wodexiaoxi");
+	}
+	
+	@RequestMapping("/wodezhanghu")
+	public String wodezhanghu(Model model) {
+		if(isLogin()){
+			PageNum pageNum = serviceBankTR.$queryAll(userVo.getUser_id());
+			model.addAttribute("pageNum", pageNum);
+		}
+		return isLogin("wodezhanghu");
+	}
+	
+	@RequestMapping("/xiugaiziliao")
+	public String xiugaiziliao(HttpSession session) {
+		return isLogin("xiugaiziliao", "index");
+	}
+	
+	@RequestMapping("/xuanzerencai")
+	public String xuanzerencai() {
+		return pageFiles+"xuanzerencai";
+	}
+	
+	@RequestMapping("/xuqiumiaoshu/{taskId}")
+	public String xuqiumiaoshu(@PathVariable Integer taskId,Model model) {
+		if(isLogin()){
+			model.addAttribute("taskId", taskId);
+			YdMangerTaskVo taskVo = serviceTask.$queryById(taskId,userVo.getUser_id());
+			model.addAttribute("taskDetail", taskVo);
+			List<YdMangerFiles> files = serviceFiles.$queryAllByTaskId(taskId);
+			model.addAttribute("files", files);
+		}
+		/*else{
+			YdMangerTaskVo taskVo = serviceTask.$queryById(taskId,0);
+			model.addAttribute("taskDetail", taskVo);
+		}*/
+		return isLogin("xuqiumiaoshu");
+	}
+	
+	private String isLogin(String path,String defualPath){
+		if(isLogin()){
+			return pageFiles+path;
+		}else{
+			return defualPath;
+		}
+	}
+	
+	private String isLogin(String path){
+		if(isLogin()){
+			return pageFiles+path;
+		}else{
+			return "list-login/login";
+		}
+	}
+	
+	private boolean isLogin(){
+		userVo = (YdMangerUserVo) session.getAttribute("user");
+		return userVo != null && userVo.getUser_type() > 0 ? true : false;
+	}
+	
+}

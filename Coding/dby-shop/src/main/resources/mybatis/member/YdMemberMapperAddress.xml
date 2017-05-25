@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperAddress">
+	<sql id="listWhere">
+		 where user_id = #{user_id}
+	</sql>
+	
+	<select id="index" resultMap="YdWebMapperAddressList">
+		SELECT * FROM yd_address 
+		<include refid="listWhere"></include> 
+		ORDER BY ad_created_time DESC
+	</select>
+	
+	<resultMap id="YdWebMapperAddressList" type="java.util.HashMap">
+		<result property="id" column="ad_id"/>
+		<result property="userId" column="user_id"/>
+		<result property="adSex" column="ad_sex"/>
+		<result property="isDefault" column="ad_is_default"/>
+		<result property="adLinkman" column="ad_linkman"/>
+		<result property="adLinktel" column="ad_linktel"/>
+		<result property="adProvinceId" column="ad_province_id"/>
+		<result property="adCityId" column="ad_city_id"/>
+		<result property="adAreaId" column="ad_area_id"/>
+		<result property="adPca" column="ad_pca"/>
+		<result property="adStreet" column="ad_street"/>
+		<result property="createdAt" column="ad_created_time"/>
+	</resultMap>
+	
+	
+	<insert id="store">
+		insert yd_address (user_id, ad_sex, ad_linkman, ad_linktel, ad_province_id, ad_city_id, ad_area_id, ad_pca, ad_street, ad_created_time)
+		value ( #{user_id}, #{ad_sex}, #{ad_linkman}, #{ad_linktel}, #{ad_province_id}, #{ad_city_id}, #{ad_area_id}, #{ad_pca}, #{ad_street}, #{created_at} );
+	</insert>
+	
+	<insert id="storeEntity" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="ad_id">
+		insert yd_address (user_id, ad_sex, ad_linkman, ad_linktel, ad_province_id, ad_city_id, ad_area_id, ad_pca, ad_street, ad_created_time)
+		value ( #{user_id}, #{ad_sex}, #{ad_linkman}, #{ad_linktel}, #{ad_province_id}, #{ad_city_id}, #{ad_area_id}, #{ad_pca}, #{ad_street}, #{ad_created_time} );
+	</insert>
+	
+	<insert id="storePayPage" useGeneratedKeys="true" keyProperty="ad_id">
+		insert yd_address (user_id, ad_sex, ad_linkman, ad_linktel, ad_province_id, ad_city_id, ad_area_id, ad_pca, ad_street, ad_created_time)
+		value ( #{user_id}, #{ad_sex}, #{ad_linkman}, #{ad_linktel}, #{ad_province_id}, #{ad_city_id}, #{ad_area_id}, #{ad_pca}, #{ad_street}, #{ad_created_time} );
+	</insert>
+	
+	<update id="update">
+		UPDATE
+			yd_address
+		SET
+			ad_sex = #{adSex},
+			ad_linkman = #{adLinkman},
+			ad_linktel = #{adLinktel},
+			ad_province_id = #{adProvinceId},
+			ad_city_id = #{adCityId},
+			ad_area_id = #{adAreaId},
+			ad_pca = #{adPca},
+			ad_street = #{adStreet} 
+		<include refid="listWhere"></include> 
+		and ad_id = #{id}
+	</update>
+	
+	<update id="setDefault">
+		UPDATE yd_address SET ad_is_default = 2 <include refid="listWhere"></include>;
+		UPDATE
+			yd_address
+		SET
+			ad_is_default = 1 
+		<include refid="listWhere"></include> 
+		and ad_id = #{id}
+		
+	</update>
+	
+	<delete id="destroy">
+		delete from yd_address <include refid="listWhere"></include> and ad_id = #{id};
+	</delete>
+</mapper>

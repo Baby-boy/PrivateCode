@@ -1,0 +1,128 @@
+<div th:fragment="main" th:remove="tag">
+	<div class="d-right order-refund-page" id="ncmComplainFlow" th:inline="text">
+		<div class="refund-content">
+			<div class="refund-progres">
+				<div class="ncm-flow-step">
+			      <dl id="state_new" class="step-first current">
+			        <dt>新投诉</dt>
+			        <dd class="bg"></dd>
+			      </dl>
+			      <dl id="state_appeal" class="">
+			        <dt>待申诉</dt>
+			        <dd class="bg"> </dd>
+			      </dl>
+			      <dl id="state_talk" class="">
+			        <dt>对话中</dt>
+			        <dd class="bg"> </dd>
+			      </dl>
+			      <dl id="state_handle" class="">
+			        <dt>待仲裁</dt>
+			        <dd class="bg"> </dd>
+			      </dl>
+			      <dl id="state_finish" class="">
+			        <dt>已完成</dt>
+			        <dd class="bg"> </dd>
+			      </dl>
+			    </div>
+			</div>
+			
+			
+			<div class="refund-reason">
+				<form class="form-ajax-sub" data-func="memberComplainStore">
+					<input name="order_goods_id" type="hidden" th:value="${dataGoods.og_id}" />
+					<input name="order_id" type="hidden" th:value="${dataOrder.order_id}" />
+					<input name="goodsId" type="hidden" th:value="${dataGoods.goods_id}" />
+					<input type="hidden" name="complain_subject_content" class="complain_subject_content" />
+					
+					<div class="form-field">
+						<div class="field-hd">
+							<label for="fea1">选择投诉主题<b>*</b>：</label>
+						</div>
+						<div class="field-bd">
+							<p class="p-raido" th:each="item: ${dataSubject}">
+								<label>
+									<input type="radio" class="complain_subject_id" name="complain_subject_id" th:attr="data-content=${item.complain_subject_content}" th:value="${item.complain_subject_id}" /><b th:text="${item.complain_subject_content}"></b><br/>
+									<span class="text" th:text="${item.complain_subject_desc}"></span>
+								</label>
+							</p>
+						</div>
+					</div>
+					<div class="form-field">
+						<div class="field-hd">
+							<label for="fea1">投诉内容<b>&nbsp;</b>：</label>
+						</div>
+						<div class="field-bd">
+							<textarea name="complain_content" title="申请原因" rows="11" cols="50"></textarea>
+						</div>
+					</div>
+					<div class="form-field">
+						<div class="field-hd">
+							<label for="fea1">上传投诉证据<b>&nbsp;</b>：</label>
+						</div>
+						<div class="field-bd">
+							<div class="refund-pics-list">
+							</div>
+							<span class="btn-file">
+								<a href="javascript:;" class="btn btn-default">上传图片</a>
+								<input type="file" data-upload-code="refundPics" id="refundPics" data-btn="upload" class="none" />
+							</span>
+							<p>(图片必须是jpg/jpeg/gif/png格式)</p>
+						</div>
+					</div>
+					<div class="form-field">
+						<div class="field-hd">
+							&nbsp;
+						</div>
+						<div class="field-bd">
+							<a href="javascript:;" class="btn cancel btn-add-edit">提交投诉</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="goods-content">
+			<h3 class="title">退款/退货商品</h3>
+			<div class="goods-info">
+				<span class="goods-img"><img th:src="${@_url.goods()}+${dataGoods.goods_cover}+@{?x-oss-process=image/resize,m_pad,h_50,w_50}" /></span>
+				<p>【[[${dataOrder.store_name}]]】[[${dataGoods.goods_name}]]</p>
+			</div>
+			<div class="goods-price">
+				<dl>
+					<dt>单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：</dt>
+					<dd>￥[[${dataGoods.goods_price}]]<span class="goods-num">X[[${dataGoods.goods_num}]](数量)</span></dd>
+					<dt>小&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计：</dt>
+					<dd>￥[[${dataGoods.goods_pay_price}]]</dd>
+					<dt>商&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;家：</dt>
+					<dd>[[${dataOrder.store_name}]]</dd>
+				</dl>
+			</div>
+			<div class="order-content">
+				<h3 class="title">订单信息</h3>
+				<dl>
+					<dt>订单编号：</dt>
+					<dd th:text="${dataOrder.order_sn}"></dd>
+					<dt>运&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;费：</dt>
+					<dd>￥[[${dataOrder.transport_price}]]</dd>
+					<dt>总&nbsp;优&nbsp;惠：</dt>
+					<dd>-￥</dd>
+					<dt>总&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计：</dt>
+					<dd>￥[[${dataOrder.total_price}]]</dd>
+					<dt>成交时间：</dt>
+					<dd>[[${ #calendars.format(dataOrder.created_at,'yyyy-MM-dd hh:mm:ss') }]]</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+			$(function() {
+				$(".complain_subject_id").change(function() {
+					$(".complain_subject_content").val( $(this).attr("data-content") );
+				});
+			});
+		/*]]>*/
+	</script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.ajax.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/functions.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/upload/uploadnew.js}"></script>
+</div>

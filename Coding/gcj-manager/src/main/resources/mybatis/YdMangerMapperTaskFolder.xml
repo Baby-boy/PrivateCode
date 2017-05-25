@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperTaskFolder">
+
+	<select id="queryByName" resultType="com.yd.gcj.entity.YdMangerTaskFolder">
+		select * from yd_folder where f_name = #{name} and f_tid = #{taskId}
+	</select>
+	
+	<select id="queryByTaskId" resultType="com.yd.gcj.entity.vo.YdMangerTaskFolderVo">
+		select * from yd_folder where f_tid = #{taskId}
+	</select>
+	
+	<insert id="insert" parameterType="com.yd.gcj.entity.YdMangerTaskFolder" useGeneratedKeys="true" keyProperty="f_id">
+		insert into yd_folder 
+		(f_id,f_name,f_tid,f_create_time) 
+		value 
+		(#{f_id},#{f_name},#{f_tid},#{f_create_time})
+	</insert>
+	
+	<select id="isExistByName" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM yd_folder WHERE f_name = #{name} AND f_tid = #{taskId}
+	</select>
+	
+	<delete id="del">
+		delete from yd_folder
+		where f_id = #{folderId}
+	</delete>
+	
+	<delete id="dels">
+		delete from yd_folder
+		where f_tid = #{taskId}
+	</delete>
+</mapper>
+

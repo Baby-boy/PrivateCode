@@ -1,0 +1,58 @@
+<div th:fragment="main" th:remove="tag">
+	<div class="d-right goods-page">
+		<ul class="btn-page-top" data-btn-grid="grid">
+			<li class="active">违规下架的宝贝</li>
+		</ul>
+		
+		<div class="search-body">
+			<form class="search-body-form" data-search-func="goodsIllegal">
+				<div class="s-node">
+					<span>输入商品名称：</span>
+					<input name="goods_name" class="text" type="text" />
+				</div>
+				<div class="s-node">
+					<a class="btn-s-a" href="javascript:void(0)"><botton type="button" class="btn-search btn-search-body">搜索</botton></a>
+				</div>
+			</form>
+		</div>
+		
+		<div class="d-all pop">
+			<div class="d-show">
+				<div class="d-show1">
+					<ul class="clear">
+						<li class="d-sp1">商品名称</li>
+						<li class="d-sp2">价格</li>
+						<li class="d-sp3">库存</li>
+						<li class="d-sp4">上架时间</li>
+						<li class="d-sp5">操作</li>
+					</ul>
+				</div>
+
+				<div class="d-show2" th:each="item:${data}" th:inline="text">
+					<div class="d-show4">
+						<ul >
+							<li class="s1">
+								<div class="d-simg"><img th:src="${goods_url}+${item.goodsCover}" alt="" /></div>
+								<div class="d-stext">
+									<p>[[${item.goodsName}]]</p>
+									<span>[[${item.depotClassify10}]]</span>
+								</div>
+							</li>
+							<li class="s2">￥[[${item.depotPrice}]]</li>
+							<li class="s3">[[${item.goodsNum}]]</li>
+							<li class="s4" th:text="${item.depotIsAvailableDate}"></li>
+							<li class="s7"><a href="" class="spayment">编辑</a><a class="del-alert" data-func="goodsDestory" th:attr="data-id=${item.depotId}" href="javascript:void(0);">删除</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 分页 -->
+		<div class="pagination"></div>
+	</div>
+	<script th:inline="javascript">
+		$(function() {
+			pagination(".pagination", [[${totalPage}]], [[${p}]]);
+		});
+	</script>
+</div>

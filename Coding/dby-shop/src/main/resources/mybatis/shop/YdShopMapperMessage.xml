@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperMessage">
+
+
+	<select id="get_many" resultMap="YdMapperMessageResult_get_many">
+		SELECT
+			t.*,
+			yd_message.msg_id AS reply_msg_id,
+			yd_message.msg_content AS reply_msg_content,
+			yd_message.msg_created_time AS reply_msg_created_time,
+			yd_user.user_id AS reply_user_id,
+			yd_user.user_nickname AS reply_user_nickname,
+			yd_user.user_avatar AS reply_user_avatar
+		FROM
+			(
+				SELECT
+					yd_message.msg_id,
+					yd_message.msg_content,
+					yd_message.msg_created_time,
+					yd_user.user_id,
+					yd_user.user_nickname,
+					yd_user.user_avatar
+				FROM
+					yd_message
+				LEFT JOIN yd_user ON yd_message.user_id = yd_user.user_id
+				WHERE
+					yd_message.msg_type = 2
+				ORDER BY
+					yd_message.msg_id DESC
+				LIMIT 10
+			) t
+		LEFT OUTER JOIN yd_message ON t.msg_id = yd_message.msg_fid
+		LEFT JOIN yd_user ON yd_message.user_id = yd_user.user_id
+	</select> 
+	
+	<select id="get_latest" resultMap="YdMapperMessageResult_get_latest">
+		SELECT
+			t.msg_id,
+			t.msg_content,
+			t.msg_created_time,
+			t_yd_user.user_id,
+			t_yd_user.user_nickname,
+			t_yd_user.user_avatar,
+			r.msg_id AS reply_msg_id,
+			r.msg_content AS reply_msg_content,
+			r.msg_created_time AS reply_msg_created_time,
+			r_yd_user.user_id AS reply_user_id,
+			r_yd_user.user_nickname AS reply_user_nickname,
+			r_yd_user.user_avatar AS reply_user_avatar
+		FROM
+			yd_message AS t
+		LEFT JOIN yd_message r ON t.msg_latest_reply_id = r.msg_id
+		LEFT JOIN yd_user AS t_yd_user ON t.user_id = t_yd_user.user_id
+		LEFT JOIN yd_user AS r_yd_user ON r.user_id = r_yd_user.user_id
+		WHERE
+			t.msg_type = 2
+		ORDER BY
+			t.msg_id DESC
+		LIMIT 3
+	</select>
+	
+	<resultMap id="YdMapperMessageResult_get_many" type="java.util.HashMap">
+		<id property="id" column="msg_id" />
+		<result property="content" column="msg_content" />
+		<result property="created_time" column="msg_created_time" />
+		<association property="user" javaType="java.util.HashMap">
+			<id property="id" column="user_id" />
+			<result property="nickname" column="user_nickname" />
+			<result property="avatar" column="user_avatar" />
+		</association>
+		<collection property="reply" javaType="java.util.ArrayList" ofType="java.util.HashMap">
+			<id property="id" column="reply_msg_id" />
+			<result property="content" column="reply_msg_content" />
+			<result property="created_time" column="reply_msg_created_time" />
+			<association property="user" javaType="java.util.HashMap">
+				<id property="id" column="reply_user_id" />
+				<result property="nickname" column="reply_user_nickname" />
+				<result property="avatar" column="reply_user_avatar" />
+			</association>
+		</collection>
+	</resultMap>
+	
+	
+	<resultMap id="YdMapperMessageResult_get_latest" type="java.util.HashMap">
+		<id property="id" column="msg_id" />
+		<result property="content" column="msg_content" />
+		<result property="created_time" column="msg_created_time" />
+		<association property="user" javaType="java.util.HashMap">
+			<id property="id" column="user_id" />
+			<result property="nickname" column="user_nickname" />
+			<result property="avatar" column="user_avatar" />
+		</association>
+		<association property="latest_reply" javaType="java.util.HashMap">
+			<id property="id" column="reply_msg_id" />
+			<result property="content" column="reply_msg_content" />
+			<result property="created_time" column="reply_msg_created_time" />
+			<association property="user" javaType="java.util.HashMap">
+				<id property="id" column="reply_user_id" />
+				<result property="nickname" column="reply_user_nickname" />
+				<result property="avatar" column="reply_user_avatar" />
+			</association>
+		</association>
+	</resultMap>
+	
+</mapper>

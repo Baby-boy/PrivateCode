@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:with="task=${taskDetail}" th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--发布公告-->
+<div class="fbgg-box">
+    <div class="fabu">
+        <div class="jindu">
+            <div class="jindutit">任务进度</div>
+            <div class="jindus">
+                <div class="jinduxian"><div></div></div>
+                <ul>
+                    <li class="isok">
+                        <span>1</span>
+                        <p>发布需求<br/>2016.09.06</p>
+                    </li>
+                    <li>
+                        <span>2</span>
+                        <p>选择服务器，签单<br/>-</p>
+                        <div></div>
+                    </li>
+                    <li>
+                        <span>3</span>
+                        <p>托管佣金<br/>-</p>
+                        <div></div>
+                    </li>
+                    <li>
+                        <span>4</span>
+                        <p>服务商工作<br/>-</p>
+                        <div></div>
+                    </li>
+                    <li>
+                        <span>5</span>
+                        <p>验收并付款<br/>-</p>
+                        <div></div>
+                    </li>
+                    <li>
+                        <span>6</span>
+                        <p>评价<br/>-</p>
+                        <div></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="work-box">
+            <div class="worktit">
+                <a href="###" class="now">需求描述</a>
+                <a th:href="'/list-fuwushang/hetong/'+${taskId}">合同</a>
+                <a th:href="'/list-fuwushang/fabugonggao/'+${taskId}">工作台</a>
+            </div>
+            <div class="need-describe">
+                <div class="need-title">
+                    <p>
+                    [[${task.task_discrip}]]
+                    </p>
+                </div>
+                <div class="topr2">
+                    <i></i>任务概述
+                </div>
+                <div class="describe">
+                    <p class="desc-title">项目描述</p>
+                    <p class="cont">[[${task.task_discrip}]]</p>
+                </div>
+                <div class="describe">
+                    <p class="desc-title">成果交付标准</p>
+                    <p class="cont">[[${task.task_discrip}]]</p>
+                </div>
+                <ul class="Budget">
+                    <li>
+                        <p class="p1">[[${task.task_price}]] ¥</p>
+                        <p class="p2">预算金额</p>
+                    </li>
+                    <li>
+                        <p class="p3">[[${task.task_pnum}]]</p>
+                        <p class="p2">计划人数</p>
+                    </li>
+                    <li>
+                        <p class="p3">[[${#dates.format(task.task_end_time,'yyyy-MM-dd HH:mm:ss')}]]</p>
+                        <p class="p2">竞标截止时间</p>
+                    </li>
+                </ul>
+                <div class="topr2">
+                    <i></i>任务信息
+                </div>
+                <div class="right">
+                    <p>附件</p>
+                    <a href="javascript:;" th:each="file,niter:${files}"><i></i><span>[[${file.files_name}]]</span></a>
+                    <!-- <a href="javascript:;"><i></i><span>户外项目介绍.ppt</span></a> -->
+                </div>
+                <div class="describe">
+                    <p class="desc-title">其他备注</p>
+                    <p class="cont">[[${task.task_discrip}]]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+</html>

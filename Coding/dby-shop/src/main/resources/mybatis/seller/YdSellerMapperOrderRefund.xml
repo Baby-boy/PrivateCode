@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.d.seller.mapper.YdSellerMapperOrderRefund">
+
+	<sql id="field">
+		refund_id, order_id, order_sn, refund_sn, store_id, store_name, buyer_id,
+		buyer_name, goods_id, order_goods_id, goods_name, goods_num, refund_amount,
+		goods_image, order_goods_type, refund_type, seller_state, refund_state,
+		return_type, order_lock, goods_state, add_time, seller_time, admin_time,
+		reason_id, reason_info, pic_info, buyer_message, seller_message,
+		admin_message, express_id, invoice_no, ship_time, delay_time, receive_time,
+		receive_message, commis_rate
+	</sql>
+
+	<sql id="WhereRefund" >
+		<trim prefix="where" suffixOverrides="and" >
+			<if test="state_service != null ">
+				<!-- 1为退款, 2为退货 -->
+				 refund_type = #{state_service} and 
+			</if>
+			<if test="order_sn != null ">
+				 order_sn like '%${order_sn}%' and 
+			</if>
+			
+			store_id = #{store_id}
+		</trim>
+	</sql>
+	
+	<!-- 查询退货 -->
+	<select id="saleService" resultType="com.yd.dby.c.member.entity.YdOrderRefund">
+		select * from yd_order_refund
+		<include refid="WhereRefund"></include>
+		limit #{to},#{perPage}		
+	</select>
+	
+	<select id="totalService" resultType="java.lang.Integer" >
+		select count(refund_id) from yd_order_refund 
+		<include refid="WhereRefund"></include>
+	</select>
+	
+	<select id="info" resultType="com.yd.dby.c.member.entity.vo.YdMemberRefundOrderVo">
+		SELECT
+			<include refid="field"></include>
+		FROM
+			yd_order_refund
+		WHERE
+			store_id = #{storeId} AND refund_id = #{refundId}
+		LIMIT 1
+	</select>
+	
+	
+	<update id="update">
+		UPDATE yd_order_refund
+		<trim prefix="set" suffixOverrides=",">
+			<if test="sellerMessage != null">seller_message = #{sellerMessage},</if>
+			<if test="sellerState != null">seller_state = #{sellerState},</if>
+			<if test="refundState != null">refund_state = #{refundState},</if>
+			<if test="sellerTime != null">seller_time = #{sellerTime},</if>
+ 		</trim>
+ 		WHERE refund_id = #{refundId} AND store_id = #{storeId}
+	</update>
+</mapper>

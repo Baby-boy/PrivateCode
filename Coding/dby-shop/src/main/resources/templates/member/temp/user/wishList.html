@@ -1,0 +1,37 @@
+<div th:fragment="main" th:remove="tag">
+
+	<yd:ajax key="getMemberWish" value="get.member_wish" />
+
+	<div class="d-right member-with-list">
+
+		
+		
+		<div class="publish pop">
+			<div class="f-publish">
+				<div class="f-number">
+					<ul class="clear">
+						<li class="w130">姓名</li>
+						<li class="f-shop">许愿</li>
+						<li class="time">发布时间</li>
+					</ul>
+				</div>
+			</div>
+			<div class="f-number2 f-number3" th:each="item:${data}" th:inline="text">
+				<ul class="clear">
+					<li class="w130">
+						[[${item.user_nickname}]]
+					</li>
+					<li class="f-shop">[[${item.wish_content}]]</li>
+					<li class="time">[[${item.wish_created_time}]]</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 分页 -->
+		<div class="pagination"></div>
+	</div>
+	<script th:inline="javascript">
+		$(function() {
+			pagination(".pagination", [[${totalPage}]], [[${p}]], "getMemberWish");
+		});
+	</script>
+</div>

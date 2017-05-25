@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/yd-tipbox.css}" />
+	</head>
+	<body th:with="conf=${@_conf.get('web_config')}" th:inline="text">
+		<yd:ajax key="settlement_submit" value="settlement.submit" />
+		
+		<!-- 头部 -->
+		<div id="header-cart">
+			<div th:include="shop/template/header :: cart('2')" th:remove="tag"></div>
+		</div>
+		<!-- 头部结束 -->
+		<div id="container" style="margin: 0px auto;">
+			<div class="site-map">填写并请核对订单信息</div>
+			<div class="settlement-page">
+				
+				<!-- 收货人信息 -->
+				<div class="section">
+					<div class="title">
+						<strong>收货人信息</strong>
+						<a class="add-address" href="javascript:;">新增收货地址</a>
+					</div>
+					<div class="content buyer">
+						<ul>
+							<li th:each="item:${@_Address.select(null)}" th:inline="text" th:class="${item.is_default}==1?active:''" th:attr="data-val=${item.id}"><i></i><span th:text="${item.linkman}"></span><span>[[${item.pca}]][[${item.street}]]</span><span th:text="${item.linktel}"></span></li>
+						</ul>
+					</div>
+				</div>
+				
+				<!-- 送货清单 -->
+				<div class="section">
+					<div class="title">
+						<strong th:inline="text">送货清单</strong>
+						<!-- <a href="/cart">返回购物车</a> -->
+					</div>
+					<div class="content inventory">
+						<div class="left">
+							<h2>配送方式</h2>
+							<ul>
+								<li class="active" data-val="0"><a href="javascript:;">快&nbsp;递</a></li>
+								<li data-val="1"><a href="javascript:;">上门自提</a></li>
+							</ul>
+						</div>
+						<div class="right">
+							<div class="item" th:each="item:${dataGoodsList}" th:inline="text" th:attr="data-id=${item.depot_id}">
+								<h2></h2>
+								<div class="info">
+									<div class="pro-pic">
+										<a href="#"><img th:src="${@_url.goods()}+${item.goods_cover}" /></a>
+									</div>
+									<div class="pro-title">
+										<a href="#" th:text="${item.goods_name}">XXX商品</a>
+									</div>
+									<div class="pro-price">¥[[${#numbers.formatDecimal(item.depot_price, 0, 0)}]]</div>
+									<div class="pro-num" th:text="@{x }+${item.cart_num}"></div>
+									<div class="pro-state">
+										<span th:text="${item.depot_stock > 0 ? '有货' : '无货'}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 发票信息 -->
+				<div class="section">
+					<div class="title">
+						<strong>发票信息</strong>
+					</div>
+					<div class="content invoice" data-val="0">
+						<div class="text">不开发票</div><a href="javascript:;">修改</a>
+					</div>
+				</div>
+				
+				<!-- 使用优惠/抵用 -->
+				<div class="section">
+					<div class="title">
+						<strong>使用优惠/抵用</strong>
+					</div>
+					<div class="content discount">
+						<ul>
+							<li class="active">优惠券</li>
+							<li style="display:none;">积分</li>
+							<li style="display:none;">余额</li>
+						</ul>
+						<div class="switch-section coupon-wrap">
+							<div th:each="item:${@_Order.SelectCoupon(null)}" class="coupon" th:inline="text" th:attr="data-val=${item.coupon_id}">
+								<div class="top-info">
+									<p><strong>¥[[${#numbers.formatDecimal(item.coupon_money, 0, 0)}]]</strong>满[[${#numbers.formatDecimal(item.coupon_full_money, 0, 0)}]]</p>
+									<p>有效期至[[${#calendars.format(item.coupon_end_time,'yyyy-MM-dd')}]]</p>
+								</div>
+								<div class="bottom-text">
+									<a href="javascript:;">[优惠券]</a>
+									<a href="javascript:;">[限店铺]</a>
+								</div>
+							</div>
+						</div>
+						<div class="coupon-info">
+							金额抵用：<strong>¥0.00</strong>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 提交信息 -->
+				<div class="submit-info">
+					<ul>
+						<li>
+							<div class="price">¥38.60</div>
+							<div class="text"><span>1</span>&nbsp;件商品，总商品金额：</div>
+						</li>
+						<li>
+							<div class="price">-¥0.00</div>
+							<div class="text">返现：</div>
+						</li>
+					</ul>
+					<div class="cope-with">
+						<div class="total-price">
+							<strong>¥44.60</strong>
+							<span>应付总额：</span>
+						</div>
+						<div class="buyer-info">
+							寄送至：<span class="address">上海市宝山区中远两湾城99弄247号 4567</span>收货人：<span class="name">小明</span><span class="tel">131******3434 </span>
+						</div>
+					</div>
+					<div class="submit">
+						<input type="submit" value="提交订单"  />
+					</div>
+				</div>
+				
+				<!-- 新增地址 -->
+				<div class="add-consignee">
+					<div class="add-consignee-c">
+		
+						<div class="title">
+							<strong>新增收货人</strong>
+							<span class="iconfont">×</span>
+						</div>
+		
+						<!-- 基本资料 -->
+						<div class="content">
+							<ul>
+								<!-- 收货人姓名 -->
+								<li>
+									<label>收货人姓名</label>
+									<input class="consignee" value="" type="text" />
+									<span>*</span>
+									<select>
+										<option value="0">男</option>
+										<option value="1">女</option>
+									</select>
+		
+		
+								</li>
+		
+								<!-- 手机 -->
+								<li>
+									<label>手机：</label>
+									<input class="moblie" value="" type="text" />
+									<span>或&nbsp;&nbsp;&nbsp;电话：</span>
+									<input class="phone" value="" type="text" />
+								</li>
+		
+								<!-- 地址 -->
+								<li>
+									<label>地址：</label>
+									<!-- 年 -->
+									<select class="province">
+										<option value="2007">上海</option>
+										<option value="2008">北京</option>
+										<option value="2009">云南省</option>
+									</select>
+									<!-- 月 -->
+									<select class="city">
+										<option value="1">上海市</option>
+									</select>
+									<!-- 日 -->
+									<select class="area">
+										<option value="1">宝山区</option>
+										<option value="2">普陀区</option>
+										<option value="2">浦东新区</option>
+									</select>
+								</li>
+		
+								<!-- 详情地址 -->
+								<li class="details-addr">
+									<label>详情地址：</label>
+									<input class="detail-address" value="" type="text" />
+								</li>
+		
+								<!-- 保存收货人信息 -->
+								<li class="personal-sub">
+									<input value="保存收货人信息" type="submit" />
+								</li>
+		
+							</ul>
+						</div>
+		
+					</div>
+		
+				</div>
+				
+				<!-- 发票信息 -->
+				<div class="add-invoice">
+					<div class="add-invoice-c">
+		
+						<div class="title">
+							<strong>发票信息</strong>
+							<span class="iconfont">×</span>
+						</div>
+		
+						<!-- 基本资料 -->
+						<div class="content">
+							<ul>
+								<li class="rise">
+									<label>发票抬头：</label>
+									<dl>
+										<dd class="active">个人</dd>
+									</dl>
+									<span>新增单位发票</span>
+								</li>
+								<li class="con">
+									<label>发票内容：</label>
+									<dl>
+										<dd class="active">不开发票</dd>
+										<dd>明细</dd>
+									</dl>
+								</li>
+								<li><div class="submit">确认</div></li>
+							</ul>
+						</div>
+		
+					</div>
+		
+				</div>
+				
+			</div>
+		</div>
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		
+		<script type="text/javascript" th:src="@{/assets/shop/js/jquery-1.11.1.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/yd-tipbox-min.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/settlement.js}" ></script>
+		<script>
+			/*<![CDATA[*/
+			var settlement = {};
+			var st_invoice = "不开发票";
+			settlement.submit = {
+				url : function(self) {
+					return "/order/Created";
+				},
+				params : function(self) {
+					return self;
+				},
+				verification : function(self, params) {
+					console.log("验证");
+					return true;
+				},
+				callback : function(self, data) {
+					if(data.code===200){
+						window.open("/pay");
+					}else{
+						$.confirm({
+							text:"订单提交失败！",
+							intro:data.msg,
+							callback:function(){
+							},
+							cancel:function(){
+								console.log(1);
+							}
+						});
+					}
+				}
+			};
+			$(function(){
+				$(".settlement-page .discount .coupon-wrap .coupon").click(function(){
+					$(this).addClass("active").siblings().removeClass("active");
+				});
+				
+				$(".submit-info .submit input").click(function(){
+					var depot_id = [];
+					if( $(".settlement-page .buyer ul li.active").length < 1 ){
+						$.alert({
+							type:1,
+							text:"请选择收货人信息"
+						});
+						return ;
+					};
+					
+					$.each($(".settlement-page .inventory .right .item"),function(key,val){
+						depot_id.push($(this).attr("data-id"));
+					});
+					var json = {
+						addredd_id : $(".settlement-page .buyer ul li.active").attr("data-val"),
+						depot_id : depot_id,
+						transport_id : $(".inventory .left ul li.active").attr("data-val"),
+						invoice_id : $(".settlement-page .invoice").attr("data-val"),
+						invoice_no : st_invoice,
+						coupon_id : $(".settlement-page .discount .coupon-wrap > div.active").attr("data-val")
+					};
+					console.log(json);
+					settlement_submit();
+				});
+			});
+			/*]]>*/
+		</script>
+	</body>
+</html>

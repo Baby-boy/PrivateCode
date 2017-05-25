@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperContract">
+	<select id="$queryById" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerContract">
+		select 
+			contract_id,contract_eid,contract_tid,contract_eaddr,contract_ename,contract_ephone,contract_sid,contract_sname,contract_saddr,contract_sphone,contract_pname,contract_pdesc,contract_cp,contract_sp,contract_scsd,contract_durat,contract_pad,contract_pbr,contract_paresp,contract_pbresp,contract_pay,contract_dal,contract_ce,contract_ds,contract_esig,contract_esiga,contract_esigd,contract_eissign,contract_ssig,contract_ssiga,contract_ssigd,contract_sissign,contract_supp,contract_create_time,contract_update_time
+		from 
+			yd_contract
+		where
+			contract_id=#{contract_id}
+	</select>
+	
+	<select id="$queryBySql" parameterType="java.lang.String" resultType="com.yd.gcj.entity.YdMangerContract">
+		select 
+			contract_id,contract_eid,contract_tid,contract_eaddr,contract_ename,contract_ephone,contract_sid,contract_sname,contract_saddr,contract_sphone,contract_pname,contract_pdesc,contract_cp,contract_sp,contract_scsd,contract_durat,contract_pad,contract_pbr,contract_paresp,contract_pbresp,contract_pay,contract_dal,contract_ce,contract_ds,contract_esig,contract_esiga,contract_esigd,contract_eissign,contract_ssig,contract_ssiga,contract_ssigd,contract_sissign,contract_supp,contract_create_time,contract_update_time
+		from 
+			yd_contract
+		where 1=1
+			#{sql}
+	</select>
+	
+	<select id="$queryByTid" resultType="com.yd.gcj.entity.YdMangerContract">
+		select 
+			*
+		from 
+			yd_contract
+		where 
+			contract_tid = #{tid}
+	</select>
+	
+	<select id="$isExsit" resultType="java.lang.Integer">
+		select count(*) from yd_contract where contract_tid = #{tid}
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerContract" useGeneratedKeys="true" keyProperty="contract_id">
+		insert into yd_contract
+			(contract_tid
+			,contract_eid,contract_eaddr,contract_ename,contract_ephone
+			,contract_sid,contract_sname,contract_saddr,contract_sphone,
+			contract_pname,contract_pdesc,contract_cp,contract_sp,contract_scsd,
+			contract_durat,contract_pad,contract_pbr,contract_paresp,contract_pbresp,
+			contract_pay,contract_dal,contract_ce,contract_esig,contract_esigd,contract_ssig,contract_ssigd,contract_create_time,contract_update_time)
+		value
+			(#{contract_tid},
+			#{contract_eid},#{contract_eaddr},#{contract_ename},#{contract_ephone},
+			#{contract_sid},#{contract_sname},#{contract_saddr},#{contract_sphone},
+			#{contract_pname},#{contract_pdesc},#{contract_cp},#{contract_sp},#{contract_scsd},
+			#{contract_durat},#{contract_pad},#{contract_pbr},#{contract_paresp},#{contract_pbresp},
+			#{contract_pay},#{contract_dal},#{contract_ce},#{contract_esig},#{contract_esigd},#{contract_ssig},#{contract_ssigd},#{contract_create_time},#{contract_update_time})
+	</insert>
+	
+	<update id="$update" parameterType="com.yd.gcj.entity.YdMangerContract">
+		update yd_contract
+			<set>
+				<trim prefixOverrides=",">
+					<if test="contract_eid != null">contract_eid = #{contract_eid},</if>
+					<if test="contract_eaddr != null">contract_eaddr = #{contract_eaddr},</if>
+					<if test="contract_ename != null">contract_ename = #{contract_ename},</if>
+					<if test="contract_ephone != null">contract_ephone = #{contract_ephone},</if>
+					
+					<if test="contract_sid != null">contract_sid = #{contract_sid},</if>
+					<if test="contract_sname != null">contract_sname = #{contract_sname},</if>
+					<if test="contract_saddr != null">contract_saddr = #{contract_saddr},</if>
+					<if test="contract_sphone != null">contract_sphone = #{contract_sphone},</if>
+					
+					<if test="contract_pname != null">contract_pname = #{contract_pname},</if>
+					<if test="contract_pdesc != null">contract_pdesc = #{contract_pdesc},</if>
+					
+					<if test="contract_cp != null">contract_cp = #{contract_cp},</if>
+					<if test="contract_sp != null">contract_sp = #{contract_sp},</if>
+					<if test="contract_scsd != null">contract_scsd = #{contract_scsd},</if>
+					<if test="contract_durat != null">contract_durat = #{contract_durat},</if>
+					<if test="contract_pad != null">contract_pad = #{contract_pad},</if>
+					<if test="contract_pbr != null">contract_pbr = #{contract_pbr},</if>
+					<if test="contract_paresp != null">contract_paresp = #{contract_paresp},</if>
+					<if test="contract_pbresp != null">contract_pbresp = #{contract_pbresp},</if>
+					<if test="contract_pay != null">contract_pay = #{contract_pay},</if>
+					<if test="contract_dal != null">contract_dal = #{contract_dal},</if>
+					<if test="contract_ce != null">contract_ce = #{contract_ce},</if>
+					<if test="contract_ds != null">contract_ds = #{contract_ds},</if>
+					
+					<if test="contract_esig != null">contract_esig = #{contract_esig},</if>
+					<if test="contract_esigd != null">contract_esigd = #{contract_esigd},</if>
+					
+					<if test="contract_eissign != null">contract_eissign = #{contract_eissign},</if>
+					
+					<if test="contract_ssig != null">contract_ssig = #{contract_ssig},</if>
+					<if test="contract_ssigd != null">contract_ssigd = #{contract_ssigd},</if>
+					
+					<if test="contract_sissign != null">contract_sissign = #{contract_sissign},</if>
+					
+					<if test="contract_supp != null">contract_supp = #{contract_supp},</if>
+					
+					<if test="contract_price != null">contract_price = #{contract_price},</if>
+					<if test="contract_pdesc_start != null">contract_pdesc_start = #{contract_pdesc_start},</if>
+					<if test="contract_pdesc_end != null">contract_pdesc_end = #{contract_pdesc_end},</if>
+					
+					<if test="contract_create_time != null">contract_create_time = #{contract_create_time},</if>
+					<if test="contract_update_time != null">contract_update_time = #{contract_update_time},</if>
+				</trim>
+			</set>
+		where contract_tid = #{contract_tid}
+	</update>
+	
+	<update id="$eSign" parameterType="com.yd.gcj.entity.YdMangerContract">
+		update yd_contract
+		<set>
+			<trim prefixOverrides=",">
+				<if test="contract_esig != null">contract_esig = #{contract_esig},</if>
+				<if test="contract_esiga != null">contract_esiga = #{contract_esiga},</if>
+				<if test="contract_esigd != null">contract_esigd = #{contract_esigd},</if>
+				<if test="contract_eissign != null">contract_eissign = #{contract_eissign},</if>
+				<if test="contract_update_time != null">contract_update_time = #{contract_update_time},</if>
+			</trim>
+		</set>
+		where contract_id = #{contract_id}
+	</update>
+	
+	
+	<update id="$sSign" parameterType="com.yd.gcj.entity.YdMangerContract">
+		update yd_contract
+		<set>
+			<trim prefixOverrides=",">
+					<if test="contract_ssig != null">contract_ssig = #{contract_ssig},</if>
+					<if test="contract_ssiga != null">contract_ssiga = #{contract_ssiga},</if>
+					<if test="contract_ssigd != null">contract_ssigd = #{contract_ssigd},</if>
+					<if test="contract_sissign != null">contract_sissign = #{contract_sissign},</if>
+					<if test="contract_update_time != null">contract_update_time = #{contract_update_time},</if>
+					
+			</trim>
+		</set>
+		where contract_id = #{contract_id}
+	</update>
+	
+	
+	<update id="$updateBuChong">
+		update yd_contract
+			set contract_supp = #{supp}
+		where contract_id = #{id} and contract_tid = #{tid}
+	</update>
+	
+	<update id="supplementaryContract">
+		update yd_contract
+			set contract_supp = #{contractSupp}
+		where contract_id = #{contractId}
+	</update>
+	
+	<delete id="$delete" parameterType="java.lang.Integer">
+		delete 
+		from 
+			yd_contract
+		where 
+			contract_id=#{contract_id}
+	</delete>
+	
+</mapper>
+

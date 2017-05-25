@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.system.mapper.YdMangerMapperSystemFilesTask">
+	<!-- 根据任务id查询当前任务所对应的所有文件 -->
+	<select id="queryFilesTaskByTaskId" resultType="com.yd.gcj.entity.vo.YdMangerFilesTaskVo" >
+		select yft.*,yt.task_pname,yf.*,yf.files_name as filesName,yf.files_path as filesPath from yd_files_task yft
+		left join yd_task yt on yft.filetr_tid = yt.task_id
+		left join yd_files yf on yft.filetr_id = yf.files_id
+		where yft.filetr_tid = #{task_id}
+	</select>
+</mapper>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>修改管理员</title>
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>  
+</head>
+<body>
+<div class="panel admin-panel margin-top">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>修改文章类型</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x"  th:inline="text" id="updateForm" >   
+       <input type="hidden" name="ac_id"  th:value="${ydMangerArticleClass.ac_id}" />   
+        <div class="form-group">
+            <div class="label">
+                <label>类型名称：</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" name="ac_name" th:value="${ydMangerArticleClass.ac_name}" />
+                <div class="tips"></div>
+            </div>
+        </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>排序：</label>
+        </div>
+        <div class="field">	
+          <input type="text" class="input w50" name="ac_sort" th:value="${ydMangerArticleClass.ac_sort}" />															
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="button" id="btnSubmit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">
+
+//ajax提交表单
+$("#btnSubmit").click(function(){
+		var data = $("#updateForm").serializeArray();
+		var ydMangerSystemAdmin = {};
+	$.each(data, function(k, v) {
+		ydMangerSystemAdmin[ v["name"] ] = v["value"];
+	});
+		
+		$.ajax({
+			url: "/system/updateArticleClass",
+			data: $("#updateForm").serialize(),
+			type: "post",
+			success: function(datas) {
+				if(datas.msg==true){
+					alert("修改成功");
+					location.reload();
+				}else{
+					alert("修改失败");
+				}
+			}
+		});
+	});	
+	
+</script>
+</body></html>

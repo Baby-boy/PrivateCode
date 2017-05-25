@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:with="user=${session.user},msgSize=${session.msgSize}" th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--待签合同-->
+<div class="hetong-box">
+    <div class="hetong approve">
+        <div th:include="public/guzhu/hander"></div>
+        <div class="hetong-xq clear">
+            <div class="left">
+                <a href="guzhufang">任务管理</a>
+                <a href="guzhu-fukuan" class="now">付款管理</a>
+                <a href="woderenzheng">我的认证</a>
+                <a href="guzhu-dianping">点评管理</a>
+                <a href="guzhu-xiaoxihuifu" class="pos-relative">我的消息<span class="badge badge-my-msg" th:if="${msgSize!=null and msgSize.countMsgSize > 0}" th:text="${msgSize.countMsgSize}">0</span></a>
+            </div>
+            <div class="right">
+                <!-- <div class="topr2">
+                    <i></i>我的账户
+                </div>
+                <div class="account-shouqis">
+                    <div class="ziliao">
+                        <div class="ziliaos">
+                            <p>建设银行：<span>6216617607000234453</span><i>删除</i></p>
+                        </div>
+                    </div>
+                    <div class="account-shouqi">
+                        <span>收起</span>
+                    </div>
+                    <div class="yinhang">
+                        <form action="">
+                            <p>开户银行</p>
+                            <select name="" id="" class="yinhangse">
+                                <option value="0">浦发银行</option>
+                                <option value="1">招商银行</option>
+                                <option value="2">农业银行</option>
+                                <option value="3">建设银行</option>
+                                <option value="4">兴业银行</option>
+                            </select>
+                            <p>账号</p>
+                            <input type="text" class="typeone" placeholder="请输入公司名"/>
+                            <button type="submit">添加银行卡</button>
+                        </form>
+                    </div>
+                </div> -->
+                <div class="topr2">
+                    <i></i>我的资金
+                </div>
+                <div class="account-zijin">
+                    <p>
+                        <!-- <span class="biaoz">应付款：</span>
+                        <span class="biaoz-xq">5000.00¥</span>
+                        <i>丨</i>
+                        <span class="biaoz">已付款</span>
+                        <span class="biaoz-xq">4000.00¥</span>
+                        <i>丨</i> -->
+                        <span class="biaoz">余额</span>
+                        <span class="biaoz-xq">[[${user.user_cprice}]] ¥</span>
+                    </p>
+                    <div class="tixian">提现</div>
+                    <div class="chongzhi">充值</div>
+                    
+                </div>
+                <div class="topr2">
+                    <i></i>资金明细
+                </div>
+                <div class="zhmoney">
+                    <ul class="money-list">
+                        <li th:each="btr,niter:${pageNum.data}">
+                            <div class="mon-left">
+                                <p class="p1">[[${btr.btr_tdesc}]]</p>
+                                <p class="p2">[[${#dates.format(btr.btr_create_time,'yyyy年MM月dd日 HH:mm:ss')}]]</p>
+                            </div>
+                            <div class="mon-right">
+                                [[${btr.btr_price}]] ¥
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="tcdPageCode pageLabel" data-pageName="banktrPageNum" th:attr="data-pageNum=${pageNum.pageNum},data-pageIndex=${pageNum.pageIndex},data-maxIndex=${pageNum.maxIndex},data-pageCount=${pageNum.pageCount}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+
+<div class="zhezhao dis-none"></div>
+<div class="popup-fukuan tixian-tc dis-none">
+    <div class="guanbi"></div>
+    <h4>提现</h4>
+    <form action="">
+        <p>请选择账户</p>
+        <select name="" id="" class="refund-se">
+            <option value="0">选择账户</option>
+            <option value="1">账户1</option>
+            <option value="2">账户2</option>
+        </select>
+        <p>提现金额</p>
+        <input type="text" placeholder="请输入提现金额" class="yanzheng1"/>
+        <p>交易密码</p>
+        <input type="password" placeholder="请输入交易密码" class="yanzheng1"/>
+        <p>手机号</p>
+        <input type="text" placeholder="请输入手机号码" class="yanzheng1"/>
+        <p>验证码</p>
+        <input type="text" placeholder="请输入验证码" class="yanzheng2"/>
+        <span>发送验证码</span>
+        <div class="button">
+            <button type="button">确定</button>
+            <button type="button">取消</button>
+        </div>
+    </form>
+</div>
+<div class="popup-daozhang dis-none">
+    <div class="guanbi"></div>
+    <h4>恭喜！！！</h4>
+    <p>您提现到XXX账户 <span>100,00</span> ¥ 将于24小时内到账，请注意查收！！</p>
+    <div class="button">
+        <button type="button">确认</button>
+    </div>
+</div>
+<div class="popup-zhifu dis-none">
+    <div class="guanbi"></div>
+    <h4>充值方式</h4>
+    <p>充值金额  <span><span class="payPrice"></span> ¥</span>！</p>
+    <div class="zhifu-fs">
+        <a href="###" class="fangshi1" title="支付宝支付" th:onclick="'recharge('+${user.user_id}+',1)'"></a>
+        <a href="javascript:;" class="fangshi2" title="微信支付"></a>
+        <a href="javascript:;" class="fangshi3" title="银联支付"></a>
+    </div>
+    <div class="button">
+        <button type="button">返回上一步</button>
+    </div>
+</div>
+<div class="popup-fukuan chongzhi-tc dis-none">
+    <div class="guanbi"></div>
+    <h4>账户充值</h4>
+    <p>充值金额</p>
+    <input type="text" placeholder="请输入充值金额" class="yanzheng1 price" />
+    <div class="button">
+        <button type="button">确定</button>
+        <button type="button">取消</button>
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jquery.select.js"></script>
+<script src="/js/chajian/jquery.page.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+<script src="/js/chajian/checkbox.js"></script>
+<script src="/js/list/wodezhanghu.js"></script>
+<script src="/js/common.js"></script>
+
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/bg/account.js"></script>
+<script type="text/javascript" src="/js/bg/page.js"></script>
+</html>

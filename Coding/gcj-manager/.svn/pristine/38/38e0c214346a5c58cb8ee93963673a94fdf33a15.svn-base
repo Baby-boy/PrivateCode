@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>审核退款</title>
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>  
+    <script th:src="@{/system/kindeditor/kindeditor-min.js}" charset="utf-8"></script>
+	<script th:src="@{/system/kindeditor/lang/zh_CN.js}" charset="utf-8"></script>
+</head>
+<body th:inline="text">
+<div class="panel admin-panel margin-top">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>审核退款</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action=""  id="updateRefundForm" th:inline="text" >   
+      <input id="hidden" type="hidden" name="task_id"  th:value="${ydMangerTask.task_id}" />
+      <input id="refund_id" type="hidden" name="refund_id"  th:value="${ydMangerRefund.refund_id}" />  
+      <!-- <div class="form-group">
+        <div class="label">
+          <label>任务编号：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="task_num" th:value="${ydMangerTask.task_num}" readonly="readonly" />         
+
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+        <div class="form-group">
+            <div class="label">
+                <label>任务名称：</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" name="task_pname" th:value="${ydMangerTask.task_pname}" readonly="readonly" />
+                <div class="tips"></div>
+            </div>
+        </div> -->
+        
+        <div class="form-group">
+            <div class="label">
+                <label>服务上姓名：</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" name="refund_fname" th:value="${ydMangerRefund.refund_fname}" readonly="readonly" />
+                <div class="tips"></div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="label">
+                <label>服务商手机号：</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" name="refund_fphone" th:value="${ydMangerRefund.refund_fphone}" readonly="readonly" />
+                <div class="tips"></div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="label">
+                <label>雇主姓名：</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" name="refund_gname" th:value="${ydMangerRefund.refund_gname}" readonly="readonly" />
+                <div class="tips"></div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="label">
+                <label>雇主手机号：</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" name="refund_gphone" th:value="${ydMangerRefund.refund_gphone}" readonly="readonly" />
+                <div class="tips"></div>
+            </div>
+        </div>
+     
+      <div class="form-group">
+        <div class="label">
+          <label>退款状态状态：</label>
+        </div>
+        <div class="field">
+           <select class="input" name="refund_state" style="width:200px; line-height:17px;" >
+          	<option  th:value="0" th:selected="${ydMangerRefund.refund_state==0? 'selected' : 'false'}" >提交审核中</option>
+          	<option  th:value="1" th:selected="${ydMangerRefund.refund_state==1? 'selected' : 'false'}" >退给雇主</option>
+          	<option  th:value="2" th:selected="${ydMangerRefund.refund_state==2? 'selected' : 'false'}" >退给服务商</option>
+          	<option  th:value="3" th:selected="${ydMangerRefund.refund_state==3? 'selected' : 'false'}" >拒绝申请</option>
+          </select> 
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+     <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="button" id ="btnSubmit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script type="text/javascript">
+ 	
+ 	 //ajax提交表单
+ 	$("#btnSubmit").click(function(){
+ 		var data = $("#updateRefundForm").serializeArray();     
+ 		var ydMangerRefund= {};
+ 		$.each(data, function(k, v) {
+ 			ydMangerRefund[ v["name"] ] = v["value"];
+ 		});
+ 			$.ajax({
+ 				url: "/system/updateRefundByRefundId",
+ 				data: $("#updateTaskForm").serialize(),
+ 				type: "post",
+ 				success: function(datas) {
+ 					if(datas.msg==true){
+ 						alert("操作成功");
+ 						location.reload();
+ 					};
+ 					if(datas.msg==false){
+ 						alert("操作失败");
+ 					};
+ 					
+ 				}
+ 			});
+ 		}); 
+	
+</script>
+</body></html>

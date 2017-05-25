@@ -1,0 +1,39 @@
+<div th:fragment="main" th:remove="tag">
+	
+	<div class="d-right member-onlinebooking-detail" >
+		<ul class="btn-page-top">
+			<li class="active">流通置换详情</li>
+		</ul>
+		<div class="j-shop pop" th:inline="text">
+			<div class="detail">
+				<dl>
+					<dt>姓名：</dt>
+					<dd>[[${data.user_name}]]</dd>
+				</dl>
+				<dl>
+					<dt>联系方式：</dt>
+					<dd>[[${data.user_phone}]]</dd>
+				</dl>
+				<dl>
+					<dt>详细地址：</dt>
+					<dd>[[${data.address_pca}]] : [[${data.user_address}]]</dd>
+				</dl>
+				<dl>
+					<dt>商品名称：</dt>
+					<dd>[[${data.goods_name}]]</dd>
+				</dl>
+				<dl>
+					<dt>发布时间：</dt>
+					<dd>[[${data.created_time}]]</dd>
+				</dl>
+				<dl>
+					<dt>商品图片：</dt>
+					<dd class="img-list">
+<!-- 						<img th:src="https://woadby.oss-cn-beijing.aliyuncs.com/dby/5e132d91-10b8-49e5-817d-005c8125430c.jpg?x-oss-process=image/resize,m_pad,h_246,w_246" /> -->
+						<img th:src="${@_url.goods()}+${data.goods_pics}+@{?x-oss-process=image/resize,m_pad,h_246,w_246}" />
+					</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+</div>

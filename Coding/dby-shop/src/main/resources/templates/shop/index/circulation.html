@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+<style type="text/css">
+.second-banner {
+	max-height: 660px;
+}
+</style>
+</head>
+<body th:with="searchkeys=${@_dict.many('web_search_key')},
+	navs=${@_nav.getByType('0')}
+	">
+	<!-- 头部 -->
+	<div id="header">
+		<div th:include="shop/template/header :: header" th:remove="tag"></div>
+
+		<!-- 主导航 -->
+		<div class="main-nav">
+			<div class="nav">
+				<div th:include="shop/template/classify :: home('')"></div>
+				<div th:include="shop/template/header :: nav(circulation)"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 头部结束 -->
+
+
+	<!-- 二级banner -->
+	<div class="second-banner" th:inline="text" th:with="item=${@_banner.findByType('circulation')}">
+		<img th:if="${item} neq null" th:src="${@_url.goods()}+${item.banner_cover}" style="max-height: 550px;" />
+		<div class="section-box">
+			<dl>
+				<dt></dt>
+				<dd class="title">
+					<a target="_blank" href="/replaced_map">我要流通</a>
+				</dd>
+				<dd class="text">商品流通 物品流通</dd>
+			</dl>
+			<dl>
+				<dt></dt>
+				<dd class="title">
+					<a target="_blank" href="javascript:;">在线评估</a>
+				</dd>
+				<dd class="text">商品流通 物品流通</dd>
+			</dl>
+			<dl>
+				<dt></dt>
+				<dd class="title">
+					<a target="_blank" href="/circulation/appointment/3">线上预约</a>
+				</dd>
+				<dd class="text">商品流通 物品流通</dd>
+			</dl>
+		</div>
+	</div>
+
+	<!-- 内容 -->
+	<div id="container">
+		<div class="replaced-section">
+			<ul>
+				<li th:each="item:${footer}">
+					<h2>
+						<font th:text="${item.article_title}"></font>
+					</h2>
+					<div class="content">
+						<font th:text="${item.article_content}"></font>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+
+	<!-- 底部 -->
+	<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+	<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+
+</body>
+</html>

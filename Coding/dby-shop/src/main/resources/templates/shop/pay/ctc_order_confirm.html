@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+<link rel="stylesheet" th:href="@{/assets/shop/css/yd-tipbox.css}" />
+<style type="text/css">
+	.buy-td.td-00 {
+		width: 608px;
+	}
+	.order-itemPay {
+		width: 608px;
+		text-align: center;
+	}
+	.shop-promotion-discount {
+		margin-right: 0;
+	}
+</style>
+</head>
+<body th:with="conf=${@_conf.get('web_config')}" th:inline="text">
+
+	<!-- 头部 -->
+	<div id="header-cart">
+		<div th:include="shop/template/header :: cart('2')" th:remove="tag"></div>
+	</div>
+	<!-- 头部结束 -->
+	<div id="container" style="margin: 0px auto;">
+		<div class="site-map">填写并请核对订单信息</div>
+		<div class="settlement-page">
+
+			<!-- 收货人信息 -->
+			<div class="section">
+				<div class="title">
+					<strong>收货人信息</strong> <a class="add-address" href="javascript:;">新增收货地址</a>
+				</div>
+				<div class="content buyer address-list">
+					<ul>
+						<li th:each="item:${@_Address.select(null)}" th:inline="text" th:class="${item.is_default}==1?active:''" th:attr="data-val=${item.id}"><i></i><span
+							th:text="${item.linkman}"></span><span>[[${item.pca}]][[${item.street}]]</span><span th:text="${item.linktel}"></span></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- 确认订单信息 -->
+			<div class="section order-orderDesc">
+				<div class="title">
+					<strong th:inline="text">确认订单信息</strong>
+				</div>
+				<div class="buy-th">
+					<div class="buy-td td-0">宝贝名称</div>
+					<div class="buy-td td-00">价格</div>
+				</div>
+			</div>
+			<div class="order-order" th:inline="text">
+				<div class="order-orderInfo">
+					<img class="shopIcon" th:src="${@_url.images()}+'logo-22.png'" /> <span class="shop-name">宝贝：</span>
+				</div>
+				<div class="order-itemInfo">
+					<div class="info-cell info-detail">
+						<div class="info-cell">
+							<a class="info-img" target="_block" th:href="@{/ctc/CtcComment/}+${item.ctc_id}"><img class="info-img" alt=""
+								th:src="${@_url.goods()}+${item.ctc_cover}+@{?x-oss-process=image/resize,m_pad,h_50,w_50}" /></a>
+						</div>
+						<div class="info-msg">
+							<a class="info-title" target="_block" th:href="@{/ctc/CtcComment/}+${item.ctc_id}" th:text="${item.ctc_name}"></a>
+						</div>
+					</div>
+				</div>
+				<div class="order-itemPay">
+					<div class="shop-promotion-discount" th:text="${item.ctc_price}"></div>
+				</div>
+				<div class="order-orderExt">
+					<div class="order-extUser">
+						<div class="order-memo">
+							<label>给卖家留言：</label>
+							<textarea attr="#" class="text-area-input memo-input"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 提交信息 -->
+			<div class="submit-info">
+				<div class="cope-with">
+					<div class="total-price">
+						<span>应付总额：</span> <strong th:inline="text" th:text="@{￥}+${item.ctc_price}">0.00</strong>
+					</div>
+					<div class="buyer-info">
+						<div class="confirmAddr-addr">
+							<span class="confirmAddr-title">寄送至：</span><span class="address"></span>
+						</div>
+						<div>
+							<span class="confirmAddr-title">收货人：</span><span class="name"></span><span class="tel"></span>
+						</div>
+					</div>
+				</div>
+				<div class="submit">
+					<input type="button" class="go-ctc-btn-order" value="提交订单" />
+				</div>
+				
+				<!-- 新增地址 -->
+				<div class="add-consignee">
+					<div class="add-consignee-c">
+						<form class="form-ajax-sub" id="formStoreAddress" data-func="storeMemberAddress">
+							<div class="title">
+								<strong>新增收货人</strong>
+								<span class="iconfont">×</span>
+							</div>
+			
+							<!-- 基本资料 -->
+							<div class="content">
+								<ul>
+									<!-- 收货人姓名 -->
+									<li>
+										<label>收货人姓名</label>
+										<input data-error-info="请输入收货人姓名" data-verify="true" name="ad_linkman" class="consignee" placeholder="收货人姓名" type="text" />
+										<span>*</span>
+										<select name="ad_sex">
+											<option value="1">男</option>
+											<option value="2">女</option>
+											<option value="3">保密</option>
+										</select>
+									</li>
+			
+									<!-- 手机 -->
+									<li>
+										<label>手机：</label>
+										<input class="moblie" type="text" data-error-info="请输入手机号" data-verify="true" name="ad_linktel" placeholder="手机号" />
+										<!-- <span>或&nbsp;&nbsp;&nbsp;电话：</span>
+										<input class="phone" type="text" /> -->
+									</li>
+			
+									<!-- 地址 -->
+									<li>
+										<label>地址：</label>
+										<div class="select-city">
+											<select data-verify="true" data-error-info="请选择省" name="ad_province_id" class="province" data-first-title="选择省" style=""><option value="">选择省</option><option value="110000">北京市</option><option value="120000">天津市</option><option value="130000">河北省</option><option value="140000">山西省</option><option value="150000">内蒙古</option><option value="210000">辽宁省</option><option value="220000">吉林省</option><option value="230000">黑龙江</option><option value="310000">上海市</option><option value="320000">江苏省</option><option value="330000">浙江省</option><option value="340000">安徽省</option><option value="350000">福建省</option><option value="360000">江西省</option><option value="370000">山东省</option><option value="410000">河南省</option><option value="420000">湖北省</option><option value="430000">湖南省</option><option value="440000">广东省</option><option value="450000">广西省</option><option value="460000">海南省</option><option value="500000">重庆市</option><option value="510000">四川省</option><option value="520000">贵州省</option><option value="530000">云南省</option><option value="540000">西藏</option><option value="610000">陕西省</option><option value="620000">甘肃省</option><option value="630000">青海省</option><option value="640000">宁夏</option><option value="650000">新疆</option><option value="710000">台湾省</option><option value="810000">香港</option><option value="820000">澳门</option></select>
+											<select data-verify="true" data-error-info="请选择市" name="ad_city_id" class="city" data-value="" data-first-title="选择市" disabled="" style="display: none;"></select>
+											<select data-verify="true" data-error-info="请选择区" name="ad_area_id" class="area" data-value="" data-first-title="选择地区" disabled="" style="display: none;"></select>
+											<input type="hidden" data-pca="pca" name="ad_pca" value="" />
+										</div>
+									</li>
+			
+									<!-- 详情地址 -->
+									<li class="details-addr">
+										<label>详情地址：</label>
+										<input data-verify="true" data-error-info="请输入详细地址" name="ad_street" type="text" placeholder="请输入详细地址-街道-门牌号 " />
+									</li>
+			
+									<!-- 保存收货人信息 -->
+									<li class="personal-sub">
+										<input class="btn-add-edit" value="保存收货人信息" type="button" />
+									</li>
+			
+								</ul>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 底部 -->
+	<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+	<script type="text/javascript" th:src="@{/assets/shop/js/jquery-1.11.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/shop/js/yd-tipbox-min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/shop/js/settlement.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.cxselect.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jq_select.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/seller/js/store.js}"></script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var orderNum = 0;
+		var _ctcId = [[${item.ctc_id}]];
+		$(function() {
+			var aList = $(".address-list ul li.active");
+			setTimeout(
+					function() {
+						if (aList.length > 0) {
+							$(".buyer-info .address").html(
+									aList.find("span").eq(1).html());
+							$(".buyer-info .name").html(
+									aList.find("span").eq(0).html());
+							$(".buyer-info .tel").html(
+									aList.find("span").eq(2).html());
+						}
+					}, 300);
+
+			$(".address-list").on("click", "li i", function() {
+				var pa = $(this).parent();
+				$(".buyer-info .address").html(pa.find("span").eq(1).html());
+				$(".buyer-info .name").html(pa.find("span").eq(0).html());
+				$(".buyer-info .tel").html(pa.find("span").eq(2).html());
+			});
+		});
+		/*]]>*/
+	</script>
+</body>
+</html>

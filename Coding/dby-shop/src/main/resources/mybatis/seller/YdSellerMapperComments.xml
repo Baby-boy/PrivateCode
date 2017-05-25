@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.d.seller.mapper.YdSellerMapperComments">
+	<select id="index" resultMap="YdWebMapperCommentsIndex">
+		SELECT * FROM yd_comments
+		<trim prefix="where" suffixOverrides="and">
+			<if test="commentGoodsName != null and commentGoodsName != ''">
+		  		 goodsname like '%${commentGoodsName}%' and 
+		  	</if>
+		  	<if test="commentUsername != null and commentUsername != ''">
+		  		 username like '%${commentUsername}%' and 
+		  	</if>
+		  	store_id = #{store_id}
+		</trim>
+		ORDER BY created_at DESC
+	</select>
+	
+	<resultMap id="YdWebMapperCommentsIndex" type="java.util.HashMap">
+		<result property="commentId" column="comment_id"/>
+		<result property="orderId" column="order_id"/>
+		<result property="storeId" column="store_id"/>
+		<result property="goodsId" column="goods_id"/>
+		<result property="goodsname" column="goodsname"/>
+		<result property="goodsprice" column="goodsprice"/>
+		<result property="goodsimage" column="goodsimage"/>
+		<result property="userId" column="user_id"/>
+		<result property="username" column="username"/>
+		<result property="grade" column="grade"/>
+		<result property="islike" column="islike"/>
+		<result property="replyNum" column="reply_num"/>
+		<result property="score" column="score"/>
+		<result property="replyContent" column="reply_content"/>
+		<result property="content" column="content"/>
+		<result property="createdAt" column="created_at"/>
+		<result property="updatedAt" column="updated_at"/>
+	</resultMap>
+</mapper>

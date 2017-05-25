@@ -1,0 +1,74 @@
+<div th:fragment="main" th:remove="tag">
+	<div class="Z_g-right">
+		<div class="Z-acc1-1">
+			<div class="Z-title_inf">
+				发布商品
+			</div>
+			
+			<!--更改信息-->
+			<div class="Z-address_information">
+				<div class="Z-new_table">
+					<ul>
+						<li>
+							<div class="Z_note">*系统分类：</div>
+							<div class="select-city">
+								<select class="province" data-value="" data-first-title="选择省" disabled="disabled"></select>
+								<select class="city" data-value="" data-first-title="选择市" disabled="disabled"></select>
+								<select class="area" data-value="" data-first-title="选择地区" disabled="disabled"></select>
+							</div>
+						</li>
+						<li>
+							<div class="Z_note">*本店分类：</div>
+							<div class="select-city">
+								<select class="province" data-value="" data-first-title="选择省" disabled="disabled"></select>
+								<select class="city" data-value="" data-first-title="选择市" disabled="disabled"></select>
+								<select class="area" data-value="" data-first-title="选择地区" disabled="disabled"></select>
+							</div>
+						</li>
+						<li class="Z-long">
+							<div class="Z_note">*商品名称：</div>
+							<input type="text" placeholder="不能为空" />
+						</li>
+						<li class="Z-long">
+							<div class="Z_note">*商品价格：</div>
+							<input type="text" placeholder="必须大于0" />
+						</li>
+						<li class="Z-long">
+							<div class="Z_note">*商品库存：</div>
+							<input type="text" placeholder="必须大于0" />
+						</li>
+						<li class="Z-long">
+							<div class="Z_note">商品规格：</div>
+							<input type="text" placeholder="上海 上海市宝山区XX街道XX大楼XXXX号" />
+						</li>
+						<li class="Z-long">
+							<div class="Z_note">商品图片：</div>
+							<input type="text" placeholder="上海 上海市宝山区XX街道XX大楼XXXX号" />
+						</li>
+						<li class="Z-long">
+							<div class="Z_note">发货地址：</div>
+							<input type="text" placeholder="上海 上海市宝山区XX街道XX大楼XXXX号" />
+						</li>
+						<li class="Z-long">
+							<div class="Z_note">发布状态：</div>
+							<select>
+									<option>直接上架</option>
+									<option>仓库中</option>
+							</select>
+						</li>
+					</ul>
+					<div class="Z-input_box">
+						<div class="Z-input_button">发布</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript" th:src="@{/assets/js/jquery.cxselect.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jq_select.js}"></script>
+</div>
+	
+	
+	
+	

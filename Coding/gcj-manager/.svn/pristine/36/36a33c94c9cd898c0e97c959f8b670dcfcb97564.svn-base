@@ -1,0 +1,218 @@
+package com.yd.gcj.service;
+
+import java.util.HashMap;
+
+import com.yd.gcj.entity.vo.YdMangerUserDetail;
+import com.yd.gcj.entity.vo.YdMangerUserVo;
+
+public interface YdMangerServiceUser {
+
+	/***
+	 * 查看用户基本信息，主要用于雇主查看人才大厅时使用
+	 * @param map
+	 * @return
+	 */
+	Object $queryAll(HashMap<String, Object> map);
+	
+	/**
+	 * 查询完成任务数量排前的服务商用户信息
+	 * @param map
+	 * @return
+	 */
+	Object $queryCountByRSP(HashMap<String, Object> map);
+	
+	/***
+	 * 提交任务获取服务商信息
+	 * @param map
+	 * @return
+	 */
+	Object $queryRSP();
+	
+	/***
+	 * 根据用户id查询用户信息
+	 * @param map
+	 * @return
+	 */
+	YdMangerUserVo $queryById(Integer userId);
+	
+	/***
+	 * 获取用户详情（包括技能、案例、好评、查看服务商的雇主任务）
+	 * @param userId
+	 * @return
+	 */
+	YdMangerUserDetail $queryDetailById(Integer userId,Integer userEId);
+	
+	/***
+	 * 根据手机号（即：普通账号）检查用户是否存在 
+	 * @param map
+	 * @return
+	 */
+	Integer $userIsExist(String phone);
+	
+	/***
+	 * 根据手机号查询用户信息
+	 * @param map
+	 * @return
+	 */
+	Object $login(HashMap<String, Object> map);
+	
+	/***
+	 * 查询用户数据总记录
+	 * @param map
+	 * @return
+	 */
+	Object $queryCountNumBySql(HashMap<String, Object> map);
+	
+	/***
+	 * 查询用户是否实名认证
+	 * @param userId
+	 * @return
+	 */
+	Integer $queryVerifiedByUserId(Integer userId);
+	
+	/***
+	 * 注册用户信息
+	 * @param map
+	 * @return
+	 */
+	Object $regist(HashMap<String, Object> map);
+	
+	/***
+	 * 更新用户信息，主要用于添加用户基本信息和修改用户基本信息
+	 * @param map
+	 * @return
+	 */
+	Object $updateMsg(HashMap<String, Object> map);
+	
+	/**
+	 * 修改用户昵称
+	 * @param userId
+	 * @param nickname
+	 * @return
+	 */
+	Object $updateNickname(Integer userId,String nickname);
+	
+	/**
+	 * 修改用户姓名
+	 * @param userId
+	 * @param userName
+	 * @return
+	 */
+	Object $updateUserName(Integer userId,String userName);
+	
+	/**
+	 * 修改用户所在地
+	 * @param userId
+	 * @param userAddr
+	 * @return
+	 */
+	Object $updateAddr(Integer userId,String userAddr);
+	
+	/**
+	 * 修改用户简历信息
+	 * @param userId
+	 * @param userResume
+	 * @return
+	 */
+	Object $updateUserResume(Integer userId,String userResume);
+	
+	/**
+	 * 修改用户邮箱
+	 * @param userId
+	 * @param userEmail
+	 * @return
+	 */
+	Object $updateUserEmail(Integer userId,String userEmail);
+	
+	/**
+	 * 修改用户QQ号码
+	 * @param userId
+	 * @param userQQ
+	 * @return
+	 */
+	Object $updateUserQQ(Integer userId,String userQQ);
+	
+	/***
+	 * 重置密码
+	 * @param map
+	 * @return
+	 */
+	Object $updatePwd(Integer userId,String oldPwd,String newPwd);
+	
+	/**
+	 * 重置支付密码
+	 * @param map
+	 * @return
+	 */
+	Object $updatePPwd(Integer userId,String phone,String payPwd);
+	
+	/***
+	 * 用户技能认证
+	 * @param map
+	 * @return
+	 */
+	Object $labelCFA(HashMap<String, Object> map);
+	
+	/***
+	 * 用户认证企业信息
+	 * @param map
+	 * @return
+	 */
+	Object $enterCFA(Integer userId,String userEname,String emprs,Integer state,Integer isResid);
+	
+	/***
+	 * 添加简历信息
+	 * @param map
+	 * @return
+	 */
+	Object $updateResume(HashMap<String, Object> map);
+	
+	/**
+	 * 更新用户接单类型
+	 * @param userId
+	 * @param otype
+	 * @return
+	 */
+	Object $updateOtype(Integer userId,Integer otype);
+	
+	/**
+	 * 保持用户头像
+	 * @Description: 
+	 * @param userId
+	 * @param imgPath
+	 * @return    
+	 * @date: 2017年2月15日 下午4:23:01
+	 */
+	Integer $updateUserAvatar(Integer userId,String imgPath);
+	
+	/***
+	 * 添加银行卡信息
+	 * @param map
+	 * @return
+	 */
+	Object $addBankMsg(HashMap<String, Object> map);
+	
+	/***
+	 * 删除银行卡信息
+	 * @param map
+	 * @return
+	 */
+	Object $delBankMsg(HashMap<String, Object> map);
+	
+	/***
+	 * 修改用户手机号
+	 * @param userId
+	 * @param oldPhoneNum
+	 * @param newPhoneNum
+	 * @return
+	 */
+	Object $updateUserPhone(Integer userId,String oldPhoneNum,String newPhoneNum);
+	
+	/***
+	 * 忘记密码
+	 * @param userPhone
+	 * @param userPwd
+	 * @return
+	 */
+	Object $forgetPwd(String userPhone,String userPwd);
+}

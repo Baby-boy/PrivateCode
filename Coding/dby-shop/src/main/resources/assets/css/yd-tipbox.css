@@ -1,0 +1,332 @@
+@charset "utf-8";
+* {
+  margin: 0px;
+  padding: 0px;
+}
+.yd-tipbox-mask {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 9998;
+  left: 0px;
+  top: 0px;
+  background: rgba(0, 0, 0, 0.6);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#40000000", endColorstr="#40000000");
+}
+.yd-tipbox-mask .yd-alert {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+      transform: scale(0);
+  width: 350px;
+  height: 200px;
+  background: #fff;
+  overflow: hidden;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 9999;
+  left: 50%;
+  top: 50%;
+  margin: -100px 0px 0px -175px;
+}
+.yd-tipbox-mask .yd-alert .title {
+  height: 30px;
+  line-height: 30px;
+  overflow: hidden;
+  padding: 0px 15px;
+  background: #f3f3f3;
+}
+.yd-tipbox-mask .yd-alert .title p {
+  max-width: 150px;
+  float: left;
+  color: #666;
+  font-size: 14px;
+}
+.yd-tipbox-mask .yd-alert .title span {
+  display: block;
+  width: 30px;
+  height: 30px;
+  line-height: 26px;
+  text-align: center;
+  float: right;
+  color: #cbcbcb;
+  font-size: 26px;
+  cursor: pointer;
+}
+.yd-tipbox-mask .yd-alert .content {
+  height: 170px;
+  overflow: hidden;
+  padding: 0px 15px;
+}
+.yd-tipbox-mask .yd-alert .content .bg-pic {
+  width: 42px;
+  height: 42px;
+  overflow: hidden;
+  margin: 20px auto 0px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.yd-tipbox-mask .yd-alert .content .text {
+  color: #666;
+  line-height: 20px;
+  font-size: 16px;
+  text-align: center;
+  margin: 10px 50px 0px 50px;
+  height: 40px;
+  overflow: hidden;
+}
+.yd-tipbox-mask .yd-alert .content .btn {
+  height: 26px;
+  line-height: 26px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+.yd-tipbox-mask .yd-alert .content .btn .sure {
+  width: 54px;
+  height: 24px;
+  line-height: 22px;
+  color: #353535;
+  font-size: 14px;
+  background: #f3f3f3;
+  border: 1px solid #dedede;
+  text-align: center;
+  margin: 0px auto;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.yd-tipbox-mask .yd-confirm {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+      transform: scale(0);
+  width: 500px;
+  height: 200px;
+  background: #fff;
+  overflow: hidden;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 9999;
+  left: 50%;
+  top: 50%;
+  margin: -100px 0px 0px -250px;
+}
+.yd-tipbox-mask .yd-confirm .title {
+  height: 30px;
+  line-height: 30px;
+  overflow: hidden;
+  padding: 0px 15px;
+  background: #f3f3f3;
+}
+.yd-tipbox-mask .yd-confirm .title p {
+  max-width: 150px;
+  float: left;
+  color: #666;
+  font-size: 14px;
+}
+.yd-tipbox-mask .yd-confirm .title span {
+  display: block;
+  width: 30px;
+  height: 30px;
+  line-height: 26px;
+  text-align: center;
+  float: right;
+  color: #cbcbcb;
+  font-size: 26px;
+  cursor: pointer;
+}
+.yd-tipbox-mask .yd-confirm .content {
+  height: 170px;
+  overflow: hidden;
+  padding: 0px 15px;
+}
+.yd-tipbox-mask .yd-confirm .content dl {
+  height: auto;
+  overflow: hidden;
+  margin-left: 50px;
+  margin-top: 40px;
+}
+.yd-tipbox-mask .yd-confirm .content dl dt {
+  width: 42px;
+  height: 42px;
+  background-repeat: no-repeat;
+  float: left;
+  background-size: 100% 100%;
+}
+.yd-tipbox-mask .yd-confirm .content dl dd {
+  margin-left: 60px;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+}
+.yd-tipbox-mask .yd-confirm .content dl .text {
+  color: #666;
+}
+.yd-tipbox-mask .yd-confirm .content dl .intro {
+  font-family: "simsun";
+  font-size: 12px;
+  color: #999;
+}
+.yd-tipbox-mask .yd-confirm .content dl .btn {
+  margin-top: 10px;
+  height: 26px;
+}
+.yd-tipbox-mask .yd-confirm .content dl .btn div {
+  font-family: "simsun";
+  float: left;
+  width: 54px;
+  height: 24px;
+  line-height: 26px;
+  text-align: center;
+  font-size: 13px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.yd-tipbox-mask .yd-confirm .content dl .btn .sure {
+  color: #fff;
+  background: #ff4c00;
+  border: 1px solid #ff4c00;
+}
+.yd-tipbox-mask .yd-confirm .content dl .btn .cancel {
+  margin-left: 10px;
+  color: #353535;
+  background: #f3f3f3;
+  border: 1px solid #dedede;
+}
+.yd-tipbox-mask .yd-payment {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+      transform: scale(0);
+  width: 500px;
+  height: 220px;
+  background: #fff;
+  overflow: hidden;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 9999;
+  left: 50%;
+  top: 50%;
+  margin: -110px 0px 0px -250px;
+}
+.yd-tipbox-mask .yd-payment .title {
+  height: 30px;
+  line-height: 30px;
+  overflow: hidden;
+  padding: 0px 15px;
+  background: #f3f3f3;
+}
+.yd-tipbox-mask .yd-payment .title p {
+  max-width: 150px;
+  float: left;
+  color: #666;
+  font-size: 14px;
+}
+.yd-tipbox-mask .yd-payment .title span {
+  display: block;
+  width: 30px;
+  height: 30px;
+  line-height: 26px;
+  text-align: center;
+  float: right;
+  color: #cbcbcb;
+  font-size: 26px;
+  cursor: pointer;
+}
+.yd-tipbox-mask .yd-payment .content {
+  height: 190px;
+  overflow: hidden;
+  padding: 0px 15px;
+}
+.yd-tipbox-mask .yd-payment .content dl {
+  height: auto;
+  overflow: hidden;
+  margin-left: 50px;
+  margin-top: 40px;
+}
+.yd-tipbox-mask .yd-payment .content dl dt {
+  width: 42px;
+  height: 42px;
+  background-repeat: no-repeat;
+  float: left;
+  background-size: 100% 100%;
+}
+.yd-tipbox-mask .yd-payment .content dl dd {
+  margin-left: 60px;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+}
+.yd-tipbox-mask .yd-payment .content dl .text {
+  color: #666;
+  margin-bottom: 10px;
+}
+.yd-tipbox-mask .yd-payment .content dl .intro {
+  font-family: "simsun";
+  font-size: 12px;
+  color: #999;
+}
+.yd-tipbox-mask .yd-payment .content dl .btn {
+  margin-top: 20px;
+  height: 26px;
+}
+.yd-tipbox-mask .yd-payment .content dl .btn div {
+  font-family: "simsun";
+  float: left;
+  padding: 0px 10px;
+  height: 24px;
+  line-height: 26px;
+  text-align: center;
+  font-size: 13px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.yd-tipbox-mask .yd-payment .content dl .btn .sure {
+  color: #fff;
+  background: #ff4c00;
+  border: 1px solid #ff4c00;
+}
+.yd-tipbox-mask .yd-payment .content dl .btn .cancel {
+  margin-left: 10px;
+  color: #353535;
+  background: #f3f3f3;
+  border: 1px solid #dedede;
+}
+.yd-tipbox-mask .yd-show-tip {
+  -webkit-animation: tipbox .25s linear forwards;
+  animation: tipbox .25s linear forwards;
+}
+.yd-loading {
+  height: 300px;
+  width: 300px;
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  top: 50%;
+  margin: -150px 0px 0px -150px;
+}
+.yd-loading img {
+  width: 100%;
+  height: 100%;
+  vertical-align: bottom;
+}
+@-webkit-keyframes tipbox {
+  0% {
+    -webkit-transform: scale(0, 0);
+  }
+  100% {
+    -webkit-transform: scale(1, 1);
+  }
+}
+@keyframes tipbox {
+  0% {
+    -webkit-transform: scale(0, 0);
+            transform: scale(0, 0);
+  }
+  100% {
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+  }
+}

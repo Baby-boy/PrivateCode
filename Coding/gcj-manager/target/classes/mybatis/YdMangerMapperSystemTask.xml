@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.system.mapper.YdMangerMapperSystemTask">
+	<!-- 后台 -->
+	<select id="queryAllTask" resultType="com.yd.gcj.entity.vo.YdMangerTaskVo" >
+		<!-- select 
+			task_id,task_num,task_uid,task_pname,task_paddr,task_term,task_discrip,task_state,task_price,task_pnum,task_pnum_actual,task_schedule,task_hosting,task_host_price,task_start_time,task_end_time,task_create_time,task_update_time
+		from yd_task order by task_sort desc -->
+		SELECT YT.*,YU.user_name FROM  yd_task YT LEFT JOIN yd_user YU ON YT.task_uid=YU.user_id
+		where 1 =1
+		<if test="task_num !=null and task_num != ''">
+			and task_num like  CONCAT(CONCAT('%', #{task_num, jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="task_state != null">
+			and task_state = #{task_state}
+		</if>
+		ORDER BY YT.TASK_create_time DESC
+	</select>
+	
+	<select id="queryTaskByTaskNum" resultType="com.yd.gcj.entity.YdMangerTask" >
+		select task_id from yd_task
+		where task_num = #{task_num}
+	</select>
+	
+	<select id="queryTaskByTaskId" resultType="com.yd.gcj.entity.vo.YdMangerTaskVo">
+		SELECT yt.*,yu.user_name FROM yd_task yt
+		left join yd_user yu on yt.task_uid = yu.user_id
+		WHERE yt.task_id = #{task_id}
+	</select>
+	
+	<select id="queryTaskAllState" resultType="com.yd.gcj.entity.vo.YdMangerTaskVo">
+		select task_state from yd_task
+	</select>
+	
+	<delete id="deleteTaskByTaskId">
+		delete from yd_task 
+		where task_id=#{task_id}  
+	</delete>
+	
+	<!-- 修改任务状态 -->
+	<update id="updateTaskStateByTaskId" parameterType="com.yd.gcj.entity.vo.YdMangerTaskVo" >
+		update yd_task
+		<set>
+			<trim>
+				task_state = #{task_state},
+				task_update_time = now()
+			</trim>
+		</set>
+		where task_id = #{task_id}
+	</update>
+</mapper>

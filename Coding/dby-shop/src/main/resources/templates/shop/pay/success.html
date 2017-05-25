@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/yd-tipbox.css}" />
+		<style type="text/css">
+			.btn-pay-succ {
+				margin-top: 20px;
+			}
+			.btn-pay-succ a {
+				display: inline-block;
+				padding: 8px 20px;
+				border: 1px solid #ff6700;
+				margin-right: 50px;
+			}
+			.btn-pay-succ a.order {
+				background-color: #ff6700;
+				color: #fff;
+			}
+		</style>
+	</head>
+	<body th:with="conf=${@_conf.get('web_config')}" th:inline="text">
+		<yd:ajax key="settlement_pay" value="settlement.pay" />
+		<!-- 头部 -->
+		<div id="header-cart">
+			<div th:include="shop/template/header :: cart('3')" th:remove="tag"></div>
+		</div>
+		<!-- 头部结束 -->
+		<div id="container">
+			<div class="cashier-page">
+				<h2>支付成功</h2>
+				<div class="total-price">支付金额：<strong th:text="@{￥}+${session.payMoney eq null ? 0 : session.payMoney}"></strong></div>
+				
+				
+				<div class="btn-pay-succ">
+					<a href="/" class="index">返回首页</a><a href="/member" class="order">查看订单</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		
+		<script type="text/javascript" th:src="@{/assets/shop/js/jquery-1.11.1.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/yd-tipbox-min.js}" ></script>
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			           
+			$(function() {
+				
+				
+			});
+			/*]]>*/
+		</script>
+		
+	</body>
+</html>

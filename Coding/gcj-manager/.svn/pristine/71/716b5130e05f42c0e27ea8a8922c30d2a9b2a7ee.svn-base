@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>修改管理员</title>
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>  
+</head>
+<body>
+<div class="panel admin-panel margin-top">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>修改管理员</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x"  th:inline="text" id="updateForm" >   
+       <input type="hidden" name="fb_id"  th:value="${ydMangerFeedbackVo.fb_id}" />   
+        <div class="form-group">
+            <div class="label">
+                <label>问题：</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" name="fb_problem" th:value="${ydMangerFeedbackVo.fb_problem}" th:readonly="true" />
+                <div class="tips"></div>
+            </div>
+        </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>用户名称：</label>
+        </div>
+        <div class="field">																
+          <input type="text" class="input w50" name="user_name" th:value="${ydMangerFeedbackVo.user_name}" th:readonly="true" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>联系手机号：</label>
+        </div>
+        <div class="field">																
+          <input type="text" class="input w50" name="fb_phone" th:value="${ydMangerFeedbackVo.fb_phone}" th:readonly="true" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>反馈内容：</label>
+        </div>
+        <div class="field">
+        	 <textarea  rows="4" cols="50" class="input w50" name="fb_content" th:readonly="true" >[[${ydMangerFeedbackVo.fb_content}]]</textarea>																
+<!--           <input type="text" class="input w50" name="fb_content" th:value="${ydMangerFeedbackVo.fb_content}" th:readonly="true" /> -->
+          <div class="tips"></div>
+        </div>
+       </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>备注信息：</label>
+        </div>
+        <div class="field">
+          <textarea  rows="4" cols="50" class="input w50" name="fb_remarks"  data-validate="required:请输入内容" oninput="strxz(this)">[[${ydMangerFeedbackVo.fb_remarks}]]</textarea>																
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="button" id="btnSubmit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">
+
+//ajax提交表单
+$("#btnSubmit").click(function(){
+		var data = $("#updateForm").serializeArray();
+		var ydMangerSystemAdmin = {};
+	$.each(data, function(k, v) {
+		ydMangerSystemAdmin[ v["name"] ] = v["value"];
+	});
+		
+		$.ajax({
+			url: "/system/updateRemark",
+			data: $("#updateForm").serialize(),
+			type: "post",
+			success: function(datas) {
+				if(datas.msg==true){
+					alert("修改成功");
+					location.reload();
+				}else{
+					alert("修改失败");
+				}
+			}
+		});
+	});	
+	
+function strxz(tag){
+		var v = $(tag).val();
+		var num = 200;
+		if(v.length > num){
+			alert("最多字数200")
+			var value = v.substring(0,num);
+			$(tag).val(value);
+		}
+	}
+	
+</script>
+</body></html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.wx.mapper.YdThirdBindMapper">
+	<!-- 根据手机号查询当前用户的id -->
+	<select id="queryUserIdByMobile" resultType="com.yd.dby.a.sys.entity.YdSysUserFull"  >
+		select user_id from yd_user
+		where user_mobile = #{user_mobile}
+	</select>
+	<!-- 默认注册新用户 -->
+	<insert id="createUser" parameterType="com.yd.dby.a.sys.entity.YdSysUserSecurity" useGeneratedKeys="true" keyProperty="user_id">
+		insert into yd_user(user_username,user_mobile,user_password,user_login_time,user_old_login_time,user_created_time)
+		value(#{user_username},#{user_mobile},#{user_password},now(),now(),now())
+	</insert>
+	
+	<select id="queryUserByUserMobile" resultType="com.yd.dby.a.sys.entity.YdSysUserFull" >
+		select * from yd_user
+		where user_mobile = #{user_mobile}	
+	</select>
+	
+	<!-- 绑定默认注册的新用户 -->
+	<insert id="bindUser" parameterType="java.util.HashMap">
+		insert into yd_thridparty_login(tpl_user_id,tpl_type,tpl_openid,tpl_created_time)
+		value(#{tpl_user_id},#{tpl_type},#{openid},now())
+	</insert>
+	<insert id="bindExistUser" parameterType="java.util.HashMap">
+		insert into yd_thridparty_login(tpl_user_id,tpl_type,tpl_openid,tpl_created_time)
+		value(#{tpl_user_id},#{tpl_type},#{openid},now())
+	</insert>
+</mapper>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.d.seller.mapper.YdSellerMapperStoreNav">
+	<sql id="listWhere">
+		 where store_id = #{store_id}
+	</sql>
+	
+	<select id="index" resultMap="YdWebMapperStoreNavList">
+		SELECT * FROM yd_store_nav
+		<include refid="listWhere"></include>
+	</select>
+	
+	<resultMap id="YdWebMapperStoreNavList" type="java.util.HashMap">
+		<result property="navId" column="nav_id"/>
+		<result property="navTitle" column="nav_title"/>
+		<result property="navPid" column="nav_pid"/>
+		<result property="navSort" column="nav_sort"/>
+		<result property="navUrl" column="nav_url"/>
+		<result property="isShow" column="is_show"/>
+		<result property="isOpen" column="is_open"/>
+		<result property="createdAt" column="created_at"/>
+		<result property="updatedAt" column="updated_at"/>
+	</resultMap>
+	
+	
+	<insert id="store">
+		INSERT yd_store_nav
+			(store_id, nav_title, nav_sort, nav_url, is_show, is_open)
+		value
+			( #{store_id}, #{navTitle}, #{navSort}, #{navUrl}, #{isShow}, #{isOpen} );
+	</insert>
+	
+	<select id="edit" resultMap="YdWebMapperStoreNavList">
+		SELECT * FROM yd_store_nav <include refid="listWhere"></include> and nav_id = #{id};
+	</select>
+	
+	<update id="update">
+		UPDATE
+			yd_store_nav
+		SET
+			nav_title = #{navTitle},
+			nav_sort = #{navSort},
+			nav_url = #{navUrl},
+			is_show = #{isShow},
+			is_open = #{isOpen} 
+		<include refid="listWhere"></include> 
+		and nav_id = #{navId}
+	</update>
+	
+	<update id="setShow">
+		UPDATE
+			yd_store_nav
+		SET
+			is_show = #{isShow}
+		<include refid="listWhere"></include> 
+		and nav_id = #{id}
+	</update>
+	
+	<delete id="destroy">
+		delete from yd_store_nav <include refid="listWhere"></include> and nav_id = #{id};
+	</delete>
+</mapper>

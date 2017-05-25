@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			.yd-error {
+			  width: 1200px;
+			  height: 600px;
+			  overflow: hidden;
+			  background: #fff;
+			  margin: 20px auto;
+			}
+			.yd-error .error-wrap {
+			  width: 750px;
+			  height: auto;
+			  overflow: hidden;
+			  margin: 200px auto;
+			  padding-bottom: 10px;
+			  border-bottom: 1px solid #f7f7f7;
+			}
+			.yd-error .error-wrap a {
+			  display: block;
+			  width: 100px;
+			  height: 34px;
+			  line-height: 34px;
+			  text-align: center;
+			  background: #3cc8b4;
+			  font-size: 14px;
+			  color: #fff;
+			  float: right;
+			  text-decoration: none;
+			  margin-top: 5px;
+			}
+			.yd-error .error-wrap a:hover {
+			  background: #2abda8;
+			}
+			.yd-error dl {
+			  width: 450px;
+			  height: auto;
+			  overflow: hidden;
+			  float: left;
+			}
+			.yd-error dl dt {
+			  width: 44px;
+			  height: 40px;
+			  float: left;
+			}
+			.yd-error dl dt img {
+			  width: 44px;
+			  height: 40px;
+			  vertical-align: bottom;
+			}
+			.yd-error dl dd {
+			  margin-left: 60px;
+			  overflow: hidden;
+			}
+			.yd-error dl dd.first {
+			  height: 20px;
+			  line-height: 20px;
+			  font-size: 18px;
+			  color: #888;
+			  font-weight: bold;
+			}
+			.yd-error dl dd.second {
+			  height: 20px;
+			  line-height: 20px;
+			  font-size: 14px;
+			  color: #999;
+			  margin-top: 4px;
+			}
+
+		</style>
+		<link rel="stylesheet" href="/css/public.css"/>
+    	<link rel="stylesheet" href="/css/index.css"/>
+		<link rel="stylesheet" href="/css/banner.css"/>
+	</head>
+	<body th:with="user=${session.user}" th:inline="text">
+		<div th:include="public/hander"></div>
+		<div class="yd-error">
+			
+			<div class="error-wrap">
+				<dl>
+					<!-- <dt><img src="images/error.png" /></dt> -->
+					<dd class="first">账户状态：未实名认证</dd>
+					<dd class="second">对不起，您还未通过实名认证，实名认证后才能进行此操作！</dd>
+				</dl>
+				<a style="margin-left:20px;" href="javascript:window.history.go(-1);">返回</a>
+				<a th:href="${user!=null and user.user_type == 0?'/list-guzhu/woderenzheng':'/list-fuwushang/woderenzheng-shiming'}">立即认证</a>
+				
+			</div>
+			
+		</div>
+		<div th:include="public/foot"></div>
+	</body>
+</html>

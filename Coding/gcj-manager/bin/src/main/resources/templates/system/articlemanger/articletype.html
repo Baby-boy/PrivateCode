@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title></title>  
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>
+    <script src="/system/js/jquery.page.js"></script>
+</head>
+<body>
+<form method="get" action="/system/queryAllArticleType" id="queryForm" th:inline="text" >
+  <div class="panel article-panel">
+    <div class="panel-head"><strong class="icon-reorder">文章类型管理</strong></div>
+    <div class="padding border-bottom">
+
+      <ul class="search">
+        <li>
+        	<button type="button"  class="button border-green" onclick="javascript:location.href='/system/addArticleType'">添加文章类型</button>
+            <input type="text" placeholder="请输入分类名称" name="ac_name" th:value="${ac_name}"  class="input" style="width:250px; line-height:17px;display:inline-block" />
+        </li>
+        <li>
+            <button type="submit" id ="artsubmit"  class="button border-green">查询</button>
+        </li>
+      </ul>
+
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="120">序号</th>
+        <th>分类名称</th>
+        <th>操作</th>       
+      </tr>
+
+        <tr th:each="articleType,obj:${articleTypeList}" >
+<!--           <td><input type="checkbox" name="ac_id" th:text="${articleType.ac_id}" /></td> -->
+          <td th:text="${obj.count}"></td>
+          <td th:text="${articleType.ac_name}"></td>
+          <td>
+	          <div class="button-group">
+	           <a class="button border-red" href="javascript:void(0)" th:attr="ac_id=${articleType.ac_id}" onclick="return delArticleType( $(this) )">删除</a> 
+	           <a class="button border-red" th:href="@{/system/updateArticleTypeByAcId/}+${articleType.ac_id}">修改</a> 
+	          </div>
+          </td>
+        </tr>
+    </table>
+  </div>
+</form>
+<div class="pagination thePage">
+ <ul>
+　</ul>
+</div>
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+$(function() {
+	 pagination(".pagination ul",[[${totalPage}]],[[${p}]] );
+}); 
+
+function pagination(node, totalPage, cpage) {
+	$(node).createPage({
+       pageCount: totalPage,
+       current: cpage,
+       backFn:function(p){
+           //单击回调方法，p是当前页码
+       }
+   });
+}       
+     
+function delArticleType(me){
+	if(confirm("您确定要删除吗?")){
+		$.post("deleteArticleType",{"ac_id":me.attr("ac_id")},function(data){
+			if(data.msg==200){
+				alert("删除成功");
+				location.reload();
+			}else if(data.msg=100){
+				
+				alert("删除失败,此类型的文章未删除")
+			}else{
+				alert("删除失败");
+			}
+		}); 
+	}
+};
+
+//条件搜索
+$('#artsubmit').click(function(){
+	$('#queryForm').submit();
+});
+/*]]>*/
+</script>
+</body></html>

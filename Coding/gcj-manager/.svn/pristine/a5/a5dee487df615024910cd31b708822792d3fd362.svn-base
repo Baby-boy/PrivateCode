@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功城记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body>
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--发布公告-->
+<div class="fbgg-box">
+    <div class="fabu">
+        <div class="jindu">
+            <div class="jindutit">任务进度</div>
+            <div class="jindus">
+                <div class="jinduxian"><div></div></div>
+                <ul>
+                    <li class="isok">
+                        <span>1</span>
+                        <p>申请任务<br/>2016.09.06</p>
+                    </li>
+                    <li class="isok">
+                        <span>2</span>
+                        <p>中标<br/>2016.09.06</p>
+                        <div></div>
+                    </li>
+                    <li class="isok">
+                        <span>3</span>
+                        <p>签订合同<br/>2016.09.06</p>
+                        <div></div>
+                    </li>
+                    <li>
+                        <span>4</span>
+                        <p>进行工作<br/>2016.09.06</p>
+                        <div></div>
+                    </li>
+                    <li>
+                        <span>5</span>
+                        <p>雇主验收并付款</p>
+                        <div></div>
+                    </li>
+                    <li>
+                        <span>6</span>
+                        <p>评价</p>
+                        <div></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="work-box">
+            <div class="worktit">
+                <a href="xuqiumiaoshu">需求描述</a>
+                <a href="hetongweiqian">合同</a>
+                <a href="fabugonggao" class="now">工作台</a>
+            </div>
+            <h4>工作文件夹</h4>
+            <ul class="wenjian clear">
+                <li>
+                    <i></i>
+                    <span>01封皮目录</span>
+                </li>
+                <li>
+                    <i></i>
+                    <span>01封皮目录</span>
+                </li>
+                <li>
+                    <i></i>
+                    <span>01封皮目录</span>
+                </li>
+                <li>
+                    <i></i>
+                    <span>01封皮目录</span>
+                </li>
+                <li>
+                    <i></i>
+                    <span>01封皮目录</span>
+                </li>
+                <li>
+                    <i></i>
+                    <span>01封皮目录</span>
+                </li>
+                <li>
+                    <i></i>
+                    <span>01封皮目录</span>
+                </li>
+                <li>
+                    <i></i>
+                    <span>01封皮目录</span>
+                </li>
+                <li>
+                    <i></i>
+                    <span>01封皮目录</span>
+                </li>
+                <li>
+                    <i></i>
+                    <span>01封皮目录</span>
+                </li>
+            </ul>
+            <h4>工作跟进区</h4>
+            <div class="mulu1 mulu1-top"><i></i><span>项目跟进</span></div>
+            <div class="mulu1-list clear">
+                <div class="two-box">
+                    <div class="two">
+                        <div class="one">
+                            <div class="time">
+                                <p>计划时间</p>
+                                <p>2016/9/29</p>
+                            </div>
+                            <div class="time">
+                                <p>预警时间</p>
+                                <p>2016/9/29</p>
+                            </div>
+                        </div>
+                        <i></i>
+                        <div class="mulurenwu">
+                            <p>A楼平面图，立体图</p>
+                            <p>已完成<span>80%</span></p>
+                            <b class="b1"></b>
+                        </div>
+                        <p class="miaoshu1">任务描述</p>
+                        <p class="miaoshu2">1.成果要求深度为概念方案；</p>
+                        <p class="miaoshu2">2.准确完整的概念方案文本（含各层功能平面）；</p>
+                        <p class="miaoshu2">3. SU模型及表现效果图（效果图为可选）；</p>
+                        <p class="miaoshu2">4.具体的设计要求可详见项目任务书。</p>
+                        <div class="button">
+                            申请付款
+                        </div>
+                    </div>
+                </div>
+                <div class="three">
+                    <div class="gg-title">
+                        <i></i>
+                        公告/通告
+                    </div>
+                    <div class="gonggao">
+                        雇主：请大家加快进度
+                    </div>
+                    <button type="button">发布公告</button>
+                    <div class="work-crew">
+                        <div class="biaoti"><i></i>项目沟通群</div>
+                        <ul>
+                            <li class="clear">
+                                <div class="img">
+                                    <img src="" alt=""/>
+                                </div>
+                                <div class="qun-list">
+                                    <a href="javascript:;"><p>项目沟通群</p></a>
+                                    <p>项目沟通群</p>
+                                </div>
+                            </li>
+                            <li class="clear">
+                                <div class="img">
+                                    <img src="" alt=""/>
+                                </div>
+                                <div class="qun-list">
+                                    <a href="javascript:;"><p>项目沟通群</p></a>
+                                    <p>项目沟通群</p>
+                                </div>
+                            </li>
+                            <li class="clear">
+                                <div class="img">
+                                    <img src="" alt=""/>
+                                </div>
+                                <div class="qun-list">
+                                    <a href="javascript:;"><p>项目沟通群</p></a>
+                                    <p>项目沟通群</p>
+                                </div>
+                            </li>
+                            <li class="clear">
+                                <div class="img">
+                                    <img src="" alt=""/>
+                                </div>
+                                <div class="qun-list">
+                                    <a href="javascript:;"><p>项目沟通群</p></a>
+                                    <p>项目沟通群</p>
+                                </div>
+                            </li>
+                            <li class="clear">
+                                <div class="img">
+                                    <img src="" alt=""/>
+                                </div>
+                                <div class="qun-list">
+                                    <a href="javascript:;"><p>项目沟通群</p></a>
+                                    <p>项目沟通群</p>
+                                </div>
+                            </li>
+                            <li class="clear">
+                                <div class="img">
+                                    <img src="" alt=""/>
+                                </div>
+                                <div class="qun-list">
+                                    <a href="javascript:;"><p>项目沟通群</p></a>
+                                    <p>项目沟通群</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mulu1 mulu1-no"><i></i><span>售后及点评</span></div>
+            <p class="mulubom"><span>项目金额已支付，请您对服务商进行评价</span><a href="javascript:;">退款/维权申请>></a></p>
+            <div class="pingjia">评价项目负责人，获取积分</div>
+        </div>
+    </div>
+</div>
+<!--底部-->
+<div class="btmone-box btmtwo2">
+    <div class="btmone btmtwo2">
+        <div class="btmleft">
+            <img src="/images/erweima.jpg" alt=""/>
+            <div class="btmleft-ri">
+                <p class="p1">4006-123-011</p>
+                <p class="p2">联系电话：<i>400-000-000</i></p>
+                <p class="p2">电子邮箱：<i>xxx@xxxxxx.com</i></p>
+            </div>
+        </div>
+        <div class="btmright">
+            <a href="#">关于我们</a>
+            <i>|</i>
+            <a href="#">平台介绍</a>
+            <i>|</i>
+            <a href="/consult/help">帮助中心</a>
+        </div>
+    </div>
+</div>
+<div class="btmtwo btmtwo2">
+    Copyright ©2016XXX所有沪ICP备xxxx号 沪公网安备xxxxxx号
+</div>
+
+<div class="zhezhao dis-none"></div>
+<div class="fbgg-popup dis-none">
+    <div class="guanbi"></div>
+    <h4>发布公告</h4>
+    <form action="">
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <button type="submit">发送</button>
+    </form>
+</div>
+<div class="refund-box dis-none">
+    <div class="guanbi"></div>
+    <h4>发布公告</h4>
+      <p>选择原因</p>
+      <select name="" id="" class="refund-se">
+          <option value="0">选择原因</option>
+          <option value="1">原因1</option>
+          <option value="2">原因2</option>
+      </select>
+      <p>详情描述</p>
+      <textarea name="" id="" cols="30" rows="10">详情描述</textarea>
+      <div class="uploading">
+          <i></i>
+          <div class="input">
+              <input type="file"/>上传>>
+          </div>
+          <span>聊天记录等信息，方便客服人员了解详情</span>
+          <button type="button">申请</button>
+      </div>
+</div>
+<div class="popup-fukuan dis-none">
+    <div class="guanbi"></div>
+    <h4>付款</h4>
+    <form action="">
+        <p>付款金额</p>
+        <input type="text" placeholder="请输入付款金额" class="yanzheng1"/>
+        <p>手机号码</p>
+        <input type="text" placeholder="请输入手机号码" class="yanzheng1"/>
+        <p>验证码</p>
+        <input type="text" placeholder="请输入验证码" class="yanzheng2"/>
+        <span>发送验证码</span>
+        <p>交易密码</p>
+        <input type="text" placeholder="请输入交易密码" class="yanzheng1"/>
+        <div class="uploading clear">
+            <input type="checkbox"/>
+            <div class="input">使用账户余额支付</div>
+            <span>-</span>
+            <div class="yue">当前账户余额40,000</div>
+        </div>
+        <div class="button">
+            <button type="submit">确定</button>
+            <button type="button">取消</button>
+        </div>
+    </form>
+</div>
+<div class="popup-queren dis-none">
+    <div class="guanbi"></div>
+    <h4>检查确认</h4>
+    <form action="">
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <div class="button">
+            <button type="submit">通过</button>
+            <button type="button">拒绝</button>
+        </div>
+    </form>
+</div>
+<div class="popup-evaluate dis-none">
+    <div class="guanbi"></div>
+    <h4>评价</h4>
+        <div class="xingji">
+            <span><input type="radio" name="ping" checked="checked"/>好评</span>
+            <span><input type="radio" name="ping"/>中评</span>
+            <span><input type="radio" name="ping"/>差评</span>
+        </div>
+        <p>标签选择</p>
+        <select name="" id="" class="refund-se">
+            <option value="其他">选择原因</option>
+            <option value="雇主态度">雇主态度</option>
+            <option value="工作不在合同范围内">工作不在合同范围内</option>
+            <option value="其他">其他</option>
+        </select>
+        <p>评价内容</p>
+        <textarea name="" id="" cols="30" rows="10">详情描述</textarea>
+        <div class="button">
+            <button type="button">确定</button>
+        </div>
+</div>
+<div class="popup-shenqing dis-none">
+    <div class="guanbi"></div>
+    <h4>提交申请</h4>
+    <p>是否提交完成任务待雇主支付尾款申请！</p>
+    <div class="button">
+        <button type="submit">确认提交</button>
+        <button type="button">取消</button>
+    </div>
+</div>
+<div class="popup-fukuanjia dis-none">
+    <div class="guanbi"></div>
+    <h4>提交申请</h4>
+    <form action="">
+        <p>模块名称</p>
+        <input type="text" placeholder="请输入模块名称" class="yanzheng1"/>
+        <p>模块金额</p>
+        <input type="text" placeholder="请输入模块金额" class="yanzheng1"/>
+        <div class="button">
+            <button type="submit">确定</button>
+        </div>
+    </form>
+</div>
+<div class="popup-mokuaijia dis-none">
+    <div class="guanbi"></div>
+    <h4>提交申请</h4>
+    <form action="">
+        <p>模块名称</p>
+        <input type="text" placeholder="请输入模块名称" class="yanzheng1"/>
+        <p>模块金额</p>
+        <input type="text" placeholder="请输入模块金额" class="yanzheng1"/>
+        <div class="time">
+            <div class="times">
+                <span>预估时间</span>
+                <input id="yugu" type="text" class="laydate-icon"/>
+            </div>
+            <div class="times">
+                <span>预警时间</span>
+                <input id="yujing" type="text" class="laydate-icon"/>
+            </div>
+            <div class="tishi">系统会对您填写的预警时间来预警，通红、黄、绿三种颜色来表示</div>
+        </div>
+        <p>模块要求</p>
+        <textarea name="" id="" cols="30" rows="10">详情描述</textarea>
+        <div class="button">
+            <button type="submit">确定</button>
+        </div>
+    </form>
+</div>
+
+<div class="popup-zhifu dis-none">
+    <div class="guanbi"></div>
+    <h4>付款选择</h4>
+    <p>还需支付  <span>10,000 ¥</span>！</p>
+    <div class="zhifu-fs">
+        <a href="javascript:;" class="fangshi1"></a>
+        <a href="javascript:;" class="fangshi2"></a>
+        <a href="javascript:;" class="fangshi3"></a>
+    </div>
+    <div class="button">
+        <button type="button">返回上一步</button>
+    </div>
+</div>
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jquery.select.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+<script src="/js/chajian/checkbox.js"></script>
+<script src="/laydate/laydate.js"></script>
+<script>
+    $(".mulu2-list li").eq(-1).css("borderLeft","1px solid transparent");
+    $("select").select();
+    var yanzheng=new gongneng($(".popup-fukuan .yanzheng2").next("span"));
+    yanzheng.yanzhengma();
+    laydate({
+        elem: '#yugu', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+        event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+    });
+    laydate({
+        elem: '#yujing', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+        event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+    });
+</script>
+<script src="/js/common.js"></script>
+</html>

@@ -1,0 +1,47 @@
+<div th:fragment="main" th:remove="tag" th:inline="text">
+	<yd:ajax key="verifyMobileCode" value="get.verify_mobile_code_sub" />
+	<yd:ajax key="verifyMobileCodeSuccess" value="get.verify_mobile_success" />
+	<yd:ajax key="getMobileCode" value="get.get_mobile_code" />
+
+	<div class="Z_g-right">
+		<div class="Z-acc1-1">
+			<div class="Z-title_inf">账户安全 - 设置支付密码</div>
+			<div>
+
+				<div class="Z-validation">
+					<form class="form-ajax-sub" th:attr="data-type=${typeCode==null? 0:typeCode}" data-func="verifyMobileCode">
+						<ul>
+							<li>
+								<div>原手机号码</div>
+								<p>[[${data.user_mobile}]]</p>
+							</li>
+							<li class="Z-shoujiyanzhen">
+								<div>手机校验码</div> <!-- <input data-error-info="请输入短信验证码" data-verify="true" placeholder="请输入短信验证码" name="mobile_code" type="text" /> 
+								<a href="javascript:void(0)" yd:ajax="onclick,get.get_mobile_code">获取短信验证码</a>
+								<div class="send_code" style="display: none;">
+									<label yd:ajax="onclick,get.get_mobile_code" class="obtain" style="display: none;">重新获取</label> <label class="repeat" style="display: block;"> 重新发送 <span
+										class="count_down">已发送(60s)</span>
+									</label>
+								</div> --> 
+								<input data-error-info="请输入短信验证码" data-verify="true" name="mobile_code" type="text" /> <a href="javascript:void(0)" class="btn-send-mobile"
+								onclick="getMobileCode(this)" data-type="editMobile">获取短信验证码</a>
+								<div class="send_code" style="display: none;">
+									<label onclick="getMobileCode(this)" data-type="editMobile" class="obtain" style="display: none;">重新获取</label> <label class="repeat" style="display: block;"> <!-- 重新发送 --> <span
+										class="count_down">已发送(60s)</span>
+									</label>
+								</div>
+							</li>
+							<li class="Z-tijiao_button">
+								<div></div>
+								<div class="Z-tijiao_ btn-add-edit">
+									<a href="javascript:void(0)">提交</a>
+								</div>
+							</li>
+						</ul>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

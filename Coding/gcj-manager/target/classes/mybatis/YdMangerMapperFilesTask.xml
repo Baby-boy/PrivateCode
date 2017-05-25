@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperFilesTask">
+	
+	<select id="$queryFiles" resultType="com.yd.gcj.entity.YdMangerFilesTask">
+		select * from yd_files_task where filetr_tid = #{taskId}
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerFilesTask">
+		insert into yd_files_task
+			(filetr_tid,filetr_id,filetr_fid)
+		value
+			(#{filetr_tid},#{filetr_id},#{filetr_fid})
+	</insert>
+	
+	<delete id="$del">
+		delete from yd_files_task
+		where filetr_tid = #{taskId} and filetr_id = #{fileId} 
+	</delete>
+	
+</mapper>
+

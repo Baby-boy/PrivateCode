@@ -1,0 +1,65 @@
+<div th:fragment="information" th:remove="tag">
+	<div class="Z_g-right" th:with="item=${body}">
+		<div class="Z-acc">
+			<div class="Z-title_inf">
+				账户信息
+			</div>
+			<ul th:inline="text">
+				<li>
+					<div>用户名：</div>[[${item.nickname}]]
+				</li>
+				<li>
+					<div>会员等级：</div>
+					<img th:src="${'/assets/images/vip-'+item.lvl+'.jpg'}" alt="" />
+				</li>
+				<li class="Z-xinbie">
+					<div>性别：</div>
+					<span th:class="${item.sex eq 0 }?'Z-noneinput active':'Z-noneinput' ">
+					</span>保密
+					<span th:class="${item.sex eq 1 }?'active active':'Z-noneinput' ">
+					</span>男
+					<span th:class="${item.sex eq 2 }?'active':'' ">
+					</span>女
+				</li>
+				<li class="Z-shengri" th:attr="data-birthday=${#dates.format(item.birthday,'yyyy-MM-dd')}">
+					<div>生日：</div>
+					<select name="year"></select>
+					年
+					<select name="month"></select>
+					                                                                             月
+					<select name="day"></select>
+					日
+				</li>
+				<li class="Z-shouji">
+					<div>手机号码：</div>[[${item.mobile}]]
+					<span>未绑定<a href="#">立即绑定</a></span>
+				</li>
+				<li class="Z-youxiang">
+					<div>邮箱地址：</div>
+					<span th:text="${item.email}"><a href="#">修改</a></span>
+				</li>
+				<li class="Z-suozaidi">
+					<div>所在地：</div>
+					<div class="select-city">
+						<select class="province" data-value="${item.province_code}" data-first-title="选择省" disabled="disabled"></select>
+						<select class="city" data-value="${item.city_code}" data-first-title="选择市" disabled="disabled"></select>
+						<select class="area" data-value="${item.area_code}" data-first-title="选择地区" disabled="disabled"></select>
+					</div>
+				</li>
+			</ul>
+			
+			<div class="Z_portrait">
+				<img th:src="${item.avatar}" alt="img" />
+				<a href="#">修改头像</a>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.cxselect.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jq_select.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/birthday.js}"></script>
+	<script>
+		$(function(){
+			$(".Z-shengri").birthday();
+		});
+	</script>
+</div>

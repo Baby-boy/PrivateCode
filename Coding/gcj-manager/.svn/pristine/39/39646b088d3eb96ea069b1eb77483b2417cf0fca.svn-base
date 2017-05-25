@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperBank">
+	<select id="$queryAll" resultType="com.yd.gcj.entity.YdMangerBank">
+		select 
+			bank_id,bank_uid,bank_realname,bank_name,bank_number,bank_mobile,bank_created_time,bank_updated_time
+		from 
+			yd_bank
+		where 
+			bank_uid = #{bank_uid}
+	</select>
+	
+	<select id="$queryById" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerBank">
+		select 
+			bank_id,bank_uid,bank_realname,bank_name,bank_number,bank_mobile,bank_created_time,bank_updated_time
+		form 
+			yd_bank
+		where
+			bank_id = #{bank_id}
+	</select>
+	
+	<select id="$queryCountNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select 
+			count(*)
+		form 
+			yd_bank
+		where
+			bank_uid = #{bank_uid}
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerBank"  useGeneratedKeys="true" keyProperty="bank_id">
+		insert into yd_bank
+			(bank_uid,bank_realname,bank_name,bank_number,bank_mobile,bank_created_time,bank_updated_time)
+		value
+			(#{bank_uid},#{bank_realname},#{bank_name},#{bank_number},#{bank_mobile},#{bank_created_time},#{bank_updated_time})
+	</insert>
+	
+	<delete id="$delBankMsg">
+		delete from yd_bank
+		where bank_id = #{bank_id} and bank_uid = #{bank_uid}
+	</delete>
+	
+</mapper>
+

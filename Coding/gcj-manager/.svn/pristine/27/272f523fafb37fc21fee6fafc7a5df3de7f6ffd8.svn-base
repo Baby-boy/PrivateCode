@@ -1,0 +1,60 @@
+package com.yd.gcj.controller.page;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.yd.gcj.entity.YdMangerTaskPM;
+import com.yd.gcj.entity.vo.YdMangerUserVo;
+import com.yd.gcj.service.YdMangerServiceTaskPM;
+import com.yd.gcj.tool.MapInitFactory;
+
+@RestController
+@RequestMapping(value="/page/taskPM",produces = {"application/json;charset=UTF-8"})
+public class YdMangerControllerPageTaskPM {
+	
+	@Autowired
+	private YdMangerServiceTaskPM serviceTaskPM;
+	
+	@Autowired
+	private HttpSession session;
+	
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	public Object insert(Integer taskId,String name,float price,String description){
+		YdMangerUserVo userVo = (YdMangerUserVo) session.getAttribute("user");
+		if(userVo != null){
+			YdMangerTaskPM taskPM = new YdMangerTaskPM();
+			taskPM.setTpm_taskid(taskId);
+			taskPM.setTpm_name(name);
+			taskPM.setTpm_money(price);
+			taskPM.setTpm_desc(description);
+			return serviceTaskPM.$insert(taskPM);
+		}else{
+			return new MapInitFactory("600","登录超时或者没有登录，请登录后再进行操作！").getMap();
+		}
+		
+	}
+	
+	/***
+	 * 服务商提交付款申请
+	 * @return
+	 */
+	@RequestMapping("subPayAppli")
+	public Object sPMpayApplic(Integer tpmId,Integer state){
+		YdMangerUserVo userVo = (YdMangerUserVo) session.getAttribute("user");
+		if(userVo != null){
+			return serviceTaskPM.$updateState(tpmId, state);
+		}else{
+			return new MapInitFactory("600","请登录后再操作此功能！").getMap();
+		}
+	}
+	
+	@RequestMapping("/del")
+	public Object del(Integer tpmId){
+		return serviceTaskPM.$delete(tpmId);
+	}
+	
+}

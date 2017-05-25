@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title></title>  
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>
+    <script src="/system/js/jquery.page.js"></script>
+</head>
+<body>
+<form method="get" action="/system/queryAllPicture" id="queryForm" th:inline="text" >
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder">图片管理</strong></div>
+    <div class="padding border-bottom">
+
+      <ul class="search">
+        <li>
+            <button type="button"  class="button border-green" onclick="javascript:location.href='/system/addpicture'">添加图片</button>
+            <input type="text" placeholder="请输入图片标题" name="banner_title" class="input" style="width:250px; line-height:17px;display:inline-block" />
+        </li>
+        <li>
+            <select name="banner_type" class="input" style="width:200px; line-height:17px;" onchange="changesearch()">
+                <option value="">请选择</option>
+                <option value="0">类型1</option>
+                <option value="1">类型2</option>
+            </select>
+        </li>
+        <li>
+            <button type="submit" id="basubmitbasubmit"  class="button border-green">查询</button>
+        </li>
+      </ul>
+
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="120">序号</th>
+        <th>图片标题</th>       
+        <th>图片副标题</th>
+        <th>图片类型</th>
+        <th>图片地址</th>
+        <th>新窗口打开</th>
+        <th>操作</th>       
+      </tr>
+
+        <tr th:each="bannerList,obj:${bannerList}"  >
+<!--           <td><input type="checkbox" name="banner_id" th:text="${bannerList.banner_id}" /></td> -->
+          <td th:text="${obj.count}"></td>
+          <td th:text="${bannerList.banner_title}"></td>
+          <td th:text="${bannerList.banner_subtitle}"></td>
+          <td th:text="${bannerList.banner_type}"></td>
+          <td th:text="${bannerList.banner_imgsrc}"></td>
+          <td th:text="${bannerList.banner_isopen==1? '是' : '否'}"></td>
+          <td>
+	         <div class="button-group"> 
+	           <a class="button border-red" href="javascript:void(0)" th:attr="banner_id=${bannerList.banner_id}" onclick="return delPicture( $(this) )">删除</a> 
+	           <a class="button border-red" th:href="@{/system/updatePictureByBannerId/}+${bannerList.banner_id}">修改</a>
+	         </div>
+          </td>
+        </tr>
+    </table>
+  </div>
+</form>
+<div class="pagination thePage">
+ <ul>
+　</ul>
+</div>
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+$(function() {
+	 pagination(".pagination ul",[[${totalPage}]],[[${p}]] );
+}); 
+
+function pagination(node, totalPage, cpage) {
+	$(node).createPage({
+       pageCount: totalPage,
+       current: cpage,
+       backFn:function(p){
+           //单击回调方法，p是当前页码
+       }
+   });
+}
+
+function delPicture(me){
+	if(confirm("您确定要删除吗?")){
+		 $.post("deletePicture",{"banner_id":me.attr("banner_id")},function(data){
+			if(data.msg==true){
+				alert("删除成功");
+				location.reload();
+			}else{
+				
+				alert("删除失败")
+			}
+		}); 
+		 
+	}
+};
+
+//条件搜索
+$('#basubmit').click(function(){
+	$('#queryForm').submit();
+});
+/*]]>*/
+</script>
+</body></html>

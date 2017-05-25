@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperMoneyRecord">
+	<select id="lists" resultMap="YdWebMapperMoneyRecordLists">
+		SELECT
+			*
+		FROM
+			yd_money_record
+		WHERE
+			user_id = #{user_id}
+		LIMIT
+			#{to}, #{perPage}
+	</select>
+	
+	<resultMap id="YdWebMapperMoneyRecordLists" type="java.util.HashMap">
+		<result property="moneyId" column="money_id"/>
+		<result property="userId" column="user_id"/>
+		<result property="moneyFid" column="money_fid"/>
+		<result property="moneyPayNo" column="money_pay_no"/>
+		<result property="moneyNum" column="money_num"/>
+		<result property="moneyType" column="money_type"/>
+		<result property="moneyContent" column="money_content"/>
+		<result property="moneyCreatedTime" column="money_created_time"/>
+	</resultMap>
+	
+	<select id="total" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			yd_money_record
+		WHERE
+			user_id = #{user_id}
+	</select>
+</mapper>

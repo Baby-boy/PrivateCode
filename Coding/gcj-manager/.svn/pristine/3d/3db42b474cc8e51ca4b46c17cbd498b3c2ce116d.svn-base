@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title></title>  
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>
+</head>
+<body>
+<form method="post" action="">
+  <div class="panel article-panel">
+    <div class="panel-head"><strong class="icon-reorder">文章信息管理</strong></div>
+    <div class="padding border-bottom">
+
+      <ul class="search">
+        <li>
+        	<button type="button"  class="button border-green" onclick="javascript:location.href='/system/addarticle'">添加文章</button>
+            <input type="text" placeholder="请输入搜索关键字" name="keywords" class="input" style="width:250px; line-height:17px;display:inline-block" />
+        </li>
+        <li>
+            <select name="cid" class="input" style="width:200px; line-height:17px;" onchange="changesearch()">
+                <option value="">请选择</option>
+                <option value="0">超级管理员</option>
+                <option value="1">子管理</option>
+                <option value="">。。。。。</option>
+            </select>
+        </li>
+        <li>
+            <button type="button"  class="button border-green">查询</button>
+        </li>
+      </ul>
+
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="120">ID</th>
+        <th>标题</th>       
+        <th>副标题</th>
+        <th>是否被显示</th>
+        <th>文章类型</th>
+        <th>发布时间</th>
+        <th>更新时间</th>
+        <th>操作</th>       
+      </tr>
+
+        <tr th:each="articleList:${articleList}" >
+          <td><input type="checkbox" name="article_id" th:text="${articleList.article_id}" /></td>
+          <td th:text="${articleList.article_title}"></td>
+          <td th:text="${articleList.article_subtitle}"></td>
+          <td th:text="${articleList.article_isshow==0? '是' : '否'}"></td>
+          <td th:text="${articleList.article_type==0? '行业资讯' : '行业规范'}"></td>
+          <td th:text="${#calendars.format(articleList.article_create_time,'yyyy-MM-dd hh:mm:ss')}"></td>
+          <td th:text="${#calendars.format(articleList.article_update_time,'yyyy-MM-dd hh:mm:ss')}"></td>
+          <td><div class="button-group">
+           <a class="button border-red" href="javascript:void(0)" th:attr="article-id=${articleList.article_id}" onclick="return delArticle( $(this) )">删除</a> 
+          </div></td>
+<!--           <td><div class="button-group"> <a class="button border-red" href="javascript:void(0)" onclick="javascript:location.href='/system/addarticle'">修改</a> </div></td> -->
+        </tr>
+      <tr>
+        <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
+      </tr>
+    </table>
+  </div>
+</form>
+<script type="text/javascript">
+
+function delArticle(me){
+	if(confirm("您确定要删除吗?")){
+		$.post("deleteArticle",{"article_id":me.attr("article-id")},function(data){
+			if(data.msg==true){
+				alert("删除成功");
+				location.reload();
+			}else{
+				
+				alert("删除失败")
+			}
+		}); 
+	}
+};
+
+function updateArticle(me){
+	if(confirm("您确定要删除吗?")){
+		$.post("updateArticle",{"article_id":me.attr("article-id")},function(data){
+			if(data.msg==true){
+				alert("删除成功");
+			}else{
+				
+				alert("删除失败")
+			}
+		}); 
+	}
+};
+
+</script>
+</body></html>

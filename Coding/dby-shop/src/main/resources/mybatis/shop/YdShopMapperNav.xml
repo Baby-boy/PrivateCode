@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperNav">
+	
+	<!-- 字段 -->
+	<sql id="field">
+		nav_id, nav_type, nav_title, nav_url, nav_location, nav_new_open, nav_is_show, nav_mark, item_id
+	</sql>
+	
+	
+	<!-- 查询条件 -->
+	<sql id="where">
+		<trim prefix="where" suffixOverrides="and">
+		  	<if test="nav_type != null">
+		  		 nav_type = #{nav_type} and
+		  	</if>
+		  	nav_is_show = 1
+		</trim>
+	</sql>
+	
+	
+	<!-- 排序 -->
+	<sql id="orderBy">
+		ORDER BY nav_sort ASC, nav_id ASC
+	</sql>
+	
+	
+	<select id="getByType" resultType="java.util.HashMap">
+		SELECT
+			<include refid="field"></include>
+		FROM
+			yd_nav
+			<include refid="where"></include>
+			<include refid="orderBy"></include>
+	</select>
+	    
+</mapper>

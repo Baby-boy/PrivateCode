@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:with="user=${session.user}" th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--待签合同-->
+<div class="hetong-box">
+    <div class="hetong attention">
+        <div th:include="public/guzhu/hander"></div>
+        <div class="hetong-xq clear">
+            <div class="left">
+                <a href="guzhufang">任务管理</a>
+                <a href="guzhu-fukuan">付款管理</a>
+                <a href="guzhu-dianping">点评管理</a>
+                <a href="guzhu-xiaoxihuifu">我的消息</a>
+                <a href="guzhu-tuikuan">我的退款</a>
+            </div>
+            <div class="right">
+                <div class="topr2">
+                    <i></i>
+                    	我关注的
+                </div>
+                <ul class="rencai">
+                    <li  th:each="att,niter:${attentions}" th:inline="text">
+                        <div class="img">
+                            <img src="" alt=""/>
+                        </div>
+                        <div class="rencais">
+                            <p class="p1"><a href="guzhu-guanzhu-xq">[[${att.att_pname}]]</a><i></i></p>
+                            <p class="p2"><i></i><span>[[${att.att_uname}]]</span></p>
+                        </div>
+                        <div class="input" th:onclick="'cancelAtt('+${att.att_bid}+',this)'">关注</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/bg/task.js"></script>
+</html>

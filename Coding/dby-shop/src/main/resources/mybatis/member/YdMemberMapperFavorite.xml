@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperFavorite">
+	<sql id="where">
+		WHERE yd_favorite.user_id = #{user_id} AND yd_favorite.fav_type = #{type}
+	</sql>
+
+	<select id="goods" resultMap="YdWebMapperFollowGoods">
+		SELECT
+		yd_favorite.fav_id, yd_favorite.fav_created_time, yd_goods.goods_id,
+		yd_goods.goods_cover, yd_goods.goods_name, yd_depot.depot_price, yd_favorite.fav_fid
+		FROM
+		yd_favorite
+		LEFT JOIN
+		yd_depot
+		ON
+		yd_favorite.fav_fid = yd_depot.depot_id
+		LEFT JOIN
+		yd_goods
+		ON
+		yd_goods.goods_id = yd_depot.goods_id
+		<include refid="where"></include>
+		ORDER BY yd_favorite.fav_id DESC
+		LIMIT #{to}, #{perPage}
+	</select>
+	<select id="ctcs" resultType="java.util.HashMap">
+		SELECT
+		yd_favorite.fav_fid,
+		yd_ctc.ctc_name,
+		yd_ctc.ctc_id,
+		yd_ctc.ctc_cover,
+		yd_ctc.ctc_price,
+		yd_favorite.fav_created_time,
+		yd_favorite.fav_id
+		FROM
+		yd_favorite
+		INNER JOIN yd_ctc ON yd_favorite.fav_fid = yd_ctc.ctc_id
+		<include refid="where"></include>
+		ORDER BY yd_favorite.fav_id DESC
+		LIMIT #{to}, #{perPage}
+	</select>
+
+	<select id="store" resultType="java.util.HashMap">
+		SELECT
+		yd_favorite.fav_id, yd_favorite.user_id, yd_favorite.fav_type, yd_favorite.fav_fid,
+		yd_favorite.fav_created_time, yd_store.store_name, yd_store.store_logo,
+		yd_store.store_avg_score, yd_store.store_total_fav
+		FROM
+		yd_favorite
+		LEFT JOIN
+		yd_store
+		ON
+		yd_store.store_id = yd_favorite.`fav_fid`
+		<include refid="where"></include>
+		ORDER BY yd_favorite.fav_id DESC
+		LIMIT #{to}, #{perPage}
+	</select>
+
+	<select id="total" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM yd_favorite
+		<include refid="where"></include>
+	</select>
+
+	<select id="destroy" resultType="java.lang.Integer">
+		DELETE FROM yd_favorite where fav_id = #{id} AND user_id = #{user_id}
+	</select>
+
+	<resultMap id="YdWebMapperFollowGoods" type="java.util.HashMap">
+		<result property="followId" column="fav_id" />
+		<result property="goodsId" column="goods_id" />
+		<result property="favFid" column="fav_fid" />
+		<result property="goodsCover" column="goods_cover" />
+		<result property="goodsName" column="goods_name" />
+		<result property="depotPrice" column="depot_price" />
+		<result property="favCreatedTime" column="fav_created_time" />
+	</resultMap>
+</mapper>

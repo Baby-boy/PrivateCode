@@ -1,0 +1,72 @@
+<div th:fragment="main" th:remove="tag" th:inline="text">
+	<yd:ajax key="storeSettingUpdate" value="get.store_setting_update"  />
+	<div class="d-right setting-page">
+		<ul class="btn-page-top">
+			<li class="active">店铺设置</li>
+			<li yd:ajax="onclick,get.slide">幻灯片设置</li>
+		</ul>
+		<div class="input-dl-all" >
+			<form class="form-ajax-sub" data-func="storeSettingUpdate">
+			<dl>
+				<dt>店铺名称：</dt>
+				<dd><input name="storeName" type="text" class="text w200" /></dd>
+			</dl>
+			<dl>
+				<dt>店铺介绍：</dt>
+				<dd><textarea name="storeSummary" class="textarea w400">[[${data.storeSummary}]]</textarea></dd>
+			</dl>
+			<dl>
+				<dt>店铺logo：</dt>
+				<dd>
+					<div class="logo"><img src="http://res.zwzyd.com/dby/web/images/recharge.png" /></div>
+					<div class="btn-file">
+						<input type="hidden" name="storeLogo" />
+						<a href="javascript:void(0)" class="btn btn-default">上传图片</a>
+						<input type="file" class="none" name="image" />
+					</div>
+				</dd>
+			</dl>
+			<dl>
+				<dt>店铺QQ：</dt>
+				<dd><input name="storeQq" type="text" class="text w200" /></dd>
+			</dl>
+			<dl>
+				<dt>店铺电话：</dt>
+				<dd><input name="storeTelephone" type="text" class="text w200" /></dd>
+			</dl>
+			<dl>
+				<dt>店铺手机号：</dt>
+				<dd><input name="storeMobile" type="text" class="text w200" /></dd>
+			</dl>
+			<dl>
+				<dt>店铺地址：</dt>
+				<dd><input name="storeAddress" type="text" class="text w200" /></dd>
+			</dl>
+			<dl>
+				<dt>SEO关键词：</dt>
+				<dd><input name="storeKeywords" type="text" class="text w200" /></dd>
+			</dl>
+			<dl>
+				<dt>SEO店铺描述：</dt>
+				<dd><textarea name="storeDescription" class="textarea w400">[[${data.storeDescription}]]</textarea></dd>
+			</dl>
+			<dl>
+				<dt>&nbsp;</dt>
+				<dd>
+					<botton type="submit" class="btn btn-orange btn-lg btn-add-edit">保存店铺信息</botton>
+				</dd>
+				
+			</dl>
+			</form>
+		</div>
+	</div>
+	<script th:inline="javascript">
+		var _urlOther = [[${@_url.other()}]];
+		_data = [[${data}]];
+		restoreFormInput(_data, ".form-ajax-sub");
+	</script>
+</div>
+	
+	
+	
+	

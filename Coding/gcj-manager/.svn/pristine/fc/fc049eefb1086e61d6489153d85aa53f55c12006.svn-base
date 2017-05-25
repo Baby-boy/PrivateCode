@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:with="user=${session.user},xgjymm=(${session.xgjymm!=null}?${session.xgjymm}:'0'),sjhgx=(${session.sjhgx!=null}?${session.sjhgx}:'0'),msgSize=${session.msgSize}" th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--待签合同-->
+<div class="hetong-box">
+    <div class="hetong change">
+        <div th:include="public/fuwushang/hander"></div>
+        <div class="hetong-xq clear">
+            <div class="left">
+                <a href="fuwushang">我的任务</a>
+                <a href="wodezhanghu">我的账户</a>
+                <a href="wodejianli">我的简历</a>
+                <a href="woderenzheng-shiming">我的认证</a>
+                <a href="wodepingjia">我的评价</a>
+                <a href="wodeshoucang">我的收藏</a>
+                <a href="wodexiaoxi-huifu" class="pos-relative">我的消息<span class="badge badge-my-msg" th:if="${msgSize!=null and msgSize.countMsgSize > 0}" th:text="${msgSize.countMsgSize}">66</span></a>
+            </div>
+            <div class="right">
+                <div class="topr2">
+                    <i></i>头像
+                </div>
+                <div class="touxiang">
+                    <div class="img">
+                        <img th:with="avatar=${user.user_avatar}" th:src="${avatar!=null and avatar!=''?avatar:'/img/asag.jpg'}" class="headimg" alt=""/>
+                    </div>
+                    <div class="input">
+                        <input type="file" id="m" name="m" th:data="${user.user_id}" class="headimgbtn" onchange="uploadimg(this)"/>更换头像
+                    </div>
+                </div>
+                <div class="topr2">
+                    <i></i>基本资料
+                </div>
+                <div class="ziliao">
+                    <div class="ziliaos">
+                        <p>昵称：<span>[[${user.user_nickname}]]</span><i>修改</i></p>
+                        <div class="news dis-none">
+                                <input type="text" placeholder="请输入昵称" class="nickname" th:data="${user.user_id}"/>
+                                <div class="button">
+                                    <button type="button" onclick="updateNickname()">确定</button>
+                                    <button type="button">取消</button>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="ziliaos">
+                        <p>姓名：<span>[[${user.user_name}]]</span></p>
+                        <div class="news dis-none">
+                            <input type="text" placeholder="请输入姓名" class="userName" th:data="${user.user_id}"/>
+                        </div>
+                    </div>
+                    <div class="ziliaos">
+                        <p>所在地：<span>[[${user.user_pca}]]</span><i>修改</i></p>
+                        <div class="news dis-none">
+                            <input type="text" placeholder="请输入所在地" class="userAddr" th:data="${user.user_id}"/>
+                            <div class="button">
+                                <button type="button" onclick="updateUserAddr()">确定</button>
+                                <button type="button">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="topr2">
+                    <i></i> 修改手机
+                </div>
+                <div class="shouji-cg">
+                    <div class="cgone">
+                   		 当前手机 <span>[[${user.user_phone}]]</span>
+                    </div>
+                       <p class="p-head">新手机号</p>
+                       <input type="text" class="typeone newPhone" placeholder="请输入新的手机号"/>
+                       <p class="p-head">再次输入手机号</p>
+                       <input type="text" class="typeone reNewPhone" placeholder="再次输入手机号码"/>
+                       <input type="text" class="typetwo smsCode" placeholder="输入验证码"/>
+                       <span class="span" th:with="s=(${sjhgx!='0'}?${sjhgx.sy}:'60'),state=(${sjhgx!='0'}?${sjhgx.state}:'0')" th:attr="data-time=${s},data-state=${state}"  th:onclick="'upphoneNum(this,'+${user.user_phone}+',\'sjhgx\')'">获取验证码</span>
+                       <button type="button" th:onclick="'updateUserPhone('+${user.user_id}+',\''+${user.user_phone}+'\')'">保存</button>
+                </div>
+                <div class="topr2">
+                    <i></i>修改登录密码
+                </div>
+                <div class="shouji-cg">
+                    <p class="p-head">输入当前密码</p>
+                    <input type="password" class="typeone oldPwd" placeholder="输入当前密码"/>
+                    <p class="p-head">新密码</p>
+                    <input type="password" class="typeone newPwd" placeholder="输入您的新密码"/>
+                    <p class="p-head">再次输入新密码</p>
+                    <input type="password" class="typeone reNewPwd" placeholder="再次输入您的新密码"/>
+                    <button type="button" th:onclick="'updateLoginPwd('+${user.user_id}+')'">保存</button>
+                </div>
+                <div class="topr2">
+                    <i></i>修改交易密码
+                </div>
+                <div class="shouji-cg">
+                    <p class="p-head">输入新的交易密码</p>
+                    <input type="password" class="typeone payPwd" placeholder="输入当前的交易密码"/>
+                    <p class="p-head">再次输入您的新交易密码</p>
+                    <input type="password" class="typeone rePayPwd" placeholder="再次输入您的新交易密码"/>
+                    <div class="cgone" style="margin-top: 10px">
+                        	当前手机 <span>[[${user.user_phone}]]</span>
+                    </div>
+                    <input type="text" class="typetwo phoneCode" placeholder="输入验证码"/>
+                    <span class="span" th:with="s=(${xgjymm!='0'}?${xgjymm.sy}:'60'),state=(${xgjymm!='0'}?${xgjymm.state}:'0')" th:attr="data-time=${s},data-state=${state}"  th:onclick="'send(this,'+${user.user_phone}+',\'xgjymm\')'">获取验证码</span>
+                    <button type="button" th:onclick="'updatePayPwd('+${user.user_id}+',\''+${user.user_phone}+'\')'">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+<script src="/js/chajian/checkbox.js"></script>
+<script>
+    var yanzheng1=new gongneng($(".shouji-cg .span").eq(0));
+    yanzheng1.yanzhengma();
+    var yanzheng2=new gongneng($(".shouji-cg .span").eq(1));
+    yanzheng2.yanzhengma();
+</script>
+<script src="/js/list/ziliaochange.js"></script>
+
+<script type="text/javascript" src="/js/bg/ajaxfileupload.js"></script>
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/bg/submits.js"></script>
+<script type="text/javascript" src="/js/bg/user.js"></script>
+</html>

@@ -1,0 +1,77 @@
+<div th:fragment="main" th:remove="tag">
+	<div class="d-right nav-page">
+		<ul class="btn-page-top">
+			<li class="active service-top-title">退款记录</li>
+		</ul>
+		<div class="search-body">
+			<form class="search-body-form" data-search-func="storeService">
+				<div class="s-node">
+					<span>申请时间：</span>
+					<input class="text w70" placeholder="开始时间" type="text" /> -
+					<input class="text w70" placeholder="结束时间" type="text" />
+				</div>
+				<div class="s-node">
+					<span>订单号：</span>
+					<input name="orderSn" class="text" type="text" />
+				</div>
+				<div class="s-node">
+					<a class="btn-s-a" href="javascript:void(0)"><botton type="button" class="btn-search btn-search-body">搜索</botton></a>
+				</div>
+			</form>
+		</div>
+		<div class="d-all pop">
+			<table class="list-table">
+				<thead>
+					<tr>
+						<th class="w400">订单号</th>
+						<th class="w130">退款金额</th>
+						<th class="w130">买家会员名</th>
+						<th class="w130">申请时间</th>
+						<th class="w100">处理状态</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item:${data}" th:inline="text">
+						<td>[[${item.orderSn}]]</td>
+						<td>￥[[${item.refundPrice}]]</td>
+						<td>[[${item.buyerName}]]</td>
+						<td>[[${ #calendars.format(item.createdAt,'yyyy-MM-dd hh:mm:ss') }]]</td>
+						<td>
+							<isProcessingStatus th:switch="${item.processingStatus}" th:remove="tag">
+								<span th:case="'1'">未审核</span>
+								<span th:case="'2'">已同意</span>
+								<span th:case="'3'">不同意</span>
+							</isProcessingStatus>
+						</td>
+						<td class="btn-t-o">
+							<!-- 卖家处理状态:1为待审核,2为同意,3为不同意,默认为1 -->
+							<isProcessingStatus th:switch="${item.processingStatus}" th:remove="tag">
+								<p th:case="'1'" th:remove="tag">
+									<span><a href="javascript:void(0)">同意</a></span><span><a href="javascript:void(0)">不同意</a></span>
+								</p>
+							</isProcessingStatus>
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="4"></td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		<!-- 分页 -->
+		<div class="pagination"></div>
+	</div>
+	
+	<script th:inline="javascript">
+		$(function() {
+			pagination(".pagination", [[${totalPage}]], [[${p}]], "orderIndex");
+		});
+	</script>
+</div>
+	
+	
+	
+	

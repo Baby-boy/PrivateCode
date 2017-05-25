@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+<title>Hello World!</title>
+<script src="/system/js/jquery.js"></script>
+<script src="/system/js/ajaxfileupload.js"></script>
+</head>
+
+<body>
+
+	<!-- <div>
+		<input type="file" id="uploadFile" name="file" onchange="ajaxFileUpload()" />
+	</div> -->
+
+	<!-- <div>
+		<input type="file" id="file" name="file" onchange="ajaxFileUpload();" />
+		<input type="hidden" id="pic" name="pic" />
+	</div> -->
+
+	<form method="POST" enctype="multipart/form-data" action="/system/upload"> 
+
+           <p>文件：<input type="file" name="file" /></p>
+
+           <p><input type="submit" value="上传" /></p>
+
+     </form>
+
+</body>
+<script type="text/javascript">
+	/* function ajaxFileUpload() {  
+	   $.ajaxFileUpload({  
+	       url: '/system/upload', //服务器端请求地址  
+	       secureuri: false, //是否需要安全协议，一般设置为false  
+	       fileElementId: 'uploadFile', //文件上传域的ID  
+	       dataType: 'json', //返回值类型 一般设置为json  
+	       enctype:'multipart/form-data',//注意一定要有该参数  
+	       success: function (data, status)  //服务器成功响应处理函数  
+	       {  
+	           alert(data);       //data是从服务器返回来的值  
+	           alert('上传图片成功!图片地址'+webContext + "/upload/"+data);  
+	           $("#imghead").attr("src", webContext + "/upload/"+data);  
+	       },  
+	       error: function (data, status, e)//服务器响应失败处理函数  
+	       {  
+	           alert(e);  
+	       }  
+	   })  
+	};  */
+</script>
+
+</html>

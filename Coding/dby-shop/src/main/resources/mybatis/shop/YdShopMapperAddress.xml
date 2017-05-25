@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperAddress">
+
+
+	<select id="select" resultType="java.util.HashMap">
+		select
+			ad_id as id,
+			ad_sex as sex,
+			ad_is_default as is_default,
+			ad_linkman as linkman,
+			ad_linktel as linktel,
+			ad_province_id as province_id,
+			ad_city_id as city_id,
+			ad_area_id as area_id,
+			ad_pca as pca,
+			ad_street as street,
+			ad_more as more
+		from
+			yd_address
+		where user_id = #{user_id};
+	</select>
+
+	<select id="only" resultType="java.util.HashMap">
+		select
+			ad_id as id,
+			ad_sex as sex,
+			ad_is_default as is_default,
+			ad_linkman as linkman,
+			ad_linktel as linktel,
+			ad_province_id as province_id,
+			ad_city_id as city_id,
+			ad_area_id as area_id,
+			ad_pca as pca,
+			ad_street as street,
+			ad_more as more
+		from
+			yd_address
+		where
+			ad_id = #{address_id} and user_id=#{user_id};
+	</select>
+
+	
+	<insert id="insert">
+		insert yd_address(
+		user_id,
+		address_sex,
+		address_sort,
+		address_is_default,
+		address_linkman,
+		address_linktel,
+		address_province_id,
+		address_city_id,
+		address_area_id,
+		address_pca,
+		address_street,
+		address_more)
+		value
+		(#{user_id},
+		#{model.address_sex},
+		0,
+		#{model.address_is_default},
+		#{model.address_linkman},
+		#{model.address_linktel},
+		#{model.address_province_id},
+		#{model.address_city_id},
+		#{model.address_area_id},
+		#{model.address_pca},
+		#{model.address_street},
+		#{model.address_more}
+		)
+	</insert>
+		
+	<update id="default0">
+		update yd_address set address_is_default = 0 where user_id = #{user_id} and address_is_default = 1; 
+		update yd_address set address_is_default = 1 where address_id = #{address_id} and user_id = #{user_id};
+	</update>
+
+		
+	<delete id="delete">
+		delete from yd_address where address_id = #{address_id} and user_id = #{user_id}
+	</delete>
+
+
+</mapper>

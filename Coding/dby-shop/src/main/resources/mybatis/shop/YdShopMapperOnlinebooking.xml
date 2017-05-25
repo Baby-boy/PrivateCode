@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperOnlinebooking">
+	<insert id="insert" parameterType="com.yd.dby.b.shop.entity.YdAppOnlineBooking">
+		insert into yd_onlinebooking
+		 <trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="type != null">
+				type,
+			</if>
+			<if test="user_id != null">
+				user_id,
+			</if>
+			<if test="user_phone != null">
+				user_phone,
+			</if>
+			<if test="user_address != null">
+				user_address,
+			</if>
+			<if test="goods_name != null">
+				goods_name,
+			</if>
+			<if test="goods_summary != null">
+				goods_summary,
+			</if>
+			<if test="goods_cover != null">
+				goods_cover,
+			</if>
+			<if test="goods_pics != null">
+				goods_pics,
+			</if>
+			<if test="address_province_id != null">
+				address_province_id,
+			</if>
+			<if test="address_city_id != null">
+				address_city_id,
+			</if>
+			<if test="address_area_id != null">
+				address_area_id,
+			</if>
+			<if test="address_pca != null"> 
+			</if>
+			<if test="address_street != null">
+				address_street,
+			</if>
+		</trim>
+	
+		  <trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="type != null">
+				#{type},
+			</if>
+			<if test="user_id != null">
+				#{user_id},
+			</if>
+			<if test="user_phone != null">
+				#{user_phone},
+			</if>
+			<if test="user_address != null">
+				#{user_address},
+			</if>
+			<if test="goods_name != null">
+				#{goods_name},
+			</if>
+			<if test="goods_summary != null">
+				#{goods_summary},
+			</if>
+			<if test="goods_cover != null">
+				#{goods_cover},
+			</if>
+			<if test="goods_pics != null">
+				#{goods_pics},
+			</if>
+			<if test="user_address != null">
+				#{user_address},
+			</if>
+			<if test="address_province_id != null">
+				#{address_province_id},
+			</if>
+			<if test="address_city_id != null">
+				#{address_city_id},
+			</if>
+			<if test="address_area_id != null">
+				#{address_area_id},
+			</if>
+			<if test="address_pca != null">
+				#{address_pca},
+			</if>
+			<if test="address_street != null">
+				#{address_street},
+			</if>
+		</trim>
+	</insert>
+	
+	
+	<insert id="add" parameterType="com.yd.dby.b.shop.entity.YdAppOnlineBooking">
+		INSERT INTO yd_onlinebooking(
+			user_name,user_id,created_time,user_phone, user_address, address_province_id, address_city_id,
+			goods_name, goods_cover, goods_pics, address_pca, type
+		)
+		VALUE(
+			#{user_name},#{user_id},#{created_time},#{user_phone}, #{user_address}, #{address_province_id},
+			#{address_city_id}, #{goods_name}, #{goods_cover},
+			#{goods_pics}, #{address_pca}, #{type}
+		)
+	</insert>
+	
+	
+	<select id="get_Store" resultMap="YdShopMapperStoreMap_get_many_brand">
+		SELECT
+			store_id,
+			store_name,
+			store_logo,
+			store_cover,
+			store_address,
+			store_telephone
+		FROM
+			yd_store
+	    where yd_store.store_is_self=1
+		ORDER BY
+			yd_store.store_id DESC
+	</select>
+	<resultMap id="YdShopMapperStoreMap_get_many_brand" type="java.util.Map">
+		<id property="store_id" column="store_id" />
+		<result property="store_name" column="store_name" />
+		<result property="store_logo" column="store_logo" />
+		<result property="store_cover" column="store_cover" />
+		<result property="store_address" column="store_address" />
+		<result property="store_telephone" column="store_telephone" />
+	</resultMap>
+
+</mapper>

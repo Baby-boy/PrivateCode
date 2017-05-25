@@ -1,0 +1,71 @@
+<div th:fragment="main" th:remove="tag">
+	<yd:ajax key="myCtc" value="get.my_ctc" />
+	<yd:ajax key="myCtcEdit" value="get.ctc_edit" />
+	<yd:ajax key="myCtcOrder" value="get.my_ctc_order" />
+	<yd:ajax key="ctcDestory" value="get.ctc_destory" />
+	<yd:ajax key="ctcSoldOut" value="get.ctc_soldOut" />
+	<yd:ajax key="ctcGrand" value="get.ctc_grand" />
+
+
+	<div class="d-right order-page">
+		<ul class="btn-page-top">
+			<li onclick="myCtc([this, 1, 0])">我发布的</li>
+			<li onclick="myCtcOrder([this, 1, 1])" data-type="1" class="active">我卖出的</li>
+			<li onclick="myCtcOrder([this, 1, 2])" data-type="2">我买到的</li>
+		</ul>
+
+		<div class="publish pop">
+			<div class="f-publish">
+				<div class="f-number">
+					<ul class="clear">
+						<li class="f-shop">商品</li>
+						<li class="f-price">单价</li>
+						<li class="f-state">状态</li>
+						<li class="f-time">发布时间</li>
+						<li class="f-operate">操作</li>
+					</ul>
+				</div>
+			</div>
+			<div class="f-number2 f-number3" th:each="item:${data}"
+				th:inline="text">
+				<ul class="clear">
+					<li class="f-shop">
+						<div class="f-img">
+							<img th:src="${@_url.goods()}+${item.ctc_cover}"
+								th:alt="${item.ctc_name}" />
+						</div>
+						<div class="f-test">
+							<p>[[${item.ctc_name}]]</p>
+						</div>
+					</li>
+					<li class="f-price">￥[[${item.ctc_price}]]</li>
+					<li class="f-state" th:switch="${item.ctc_is_available}" >
+						<p th:case="1">出售中</p>
+						<p th:case="2">已下架</p>
+						<p th:case="3">违规</p>
+						<p th:case="4">已售出</p>
+					</li>
+					<li class="f-time">[[${#dates.format(item.ctc_created_time,'yyyy-MM-dd hh:mm:ss') }]]</li>
+					<li class="f-operate">
+						<span class="fedit" onclick="myCtcEdit(this)" th:attr="data-id=${item.ctc_id}">编辑</span>
+						<span th:if="${item.ctc_is_available} neq 5"> 
+							<span class="delete del-alert" data-func="ctcDestory" th:attr="data-id=${item.ctc_id}">删除</span>
+						</span> 
+						<span class="btn-operate-alert" data-func="ctcSoldOut" th:attr="data-id=${item.ctc_id}" th:if="${item.ctc_is_available} eq 1">下架</span>
+						<span class="btn-operate-alert" data-func="ctcGrand" th:attr="data-id=${item.ctc_id}" th:if="${item.ctc_is_available} eq 2">上架</span>
+						<span th:if="${item.ctc_is_available} eq 5"> 
+							<span>已删除</span>
+						</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 分页 -->
+		<div class="pagination"></div>
+	</div>
+	<script th:inline="javascript">
+		$(function() {
+			pagination(".pagination", [[${totalPage}]], [[${p}]], "myCtc");
+		});
+	</script>
+</div>

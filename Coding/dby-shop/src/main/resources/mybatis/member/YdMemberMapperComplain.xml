@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperComplain">
+
+
+	<sql id="field">
+		
+	</sql>
+	
+	
+	<sql id="WhereRefund" >
+		<trim prefix="where" suffixOverrides="and" >
+			accuser_id = #{user_id}
+		</trim>
+	</sql>
+	
+	
+	<!-- 投诉列表 -->
+	<select id="lists" resultType="com.yd.dby.c.member.entity.YdComplain" >
+		SELECT
+			yc.complain_id, yc.complain_subject_content, yc.accused_name, yc.complain_datetime,
+			yc.complain_state, yog.goods_name, yog.goods_id, yog.goods_cover
+		FROM
+			yd_complain yc
+		LEFT JOIN
+			yd_order_goods yog
+		ON
+			yc.order_goods_id = yog.og_id
+		<include refid="WhereRefund"></include>
+		limit #{to},#{perPage}
+	</select>
+	
+	
+	<!-- 投诉总数 -->
+	<select id="total" resultType="java.lang.Integer" >
+		select count(complain_id) from yd_complain 
+		<include refid="WhereRefund"></include>
+	</select>
+	
+	
+	
+	<!-- 发起投诉 -->
+	<insert id="store">
+		INSERT INTO yd_complain
+			(
+				order_id, order_goods_id, accuser_id, accuser_name,
+				accused_id, accused_name, complain_subject_content,
+				complain_subject_id, complain_content, complain_pics,
+				complain_datetime, complain_handle_datetime,
+				complain_handle_member_id, appeal_message,
+				appeal_datetime, appeal_pics, final_handle_message,
+				final_handle_datetime, final_handle_member_id,
+				complain_state, complain_active
+			)
+		VALUE
+			(
+				#{order_id}, #{order_goods_id}, #{accuser_id}, #{accuser_name},
+				#{accused_id}, #{accused_name}, #{complain_subject_content},
+				#{complain_subject_id}, #{complain_content}, #{complain_pics},
+				#{complain_datetime}, "",
+				0, "",
+				"", "", "",
+				"", 0,
+				#{complain_state}, #{complain_active}
+			)
+	</insert>
+	
+	
+	<!-- 取消 -->
+	<delete id="delete">
+		DELETE FROM yd_complain WHERE complain_id = #{complainId} AND accuser_id = #{userId}
+	</delete>
+</mapper>

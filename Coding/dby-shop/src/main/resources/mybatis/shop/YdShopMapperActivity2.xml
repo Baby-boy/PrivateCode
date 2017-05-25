@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperActivity">
+
+	<select id="get_many" resultMap="YdShopMapperActivity_ResultMap_get_many">
+		SELECT
+			yd_activity.activity_id,
+			yd_activity.activity_type,
+			yd_activity.activity_title,
+			yd_activity.activity_subtitle,
+			yd_activity.activity_cover,
+			yd_activity.activity_pics,
+			yd_activity.activity_contents,
+			yd_activity.activity_begin_time,
+			yd_activity.activity_end_time,
+			yd_activity.activity_created_time,
+			yd_activity.activity_total_bid,
+			yd_store.store_id,
+			yd_store.store_name
+		FROM
+			yd_activity
+		JOIN yd_store ON yd_activity.store_id = yd_store.store_id
+		LIMIT 20;
+	</select>
+
+	
+
+	<select id="get_floor" resultMap="YdShopMapperActivity_ResultMap_get_many">
+		SELECT
+			yd_activity.activity_id,
+			yd_activity.activity_type,
+			yd_activity.activity_title,
+			yd_activity.activity_subtitle,
+			yd_activity.activity_cover,
+			yd_activity.activity_pics,
+			yd_activity.activity_contents,
+			yd_activity.activity_begin_time,
+			yd_activity.activity_end_time,
+			yd_activity.activity_created_time,
+			yd_activity.activity_total_bid,
+			yd_store.store_id,
+			yd_store.store_name,
+			yd_classify.cly_id,
+			yd_classify.cly_name,
+		FROM
+			(
+				SELECT cly_id,cly_name FROM yd_classify LIMIT 10
+			) yd_classify
+		LEFT OUTER JOIN yd_activity ON yd_activity.activity_classify_id = yd_classify.cly_id
+		JOIN yd_store ON yd_activity.store_id = yd_store.store_id
+	</select>
+		
+	<resultMap id="YdShopMapperActivity_ResultMap_get_many" type="java.util.Map">
+		<id property="cly_id" column="cly_id" />
+		<result property="cly_name" column="cly_name" />
+        <collection property="activity" javaType="java.util.ArrayList" ofType="java.util.HashMap">
+			<id property="activity_id" column="activity_id" />
+			<result property="activity_type" column="activity_type" />
+			<result property="activity_title" column="activity_title" />
+			<result property="activity_subtitle" column="activity_subtitle" />
+			<result property="activity_cover" column="activity_cover" />
+			<result property="activity_pics" column="activity_pics" />
+			<result property="activity_contents" column="activity_contents" />
+			<result property="activity_begin_time" column="activity_begin_time" />
+			<result property="activity_created_time" column="activity_created_time" />
+			<result property="activity_total_bid" column="activity_total_bid" />
+			<result property="store_id" column="store_id" />
+			<result property="store_name" column="store_name" />
+        </collection>
+	</resultMap>
+	
+	<select id="queryActivityByActivityId" resultType="com.yd.dby.d.seller.entity.YdSellerGoods" >
+		SELECT yg.* FROM yd_activity yac
+		LEFT JOIN yd_activity_goods yag ON yag.ag_activity_id = yac.activity_id
+		LEFT JOIN yd_goods yg ON yag.ag_depot_id = yg.goods_id
+		WHERE yac.activity_id=#{id}
+		limit #{to} ,40
+	</select>
+	
+	<select id="queryTotal" resultType="com.yd.dby.d.seller.entity.YdSellerGoods" >
+		SELECT yg.* FROM yd_activity yac
+		LEFT JOIN yd_activity_goods yag ON yag.ag_activity_id = yac.activity_id
+		LEFT JOIN yd_goods yg ON yag.ag_depot_id = yg.goods_id
+		WHERE yac.activity_id=#{id} 
+	</select>
+</mapper>

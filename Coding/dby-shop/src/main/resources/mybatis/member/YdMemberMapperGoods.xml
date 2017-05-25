@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperGoods">
+	<sql id="where">
+		<trim prefix="where" suffixOverrides="and">
+		  	<if test="store_id != null">
+				yd_goods.store_id = #{store_id} and
+			</if>
+			yd_depot.depot_type = 1 and yd_depot.depot_is_available = 1
+		</trim>
+	</sql>
+	
+	<select id="followStoreGoods" resultType="java.util.HashMap">
+		SELECT
+			yd_depot.depot_id, yd_goods.goods_name, yd_depot.depot_price, yd_goods.goods_cover
+		FROM
+			yd_depot
+		LEFT JOIN 
+			yd_goods
+		ON
+			yd_goods.goods_id = yd_depot.goods_id
+		<include refid="where"></include>
+		ORDER BY
+			yd_goods.goods_total_sell DESC
+		LIMIT 5
+	</select>
+</mapper>

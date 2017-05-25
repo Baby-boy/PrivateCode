@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.system.mapper.YdMangerMapperSystemUser">
+	<!-- 后台 -->
+	<select id="queryAllUser" resultType="com.yd.gcj.entity.YdMangerUser" >
+		select 
+			user_id,user_level,user_sex,user_account,user_name,user_nickname,user_avatar,user_phone,user_email,user_qqtoken,user_wxtoken,user_provid,user_cityid,user_areaid,user_pca,user_address,user_cprice,user_pcn,user_cstate,user_skillstate,user_verified,user_type,user_ename,user_otype,user_birthday,user_resume,user_isdel,user_create_time,user_update_time
+		from yd_user
+		where user_type=0
+		<if test="user_phone !=null and user_phone !=''">
+			and user_phone = #{user_phone}
+		</if> 
+	</select>
+	
+	<select id="queryServerByUserId" resultType="com.yd.gcj.entity.vo.YdMangerUserVo" >
+		SELECT DISTINCT user_id,user_level,user_sex,user_account,user_name,user_nickname,user_avatar,user_phone,user_email,user_qqtoken,user_wxtoken,user_provid,user_cityid,user_areaid,user_pca,user_address,user_cprice,user_pcn,user_cstate,user_skillstate,user_verified,user_type,user_ename,user_otype,user_birthday,user_resume,user_create_time,user_update_time
+		,COUNT(yda.att_aid) AS attentionNum,COUNT(ydad.att_bid) AS BeConcernedNum FROM yd_user
+		LEFT JOIN yd_attention yda ON yd_user.user_id = yda.att_aid
+		LEFT JOIN yd_attention ydad ON yd_user.user_id = ydad.att_bid
+		where user_id= #{user_id} 
+	</select>
+	
+	<select id="queryUserByNickName" resultType="com.yd.gcj.entity.vo.YdMangerUserVo" >
+		select 
+			user_id
+		from yd_user
+		where user_nickname= #{user_nickname} 
+	</select>
+	
+	<select id="queryAllServer" resultType="com.yd.gcj.entity.vo.YdMangerUserVo" >
+		select 
+			user_id,user_level,user_sex,user_account,user_name,user_nickname,user_avatar,user_phone,user_email,user_qqtoken,user_wxtoken,user_provid,user_cityid,user_areaid,user_pca,user_address,user_cprice,user_pcn,user_cstate,user_skillstate,user_verified,user_type,user_ename,user_otype,user_birthday,user_resume,user_isdel,user_create_time,user_update_time
+		from yd_user
+		where user_type in (1,2)
+		<if test="user_name !=null and user_name !=''">
+			and user_name like  CONCAT(CONCAT('%', #{user_name, jdbcType=VARCHAR}),'%')	
+		</if> 
+		<if test="user_cstate !=null">
+			and user_cstate = #{user_cstate}
+		</if> 
+		<if test="user_skillstate !=null">
+			and user_skillstate = #{user_skillstate}
+		</if> 
+		<if test="user_verified !=null">
+			and user_verified = #{user_verified}
+		</if> 
+	</select>
+	
+	<select id="queryUserByUserId" resultType="com.yd.gcj.entity.vo.YdMangerUserVo" >
+		select 
+			user_id,user_level,user_sex,user_account,user_name,user_nickname,user_avatar,user_phone,user_email,user_qqtoken,user_wxtoken,user_provid,user_cityid,user_areaid,user_pca,user_address,user_cprice,user_pcn,user_cstate,user_skillstate,user_verified,user_type,user_ename,user_otype,user_birthday,user_resume,user_create_time,user_update_time
+		from yd_user
+		where user_id = #{userl_uid} 
+	</select>
+	
+	<select id="queryCompanyByUserId" resultType="com.yd.gcj.entity.vo.YdMangerUserVo" >
+		select user_id,user_level,user_sex,user_account,user_name,user_nickname,user_avatar,user_phone,user_email,user_qqtoken,user_wxtoken,user_provid,user_cityid,user_areaid,user_pca,user_address,user_cprice,user_pcn,user_cstate,user_skillstate,user_verified,user_type,user_ename,user_otype,user_birthday,user_resume,user_create_time,user_update_time
+		from yd_user
+		where user_id=#{user_id}
+	</select>
+	
+	<select id="queryEmployerNameById" resultType="com.yd.gcj.entity.YdMangerUser" >
+		select 
+			user_name
+		from yd_user
+		where user_id in
+		<foreach collection="task_uidsList" item="item" index="index" open="(" close=")" separator="," >
+			#{item}
+		</foreach> 
+	</select>
+	
+	<select id="queryUserByUserAccount"    >
+		select user_id from yd_user
+		where user_nickname = #{user_nickname}
+	</select>
+	
+	<select id="queryUserByUserNickName" resultType="com.yd.gcj.entity.YdMangerUser" >
+		select user_id from yd_user
+		where user_nickname like  CONCAT(CONCAT('%', #{user_nickname, jdbcType=VARCHAR}),'%')
+	</select>
+	
+	<insert id="addUser"  parameterType="com.yd.gcj.entity.YdMangerUser" >
+		insert into yd_user
+			(user_level,user_sex,user_account,user_pwd,user_ppwd,user_name,user_nickname,user_avatar,user_phone,user_email,
+			user_qqtoken,user_wxtoken,user_provid,user_cityid,user_areaid,user_pca,user_address,user_cprice,user_pcn,user_cstate,
+			user_skillstate,user_verified,user_type,user_ename,user_otype,user_birthday,user_resume,user_create_time,user_update_time)
+		value 
+			(#{user_level},#{user_sex},#{user_account},#{user_pwd},#{user_ppwd},#{user_name},#{user_nickname},#{user_avatar},
+			#{user_phone},#{user_email},#{user_qqtoken},#{user_wxtoken},#{user_provid},#{user_cityid},#{user_areaid},#{user_pca},
+			#{user_address},#{user_cprice},#{user_pcn},#{user_cstate},#{user_skillstate},#{user_verified},#{user_type},#{user_ename},#{user_otype},
+			#{user_birthday},#{user_resume},now(),now())
+	</insert>
+	
+	<delete id="deleteUser" >
+		delete from yd_user 
+		where user_id = #{user_id}
+	</delete>
+	
+	<update id="updateUserById" parameterType="com.yd.gcj.entity.YdMangerUser" >
+		update yd_user
+		<set>
+			<trim>
+				<if test="user_level != null and user_level !=''">user_level = #{user_level},</if>
+				<if test="user_sex != null and user_sex !=''">user_sex = #{user_sex},</if>
+				<if test="user_account != null and user_account !=''">user_account = #{user_account},</if>
+				<if test="user_pwd != null and user_pwd !=''">user_pwd = #{user_pwd},</if>
+				<if test="user_ppwd != null and user_ppwd !=''">user_ppwd = #{user_ppwd},</if>
+				<if test="user_name != null and user_name !=''">user_name = #{user_name},</if>
+				<if test="user_nickname != null and user_nickname !=''">user_nickname = #{user_nickname},</if>
+				<if test="user_avatar != null and user_avatar !=''">user_avatar = #{user_avatar},</if>
+				<if test="user_phone != null and user_phone !=''">user_phone = #{user_phone},</if>
+				<if test="user_email != null and user_email !=''">user_email = #{user_email},</if>
+				<if test="user_qqtoken != null and user_qqtoken !=''">user_qqtoken = #{user_qqtoken},</if>
+				<if test="user_wxtoken != null and user_wxtoken !=''">user_wxtoken = #{user_wxtoken},</if>
+				<if test="user_provid != null and user_provid !=''">user_provid = #{user_provid},</if>
+				<if test="user_cityid != null and user_cityid !=''">user_cityid = #{user_cityid},</if>
+				<if test="user_areaid != null and user_areaid !=''">user_areaid = #{user_areaid},</if>
+				<if test="user_pca != null and user_pca !=''">user_pca = #{user_pca},</if>
+				<if test="user_address != null and user_address !=''">user_address = #{user_address},</if>
+				<if test="user_cprice != null and user_cprice !=''">user_cprice = #{user_cprice},</if>
+				<if test="user_pcn != null and user_pcn !=''">user_pcn = #{user_pcn},</if>
+				<if test="user_cstate != null and user_cstate !=''">user_cstate = #{user_cstate},</if>
+				<if test="user_skillstate != null and user_skillstate !=''">user_skillstate = #{user_skillstate},</if>
+				<if test="user_verified != null and user_verified !=''">user_verified = #{user_verified},</if>
+				<if test="user_type != null and user_type !=''">user_type = #{user_type},</if>
+				<if test="user_ename != null and user_ename !=''">user_ename = #{user_ename},</if>
+				<if test="user_otype != null and user_otype !=''">user_otype = #{user_otype},</if>
+				<if test="user_birthday != null and user_birthday !=''">user_birthday = #{user_birthday},</if>
+				<if test="user_taskcount != null and user_taskcount !=''">user_taskcount = #{user_taskcount},</if>
+				<if test="user_resume != null and user_resume !=''">user_resume = #{user_resume},</if>
+				<if test="user_create_time != null and user_create_time !=''">user_create_time = #{user_create_time},</if>
+				user_update_time = now(),
+			</trim>
+		</set>
+		where user_id = #{user_id}
+	</update>
+	
+	<update id="updateUCstateByUserId" parameterType="com.yd.gcj.entity.YdMangerUser" >
+		update yd_user
+		<set>
+				user_cstate = #{user_cstate},
+				<if test="user_cstate==1">user_type=2,</if>
+				<if test="user_cstate!=1">user_type=1,</if>
+				user_update_time = now()
+		</set>
+		where user_id = #{user_id}
+	</update>
+	
+	<update id="updateUserSkillStateByUsreId" parameterType="com.yd.gcj.entity.vo.YdMangerUserVo" >
+		update yd_user
+		<set>
+				user_skillstate = #{user_skillstate},
+				user_update_time = now()
+		</set>
+		where user_id = #{user_id}
+	</update>
+	
+	<update id="updateUserVerifiedStateByUsreId" parameterType="com.yd.gcj.entity.YdMangerUser" >
+		update yd_user
+		<set>
+				user_verified = #{userVerified},
+				user_update_time = now()
+		</set>
+		where user_id = #{userId}
+	</update>
+	
+	<!-- 冻结用户 -->
+	<update id="updateUserByUserId" parameterType="com.yd.gcj.entity.vo.YdMangerUserVo" >
+		update yd_user
+		<set>
+				user_isdel = 1,
+				user_update_time = now()
+		</set>
+		where user_id = #{user_id}
+	</update>
+	<!-- 恢复用户 -->
+	<update id="renewUserByUserId" parameterType="com.yd.gcj.entity.vo.YdMangerUserVo" >
+		update yd_user
+		<set>
+				user_isdel = 0,
+				user_update_time = now()
+		</set>
+		where user_id = #{user_id}
+	</update>
+</mapper>

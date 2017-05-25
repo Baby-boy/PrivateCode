@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperBankTR">
+
+	<select id="$queryAll" resultType="com.yd.gcj.entity.YdMangerBankTR">
+		select 
+			*
+		from 
+			yd_bank_t_r
+		where 
+			btr_uid = #{userId}
+			limit #{startPageNum},#{queryPageNum}
+	</select>
+	
+	<select id="$queryByDate" parameterType="java.lang.Long" resultType="com.yd.gcj.entity.YdMangerBankTR">
+		select 
+			btr_id,btr_uid,btr_rtime,btr_price,btr_type,btr_account,btr_tdesc,btr_osid,btr_aos,btr_create_time
+		from 
+			yd_bank_t_r
+		where 
+			btr_date = #{btr_date}
+	</select>
+	
+	<select id="$queryBySql" parameterType="java.lang.String" resultType="com.yd.gcj.entity.YdMangerBankTR">
+		select 
+			btr_id,btr_uid,btr_rtime,btr_price,btr_type,btr_account,btr_tdesc,btr_osid,btr_aos,btr_create_time
+		from 
+			yd_bank_t_r
+		where 
+			1=1 #{btr_sql}
+	</select>
+	
+	<select id="$queryById" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerBankTR">
+		select 
+			btr_id,btr_uid,btr_rtime,btr_price,btr_type,btr_account,btr_tdesc,btr_osid,btr_aos,btr_create_time
+		from 
+			yd_bank_t_r
+		where 
+			btr_id = #{btr_id}
+	</select>
+	
+	<select id="$queryCountNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_bank_t_r
+		where 
+			btr_uid = #{btr_uid}
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerBankTR" useGeneratedKeys="true" keyProperty="btr_id">
+		insert into 
+			yd_bank_t_r
+			(btr_uid,btr_rtime,btr_price,btr_type,btr_account,btr_tdesc,btr_osid,btr_aos,btr_create_time)
+		value
+			(#{btr_uid},#{btr_rtime},#{btr_price},#{btr_type},#{btr_account},#{btr_tdesc},#{btr_osid},#{btr_aos},#{btr_create_time})
+	</insert>
+	
+	
+</mapper>
+

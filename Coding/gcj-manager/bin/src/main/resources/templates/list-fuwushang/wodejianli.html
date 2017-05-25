@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功城记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:with="user=${session.user},msgSize=${session.msgSize}" th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--待签合同-->
+<div class="hetong-box">
+    <div class="hetong">
+        <!-- 服务商个人信息头部 -->
+        <div th:include="public/fuwushang/hander"></div>
+        <div class="hetong-xq clear">
+            <div class="left">
+                <a href="fuwushang">我的任务</a>
+                <a href="wodezhanghu">我的账户</a>
+                <a href="wodejianli" class="now">我的简历</a>
+                <a href="woderenzheng-shiming">我的认证</a>
+                <a href="wodepingjia">我的评价</a>
+                <a href="wodeshoucang">我的收藏</a>
+                <a href="wodexiaoxi-huifu" class="pos-relative">我的消息<span class="badge badge-my-msg" th:if="${msgSize!=null and msgSize.countMsgSize > 0}" th:text="${msgSize.countMsgSize}">66</span></a>
+            </div>
+            <div class="right">
+                <div class="topr2">
+                    <i></i>我的简历
+                </div>
+                <div class="resume">
+                    <textarea name="" id="" cols="30" rows="10" placeholder="个人简介" class="userResume" th:data="${user.user_id}">[[${user.user_resume==null?'':user.user_resume}]]</textarea>
+                    <button type="button" onclick="updateUserResume()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/bg/submits.js"></script>
+</html>

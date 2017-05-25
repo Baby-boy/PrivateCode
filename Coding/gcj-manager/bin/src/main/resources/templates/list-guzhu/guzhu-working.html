@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:with="user=${session.user},nums=${session.nums},msgSize=${session.msgSize}" th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--待签合同-->
+<div class="hetong-box">
+    <div class="hetong">
+        <div th:include="public/guzhu/hander"></div>
+        <div class="hetong-xq clear">
+            <div class="left">
+                <a href="guzhufang" class="now">任务管理</a>
+                <a href="guzhu-fukuan">付款管理</a>
+                <a href="woderenzheng">我的认证</a>
+                <a href="guzhu-dianping">点评管理</a>
+                <a href="guzhu-xiaoxihuifu" class="pos-relative">我的消息<span class="badge badge-my-msg" th:if="${msgSize!=null and msgSize.countMsgSize > 0}" th:text="${msgSize.countMsgSize}">0</span></a>
+            </div>
+            <div class="right">
+                <div class="topr">
+                    <a href="guzhufang">已发布任务<span>（[[${nums.releaseNum}]]）</span></a>
+                    <a href="guzhu-daiqianding">待签订任务<span>（[[${nums.signedNum}]]）</span></a>
+                    <a href="guzhu-working" class="now">工作中任务<span>（[[${nums.workingNum}]]）</span></a>
+                    <a href="guzhu-daipingjia">待评价任务<span>（[[${nums.evaluationNum}]]）</span></a>
+                    <a href="guzhu-yiwancheng">已完成任务<span>（[[${nums.endNum}]]）</span></a>
+                    <a href="guzhu-tuikuan">退款中任务<span>（[[${nums.refundNum}]]）</span></a>
+                </div>
+                <ul class="daiqianlist">
+                    <li th:each="task,niter:${taskVos}">
+                        <div class="toplis">
+                            <div class="titlel"><a th:href="'guzhu-xuqiumiaoshu/'+${task.task_id}">[[${task.task_pname}]]</a><span>- [[${task.state}]]</span></div>
+                            <div class="titler">
+                               	 佣金：<span class="span1">[[${task.task_price}]] ¥</span>  <i>丨</i>已支付佣金：<span class="span1">[[${task.task_host_price}]] ¥</span></div>
+                        </div>
+                        <div class="botm clear">
+                            <div class="ones">
+                                <p>服务商：<span>暂无</span></p>
+                                <p>发布日期：<span>[[${#dates.format(task.task_create_time,'yyyy年MM月dd日')}]]</span></p>
+                            </div>
+                            <div class="twos">
+                                <a th:href="'guzhu-gongzuotai/'+${task.task_id}">查看</a>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- <li>
+                        <div class="toplis">
+                            <div class="titlel"><a href="guzhu-xuqiumiaoshu">东莞松山湖北部体育公园项目概念方案</a><span>- 工作中</span></div>
+                            <div class="titler">
+                                	佣金：<span class="span1">100,000 ¥</span>  <i>丨</i>已支付佣金：<span class="span1">0 ¥</span></div>
+                        </div>
+                        <div class="botm clear">
+                            <div class="ones">
+                                <p>组长：<span>张晓明</span></p>
+                                <p>发布日期：<span>2016年5月12日完成</span></p>
+                            </div>
+                            <div class="twos">
+                                <a href="guzhu-gongzuotai/32">查看</a>
+                            </div>
+                        </div>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+
+</html>

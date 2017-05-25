@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+	 <ul>
+		<li th:each="item:${@_ydServiceDataFlow.findAll()}" style="height:40px;line-height:40px;overflow:hidden;">
+			<a href="##" style="float:left;" th:text="${item.title}"></a>
+			<span style="float:right;" th:text="${#calendars.format(item.created_at,'yyyy-MM-dd')}"></span>
+		</li>
+	</ul>
+</body>
+</html>

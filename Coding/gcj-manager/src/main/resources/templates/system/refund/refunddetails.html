@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit" />
+<title></title>
+<link rel="stylesheet" href="/system/css/pintuer.css" />
+<link rel="stylesheet" href="system/css/admin.css" />
+<script src="/system/js/jquery.js"></script>
+<script src="/system/js/pintuer.js"></script>
+</head>
+<body th:inline="text">
+<div class="panel admin-panel">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>退款详情</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="" th:inlie="text" >
+      <div class="form-group">
+        <div class="label">
+          <label>服务商姓名：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerRefund.refund_fname}" name="refund_fname" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>服务商手机号：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerRefund.refund_fphone}" name="refund_fphone" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>雇主姓名：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerRefund.refund_gname}" name="refund_gname" readonly="readonly" />  
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>雇主手机号：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerRefund.refund_gphone}" name="refund_gphone" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>任务编号：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerTask.task_num}" name="task_num" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>任务名称：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerTask.task_pname}" name="task_pname" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>退款资金：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerRefund.refund_captial}" name="refund_captail" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>退款原因：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerRefund.refund_reason}" name="refund_reason" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+            
+      <div class="form-group">
+        <div class="label">
+          <label>内容：</label>
+        </div>
+        <div class="field">														 
+          <textarea  class="input w100" style="width:400px" name="refund_contentsrefund_contents" th:inline="text" >[[${ydMangerRefund.refund_contents}]]</textarea>
+          <div class="tips"></div>
+        </div>
+      </div>
+            
+      <div class="form-group">
+        <div class="label">
+          <label>退款状态：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerRefund.refundState}" name="refund_state" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+            
+      <div class="form-group">
+        <div class="label">
+          <label>创建时间：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:400px" th:value="${#calendars.format(ydMangerRefund.refund_create_time,'yyyy-MM-dd hh:mm:ss')}" name="refund_create_time" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+            
+      <div class="form-group">
+        <div class="label">
+          <label>修改时间：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:400px" th:value="${#calendars.format(ydMangerRefund.refund_update_time,'yyyy-MM-dd hh:mm:ss')}" name="refund_update_time" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <!-- <div class="form-group">
+        <div class="label">
+          <label>项目文件：</label>
+        </div>
+        <div class="field">
+          <ul class="wenjian clear">
+                <li th:each="file,niter:${filesTaskList}"><i></i><span>[[${file.filesName}]]</span></li>
+            </ul>
+        </div>
+      </div> -->
+      
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <!-- <div class="field" style="margin-top: 20px;">
+          <a id="check"  class="button border-red" th:style="${ydMangerRefund.refund_contract_state gt 0}?'':'cursor:not-allowed'"  th:href="${ydMangerRefund.refund_contract_state gt 0}?@{/system/queryContractByTaskId/}+${ydMangerRefund.refund_id}:'###'">合同详情</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a id="check"  class="button border-red"  th:href="@{/system/queryTenderByTaskId/}+${ydMangerRefund.refund_id}">投标详情</a>
+        </div> -->
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+<script type="text/javascript">
+	
+</script>
+</html>

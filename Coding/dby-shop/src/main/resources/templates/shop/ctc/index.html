@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="keywords" content=""/>
+		<meta name="description" content=""/>
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/c2c.css}" />
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')}">
+		
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: brand(active,c2c_two)" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(c2c)" th:remove="tag"></div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		<div class="second-banner">
+			<div class="banner-wrap">
+				<div class="banner-3">
+					<div class="block_home_slider">
+						<div id="home_slider" class="flexslider">
+							<ul class="slides">
+								<li th:each="item:${@_YdShopServiceAds.get_many_list('home_ctc')}"><a href="#"><img th:src="${item.imgsrc}" alt="" title="" /></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="right-section">
+					
+					<div class="release">
+						<div class="content">
+							<h2><a href="/c2c/release">发布商品</a></h2>
+							<div class="link">
+								<a href="/c2c/release">闲置换钱</a>
+								<a href="/c2c/release">快速出手</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="bulletin">
+						<div class="content">
+							<div class="title">
+								<span>多宝鱼c端快报</span>
+								<a href="c2c_notice.html">更多&gt;&gt;</a>
+							</div>
+							<div class="arc-list">
+								<ul>
+									<li><a href="c2c_notice_details.html"><strong>[特惠]</strong>8月箱包季 跨店300减100</a></li>
+									<li><a href="c2c_notice_details.html"><strong>[公告]</strong>浙江地区订单配送可能延迟</a></li>
+									<li><a href="c2c_notice_details.html"><strong>[特惠]</strong>好奇裤爽夏日 满399减80</a></li>
+									<li><a href="c2c_notice_details.html"><strong>[公告]</strong>京东生鲜正式启动全球寻“鲜”</a></li>
+									<li><a href="c2c_notice_details.html"><strong>[特惠]</strong>IT超级品类日 每满千减百</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 楼层 -->
+		<div id="container">
+			
+			<div class="c2c-recom">
+				<div class="col-title">
+					<ul>
+						<li th:each="item,niter:${@_YdShopServiceAds.get_many_map('c2c_group')}" th:class="${niter.index}==0?active:''" th:text="${item.title}">猜你喜欢</li>
+					</ul>
+					<a href="#">更多&gt;&gt;</a>
+				</div>
+				<div class="content">
+					<div class="list" th:each="item,niter:${@_YdShopServiceAds.get_many_map('c2c_group')}" th:style="${niter.index}==0?'display:block':'display:none'">
+						<ul>
+							<li th:each="nitem:${item.nodes}">
+								<a href="##">
+									<div class="img"><img th:src="${nitem.imgsrc}" /></div>
+									<div class="title" th:text="${nitem.title}">笑佛冰种飘花翡翠挂件</div>
+									<div class="intro" th:text="${nitem.subtitle}">全新2</div>
+									<div class="price" th:text="${nitem.price}">¥1612.00</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 黄铂金 -->
+			<div class="section" th:each="item:${@_YdShopServiceAds.get_many_map('c2c_floor')}">
+				<div class="col-title">
+					<span th:text="${item.title}">黄铂金</span>
+					<ul>
+						<li th:each="nitem,niter:${item.nodes}" th:class="${niter.index}==0?'active':''"><a href="javascript:;" th:text="${nitem.title}">足金</a></li>
+					</ul>
+				</div>
+				
+				<!-- 一 -->
+				<div class="list" th:each="nitem,niter:${item.nodes}" th:style="${niter.index}==0?'display:block':''">
+					<ul>
+						<li th:each="sitem:${nitem.nodes}">
+							<a href="##">
+								<div class="img"><img th:src="${sitem.imgsrc}" /></div>
+								<div class="title" th:text="${sitem.title}">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro" th:text="${sitem.subtitle}">全新2</div>
+								<div class="price" th:text="${sitem.price}">¥1612.00</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		
+		
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		<script>
+			$(function(){
+				$("#container .section .col-title ul li").mouseenter(function(){
+					$(this).addClass("active").siblings().removeClass("active");
+					$(this).parents(".section").find(".list").eq( $(this).index() ).show().siblings(".list").hide();
+				});
+				
+				$("#container .c2c-recom .col-title ul li").mouseenter(function(){
+					$(this).addClass("active").siblings().removeClass("active");
+					$(this).parents(".c2c-recom").find(".content .list").eq( $(this).index() ).show().siblings(".list").hide();
+				});
+			});
+		</script>
+	</body>
+</html>

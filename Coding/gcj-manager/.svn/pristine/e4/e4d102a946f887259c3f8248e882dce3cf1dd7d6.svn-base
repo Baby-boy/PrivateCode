@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit" />
+<title></title>
+<link rel="stylesheet" href="css/pintuer.css" />
+<link rel="stylesheet" href="css/admin.css" />
+<script src="js/jquery.js"></script>
+<script src="js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong><span class="icon-key"></span> 修改会员密码</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="" id="changeForm">
+      
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">管理员账号：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" id="macc" name="admin_account" size="50" placeholder="请输入账号" data-validate="required:请输入账号" />       
+        </div>
+      </div> 
+          
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">原始密码：</label>
+        </div>
+        <div class="field">
+          <input type="password" class="input w50" id="mpass" name="admin_password" size="50" placeholder="请输入原始密码" data-validate="required:请输入原始密码" />       
+        </div>
+      </div>      
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">新密码：</label>
+        </div>
+        <div class="field">
+          <input type="password" class="input w50" name="newpassword" size="50" placeholder="请输入新密码" data-validate="required:请输入新密码,length#>=5:新密码不能小于5位" oninput="strxz(this)" />         
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">确认新密码：</label>
+        </div>
+        <div class="field">
+          <input type="password" class="input w50" name="renewpassword" size="50" placeholder="请再次输入新密码" data-validate="required:请再次输入新密码" />          
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="button" id="btnSubmit"> 提交</button>   
+        </div>
+      </div>      
+    </form>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+ 	$("#btnSubmit").click(function(){
+ 		var data = $("#changeForm").serializeArray();
+ 		var ydMangerSystemAdmin = {};
+		$.each(data, function(k, v) {
+			ydMangerSystemAdmin[ v["name"] ] = v["value"];
+		});
+ 		
+ 		$.ajax({
+ 			url: "/system/changeAdminPassword",
+ 			data: $("#changeForm").serialize(),
+ 			type: "post",
+ 			success: function(datas) {
+ 				if(datas.msg==100){
+ 					alert("账号不存在");
+ 				}; 
+ 				if(datas.msg==200){
+ 					alert("修改成功");
+ 					location.reload();
+ 				}; 
+ 				if(datas.msg==400){
+ 					alert("修改失败");
+ 				}; 
+ 				if(datas.msg==300){
+ 					alert("两次输入密码不一致");
+ 				};
+ 			}
+ 		});
+ 	});
+ 	
+ 	function strxz(tag){
+ 		var v = $(tag).val();
+ 		var num = 10;
+ 		if(v.length >= num){
+ 			alert("新密码不能大于10位")
+ 			var value = v.substring(0,num);
+ 			$(tag).val(value);
+ 		}
+ 	}
+ 	
+</script>
+</body></html>

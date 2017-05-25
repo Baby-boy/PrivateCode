@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记-任务大厅-任务详情</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+    <link rel="stylesheet" href="/css/task.css"/>
+    <link rel="stylesheet" href="/css/common.css"/>
+    <link rel="stylesheet" href="/css/banner.css"/>
+    <script type="text/javascript">localStorage.setItem('nvaNum',3);</script>
+</head>
+<body th:with="userType=${session.user}!=null?${session.user.user_type}:'-1',pageNum=${@serviceTask.$queryByPageNum()},labels=${@pageLabel.$queryAll()},tc=${session.taskCondition}" th:inline="text">
+    <!--顶部导航-->
+    <div th:include="public/hander"></div>
+    
+    <!-- 中间 -->
+    <div id="yd-task">
+        <div class="yd-task-wrap">
+            <div class="yd-task-head">
+                <div class="yd-head-title">
+                    <h2>任务大厅</h2>
+                </div>
+                <div class="yd-head-text">
+                    <ul class="yd-task clear" th:with="taskSpace=${@pageTaskSpace.$taskSpace()}" th:inline="text">
+                        <li>
+                            <div class="yd-wrap">
+                                <strong>[[${taskSpace.working_task}]]<i>个</i></strong>
+                                <span>进行中任务</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="yd-wrap2">
+                                <strong>[[${taskSpace.working_user}]]<i>人</i></strong>
+                                <span>进行中的人员</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="yd-wrap3">
+                                <strong>[[${taskSpace.end_task}]]<i>个</i></strong>
+                                <span>已完成任务</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="yd-wrap4">
+                                <strong>[[${taskSpace.count_price}]]<i>&nbsp;¥</i></strong>
+                                <span>任务累计总金额</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="yd-search clear">
+                        <div class="yd-minsearch">
+                            <i></i>
+                            <input type="text" value="" placeholder="请输入搜索关键词"/>
+                        </div>
+                        <button>搜索</button>
+                    </div>
+                     <div class="yd-major yd-major2 clear">
+                        <div class="yd-major-left">项目类型</div>
+                        <div class="yd-major-right" th:with="types=${@pageTaskType.$queryAll()}">
+                            <ul class="yd-major-type yd-pask-type taskType">
+                                <li th:class="${session.taskTypeState == 1}?'active':''" data="-1">不限</li>
+                                <li th:each="type,niter:${types}" th:text="${type.taskt_name}" th:value="${niter.index+1}" th:data="${type.taskt_id}" th:class="${type.is_select == 1}?'active':''">办公研发建筑</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="yd-major clear">
+                        <div class="yd-major-left">专业及任务类型</div>
+                        <div class="yd-major-right taskLabel">
+                            <ul class="check1">
+                            	<li th:each="labels,niter:${labels}" th:attr="data-val=${niter.index+1}" th:text="${labels.label_name}" th:data="${labels.label_id}"  th:class="${labels.is_select}==1?'now':''"></li>
+                            	<li class="more">更多</li>
+                            </ul>
+                            <ul class="check1s">
+	                            <li th:each="labels,niters:${labels}" th:class="${niters.index+1}>1?'dis-none':''">
+		                            <span data-val="1" th:data="0">全选</span>
+		                            <span th:each="label,niter:${labels.labels}" th:attr="data-val=${niter.index+2}" th:text="${label.label_name}" th:data="${label.label_id}" th:class="${label.is_select}==1?'now':''"></span>
+	                            </li>
+                            </ul>
+                            <div class="yixuan">
+                                <span>已选&gt;</span>
+                                <!--<p><span>顾问服务-全选</span><i></i></p>-->
+                                <!--<p><span>幕墙设计-幕墙下单/...</span><i></i></p>-->
+                                <div class="psadd"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="yd-condition clear">
+                        <div class="yd-type clear">
+                            <span>任务地点</span>
+                            <select name="taskAddr" class="rewuselect taskAddr" th:with="addr=${tc.taskAddr}">
+                               <option value="-1">不限</option>
+                               <option value="北京" th:attr="selected=${addr!='北京'?selected:''}">北京</option>
+	                           <option value="上海" th:attr="selected=${addr!='上海'?selected:''}">上海</option>
+	                           <option value="广州" th:attr="selected=${addr!='广州'?selected:''}">广州</option>
+	                           <option value="天津" th:attr="selected=${addr!='天津'?selected:''}">天津</option>
+	                           <option value="重庆" th:attr="selected=${addr!='重庆'?selected:''}">重庆</option>
+	                           <option value="河北" th:attr="selected=${addr!='河北'?selected:''}">河北</option>
+	                           <option value="河南" th:attr="selected=${addr!='河南'?selected:''}">河南</option>
+	                           <option value="湖北" th:attr="selected=${addr!='湖北'?selected:''}">湖北</option>
+	                           <option value="湖南" th:attr="selected=${addr!='湖南'?selected:''}">湖南</option>
+	                           <option value="新疆" th:attr="selected=${addr!='新疆'?selected:''}">新疆</option>
+	                           <option value="广东" th:attr="selected=${addr!='广东'?selected:''}">广东</option>
+	                           <option value="广西" th:attr="selected=${addr!='广西'?selected:''}">广西</option>
+	                           <option value="福建" th:attr="selected=${addr!='福建'?selected:''}">福建</option>
+	                           <option value="海南" th:attr="selected=${addr!='海南'?selected:''}">海南</option>
+	                           <option value="辽宁" th:attr="selected=${addr!='辽宁'?selected:''}">辽宁</option>
+	                           <option value="山东" th:attr="selected=${addr!='山东'?selected:''}">山东</option>
+	                           <option value="内蒙古" th:attr="selected=${addr!='内蒙古'?selected:''}">内蒙古</option>
+	                           <option value="黑龙江" th:attr="selected=${addr!='黑龙江'?selected:''}">黑龙江</option>
+                            </select>
+                        </div>
+                        <div class="yd-type clear">
+                            <span>任务状态</span>
+                            <select class="rewuselect2 taskState" th:with="state=${tc.taskState}">
+                            	<option value="-1">不限</option>
+                                <option value="0" th:attr="selected=${state!=0?selected:''}">报名中</option>
+                                <option value="1" th:attr="selected=${state!=1?selected:''}">选标中</option>
+                                <option value="2" th:attr="selected=${state!=2?selected:''}">工作中</option>
+                                <option value="3" th:attr="selected=${state!=3?selected:''}">已完成</option>
+                            </select>
+                        </div>
+                        <div class="yd-type clear">
+                            <span>项目规模</span>
+                            <select class="rewuselect3 taskTerm" th:with="dicts=${@serviceDictionaryData.$queryPScale()},term=${tc.taskTerm}" th:inline="text">
+                            	<option value="-1">不限</option>
+                                <option th:each="dict,niter:${dicts}" th:value="${dict.dictdata_value}"  th:attr="selected=${term!=dict.dictdata_value?selected:''}">[[${dict.dictdata_value}]]</option>
+                            </select>
+                        </div>
+                        <div class="yd-clearing">清除筛选条件</div>
+                    </div>
+                </div>
+            </div>
+            <div class="yd-task-body"  th:inline="text">
+                <div class="yd-sort clear">
+                    <h2>排序方式</h2>
+                    <ul class="clear">
+                        <li class="active">综合</li>
+                        <li>发布时间<i></i></li>
+                        <li>当前状态<i></i></li>
+                        <li>参与人数<i></i></li>
+                    </ul>
+                    <!-- <div class="yd-body-pager">
+                        <span class="yd-body-left">&lt;</span>
+                        <span class="yd-all-pager"><i>[[${pageNum.pageIndex}]]</i>/[[${pageNum.maxIndex}]]p</span>
+                        <span class="yd-body-right">&gt;</span>
+                    </div> -->
+                </div>
+                <div class="yd-colligate-all">
+                    <ul class="yd-colligate">
+                        <li class="yd-colligate-list" th:each="task,niter:${pageNum.data}">
+                            <div class="yd-colligate-title">
+                                <a th:href="'task-detail/'+${task.task_id}"  th:inline="text">[[${task.task_pname}]]</a>
+                                <span><i></i>参与人数（[[${task.tender_num}]]）</span>
+                            </div>
+                            <div class="yd-colligate-keyword clear">
+                            	<span th:each="label,niter:${task.labels}" th:inline="text">[[${label.taskl_name}]]</span>
+                            </div>
+                            <ul class="yd-colligate-way clear">
+                            	<li>[[${task.task_discrip}]]</li>
+                                <li>
+                                    <strong>[[${task.remain}]]天</strong>
+                                    <span>剩余截止天数</span>
+                                </li>
+                                <li>
+                                    <strong>[[${task.state}]]</strong>
+                                    <span>当前状态</span>
+                                </li>
+                                <li class="yd-money">
+                                    <strong>[[${task.task_price == 0?'可议价':task.task_price+' ¥'}]]<i></i></strong>
+                                    <span>招标价格</span>
+                                </li>
+                                <li class="yd-apply-task">
+                                	<a href="###" th:class="${(task.task_state eq 1 or task.task_state eq 2) and userType != 0}?'shoucang':''" th:if="${userType} != 0" th:data="${task.is_collect}" th:onclick="'collect('+${task.task_id}+',this)'">[[${task.is_collect}==1?'取消收藏':'收藏任务']]</a>
+                                    <a th:if="${(task.task_state eq 1 or task.task_state eq 2) and userType != 0}" th:href="${task.is_apply}==0?'/list-fuwushang/shenqingrenwu-bj/'+${task.task_id}:'javascript:;'" th:data="${task.is_apply}" th:onclick="${task.is_apply}==0?'':'cancelTender('+${task.task_id}+',this)'">[[${task.is_apply}==0?'申请任务':'撤销申请']]</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="tcdPageCode pageLabel" data-pageName="renwudatingPageNum" th:attr="data-pageNum=${pageNum.pageNum},data-pageIndex=${pageNum.pageIndex},data-maxIndex=${pageNum.maxIndex},data-pageCount=${pageNum.pageCount}"></div>
+                </div>
+            </div>
+            
+            <!-- <div class="tcdPageCode pageLabel" data-pageName="renwudatingPageNum" th:attr="data-pageNum=${pageNum.pageNum},data-pageIndex=${pageNum.pageIndex},data-maxIndex=${pageNum.maxIndex},data-pageCount=${pageNum.pageCount}"></div> -->
+        </div>
+    </div>
+    <!--底部-->
+    <div th:include="public/foot"></div>
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/laydate/laydate.js"></script>
+    <script src="/js/chajian/jquery.select.js"></script>
+    <script src="/js/chajian/jqkuozhan.js"></script>
+    <script src="/js/list/fabao.js"></script>
+    <script src="/js/task-detail.js"></script>
+    
+    <script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+    <script type="text/javascript" src="/js/bg/task.js"></script>
+    <script type="text/javascript" src="/js/bg/page.js"></script>
+    
+</body>
+</html>

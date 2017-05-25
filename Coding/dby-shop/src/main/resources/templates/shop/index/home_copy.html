@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<title th:text="${@_redis.get('site_name')}"></title>
+<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+<link rel="stylesheet" th:href="@{/assets/shop/css/index.css}" />
+</head>
+<body th:with="
+	searchkeys=${@_dict.many('web_search_key')},
+	navs=${@_nav.getByType('0')}
+	">
+	<!-- 头部 -->
+	<div id="header">
+		<div th:include="shop/template/header_copy :: header" th:remove="tag"></div>
+		
+	</div>
+	<!-- 头部结束 -->
+	
+	
+</body>
+</html>

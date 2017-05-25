@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>添加图片</title>
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>  
+    <script src="/system/js/jquery-1.11.1.min.js"></script>  
+</head>
+<body>
+<div class="panel admin-panel margin-top">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>添加图片</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="/system/addAdmin" id="addForm" >   
+      <input type="hidden" name="id"  value="" />  
+      <div class="form-group">
+        <div class="label">
+          <label>图片标题：</label>
+        </div>
+        <div class="field">
+          <input id="banner_title" type="text" class="input w50" name="banner_title" value="" data-validate="required:请输入图片标题" />         
+          <div class="tips"></div>
+        </div>
+      </div>
+        <div class="form-group">
+            <div class="label">
+                <label>图片副标题：</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" name="banner_subtitle" value="" data-validate="required:请输入图片副标题" />
+                <div class="tips"></div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="label">
+                <label>图片地址：</label>
+            </div>
+	            <div class="field">
+	                <input id="banner_imgsrc" type="text" class="input w50" name="banner_imgsrc" />
+	            <div class="tips"></div>
+            </div>
+        </div>
+           
+      
+      <div class="form-group">
+        <div class="label">
+          <label>图片类型：</label>
+        </div>
+        <div class="field">
+          <div class="button-group radio">
+          
+          <label class="button active">
+         	  <span class="icon icon-check"></span>             
+              <input name="banner_type" value="0" type="radio" checked="checked" />高清大图             
+          </label>             
+        
+          <label class="button active"><span class="icon icon-check"></span>          	
+              <input name="banner_type" value="1"  type="radio" checked="checked" />小图
+          </label>         
+           </div>       
+        </div>
+     </div>
+      
+      <!-- <div class="form-group">
+        <div class="label">
+          <label>指向地址：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="banner_jumpurl" value="" data-validate="required:请输入指向地址" />         
+          <div class="tips"></div>
+        </div>
+      </div> -->
+      
+      
+     <div class="form-group">
+        <div class="label">
+          <label>排序：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="banner_sort" value="" data-validate="required:请输入排序" />         
+          <div class="tips"></div>
+        </div>
+      </div>
+    
+     <div class="form-group">
+        <div class="label">
+          <label>新窗口打开：</label>
+        </div>
+        <div class="field">
+          <div class="button-group radio">
+          
+          <label class="button active">
+         	  <span class="icon icon-check"></span>             
+              <input name="banner_isopen" value="0" type="radio" checked="checked" />是             
+          </label>             
+        
+          <label class="button active"><span class="icon icon-check"></span>          	
+              <input name="banner_isopen" value="1"  type="radio" checked="checked" />否
+          </label>         
+           </div>       
+        </div>
+     </div>
+     
+     <button class="button bg-main icon-check-square-o buttonNew" type="button" id="btnSubmit" > 提交</button>
+
+    </form>
+    
+    <iframe name="formsubmit" style="display:none;"></iframe>
+    
+    <form id="img" method="POST" enctype="multipart/form-data" action="/system/upload" class="form-x" th:inline="text" target="formsubmit"> 
+
+           <div class="form-group">
+	        <div class="label">
+	          <label>图片：</label>
+	        </div>
+	        <div class="field">
+	          <input type="hidden"  class="inputs w55" id="upimg" name="banner_imgsrc"/>
+						<p>
+							<input type="file" name="file" id="imgUpload" th:value="${fileName}" />
+						</p>
+						<p>
+							<span id="message" ></span>
+						</p>
+			<div class="tips"></div>
+	        </div>
+	      </div>
+
+     </form>
+    
+  </div>
+</div>
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+ 	$("#btnSubmit").click(function(){
+ 		var value = $("#banner_title").val();
+ 		var val= $("#banner_imgsrc").val();
+		var reg = /^\s+$/g
+		if (value == null || value.length == 0 || value=="" || reg.test(value)) {
+			alert("输入内容不能为空");
+			return;
+		}else if (val == null || val.length == 0 || value=="" || reg.test(val)) {
+			alert("输入内容不能为空");
+			return;
+		}else{
+ 		var data = $("#addForm").serializeArray();
+ 		var ydMangerSystemAdmin = {};
+		$.each(data, function(k, v) {
+			ydMangerSystemAdmin[ v["name"] ] = v["value"];
+		});
+ 		
+ 		$.ajax({
+ 			url: "/system/addPicture",
+ 			data: $("#addForm").serialize(),
+ 			type: "post",
+ 			success: function(datas) {
+ 				if(datas.msg==true){
+ 					alert("添加成功");
+ 					location.reload();
+ 				}else{
+ 					
+ 					alert("添加失败");
+ 				}
+ 			}
+ 		});
+		}
+ 	});
+$("#imgUpload").change(function(){
+	$("#img").submit();
+	return false;
+})
+
+var msg = [[${msg}]]
+jQuery(function($){
+	
+	if(msg==true){
+		$("#message").html("<font color='green' >上传成功 </font>");
+	}
+})
+
+console.log([[${path}]])
+
+/*]]>*/
+</script>
+</body></html>

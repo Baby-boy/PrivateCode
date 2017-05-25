@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperInformation">
+    <!-- 查询全部 -->
+    <select id="findAll" resultMap="YdMapperInformation_findAll">
+        SELECT
+            *
+        FROM
+            yd_information
+        ORDER BY
+            id DESC
+        LIMIT #{page_start},
+         10
+        
+    </select>
+    <resultMap id="YdMapperInformation_findAll" type="java.util.HashMap">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="created_at" column="created_at" />
+    </resultMap>
+    
+    <!-- 根据ID查询 -->
+    <select id="findById" resultMap="YdMapperInformation_findById">
+        SELECT
+            *
+        FROM
+            yd_information
+        WHERE
+            id=${id}
+    </select>
+    <resultMap id="YdMapperInformation_findById" type="java.util.HashMap">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="created_at" column="created_at" />
+    </resultMap>
+    
+    <!-- 查询总数 -->
+    <select id="total" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            yd_information
+    </select>
+    
+    
+    <!-- 分页查询 -->
+    <select id="page" resultMap="YdMapperInformation_page">
+        SELECT
+            *
+        FROM
+            yd_information
+        ORDER BY
+            id DESC
+        LIMIT #{page_start}, 10
+        
+    </select>
+    <resultMap id="YdMapperInformation_page" type="java.util.HashMap">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="created_at" column="created_at" />
+    </resultMap>
+    
+    <!-- 查询留言 -->
+    <select id="messageList" resultMap="YdMapperInformation_messageList">
+        SELECT
+            *
+        FROM
+            yd_in_message
+        LEFT JOIN 
+            yd_in_message_reply 
+        ON 
+            yd_in_message.im_mid = yd_in_message_reply.re_im_id
+        WHERE
+            yd_in_message.im_id = #{id}
+        ORDER BY
+            yd_in_message.im_mid,yd_in_message_reply.im_rid DESC
+        LIMIT #{page_start},
+         10
+        
+    </select>
+    <resultMap id="YdMapperInformation_messageList" type="java.util.HashMap">
+        <id property="im_mid" column="im_mid" />
+        <result property="im_id" column="im_id" />
+        <result property="user_id" column="user_id" />
+        <result property="user_name" column="user_name" />
+        <result property="user_avatar" column="user_avatar" />
+        <result property="im_message" column="im_message" />
+        <result property="im_time" column="im_time" />
+        <collection property="reply" javaType="java.util.ArrayList" ofType="java.util.HashMap">
+            <id property="im_rid" column="im_rid" />
+            <result property="im_id" column="re_im_id" />
+            <result property="user_id" column="re_user_id" />
+            <result property="user_name" column="re_user_name" />
+            <result property="user_avatar" column="re_user_avatar" />
+            <result property="im_message" column="re_im_message" />
+            <result property="im_time" column="re_im_time" />
+        </collection>
+    </resultMap>
+    
+    <!-- 查询留言总数 -->
+    <select id="messageTotal" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            yd_in_message
+        WHERE
+            im_id = #{id}
+    </select>
+    
+    <!-- 回复留言 -->
+    <insert id="msgReply">
+        INSERT INTO yd_in_message_reply (
+            re_im_id,
+            re_user_id,
+            re_user_name,
+            re_user_avatar,
+            re_im_message,
+            re_im_time
+        )
+        VALUE
+            (
+                #{re_im_id},
+                #{re_user_id},
+                #{re_user_name},
+                #{re_user_avatar},
+                #{re_im_message},
+                #{re_im_time}
+            )
+    </insert>
+    
+    <!-- 留言 -->
+    <insert id="Reply">
+        INSERT INTO yd_in_message (
+            im_id,
+            user_id,
+            user_name,
+            user_avatar,
+            im_message,
+            im_time
+        )
+        VALUE
+            (
+                #{im_id},
+                #{user_id},
+                #{user_name},
+                #{user_avatar},
+                #{im_message},
+                #{im_time}
+            );
+    </insert>
+    
+    
+</mapper>

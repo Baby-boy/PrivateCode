@@ -1,0 +1,48 @@
+<div th:fragment="main" th:remove="tag">
+	<yd:ajax key="storeComment" value="get.comment"  />
+	<div class="d-right comment-page">
+		<ul class="btn-page-top">
+			<li class="active">来自买家的评价</li>
+		</ul>
+		<div class="search-body">
+			<form class="search-body-form" data-search-func="storeComment">
+				<div class="s-node">
+					<span>商品名称：</span>
+					<input name="commentGoodsName" class="text" type="text" />
+				</div>
+				<div class="s-node">
+					<span>评价人：</span>
+					<input name="commentUsername" class="text" type="text" />
+				</div>
+				<div class="s-node">
+					<a class="btn-s-a" href="javascript:void(0)"><botton type="button" class="btn-search btn-search-body">搜索</botton></a>
+				</div>
+			</form>
+		</div>
+		<div class="lists-all">
+			<div class="lists-head">
+				<ul>
+					<li class="w600 fll">评价信息</li>
+					<li class="flr w100">操作</li>
+				</ul>
+			</div>
+			<div class="lists-body" th:each="item:${data}" th:inline="text">
+				<ul>
+					<li class="con-title"><span>评价人：[[${item.username}]] &nbsp;<time>[[${ #calendars.format(item.createdAt,'yyyy-MM-dd hh:mm:ss') }]]</time></span><span>评价星级：<em>XXXXX</em></span></li>
+					<li class="con-body">
+						<p><b>评价内容：</b>[[${item.content}]]</p>
+						<isReply th:if="${item.replyContent == ''}" th:remove="tag">
+							<a class="btn-operate w100" href="javascript:void(0)">回复</a>
+						</isReply>
+					</li>
+					<isReply th:if="${item.replyContent != ''}" th:remove="tag">
+						<li class="con-body"><p><b>解释内容：</b>[[${item.replyContent}]]</p></li>
+					</isReply>
+				</ul>
+			</div>
+			<div class="lists-foot">
+				
+			</div>
+		</div>
+	</div>
+</div>

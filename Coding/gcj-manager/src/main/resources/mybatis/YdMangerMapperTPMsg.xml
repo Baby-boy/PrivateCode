@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperTPMsg" >
+  <resultMap id="BaseResultMap" type="com.yd.gcj.entity.YdMangerTPMsg" >
+    <id column="tpmsg_id" property="tpmsgId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="tpmsg_type" property="tpmsgType" jdbcType="VARCHAR" />
+    <result column="tpmsg_open_id" property="tpmsgOpenId" jdbcType="VARCHAR" />
+    <result column="tpmsg_nikname" property="tpmsgNikname" jdbcType="VARCHAR" />
+    <result column="tpmsg_avatar" property="tpmsgAvatar" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tpmsg_id, user_id, tpmsg_type, tpmsg_open_id, tpmsg_nikname, tpmsg_avatar
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yd_tpmsg
+    where tpmsg_id = #{tpmsgId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yd_tpmsg
+    where tpmsg_id = #{tpmsgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yd.gcj.entity.YdMangerTPMsg" >
+    insert into yd_tpmsg (tpmsg_id, user_id, tpmsg_type, 
+      tpmsg_open_id, tpmsg_nikname, tpmsg_avatar
+      )
+    values (#{tpmsgId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{tpmsgType,jdbcType=VARCHAR}, 
+      #{tpmsgOpenId,jdbcType=VARCHAR}, #{tpmsgNikname,jdbcType=VARCHAR}, #{tpmsgAvatar,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yd.gcj.entity.YdMangerTPMsg" >
+    insert into yd_tpmsg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tpmsgId != null" >
+        tpmsg_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="tpmsgType != null" >
+        tpmsg_type,
+      </if>
+      <if test="tpmsgOpenId != null" >
+        tpmsg_open_id,
+      </if>
+      <if test="tpmsgNikname != null" >
+        tpmsg_nikname,
+      </if>
+      <if test="tpmsgAvatar != null" >
+        tpmsg_avatar,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tpmsgId != null" >
+        #{tpmsgId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="tpmsgType != null" >
+        #{tpmsgType,jdbcType=VARCHAR},
+      </if>
+      <if test="tpmsgOpenId != null" >
+        #{tpmsgOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="tpmsgNikname != null" >
+        #{tpmsgNikname,jdbcType=VARCHAR},
+      </if>
+      <if test="tpmsgAvatar != null" >
+        #{tpmsgAvatar,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yd.gcj.entity.YdMangerTPMsg" >
+    update yd_tpmsg
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="tpmsgType != null" >
+        tpmsg_type = #{tpmsgType,jdbcType=VARCHAR},
+      </if>
+      <if test="tpmsgOpenId != null" >
+        tpmsg_open_id = #{tpmsgOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="tpmsgNikname != null" >
+        tpmsg_nikname = #{tpmsgNikname,jdbcType=VARCHAR},
+      </if>
+      <if test="tpmsgAvatar != null" >
+        tpmsg_avatar = #{tpmsgAvatar,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tpmsg_id = #{tpmsgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yd.gcj.entity.YdMangerTPMsg" >
+    update yd_tpmsg
+    set user_id = #{userId,jdbcType=INTEGER},
+      tpmsg_type = #{tpmsgType,jdbcType=VARCHAR},
+      tpmsg_open_id = #{tpmsgOpenId,jdbcType=VARCHAR},
+      tpmsg_nikname = #{tpmsgNikname,jdbcType=VARCHAR},
+      tpmsg_avatar = #{tpmsgAvatar,jdbcType=VARCHAR}
+    where tpmsg_id = #{tpmsgId,jdbcType=INTEGER}
+  </update>
+</mapper>

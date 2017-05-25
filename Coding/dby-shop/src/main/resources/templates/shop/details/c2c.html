@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+	</head>
+	<body>
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: brand('',c2c_two)" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(c2c)" th:remove="tag"></div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		<!-- 商品展示信息 -->
+		<div class="product-show" th:with="item=${@_YdShopServiceGoods.get_only_normal(1,id)}" th:inline="text">
+			<div class="min-width">
+				<div class="left-info">
+					<div class="details-pic">
+						<div class="thumbnail">
+							<ul class="tb-thumb" id="thumblist">
+								<li th:each="sitem:${item.goods_pics}">
+									<img th:src="@{http://res.zwzyd.com/dby/web__${sitem}__?x-oss-process=image/resize,m_pad,h_60,w_60}" th:attr="mid=@{http://res.zwzyd.com/dby/web__${sitem}__?x-oss-process=image/resize,m_pad,h_100,w_100},big=@{http://res.zwzyd.com/dby/web__${sitem}__}" />
+								</li>
+							</ul>
+						</div>
+						<div class="detail-video" style="display:none;">
+							<video width="800" height="" controls="controls">
+								<source src="images/demoimg/01.mp4" type="video/mp4"></source>
+								<source src="myvideo.ogv" type="video/ogg"></source>
+								<source src="myvideo.webm" type="video/webm"></source>
+								<object width="" height="" type="application/x-shockwave-flash" data="myvideo.swf">
+									<param name="movie" value="myvideo.swf" />
+									<param name="flashvars" value="autostart=true&amp;file=myvideo.swf" />
+								</object>
+								当前浏览器不支持 video直接播放，点击这里下载视频： <a href="myvideo.webm">下载视频</a>
+							</video>
+						</div>
+						<div class="big-picture">
+							<a th:href="${sitem}" th:each="sitem,niter:${item.goods_pics}" th:if="${niter.index} lt 1">
+								<img class="jqzoom" th:src="@{http://res.zwzyd.com/dby/web__${sitem}__}" th:attr="rel=${sitem}" />
+							</a>
+						</div>
+					</div>
+					<div class="product-info">
+						<h2 th:text="${item.goods_name}">经典商务双肩包</h2>
+						<div class="introduce">货号：[[${item.goods_serialnumber}]]</div>
+						<div class="introduce color6">门店：[[${item.store_name}]]</div>
+						<div class="introduce">简介：[[${item.goods_summary}]] <a href="#">详情...</a></div>
+						<div class="price-f">
+							<div class="con"><font>多宝鱼价：</font><strong th:text="${#numbers.formatDecimal(item.goods_price, 0, 0)}">99</strong>元</div>
+							<div class="con con1" style="display:none;"><font>促销信息：</font>
+								<dl>
+									<dd><span>优惠</span>品牌限时特惠</dd>
+									<dd><span>加价购</span>满1000.00元另加469.00元即可在购物车换购热销商品</dd>
+								</dl>
+							</div>
+						</div>
+						<div class="buy">
+							<input id="buy" type="submit" value="一键购买" th:attr="data-id=${item.goods_id}" />
+							<input id="add-cart" type="submit" value="加入购物车" th:attr="data-id=${item.goods_id}" />
+						</div>
+						<ul>
+							<li><i></i><span>分享商品</span></li>
+							<li th:class="${item.is_fav_goods}!=0?active:''"><i></i><span>关注商品</span></li>
+							<li><i></i><span>浏览次数4931</span></li>
+						</ul>
+						<div class="see-more"><a href="#">查看更多产品</a></div>
+					</div>
+					
+				</div>
+				<div class="c2c-right-info">
+					<dl>
+						<dt>
+							<a href="c2c_seller_info.html">
+								<img src="images/demoimg/images/seller_03.png" />
+							</a>
+						</dt>
+						<dd><a href="c2c_seller_info.html">XXX用户</a></dd>
+						<dd class="icon"><i></i></dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<!-- 商品展示信息结束 -->
+		
+		<!-- 中间内容 -->
+		<div id="container">
+			<div class="details-page">
+				<div class="left-section">
+					
+					<div class="category-list">
+						<div class="col-title">大家都在买</div>
+						<div class="pro-section">
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/ac_img8.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_05.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_06.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_07.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+						</div>
+					</div>
+					
+					<div class="category-list">
+						<div class="col-title">相关商品</div>
+						<div class="pro-section">
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/ac_img8.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_05.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_06.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_07.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+						</div>
+					</div>
+					
+				</div>
+
+				
+				<div class="right-section">
+					<div class="top-screen">
+						<ul>
+							<li class="active">商品详情</li>
+							<li>在线留言</li>
+						</ul>
+					</div>
+					
+					<div class="tab-switch product-detail" th:with="item=${@_YdShopServiceGoods.get_only_normal(1,id)}">
+						<!-- 正文 -->
+						<div class="product-details">
+							<h3 style="font-size: 16px;margin: 10px;">商品介绍</h3>
+							<div th:each="sitem:${item.goods_contents}" th:remove="tag">
+								<img th:src="@{http://res.zwzyd.com/dby/web__${sitem.dict_value}__}" th:if="${sitem.dict_key} == 1" />
+								<div th:text="${sitem.dict_value}" th:if="${sitem.dict_key} == 2" th:remove="tag"></div><br/>
+							</div>
+						</div>
+						<!-- 正文结束 -->
+					
+					</div>
+					
+					<div class="tab-switch">
+						<!-- 留言列表 -->
+						<div class="message-list">
+							<div class="title">在线留言</div>
+							<div class="list-wrap">
+								<dl>
+									<dt>
+										<a href="javascript:;">
+											<img src="images/demoimg/images/seller_03.png" />
+										</a>
+									</dt>
+									<dd class="content"><a href="javascript:;">吕*节</a>还有吗！需要一台！要无坏点的！</dd>
+									<dd class="time">2016-09-26 13:37:11</dd>
+								</dl>
+								<dl>
+									<dt>
+										<a href="javascript:;">
+											<img src="images/demoimg/images/seller_03.png" />
+										</a>
+									</dt>
+									<dd class="content"><a href="javascript:;">吕*节</a>还有吗！需要一台！要无坏点的！</dd>
+									<dd class="time">2016-09-26 13:37:11</dd>
+								</dl>
+								<dl>
+									<dt>
+										<a href="javascript:;">
+											<img src="images/demoimg/images/seller_03.png" />
+										</a>
+									</dt>
+									<dd class="content"><a href="javascript:;">吕*节</a>还有吗！需要一台！要无坏点的！</dd>
+									<dd class="time">2016-09-26 13:37:11</dd>
+								</dl>
+								<dl>
+									<dt>
+										<a href="javascript:;">
+											<img src="images/demoimg/images/seller_03.png" />
+										</a>
+									</dt>
+									<dd class="content"><a href="javascript:;">吕*节</a>还有吗！需要一台！要无坏点的！</dd>
+									<dd class="time">2016-09-26 13:37:11</dd>
+								</dl>
+								<dl>
+									<dt>
+										<a href="javascript:;">
+											<img src="images/demoimg/images/seller_03.png" />
+										</a>
+									</dt>
+									<dd class="content"><a href="javascript:;">吕*节</a>还有吗！需要一台！要无坏点的！</dd>
+									<dd class="time">2016-09-26 13:37:11</dd>
+								</dl>
+								<dl>
+									<dt>
+										<a href="javascript:;">
+											<img src="images/demoimg/images/seller_03.png" />
+										</a>
+									</dt>
+									<dd class="content"><a href="javascript:;">吕*节</a>还有吗！需要一台！要无坏点的！</dd>
+									<dd class="time">2016-09-26 13:37:11</dd>
+								</dl>
+								<dl>
+									<dt>
+										<a href="javascript:;">
+											<img src="images/demoimg/images/seller_03.png" />
+										</a>
+									</dt>
+									<dd class="content"><a href="javascript:;">吕*节</a>还有吗！需要一台！要无坏点的！</dd>
+									<dd class="time">2016-09-26 13:37:11</dd>
+								</dl>
+								<dl>
+									<dt>
+										<a href="javascript:;">
+											<img src="images/demoimg/images/seller_03.png" />
+										</a>
+									</dt>
+									<dd class="content"><a href="javascript:;">吕*节</a>还有吗！需要一台！要无坏点的！</dd>
+									<dd class="time">2016-09-26 13:37:11</dd>
+								</dl>
+								<dl>
+									<dt>
+										<a href="javascript:;">
+											<img src="images/demoimg/images/seller_03.png" />
+										</a>
+									</dt>
+									<dd class="content"><a href="javascript:;">吕*节</a>还有吗！需要一台！要无坏点的！</dd>
+									<dd class="time">2016-09-26 13:37:11</dd>
+								</dl>
+								<dl>
+									<dt>
+										<a href="javascript:;">
+											<img src="images/demoimg/images/seller_03.png" />
+										</a>
+									</dt>
+									<dd class="content"><a href="javascript:;">吕*节</a>还有吗！需要一台！要无坏点的！</dd>
+									<dd class="time">2016-09-26 13:37:11</dd>
+								</dl>
+							</div>
+							<div id="sales" class="pagelist pagelist-right pagelist-margin10">
+								<a class="active" href="#">1</a>
+								<a href="#">2</a>
+								<a href="#">3</a>
+								<a href="#">下一页&gt;</a>
+							</div>
+						</div>
+						<!-- 留言列表结束 -->
+						
+						<!-- 在线留言 -->
+						<div class="message">
+							<form>
+								<div class="textarea">
+									<textarea rows="10" placeholder="请输入您的留言..."></textarea>
+								</div>
+								<div class="submit">
+									<input type="submit" value="提  交" />
+								</div>
+							</form>
+						</div>
+						<!-- 在线留言结束 -->
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		<script type="text/javascript" th:src="@{/assets/shop/js/jquery.imagezoom.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/details.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/jquery.page.js}" ></script>
+		<script>
+			$(function(){
+				$("#sales").createPage({
+			        pageCount:42,
+			        current:1,
+			        backFn:function(page){
+			            console.log(p);
+			        }
+			    });
+				
+				$("input#buy").click(function(){
+					window.open("/settlement/" + $(this).attr("data-id"));
+				});
+			});
+		</script>
+	</body>
+</html>

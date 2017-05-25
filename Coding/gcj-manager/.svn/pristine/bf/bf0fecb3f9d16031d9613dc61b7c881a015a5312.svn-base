@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功城记-在线充电-资讯</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+    <link rel="stylesheet" href="/css/online-detail.css"/>
+    <link rel="stylesheet" href="/css/common.css"/>
+    <script type="text/javascript">localStorage.setItem('nvaNum',7);</script>
+</head>
+<body>
+    <!--顶部导航-->
+    <div th:include="public/hander"></div>
+    
+    <!-- 中间 -->
+    <div id="yd-online">
+        <div class="yd-online-wrap">
+            <div class="yd-online-top">
+                <form action="" method="post">
+                    <div class="yd-online-search clear">
+                        <div class="yd-online-left">
+                            <i></i>
+                            <input type="text" value="" placeholder="输入你要搜素的关键字"/>
+                        </div>
+                        <div class="yd-online-right">搜索</div>
+                    </div>
+                </form>
+            </div>
+            <div class="yd-online-trade">
+                <div class="yd-trade-wrap">
+                    <ul class="yd-trade-title clear">
+                        <li class="active">行业资讯</li>
+                        <li>行业规范</li>
+                    </ul>
+                    <div class="yd-online-content">
+                        <ul class="yd-online-all">
+                            <li>
+                                <div class="yd-trade-node clear">
+                                    <a href="online-detail">中国80、90后妈妈必备的应用神器</a>
+                                    <span>2016-8-31</span>
+                                </div>
+                                <p>2016年8月31日，易观联合京东发布了《中国网上超市消费者行为专题研究报告2016》的京东超市购发展白皮书，报告对网上超市的发展现状、消费者洞察、消费者画像及未来的发展趋势做了详细的分析研究。</p>
+                            </li>
+                            <li>
+                                <div class="yd-trade-node clear">
+                                    <a href="online-detail">中国80、90后妈妈必备的应用神器</a>
+                                    <span>2016-8-31</span>
+                                </div>
+                                <p>2016年8月31日，易观联合京东发布了《中国网上超市消费者行为专题研究报告2016》的京东超市购发展白皮书，报告对网上超市的发展现状、消费者洞察、消费者画像及未来的发展趋势做了详细的分析研究。</p>
+                            </li>
+                            <li>
+                                <div class="yd-trade-node clear">
+                                    <a href="online-detail">中国80、90后妈妈必备的应用神器</a>
+                                    <span>2016-8-31</span>
+                                </div>
+                                <p>2016年8月31日，易观联合京东发布了《中国网上超市消费者行为专题研究报告2016》的京东超市购发展白皮书，报告对网上超市的发展现状、消费者洞察、消费者画像及未来的发展趋势做了详细的分析研究。</p>
+                            </li>
+                            <li>
+                                <div class="yd-trade-node clear">
+                                    <a href="online-detail">中国80、90后妈妈必备的应用神器</a>
+                                    <span>2016-8-31</span>
+                                </div>
+                                <p>2016年8月31日，易观联合京东发布了《中国网上超市消费者行为专题研究报告2016》的京东超市购发展白皮书，报告对网上超市的发展现状、消费者洞察、消费者画像及未来的发展趋势做了详细的分析研究。</p>
+                            </li>
+                            <li>
+                                <div class="yd-trade-node clear">
+                                    <a href="online-detail">中国80、90后妈妈必备的应用神器</a>
+                                    <span>2016-8-31</span>
+                                </div>
+                                <p>2016年8月31日，易观联合京东发布了《中国网上超市消费者行为专题研究报告2016》的京东超市购发展白皮书，报告对网上超市的发展现状、消费者洞察、消费者画像及未来的发展趋势做了详细的分析研究。</p>
+                            </li>
+                            <li>
+                                <div class="yd-trade-node clear">
+                                    <a href="online-detail">中国80、90后妈妈必备的应用神器</a>
+                                    <span>2016-8-31</span>
+                                </div>
+                                <p>2016年8月31日，易观联合京东发布了《中国网上超市消费者行为专题研究报告2016》的京东超市购发展白皮书，报告对网上超市的发展现状、消费者洞察、消费者画像及未来的发展趋势做了详细的分析研究。</p>
+                            </li>
+                        </ul>
+                        <div class="tcdPageCode">
+
+                        </div>
+                    </div>
+                    <div class="yd-online-content" style="display:none">
+                        <ul class="yd-online-all">
+                            <li>
+                                <div class="yd-trade-node clear">
+                                    <a href="online-detail">中国80、90后妈妈必备的应用神器</a>
+                                    <span>2016-8-31</span>
+                                </div>
+                                <p>2016年8月31日，易观联合京东发布了《中国网上超市消费者行为专题研究报告2016》的京东超市购发展白皮书，报告对网上超市的发展现状、消费者洞察、消费者画像及未来的发展趋势做了详细的分析研究。</p>
+                            </li>
+                            <li>
+                                <div class="yd-trade-node clear">
+                                    <a href="online-detail">中国80、90后妈妈必备的应用神器</a>
+                                    <span>2016-8-31</span>
+                                </div>
+                                <p>2016年8月31日，易观联合京东发布了《中国网上超市消费者行为专题研究报告2016》的京东超市购发展白皮书，报告对网上超市的发展现状、消费者洞察、消费者画像及未来的发展趋势做了详细的分析研究。</p>
+                            </li>
+                            <li>
+                                <div class="yd-trade-node clear">
+                                    <a href="online-detail">中国80、90后妈妈必备的应用神器</a>
+                                    <span>2016-8-31</span>
+                                </div>
+                                <p>2016年8月31日，易观联合京东发布了《中国网上超市消费者行为专题研究报告2016》的京东超市购发展白皮书，报告对网上超市的发展现状、消费者洞察、消费者画像及未来的发展趋势做了详细的分析研究。</p>
+                            </li>
+                            <li>
+                                <div class="yd-trade-node clear">
+                                    <a href="online-detail">中国80、90后妈妈必备的应用神器</a>
+                                    <span>2016-8-31</span>
+                                </div>
+                                <p>2016年8月31日，易观联合京东发布了《中国网上超市消费者行为专题研究报告2016》的京东超市购发展白皮书，报告对网上超市的发展现状、消费者洞察、消费者画像及未来的发展趋势做了详细的分析研究。</p>
+                            </li>
+                            <li>
+                                <div class="yd-trade-node clear">
+                                    <a href="online-detail">中国80、90后妈妈必备的应用神器</a>
+                                    <span>2016-8-31</span>
+                                </div>
+                                <p>2016年8月31日，易观联合京东发布了《中国网上超市消费者行为专题研究报告2016》的京东超市购发展白皮书，报告对网上超市的发展现状、消费者洞察、消费者画像及未来的发展趋势做了详细的分析研究。</p>
+                            </li>
+                            <li>
+                                <div class="yd-trade-node clear">
+                                    <a href="online-detail">中国80、90后妈妈必备的应用神器</a>
+                                    <span>2016-8-31</span>
+                                </div>
+                                <p>2016年8月31日，易观联合京东发布了《中国网上超市消费者行为专题研究报告2016》的京东超市购发展白皮书，报告对网上超市的发展现状、消费者洞察、消费者画像及未来的发展趋势做了详细的分析研究。</p>
+                            </li>
+                        </ul>
+                        <div class="yd-page">
+                            <span>下一页&gt;</span>
+                            <ul>
+                                <li class="active">1</li>
+                                <li>2</li>
+                                <li>3</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--底部-->
+    <div th:include="public/foot"></div>
+    
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/chajian/jqkuozhan.js"></script>
+    <script src="/js/chajian/jquery.page.js"></script>
+    <script src="/js/online.js"></script>
+</body>
+</html>

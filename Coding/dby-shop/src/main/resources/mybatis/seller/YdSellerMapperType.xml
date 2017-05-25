@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.d.seller.mapper.YdSellerMapperType">
+	<!-- 字段 -->
+	<sql id="field">
+ 		type_id, type_name, type_sort, class_id, class_name
+ 	</sql>
+	
+	<select id="info" resultType="java.util.HashMap">
+		SELECT
+			<include refid="field"></include>
+		FROM
+			yd_type
+		WHERE
+			type_id = #{type_id}
+	</select>
+</mapper>

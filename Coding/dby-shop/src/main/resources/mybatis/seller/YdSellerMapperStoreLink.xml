@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.d.seller.mapper.YdSellerMapperStoreLink">
+	<!-- 根据store_id查询所有的友情店铺 -->
+	<select id="stores" resultType="java.util.HashMap">
+		select
+		*
+		from
+		yd_store_link
+		where
+		yd_store_link.store_id=#{store_id}
+		order by yd_store_link.sl_sort asc
+	</select>
+
+	<!-- 删除友情链接 -->
+	<delete id="destroy">
+		delete from yd_store_link
+		where id=#{id}
+	</delete>
+
+	<!-- 添加友情链接 -->
+	<insert id="store">
+		insert yd_store_link
+		(store_id, sl_title,sl_sort, sl_url,created_at)
+		value
+		( #{store_id}, #{sl_title}, #{sl_sort}, #{sl_url}, now() );
+	</insert>
+
+
+	<!-- 友情链接修改保存 -->
+	<update id="update">
+		update
+		yd_store_link
+		set
+		yd_store_link.sl_title = #{sl_title},
+		yd_store_link.sl_url = #{sl_url},
+		yd_store_link.sl_sort = #{sl_sort},
+		yd_store_link.updated_at = now()
+		where yd_store_link.id=#{id}
+	</update>
+
+	<!-- 友情链接修改 -->
+	<select id="edit" resultType="java.util.HashMap">
+		select
+		*
+		from
+		yd_store_link
+		where
+		yd_store_link.id=#{id}
+	</select>
+</mapper>

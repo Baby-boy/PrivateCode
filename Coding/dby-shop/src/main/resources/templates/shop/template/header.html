@@ -1,0 +1,187 @@
+	<div th:fragment="header">
+		<div class="top-bar">
+				<div class="min-width">
+					
+					<div class="left" id="auth_a" th:if="!${session.user_id}">
+						欢迎来到多宝鱼商城
+						<a class="login" href="/login">请登录</a>
+						<a class="register" href="/register">免费注册</a>
+					</div>
+					
+					<div class="left" id="auth_a" th:if="${session.user_id}">
+						Hi，<a th:text="${session.user.user_username}"></a>
+						<a class="register" href="javascript:;" onclick="auth0_event_member_logout( $(this) )">退出</a>
+					</div>
+					
+					<div class="right">
+						<ul>
+							<li><a href="/member">我的订单</a></li>
+							<li><small>|</small><a href="/member">个人中心</a></li>
+							<li class="more">
+								<small>|</small><a href="#">关注我们</a>
+								<div class="qr-code">
+									<img th:src="${@_url.goods()+'footer_qrcode.png'}" />
+								</div>
+							</li>
+							<li class="more">
+								<small>|</small><a href="#">客户服务</a>
+								<div class="more-list">
+									<dl>
+										<dd><a href="/article/16">帮助中心</a></dd>
+										<!-- <dd><a href="javascript:;">贵宾专线：</a></dd> -->
+										<dd><a href="javascript:;" th:text="${@_redis.get('site_phone')}"></a></dd>
+									</dl>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div class="head-layout">
+				<!-- logo -->
+				<div class="logo-wrap">
+					<a class="logo" href="/"><img th:src="${@_url.goods()}+${@_redis.get('site_logo')}" /></a>
+				</div>
+				<!-- search -->
+				<div class="search-wrap">
+					<div class="search">
+						<form method="get" action="/search">
+							<div class="select">
+								<span>全部</span>
+								<!-- <ul>
+									<li data-val="0">全部</li>
+									<li data-val="1">品牌店</li>
+									<li data-val="2">拍卖</li>
+									<li data-val="3">C2C</li>
+									<li data-val="4">团购</li>
+									<li data-val="5">秒杀</li>
+								</ul> -->
+								<input type="hidden" value="0" />
+							</div>
+							<input type="text" name="gname" th:value="${goodsName}" placeholder="请输入关键词" />
+							<input type="submit" value="搜索" />
+						</form>
+					</div>
+					<div class="hot-search">
+						<!-- <a th:each="item:${searchkeys}" 
+							th:href="${item.dict_key}" 
+							th:text="${item.dict_value}"></a> -->
+					</div>
+				</div>
+				
+				<!-- cart -->
+				<div class="cart">
+					<div class="my-cart" onclick="location.href='/cart'">我的购物车<small th:with="total=${@_Cart.total()}" th:text="${total}"></small></div>
+					<div class="eject-cart">
+						<!--空购物车-->
+						<div class="no-product">
+							<img th:src="${@_url.goods()}+'cartno.png'" />
+							<span>购物车中还没有商品，赶紧选购吧！</span>
+						</div>
+	
+						<!--有产品-->
+						<div class="yes-product">
+							<h2>最新加入的商品</h2>
+							<ul id="cartWindow">
+								
+							</ul>
+	
+							<!--去结算-->
+							<div class="go-end">
+								<a href="/cart">去购物车</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+
+		 
+		 
+		<!-- 导航 -->
+		<div th:fragment="nav(value)">
+			<ul class="nav-wrap">
+				<li th:each="item:${navs}" th:class="${item.nav_mark} == ${value} ? 'active' : ''">
+					<a th:target="${item.nav_new_open} eq true ? '_blank' : ''" th:href="${item.nav_url}" th:text="${item.nav_title}"></a>
+				</li>
+			</ul>
+		</div>
+		
+		
+		<div th:fragment="cart(value)">
+			<div class="top-bar">
+				<div class="min-width">
+					<div class="left" id="auth_a" th:if="!${session.user_id}">
+						欢迎来到多宝鱼商城
+						<a class="login" href="/login">请登录</a>
+						<a class="register" href="/register">免费注册</a>
+					</div>					
+					<div class="left" id="auth_a" th:if="${session.user_id}">
+						Hi，<a th:text="${session.user.user_username}"></a>
+						<a class="register" href="javascript:;" onclick="auth0_event_member_logout( $(this) )">退出</a>
+					</div>
+		
+					<div class="right">
+						<ul>
+							<li><a href="/member">我的订单</a></li>
+							<li><small>|</small><a href="/member">个人中心</a></li>
+							<li class="more">
+								<small>|</small><a href="#">关注我们</a>
+								<div class="qr-code">
+									<img th:src="${@_url.goods()+'footer_qrcode.png'}" />
+								</div>
+							</li>
+							<li class="more">
+								<small>|</small><a href="#">客户服务</a>
+								<div class="more-list">
+									<dl>
+										<dd><a href="/article/16">帮助中心</a></dd>
+										<!-- <dd><a href="javascript:;">贵宾专线：</a></dd> -->
+										<dd><a href="javascript:;" th:text="${@_redis.get('site_phone')}"></a></dd>
+									</dl>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div class="head-layout">
+				<!-- logo -->
+				<div class="logo-wrap">
+					<a class="logo" href="/"><img th:src="${@_url.goods()}+${@_redis.get('site_logo')}" /></a>
+					<div class="cart" th:inline="text">
+						<span class="line"></span>[[${value} eq 1 ? '购物车' : '结算页']]
+					</div>
+				</div>
+				
+				<!-- 进度 -->
+				<div class="buy-step">
+					<div class="bg-line"></div>
+					<ul th:class="step-__${value}__">
+						<li>
+							<div class="top-num">
+								<span>1</span>
+							</div>
+							<div class="text">1.我的购物车</div>
+						</li>
+						<li>
+							<div class="top-num">
+								<span>2</span>
+							</div>
+							<div class="text">2.填写核对订单信息</div>
+						</li>
+						<li>
+							<div class="top-num">
+								<span>3</span>
+							</div>
+							<div class="text">3.成功提交订单</div>
+						</li>
+					</ul>
+				</div>
+			</div>	
+		</div>

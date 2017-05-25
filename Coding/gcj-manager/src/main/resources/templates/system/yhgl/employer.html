@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>普通用户信息管理</title>
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>
+    <script src="/system/js/jquery.page.js"></script>
+</head>
+<body>
+<form method="get" action="/system/queryAllUser" id="queryForm" th:inline="text" >
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 雇主用户信息管理</strong></div>
+    <div class="padding border-bottom">
+
+      <ul class="search">
+      	<li>
+      		<input type="text" placeholder="请输入雇主手机号码" name="user_phone" th:value="${user_phone}" class="input" style="width:250px; line-height:17px;display:inline-block" />
+      	</li>
+       <!--  <li>
+            <select name="cid" class="input" style="width:200px; line-height:17px;" onchange="changesearch()">
+                <option value="">请选择</option>
+                <option value="1">男</option>
+                <option value="2">女</option>
+            </select>
+        </li> -->
+        <li>
+            <button id ="emsubmit" type="submit"  class="button border-green">查询</button>
+        </li>
+      </ul>
+
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th>序号</th>
+        <th>姓名</th>
+        <th>昵称</th>
+        <th>手机号码</th>
+        <th>邮箱</th>
+        <th>实名认证</th>
+        <th>是否冻结</th>
+        <th>操作</th>       
+      </tr>
+
+        <tr th:each="userList,obj:${userList}" >
+<!--           <td ><input type="checkbox" name="user_id" th:text="${userList.user_id}" /></td> -->
+          <td th:text="${obj.count}" ></td>
+          <td th:text="${userList.user_name}" ></td>
+          <td th:text="${userList.user_nickname}" ></td>
+          <td th:text="${userList.user_phone}" ></td>
+          <td th:text="${userList.user_email}" ></td>
+          <td th:switch="${userList.user_verified}" >
+          	<p th:case=" '0' " >未认证</p>
+          	<p th:case=" '1' " >认证成功</p>	
+          	<p th:case=" '2' " >认证失败</p>
+          	<p th:case=" '3' " >认证审核中</p>
+          </td>
+          <td th:text="${userList.user_isdel==0? '否' : '是'}" ></td>
+          <td>
+          	<div class="button-group">
+          		<a class="button border-red" th:href="@{/system/queryEmployerByUserId/}+${userList.user_id}">详情</a>
+          		<a class="button border-red" th:style="${userList.user_verified == 3}?'':'cursor:not-allowed'" th:href="${userList.user_verified == 3}?@{/system/queryVerified/}+${userList.user_id}:'###'">实名认证</a>
+          	</div>
+          </td>         
+        </tr>
+    </table>
+  </div>
+</form>
+<div class="pagination thePage">
+ <ul>
+　</ul>
+</div>
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+           
+$(function() {
+	 pagination(".pagination ul",[[${totalPage}]],[[${p}]] );
+}); 
+
+function pagination(node, totalPage, cpage) {
+	$(node).createPage({
+       pageCount: totalPage,
+       current: cpage,
+       backFn:function(p){
+           //单击回调方法，p是当前页码
+       }
+   });
+} 
+           
+function delUser(me){
+	if(confirm("您确定要删除吗?")){
+		$.post("deleteUser",{"user_id":me.attr("user-id")},function(data){
+			if(data.msg==true){
+				alert("删除成功");
+				location.reload();
+			}else{
+				
+				alert("删除失败")
+			}
+		}); 
+	}
+};
+
+//条件搜索
+$('#emsubmit').click(function(){
+	$('#queryForm').submit();
+});
+/*]]>*/
+</script>
+</body></html>

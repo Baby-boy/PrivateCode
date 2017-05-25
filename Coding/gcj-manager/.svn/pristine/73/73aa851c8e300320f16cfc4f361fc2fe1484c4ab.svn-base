@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.system.mapper.YdMangerMapperSystemArticle">
+	<!-- 后台 -->
+	<select id="queryAllArticle" resultType="com.yd.gcj.entity.vo.YdMangerArticleVo" >
+		SELECT 	ya.article_id,ya.article_title,ya.article_subtitle,ya.article_isshow,ya.article_type,ya.article_create_time,ya.article_update_time,yac.ac_name
+		FROM yd_article ya
+		left join yd_article_class yac on yac.ac_id = ya.article_type
+		where 1= 1
+	 	<if test="article_title !=null and article_title !=''">
+	 		and article_title like  CONCAT(CONCAT('%', #{article_title, jdbcType=VARCHAR}),'%')
+	 	</if>
+	 	<if test="article_type !=null">
+	 		and article_type = #{article_type}
+	 	</if>
+	 	order by article_sort desc
+	 	
+	</select>
+	
+	<select id="queryArticleByArticleId" resultType="com.yd.gcj.entity.vo.YdMangerArticleVo" >
+		SELECT  ya.*,yac.* FROM yd_article ya
+		LEFT JOIN yd_article_class yac ON ya.article_type = yac.ac_id
+	 	WHERE article_id = #{article_id}  order by article_sort desc
+	</select>
+	
+	<select id="queryArticleByArticleType" resultType="java.lang.Integer" >
+		select count(1) from yd_article
+		where article_type = #{ac_id}
+	</select>
+	
+	<select id="queryArticleContentByArticleId" resultType="com.yd.gcj.entity.YdMangerArticle" >
+		select * from yd_article
+		where article_id = #{article_id}
+	</select>
+	
+	<update id="updateArticleByArticleId" parameterType="com.yd.gcj.entity.YdMangerArticle" >
+		update yd_article
+		<set>
+			<trim>
+				<if test="article_title != null and article_title !=''">article_title = #{article_title},</if>	
+				<if test="article_subtitle != null and article_subtitle !=''">article_subtitle = #{article_subtitle},</if>	
+				<if test="article_sort != null and article_sort !=''">article_sort = #{article_sort},</if>	
+				article_isshow = #{article_isshow},	
+				<if test="article_type != null and article_type !=''">article_type = #{article_type},</if>
+				<if test="article_type != null and article_type !=''">article_content = #{article_content},</if>		
+				<if test="article_create_time != null and article_create_time !=''">article_create_time = #{article_create_time},</if>	
+				article_update_time = now()	
+			</trim>
+		</set>
+		where article_id = #{article_id}
+	</update>
+	
+	<delete id="deleteArticleByArticleId" >
+		delete from yd_article
+		where article_id = #{article_id}
+	</delete>
+	
+	<insert id="addArticle" parameterType="com.yd.gcj.entity.YdMangerArticle" useGeneratedKeys="true" keyProperty="id" >
+		insert into yd_article(article_title,article_subtitle,article_isshow,article_type,article_content,article_create_time,article_update_time)
+		value(#{article_title},#{article_subtitle},#{article_isshow},#{article_type},#{article_content},now(),now())
+	</insert>
+</mapper>

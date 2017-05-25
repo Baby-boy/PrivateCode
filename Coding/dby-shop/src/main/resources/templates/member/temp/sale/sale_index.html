@@ -1,0 +1,59 @@
+<div th:fragment="main" th:remove="tag">
+	<yd:ajax key="MemberSale" value="get.member_sale"  />
+	
+	<div class="d-right sale-index-page">
+		<ul class="btn-page-top">
+			<li class="active">我的参拍商品</li>
+			<li yd:ajax="onclick,get.sale_order">我的拍卖订单</li>
+		</ul>
+		
+		<div class="btn-page-top-two">
+			<ul>
+				<li onclick="MemberSale([this, 1, 0])" data-state="1" class="active">正在拍卖</li>
+				<li onclick="MemberSale([this, 1, 1])" data-state="2">已经结束</li>
+			</ul>
+			<p class="remark color-red">温馨提示：商品竞拍成功后，请在24小时内提交订单在1小时内线上付款。</p>
+		</div>
+		
+		<table class="list-table">
+			<thead>
+				<tr>
+					<th class="w450 al goods-name">商品名称</th>
+					<th class="w130">开始时间</th>
+					<th class="w130">结束时间</th>
+					<th class="w100">当前价格</th>
+					<th class="w80">我出最高价格</th>
+					<!-- <th class="w80">状态</th> -->
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item:${data}" th:inline="text">
+					<td class="goods-name al">[[${item.goodsName}]]</td>
+					<td>[[${ #calendars.format(item.depotTime1,'yyyy-MM-dd hh:mm:ss') }]]</td>
+					<td>[[${ #calendars.format(item.depotTime2,'yyyy-MM-dd hh:mm:ss') }]]</td>
+					<td>[[${item.depotPrice4}]]</td>
+					<td>[[${item.money}]]</td>
+					<!-- <td>状态</td> -->
+					<td class="btn-t-o">
+						<span><a href="javascript:void(0)" >编辑</a></span>
+						<span><a href="javascript:void(0)" class="del-alert">删除</a></span>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4"></td>
+				</tr>
+			</tfoot>
+		</table>
+		
+		<!-- 分页 -->
+		<div class="pagination"></div>
+	</div>
+	<script th:inline="javascript">
+		$(function() {
+			pagination(".pagination", [[${totalPage}]], [[${p}]], "orderIndex");
+		});
+	</script>
+</div>

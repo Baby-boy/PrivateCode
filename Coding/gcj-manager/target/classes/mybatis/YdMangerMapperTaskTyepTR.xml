@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperTaskTypeTR">
+	
+	<select id="$queryAllByTaskId" resultType="com.yd.gcj.entity.YdMangerTaskTypeTR">
+		select * from yd_task_typetr
+		where taskttr_tid = #{taskId}
+	</select>
+	
+	<select id="$queryTypeByTaskId" resultType="com.yd.gcj.entity.YdMangerTaskType">
+		SELECT t.taskt_id,t.taskt_name,
+		(SELECT COUNT(*) FROM yd_task_typetr ttr WHERE ttr.taskttr_ttid = t.taskt_id AND ttr.taskttr_tid = #{taskId}) is_select
+		FROM yd_task_type t
+	</select>
+	
+	<select id="$queryAllTaskIdByTypeId" resultType="com.yd.gcj.entity.YdMangerTaskTypeTR">
+		select * from yd_task_typetr
+		where taskttr_ttid = #{taskttr_ttid}
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerTaskTypeTR">
+		insert into yd_task_typetr
+			(taskttr_tid,taskttr_ttid,taskttr_name)
+		value
+			(#{taskId},#{typeId},(SELECT taskt_name FROM yd_task_type WHERE taskt_id = #{typeId}))
+	</insert>
+	
+	<update id="$update" parameterType="com.yd.gcj.entity.YdMangerTaskTypeTR">
+		update yd_task_typetr
+		<set>
+			<trim prefixOverrides=",">
+				<if test="taskttr_tid != null"> taskttr_tid = #{taskttr_tid}, </if>
+				<if test="taskttr_ttid != null"> taskttr_ttid = #{taskttr_ttid}, </if>
+				<if test="taskttr_name != null"> taskttr_name = #{taskttr_name}, </if>
+			</trim>
+		</set>
+		where taskttr_id = #{taskttr_id}
+	</update>
+	
+	<delete id="$delete">
+		delete from yd_task_typetr
+		where taskttr_id = #{taskId}
+	</delete>
+	
+</mapper>
+

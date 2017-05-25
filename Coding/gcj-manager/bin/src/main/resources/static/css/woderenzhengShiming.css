@@ -1,0 +1,220 @@
+.clearfix:after{
+            content:' ';
+            display: block;
+            clear:both;
+        }
+        .list-item{
+            /*padding-left: 20px;*/
+            height: 60px;
+            line-height: 60px;
+        }
+        .c-red{
+            color:red;
+        }
+        .reg-input{
+            width: 250px;
+            height:30px;
+            padding-left: 5px;
+            outline:none;
+            border:1px solid #fafafa;
+        }
+        .reg-foucs{
+            border-color:#4abb97;
+        }
+        .reg-error{
+            background-color: red;
+        }
+        .list-label{
+            display: inline-block;
+            width: 200px;
+            margin-right: 10px;
+            font-size: 1.2em;
+            text-align: right;
+        }
+        .errorTips{
+            position: relative;
+            display: inline-block;
+            height: 30px;
+            _height: 28px;
+            padding: 0 10px;
+            margin-left: 15px;
+            border: 1px solid #e38181;
+            line-height: 30px;
+            _line-height: 28px;
+            background: #fff;
+            z-index: 1
+        }
+        .errorTips .abox{
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            left: -10px;
+            top: 11px;
+        }
+        .errorTips .abox .a1,.errorTips .abox .a2{
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            border-width: 5px;
+            border-style: dashed solid dashed dashed;
+            position: absolute;
+        }
+        .errorTips .abox .a1
+        {
+            border-color: transparent #e38181 transparent transparent;
+            left: -1px;
+        }
+        .errorTips .abox .a2
+        {
+            border-color: transparent #FFF transparent transparent;
+        }
+        .ic{
+            display: inline-block;
+            padding: 0;
+            vertical-align: -2px;
+            font-size: 0;
+            line-height: 9999em;
+            overflow: hidden;
+            position: relative;
+            width: 16px;
+            height: 16px;
+        }
+        .ic-err-icon{
+            vertical-align: -3px;
+            background: url(/images/icon_input_err_ebc534b.png);
+            _background: url(/images/icon_input_err_ie6_00e2e0a.png);
+        }
+        .err-text{
+            color: #e38181;
+        }
+        .mr5{
+            margin-right: 5px;
+        }
+        .upload-list-item{
+            padding: 20px 0!important;
+            height: auto !important;
+        }
+        .id-front-item{
+            padding-top: 30px!important;
+        }
+        .fl{
+            float: left;
+        }
+        .pr5{
+            padding-right: 5px;
+        }
+        .pre-upload{
+            overflow: hidden;
+            /*border-top: 1px dotted #D8D8D8;*/
+            padding-left: 5px;.px
+            position: relative;
+        }
+        .pre-upload .imgBox{
+            float: left;
+            margin-right: 105px;
+            margin-bottom: 55px;
+            vertical-align: middle;
+        }
+        .pre-upload .imgBox>img{
+            max-width:107px;
+            max-height: 68px;
+        }
+        .tip{
+            position: relative;
+            top: -6px;
+            overflow: hidden;
+            color: #afafaf;
+            line-height: 30px;
+        }
+        .spec-tips{
+            color: #666!important;
+        }
+        .upload-btn{
+            display: inline-block;
+            height: 2.5em;
+            line-height: 2.5em;
+            padding: 0 10px;
+            border: 1px solid #e0e0e0;
+            background-color: #e0e0e0;
+            font-size: 14px;
+            cursor: pointer;
+            color: #666;
+        }
+        .upload-btn+input{
+            display: none;
+        }
+        .upload-info{
+            overflow: hidden;
+            padding-top: 20px!important;
+            border-top: 1px dotted #D8D8D8;
+            padding-left: 5px;
+            position: relative;
+        }
+        .upload{
+            position: absolute;
+            bottom: 0;
+        }
+        .reg-submit-btn{
+            display: inline-block;
+            width: 100px;
+            height: 2.5em;
+            line-height: 2.5em;
+            padding: 0 10px;
+            border: 1px solid #73e6d6;
+            background-color: #3cc8b4;
+            font-size: 16px;
+            cursor: pointer;
+            color: #effffd;
+        }
+        input[type="text"]:disabled{
+            background-color: #eeeeee;
+        }
+        .reg-submit{
+            /*height: 52px;*/
+            /*line-height: 52px;*/
+            padding-left: 220px;
+            margin-bottom: 20px;
+        }
+        .reg-submit img{
+            vertical-align: middle;
+            cursor: pointer;
+        }
+        .valicode{
+            padding-bottom: 20px;
+        }
+        .valicode input{
+            display: inline-block;
+            width: 77px;
+            height: 30px;
+            border: 1px solid #eee;
+            background-color: #fff;
+            font-size: 12px;
+        }
+        .valicode .vali-err{
+            margin-left: 15px;
+            color: #e38181;
+        }
+        .send-valicode{
+            margin-left: 15px;
+            font-size: 14px;
+        }
+        .send-valicode.click{
+            cursor: pointer;
+        }
+        .send-valicode.clicked{
+            cursor: default;
+        }
+        .mt-20{
+            margin-top: 20px;
+        }
+        .cancel-mg{
+            margin: 0 !important;
+        }
+    .view-display .imgBox>img{
+        max-width: 224px;
+        max-height:134px;
+    }
+     .view-display input{
+         background-color: #fff !important;
+         border:none !important;
+     }

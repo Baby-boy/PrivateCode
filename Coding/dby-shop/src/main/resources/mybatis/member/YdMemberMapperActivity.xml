@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperActivity">
+	<select id="queryActivityByActivityId" resultType="com.yd.dby.d.seller.entity.YdSellerGoods" >
+		<!-- SELECT yg.*,yd.depot_id FROM yd_activity yac
+		LEFT JOIN yd_activity_goods yag ON yac.activity_id = yag.ag_activity_id
+		LEFT JOIN yd_depot yd ON yag.ag_depot_id = yd.depot_id
+		LEFT JOIN yd_goods yg ON yd.goods_id = yg.goods_id
+		WHERE yac.activity_id=#{id}
+		limit #{to} ,40 -->
+		SELECT yg.*,yd.depot_id FROM yd_activity yac 
+		LEFT JOIN yd_depot yd ON yac.activity_id = yd.activity_id
+		LEFT JOIN yd_goods yg ON yd.goods_id = yg.goods_id
+		WHERE yac.activity_id=#{id}
+		limit #{to} ,40
+	</select>
+	
+	<select id="queryTotal" resultType="com.yd.dby.d.seller.entity.YdSellerGoods" >
+		SELECT yg.*,yd.depot_id FROM yd_activity yac
+		LEFT JOIN yd_activity_goods yag ON yac.activity_id = yag.ag_activity_id
+		LEFT JOIN yd_depot yd ON yag.ag_depot_id = yd.depot_id
+		LEFT JOIN yd_goods yg ON yd.goods_id = yg.goods_id
+		WHERE yac.activity_id=#{id} 
+	</select>
+	
+	<select id="queryActivityDetailsById" resultType="com.yd.dby.c.member.entity.YdActivity" >
+		select * from yd_activity
+		where activity_id = #{id}
+	</select>
+</mapper>

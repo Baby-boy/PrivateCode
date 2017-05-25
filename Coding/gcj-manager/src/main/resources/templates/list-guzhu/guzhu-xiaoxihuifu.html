@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:with="user=${session.user},msgSize=${session.msgSize}" th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--待签合同-->
+<div class="hetong-box">
+    <div class="hetong approve">
+        <div th:include="public/guzhu/hander"></div>
+        <div class="hetong-xq clear">
+            <div class="left">
+                <a href="guzhufang">任务管理</a>
+                <a href="guzhu-fukuan">付款管理</a>
+                <a href="woderenzheng">我的认证</a>
+                <a href="guzhu-dianping">点评管理</a>
+                <a href="guzhu-xiaoxihuifu" class="now pos-relative">我的消息<span class="badge badge-my-msg" th:if="${msgSize!=null and msgSize.countMsgSize > 0}" th:text="${msgSize.countMsgSize}">0</span></a>
+                <a href="guzhu-tuikuan">我的退款</a>
+            </div>
+            <div class="right myNews">
+            	<div class="topr">
+                    <a href="javascript:;" class="now pos-relative">系统消息<span class="badge badge-top-3" th:if="${msgSize!=null and msgSize.systemMsgSize > 0}" th:text="${msgSize.systemMsgSize}">0</span><span></span></a>
+                    <a class="pos-relative" href="/list-guzhu/guzhu-xiaoxihuifu-task">任务消息<span class="badge badge-top-3" th:if="${msgSize!=null and msgSize.taskMsgSize > 0}" th:text="${msgSize.taskMsgSize}">0</span><span></span></a>
+                    <a class="pos-relative" href="/list-guzhu/guzhu-xiaoxihuifu-msg">留言消息<span class="badge badge-top-3" th:if="${msgSize!=null and msgSize.leaveMsgSize > 0}" th:text="${msgSize.leaveMsgSize}">0</span><span></span></a>
+                </div>
+                
+                <div class="news-huifu">
+                    <div class="news-box" th:each="sm,niter:${msg}">
+                        <a href="JavaScript:;" class="news-xq">[[${sm.msg_contents}]]</a>
+                        <p class="team">
+                            <span>系统消息</span>
+                            <span>[[${#dates.format(sm.msg_create_time,'yyyy年MM月dd日 HH:mm:ss')}]]</span>
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+
+<div class="zhezhao dis-none"></div>
+<div class="fbgg-popup dis-none">
+    <div class="guanbi"></div>
+    <h4>内容回复</h4>
+    <textarea name="" id="" cols="30" rows="10" placeholder="请输入回复内容"></textarea>
+    <button type="submit">确定</button>
+</div>
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/common.js"></script>
+</html>

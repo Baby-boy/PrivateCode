@@ -1,0 +1,199 @@
+<div th:fragment="main" th:remove="tag">
+	<div class="Z_g-right goods-create-page">
+		<yd:ajax key="getClass" value="get.classify"  />
+		<script th:inline="javascript">
+			treeEachOption([[${classStoreData}]], "请选择本店分类", ".select-store-class select");
+		</script>
+		<div class="Z-acc1-1">
+			<div class="Z-title_inf">
+				发布商品
+			</div>
+			
+			<!--更改信息-->
+			<div class="Z-address_information">
+				<h3 class="title">商品基本信息</h3>
+				<div class="Z-new_table">
+					<ul>
+						<li>
+							<div class="Z_note">商品分类：</div>
+							<div class="select-class">
+								<select name="depot_classify1" data-value="" data-first-title="选择一级分类">
+									<option value="0">选择一级分类</option>
+									<option th:each="item:${classData}" th:inline="text" th:attr="value=${item.classId}">[[${item.classTitle}]]</option>
+								</select>
+								<select style="display:none;" name="depot_classify2" data-first-title="选择二级分类" disabled="disabled"></select>
+								<select style="display:none;" name="depot_classify3" data-first-title="选择三级分类" disabled="disabled"></select>
+							</div>
+						</li>
+						<li class="Z-long">
+							<div class="Z_note">*商品名称：</div>
+							<input type="text" placeholder="不能为空" />
+						</li>
+						<li class="Z-long">
+							<div class="Z_note">*商品价格：</div>
+							<input type="text" class="w100" placeholder="必须大于0" />
+						</li>
+						<li class="Z-long">
+							<div class="Z_note">*商品原价：</div>
+							<input type="text" class="w100" placeholder="必须大于0" />
+						</li>
+						<li class="Z-long">
+							<div class="Z_note">*商品库存：</div>
+							<input type="text" class="w100" placeholder="必须大于0" />
+						</li>
+						<li class="Z-long">
+							<div class="Z_note">商品图片：</div>
+							<div class="goods-image">
+								<div class="btn-file">
+									<a href="javascript:void(0)" class="btn btn-default">上传图片</a>
+									<input type="file" class="none" name="goods_image" />
+								</div>
+								<div class="btn-file">
+									<a href="javascript:void(0)" class="btn btn-default">从图库选择</a>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<h3 class="title">商品详情</h3>
+					<div class="Z-new_table">
+						<ul>
+							<li>
+								<div class="Z_note">商品属性：</div>
+								<div class="goods-attr">
+									<div class="cg-attr-lists">
+				                    	<div class="attr-lists">
+											<div class="attr-node">
+				                                <input type="text" name="attr_title[]" placeholder="属性标题" />
+				                                <input type="text" name="attr_value[]" placeholder="属性值"/>
+				                                <a class="prev" href="javascript:void(0)">向上</a><a class="next" href="javascript:void(0)">向下</a><a class="del" href="javascript:void(0)">移除</a>
+				                            </div>
+				                    	</div>
+				                        <div>
+				                        	<a href="javascript:void(0)" class="btn-add-attr btn btn-default">新增属性</a>
+				                        </div>
+				                    </div>
+								</div>
+							</li>
+							<li>
+								<div class="Z_note">图片视频：</div>
+								<div class="goods-img-mv">
+									<div class="btn-file">
+										<a href="javascript:void(0)" class="btn btn-default">上传图片</a>
+										<input type="file" class="none" name="goods_image" />
+									</div>
+									<div class="btn-file">
+										<a href="javascript:void(0)" class="btn btn-default">上传视频</a>
+										<input type="file" class="none" name="goods_image" />
+									</div>
+									<div class="up-image-body">
+										<ul>
+											<li><img src="/assets/upload/goods/12.jpg" /><a class="del" href="javascript:void(0)">X</a></li>
+											<li><img src="/assets/upload/goods/12.jpg" /><a class="del" href="javascript:void(0)">X</a></li>
+											<li><img src="/assets/upload/goods/12.jpg" /><a class="del" href="javascript:void(0)">X</a></li>
+											<li><img src="/assets/upload/goods/12.jpg" /><a class="del" href="javascript:void(0)">X</a></li>
+										</ul>
+									</div>
+									
+									<div class="btn-file">
+										<a href="javascript:void(0)" class="btn btn-default">从图库选择</a>
+									</div>
+									<div class="btn-file">
+										<a href="javascript:void(0)" class="btn btn-default">从视频库选择</a>
+									</div>
+									<div class="up-image-body">
+										<ul>
+											<li><img src="/assets/upload/goods/12.jpg" /><a class="del" href="javascript:void(0)">X</a></li>
+											<li><img src="/assets/upload/goods/12.jpg" /><a class="del" href="javascript:void(0)">X</a></li>
+											<li><img src="/assets/upload/goods/12.jpg" /><a class="del" href="javascript:void(0)">X</a></li>
+											<li><img src="/assets/upload/goods/12.jpg" /><a class="del" href="javascript:void(0)">X</a></li>
+										</ul>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<h3 class="title">物流信息</h3>
+					<div class="Z-new_table freight-info">
+						<ul>
+							<li>
+								<div class="Z_note">所在地：</div>
+								<div class="select-city">
+									<select class="province" data-value="" data-first-title="选择省" disabled="disabled"></select>
+									<select class="city" data-value="" data-first-title="选择市" disabled="disabled"></select>
+								</div>
+							</li>
+							<li>
+								<div class="Z_note">运费：</div>
+								<div class="goods_freight">
+									<div class="gf">
+										<span><input checked="checked" name="transport_id" type="radio" />固定运费</span>
+										<div class="f1">
+											<input value="0.00" class="w80" type="text" />
+										</div>
+									</div>
+									<div class="gf">
+										<span><input type="radio" name="transport_id" />固定运费</span>
+										<div class="f2">
+											<a class="btn-mini">选择运费模板</a>
+										</div>
+									</div>
+									<p>运费设置为 0 元，前台商品将显示为免运费。</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<h3 class="title">发票信息</h3>
+					<div class="Z-new_table freight-info">
+						<ul>
+							<li>
+								<div class="Z_note">是否开发票：</div>
+								<div class="goods_freight goods_vat">
+									<div class="gf">
+										<span><input checked="checked" name="goods_vat" value="1" type="radio" />是</span>
+									</div>
+									<div class="gf">
+										<span><input type="radio" value="2" name="goods_vat" />否</span>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<h3 class="title">其他信息</h3>
+					<div class="Z-new_table freight-info">
+						<ul>
+							<li>
+								<div class="Z_note">本店分类：</div>
+								<div class="select-store-class">
+									<select name="depot_classify11">
+										
+									</select>
+								</div>
+							</li>
+							<li>
+								<div class="Z_note">商品发布：</div>
+								<div class="goods_freight">
+									<div class="gf">
+										<span><input checked="checked" name="depot_flag2" value="1" type="radio" />立即发布</span>
+									</div>
+									<div class="gf">
+										<span><input type="radio" value="2" name="depot_flag2" />放入仓库</span>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="Z-input_box">
+						<div class="Z-input_button">发布</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript" th:src="@{/assets/js/jquery.cxselect.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jq_select.js}"></script>
+</div>
+	
+	
+	
+	

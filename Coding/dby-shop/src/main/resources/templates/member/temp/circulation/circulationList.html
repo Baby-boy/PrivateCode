@@ -1,0 +1,45 @@
+<div th:fragment="main" th:remove="tag">
+
+	<yd:ajax key="circulationGoods" value="get.circulation_goods"  />
+	<yd:ajax key="circulationDelete" value="get.circulation_delete" />
+	<yd:ajax key="circulationDetails" value="get.circulation_details" />
+	
+	
+	<div class="d-right member-with-list">
+
+		
+		
+		<div class="publish pop">
+			<div class="f-publish">
+				<div class="f-number">
+					<ul class="clear">
+						<li class="w110">名称</li>
+						<li class="w120">手机号码</li>
+						<li class="w400">商品名称</li>
+						<li class="w130">创建时间</li>
+						<li class="w200">操作</li>
+					</ul>
+				</div>
+			</div>
+			<div class="f-number2 f-number3" th:each="item:${data}" th:inline="text">
+				<ul class="clear">
+					<li class="w110">[[${item.user_name}]]</li>
+					<li class="w120">[[${item.user_phone}]]</li>
+					<li class="w400">[[${item.goods_name}]]</li>
+					<li class="w130">[[${item.created_time}]]</li>
+					<li class="w200">
+						<a href="javascript:;" onclick="circulationDetails(this)" th:attr="data-id=${item.id}" class="details">详情</a>
+						<a href="javascript:;" class="delete del-alert" data-func="circulationDelete" th:attr="data-id=${item.id}">删除</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 分页 -->
+		<div class="pagination"></div>
+	</div>
+	<script th:inline="javascript">
+		$(function() {
+			pagination(".pagination", [[${totalPage}]], [[${p}]], "circulationGoods");
+		});
+	</script>
+</div>

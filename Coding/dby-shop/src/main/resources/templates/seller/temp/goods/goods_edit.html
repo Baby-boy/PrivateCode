@@ -1,0 +1,357 @@
+<div th:fragment="main" th:remove="tag">
+	<div class="Z_g-right goods-create-page">
+		<yd:ajax key="getClass" value="get.classify"  />
+		<yd:ajax key="goodsUpdate" value="get.goods_update"  />
+		<yd:ajax key="getGoodsType" value="get.get_goods_type"  />
+		
+		<script th:inline="javascript">
+			treeEachOption([[${classStoreData}]], "请选择本店分类", ".select-store-class select");
+		</script>
+		<div class="Z-acc1-1">
+			<div class="Z-title_inf">
+				编辑商品
+			</div>
+			
+			<!--更改信息-->
+			<div class="Z-address_information">
+				<form class="form-ajax-sub" data-func="goodsUpdate">
+				<input type="hidden" value="0" name="type_id" />
+				<input type="hidden" name="depotId" />
+				<input type="hidden" name="goodsId" />
+				<h3 class="title">商品基本信息</h3>
+				<div class="Z-new_table">
+					<ul>
+						<li>
+							<div class="Z_note">*商品分类：</div>
+							<div class="select-class">
+								<select th:attr="data-class-id=${data.depotClassify1}" data-error-info="请选择一级分类" data-verify="true" name="depot_classify1" data-value="" data-first-title="选择一级分类">
+									<option value="">选择一级分类</option>
+									<option th:each="item:${classData}" th:inline="text" th:attr="value=${item.classId}">[[${item.classTitle}]]</option>
+								</select>
+								<select th:attr="data-class-id=${data.depotClassify2}" data-error-info="请选择二级分类" data-verify="true" style="display:none;" name="depot_classify2" data-first-title="选择二级分类" disabled="disabled"></select>
+								<select th:attr="data-class-id=${data.depotClassify3}" data-error-info="请选择三级分类" data-verify="true" style="display:none;" name="depot_classify3" data-first-title="选择三级分类" disabled="disabled"></select>
+							</div>
+						</li>
+						<li class="Z-long">
+							<div class="Z_note">*商品名称：</div>
+							<input data-error-info="请输入商品名称" data-verify="true" type="text" name="goodsName" placeholder="请输入商品名称" />
+						</li>
+						<li class="Z-long">
+							<div class="Z_note">*商品货号：</div>
+							<input data-error-info="请输入商品货号" data-verify="true" type="text" name="goodsSerialnumber" placeholder="请输入商品货号" />
+						</li>
+						<li class="Z-long">
+							<div class="Z_note">*商品价格：</div>
+							<input data-error-info="请输入商品价格" data-verify="true" type="text" name="depotPrice" class="w100" placeholder="必须大于0" />
+						</li>
+						<li class="Z-long">
+							<div class="Z_note">*商品原价：</div>
+							<input data-error-info="请输入商品价格" data-verify="true" type="text" name="depotOriginalPrice" class="w100" placeholder="必须大于0" />
+						</li>
+						<li class="Z-long">
+							<div class="Z_note">*商品库存：</div>
+							<input data-error-info="请输入商品库存" data-verify="true" type="text" name="depotStock" class="w100" placeholder="必须大于0" />
+						</li>
+						<!-- 
+						<li class="Z-long">
+							<div class="Z_note">商品主图：</div>
+							<span class="goods-cover" style="display: inline-block">
+								<img th:src="${goods_url}+${data.goodsCover}" />
+							</span>
+							<div class="goods-image">
+								<div class="btn-file">
+									<input type="hidden" name="goods_cover" th:value="${data.goodsCover}" />
+									<a href="javascript:void(0)" class="btn btn-default">重新上传</a>
+									<input type="file" data-upload-code="goodsCover" id="goodsCover" data-btn="upload" class="none" accept="image/png,image/gif,image/jpeg" />
+								</div>
+								
+								<div class="btn-file">
+									<a href="javascript:void(0)" class="btn btn-default">从图库选择</a>
+								</div>
+								
+							</div>
+						</li>
+						 -->
+						 <li>
+								<div class="Z_note">*商品图片：</div>
+								<div class="goods-img-mv">
+									<div class="btn-file">
+										<a href="javascript:void(0)" class="btn btn-default">上传图片</a>
+										<input type="file" data-upload-code="goodsPics" id="goodsPics" data-btn="upload" class="none" />
+									</div>
+									<!-- 
+									<div class="btn-file">
+										<a href="javascript:void(0)" class="btn btn-default">上传视频</a>
+										<input type="file" class="none" name="goods_image2" />
+									</div>
+									-->
+									<div class="up-image-body up-image-goods-pics">
+										<input type="hidden" name="goodsPics" value="" />
+										<ul></ul>
+									</div>
+									
+									<!-- 
+									<div class="btn-file">
+										<a href="javascript:void(0)" class="btn btn-default">从图库选择</a>
+									</div>
+									<div class="btn-file">
+										<a href="javascript:void(0)" class="btn btn-default">从视频库选择</a>
+									</div>
+									<div class="up-image-body">
+										<ul>
+											<li><img src="http://woadby.oss-cn-beijing.aliyuncs.com/dby/0797f32f-9846-45d5-91e8-1d482e41acd5.jpg" /><a class="del" href="javascript:void(0)">X</a></li>
+											<li><img src="http://woadby.oss-cn-beijing.aliyuncs.com/dby/0797f32f-9846-45d5-91e8-1d482e41acd5.jpg" /><a class="del" href="javascript:void(0)">X</a></li>
+											<li><img src="http://woadby.oss-cn-beijing.aliyuncs.com/dby/0797f32f-9846-45d5-91e8-1d482e41acd5.jpg" /><a class="del" href="javascript:void(0)">X</a></li>
+											<li><img src="http://woadby.oss-cn-beijing.aliyuncs.com/dby/0797f32f-9846-45d5-91e8-1d482e41acd5.jpg" /><a class="del" href="javascript:void(0)">X</a></li>
+										</ul>
+									</div>
+									 -->
+								</div>
+							</li>
+					</ul>
+					<h3 class="title">商品详情</h3>
+					<div class="Z-new_table">
+						<ul>
+							<li class="goods-brand goods-c-e" style="display: none;">
+								<div class="Z_note">商品品牌：</div>
+								<div class="goods-brand-select">
+									<input type="hidden" name="brand_name" value="" />
+									<select name="brand_id">
+										<option value="0">请选择品牌...</option>
+									</select>
+								</div>
+							</li>
+							
+							<li class="goods-attr-li" style="display: none;">
+								<div class="Z_note">商品属性：</div>
+								<div class="goods-attr-each">
+									
+								</div>
+							</li>
+							
+							<li>
+								<div class="Z_note">自定义属性：</div>
+								<div class="goods-attr">
+									<div class="cg-attr-lists">
+				                    	<div class="attr-lists">
+											<div class="attr-node">
+				                                <input type="text" name="attr_title" placeholder="属性标题" />
+				                                <input type="text" name="attr_value" placeholder="属性值"/>
+				                                <a class="prev" href="javascript:void(0)">向上</a><a class="next" href="javascript:void(0)">向下</a><a class="del" href="javascript:void(0)">移除</a>
+				                            </div>
+				                    	</div>
+				                        <div>
+				                        	<a href="javascript:void(0)" class="btn-add-attr btn btn-default">新增属性</a>
+				                        </div>
+				                    </div>
+								</div>
+							</li>
+							<li>
+								<div class="Z_note">商品内容：</div>
+								<div class="">
+									<div class="">
+				                    	<textarea th:inline="text" name="goodsContent"  style="width:600px;height:120px; padding: 8px 10px;">[[${data.goodsContent}]]</textarea>
+				                    </div>
+								</div>
+							</li>
+							
+							<li>
+								<div class="Z_note">详情图片：</div>
+								<div class="goods-img-mv">
+									<div class="btn-file">
+										<a href="javascript:void(0)" class="btn btn-default">上传图片</a>
+										<input type="file" data-upload-code="goodsContentPics" id="goodsContentPics" data-btn="upload" class="none" />
+									</div>
+									<div class="up-image-body up-image-goods-content-pics">
+										<input type="hidden" name="goods_content_pics" value="" />
+										<ul></ul>
+									</div>
+			                    </div>
+							</li>
+						</ul>
+					</div>
+					<h3 class="title">物流信息</h3>
+					<div class="Z-new_table freight-info">
+						<ul>
+							<li>
+								<div class="Z_note">所在地：</div>
+								<div class="select-city">
+									<select name="goodsProvinceId" class="province" data-value="" data-first-title="选择省" disabled="disabled"></select>
+									<select name="goodsCityId" class="city" data-value="" data-first-title="选择市" disabled="disabled"></select>
+								</div>
+							</li>
+							<li>
+								<div class="Z_note">运费：</div>
+								<div class="goods_freight">
+									<div class="gf">
+										<!-- <span><input checked="checked" name="transport_id" type="radio" />固定运费</span> -->
+										<div class="f1">
+											<input data-error-info="请输入商品运费" data-verify="true" name="goodsFreight" placeholder="0" class="w80" type="text" />
+										</div>
+									</div>
+									<!-- 
+									<div class="gf">
+										<span><input type="radio" name="transport_id" />固定运费</span>
+										<div class="f2">
+											<a class="btn-mini">选择运费模板</a>
+										</div>
+									</div>
+									<p>运费设置为 0 元，前台商品将显示为免运费。</p> -->
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!-- 
+					<h3 class="title">发票信息</h3>
+					<div class="Z-new_table freight-info">
+						<ul>
+							<li>
+								<div class="Z_note">是否开发票：</div>
+								<div class="goods_freight goods_vat">
+									<div class="gf">
+										<span><input checked="checked" name="goods_vat" value="1" type="radio" />是</span>
+									</div>
+									<div class="gf">
+										<span><input type="radio" value="2" name="goods_vat" />否</span>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					 -->
+					<h3 class="title">其他信息</h3>
+					<div class="Z-new_table freight-info">
+						<ul>
+							<li>
+								<div class="Z_note">本店分类：</div>
+								<div class="select-store-class">
+									<select name="depot_classify11" data-error-info="请选择本店分类" data-verify="true" data-value="">
+										
+									</select>
+								</div>
+							</li>
+							<li>
+								<div class="Z_note">商品发布：</div>
+								<div class="goods_freight">
+									<div class="gf">
+										<span><input name="depot_is_available" value="1" type="radio" />立即发布</span>
+									</div>
+									<div class="gf">
+										<span><input type="radio" value="2" name="depot_is_available" />放入仓库</span>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="Z-input_box">
+						<botton type="submit" class="btn btn-orange btn-lg btn-add-edit">保存</botton>
+					</div>
+				</div>
+			</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.cxselect.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jq_select.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/functions.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/upload/uploadnew.js}"></script>
+	<!-- <script type="text/javascript" th:src="@{/assets/js/kindeditor-4.1.10/kindeditor-all-min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/kindeditor.js}"></script> -->
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+		var data = [[${data}]];
+		var goods_url = [[${goods_url}]];
+		_goodsContentPics = [];
+		restoreFormInput( data , ".form-ajax-sub");
+		setTimeout(function() {
+			
+			_goodsPics = data.goodsPics.split(",");
+
+			// 详情图片
+			if ( data.goodsContentPics != "" ) {
+				_goodsContentPics = data.goodsContentPics.split(",");
+			}
+			
+			var selectData = {goodsProvinceId: data.goodsProvinceId, goodsCityId: data.goodsCityId};
+			restorePca(selectData, ".select-city");
+			
+			if ( data.depotClassify12 > 0 ) {
+				// 本店分类
+				$(".select-store-class select option[value='"+data.depotClassify12+"']").prop("selected", true);
+			} else {
+				// 本店分类
+				$(".select-store-class select option[value='"+data.depotClassify11+"']").prop("selected", true);
+			}
+			
+			// 商品上架-仓库
+			$(".goods_freight input[name='depot_is_available'][value='"+data.depotIsAvailable+"']").prop("checked", true);
+			
+			// 商品属性
+			if ( data.goodsAttrs != "" ) {
+				var dataAttrs = JSON.parse( data.goodsAttrs );
+				var str = '';
+				for(var ele in dataAttrs) {
+					str += '<div class="attr-node">'+
+		                '<input type="text" name="attr_title" value="'+dataAttrs[ele]["key"]+'" placeholder="属性标题" /> '+
+		                '<input type="text" name="attr_value" value="'+dataAttrs[ele]["value"]+'" placeholder="属性值" /> <a class="prev" href="javascript:void(0)">向上</a><a class="next" href="javascript:void(0)">向下</a><a class="del" href="javascript:void(0)">移除</a>'+
+		            '</div>';
+				}
+				$('.goods-create-page .attr-lists').html(str);
+			}
+			
+			// 商品图片列表
+			var str = '';
+			if ( _goodsPics.length > 0 ) {
+				for(var ele in _goodsPics) {
+					str += '<li data-img="'+_goodsPics[ele]+'"><img src="'+ goods_url + _goodsPics[ele] +'" /><a class="del" href="javascript:void(0)">X</a><a href="javascript:void(0)" class="btn-g btn-goods-left prev">←</a><a href="javascript:void(0)" class="btn-g btn-goods-right next">→</a></li>';					
+				}
+			}
+			$(".up-image-goods-pics ul").html(str);
+			
+			var str = '';
+			if ( _goodsContentPics.length > 0 ) {
+				for(var ele in _goodsContentPics) {
+					str += '<li data-img="'+_goodsContentPics[ele]+'"><img src="'+ goods_url + _goodsContentPics[ele] +'" /><a class="del" href="javascript:void(0)">X</a><a href="javascript:void(0)" class="btn-g btn-goods-left prev">←</a><a href="javascript:void(0)" class="btn-g btn-goods-right next">→</a></li>';					
+				}
+			}
+			$(".up-image-goods-content-pics ul").html(str);
+			
+			
+			// 商品选择属性
+			var dataSelectAttrs = [[${dataAttrs}]];
+			if ( dataSelectAttrs != "null" && dataSelectAttrs.length > 0 ) {
+				setTimeout(function() {
+					$.each(dataSelectAttrs, function(k, v) {
+						$(".goods-attr-each select[data-id='"+v.attr_id+"'] option[value='"+ v.attr_value_id +"']").prop("selected", true);
+					});
+				}, 500);
+			}
+			if ( data.brand_id != "" && data.brand_id > 0 ) {
+				setTimeout(function() {
+					$("select[name='brand_id'] option[value='"+ data.brand_id +"']").prop("selected", true);
+				}, 300);				
+			}
+		}, 300);
+		if ( $(".select-class").find("select[name='depot_classify1']").length > 0 ) {
+			$(".select-class").find("select[name='depot_classify1'] option[value='"+data.depotClassify1+"']").prop("selected", true);
+			$(".select-class").find("select[name='depot_classify1']").change();
+		}
+		
+		/* var articleAddEditor ;
+		 $(function(){
+			$(".btn-add-edit").click(function() {
+				 articleAddEditor.sync();
+			});
+			articleAddEditor = YD.createEditor("textarea[name='goodsContent']");
+			DBY.init({fun:function(node){
+				
+			}});
+		}); */
+	/*]]>*/
+	</script>
+	
+</div>
+	
+	
+	
+	

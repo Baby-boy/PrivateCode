@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: gcj
+Implementation-Version: 0.0.1
+Built-By: BabyBoy
+Implementation-Vendor-Id: com.yd.gcj
+Build-Jdk: 1.8.0_77
+Implementation-URL: http://projects.spring.io/spring-boot/gcj-manager/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+

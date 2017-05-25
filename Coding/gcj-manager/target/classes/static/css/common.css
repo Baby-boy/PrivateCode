@@ -1,0 +1,268 @@
+/*页码*/
+body{
+	background: #f7f7f7;
+}
+
+.tcdPageCode {
+	text-align: right;
+	margin-top: 40px;
+}
+.tcdPageCode .disabled,
+.tcdPageCode .prevPage,
+.tcdPageCode .nextPage {
+	display: inline-block;
+	*display: inline;
+	*zoom:1;
+	width: 63px;
+	height: 25px;
+	text-align: center;
+	line-height: 25px;
+	font-size: 14px;
+	color: #949494;
+	margin-right: 8px;
+}
+.tcdPageCode .tcdNumber,
+.tcdPageCode span {
+	width: 28px;
+	height: 28px;
+	text-align: center;
+	line-height: 28px;
+	font-size: 14px;
+	display: inline-block;
+	*display: inline;
+	*zoom:1;
+	color: #666666;
+	margin-right: 8px;
+}
+.tcdPageCode span.current {
+	background: #3CC8B4;
+	color: #fff;
+}
+.yd-page{
+	margin-top:10px;
+	width: 100%;
+	height:auto;
+	overflow: hidden;
+}
+.yd-page span{
+	float: right;
+	color:#666;
+	font-size: 14px;
+	margin:5px 0 0 15px;
+	cursor: pointer;
+}
+.yd-page ul{
+	float: right;
+}
+.yd-page ul li{
+	float: left;
+	color:#666;
+	font-size: 14px;
+	width: 28px;
+	height: 28px;
+	text-align: center;
+	line-height: 28px;
+	cursor: pointer;
+}
+.yd-page ul li.active{
+	background: #3cc8b4;
+	color:#fff;
+}
+
+/*任务公共*/
+#yd-task{
+	width: 100%;
+	min-width:1200px;
+	height:auto;
+	overflow: hidden;
+	margin:15px 0 50px;
+}
+.yd-task-wrap{
+	width: 1200px;
+	height: auto;
+	overflow:hidden;
+	margin:0 auto;
+}
+.yd-task-top{
+	background: #fff;
+	padding:18px 30px;
+	overflow: hidden;
+}
+.yd-task-title{
+	width: 100%;
+	overflow: hidden;
+	height:auto;
+}
+.yd-task-title h1{
+	color:#3cc8b4;
+	font-size: 18px;
+	font-weight: normal;
+	float: left;
+}
+.yd-task-title span{
+	float: right;
+	color:#999;
+	font-size: 12px;
+}
+.yd-task-text{
+	margin-top: 28px;
+}
+.yd-task-left{
+	float: left;
+}
+.yd-task-people{
+	float: left;
+	overflow: hidden;
+	border-right:1px solid #eee;
+	width: 289px;
+}
+.yd-num{
+	color:#999;
+	font-size: 14px;
+}
+.yd-task-text i{
+	background: url(../images/work/img.png) no-repeat;
+	display: inline-block;
+	margin-right: 10px;
+	margin-top: 3px;
+}
+.yd-num i{
+	background-position:0 -51px;
+	width: 18px;
+	height: 16px;
+}
+.yd-end{
+	overflow: hidden;
+	margin-top: 13px;
+}
+.yd-end i{
+	background-position: 0 -33px;
+	width: 18px;
+	height: 18px;
+}
+.yd-end strong{
+	color:#999;
+	font-size: 14px;
+	font-weight: normal;
+}
+.yd-end p{
+	color:#999;
+	font-size: 12px;
+	display: inline-block;
+	*display: inline;
+}
+.yd-end p span{
+	color:#ff6535;
+	font-size: 18px;
+}
+.yd-locat{
+	float: left;
+	margin-left:40px;
+	*display: inline;
+	zoom:1;
+}
+.yd-minlocat{
+	color:#999;
+	font-size: 14px;
+	display: block;
+}
+.yd-minlocat i{
+	background-position:0 0;
+	width: 13px;
+	height: 17px; 
+}
+.yd-fly{
+	color:#999;
+	font-size: 14px;
+	display: block;
+	margin-top: 13px;
+}
+.yd-fly i{
+	background-position:0 -17px;
+	width: 17px;
+	height: 16px;
+}
+.yd-btn-div{
+	width: 240px;
+	float:right;
+}
+.yd-btn{
+	display:block;
+	width: 208px;
+	height: 33px;
+	border:1px solid #3cc8b4;
+	color:#3cc8b4;
+	font-size: 16px;
+	text-align: center;
+	line-height: 33px;
+	transition:all .3s;
+}
+.yd-btn:hover{
+	background: #3cc8b4;
+	color:#fff;
+}
+.yd-btn-sc{
+	margin-top:-25px;
+	margin-bottom:10px;
+}
+.yd-btn-a{
+	
+}
+.yd-btn-min{
+	width: 100px;
+	height: 32px;
+	color:#fff;
+	font-size: 14px;
+	text-align: center;
+	line-height: 32px;
+	border:none;
+	*border:0 none;
+	outline: none;
+	border-radius: 2px;
+	-webkit-border-radius:2px;
+	-moz-border-radius:2px;
+}
+.yd-btn-color{
+	background: #3cc8b4;
+}
+.yd-btn-sub{
+	margin-right: 30px;
+}
+.yd-brn-right{
+	margin-right: 10px;
+}
+.yd-btn-pall{
+	background: #ccc;
+}
+.yd-task-bottom{
+	margin-top: 10px;
+	overflow: hidden;
+	width: 100%;
+}
+.yd-detail-big{
+	background: #fff;
+	width: 100%;
+	overflow: hidden;
+}
+.yd-detail{
+	overflow: hidden;
+	border-bottom:1px solid #eee;
+	background: #fff;
+	padding-top:15px;
+	margin:0 30px;
+}
+.yd-detail li{
+	float: left;
+	color:#666;
+	font-size: 14px;
+	padding-bottom:15px;
+	margin-left: 38px;
+	cursor: pointer;
+}
+.yd-detail li:first-child{
+	margin-left: 0;
+}
+.yd-detail li.active{
+	color:#3cc8b4;
+	border-bottom:2px solid #3cc8b4;
+}

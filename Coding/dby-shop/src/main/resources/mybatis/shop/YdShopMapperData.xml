@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperData">
+
+	<select id="get_many" resultType="java.util.Map">
+		SELECT * FROM yd_data where
+		type = #{type} ORDER BY sort ASC, id ASC
+	</select>
+
+
+	<select id="get_random" resultType="java.util.Map">
+		SELECT * FROM yd_data where
+		type = #{type} ORDER BY RAND() LIMIT 5;
+	</select>
+
+
+	<select id="get_only" resultType="java.util.Map">
+		SELECT * FROM yd_data where	type = #{type} LIMIT 1;
+	</select>
+
+
+</mapper>

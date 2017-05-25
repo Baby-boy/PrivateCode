@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet"
+	href="http://tool.oschina.net/css/basic.css?20120912" />
+<link rel="stylesheet"
+	href="http://tool.oschina.net/tools/json_format/s.css" />
+<link rel="stylesheet"
+	href='http://tool.oschina.net/js/bootstrap/css/bootstrap.min.css' />
+<script type="text/javascript"
+	src='http://tool.oschina.net/js/jquery/jquery-1.7.2.js'></script>
+<script type="text/javascript" src="test.js"></script>
+</head>
+
+<body>
+	<div class="toolUsing clearfix">
+		<div class="topBar">
+			<textarea name="json" id="RawJson" style="resize: none;"
+				class="resizable"></textarea>
+		</div>
+		<div class="operateTB form-inline">
+			<input class="btn btn-small btn-primary"
+				data-loading-text="正在格式化json..." id="format" type="button"
+				onclick="Process()" value="格式化" />
+		</div>
+		<div id="Canvas" class="Canvas well resizable"
+			style="height: 200px; overflow: auto; margin-bottom: 0px;"></div>
+	</div>
+</body>
+</html>

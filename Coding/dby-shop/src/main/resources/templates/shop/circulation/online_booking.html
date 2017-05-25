@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="keywords" content=""/>
+		<meta name="description" content=""/>
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')},
+	navs=${@_nav.getByType('0')}
+	">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: home('')" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(circulation)" th:remove="tag"></div>
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		<!-- 中间内容 -->
+		<form id="myform" class="form-ajax-sub" data-func="onlinebookingStore" action="">
+		<div id="container" style="margin: 0px auto;">
+			<div class="site-map">
+				<a href="#">流通置换</a><span>&gt;</span>
+				<a href="#">线上预约</a>
+			</div>
+			<div class="online-book">
+				<h2>联系方式</h2>
+				<ul>
+					<li>
+						<label for="">姓名</label>
+						<input name="user_name" type="text" value="" placeholder="请输入您的姓名" style="width: 180px;" />
+					</li>
+					<li>
+						<label for="">联系方式</label>
+						<input name="user_phone" type="text" value="" placeholder="请输入您的电话号码" />
+					</li>
+					<li>
+						<label for="">所在地区</label>
+						<div class="select-city">
+							<select data-verify="true" data-error-info="请选择省" name="address_province_id" class="province" data-value="" data-first-title="选择省" disabled="disabled"></select>
+							<select data-verify="true" data-error-info="请选择市" name="address_city_id" class="city" data-value="" data-first-title="选择市" disabled="disabled"></select>
+							<input type="hidden" data-pca="pca" name="address_pca" />
+						</div>
+					</li>
+					<li>
+						<label for="">详细地址</label>
+						<input name="user_address" type="text" value="" placeholder="请输入您的详细地址" />
+					</li>
+				</ul>
+			</div>
+			
+			<div class="online-book" style="margin-top: 10px;">
+				<h2>商品信息</h2>
+				<ul>
+					<li>
+						<label for="">商品标题</label>
+						<input name="goods_name" type="text" value="" placeholder="请输入您的标题" />
+					</li>
+					<li>
+						<input type="file" style="display: none" data-upload-code="ctcPics" accept="image/gif,image.jpg,image/png" id="ctcPics" data-btn="upload" class="none" />
+						<label for="">商品描述</label>
+						<div class="enclosure">
+							<dl id="ossfile"></dl>
+							<div class="add-pic">
+								<span></span>
+							</div>
+						</div>
+					</li>
+					<li style="padding: 0;">
+						<div class="agreement">
+							<input id="ch" checked="checked" name="check" type="checkbox" value="1" />
+							<a href="#">同意《流通置换》协议</a>
+						</div>
+					</li>
+					<li>
+						<div class="submit">
+							<input type="button" class="btn-add-edit" id="up" value="提  交" />
+						</div>
+					</li>
+				</ul>
+			</div>
+			
+		</div>
+		</form>
+		<!-- 中间内容结束 -->
+		
+				<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		
+		
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		
+		
+		<script type="text/javascript" th:src="@{/assets/js/functions.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/upload/uploadnew.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/js/online_book.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/js/jquery.cxselect.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/js/jq_select.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/seller/js/store.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/js/common.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/js/jquery.ajax.js}"></script>
+		
+		<script type="text/javascript">
+		
+		$(function() {
+			$(".enclosure .add-pic span").click(function() {
+				$("#ctcPics").click();
+			});
+			
+			
+			
+			/*
+			$("#up").click(function(){
+				if ( $("#ch").prop("checked") == false ) {
+					alert("请勾选  同意《流通置换》协议");
+					return;
+				}
+				var json = $('#myform').serializeObject();
+				console.log(json);
+				return;
+				$.ajax({
+		            url:"/circulation/appointment",
+		            type:"post",
+		            data:$('#myform').serialize(),
+		            success:function(data){
+		            	alert("发布成功！");
+		            	window.reload();
+		            },
+		            error:function(e){
+		            	alert("发布失败");
+		            }
+		        }); 
+			});
+			*/
+		});
+		
+		</script>
+	</body>
+</html>

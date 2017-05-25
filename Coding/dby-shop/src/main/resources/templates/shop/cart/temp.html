@@ -1,0 +1,42 @@
+	<div th:fragment="list(value)">
+		<ul class="cart-list" th:each="item:${value}">
+			<li class="choice">
+				<span></span>
+				<input type="checkbox" />
+			</li>
+			<li class="picture">
+				<a href="c2c_details.html"><img th:src="${item.goods_cover}" /></a>
+			</li>
+			<li class="title">
+				<a href="c2c_details.html" >经典商务双肩包 黑色</a>
+			</li>
+			<li class="price">
+				<span th:text="${item.depot_original_price}">99</span>元
+				<div class="promotion">
+					<p>促销优惠</p>
+					<div class="content">
+						<dl>
+							<dd><input type="radio" name="sale" value="1" />满200减50</dd>
+							<dd><input type="radio" name="sale" value="1" />满5.9加5.90可换购商品</dd>
+							<dd><input type="radio" name="sale" value="1" />不适用活动优惠</dd>
+						</dl>
+						<div class="btn-wrap">
+							<input class="sure" type="submit" value="确定" />
+							<input class="close" type="submit" value="取消" />
+						</div>
+					</div>
+				</div>
+			</li>
+			<li class="number">
+				<div class="num-control">
+					<span class="reduce">-</span>
+					<input type="text" th:value="${item.cart_num}" />
+					<span class="plus">+</span>
+				</div>
+			</li>
+			<li class="subtotal"><span th:text="${item.depot_original_price}">99</span>元</li>
+			<li class="handle">
+				<span>×</span>
+			</li>
+		</ul>
+	</div>

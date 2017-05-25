@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.system.mapper.YdMangerMapperSystemTaskType">
+	<!-- 后台 -->
+	<select id="queryAllTaskType" resultType="com.yd.gcj.entity.YdMangerTaskType" >
+		select taskt_id,taskt_name 
+		from yd_task_type
+		
+	</select>
+	
+	<select id="updateTaskTypeByTaskTypeId" resultType="com.yd.gcj.entity.YdMangerTaskType" >
+		select * from yd_task_type
+		where taskt_id = #{taskt_id}
+	</select>
+	
+	<update id="updateTaskType" parameterType="com.yd.gcj.entity.YdMangerTaskType" >
+		update yd_task_type
+		<set>
+			<trim>
+				taskt_name = #{taskt_name}
+			</trim>
+		</set>
+		where taskt_id = #{taskt_id}
+	</update>
+	
+	<delete id="deleteTaskTypeByTasktId" parameterType="java.lang.Integer">
+		delete from yd_task_type
+		where taskt_id = #{taskt_id}
+	</delete>
+	
+	<insert id="addTaskType" parameterType="com.yd.gcj.entity.YdMangerTaskType">
+		insert into yd_task_type(taskt_id,taskt_name)
+		value(#{taskt_id},#{taskt_name})
+	</insert>
+</mapper>

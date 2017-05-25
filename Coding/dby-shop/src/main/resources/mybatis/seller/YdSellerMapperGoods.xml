@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.d.seller.mapper.YdSellerMapperGoods">
+	<sql id="lists">
+		<trim prefix="where" suffixOverrides="and">
+			<if test="depot_type > 0">
+		  		 yd_depot.depot_type = #{depot_type} and 
+		  	</if>
+		  	<if test="depot_is_available > 0">
+		  		 yd_depot.depot_is_available = #{depot_is_available} and 
+		  	</if>
+		  	<if test="goods_name != null and goods_name != ''">
+		  		 yd_goods.goods_name like '%${goods_name}%' and 
+		  	</if>
+		  	yd_depot.store_id = #{store_id}
+		</trim>
+	</sql>
+	
+	<select id="index" resultMap="YdWebMapperSellerGoodsIndex">
+		select *, FROM_UNIXTIME(depot_is_available_time, '%Y-%m-%d %H:%i:%S') as depot_is_available_date from yd_depot left join yd_goods on yd_goods.goods_id = yd_depot.goods_id
+		<include refid="lists"></include>
+		order by yd_depot.depot_created_time desc limit #{to}, #{perPage};
+	</select>
+	
+	<select id="total" resultType="java.lang.Integer">
+		select count(*) from yd_depot left join yd_goods on yd_goods.goods_id = yd_depot.goods_id
+		<include refid="lists"></include>
+	</select>
+	
+	<resultMap id="YdWebMapperSellerGoodsIndex" type="java.util.HashMap">
+		<result property="goodsName" column="goods_name" />
+		<result property="goodsNum" column="goods_num" />
+		<result property="goodsSerialnumber" column="goods_serialnumber" />
+		<result property="storeId" column="store_id" />
+		<result property="goodsTotalSell" column="goods_total_sell" />
+		<result property="goodsTotalFav" column="goods_total_fav" />
+		<result property="goodsTotalComment" column="goods_total_comment" />
+		<result property="goodsTotalSee" column="goods_total_see" />
+		<result property="goodsContent" column="goods_content" />
+		<result property="goodsContentPics" column="goods_content_pics" />
+		<result property="goodsAttrs" column="goods_attrs" />
+		<result property="goodsPics" column="goods_pics" />
+		<result property="goodsCover" column="goods_cover" />
+		<result property="goodsProvinceId" column="goods_province_id" />
+		<result property="goodsCityId" column="goods_city_id" />
+		<result property="goodsFreight" column="goods_freight" />
+		<result property="goodsVat" column="goods_vat" />
+		
+		
+		<result property="depotId" column="depot_id" />
+		<result property="goodsId" column="goods_id" />
+		<result property="activityId" column="activity_id" />
+		<result property="depotType" column="depot_type" />
+		<result property="depotIsAvailable" column="depot_is_available" />
+		<result property="depotIsBail" column="depot_is_bail" />
+		<result property="depotIsPre" column="depot_is_pre" />
+		<result property="depotClassify0" column="depot_classify0" />
+		<result property="depotClassify1" column="depot_classify1" />
+		<result property="depotClassify2" column="depot_classify2" />
+		<result property="depotClassify3" column="depot_classify3" />
+		<result property="depotClassify11" column="depot_classify11" />
+		<result property="depotClassify12" column="depot_classify12" />
+		<result property="depotClassify13" column="depot_classify13" />
+		<result property="depotClassify10" column="depot_classify10" />
+		<result property="depotStock" column="depot_stock" />
+		<result property="depotPreStock" column="depot_pre_stock" />
+		<result property="depotPayStock" column="depot_pay_stock" />
+		<result property="depotPrice" column="depot_price" />
+		<result property="depotOriginalPrice" column="depot_original_price" />
+		<result property="depotMinBid" column="depot_min_bid" />
+		<result property="depotCurrentBid" column="depot_current_bid" />
+		<result property="depotIsBail" column="depot_is_bail" />
+		<result property="depotBail" column="depot_bail" />
+		<result property="depotLatestbidUserId" column="depot_latestbid_user_id" />	
+		<result property="depotIsAvailableTime" column="depot_is_available_time" />
+		<result property="depotIsAvailableDate" column="depot_is_available_date" />
+		<result property="depotCreatedTime" column="depot_created_time" />
+		<result property="depotTotalView" column="depot_total_view" />
+		<result property="depotTotalBid" column="depot_total_bid" />
+		<result property="tagId" column="tag_id" />
+	</resultMap>
+	
+	<insert id="storeGoods" useGeneratedKeys="true" keyProperty="goods_id">
+		INSERT
+			yd_goods
+			(
+				goods_name, goods_price, goods_num, store_id, goods_serialnumber,
+				goods_content, goods_content_pics, goods_pics, goods_attrs, goods_attr_select,
+				goods_cover, goods_province_id, goods_city_id, brand_id, brand_name,
+				goods_freight, goods_created_time
+			)
+		VALUE
+			(
+				#{goods_name}, #{goods_price}, #{goods_num}, #{store_id}, #{goods_serialnumber},
+				#{goods_content}, #{goods_content_pics}, #{goods_pics}, #{goods_attrs}, #{goods_attr_select},
+				#{goods_cover}, #{goods_province_id}, #{goods_city_id}, #{brand_id}, #{brand_name},
+				#{goods_freight}, #{goods_created_time}
+			);
+	</insert>
+	
+	<insert id="storeDepot" useGeneratedKeys="true" keyProperty="depot_id">
+		INSERT
+			yd_depot
+			(
+				goods_id, store_id, depot_type, depot_is_available,
+				depot_classify1, depot_classify2, depot_classify3,
+				depot_classify11, depot_classify12, depot_stock, depot_price,
+				depot_original_price, depot_is_available_time,
+				depot_created_time
+			)
+		VALUE
+			(
+				#{goods_id}, #{store_id}, #{depot_type}, #{depot_is_available},
+				#{depot_classify1}, #{depot_classify2}, #{depot_classify3},
+				#{depot_classify11}, #{depot_classify12}, #{depot_stock}, #{depot_price},
+				#{depot_original_price}, #{depot_is_available_time},
+				#{depot_created_time}
+			);
+	</insert>
+	
+	<update id="updateGoods" useGeneratedKeys="true" keyProperty="goods_id">
+		UPDATE
+			yd_goods
+		SET
+			goods_name = #{goodsName},
+			goods_price = #{goods_price},
+			goods_num = #{goods_num},
+			goods_attr_select = #{goods_attr_select},
+			goods_serialnumber = #{goodsSerialnumber},
+			goods_content = #{goodsContent},
+			goods_content_pics = #{goodsContentPics},
+			goods_pics = #{goods_pics},
+			goods_attrs = #{goodsAttrs},
+			goods_cover = #{goods_cover},
+			goods_province_id = #{goodsProvinceId},
+			goods_city_id = #{goodsCityId},
+			goods_freight = #{goodsFreight},
+			brand_id = #{brand_id},
+			brand_name = #{brand_name}
+		WHERE
+			goods_id = #{goodsId}
+	</update>
+	
+	<update id="updateDepot" useGeneratedKeys="true" keyProperty="goods_id">
+		UPDATE
+			yd_depot
+		SET
+			depot_is_available = #{depot_is_available},
+			depot_classify1 = #{depot_classify1},
+			depot_classify2 = #{depot_classify2},
+			depot_classify3 = #{depot_classify3},
+			depot_classify11 = #{depot_classify11},
+			depot_classify12 = #{depot_classify12},
+			depot_stock = #{depotStock},
+			depot_price = #{depotPrice},
+			depot_original_price = #{depotOriginalPrice}
+		WHERE
+			depot_id = #{depotId}
+	</update>
+	
+	
+	<update id="updateDepotActivity">
+		UPDATE yd_depot
+		<trim prefix="set" suffixOverrides=",">
+			<if test="depot_type != null">depot_type = #{depot_type},</if>
+			<if test="depot_min_bid != null">depot_min_bid = #{depot_min_bid},</if>
+			<if test="depot_pre_stock != null">depot_pre_stock = #{depot_pre_stock},</if>
+ 		</trim>
+		WHERE
+			depot_id = #{depot_id}
+	</update>
+	
+	
+	<select id="find" resultMap="YdWebMapperSellerGoodsIndex">
+		SELECT
+			*
+		FROM
+			yd_depot
+		LEFT JOIN
+			yd_goods
+		ON
+			yd_depot.`goods_id` = yd_goods.`goods_id`
+		WHERE
+			yd_depot.`depot_id` = #{id}
+	</select>
+	
+	<update id="destroy">
+		DELETE yd_depot, yd_goods FROM yd_goods LEFT JOIN yd_depot ON yd_depot.`goods_id` = yd_goods.`goods_id` WHERE yd_depot.`depot_id` = #{depot_id};
+	</update>
+	
+	
+	<!-- 商品上下架 -->
+	<update id="showhide">
+		UPDATE
+			yd_depot
+		SET
+			depot_is_available = #{up}
+		WHERE
+			depot_id = #{depot_id}
+	</update>
+</mapper>

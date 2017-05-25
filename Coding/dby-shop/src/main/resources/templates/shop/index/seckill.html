@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+	</head>
+	<body class="seckill-index-page" th:with="searchkeys=${@_dict.many('web_search_key')},
+	navs=${@_nav.getByType('0')}
+	">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: home('')" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(seckill)" th:remove="tag"></div>
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		
+		<!-- 二级banner --> 
+		<div class="second-banner">
+			<div class="banner">
+				<div class="block_home_slider">
+					<div id="home_slider" class="flexslider">
+						<ul class="slides" th:with="data=${@_banner.lists('seckill')}">
+							<li th:each="item:${data}"><a target="_blank" th:href="${item.banner_url}"> <img th:src="${@_url.goods()}+${item.banner_cover}" />
+							</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 内容 -->
+		<div id="container">
+			
+			<!-- 今日上新 -->
+			<div class="today-new">
+				<h2>今日上新</h2>
+				<div class="list">
+					<ul class="seckill-lists">
+						<li th:each="item: ${dataSeckill}" class="seckill-lists-item">
+							<div class="left">
+								<div class="img"><img th:src="${@_url.goods()}+${item.seckill_logo}" /></div>
+								<div class="line"></div>
+								<h3 th:text="${item.seckill_title}"></h3>
+								<p><small th:text="${item.seckill_subtitle}"></small></p>
+								<div class="link"><a target="_blank" th:href="@{/seckill/}+${item.seckill_id}">立即选购</a></div>
+							</div>
+							<div class="right">
+								<a target="_blank" th:href="@{/seckill/}+${item.seckill_id}">
+									<img th:src="${@_url.goods()}+${item.seckill_cover}" />
+									<div class="count-down"><span class="set-time" data-endtime="1561">剩3天</span></div>
+								</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<!-- 最后疯抢 -->
+			<div class="last-grab">
+				<h2>最后疯抢</h2>
+				<div class="list">
+					<ul>
+						<li th:each="item,niter:${@_cache.get('web_seckill_end')}" th:if="${niter.index} lt 12">
+							<div class="img">
+								<img th:src="@{http://res.zwzyd.com/dby/web__${item.img1}__}" />
+								<div class="count-down"><span class="set-time" th:attr="data-endtime=${item.time2}">剩3天</span></div>
+								<div class="text" th:if="${item.text3} neq ''"><span th:text="${item.text3}">满159元减30元</span></div>
+							</div>
+							<div class="bottom-info">
+								<span th:text="${item.text2}">低至8折</span>
+								<div class="info">
+									<div class="logo">
+										<a href="seckill_details.html"><img th:src="@{http://res.zwzyd.com/dby/web__${item.img2}__}" /></a>
+									</div>
+									<div class="title">
+										<a href="seckill.html" th:text="${item.text1}">fendi活动专场</a>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			
+		</div>
+		
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		
+		<script>
+			$(function(){
+				var time = $("span.surplus-time").attr("data-current");
+				setInterval(function(){
+					updateEndTime2("span.set-time",time);
+					updateEndTime1("span.surplus-time",time);
+					time++;
+				},1000);
+				
+				$(".groupon-page .col-name dl dd").mouseenter(function(){
+					$(this).addClass("active").siblings().removeClass("active");
+					$(".wrap-content .list ul").eq($(this).index()).show().siblings().hide();
+				});
+			});
+		</script>
+		
+	</body>
+</html>

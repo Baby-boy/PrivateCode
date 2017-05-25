@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperCirculation">
+	<select id="queryCirculationByUserId" resultType="java.util.HashMap" >
+		select * from yd_onlinebooking
+		where user_id = #{user_id}
+		limit #{to},#{perPage}	
+	</select>
+	
+	<select id="totalCirculation" resultType="java.lang.Integer" >
+		select count(id) from yd_onlinebooking
+		where user_id = #{user_id}
+	</select>
+	
+	<!-- 查询流通置换 详情 -->
+	<select id="circulationDetailes" resultType="com.yd.dby.c.member.entity.YdOnLineBookIng" >
+		select * from yd_onlinebooking
+		where id = #{id}
+	</select>
+	
+	<delete id="delete">
+		delete from yd_onlinebooking
+		where id = #{id} and user_id = #{user_id}
+	</delete>
+</mapper>

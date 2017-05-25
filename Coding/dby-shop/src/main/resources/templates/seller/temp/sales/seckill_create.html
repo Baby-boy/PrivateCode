@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="keywords" content=""/>
+		<meta name="description" content=""/>
+		<meta name="Authorization" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/css/yd-tipbox.css}" />
+		<link rel="stylesheet" th:href="@{/assets/member/css/member.css}" />
+		<link rel="stylesheet" th:href="@{/assets/member/css/member2.css}" />
+		<link rel="stylesheet" th:href="@{/assets/member/css/user.css}" />
+		<link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+		
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')},
+		navs=${@_nav.getByType('0')}
+		">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div> 
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: home('')" th:remove="tag"></div> 
+					<div th:include="shop/template/header :: nav(home)" th:remove="tag"></div> 
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		<div id="container">
+			<div class="g-content">
+				<div th:include="seller/temp/left" th:remove="tag"></div>
+
+				<div id="right">
+					<div class="d-right seckill-goods-create">
+					    <ul class="btn-page-top" data-btn-grid="grid">
+					      <li><a href="/seller/seckill">秒杀商品</a></li>
+					      <li class="active">新增秒杀商品</li>
+					    </ul>
+					    
+					    <div class="input-dl-all">
+					      <form class="form-ajax-sub" data-func="seckillGoodsStore">
+					      
+					      <input data-error-info="请选择商品" data-verify="true" type="hidden" name="depotId" id="depotId" />
+					      <dl class="select-goods">
+					        <dt>选择商品：</dt>
+					        <dd>
+					        	<input type="text" placeholder="输入商品名称进行搜索" name="price" class="text w200" />
+					        	<a class="btn btn-default btn-search-goods" href="javascript:;">搜索</a>
+					        </dd>
+					      </dl>
+					      <dl class="select-goods-lists">
+					        <dt>&nbsp;</dt>
+					        <dd class="seckill-goods-lists">
+					        	
+					        </dd>
+					      </dl>
+					      <dl>
+					        <dt>秒杀价格：</dt>
+					        <dd>
+					          <input type="text" data-error-info="请输入秒杀价格" data-verify="true" placeholder="请输入秒杀价格" name="price" class="text w200" />
+					        </dd>
+					      </dl>
+					      <dl>
+					        <dt>秒杀库存：</dt>
+					        <dd>
+					          <input type="text" data-error-info="请输入秒杀库存" data-verify="true" placeholder="" name="num" class="text w50" />
+					        </dd>
+					      </dl>
+					      <dl>
+					        <dt>&nbsp;</dt>
+					        <dd><botton type="submit" class="btn btn-orange btn-lg btn-add-edit">提交</botton></dd>
+					      </dl>
+					      </form>
+					    </div>
+						
+					    <!-- 分页 -->
+					    <div class="pagination"></div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- 底部 -->
+	<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+
+	<script type="text/javascript" th:src="@{/assets/js/jquery-1.11.1.min.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/shop/js/common.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/js/yd-tipbox-min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.page.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/store+json2.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.cxselect.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/js/jq_select.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/member/js/member.base.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/seller/js/store.get.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/seller/js/store.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/upload/plupload.full.min.js}" ></script>
+	
+	
+	</body>
+</html>

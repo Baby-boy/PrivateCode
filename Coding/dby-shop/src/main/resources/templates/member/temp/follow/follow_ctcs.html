@@ -1,0 +1,59 @@
+<div th:fragment="main" th:remove="tag">
+	<yd:ajax key="followdestroy" value="get.follow_destroy" />
+	<yd:ajax key="followgoods" value="get.follow_goods" />
+	<yd:ajax key="followctcs" value="get.follow_ctcs" />
+	<yd:ajax key="followstore" value="get.follow_store" />
+	
+	<div class="d-right follow-goods-page">
+		<ul class="btn-page-top">
+			<li onclick="followgoods($(this))">我收藏的商品</li>
+			<li onclick="followctcs($(this))" class="active">我收藏的寄卖</li>
+			<li onclick="followstore($(this))">我关注的店铺</li>
+		</ul>
+
+		<div class="j-shop pop">
+			<div class="j-stop">
+				<ul class="clear">
+					<li class="j-photos">商品图片</li>
+					<li class="j-name">商品名称</li>
+					<li class="j-price">价格</li>
+					<li class="j-operat">操作</li>
+				</ul>
+			</div>
+			<div class="j-sbottom">
+				<ul class="clear" style="overflow: hidden" th:each="item:${data}" th:inline="text">
+					<li class="j-photos"><div class="j-simg">
+							<a target="_blank" th:href="@{/ctc/CtcComment/}+${item.fav_fid}"><img
+								th:src="${@_url.goods()}+${item.ctc_cover}+@{?x-oss-process=image/resize,m_pad,h_81,w_81}" alt="" /></a>
+						</div></li>
+					<li class="j-name"><p>
+							<a target="_blank" th:href="@{/ctc/CtcComment/}+${item.fav_fid}">[[${item.ctc_name}]]</a>
+						</p> <span>收藏时间：[[${ #calendars.format(item.fav_created_time,'yyyy-MM-dd hh:mm:ss') }]]</span></li>
+					<li class="j-price">[[${item.ctc_price}]]</li>
+					<li class="j-operat"><a href="#" class="enjoy">分享给好友</a> <a href="javascript:;" class="enjoy btn-operate-alert" data-func="followdestroy" th:attr="data-id=${item.fav_id}">取消收藏</a></li>
+				</ul>
+			</div>
+			<!-- <div class="j-choose clear" style="overflow:hidden">
+				<div class="choose1">
+					<input type="checkbox" value=""/>
+						全选
+				</div>
+				<div class="choose2">加入购物车</div>
+				<div class="choose3">取消收藏</div>
+			</div> -->
+		</div>
+		<!-- 分页 -->
+		<div class="pagination"></div>
+	</div>
+
+	<script th:inline="javascript">
+		$(function() {
+			pagination(".pagination", [[${totalPage}]], [[${p}]], "followctcs");
+		
+		});
+	</script>
+</div>
+
+
+
+

@@ -1,0 +1,133 @@
+package com.yd.gcj.controller.page;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.yd.gcj.entity.YdMangerContract;
+import com.yd.gcj.entity.vo.YdMangerUserVo;
+import com.yd.gcj.service.YdMangerServiceContract;
+import com.yd.gcj.tool.MapInitFactory;
+
+@RestController
+@RequestMapping(value = "/page/contract", produces = { "application/json;charset=UTF-8" })
+public class YdMangerControllerPageContract {
+
+	@Autowired
+	private YdMangerServiceContract ydMangerServiceContract;
+
+	/**
+	 * 雇主编辑合同信息
+	 * 
+	 * @param tid(任务id)
+	 * @param eaddr(雇主地址)
+	 * @param ename(雇主姓名)
+	 * @param ephone(雇主电话)
+	 * @param pname(项目名称、代码)
+	 * @param pdesc(工程描述)
+	 * @param cp(保密协议)
+	 * @param sp(服务协议)
+	 * @param scsd(服务内容及深度要求)
+	 * @param durat(工期要求)
+	 * @param pad(甲方需要提交的资料)
+	 * @param pbr(乙方需要提交的成果)
+	 * @param paresp(甲方权利与责任)
+	 * @param pbresp(乙方权利与责任)
+	 * @param pay(合同款及支付)
+	 * @param dal(违约责任)
+	 * @param ce(合同生效及其他)
+	 * @param esig(合同雇主签字)
+	 * @param esiga(合同雇主代签名)
+	 * @param esigd(雇主签名时间)
+	 * @return
+	 */
+
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public Object update(Integer contractId, Integer taskId, String eaddr, String ename, String ephone, String sname,
+			String saddr, String sphone, String pname, String pdesc, String cp, String sp, String scsd, String durat,
+			String pad, String pbr, String paresp, String pbresp, String pay, String dal, String ce, String ssig,
+			String esig, Integer taskState, float price, Date contractPdescStart, Date contractPdescEnd,
+			HttpServletRequest request) {
+		try {
+			YdMangerUserVo userVo = (YdMangerUserVo) request.getSession().getAttribute("user");
+			if (userVo != null) {
+				YdMangerContract contract = new YdMangerContract();
+				// 客户端提交的数据，进行赋值
+				contract.setContract_id(contractId);
+				contract.setContract_tid(taskId);
+
+				contract.setContract_eaddr(eaddr);
+				contract.setContract_ename(ename);
+				contract.setContract_ephone(ephone);
+
+				contract.setContract_sname(sname);
+				contract.setContract_saddr(saddr);
+				contract.setContract_sphone(sphone);
+
+				contract.setContract_pname(pname);
+				contract.setContract_pdesc(pdesc);
+				contract.setContract_cp(cp);
+				contract.setContract_sp(sp);
+				contract.setContract_scsd(scsd);
+				contract.setContract_durat(durat);
+				contract.setContract_pad(pad);
+				contract.setContract_pbr(pbr);
+				contract.setContract_paresp(paresp);
+				contract.setContract_pbresp(pbresp);
+				contract.setContract_pay(pay);
+				contract.setContract_dal(dal);
+				contract.setContract_ce(ce);
+
+				contract.setContract_price(price);
+				contract.setContract_pdesc_start(contractPdescStart);
+				contract.setContract_pdesc_end(contractPdescEnd);
+				contract.setContract_ssig(ssig);
+				contract.setContract_ssigd(new SimpleDateFormat("yyyy-MM-dd").format(new Date()).toString());
+				contract.setContract_esig(esig);
+				contract.setContract_update_time(new Date());
+
+				return ydMangerServiceContract.$update(contract, userVo.getUser_type(), taskState);
+			} else {
+				return new MapInitFactory().setMsg("501", "登陆超时，请重新登陆！").getMap();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new MapInitFactory().setSystemError().getMap();
+		}
+	}
+
+	/***
+	 * 合同补充
+	 * 
+	 * @param contract_id
+	 * @param contract_supp
+	 * @return
+	 */
+	@RequestMapping("/supplementaryContract")
+	@ResponseBody
+	public Object supplementaryContract(Integer contract_id, String contract_supp) {
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			Integer updateNum = ydMangerServiceContract.supplementaryContract(contract_id, contract_supp);
+			if (updateNum > 0) {
+				map.put("msg", true);
+			} else {
+				map.put("msg", false);
+			}
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new MapInitFactory().setSystemError().getMap();
+		}
+
+	}
+}

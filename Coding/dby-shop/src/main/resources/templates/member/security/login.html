@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="Authorization" />
+<title></title>
+<link rel="stylesheet" th:href="@{/assets/css/common.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/yd-tipbox.css}" />
+<link rel="stylesheet" th:href="@{/assets/member/css/member.css}" />
+<link rel="stylesheet" th:href="@{/assets/member/css/member2.css}" />
+<link rel="stylesheet" th:href="@{/assets/member/css/user.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+</head>
+
+<body th:with="
+		conf=${@_conf.get('web_config')},
+		searchkeys=${@_dict.many('web_search_key')},
+		navs=${@_nav.getByType('0')}
+		">
+	<!--头部-->
+	<div class="Z-Login_header">
+		<div class="Z-Login_box">
+			<div class="Z-logo">
+				<a href="/"><img th:src="${@_url.goods()}+${@_redis.get('site_logo')}" /></a>
+			</div>
+			<ul>
+				<li class="Z-noline"><a href="/">首页</a></li>
+				<li><a href="/">APP</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!--banner--> 
+	<div class="Z-banner">
+		<div class="Z-banner_box">
+			<div class="Z-boxbac">
+				<span>欢迎登录</span>
+				<div class="Z-textinput">
+					<div class="Z-inputt">
+						<input type="text" placeholder="手机号" id="username" /> <img th:src="${@_url.images()}+'Z_mingchen.png'" alt="" />
+					</div>
+
+					<div class="Z-inputt">
+						<input type="password" placeholder="密码" id="password" /> <img th:src="${@_url.images()}+'Z_mima.png'" alt="" />
+					</div>
+
+					<div class="Z-jizhuzhanghao">
+						<input type="checkbox" value="" id="remember" />
+						<div>记住账号</div>
+					</div>
+
+					<div class="Z-botton_like">
+						<a href="#" onclick="auth0_event_member_login()">立刻登录</a>
+					</div>
+
+					<p>使用第三方账号登录 >></p>
+
+					<div class="Z-disanfang">
+						<div class="Z-qq">
+							<a target="_blank" href="/qq"> <img th:src="${@_url.images()}+'Z_qq.png'" />
+							</a>
+						</div>
+						<div class="Z-vx">
+							<a href="/wx/login"> <img th:src="${@_url.images()}+'Z_vx.png'" />
+							</a>
+						</div>
+					</div>
+
+					<div class="Z-bottom_tishi">
+						还不是多宝鱼会员？ <a href="/register">免费注册</a> <span> <a href="/forgetPwd">忘记密码？</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 底部 -->
+	<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+
+	<script type="text/javascript" th:src="@{/assets/js/jquery-1.11.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/common.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/yd-tipbox-min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.page.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/store+json2.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.cxselect.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jq_select.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/member/js/member.base.js}"></script>
+	<!-- <script type="text/javascript" th:src="@{/assets/member/js/member.store.js}" ></script> -->
+	<script type="text/javascript" th:src="@{/assets/seller/js/store.get.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/seller/js/store.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/upload/plupload.full.min.js}"></script>
+
+	<script src="https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+
+	<yd:ajax key="auth0_event_member_login" value="auth0_request_member_login" />
+	<yd:ajax key="auth0_event_member_autologin" value="auth0_request_member_autologin" />
+	<script type="text/javascript" th:src="@{/assets/auth.js}"></script>
+
+</body>
+</html>

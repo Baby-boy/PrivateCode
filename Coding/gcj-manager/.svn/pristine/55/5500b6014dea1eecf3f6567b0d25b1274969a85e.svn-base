@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperTask">
+	
+	<select id="$queryByPageNum"  resultMap="taskAndTender">
+		select 
+			task_id,task_num,task_uid,task_pname,task_paddr,task_term,task_discrip,task_sort,task_state,task_price,task_pnum,task_schedule,task_lear_state,task_hosting,task_host_price,task_start_time,task_end_time,task_create_time,task_update_time,task_contract_state
+			,(select count(*) from yd_tender tender where task.`task_id` = tender.`tender_tid`) tender_num
+		from 
+			yd_task task
+			where 1=1
+			<if test="taskTypeIds != null">
+				and task.task_id in (SELECT taskttr_tid FROM yd_task_typetr WHERE taskttr_ttid IN 
+				<foreach collection="taskTypeIds" item="id" index="index" open="(" close=")" separator=",">
+		            #{id}
+		        </foreach>
+				)
+			</if>
+			<if test="taskLabelIds != null">
+				and task.task_id in (SELECT taskl_tid FROM yd_task_label WHERE taskl_lid IN 
+				<foreach collection="taskLabelIds" item="id" index="index" open="(" close=")" separator=",">
+		            #{id}
+		        </foreach>
+				)
+			</if>
+			<!-- <if test="taskAddr != null and taskAddr != '0'">
+				and task.task_paddr like #{taskAddr}
+			</if> -->
+			<!-- <if test="taskState != null and taskState != -1">
+				and task.task_state = #{taskState}
+			</if>
+			<if test="taskTerm != null and taskTerm != ''">
+				and task.task_term = #{taskTerm}
+			</if> -->
+			 and task.task_state &gt; 0 and task.task_state &lt; 3
+			 ORDER BY task.task_create_time desc
+			limit #{startPageNum},#{queryPageNum}
+	</select>
+	
+	<select id="$queryByPageNumAndUserId"  resultMap="taskAndTender">
+		SELECT 
+			task_id,task_num,task_uid,task_pname,task_paddr,task_term,task_discrip,task_sort,task_state,task_price,task_pnum,task_schedule,task_lear_state,task_hosting,task_host_price,task_start_time,task_end_time,task_create_time,task_update_time,task_contract_state
+			,(select count(*) from yd_tender tender where task.`task_id` = tender.`tender_tid`) tender_num
+			,(SELECT COUNT(*) FROM yd_collection coll WHERE colle_uid = #{userId} AND task.`task_id` = coll.`colle_taskid` ) is_collect
+			,(select count(*) FROM yd_tender tender WHERE tender.`tender_uid` = #{userId} and task.`task_id` = tender.`tender_tid` ) is_apply
+		FROM 
+			yd_task task 
+			where 1=1
+			<if test="taskTypeIds != null">
+				and task.task_id in (SELECT taskttr_tid FROM yd_task_typetr WHERE taskttr_ttid IN 
+				<foreach collection="taskTypeIds" item="id" index="index" open="(" close=")" separator=",">
+		            #{id}
+		        </foreach>
+				)
+			</if>
+			<if test="taskLabelIds != null">
+				and task.task_id in (SELECT taskl_tid FROM yd_task_label WHERE taskl_lid IN 
+				<foreach collection="taskLabelIds" item="id" index="index" open="(" close=")" separator=",">
+		            #{id}
+		        </foreach>
+				)
+			</if>
+			 and task.task_state &gt; 0 and task.task_state &lt; 3
+			ORDER BY task.task_create_time desc
+			limit #{startPageNum},#{queryPageNum}
+	</select>
+	
+	
+	<select id="$queryByTaskE" resultType="com.yd.gcj.entity.vo.TaskVoNums">
+		SELECT  
+			(SELECT COUNT(*) FROM yd_task WHERE task_uid = #{userId} and task_state = 0) releaseNum,
+			(SELECT COUNT(*) FROM yd_task WHERE task_uid = #{userId} and task_state > 0 and task_state &lt;= 3) signedNum,
+			(SELECT COUNT(*) FROM yd_task WHERE task_uid = #{userId} and task_state = 4) workingNum,
+			(SELECT COUNT(*) FROM yd_task WHERE task_uid = #{userId} and task_state = 5) evaluationNum,
+			(SELECT COUNT(*) FROM yd_task WHERE task_uid = #{userId} and task_state = 6) endNum,
+			(SELECT COUNT(*) FROM yd_task WHERE task_uid = #{userId} and (task_state = 7 or task_state = 8)) refundNum
+	</select>
+	
+	<select id="$queryByTaskS" resultType="com.yd.gcj.entity.vo.TaskVoNums">
+		SELECT  
+			(SELECT COUNT(*) FROM yd_task task LEFT JOIN yd_tender tender ON tender.`tender_tid` = task.`task_id` WHERE tender.`tender_uid` = #{userId} and task_state = 1) tenderNum,
+			(SELECT COUNT(*) FROM yd_task task LEFT JOIN yd_tender tender ON tender.`tender_tid` = task.`task_id` WHERE tender.`tender_uid` = #{userId} and task_state > 1 and task_state &lt;= 3) signedNum,
+			(SELECT COUNT(*) FROM yd_task task LEFT JOIN yd_tender tender ON tender.`tender_tid` = task.`task_id` WHERE tender.`tender_uid` = #{userId} and task_state = 4) workingNum,
+			(SELECT COUNT(*) FROM yd_task task LEFT JOIN yd_tender tender ON tender.`tender_tid` = task.`task_id` WHERE tender.`tender_uid` = #{userId} and task_state = 5) evaluationNum,
+			(SELECT COUNT(*) FROM yd_task task LEFT JOIN yd_tender tender ON tender.`tender_tid` = task.`task_id` WHERE tender.`tender_uid` = #{userId} and task_state = 6) endNum,
+			(SELECT COUNT(*) FROM yd_task task LEFT JOIN yd_tender tender ON tender.`tender_tid` = task.`task_id` WHERE tender.`tender_uid` = #{userId} and (task_state = 7 or task_state = 8)) refundNum
+	</select>
+	
+	
+	<select id="$queryByEId" resultType="com.yd.gcj.entity.vo.YdMangerTaskVo">
+		select 
+			task_id,task_num,task_uid,task_pname,task_paddr,task_term,task_discrip,task_sort,task_state,task_price,task_pnum,task_schedule,task_lear_state,task_hosting,task_host_price,task_start_time,task_end_time,task_create_time,task_update_time,task_contract_state
+			,(select count(*) from yd_tender tender where task.`task_id` = tender.`tender_tid`) tender_num
+		from 
+			yd_task task
+		where 
+			task_uid = #{userId}
+			<if test="taskState == 0"> and task_state = 0</if>
+			<if test="taskState == 1"> and task_state > 0 and task_state &lt;= 3</if>
+			<if test="taskState == 2"> and task_state = 4</if>
+			<if test="taskState == 3"> and task_state = 5</if>
+			<if test="taskState == 4"> and task_state = 6</if>
+			<if test="taskState == 5"> and (task_state = 7 or task_state = 8)</if>
+	</select>
+	
+	<select id="$queryNameAndIdByEId" resultType="com.yd.gcj.entity.YdMangerTask">
+		select 
+			task_id,task_pname
+		from 
+			yd_task
+		where 
+			task_uid = #{userId}
+	</select>
+	
+	<select id="$queryBySId" resultMap="taskAndTender">
+		SELECT task.*,tender.*
+		,(select count(*) from yd_tender tender where task.`task_id` = tender.`tender_tid`) tender_num
+		FROM yd_task task
+		LEFT JOIN yd_tender tender ON tender.`tender_tid` = task.`task_id`
+		WHERE tender.`tender_uid` = #{userId}
+		<if test="taskState == 0"> AND task.`task_state` = 1</if>
+		<if test="taskState == 1"> AND task.`task_state` > 1 and task.`task_state` &lt;= 3</if>
+		<if test="taskState == 2"> AND task.`task_state` = 4</if>
+		<if test="taskState == 3"> AND task.`task_state` = 5</if>
+		<if test="taskState == 4"> AND task.`task_state` = 6</if>
+		<if test="taskState == 5"> AND (task.`task_state` = 7 or task.`task_state` = 8)</if>
+	</select>
+	
+	<resultMap type="com.yd.gcj.entity.vo.YdMangerTaskVo" id="taskAndTender" autoMapping="true">
+         <id property="task_id" column="task_id"/>
+         <collection property="tender" ofType="com.yd.gcj.entity.vo.YdMangerTenderVo" autoMapping="true">
+             <id property="tender_id" column="tender_id"/>
+         </collection>
+     </resultMap>
+	
+	<select id="$queryBySql" parameterType="java.lang.String" resultType="com.yd.gcj.entity.YdMangerTask">
+		select 
+			task_id,task_num,task_uid,task_pname,task_paddr,task_term,task_discrip,task_sort,task_state,task_price,task_pnum,task_schedule,task_lear_state,task_hosting,task_host_price,task_start_time,task_end_time,task_create_time,task_update_time,task_contract_state
+		from 
+			yd_task
+		where 1=1
+			#{sql}		
+	</select>
+	
+	<select id="$queryAll" resultType="com.yd.gcj.entity.YdMangerTask">
+		select 
+			task_id,task_num,task_uid,task_pname,task_paddr,task_term,task_discrip,task_sort,task_state,task_price,task_pnum,task_schedule,task_lear_state,task_hosting,task_host_price,task_start_time,task_end_time,task_create_time,task_update_time,task_contract_state
+		from 
+			yd_task	
+	</select>
+	
+	<select id="$queryById" resultType="com.yd.gcj.entity.vo.YdMangerTaskVo">
+		select 
+			task_id,task_num,task_uid,task_pname,task_paddr,task_term,task_discrip,task_sort,task_state,task_price,task_pnum,task_schedule,task_lear_state,task_hosting,task_host_price,task_start_time,task_end_time,task_create_time,task_update_time,task_contract_state
+			,(select user_nickname from yd_user where user_id = task.task_uid) user_name
+		from 
+			yd_task task
+		where 
+			task_id = #{taskId}		
+	</select>
+	
+	<select id="$queryByTaskIdAndUserId" resultType="com.yd.gcj.entity.vo.YdMangerTaskVo">
+		select 
+			task_id,task_num,task_uid,task_pname,task_paddr,task_term,task_discrip,task_sort,task_state,task_price,task_pnum,task_schedule,task_lear_state,task_hosting,task_host_price,task_start_time,task_end_time,task_create_time,task_update_time,task_contract_state
+			,(select user_nickname from yd_user where user_id = task.task_uid) user_name
+			,(SELECT COUNT(*) FROM yd_collection coll WHERE colle_uid = #{userId} AND task.`task_id` = coll.`colle_taskid` ) is_collect
+			,(select count(*) FROM yd_tender tender WHERE tender.`tender_uid` = #{userId} and task.`task_id` = tender.`tender_tid` ) is_apply
+		from 
+			yd_task task
+		where 
+			task_id = #{taskId}		
+	</select>
+	
+	<select id="$queryStateByEidAndTaskId" resultType="java.lang.Integer">
+		select 
+			task_state
+		from 
+			yd_task
+		where 
+			task_uid = #{userId} and task_id = #{taskId}
+	</select>
+	
+	<select id="$queryCountNumByEId" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_task
+		where 
+			task_uid = #{task_uid} and task_state &gt; 0 and task_state &lt; 3
+	</select>
+	
+	<select id="$queryCountNum"  resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_task	
+			where 1=1
+			<if test="taskTypeIds != null">
+				and task_id in (SELECT taskttr_tid FROM yd_task_typetr WHERE taskttr_ttid IN 
+				<foreach collection="taskTypeIds" item="id" index="index" open="(" close=")" separator=",">
+		            #{id}
+		        </foreach>
+				)
+			</if>
+			<if test="taskLabelIds != null">
+				and task_id in (SELECT taskl_tid FROM yd_task_label WHERE taskl_lid IN 
+				<foreach collection="taskLabelIds" item="id" index="index" open="(" close=")" separator=",">
+		            #{id}
+		        </foreach>
+				)
+			</if>
+	</select>
+	
+	<select id="$queryContractStateBytaskId" resultType="java.lang.Integer">
+		select task_contract_state from yd_task where task_id = #{taskId}
+	</select>
+	
+	<select id="$isTask" resultType="java.lang.Integer">
+		select count(*) from yd_task
+		where 
+			<choose>
+				<when test="userType == 0">
+					task_uid = #{userId} and task_id = #{taskId}
+				</when>
+				<otherwise>
+					task_id = (select tender_tid from yd_tender where tender_uid = #{userId} and tender_tid = #{taskId})
+				</otherwise>
+			</choose>
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerTask" useGeneratedKeys="true" keyProperty="task_id">
+		insert into yd_task
+			(task_num,task_uid,task_pname,task_paddr,task_term,task_discrip,task_sort,task_state,task_price,task_pnum,task_schedule,task_hosting,task_host_price,task_start_time,task_end_time,task_create_time,task_update_time)
+		value
+			(#{task_num},#{task_uid},#{task_pname},#{task_paddr},#{task_term},#{task_discrip},#{task_sort},#{task_state},#{task_price},#{task_pnum},#{task_schedule},#{task_hosting},#{task_host_price},#{task_start_time},#{task_end_time},#{task_create_time},#{task_update_time})
+	</insert>
+	
+	<update id="$update" parameterType="com.yd.gcj.entity.YdMangerTask">
+		update yd_task
+		<set>
+			<trim prefixOverrides=",">
+				<if test="task_pname != null">task_pname = #{task_pname},</if>
+				<if test="task_paddr != null">task_paddr = #{task_paddr},</if>
+				<if test="task_term != null">task_term = #{task_term},</if>
+				<if test="task_discrip != null">task_discrip = #{task_discrip},</if>
+				<if test="task_price != null">task_price = #{task_price},</if>
+				<if test="task_pnum != null">task_pnum = #{task_pnum},</if>
+				<if test="task_end_time != null">task_end_time = #{task_end_time},</if>
+				<if test="task_update_time != null">task_update_time = #{task_update_time},</if>
+			</trim>
+		</set>
+		where task_id=#{task_id}
+	</update>
+	
+	<update id="$updateContractState">
+		update yd_task
+		set task_contract_state = #{contractState}
+		where task_id = #{taskId}
+	</update>
+	
+	<update id="$updateTaskState">
+		update yd_task
+		set task_state = #{state}
+		where task_id = #{taskId}
+	</update>
+	
+	<update id="$updateTaskLearState">
+		update yd_task
+		set task_lear_state = #{learState}
+		where task_id = #{taskId}
+	</update>
+	
+	<update id="$updateHostPrice">
+		update yd_task 
+		set task_host_price = (select sum(tpm_money) from yd_taskpm where tpm_state = 1 and tpm_taskid = #{taskId})
+		where task_id = #{taskId}
+	</update>
+	
+	<delete id="$delete" parameterType="java.lang.Integer">
+		delete from yd_task
+		where task_id = #{task_id}
+	</delete>
+	
+</mapper>
+

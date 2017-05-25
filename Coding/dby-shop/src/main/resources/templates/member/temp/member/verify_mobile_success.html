@@ -1,0 +1,26 @@
+<div th:fragment="main" th:remove="tag" th:inline="text">
+	<yd:ajax key="memberSecurity" value="get.member_security"  />
+	
+	<div class="Z_g-right">
+		<div class="Z-acc1-1">
+			<div class="Z-title_inf">
+				账户安全 - 手机号码验证成功
+			</div>
+			
+			<!--更改信息-->
+			<div>
+				
+				<div class="Z-validation">
+					<div class="Z-wanchen">
+						<p>恭喜您，验证手机号码成功!</p>
+						<h3 class="count-down">3</h3>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		countDownUrl('.count-down', 'memberSecurity');
+	</script>
+</div>

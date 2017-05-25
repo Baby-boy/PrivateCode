@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title></title>  
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>
+    <script src="/system/js/jquery.page.js"></script>
+</head>
+<body th:inline="text">
+<form method="get" action="/system/queryAllRefund" id="queryForm" >
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder">退款信息</strong></div>
+    <div class="padding border-bottom">
+
+       <ul class="search">
+        <li>
+            <input type="text" placeholder="请输入服务商手机号" name="refund_fphone" th:value="${refund_fphone}" class="input" style="width:250px; line-height:17px;display:inline-block" />
+        </li>
+        <li>
+            <input type="text" placeholder="请输入雇主手机号" name="refund_gphone" th:value="${refund_gphone}" class="input" style="width:250px; line-height:17px;display:inline-block" />
+        </li>
+        <li>
+            <select name="refund_state" class="input" style="width:200px; line-height:17px;" >
+                <option value="">请选择退款状态</option>
+                <option value="0" th:selected="${refund_state==0? 'selected' : 'false'}" >提交审核中</option>
+                <option value="1" th:selected="${refund_state==1? 'selected' : 'false'}" >退给雇主</option>
+                <option value="2" th:selected="${refund_state==2? 'selected' : 'false'}" >退给服务商</option>
+                <option value="3" th:selected="${refund_state==3? 'selected' : 'false'}" >拒绝申请</option>
+            </select>
+        </li>
+        <li>
+            <button type="submit"  class="button border-green" id="adsubmit" >查询</button>
+        </li>
+      </ul> 
+
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th>序号</th>
+        <th>服务商姓名</th>
+        <th>服务商手机号</th>       
+        <th>雇主姓名</th> 
+        <th>雇主手机号</th>
+        <th>退款资金</th>
+        <th>状态</th>
+        <th>操作</th>       
+      </tr>
+
+        <tr th:each="refundList,obj:${refundList}" >
+<!--           <td><input type="checkbox" name="admin_id" th:text="${refundList.refund__id}" /></td> -->
+          
+		  <td  th:text="${obj.count}"></td>
+          <td th:text="${refundList.refund_fname}"></td>
+          <td th:text="${refundList.refund_fphone}"></td>
+          <td th:text="${refundList.refund_gname}"></td>
+          <td th:text="${refundList.refund_gphone}"></td>
+          <td th:text="${refundList.refund_captial}"></td>
+          <td th:text="${refundList.refundState}"></td>
+          <td><div class="button-group"> 
+		          <a class="button border-red" th:href="@{/system/queryRefundByRefundId/}+${refundList.refund_id}">详情</a> 
+		          <a class="button border-red" th:href="@{/system/updateRefunStatedByRefundId/}+${refundList.refund_id}">审核</a> 
+	          </div>
+          </td>
+        </tr>
+    </table>
+  </div>
+</form>
+<div class="pagination thePage">
+ <ul>
+　</ul>
+</div>
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/	
+ $(function() {
+	 pagination(".pagination ul",[[${totalPage}]],[[${p}]] );
+ }); 
+ 
+function pagination(node, totalPage, cpage) {
+	$(node).createPage({
+        pageCount: totalPage,
+        current: cpage,
+        backFn:function(p){
+            //单击回调方法，p是当前页码
+        }
+    });
+}  
+
+
+
+
+
+//条件搜索
+$('#adsubmit').click(function(){
+	$('#queryForm').submit();
+});
+
+
+/*]]>*/
+</script>
+</body></html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperReceiveCoupon">
+	<select id="index" resultMap="YdWebMapperReceiveCouponList">
+		SELECT
+			yd_coupon.coupon_id,
+			yd_coupon.coupon_name,
+			yd_coupon.coupon_type,
+			yd_coupon.coupon_money,
+			yd_coupon.full_money,
+			yd_coupon.coupon_begin_time,
+			yd_coupon.coupon_end_time,
+			ifnull(yd_store.store_name, '') as store_name,
+			ifnull(yd_store.store_id, '') as store_id,
+			yd_store.store_id IS NOT NULL AS isstore
+		FROM
+			yd_receive_coupon
+		JOIN
+			yd_coupon
+		ON
+			yd_receive_coupon.coupon_id = yd_coupon.coupon_id
+		LEFT JOIN
+			yd_store
+		ON
+			yd_coupon.store_id = yd_store.store_id
+		<trim prefix="where" suffixOverrides="and">
+			<if test="user_id > 0">
+		  		 yd_receive_coupon.user_id = #{user_id} and
+		  	</if>
+		</trim>
+		ORDER BY
+			yd_receive_coupon.coupon_id DESC
+	</select>
+	
+	<select id="total" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			yd_receive_coupon
+		WHERE
+			user_id = #{user_id}
+	</select>
+	
+	<resultMap id="YdWebMapperReceiveCouponList" type="java.util.HashMap">
+		<result property="couponId" column="coupon_id"/>
+		<result property="title" column="title"/>
+		<result property="type" column="type"/>
+		<result property="storeId" column="store_id"/>
+		<result property="money" column="money"/>
+		<result property="fullMoney" column="full_money"/>
+		<result property="total" column="total"/>
+		<result property="been" column="been"/>
+		<result property="begintime" column="begintime"/>
+		<result property="endtime" column="endtime"/>
+		<result property="createdAt" column="created_at"/>
+		<result property="updatedAt" column="updated_at"/>
+		<result property="storeName" column="store_name"/>
+	</resultMap>
+</mapper>

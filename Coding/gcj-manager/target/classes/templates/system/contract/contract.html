@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body>
+
+<!--发布公告-->
+<div class="fbgg-box">
+    <div class="fabu">
+       
+        <div class="work-box">
+            
+            <div class="compile-pact" th:inline="text">
+                <div class="pact-tit clear">
+                    <ul class="jiafang">
+                       <li>
+                           <label for="name">甲方（雇主方）</label>
+                           <input type="text" class="type-1" id="contract_ename" placeholder="" name="contract_ename" th:value="${ydMangerContract.contract_ename}" isNull="false" keyWord="您的姓名" e="e"/>
+                       </li>
+                        <li>
+                            <label for="addres">地址</label>
+                            <textarea id="addres" cols="30" rows="10" placeholder="" name="contract_eaddr"  isNull="false" keyWord="地址" e="e">[[${ydMangerContract.contract_eaddr}]]</textarea>
+                        </li>
+
+                        <li>
+                            <label for="phone">电话</label>
+                            <input type="text" class="type-2" id="phone" placeholder="" name="contract_ephone" th:value="${ydMangerContract.contract_ephone}" isNull="false" keyWord="手机号" e="e"/>
+                        </li>
+                    </ul>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="name2">乙方（服务方） </label>
+                            <input type="text" class="type-1" id="name2" name="contratc_sname" th:value="${ydMangerContract.contract_sname}" placeholder=""/>
+                        </li>
+                        <li>
+                            <label for="addres2">地址</label>
+                            <textarea th:inline="text" id="addres2" cols="30" rows="10" placeholder="" name="contract_saddr">[[${ydMangerContract.contract_saddr}]]</textarea>
+                        </li>
+                        
+                        <li>
+                            <label for="phone2">电话</label>
+                            <input type="text" class="type-2" id="phone2" name="contract_sphone" th:value="${ydMangerContract.contract_sphone}" placeholder=""/>
+                        </li>
+                    </ul>
+                    <p class="attention">根据中国人民共和国合同法及国家有关规定，结合本工程的具体情况，为明确责任，协作配合，确保工程质量，经甲，乙双方协商一致，签订本合同，共同遵守。</p>
+                </div>
+                <div class="pact-list">
+                    <p class="pact-list-tit">第一条，基本信息</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="gcname">工程名称/代码</label>
+                            <input type="text" class="type-2" id="gcname"  name="contract_pname" th:value="${ydMangerContract.contract_pname}" isNull="false" keyWord="工程名称" e="e"/>
+                        </li>
+                        <li>
+                            <label for="miaoshu">工程描述</label>
+                            <textarea th:inline="text" id="miaoshu" cols="30" rows="10"  name="contract_pdesc"  e="e">[[${ydMangerContract.contract_sphone}]]</textarea>
+                        </li>
+                        <li>
+                            <label for="xieyi">保密协议</label>
+                            <textarea th:inline="text" id="xieyi" cols="30" rows="10"  name="contract_cp" e="e">[[${ydMangerContract.contract_cp}]]</textarea>
+                        </li>
+                        <li>
+                            <label for="fuwu">服务协议</label>
+                            <textarea th:inline="text" id="fuwu" cols="30" rows="10"  name="contract_sp"  e="e">[[${ydMangerContract.contract_cp}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pact-list">
+                    <p class="pact-list-tit">第二条，服务内容及深度要求</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="yaoqiu"></label>
+                            <textarea th:inline="text" id="yaoqiu" cols="30" rows="10"  name="contract_scsd" e="e">[[${ydMangerContract.contract_scsd}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pact-list">
+                <p class="pact-list-tit">第三条，各阶段工期要求</p>
+                <ul class="jiafang">
+                    <li>
+                        <label for="jieduan"></label>
+                        <textarea th:inline="text" id="jieduan" cols="30" rows="10"  name="contract_durat" e="e">[[${ydMangerContract.contract_durat}]]</textarea>
+                    </li>
+                </ul>
+            </div>
+
+                <div class="pact-list">
+                    <p class="pact-list-tit">第四条，甲方需要提交的资料</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="ziliao"></label>
+                            <textarea th:inlien="text" id="ziliao" cols="30" rows="10"  name="contract_pad" e="e">[[${ydMangerContract.contract_pad}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pact-list">
+                    <p class="pact-list-tit">第五条，乙方需要提交的成果</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="chengguo"></label>
+                            <textarea th:inline="text" id="chengguo" cols="30" rows="10"  name="contract_pbr" e="e">[[${ydMangerContract.contract_pbr}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pact-list">
+                    <p class="pact-list-tit">第六条，甲方权利与责任</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="zeren"></label>
+                            <textarea th:inline="text" id="zeren" cols="30" rows="10"  name="contract_paresp" e="e">[[${ydMangerContract.contract_paresp}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pact-list">
+                    <p class="pact-list-tit">第七条，乙方权利与责任</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="zhifuht"></label>
+                            <textarea th:inline="text" id="zhifuht" cols="30" rows="10"  name="contract_pbresp" e="e">[[${ydMangerContract.contract_pbresp}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pact-list">
+                    <p class="pact-list-tit">第八条，合同款及支付</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="gongqi"></label>
+                            <textarea th:inline="text" id="gongqi" cols="30" rows="10"  name="contract_pay" e="e">[[${ydMangerContract.contract_pay}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pact-list">
+                    <p class="pact-list-tit">第九条，违约责任</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="weiyue"></label>
+                            <textarea th:inline="text" id="weiyue" cols="30" rows="10"  name="contract_dal" e="e">[[${ydMangerContract.contract_dal}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pact-list">
+                    <p class="pact-list-tit">第十条，合同生效及其他</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="qita"></label>
+                            <textarea th:inline="text" id="qita" cols="30" rows="10"  name="contract_ce" e="e">[[${ydMangerContract.contract_ce}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="else clear">
+                    <div class="elsele">其他</div>
+                    <div class="elseri" th:inline="text">
+                        <p>1，本合同附件与正文具有同等法律效力</p>
+                        <p>2，本合同一式两份，自双方签字之日起生效。</p>
+                        <p>创建时间:<td th:text="${#calendars.format(ydMangerContract.contract_create_time,'yyyy-MM-dd hh:mm:ss')}"></td></p>
+                        <p>修改时间:<td th:text="${#calendars.format(ydMangerContract.contract_update_time,'yyyy-MM-dd hh:mm:ss')}"></td></p>
+                        <p>服务商是否签订:<td th:text="${ydMangerContract.contract_sissign==0? '否' : '是'}"></td></p>
+                    </div>
+                </div>
+                
+                <div class="signature clear">
+                    <ul class="signaturele">
+                        <li class="input">
+                            <label for="jf-jiafang">甲方：</label>
+                            <input type="text" id="jf-jiafang" class="type1"  name="contract_esig" th:value="${ydMangerContract.contract_esig}" e="e"/>
+                        </li>
+                        <li class="input">
+                            <label for="jf-qianzi">代表签字：</label>
+                            <input type="text" id="jf-qianzi" class="type2"  name="contract_esiga" th:value="${ydMangerContract.contract_esiga}" e="e"/>
+                        </li>
+                        <li class="input">
+                            <label for="jf-date">日期：</label>
+                            <input type="text" id="jf-date" class="type1"  name="contract_esigd" th:value="${ydMangerContract.contract_esigd}" e="e"/>
+                        </li>
+                    </ul>
+                    <ul class="signaturele">
+                        <li class="input">
+                            <label for="yf-jiafang">乙方：</label>
+                            <input type="text" id="yf-jiafang" class="type1" name="contract_ssig" th:value="${ydMangerContract.contract_ssig}" />
+                        </li>
+                        
+                        <li class="input">
+                            <label for="jf-qianzi">代表签字：</label>
+                            <input type="text" id="yf-qianzi" class="type2" name="contract_ssiga" th:value="${ydMangerContract.contract_ssiga}" />
+                        </li>
+                        <li class="input">
+                            <label for="jf-date">日期：</label>
+                            <input type="text" id="yf-date" class="type1" name="contract_ssigd" th:value="${ydMangerContract.contract_ssigd}" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jquery.select.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+
+
+</html>

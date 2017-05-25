@@ -1,0 +1,56 @@
+package com.yd.gcj.mapper;
+
+import java.util.Date;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.yd.gcj.entity.YdMangerTaskPM;
+
+public interface YdMangerMapperTaskPM {
+	
+	/***
+	 * 查询任务付款跟进模块信息
+	 * @param tpm_taskid
+	 * @return
+	 */
+	List<YdMangerTaskPM> $queryByTid(@Param("tpm_taskid") Integer tpm_taskid);
+	
+	/***
+	 * 查询指定付款跟进信息
+	 * @param tpm_id
+	 * @return
+	 */
+	YdMangerTaskPM $queryById(@Param("tpm_id") Integer tpm_id);
+	
+	/***
+	 * 添加新付款跟进信息模块
+	 * @param tpm
+	 * @return
+	 */
+	Integer $insert(YdMangerTaskPM tpm);
+	
+	/***
+	 * 修改跟进付款模块信息
+	 * @param tpm
+	 * @return
+	 */
+	Integer $update(YdMangerTaskPM tpm);
+	
+	/***
+	 * 修改付款信息模块状态
+	 * @param tpm_id 任务跟进模块付款信息id
+	 * @param tpm_state 状态
+	 * @param tpm_update_time 当前时间
+	 * @return
+	 */
+	Integer $upateState(@Param("tpm_id") Integer tpm_id,@Param("tpm_state") Integer tpm_state,@Param("tpm_update_time") Date tpm_update_time);
+	
+	/***
+	 * 删除指定任务跟进付款信息
+	 * @param tpm_id
+	 * @return
+	 */
+	Integer $delete(@Param("tpm_id") Integer tpm_id);
+	
+}

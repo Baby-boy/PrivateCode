@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdmemberMapperWish">
+	<insert id="addWish" parameterType="com.yd.dby.c.member.entity.YdWish" >
+		insert into yd_wish(user_id,wish_content,wish_created_time)
+		value(#{user_id},#{wish_content},now())
+	</insert>
+	
+	<select id="queryWishAll" resultType="java.util.HashMap" >
+		select yw.*,yu.user_nickname from yd_wish yw
+		left join yd_user yu on yw.user_id = yu.user_id 		
+		where yw.user_id = #{user_id}
+		order by wish_created_time desc
+		limit #{to},#{perPage}	
+	</select>
+	
+	<select id="totalWish" resultType="java.lang.Integer" >
+		select count(1) from yd_wish
+		where user_id = #{user_id}
+	</select>
+</mapper>

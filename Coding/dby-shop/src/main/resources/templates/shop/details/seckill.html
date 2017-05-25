@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+	</head>
+	<body>
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: brand('',c2c_two)" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(seckill)" th:remove="tag"></div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		<!-- 商品展示信息 -->
+		<div class="product-show" th:with="item=${@_YdShopServiceGoods.get_only_seckill(1,id)}" th:inline="text">
+			<div class="min-width">
+				<div class="left-info">
+					<div class="details-pic">
+						<div class="thumbnail">
+							<ul class="tb-thumb" id="thumblist">
+								<li th:each="sitem:${item.goods_pics}">
+									<img th:src="@{http://res.zwzyd.com/dby/web__${sitem}__?x-oss-process=image/resize,m_pad,h_60,w_60}" th:attr="mid=@{http://res.zwzyd.com/dby/web__${sitem}__?x-oss-process=image/resize,m_pad,h_100,w_100},big=@{http://res.zwzyd.com/dby/web__${sitem}__}" />
+								</li>
+							</ul>
+						</div>
+						<div class="detail-video">
+							<video width="800" height="" controls="controls">
+								<source src="images/demoimg/01.mp4" type="video/mp4"></source>
+								<source src="myvideo.ogv" type="video/ogg"></source>
+								<source src="myvideo.webm" type="video/webm"></source>
+								<object width="" height="" type="application/x-shockwave-flash" data="myvideo.swf">
+									<param name="movie" value="myvideo.swf" />
+									<param name="flashvars" value="autostart=true&amp;file=myvideo.swf" />
+								</object>
+								当前浏览器不支持 video直接播放，点击这里下载视频： <a href="myvideo.webm">下载视频</a>
+							</video>
+						</div>
+						<div class="big-picture">
+							<a th:href="${sitem}" th:each="sitem,niter:${item.goods_pics}" th:if="${niter.index} lt 1">
+								<img class="jqzoom" th:src="@{http://res.zwzyd.com/dby/web__${sitem}__}" th:attr="rel=${sitem}" />
+							</a>
+						</div>
+					</div>
+					<div class="product-info">
+						<h2 th:text="${item.goods_name}">经典商务双肩包</h2>
+						<div class="introduce">货号：[[${item.goods_serialnumber}]]</div>
+						<div class="introduce color6">门店：[[${item.store_name}]]</div>
+						<div class="introduce">简介：[[${item.goods_summary}]]<a href="#">详情...</a></div>
+						<div class="seckill-price">
+							<font>秒杀价：</font><strong class="pro-price" th:text="${#numbers.formatDecimal(item.goods_price, 0, 0)}">99</strong>元<del>¥128</del>
+							<span>剩余<label class="end-time" th:attr="data-endtime=${item.activity_end_time},data-current=${item.current_time}">2天17时10分20秒</label></span>
+						</div>
+						<div class="buy">
+							<input id="buy" type="submit" value="一键购买" th:attr="data-id=${item.goods_id}" />
+							<input id="add-cart" type="submit" value="加入购物车" th:attr="data-id=${item.goods_id}" />
+						</div>
+						<ul>
+							<li><i></i><span>分享商品</span></li>
+							<li><i></i><span>关注商品</span></li>
+							<li><i></i><span>浏览次数4931</span></li>
+						</ul>
+						<div class="see-more"><a href="#">查看更多产品</a></div>
+					</div>
+					
+				</div>
+				<div class="right-info">
+					<div class="title">多宝鱼自营xxx店铺<span>自营</span></div>
+					<ul>
+						<li><a href="#">留言咨询</a></li>
+						<li><a href="#">在线咨询</a></li>
+						<li><a href="#">进店逛逛</a></li>
+						<li><a href="#">关注店铺</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- 商品展示信息结束 -->
+		
+		<!-- 中间内容 -->
+		<div id="container">
+			<div class="details-page">
+				<div class="left-section">
+					
+					<div class="category-list">
+						<div class="col-title">大家都在买</div>
+						<div class="pro-section">
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/ac_img8.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_05.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_06.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_07.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+						</div>
+					</div>
+					
+					<div class="category-list">
+						<div class="col-title">相关商品</div>
+						<div class="pro-section">
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/ac_img8.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_05.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_06.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_07.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+						</div>
+					</div>
+					
+				</div>
+			
+				<div class="right-section">	
+					<div class="top-screen">
+						<ul>
+							<li class="active">商品详情</li>
+							<li>售后服务</li>
+							<li>商品评价<span th:inline="text">（[[${@_Comment.get_count(id,0)}]]）</span></li>
+						</ul>
+					</div>
+					
+					<div class="tab-switch product-detail" th:with="item=${@_YdShopServiceGoods.get_only_seckill(1,id)}" th:inline="text">
+						<!-- 参数 -->
+						<div class="pro-parameter">
+							<div class="store-name">
+								品牌：<a href="#" th:text="${item.brand_name}">圣康尼（SAUCONY）</a>
+							</div>
+							<div class="parameter">
+								<ul>
+									<li th:each="sitem:${item.goods_attrs}">[[${sitem.dict_key}]]：[[${sitem.dict_value}]]</li>
+								</ul>
+							</div>
+						</div>
+						<!-- 参数结束 -->
+						
+						<!-- 正文 -->
+						<div class="product-details">
+							<div th:each="sitem:${item.goods_contents}" th:remove="tag">
+								<img th:src="@{http://res.zwzyd.com/dby/web__${sitem.dict_value}__}" th:if="${sitem.dict_key} == 1" />
+								<div th:text="${sitem.dict_value}" th:if="${sitem.dict_key} == 2" th:remove="tag"></div><br/>
+							</div>
+						</div>
+						<!-- 正文结束 -->
+					
+					</div>
+					
+					<!-- 售后服务 -->
+					<div class="tab-switch after-sales">
+						<div class="title">售后服务</div>
+						<div class="content">
+							鉴于绝当商  品的特殊性<br/>
+							我们暂不提供7天无理由退换货服务<br/>
+							即非质量问题的商品不予退换，<br/>
+							具体细则如下：<br/>
+							<br/>
+							质量问题处理办法<br/>
+							人为造成的缺损、外裂（手能摸出）、实物型号等参数与描述不符、或可出具省级鉴定部门的报告证明是假货等情况，我们认定是商品存在质量问题，可将您的商品予以退回。<br/>
+							非质量问题处理办法<br/>
+							由于未看清商品尺寸、色差、错误下单、主观认定商品与照片有差距、没想象中好、图片已拍出来的天然瑕疵等，我们将不受理您的退换货请求，请您悉知。<br/>
+							<br/>
+							是否为质量问题的判断方法>><br/>
+							腕表等级说明>><br/>
+						</div>
+						<div class="describe">
+							<p>最终解释权归</p>
+							<p>多宝鱼商城所有</p>
+						</div>
+					</div>
+					<!-- 售后服务结束 -->
+					
+					<div class="tab-switch evaluate">
+						<div class="title">商品评价</div>
+						<div class="total-appraise">
+							<div class="rate">
+								<strong>98<span>%</span></strong>
+								<br /><span>好评度</span>
+							</div>
+							<div class="percent">
+								<dl>
+									<dt>好评<span>(98%)</span></dt>
+									<dd><div style="width: 98%;"></div></dd>
+								</dl>
+								<dl>
+									<dt>中评<span>(1%)</span></dt>
+									<dd class="d1"><div style="width: 1%;"></div></dd>
+								</dl>
+								<dl>
+									<dt>差评<span>(1%)</span></dt>
+									<dd class="d1">
+										<div style="width: 1%;"></div></dd>
+								</dl>
+							</div>
+						</div>
+						<div class="comments-list">
+							<div class="tab-main">
+								<ul th:inline="text">
+									<li class="active"><a href="javascript:;">全部评价<em>（[[${@_Comment.get_count(id,0)}]]）</em></a></li>
+									<li><a href="javascript:;">晒图<em>（[[${@_Comment.get_count(id,1)}]]）</em></a></li>
+									<li><a href="javascript:;">好评<em>（[[${@_Comment.get_count(id,2)}]]）</em></a></li>
+									<li><a href="javascript:;">中评<em>（[[${@_Comment.get_count(id,3)}]]）</em></a></li>
+									<li><a href="javascript:;">差评<em>（[[${@_Comment.get_count(id,4)}]]）</em></a></li>
+								</ul>
+							</div>
+							<div class="tab-con">
+								<!-- 全部评价 -->
+								<div class="screen-item" id="comment-0">
+									<div class="com-table-main">
+										<!-- 列表开始 -->
+										<div class="comments-item" th:each="item:${@_Comment.get_list(id,0,0)}" th:inline="text">
+											<div class="column1">
+												<div class="${'grade-star g-star'+#numbers.formatDecimal(item.score, 0, 0)}"></div>
+											  	<div class="comment-day">收货25天后评论</div>
+											  	<div class="comment-time" text="${#calendars.format(item.created_time,'yyyy-MM-dd HH:mm:ss')}">2016-08-25 12:16</div>
+											</div>
+											<div class="column2">
+												<div class="p-comment" th:text="${item.content}">套餐包养养护的很好，棒棒哒！</div>
+												<div class="p-show-img">
+													<ul>
+														<li th:each="sitem:${item.pics}"><img th:src="@{http://res.zwzyd.com/dby/web/__${sitem}__?x-oss-process=image/resize,m_pad,h_35,w_35}" /></li>
+													</ul>
+												</div>
+												<div class="show-img-list">
+													<div class="thumb-list">
+														<a class="prev" href="javascript:;">&lt;</a>
+														<a class="next" href="javascript:;">&gt;</a>
+														<div class="img-list">
+															<ul>
+																<li th:each="sitem,niter:${item.pics}" th:class="${niter}==0?'active':''"><img src="@{http://res.zwzyd.com/dby/web/__${sitem}__?x-oss-process=image/resize,m_pad,h_70,w_70}" /></li>
+															</ul>
+														</div>
+													</div>
+													<div class="big-img">
+														<img th:each="sitem,niter:${item.pics}" th:if="${niter.index} lt 1" th:src="@{http://res.zwzyd.com/dby/web/__${sitem}__}" />
+													</div>
+												</div>
+												<div class="comment-operate">
+													<a href="javascript:;">点赞<span>（1）</span></a>
+												</div>
+											</div>
+											<div class="column3">
+												<div class="username">
+													[[${item.user.nickname}]]<span>（匿名）</span>
+												</div>
+											</div>
+										</div>
+										<!-- 列表结束 -->
+									</div>
+									<!-- 分页 -->
+									<div id="sales0" class="pagelist pagelist-right pagelist-margin10">
+										<a class="active" href="#">1</a>
+										<a href="#">2</a>
+										<a href="#">3</a>
+										<a href="#">下一页&gt;</a>
+									</div>
+								</div>
+								
+								<!-- 晒图 -->
+								<div class="screen-item" id="comment-1">
+									<div class="show-img-list"  style="width: 780px;margin: 20px auto;">
+										<div class="thumb-list">
+											<a class="prev" href="javascript:;">&lt;</a>
+											<a class="next" href="javascript:;">&gt;</a>
+											<div class="img-list">
+												<ul>
+												</ul>
+											</div>
+										</div>
+										<div class="big-img">
+											
+										</div>
+									</div>
+								</div>
+								
+								<!-- 好评 -->
+								<div class="screen-item" id="comment-2">
+									<div class="com-table-main">
+										<!-- 列表开始 -->
+										<div class="comments-item" th:each="item:${@_Comment.get_list(id,1,0)}" th:inline="text">
+											<div class="column1">
+												<div class="${'grade-star g-star'+#numbers.formatDecimal(item.score, 0, 0)}"></div>
+											  	<div class="comment-day">收货25天后评论</div>
+											  	<div class="comment-time" text="${#calendars.format(item.created_time,'yyyy-MM-dd HH:mm:ss')}">2016-08-25 12:16</div>
+											</div>
+											<div class="column2">
+												<div class="p-comment" th:text="${item.content}">套餐包养养护的很好，棒棒哒！</div>
+												<div class="p-show-img">
+													<ul>
+														<li th:each="sitem:${item.pics}"><img th:src="@{http://res.zwzyd.com/dby/web/__${sitem}__?x-oss-process=image/resize,m_pad,h_35,w_35}" /></li>
+													</ul>
+												</div>
+												<div class="show-img-list">
+													<div class="thumb-list">
+														<a class="prev" href="javascript:;">&lt;</a>
+														<a class="next" href="javascript:;">&gt;</a>
+														<div class="img-list">
+															<ul>
+																<li th:each="sitem,niter:${item.pics}" th:class="${niter}==0?'active':''"><img src="@{http://res.zwzyd.com/dby/web/__${sitem}__?x-oss-process=image/resize,m_pad,h_70,w_70}" /></li>
+															</ul>
+														</div>
+													</div>
+													<div class="big-img">
+														<img th:each="sitem,niter:${item.pics}" th:if="${niter.index} lt 1" th:src="@{http://res.zwzyd.com/dby/web/__${sitem}__}" />
+													</div>
+												</div>
+												<div class="comment-operate">
+													<a href="javascript:;">点赞<span>（1）</span></a>
+												</div>
+											</div>
+											<div class="column3">
+												<div class="username">
+													[[${item.user.nickname}]]<span>（匿名）</span>
+												</div>
+											</div>
+										</div>
+										<!-- 列表结束 -->
+									</div>
+									<!-- 分页 -->
+									<div id="sales1" class="pagelist pagelist-right pagelist-margin10">
+										<a class="active" href="#">1</a>
+										<a href="#">2</a>
+										<a href="#">3</a>
+										<a href="#">下一页&gt;</a>
+									</div>
+								</div>
+								
+								<!-- 中评 -->
+								<div class="screen-item" id="comment-3">
+									<div class="com-table-main">
+										<!-- 列表开始 -->
+										<div class="comments-item" th:each="item:${@_Comment.get_list(id,2,0)}" th:inline="text">
+											<div class="column1">
+												<div class="${'grade-star g-star'+#numbers.formatDecimal(item.score, 0, 0)}"></div>
+											  	<div class="comment-day">收货25天后评论</div>
+											  	<div class="comment-time" text="${#calendars.format(item.created_time,'yyyy-MM-dd HH:mm:ss')}">2016-08-25 12:16</div>
+											</div>
+											<div class="column2">
+												<div class="p-comment" th:text="${item.content}">套餐包养养护的很好，棒棒哒！</div>
+												<div class="p-show-img">
+													<ul>
+														<li th:each="sitem:${item.pics}"><img th:src="@{http://res.zwzyd.com/dby/web/__${sitem}__?x-oss-process=image/resize,m_pad,h_35,w_35}" /></li>
+													</ul>
+												</div>
+												<div class="show-img-list">
+													<div class="thumb-list">
+														<a class="prev" href="javascript:;">&lt;</a>
+														<a class="next" href="javascript:;">&gt;</a>
+														<div class="img-list">
+															<ul>
+																<li th:each="sitem,niter:${item.pics}" th:class="${niter}==0?'active':''"><img src="@{http://res.zwzyd.com/dby/web/__${sitem}__?x-oss-process=image/resize,m_pad,h_70,w_70}" /></li>
+															</ul>
+														</div>
+													</div>
+													<div class="big-img">
+														<img th:each="sitem,niter:${item.pics}" th:if="${niter.index} lt 1" th:src="@{http://res.zwzyd.com/dby/web/__${sitem}__}" />
+													</div>
+												</div>
+												<div class="comment-operate">
+													<a href="javascript:;">点赞<span>（1）</span></a>
+												</div>
+											</div>
+											<div class="column3">
+												<div class="username">
+													[[${item.user.nickname}]]<span>（匿名）</span>
+												</div>
+											</div>
+										</div>
+										<!-- 列表结束 -->
+									</div>
+									<!-- 分页 -->
+									<div id="sales2" class="pagelist pagelist-right pagelist-margin10">
+										<a class="active" href="#">1</a>
+										<a href="#">2</a>
+										<a href="#">3</a>
+										<a href="#">下一页&gt;</a>
+									</div>
+								</div>
+								
+								<!-- 差评 -->
+								<div class="screen-item" id="comment-4">
+									<div class="com-table-main">
+										<!-- 列表开始 -->
+										<div class="comments-item" th:each="item:${@_Comment.get_list(id,3,0)}" th:inline="text">
+											<div class="column1">
+												<div class="${'grade-star g-star'+#numbers.formatDecimal(item.score, 0, 0)}"></div>
+											  	<div class="comment-day">收货25天后评论</div>
+											  	<div class="comment-time" text="${#calendars.format(item.created_time,'yyyy-MM-dd HH:mm:ss')}">2016-08-25 12:16</div>
+											</div>
+											<div class="column2">
+												<div class="p-comment" th:text="${item.content}">套餐包养养护的很好，棒棒哒！</div>
+												<div class="p-show-img">
+													<ul>
+														<li th:each="sitem:${item.pics}"><img th:src="@{http://res.zwzyd.com/dby/web__${sitem}__?x-oss-process=image/resize,m_pad,h_35,w_35}" /></li>
+													</ul>
+												</div>
+												<div class="show-img-list">
+													<div class="thumb-list">
+														<a class="prev" href="javascript:;">&lt;</a>
+														<a class="next" href="javascript:;">&gt;</a>
+														<div class="img-list">
+															<ul>
+																<li th:each="sitem,niter:${item.pics}" th:class="${niter}==0?'active':''"><img src="@{http://res.zwzyd.com/dby/web/__${sitem}__?x-oss-process=image/resize,m_pad,h_70,w_70}" /></li>
+															</ul>
+														</div>
+													</div>
+													<div class="big-img">
+														<img th:each="sitem,niter:${item.pics}" th:if="${niter.index} lt 1" th:src="@{http://res.zwzyd.com/dby/web/__${sitem}__}" />
+													</div>
+												</div>
+												<div class="comment-operate">
+													<a href="javascript:;">点赞<span>（1）</span></a>
+												</div>
+											</div>
+											<div class="column3">
+												<div class="username">
+													[[${item.user.nickname}]]<span>（匿名）</span>
+												</div>
+											</div>
+										</div>
+										<!-- 列表结束 -->
+									</div>
+									<!-- 分页 -->
+									<div id="sales3" class="pagelist pagelist-right pagelist-margin10">
+										<a class="active" href="#">1</a>
+										<a href="#">2</a>
+										<a href="#">3</a>
+										<a href="#">下一页&gt;</a>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 在线留言 -->
+				<div class="message">
+					<form>
+						<div class="title">在线留言</div>
+						<div class="textarea">
+							<textarea rows="10" placeholder="请输入您的留言..."></textarea>
+						</div>
+						<div class="submit">
+							<input type="submit" value="提  交" />
+						</div>
+					</form>
+				</div>
+				<!-- 在线留言结束 -->
+			</div>
+		</div>
+		
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		<script type="text/javascript" th:src="@{/assets/shop/js/jquery.imagezoom.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/details.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/jquery.page.js}" ></script>
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			$(function(){
+				$.each($(".pagelist"), function(index,value) {
+					$("#sales"+index).createPage({
+				        pageCount:42,
+				        current:1,
+				        backFn:function(page){
+				            console.log(p);
+				        }
+				    });
+				});
+				
+				$("input#buy").click(function(){
+					window.open("/settlement/" + $(this).attr("data-id"));
+				});
+				
+				var time = $("label.end-time").attr("data-current");
+				setInterval(function(){
+					updateEndTime3("label.end-time",time);
+					time++;
+				},1000);
+				
+				$(window).load(function(){
+					var img_list = [[${@_Comment.get_list_only_img(id)}]];
+					var img_list_arr = [];
+					$.each(img_list,function(index,value){
+						$.each(eval("("+value+")"),function(key,val){
+							img_list_arr.push(eval("'"+this+"'"));
+						});
+					});
+					$("#container .details-page .evaluate .comments-list .tab-main ul li").eq(1).find("em").html("("+img_list_arr.length+")");
+					$.each(img_list_arr,function(index,value){
+						if( index == 0 ){
+							$(" #comment-1 .show-img-list .big-img").html("<img src='http://res.zwzyd.com/dby/web"+this+"' />");
+							$("#comment-1 .show-img-list .thumb-list .img-list ul").append("<li class='active'><img src='http://res.zwzyd.com/dby/web"+this+"' /></li>");
+						}else{
+							$("#comment-1 .show-img-list .thumb-list .img-list ul").append("<li><img src='http://res.zwzyd.com/dby/web"+this+"' /></li>");
+						}
+					});
+					
+				});
+				
+			});
+			/*]]>*/
+		</script>
+	</body>
+</html>

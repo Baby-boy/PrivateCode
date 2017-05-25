@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperCases">
+	<select id="$queryAllByUserId" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerCases">
+		select 
+			case_id,case_sid,case_taskid,case_title,case_subtitle,case_indt,case_sort,case_form,case_character,case_start_time,case_end_time,case_create_time,case_update_time
+		from 
+			yd_cases
+		where 
+			case_sid = #{userId}
+	</select>
+	
+	<select id="$querByPageNum" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerCases">
+		select 
+			case_id,case_sid,case_taskid,case_title,case_subtitle,case_indt,case_sort,case_form,case_character,case_start_time,case_end_time,case_create_time,case_update_time
+		from 
+			yd_cases
+		where 
+			case_sid=#{case_uid} 
+		limit #{startPageNum},#{queryPageNum}
+	</select>
+	
+	<select id="$queryById" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerCases">
+		select 
+			case_id,case_sid,case_taskid,case_title,case_subtitle,case_indt,case_sort,case_form,case_character,case_start_time,case_end_time,case_create_time,case_update_time
+		from 
+			yd_cases
+		where 
+			case_id = #{case_id}
+	</select>
+	
+	<select id="$queryCountNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select 
+			count(*)
+		form 
+			yd_cases
+		where 
+			case_sid=#{case_uid}
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerCases" useGeneratedKeys="true" keyProperty="case_id">
+		insert into
+			yd_cases 
+			(case_sid,case_taskid,case_title,case_subtitle,case_indt,case_sort,case_form,case_character,case_start_time,case_end_time,case_create_time,case_update_time)
+		value 
+			(#{case_sid},#{case_taskid},#{case_title},#{case_subtitle},#{case_indt},#{case_sort},#{case_form},#{case_character},#{case_start_time},#{case_end_time},#{case_create_time},#{case_update_time})
+	</insert>
+
+	<update id="$update" parameterType="com.yd.gcj.entity.YdMangerCases">
+		
+		update yd_cases
+		<set>
+			<trim suffixOverrides=",">
+				<if test="case_sid!=0">case_sid=#{case_sid},</if>
+				<if test="case_taskid!=0">case_taskid=#{case_taskid},</if>
+				<if test="case_title!=null">case_title=#{case_title},</if>
+				<if test="case_subtitle!=null">case_subtitle=#{case_subtitle},</if>
+				<if test="case_indt!=null">case_indt=#{case_indt},</if>
+				<if test="case_sort!=-1">case_sort=#{case_sort},</if>
+				<if test="case_form!=null">case_form=#{case_form},</if>
+				<if test="case_character!=null">case_character=#{case_character},</if>
+				<if test="case_start_time!=null">case_start_time=#{case_start_time},</if>
+				<if test="case_end_time!=null">case_end_time=#{case_end_time},</if>
+				<if test="case_create_time!=null">case_sid=#{case_create_time},</if>
+				<if test="case_update_time!=null">case_update_time=#{case_update_time},</if>
+			</trim>
+		</set>
+		where case_id = #{case_id}
+	</update>
+	
+	<delete id="$delete" parameterType="java.lang.Integer">
+		delete from cases
+		where case_id = #{case_id}
+	</delete>
+	
+</mapper>
+

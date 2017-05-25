@@ -1,0 +1,194 @@
+  
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<form id="queryPersonForm" action="/system/queryPersonByCountDate">
+		<div id="container-box">
+        <div id="container" style="min-width:400px;min-height:400px"></div>
+        <div class="select" th:inline="text">
+        	<span>年份选择：</span>
+            <select name="year" onchange="queryPerson()" >
+                <option value="2016" th:selected="${year==2016? 'selected' : 'false'}" >2016</option>
+                <option value="2017" th:selected="${year==2017? 'selected' : 'false'}">2017</option>
+                <option value="2018" th:selected="${year==2018? 'selected' : 'false'}">2018</option>
+                <option value="2019" th:selected="${year==2019? 'selected' : 'false'}">2019</option>
+                <option value="2020" th:selected="${year==2020? 'selected' : 'false'}">2020</option>
+                <option value="2021" th:selected="${year==2021? 'selected' : 'false'}">2021</option>
+                <option value="2022" th:selected="${year==2022? 'selected' : 'false'}">2022</option>
+                <option value="2023" th:selected="${year==2023? 'selected' : 'false'}">2023</option>
+                <option value="2024" th:selected="${year==2024? 'selected' : 'false'}">2024</option>
+                <option value="2025" th:selected="${year==2025? 'selected' : 'false'}">2025</option>
+                <option value="2026" th:selected="${year==2026? 'selected' : 'false'}">2026</option>
+                <option value="2027" th:selected="${year==2027? 'selected' : 'false'}">2027</option>
+            </select>
+            <span>月份选择：</span>
+            <select name="month" id="countDate"  onchange="queryPerson()" >
+                <option value="1" th:selected="${month==1? 'selected' : 'false'}" >1</option>
+                <option value="2" th:selected="${month==2? 'selected' : 'false'}">2</option>
+                <option value="3" th:selected="${month==3? 'selected' : 'false'}">3</option>
+                <option value="4" th:selected="${month==4? 'selected' : 'false'}">4</option>
+                <option value="5" th:selected="${month==5? 'selected' : 'false'}">5</option>
+                <option value="6" th:selected="${month==6? 'selected' : 'false'}">6</option>
+                <option value="7" th:selected="${month==7? 'selected' : 'false'}">7</option>
+                <option value="8" th:selected="${month==8? 'selected' : 'false'}">8</option>
+                <option value="9" th:selected="${month==9? 'selected' : 'false'}">9</option>
+                <option value="10" th:selected="${month==10? 'selected' : 'false'}">10</option>
+                <option value="11" th:selected="${month==11? 'selected' : 'false'}">11</option>
+                <option value="12" th:selected="${month==12? 'selected' : 'false'}">12</option>
+            </select>
+        </div>
+    </div>
+  </form>
+	<style>
+		.highcharts-credits{
+			display: none;
+		}
+        #container-box{
+            min-width: 800px;
+            position: relative;
+        }
+        #container-box .select{
+            position: absolute;
+            right: 82px;
+            top: 20px;
+            color:#000;
+        }
+        #container-box span{
+            display: inline-block;
+            *display: inline;
+            *zoom:0;
+            vertical-align: middle;
+            line-height: 30px;
+        }
+        #container-box select{
+            width: 60px;
+            height: 30px;
+            vertical-align: middle;
+            border: 1px solid #E6E6E6;
+        }
+	</style>
+<script src="/system/js/jquery-1.11.1.min.js"></script>
+<script src="/system/js/highcharts.js"></script>
+<script th:inline="javascript">
+/*<![CDATA[*/
+$(function () {
+	var count_persons = [[${countList}]];
+	var nums = "";
+	for(var i = 0;i<count_persons.length;i++){
+		if(nums.length>0){
+			nums += ",";
+		}
+		
+		nums += count_persons[i].count_person;
+	}
+	
+	  var times = "";
+	for(var i = 0;i<count_persons.length;i++){
+		if(times.length>0){
+			times += ",";
+		}
+
+		var da = new Date(count_persons[i].count_date);
+		times += da.getDate();
+	}  
+    // var data={
+    //     "time":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+    //     "num":[20,60,48,68,52,12,15,65,65,74,12,36,95,54,23,12,62,85,41,12]
+    // }
+    var data=$.parseJSON('{"time":['+times+'],"num":['+nums+']}');
+    $('#container').highcharts({
+        title: {
+            // 大标题
+            text: '会员人数变化折线图',
+            x: -20, //center
+            style: {
+                color: '#09c',
+                fontWeight: 'bold',
+                fontSize:"25px"
+            }
+        },
+        subtitle: {
+            // 小标题
+            text: '[[${year}]]年[[${month}]]月',
+            x: -20,
+            style: {
+                color: '#000',
+                fontWeight: '#555555',
+                fontSize:"16px"
+            }
+        },
+        chart:{
+            marginLeft:110
+        },
+        xAxis: {
+            categories: data["time"],
+            labels:{
+            	style:{
+            		fontWeight:"bold",
+            		color:"#000",
+            		fontSize:"14px"
+            	}
+            },
+        },
+        yAxis: {
+            title: {
+                text: "",
+                rotation:0,
+                align:"high",
+                margin:-70,
+                y:-20,
+                style:{"color":"#000","fontSize":"14px","fontWeight":"bold"}
+            },
+            labels:{
+            	style:{
+            		fontWeight:"bold",
+            		color:"#000",
+            		fontSize:"12px"
+            	},
+            	formatter:function(){
+            		return this.value;
+            	}
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: '人'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: '人数',
+            data: data["num"]
+        }]
+    });
+});
+$(function () {
+	for(var i = 1900; i<=2100;i++){
+	    var option = document.createElement('option');
+	    option.setAttribute('value',i);
+	    option.innerHTML = i;
+	    yearchoose.appendChild(option);
+	}
+});
+
+var count_persons = null;
+//切换月份 
+function queryPerson(){
+	$("#queryPersonForm").submit();	
+};
+/*]]>*/
+</script>
+</body>
+</html> 

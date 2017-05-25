@@ -1,0 +1,60 @@
+<div th:fragment="main" th:remove="tag">
+	<yd:ajax key="couponDestroy" value="get.coupon_destroy" />
+	<yd:ajax key="couponEdit" value="get.coupon_edit" />
+	
+	<div class="d-right nav-page">
+		<ul class="btn-page-top">
+			<li class="active">优惠券列表</li>
+			<li yd:ajax="onclick,get.couponCreate" class="active flr">新增优惠券</li>
+		</ul>
+		<div class="d-all pop">
+			<table class="list-table">
+				<thead>
+					<tr>
+						<th class="w120">名称</th>
+						<th class="w120">店铺优惠类型</th>
+						<th class="w60">优惠券金额</th>
+						<th class="w120">优惠券满金额</th>
+						<th class="w60">总库存</th>
+						<th class="w60">已领取</th>
+						<th class="w240">优惠券开始时间</th>
+						<th class="w240">优惠券结束时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item:${data}" th:inline="text">
+						<td>[[${item.coupon_name}]]</td>
+						<td>[[${item.coupon_store_type==1?'满减':'减免'}]]</td>
+						<td>[[${item.coupon_money}]]</td>
+						<td>[[${item.coupon_full_money}]]</td>
+						<td>[[${item.coupon_total_stock}]]</td>
+						<td>[[${item.coupon_stock}]]</td>
+						<td>[[${#calendars.format(item.coupon_begin_time,'yyyy-MM-dd hh:mm:ss')}]]</td>
+						<td>[[${#calendars.format(item.coupon_end_time,'yyyy-MM-dd hh:mm:ss')}]]</td>
+						<td class="btn-t-o">														
+							<span><a href="javascript:void(0)" th:attr="data-id=${item.coupon_id}" onclick="couponEdit(this)">编辑</a></span>
+							<span><a href="javascript:void(0)" class="del-alert" th:attr="data-id=${item.coupon_id}" data-func="couponDestroy">删除</a></span>
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="4"></td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		<div class="pagination">
+		</div>
+	</div>
+	<script th:inline="javascript">
+		$(function() {
+			pagination(".pagination", [[${totalPage}]], [[${p}]], "storeCouponIndex");
+		});
+	</script>
+</div>
+
+
+
+

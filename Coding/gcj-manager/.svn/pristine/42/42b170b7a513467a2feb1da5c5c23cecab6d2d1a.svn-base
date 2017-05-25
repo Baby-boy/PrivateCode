@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta charset="utf-8" name="renderer" content="webkit" />
+<title>功成记</title>
+<link rel="stylesheet" href="/css/public.css" />
+<link rel="stylesheet" href="/css/index.css" />
+<link rel="stylesheet" href="/css/progress.css"/>
+</head>
+<body th:with="user=${session.user},task=${taskVo},contract=${contract},httgyj=(${session.httgyj!=null}?${session.httgyj}:'0')"
+	th:inline="text">
+	<!--顶部导航-->
+	<div th:include="public/hander"></div>
+
+	<!--发布公告-->
+	<div class="fbgg-box">
+		<div class="fabu">
+			<div class="jindu">
+				<div class="jindutit">任务进度</div>
+				<div class="jindus">
+					<div class="jinduxian">
+						<div></div>
+					</div>
+					<ul>
+						<li th:class="${task.task_state >= 0}?'isok':''"><span>1</span>
+							<p>任务发布</p></li>
+						<li th:class="${task.task_state >= 2}?'isok':''"><span>2</span>
+							<p>选标</p>
+							<div></div></li>
+						<li th:class="${task.task_state >= 3}?'isok':''"><span>3</span>
+							<p>签订合同</p>
+							<div></div></li>
+						<li th:class="${task.task_state >= 4}?'isok':''"><span>4</span>
+							<p>进行工作</p>
+							<div></div></li>
+						<li th:class="${task.task_state >= 5}?'isok':''"><span>5</span>
+							<p>雇主验收并付款</p>
+							<div></div></li>
+						<li th:class="${task.task_state >= 6}?'isok':''"><span>6</span>
+							<p>评价</p>
+							<div></div></li>
+					</ul>
+				</div>
+			</div>
+			<div class="work-box">
+				<div class="worktit">
+					<a th:href="'/list-guzhu/guzhu-xuqiumiaoshu/'+${taskId}">需求描述</a> <a
+						th:href="@{/list-guzhu/hetong/}+${taskId}" class="now">合同</a> <a
+						th:href="'/list-guzhu/guzhu-gongzuotai/'+${taskId}">工作台</a>
+				</div>
+				<div class="compile-pact">
+					<div class="compile-tit">
+						<i></i>合同签订
+					</div>
+
+					<!--2017-02-20新增-->
+
+					<!-- <div class="signature clear ">三方合同内容......</div>
+					<div class="signature clear">
+						<input onclick="showTg()" type="button" value="托管佣金"
+							style="width: 100px; height: 30px; color: #666; border: 1px solid #999; background: inherit; cursor: pointer;" />
+					</div>
+					<div class="signature clear folders">
+						
+					</div>
+					<div class="signature clear">
+						<input type="file" id="contractfile" style="display: none;" th:onchange="'upload(this,'+${taskId}+')'"/>
+						<label for="contractfile">上传合同资料&gt;&gt;</label>
+					</div>
+					<div class="download">
+						<a href="javascript:;" class="button1">下载打印</a>
+						<a class="button2" th:href="'javascript:submitContractStateMsg('+${user.user_id}+','+${taskId}+',2)'">提交合同</a>
+						<a class="button2" href="javascript:;">重新选标</a>
+						<a class="button2" href="javascript:;">关闭任务</a>
+					</div> -->
+					<div class="signature clear signature-one">三方合同内容......</div>
+					<div class="signature clear">
+						<input onclick="showTg()" type="button" value="托管佣金"
+							style="width: 100px; height: 30px; color: #666; border: 1px solid #999; background: inherit; cursor: pointer;" />
+					</div>
+					<div class="signature clear folders">
+						
+					</div>
+					<div class="signature clear">
+						<input type="file" id="contractfile" style="display: none;" th:onchange="'upload(this,'+${taskId}+')'"/>
+						<label for="contractfile" class="sig-label">上传合同资料&gt;&gt;</label>
+					</div>
+					<div class="bianji-pact" style="padding-left:147px;">
+						<ul class="tongyi">
+	                         <li>
+	                             <p>甲方（雇主）：[[${user.user_name}]]</p>
+	                             <p>签署日期：[[${#dates.format(date,'yyyy-MM-dd')}]]</p>
+	                             <div class="sftya" style="display:none;"></div>
+	                         </li>
+	                         
+	                         <li>
+	                             <p>乙方（服务方）：[[${tenderVo.tender_uname}]]</p>
+	                             <p>签署日期：[[${#dates.format(date,'yyyy-MM-dd')}]]</p>
+	                         </li>
+                            
+                        </ul>
+					</div>
+					
+					<div class="download">
+						<a href="javascript:;" class="button1">下载打印</a>
+						<a class="button2" th:href="'javascript:submitContractStateMsg('+${user.user_id}+','+${taskId}+',2)'">提交合同</a>
+						<a class="button2" href="javascript:;">重新选标</a>
+						<a class="button2" href="javascript:;">关闭任务</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="zhezhao dis-none"></div>
+	<div class="popup-fukuan dis-none">
+		<div class="guanbi" onclick="closeTg()"></div>
+		<h4>托管项目佣金</h4>
+		<input type="text" placeholder="请输入托管说明" class="yanzheng1 desc" />
+		<input type="text" placeholder="请输入托管金额" class="yanzheng1 price" />
+		<input type="text" th:value="${user.user_phone}" readOnly="true" class="yanzheng1 phone" />
+		<input type="text" placeholder="请输入验证码" class="yanzheng2 phoneCode" /> 
+		<span class="span fsyzm" th:with="s=(${httgyj!='0'}?${httgyj.sy}:'60'),state=(${httgyj!='0'}?${httgyj.state}:'0')" th:attr="data-time=${s},data-state=${state}"  th:onclick="'upphoneNum(this,'+${user.user_phone}+',\'tgPhoneCode\')'">获取验证码</span>
+		<!-- <span>发送验证码</span> -->
+		<input type="password" placeholder="请输入交易密码" class="yanzheng1 payPwd" />
+		<div class="uploading clear">
+			<input type="checkbox" class="isRemainSum" checked="checked"/>
+			<div class="input">使用账户余额支付</div>
+			<span>-</span>
+			<div class="yue">当前账户余额<span class="priceNow">[[${user.user_cprice}]]</span></div>
+		</div>
+		<div class="button">
+			<button type="button" th:onclick="'tg('+${user.user_id}+','+${taskId}+')'">确定</button>
+			<button type="button" onclick="closeTg()">取消</button>
+		</div>
+	</div>
+	
+	<!--底部-->
+	<div th:include="public/foot"></div>
+	<div class="modal">
+	    <div class="modal-content">
+	        <p class="modalms">文件上传中，请稍等.......</p>
+	        <div class="progress progress-striped active">
+	            <div class="progress-bar progress-bar-warning">
+	            </div>
+	        </div>
+	        <div id="curProgress"></div>
+	    </div>
+	</div>
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jquery.select.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/bg/task.js"></script>
+<script type="text/javascript" src="/js/bg/contract.js"></script>
+
+<!-- 文件上传js -->
+<script type="text/javascript" src="/js/upload/plupload.full.min.js"></script>
+<script type="text/javascript" src="/js/upload/functions.js"></script>
+<script type="text/javascript" src="/js/upload/upload.js"></script>
+<script src="/js/chajian/checkbox.js"></script>
+<script type="text/javascript" src="/js/bg/submits.js"></script>
+<script src="/js/progress.js"></script>
+
+<script type="text/javascript">
+	function showTg(){
+		$(".popup-fukuan,.zhezhao").removeClass("dis-none");
+	}
+	function closeTg(){
+		$(".popup-fukuan,.zhezhao").addClass("dis-none");
+	}
+	function tg(userId,taskId){
+		var desc = $(".desc").val();
+		var price = $(".price").val();
+		var phone = $(".phone").val();
+		var phoneCode = $(".phoneCode").val();
+		var payPwd = $(".payPwd").val();
+		
+		if(desc==""){
+			Popups("请输入托管说明！");
+			return;
+		}
+		
+		var repri = /^[0-9]*$/;
+		if(price == "" || !repri.test(price)){
+			Popups("请输入托管金额！");
+			return;
+		}
+		
+		if(100 > price){
+			Popups("托管金额不能小于100！");
+			reutrn;
+		}
+		
+		if(phoneCode == ""){
+			Popups("请输入验证码！");
+			return;
+		}
+		
+		if(payPwd == ""){
+			Popups("请输入交易密码！");
+			return;
+		}
+		
+		var isRemainSum = $(".isRemainSum");
+		if(isRemainSum.is(":checked")){
+			
+			var url = "/page/contract/tg";
+			var datas = {
+				"userId":userId,
+				"taskId":taskId,
+				"desc":desc,
+				"price":price,
+				"phone":phone,
+				"phoneCode":phoneCode,
+				"payPwd":payPwd
+			}
+			var result = function(data){
+				Popups(data.msg);
+				if(data.code == 200){
+					$(".sftya").show(500);
+					$(".popup-fukuan,.zhezhao").addClass("dis-none");
+				}
+			}
+			sendPost(url,datas,result);
+		}else{
+			Popups("使用第三方支付功能暂未开放，请选用余额支付！");
+			$(".zhezhao").removeClass("dis-none");
+		}
+	}
+	
+	//托管佣金
+	$('.popup-fukuan .button').find('button:first-child').click(function(){
+		$('.signature.signature-one').next('.signature').addClass('.signature-two');
+	});
+	
+
+</script>
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperBanner">
+	<!-- 查询条件 -->
+	<sql id="where">
+		<trim prefix="where" suffixOverrides="and">
+		  	<if test="banner_type != null and banner_type != ''">
+		  		 banner_type = #{banner_type} and
+		  	</if>
+		  	banner_is_show = 1
+		</trim>
+	</sql>
+	
+	
+	<!-- 字段 -->
+	<sql id="field">
+ 		banner_id, banner_type, banner_title, banner_cover, banner_url,banner_open_type,banner_key_id, banner_sort
+ 	</sql>
+ 	
+ 	<!-- 排序 -->
+	<sql id="orderBy">
+		ORDER BY banner_sort ASC
+ 	</sql>
+ 	
+ 	
+	<select id="findByType" resultType="com.yd.dby.b.shop.entity.YdBanner">
+		SELECT <include refid="field"></include> FROM yd_banner
+		<include refid="where"></include>
+		LIMIT 1
+	</select>
+
+
+	<select id="lists" resultType="com.yd.dby.b.shop.entity.YdBanner">
+		SELECT
+			<include refid="field"></include>
+		FROM
+			yd_banner
+		<include refid="where"></include>
+		<include refid="orderBy"></include>
+	</select>
+	    
+</mapper>

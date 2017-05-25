@@ -1,0 +1,37 @@
+<div th:fragment="main" th:remove="tag">
+	<yd:ajax key="goodsPic" value="get.goods_pic"  />
+	<div class="d-right pic-page">
+		<ul class="btn-page-top" data-btn-grid="grid">
+			<li class="active">图片列表</li>
+		</ul>
+		
+		<div class="search-body">
+			批量处理
+			<a class="btn-mini check-all" data-check-class=".pic-list" href="JavaScript:void(0);">全选</a>
+			<a class="btn-mini check-cancel-all" data-check-class=".pic-list" href="JavaScript:void(0);">取消</a>
+			<a class="btn-mini check-return-all" data-check-class=".pic-list" href="JavaScript:void(0);">反选</a>
+			<a class="btn-mini" href="JavaScript:void(0);">删除</a>
+		</div>
+		
+		<div class="d-all pop">
+			<ul class="pic-list">
+				<li th:each="item:${data}" th:inline="text">
+					<div class="img-all">
+						<input class="check" name="id" type="checkbox" />
+						<img class="img" th:src="${item.picPath}" />
+					</div>
+					<div class="img-info">
+						<p>上传时间：[[${ #calendars.format(item.createdAt,'yyyy-MM-dd') }]]</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- 分页 -->
+		<div class="pagination"></div>
+	</div>
+	<script th:inline="javascript">
+		$(function() {
+			pagination(".pagination", [[${totalPage}]], [[${p}]], "goodsPic");
+		});
+	</script>
+</div>

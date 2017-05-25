@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.d.seller.mapper.YdSellerMapperCompany">
+	<insert id="create" useGeneratedKeys="true" keyProperty="company_id">
+		INSERT INTO
+			yd_company(
+				store_id, user_id, company_name, company_address,
+				company_business_licence, company_organization_code, company_bank_account,
+				legal_person_positive, legal_person_negative
+			)
+		VALUE(
+			#{store_id}, #{user_id}, #{company_name}, #{company_address},
+			#{company_business_licence}, #{company_organization_code},
+			#{company_bank_account}, #{legal_person_positive}, #{legal_person_negative}
+		)
+			
+	</insert>
+	
+</mapper>

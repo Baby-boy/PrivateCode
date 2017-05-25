@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title></title>  
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>
+    <script src="/system/js/jquery.page.js"></script>
+</head>
+<body th:inline="text">
+<form method="get" action="/system/queryTenderByTaskId" th:inline="text" id="queryForm" >
+<input type="hidden" th:value="${task_id}" name="task_id" />
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 投标信息管理</strong></div>
+    <div class="padding border-bottom">
+
+      <ul class="search">
+        <li>
+            <input type="text" placeholder="请输入服务商姓名" name="tender_uname" th:value="${tender_uname}" class="input" style="width:250px; line-height:17px;display:inline-block" />
+        </li>
+        <li>
+           <input type="text" placeholder="请输入手机号" name="tender_uphone" th:value="${tender_uphone}" class="input" style="width:250px; line-height:17px;display:inline-block" /> 
+        </li>
+        <li>
+            <button type="submit"  class="button border-green" id="adsubmit" >查询</button>
+        </li>
+      </ul>
+
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="120">序号</th>
+        <th>任务名称</th>
+        <th>服务商姓名</th>       
+        <th>申请人</th>
+        <th>手机号</th>
+        <th>投标价格</th>
+        <th>投标状态</th>
+        <th>是否删除</th>
+        <th>操作</th>       
+      </tr>
+
+        <tr th:each="ydMangerTender,obj:${ydMangerTender}" >
+<!--           <td><input type="checkbox" name="tender_id" th:text="${ydMangerTender.tender_id}" /></td> -->
+          <td th:text="${obj.count}"></td>
+          <td th:text="${ydMangerTender.task_pname}"></td>
+          <td th:text="${ydMangerTender.user_name}"></td>
+          <td th:text="${ydMangerTender.tender_uname}"></td>
+          <td th:text="${ydMangerTender.tender_uphone}"></td>
+          <td th:text="${ydMangerTender.tender_price}"></td>
+          <td th:switch="${ydMangerTender.tender_state}">
+          	<p th:case="'0'">等待</p>	
+          	<p th:case="'1'">被选中</p>	
+          	<p th:case="'2'">未选中</p>	
+          </td>  
+          <td th:text="${ydMangerTender.tender_isdel}"></td>
+<!--           <td th:text="${#calendars.format(ydMangerTender.tender_last_time,'yyyy-MM-dd hh:mm:ss') }"></td> -->
+          <td><div class="button-group"> 
+		          <a class="button border-red" href="javascript:void(0)" th:attr="tender_id=${ydMangerTender.tender_id}" onclick="return delAdmin( $(this) )">删除</a>
+		          <a class="button border-red" th:href="@{/system/queryTenderByTenderId/}+${ydMangerTender.tender_id}">详情</a> 
+	          </div>
+          </td>
+        </tr>
+    </table>
+  </div>
+</form>
+<div class="pagination thePage">
+ <ul>
+　</ul>
+</div>
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/	
+  $(function() {
+	 pagination(".pagination ul",[[${totalPage}]],[[${p}]] );
+ }); 
+ 
+function pagination(node, totalPage, cpage) {
+	$(node).createPage({
+        pageCount: totalPage,
+        current: cpage,
+        backFn:function(p){
+            //单击回调方法，p是当前页码
+        }
+    });
+}
+
+//条件搜索
+$('#adsubmit').click(function(){
+	$('#queryForm').submit();
+});
+
+/*]]>*/
+</script>
+</body></html>

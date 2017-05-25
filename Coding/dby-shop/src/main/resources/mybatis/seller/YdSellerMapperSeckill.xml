@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.d.seller.mapper.YdSellerMapperSeckill">
+	
+	<sql id="field">
+		sg_id, seckill_id, depot_id, store_id, store_name, sg_sort, sg_apply_time, sg_state, sg_season, sg_cover
+	</sql>
+	
+	<select id="lists" resultType="com.yd.dby.d.seller.entity.YdSellerSeckillGoods">
+		SELECT
+			yd_depot.depot_id, yd_depot.depot_min_bid, yd_depot.depot_price,
+			yd_depot.depot_pre_stock, yd_goods.goods_name, yd_seckill_goods.sg_apply_time,
+			yd_seckill_goods.sg_cover, yd_seckill_goods.sg_id, yd_goods.goods_cover,
+			yd_seckill_goods.sg_sort, yd_seckill_goods.store_id, yd_seckill_goods.store_name,
+			yd_seckill.seckill_title, yd_seckill.start_time, yd_seckill.end_time,
+			yd_seckill_goods.sg_state, yd_seckill.seckill_state, yd_seckill_goods.sg_season
+		FROM
+			yd_seckill_goods
+		LEFT JOIN
+			yd_seckill
+		ON
+			yd_seckill_goods.seckill_id = yd_seckill.seckill_id
+		LEFT JOIN
+			yd_depot
+		ON
+			yd_depot.depot_id = yd_seckill_goods.depot_id
+		LEFT JOIN
+			yd_goods
+		ON
+			yd_depot.goods_id = yd_goods.goods_id
+		WHERE
+			yd_seckill_goods.store_id = #{storeId}
+		ORDER BY
+			yd_seckill_goods.sg_id ASC
+	</select>
+	
+	<select id="total" resultType="java.lang.Integer">
+		SELECT
+			count(sg_id)
+		FROM
+			yd_seckill_goods
+		WHERE
+			store_id = #{storeId}
+	</select>
+	
+	
+	<!-- 删除 -->
+	<delete id="delete">
+		DELETE FROM yd_seckill_goods
+		WHERE
+			store_id = #{storeId} AND sg_id = #{sgId}
+	</delete>
+	
+	
+	<select id="info" resultType="com.yd.dby.d.seller.entity.YdSellerSeckillGoods">
+		SELECT
+			<include refid="field"></include>
+		FROM
+			yd_seckill_goods
+		WHERE
+			store_id = #{storeId} AND sg_id = #{sgId}
+	</select>
+	
+	
+	<insert id="store">
+		INSERT INTO yd_seckill_goods
+			(
+				seckill_id, depot_id, store_id, store_name,
+				sg_sort, sg_apply_time, sg_state
+			)
+			VALUE
+			(
+				#{seckill_id}, #{depot_id}, #{store_id}, #{store_name},
+				#{sg_sort}, #{sg_apply_time}, #{sg_state}
+			)
+	</insert>
+</mapper>

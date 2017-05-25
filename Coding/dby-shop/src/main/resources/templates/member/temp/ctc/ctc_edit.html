@@ -1,0 +1,106 @@
+<div th:fragment="main" th:remove="tag">
+
+	<div class="d-right ctc-create">
+		<yd:ajax key="memberCtcUpdate" value="get.ctc_update" />
+		<yd:ajax key="getCtcClassSon" value="get.ctcClassSon" />
+		<!-- 中间内容 -->
+		<div id="container2" style="margin: 0px auto;">
+			<div class="c2c-release" style="margin-top: 10px;">
+				<h2>发布懒鱼</h2>
+				<form class="form-ajax-sub" data-func="memberCtcUpdate">
+					<input type="hidden" name="ctc_id" />
+					<ul>
+						<li><label for="ctc_name">商品标题</label> <input data-error-info="请输入商品名称" data-verify="true" name="ctc_name" type="text" placeholder="请输入您的标题" /></li>
+						<li><label for="ctc_name">商品分类</label>
+							<div class="select-ctc-class">
+								<select data-error-info="请选择一级分类" data-verify="true" name="ctc_classify_id1" data-value="" data-first-title="选择一级分类">
+									<option value="">选择一级分类</option>
+									<option th:each="item:${@_YdWebServiceMemberCtcClass.one()}" th:inline="text" th:attr="value=${item.cc_id}">[[${item.cc_name}]]</option>
+								</select> <select data-error-info="请选择二级分类" data-verify="true" style="display: none;" name="ctc_classify_id2" data-first-title="选择二级分类" disabled="disabled"></select>
+							</div></li>
+						<li><label for="ctc_summary">商品描述</label> <textarea data-error-info="请输入商品描述" data-verify="true" name="ctc_summary" th:text="${data.ctc_summary}"></textarea></li>
+						<li><label for="">商品图片</label> <input type="file" data-upload-code="ctcPics" accept="image/gif,image.jpg,image/png" id="ctcPics" data-btn="upload" class="none" />
+							<div class="enclosure" id="container1">
+								<dl id="ossfile">
+								</dl>
+								<div id="btnSelectFile" class="add-pic">
+									<span></span>
+								</div>
+								<!-- <input type="radio" name="myradio" checked="true" value="random_name" hidden="hidden" /> -->
+							</div></li>
+						<li class="price"><label for="">商品价格</label> <input data-error-info="请输入商品价格" data-verify="true" name="ctc_price" type="text" placeholder="¥ 0.00" /> <label
+							class="width50" for="">运费</label> <input type="text" name="ctc_logistics_price" placeholder="¥ 0.00" /></li>
+						<li class="select-city"><label for="">所在地</label> <select data-error-info="请选择省" data-verify="true" class="province" name="ctc_province_id" data-value=""
+							data-first-title="选择省"></select> <select data-error-info="请选择市" data-verify="true" class="city" name="ctc_city_id" data-value="" data-first-title="选择市"></select> <select
+							data-error-info="请选择区" data-verify="true" class="area" name="ctc_area_id" data-value="" data-first-title="选择区"></select> <input type="hidden" data-pca="pca" name="ctc_pca" />
+						</li>
+						<li class="width382"><label for="">商品成色</label>
+							<select data-error-info="请选择商品成色" data-verify="true" name="ctc_quality_id" class="width360">
+								<option value="0">请选择</option>
+								<option th:each="nitem:${@_YdWebServiceDict.listByCode('ctc_quality')}" th:selected="${nitem.dict_id} eq ${data.ctc_quality_id} ? true : false" th:value="${nitem.dict_id}"
+									th:text="${nitem.dict_value}"></option>
+								<input type="hidden" name="ctc_quality_text" />
+							</select>
+						</li>
+						<li>
+							<div class="submit">
+								<input type="button" class="btn-add-edit" value="提  交" />
+							</div>
+						</li>
+					</ul>
+				</form>
+			</div>
+
+		</div>
+		<!-- 中间内容结束 -->
+
+	</div>
+
+	<script type="text/javascript" th:src="@{/assets/js/functions.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/upload/uploadnew.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/shop/js/online_book.js}"></script>
+	<script type="text/javascript" th:inline="javascript">
+		$(function(){
+			var data = [[${data}]];
+			restoreFormInput(data, ".form-ajax-sub");
+			
+			
+			setTimeout(function() {
+				var selectData = {ctc_province_id: data.ctc_province_id, ctc_city_id: data.ctc_city_id, ctc_area_id: data.ctc_area_id};
+				restorePca(selectData, ".select-city");
+				var selectData = {ctc_classify_id1: data.ctc_classify_id1, ctc_classify_id2: data.ctc_classify_id2};
+				restorePca(selectData, ".select-ctc-class");
+				
+				var pics = data.ctc_pics.split(",");
+				_goodsPics = pics;
+				for(var ele in pics) {
+					var str = '<dd>'+
+							'<img src="'+_urlGoods+pics[ele]+'" />'+
+							'<i data-img="'+pics[ele]+'"></i>'+
+						'</dd>';
+					$("#ossfile").append(str);
+				}
+				
+				
+			}, 100);
+			
+			setTimeout(function() {
+				$("select[name='ctc_classify_id2'] option[value='"+data.ctc_classify_id2+"']").prop("selected", true);
+			}, 300);
+			
+			// 选择图片
+			$("#btnSelectFile span").click(function() {
+				$("#ctcPics").click();
+			});
+			
+			$("body").on("change", "select[name='ctc_quality_id']", function() {
+				$(this).next("input").val( $(this).find("option:selected").text() );
+			});
+			
+			$('.select-city').cxSelect({
+				selects: ['province', 'city', 'area'],
+				nodata: 'none'
+			});
+		});
+	</script>
+</div>

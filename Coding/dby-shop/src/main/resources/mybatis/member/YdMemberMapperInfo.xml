@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperInfo">
+
+	<select id="info" resultMap="YdWebMapperInfo">
+		SELECT
+		user_id,user_sex,user_username,user_nickname,user_avatar,user_mobile,user_email,user_grade,
+		user_payment_password, user_money,
+		user_birthday, user_province_id, user_city_id, user_area_id, user_pca
+		FROM
+		yd_user
+		WHERE user_id = #{user_id}
+	</select>
+
+	<resultMap id="YdWebMapperInfo" type="com.yd.dby.c.member.entity.User">
+		<result property="user_id" column="user_id" />
+		<result property="user_sex" column="user_sex" />
+		<result property="user_username" column="user_username" />
+		<result property="user_nickname" column="user_nickname" />
+		<result property="user_avatar" column="user_avatar" />
+		<result property="user_mobile" column="user_mobile" />
+		<result property="user_email" column="user_email" />
+		<result property="user_grade" column="user_grade" />
+		<result property="user_money" column="user_money" />
+		<result property="user_payment_password" column="user_payment_password" />
+		<result property="user_birthday" column="user_birthday" />
+
+		<result property="user_province_id" column="user_province_id" />
+		<result property="user_city_id" column="user_city_id" />
+		<result property="user_area_id" column="user_area_id" />
+		<result property="user_pca" column="user_pca" />
+	</resultMap>
+
+	<update id="update">
+		UPDATE
+		yd_user
+		<set>
+			<if test="user_sex != null">
+				user_sex = #{user_sex,jdbcType=INTEGER},
+			</if>
+			user_birthday = #{user_birthday},
+			user_nickname = #{user_nickname},
+			user_province_id = #{user_province_id},
+			user_city_id = #{user_city_id},
+			user_area_id =
+			#{user_area_id},
+			user_pca =
+			#{user_pca}
+		</set>
+		WHERE
+		user_id = #{user_id}
+	</update>
+
+	<update id="editLoginPassword">
+		UPDATE
+		yd_user
+		SET
+		user_password = #{password}
+		WHERE
+		user_id = #{user_id}
+	</update>
+
+	<update id="editPayPassword">
+		UPDATE
+		yd_user
+		SET
+		user_payment_password = #{password}
+		WHERE
+		user_id = #{user_id}
+	</update>
+
+</mapper>

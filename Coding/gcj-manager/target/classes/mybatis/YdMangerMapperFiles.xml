@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperFiles">
+	<select id="$queryAllBySql" parameterType="java.lang.String" resultType="com.yd.gcj.entity.YdMangerFiles">
+		select 
+			files_id,files_name,files_path,files_desc,files_size,files_create_time,files_update_time
+		from 
+			yd_files 
+		where 1=1 
+			#{sql}
+	</select>
+	
+	<select id="$queryAllByTask" resultType="com.yd.gcj.entity.YdMangerFiles">
+		select * 
+		from yd_files
+		where files_id in (select filetr_id from yd_files_task where filetr_tid = #{taskId})
+	</select>
+	
+	<select id="$queryById" resultType="com.yd.gcj.entity.YdMangerFiles">
+		select 
+			*
+		from 
+			yd_files
+		where 
+			files_id = #{fileId}
+	</select>
+	
+	<select id="$queryCountNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select 
+			count(*) 
+		from 
+			yd_files
+		where 1=1
+			#{sql}
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerFiles" useGeneratedKeys="true" keyProperty="files_id">
+		insert into yd_files
+			(files_name,files_path,files_desc,files_size,files_create_time,files_update_time)
+		value
+			(#{files_name},#{files_path},#{files_desc},#{files_size},#{files_create_time},#{files_update_time})
+	</insert>
+	
+	<update id="$update" parameterType="com.yd.gcj.entity.YdMangerFiles">
+		update yd_files 
+			<set>
+				<trim suffixOverrides=",">
+					<if test="files_name != null">files_name = #{files_name},</if>
+					<if test="files_path != null">files_path = #{files_path},</if>
+					<if test="files_desc != null">files_desc = #{files_desc},</if>
+					<if test="files_size != null">files_size = #{files_size},</if>
+					<if test="files_create_time != null">files_create_time = #{files_create_time},</if>
+					<if test="files_update_time != null">files_update_time = #{files_update_time},</if>
+				</trim>
+			</set>
+		where files_id = #{files_id}
+	</update>
+	
+	<delete id="$delete" parameterType="java.lang.Integer">
+		delete from yd_files 
+		where files_id = #{files_id}
+	</delete>
+	
+</mapper>
+

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记</title>
+    <link rel="stylesheet" href="../css/public.css"/>
+    <link rel="stylesheet" href="../css/index.css"/>
+</head>
+<body>
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<div class="select-persons">
+    <div class="select">
+        <div class="title">
+            <span>申请任务</span>
+            <a href="shenqingrenwu-bj" class="jianli-bj">查看简历</a>
+        </div>
+        <div class="apply-compile clear apply-check">
+            <ul class="left">
+                <li>
+                    <p class="p1">申请人</p>
+                    <p class="p2">XXX</p>
+                </li>
+                <li>
+                    <p class="p1">联系方式</p>
+                    <p class="p2">手机：13936436462</p>
+                    <p class="p2">邮箱：13936436462@163.com</p>
+                </li>
+                <li>
+                    <p class="p1">所属行业</p>
+                    <p class="p2">金融行业</p>
+                </li>
+                <li>
+                    <p class="p1">好评数 <span>（5）</span></p>
+                    <p class="p2">标签：<i>xxx</i></p>
+                    <p class="p2">级别：<span>4级</span></p>
+                </li>
+            </ul>
+
+            <ul class="right">
+                <li>
+                    <p class="p1">投标价格 <span>（单位：元）</span></p>
+                    <input type="text" placeholder="请输入您的投标价格"/>
+                </li>
+                <li>
+                    <p class="p1">团队人数</p>
+                    <input type="text" placeholder="请输入您的团队人数"/>
+                </li>
+                <li>
+                    <p class="p1">类似案例</p>
+                    <a href="javascript:;"><i></i><span>xxx案例</span></a>
+                </li>
+                <li>
+                    <p class="p1">其他说明</p>
+                    <textarea name="" id="elseshuom" cols="30" rows="10" placeholder="多行输入"></textarea>
+                </li>
+            </ul>
+        </div>
+        <div class="apply-btn">
+            <button class="button1" type="submit">确认提交</button>
+            <button class="button2" type="button">取消提交</button>
+        </div>
+    </div>
+</div>
+<!--底部-->
+<div class="btmone-box btmtwo2">
+    <div class="btmone btmtwo2">
+        <div class="btmleft">
+            <img src="../images/erweima.jpg" alt=""/>
+            <div class="btmleft-ri">
+                <p class="p1">4006-123-011</p>
+                <p class="p2">联系电话：<i>400-000-000</i></p>
+                <p class="p2">电子邮箱：<i>xxx@xxxxxx.com</i></p>
+            </div>
+        </div>
+        <div class="btmright">
+            <a href="#">关于我们</a>
+            <i>|</i>
+            <a href="#">平台介绍</a>
+            <i>|</i>
+            <a href="../consult/help">帮助中心</a>
+        </div>
+    </div>
+</div>
+<div class="btmtwo btmtwo2">
+    Copyright ©2016XXX所有沪ICP备xxxx号 沪公网安备xxxxxx号
+</div>
+
+</body>
+<script src="../js/jquery-1.11.1.min.js"></script>
+<script src="../js/chajian/jqkuozhan.js"></script>
+</html>

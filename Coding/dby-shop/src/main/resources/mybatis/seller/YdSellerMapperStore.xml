@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.d.seller.mapper.YdSellerMapperStore">
+	<sql id="listWhere">
+		 where store_id = #{store_id}
+	</sql>
+	
+	<insert id="create" useGeneratedKeys="true" keyProperty="store_id">
+		INSERT INTO
+			yd_store(user_id, store_name, store_is_available, store_is_verify)
+		VALUE
+			(#{user_id}, #{store_name}, 1, 0)
+	</insert>
+	
+	<select id="info" resultMap="YdWebMapperStore">
+		SELECT * FROM yd_store <include refid="listWhere"></include>
+	</select>
+	
+	<select id="infoUserId" resultMap="YdWebMapperStore">
+		SELECT * FROM yd_store WHERE user_id = #{user_id} LIMIT 1
+	</select>
+	
+	<resultMap id="YdWebMapperStore" type="java.util.HashMap">
+		<result property="storeId" column="store_id"/>
+		<result property="userId" column="user_id"/>
+		<result property="storeName" column="store_name"/>
+		<result property="storeBanner" column="store_banner"/>
+		<result property="storeFlag1" column="store_flag1"/>
+		<result property="storeFlag2" column="store_flag2"/>
+		<result property="storeClassify1" column="store_classify1"/>
+		<result property="storeClassify2" column="store_classify2"/>
+		<result property="storeClassify3" column="store_classify3"/>
+		<result property="storeLogo" column="store_logo"/>
+		<result property="storeQq" column="store_qq"/>
+		<result property="storeTelephone" column="store_telephone"/>
+		<result property="storeMobile" column="store_mobile"/>
+		<result property="storeProvinceId" column="store_province_id"/>
+		<result property="storeCityId" column="store_city_id"/>
+		<result property="storeAreaId" column="store_area_id"/>
+		<result property="storePca" column="store_pca"/>
+		<result property="storeAddress" column="store_address"/>
+		<result property="storeSummary" column="store_summary"/>
+		<result property="storeKeywords" column="store_keywords"/>
+		<result property="storeDescription" column="store_description"/>
+		<result property="goodsCover" column="goods_cover"/>
+		<result property="storeLong" column="store_long"/>
+		<result property="storeLat" column="store_lat"/>
+		<result property="storeComment" column="store_comment"/>
+		<result property="storeScore" column="store_score"/>
+		<result property="storeFollow" column="store_follow"/>
+		<result property="createdAt" column="created_at"/>
+		<result property="updatedAt" column="updated_at"/>
+	</resultMap>
+	
+	
+	<update id="update">
+		UPDATE
+			yd_store
+		SET
+			store_name = #{storeName},
+			store_summary = #{storeSummary},
+			store_logo = #{storeLogo},
+			store_qq = #{storeQq},
+			store_telephone = #{storeTelephone},
+			store_mobile = #{storeMobile},
+			store_address = #{storeAddress},
+			store_keywords = #{storeKeywords},
+			store_description = #{storeDescription}
+		<include refid="listWhere"></include>
+	</update>
+	
+	<update id="slideUpdate">
+		UPDATE
+			yd_store
+		SET
+			store_banner = #{store_banner}
+		<include refid="listWhere"></include>
+	</update>
+	
+</mapper>

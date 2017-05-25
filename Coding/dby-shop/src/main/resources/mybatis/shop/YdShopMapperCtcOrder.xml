@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperCtcOrder">
+
+	<!-- 插入 -->
+	<insert id="store" useGeneratedKeys="true" keyProperty="ctc_order_id">
+		INSERT INTO
+		yd_ctc_order(
+		ctc_order_sn, user_id, user_name, buyer_id, buyer_name,
+		state, delete_state, goods_price,
+		ctc_id, ctc_cover, goods_name, total_price, created_at,
+		order_message, receipt_address, receipt_name, receipt_mobile
+		)
+		VALUE (
+		#{ctc_order_sn}, #{user_id}, #{user_name}, #{buyer_id},
+		#{buyer_name},
+		#{state}, #{delete_state}, #{goods_price}, #{ctc_id}, #{ctc_cover}, #{goods_name}, #{total_price}, #{created_at},
+		#{order_message}, #{receipt_address},
+		#{receipt_name}, #{receipt_mobile}
+		)
+	</insert>
+
+	<!-- 信息 -->
+	<select id="info" resultType="com.yd.dby.b.shop.entity.YdCtcOrder">
+		SELECT
+		ctc_order_sn, user_id, user_name, buyer_id, buyer_name, ctc_cover, ctc_id,
+		state, delete_state, goods_price, goods_name, total_price,
+		created_at,
+		order_message, receipt_address, receipt_name, receipt_mobile
+		FROM
+		yd_ctc_order
+		WHERE
+		ctc_order_sn = #{order_sn}
+	</select>
+	<!-- 查询单个的订单信息 -->
+	<select id="queryOneDetailById" resultType="com.yd.dby.b.shop.entity.YdCtcOrder">
+		select *
+		from yd_ctc_order where ctc_order_id=#{ctc_order_id}
+	</select>
+
+	<!-- 更新订单 -->
+	<update id="update" parameterType="com.yd.dby.b.shop.entity.YdCtcOrder">
+		update yd_ctc_order
+		<set>
+			<if test="ctc_order_sn != null">
+				ctc_order_sn = #{ctc_order_sn,jdbcType=BIGINT},
+			</if>
+			<if test="pay_sn != null">
+				pay_sn = #{pay_sn,jdbcType=BIGINT},
+			</if>
+			<if test="user_id != null">
+				user_id = #{user_id,jdbcType=INTEGER},
+			</if>
+			<if test="user_name != null">
+				user_name = #{user_name,jdbcType=VARCHAR},
+			</if>
+			<if test="buyer_id != null">
+				buyer_id = #{buyer_id,jdbcType=INTEGER},
+			</if>
+			<if test="buyer_name != null">
+				buyer_name = #{buyer_name,jdbcType=VARCHAR},
+			</if>
+			<if test="payment_code != null">
+				payment_code = #{payment_code,jdbcType=VARCHAR},
+			</if>
+			<if test="payment_time != null">
+				payment_time = #{payment_time,jdbcType=VARCHAR},
+			</if>
+			<if test="finnshed_time != null">
+				finnshed_time = #{finnshed_time,jdbcType=VARCHAR},
+			</if>
+			<if test="state_service != null">
+				state_service = #{state_service,jdbcType=BIT},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=TINYINT},
+			</if>
+			<if test="delete_state != null">
+				delete_state = #{delete_state,jdbcType=BIT},
+			</if>
+			<if test="ctc_id != null">
+				ctc_id = #{ctc_id,jdbcType=INTEGER},
+			</if>
+			<if test="ctc_cover != null">
+				ctc_cover = #{ctc_cover,jdbcType=VARCHAR},
+			</if>
+			<if test="goods_name != null">
+				goods_name = #{goods_name,jdbcType=VARCHAR},
+			</if>
+			<if test="goods_price != null">
+				goods_price = #{goods_price,jdbcType=DECIMAL},
+			</if>
+			<if test="total_price != null">
+				total_price = #{total_price,jdbcType=DECIMAL},
+			</if>
+			<if test="refund_price != null">
+				refund_price = #{refund_price,jdbcType=DECIMAL},
+			</if>
+			<if test="transport_price != null">
+				transport_price = #{transport_price,jdbcType=DECIMAL},
+			</if>
+			<if test="created_at != null">
+				created_at = #{created_at,jdbcType=VARCHAR},
+			</if>
+			<if test="cancel_reason != null">
+				cancel_reason = #{cancel_reason,jdbcType=VARCHAR},
+			</if>
+			<if test="receipt_name != null">
+				receipt_name = #{receipt_name,jdbcType=VARCHAR},
+			</if>
+			<if test="receipt_mobile != null">
+				receipt_mobile = #{receipt_mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="receipt_address != null">
+				receipt_address = #{receipt_address,jdbcType=VARCHAR},
+			</if>
+			<if test="shipping_address != null">
+				shipping_address = #{shipping_address,jdbcType=VARCHAR},
+			</if>
+			<if test="shipping_id != null">
+				shipping_id = #{shipping_id,jdbcType=INTEGER},
+			</if>
+			<if test="shipping_express != null">
+				shipping_express = #{shipping_express,jdbcType=VARCHAR},
+			</if>
+			<if test="shipping_code != null">
+				shipping_code = #{shipping_code,jdbcType=VARCHAR},
+			</if>
+			<if test="shipping_time != null">
+				shipping_time = #{shipping_time,jdbcType=VARCHAR},
+			</if>
+			<if test="evaluation_time != null">
+				evaluation_time = #{evaluation_time,jdbcType=VARCHAR},
+			</if>
+			<if test="order_message != null">
+				order_message = #{order_message,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="deliver_explain != null">
+				deliver_explain = #{deliver_explain,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where ctc_order_id = #{ctc_order_id,jdbcType=INTEGER}
+	</update>
+	
+	
+	<!-- 支付成功 - 修改订单状态 -->
+	<update id="paySuccess">
+		UPDATE
+			yd_ctc_order
+		SET
+			state = 2,
+			pay_sn = #{paySn},
+			payment_time = #{paymentTime}
+		WHERE
+			ctc_order_sn = #{orderSn};
+		UPDATE
+			yd_ctc
+		SET
+			ctc_is_available = 4
+		WHERE
+			ctc_id = #{ctcId};
+	</update>
+</mapper>

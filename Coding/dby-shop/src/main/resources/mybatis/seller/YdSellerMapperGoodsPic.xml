@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.d.seller.mapper.YdSellerMapperGoodsPic">
+	<!-- 图片条件 -->
+	<sql id="picLists">
+		<trim prefix="where" suffixOverrides="and">
+		  	type = 1 and store_id = #{store_id}
+		</trim>
+	</sql>
+	
+	<select id="index" resultMap="YdWebMapperGoodsPicList">
+		select * from yd_goods_pic
+		<include refid="picLists"></include>
+		limit #{to}, #{perPage};
+	</select>
+	
+	<select id="total" resultType="java.lang.Integer">
+		select count(*) from yd_goods_pic
+		<include refid="picLists"></include>;
+	</select>
+	
+	<resultMap id="YdWebMapperGoodsPicList" type="java.util.HashMap">
+		<result property="picId" column="pic_id" />
+		<result property="type" column="type" />
+		<result property="goodsId" column="goods_id" />
+		<result property="storeId" column="store_id" />
+		<result property="picSort" column="pic_sort" />
+		<result property="picPath" column="pic_path" />
+		<result property="isDefault" column="is_default" />
+		<result property="createdAt" column="created_at" />
+	</resultMap>
+</mapper>

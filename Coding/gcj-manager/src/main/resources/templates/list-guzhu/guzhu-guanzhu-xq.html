@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:with="tender=${tenderVo}" th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--人才大厅-->
+<div class="rencai-box">
+    <div class="rencai">
+        <div class="wodeguanzhu-xq">
+            <div class="left">
+                <div class="top">
+                    <div class="img">
+                        <img src="" alt=""/>
+                    </div>
+                    <div class="list">
+                        <p class="p1"><span>[[${tender.tender_uine == null or tender.tender_uine == '' ? '公司：暂无':tender.tender_uine}]]</span><i></i></p>
+                        <ul>
+                            <li>
+                                <p class="p2"><i></i><span>[[${tender.tender_uname}]]</span></p>
+                                <p class="p3"><i></i><span><span th:each="label,niter:${tender.labelVos}" th:if="${label.userl_type eq 1} and ${niter.index} lt 4">[[${niter.index}>0?' , ':'']][[${label.userl_name}]]</span></span></p>
+                            </li>
+                            <li>
+                                <p class="p4"><i></i><span>[[${tender.tender_uphone}]]</span></p>
+                                <p class="p5"><i></i><span>[[${tender.tender_uqq}]]</span></p>
+                            </li>
+                            <li>
+                                <p class="p6"><i></i><span>团队成员 : [[${tender.tender_pnum}]]人</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="quxiao">关注</div>
+                </div>
+            </div>
+        </div>
+        <div class="fuwushang">
+            <div class="fenye">
+                <span class="now">服务商介绍</span>
+                <span>案例</span>
+                <span>好评</span>
+            </div>
+            <p class="p1" th:text="${tender.tender_conts}"></p>
+            <img src="/img/fuwushang.jpg" alt=""/>
+            <div class="anli">
+                <div class="top"><i></i>案例</div>
+                <div th:if="${tender.cases.size()}==0" style="color:#888888">&emsp;暂无</div>
+                <ul>
+                    <li class="clear" th:each="case,niter:${tender.cases}" th:inline="text">
+                        <div class="left">
+                            <p>案例名称：<span>[[${case.case_title}]]]</span></p>
+                            <p>案例形式：<span>[[${case.case_form}]]</span></p>
+                            <p>案例时间：<span>[[${#dates.format(case.case_start_time,'yyyy-MM-dd')}]]  至   [[${#dates.format(case.case_end_time,'yyyy-MM-dd')}]]</span></p>
+                            <p>担任角色：<span>[[${case.case_character}]]</span></p>
+                            <p>简介：<span>[[${case.case_indt}]]</span></p>
+                        </div>
+                        <div class="right">
+                            <p>附件</p>
+                            <a href="javascript:;"><i></i><span>户外项目介绍.ppt</span></a>
+                            <p>所获奖项</p>
+                            <a href="javascript:;"><i></i><span>高级设计师华中大赛金奖</span></a>
+                        </div>
+                    </li>
+                    <!-- <li class="clear">
+                        <div class="left">
+                            <p>案例名称：<span>xxxxxx</span></p>
+                            <p>案例形式：<span>概念作品</span></p>
+                            <p>案例时间：<span>2016-09至2016-10</span></p>
+                            <p>担任角色：<span>主创</span></p>
+                            <p>简介：<span>科技的创始人团多维度的运营商大数据资源，上线了互联网车险金融服务平台，该产品能帮助财险公司降低渠道和销售成本，优化用户体验的同时提高营销触达和转化率。涉足汽车后市场和支撑车险费改。</span></p>
+                        </div>
+                        <div class="right">
+                            <p>附件</p>
+                            <a href="javascript:;"><i></i><span>户外项目介绍.ppt</span></a>
+                            <p>所获奖项</p>
+                            <a href="javascript:;"><i></i><span>xxxxxx</span></a>
+                        </div>
+                    </li> -->
+                </ul>
+            </div>
+            <div class="haoping">
+                <div class="top"><i></i>好评</div>
+                <div th:if="${tender.spcs.size()}==0" style="color:#888888">&emsp;暂无</div>
+                <ul>
+                    <li class="clear" th:each="spcs,niter:${tender.spcs}">
+                        <div class="img">
+                            <img src="" alt=""/>
+                        </div>
+                        <div class="name">
+                            <p class="p1">[[spcs.spcs_uname]]</p>
+                            <p class="p2">[[spcs.spcs_content]]</p>
+                            <p class="p3">[[spcs.spcs_tname]]</p>
+                        </div>
+                        <div class="time">
+                            <p>2016年9月1日13:00</p>
+                        </div>
+                    </li>
+                    <!-- <li class="clear">
+                        <div class="img">
+                            <img src="" alt=""/>
+                        </div>
+                        <div class="name">
+                            <p class="p1">用户名</p>
+                            <p class="p2">非常不错，完成的很满意</p>
+                            <p class="p3">东莞松山湖北部体育公园项目概念方案</p>
+                        </div>
+                        <div class="time">
+                            <p>2016年9月1日13:00</p>
+                        </div>
+                    </li> -->
+                </ul>
+                <!-- <ul class="tcdPageCode">
+
+                </ul> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+<script src="/js/chajian/jquery.select.js"></script>
+<script src="/js/chajian/jquery.page.js"></script>
+<script>
+    $(".rencai .title select").select();
+    $(".rencai .title div.renwu").css("zIndex","999");
+    var pagedate={
+        pageCount:3,
+        current:1,
+        backFn:function(p){
+            //console.log(p);
+        }
+    };
+    $(".tcdPageCode").createPage(pagedate);
+</script>
+<script src="/js/common.js"></script>
+</html>

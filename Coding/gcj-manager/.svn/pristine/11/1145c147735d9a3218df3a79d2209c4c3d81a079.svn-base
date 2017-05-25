@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功城记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:with="user=${session.user},msgSize=${session.msgSize}" th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--待签合同-->
+<div class="hetong-box">
+    <div class="hetong approve">
+        <!-- 服务商个人信息头部 -->
+        <div th:include="public/fuwushang/hander"></div>
+        <div class="hetong-xq clear">
+            <div class="left">
+                <a href="fuwushang">我的任务</a>
+                <a href="wodezhanghu">我的账户</a>
+                <a href="wodejianli">我的简历</a>
+                <a href="woderenzheng-shiming" class="now">我的认证</a>
+                <a href="wodepingjia">我的评价</a>
+                <a href="wodeshoucang">我的收藏</a>
+                <a href="wodexiaoxi-huifu" class="pos-relative">我的消息<span class="badge badge-my-msg" th:if="${msgSize!=null and msgSize.countMsgSize > 0}" th:text="${msgSize.countMsgSize}">66</span></a>
+                <a href="tuikuanzhong">我的退款</a>
+            </div>
+            <div class="right">
+                <div class="topr">
+                	<a href="woderenzheng-shiming">实名认证</a>
+                    <a href="woderenzheng" class="now">信息认证</a>
+                    <a href="woderenzheng-jineng">技能认证</a>
+                </div>
+                <div class="topr2" style="margin-top: 20px">
+                    <i></i>基本资料
+                </div>
+                <div class="ziliao">
+                	<div class="ziliaos">
+                        <p>电话：<span>[[${user.user_phone}]]</span></p>
+                        <div class="news dis-none">
+                            <!-- <input type="text" placeholder="请输入新的电话"/>
+                            <div class="button">
+                                <button type="button">确定</button>
+                                <button type="button">取消</button>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="ziliaos">
+                        <p>邮箱：<span>[[${user.user_email}]]</span><i>修改</i></p>
+                        <div class="news dis-none">
+                             <input type="text" placeholder="请输入新的邮箱" class="userEmail" th:data="${user.user_id}"/>
+                             <div class="button">
+                                 <button type="button" onclick="updateUserEmail()">确定</button>
+                                 <button type="button">取消</button>
+                             </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ziliaos">
+                        <p>QQ：<span>[[${user.user_qqtoken}]]</span><i>修改</i></p>
+                        <div class="news dis-none">
+                             <input type="text" placeholder="请输入新的QQ" class="userQQ" th:data="${user.user_id}"/>
+                             <div class="button">
+                                 <button type="button" onclick="updateUserQQ()">确定</button>
+                                 <button type="button">取消</button>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="topr2">
+                    <i></i>团队类型
+                    <span class="Checking" th:if="${user.user_cstate == 0}">未认证</span>
+                    <span class="Pass" th:if="${user.user_cstate == 1}">已认证</span>
+                    <span class="notPass" th:if="${user.user_cstate == 2}">认证未通过</span>
+                    <span class="Checking" th:if="${user.user_cstate == 3}">审核中</span>
+                </div>
+                <div class="typeofs">
+                    <input type="text" class="typeone userEname" placeholder="公司名需与上传证件资料一致" th:data="${user.user_id}" th:value="${user.user_ename}"/><span style="color:#999999;"></span>
+                    <div style="width:540px;margin:30px 0 30px 0;color:#888888;">
+                    	<span>团队状态：</span>
+                    	<select class="teamState" style="width:200px;color:#888888;height:30px;outline:none;">
+                    		<option value="0">请选择</option>
+							<option value="1">待接单</option>
+							<option value="2">忙碌</option>  	                  	
+                    	</select>
+                    </div>
+                    <div style="width:540px;margin:10px 0 30px 0;color:#888888;">
+                    	<span>能否接受驻场：</span>
+                  		<label for="rn"><input type="radio" class="isResid" value="1" id="rn" name="nfjszc" checked="true"/>&nbsp;可以</label>&emsp;
+                  		<label for="ry"><input type="radio" class="isResid" value="0" id="ry" name="nfjszc"/>&nbsp;不能接受</label>
+                    </div>
+                    <table class="fuwushang-center-table woderenzheng-table">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>姓名</th>
+								<th>手机号</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+                    </table>
+                    <div style="width:540px;margin:10px 0 30px 0;text-align: right;">
+                    	<input type="button" onclick="addinfo()" style="padding:5px;background-color:transparent;border:1px solid #cccccc;color:#888888;cursor:pointer;" value="添加人员信息"/>
+                    </div>
+                    <div class="job-message">
+                        <span>上传&gt;&gt;</span>
+                        <i>认证信息</i>
+                        <input type="file" id="efile" name="file" onchange="uploadimg(this)"/>
+                    </div>
+                    <ul class="img-list">
+                    	<li>
+                    		<p>认证成功合同-2017.3.15</p>
+                    		<span>删除</span>
+                    	</li>
+                    	<li>
+                    		<p>认证成功合同-2017.3.15</p>
+                    		<span>删除</span>
+                    	</li>
+                    	<li>
+                    		<p>认证成功合同-2017.3.15</p>
+                    		<span>删除</span>
+                    	</li>
+                    	<li>
+                    		<p>认证成功合同-2017.3.15</p>
+                    		<span>删除</span>
+                    	</li>
+                    	<li>
+                    		<p>认证成功合同-2017.3.15</p>
+                    		<span>删除</span>
+                    	</li>
+                    </ul>
+                    <button type="button" onclick="enterEname()">保存</button>
+                    
+                </div>
+                
+                
+                <div class="topr2">
+                    <i></i>接单类型
+                </div>
+                <div class="typeofs otype">
+                    <!-- <div class="kaiguan" th:attr="add=(${user.user_otype}==1?'ok':'no')" data="1">
+                        <span>较少</span>
+                        <div th:class="${user.user_otype}==1?'flags kai':'flags'">
+                            <div class="dakai"></div>
+                            <i></i>
+                        </div>
+                    </div>
+                    <div class="kaiguan"  th:attr="add=(${user.user_otype}==2?'ok':'no')" data="2">
+                        <span>较多</span>
+                        <div th:class="${user.user_otype}==2?'flags kai':'flags'">
+                            <div class="dakai"></div>
+                            <i></i>
+                        </div>
+                    </div>
+                    <div class="kaiguan" th:attr="add=(${user.user_otype}==3?'ok':'no')" data="3">
+                        <span>全职接单</span>
+                        <div class="flags">
+                            <div th:class="${user.user_otype}==3?'flags kai':'flags'"></div>
+                            <i></i>
+                        </div>
+                    </div> -->
+                    <select style="width:150px;height:30px;outline:none;">
+                    	<option value="">较少</option>
+                    	<option value="">较多</option>
+                    	<option value="">全职接单</option>
+                    </select>
+                    <button type="button" th:onclick="'addUserOtype('+${user.user_id}+')'">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup-mokuaijia dis-none woderenzheng-popup" style="position: fixed;">
+	<div class="guanbi woderenzheng-guanbi" ></div>
+	<h4>添加人员信息</h4>
+	<p>姓名</p>
+	<input type="text" placeholder="请输入姓名" name="addname" class="yanzheng1 taskPmName" />
+	<p>手机号</p>
+	<input type="text" placeholder="请输入手机号" name="addtel" class="yanzheng1 taskPmName" />
+	<div class="button">
+		<button type="button" onclick="getinput()">确定</button>
+	</div>
+</div>
+	<div class="zhezhao dis-none woderenzheng-zhezhao"></div>
+<!--底部-->
+<div th:include="public/foot"></div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/js/chajian/jqkuozhan.js"></script>
+
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/bg/submits.js"></script>
+
+<script type="text/javascript" src="/js/upload/functions.js"></script>
+<script type="text/javascript" src="/js/upload/plupload.full.min.js"></script>
+<script type="text/javascript" src="/js/upload/upload.js"></script>
+<script type="text/javascript" src="/js/bg/woderenzheng.js"></script>
+<script type="text/javascript">
+function uploadimg(tag){
+	//上传成功调用该方法
+	var f = function(path,name){
+		var url = "/page/file/uploadTeamFile";
+		var datas = {
+			"path":path,
+			"name":name,
+			"size":0
+		}
+		var result = function(data){
+			Popups(data.msg,function(){
+				
+			});
+		}
+		sendPost(url,datas,result);
+	}
+	//上传进度，num进度百分比
+	var j = function(num){
+		
+	}
+	uploadFile(tag,f,j);
+}
+	function addinfo(){
+		$('.woderenzheng-popup').removeClass('dis-none');
+		$('.woderenzheng-zhezhao').removeClass('dis-none');
+		$('.woderenzheng-guanbi').click(function(){
+			$('.woderenzheng-popup').addClass('dis-none');
+			$('.woderenzheng-zhezhao').addClass('dis-none');
+		})
+	}
+	
+/*
+ 	var upLoadNum = 0;
+	$.ajaxFileUpload({
+		url:'/page/file/uploadTeamFile/'+userId,//用于文件上传的服务器端请求地址  
+    secureuri:false,//一般设置为false
+    fileElementId:"efile",//文件上传空间的id属性  <input type="file" id="file" name="file" />  
+    dataType: 'json',
+    type:"POST",
+    success: function (data){
+     	if(data.state!=1){
+     		upLoadNum++;
+     		alert(data.msg);
+     	}
+    }
+ }); */
+ //$('.woderenzheng-table tbody')
+</script>
+</html>

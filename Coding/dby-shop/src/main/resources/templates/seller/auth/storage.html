@@ -1,0 +1,55 @@
+<div th:fragment="main" th:remove="tag">
+	<div class="d-right">
+		<ul class="clear d-top">
+			<li class="d-edit">我收藏的商品</li>
+		</ul>
+		<div class="j-shop pop">
+			<div class="j-stop">
+				<ul class="clear">
+					<li class="j-al"><input type="checkbox" />全选</li>
+					<li class="j-photos">
+						商品图片
+					</li>
+					<li class="j-name">
+						商品名称
+					</li>
+					<li class="j-type">类型</li>
+					<li class="j-price">价格</li>
+					<li class="j-operat">操作</li>
+				</ul>
+			</div>
+			<div class="j-sbottom">
+				<ul class="clear" style="overflow:hidden" th:each="item:${body}" th:inline="text">
+					<li class="j-al"><input type="checkbox" value="" /></li>
+					<li class="j-photos"><div class="j-simg"><img th:src="${item.goods_attr1}" alt="" /></div></li>
+					<li class="j-name"><p th:text="${item.depot_tmp1}">Calvin Klein/卡文克莱 SIGHT系列 无刻度三针男士时装腕表 K1S21120 白色</p>
+					<span>下架时间：[[${item.depot_time1}]]</span>
+					</li>
+					<li class="j-price">[[${item.depot_quantity1}]]</li>
+					<li class="j-price">¥[[${item.depot_price1}]]</li>
+					<li class="j-operat">
+						<a href="#" class="put">申请上架</a>
+						<a href="#" class="enjoy">编辑</a>
+						<a href="#" class="enjoy">删除</a>
+					</li>
+				</ul>
+			</div>
+			<div class="j-choose clear" style="overflow:hidden">
+				<div class="choose1">
+					<input type="checkbox" value=""/>
+						全选
+				</div>
+				<div class="choose3">删除</div>
+			</div>
+		</div>
+		<!-- 分页 -->
+		<div class="g-pages clear">
+			<span>下一页&nbsp;&gt;</span>
+			<ul class="clear">
+				<li class="present">1</li>
+				<li>2</li>
+				<li>3</li>
+			</ul>
+		</div>
+	</div>
+</div>

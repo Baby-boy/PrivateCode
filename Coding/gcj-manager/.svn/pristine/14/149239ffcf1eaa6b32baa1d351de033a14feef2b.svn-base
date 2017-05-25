@@ -1,0 +1,44 @@
+package com.yd.gcj.service;
+
+import java.util.HashMap;
+
+import com.yd.gcj.entity.YdMangerTaskMsg;
+
+public interface YdMangerServiceTaskMsg {
+
+	/***
+	 * 根据任务id查询该任务所发布的公告
+	 * @param map
+	 * @return
+	 */
+	Object $queryByTid(HashMap<String, Object> map);
+	
+	/***
+	 * 根据公告id查询该公告信息
+	 * @param map
+	 * @return
+	 */
+	Object $queryById(HashMap<String, Object> map);
+	
+	/***
+	 * 添加新的公告信息
+	 * @param map
+	 * @return
+	 */
+	Object $insert(YdMangerTaskMsg taskMsg);
+	
+	/***
+	 * 修改公告信息
+	 * @param map
+	 * @return
+	 */
+	Object $update(HashMap<String, Object> map);
+	
+	/***
+	 * 删除指定id公告
+	 * @param map
+	 * @return
+	 */
+	Object $delete(HashMap<String, Object> map);
+	
+}

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记-人才大厅</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+    <link rel="stylesheet" href="/css/people.css"/>
+    <link rel="stylesheet" href="/css/common.css"/>
+    <script type="text/javascript">localStorage.setItem('nvaNum',5);</script>
+</head>
+<body th:with="u=(${session.user}!=null?${session.user}:'-1')">
+    <!--顶部导航-->
+    <div th:include="public/hander"></div>
+    
+    <!-- 中间 -->
+    <div id="yd-work-container">
+        <div class="yd-work-wrap">
+            <div class="yd-work-top">
+                <div class="yd-title">
+                    <h1>人才大厅</h1> 
+                </div>
+                <div class="yd-people-text">
+                    <div class="yd-design-top clear">
+                        <ul class="yd-design-left">
+                            <li>
+                                <div class="yd-design-wrap">
+                                    <strong>5<i>人</i></strong>
+                                    <span>建筑设计师</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="yd-design-wrap2">
+                                    <strong>19<i>人</i></strong>
+                                    <span>结构设计师</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="yd-design-wrap3">
+                                    <strong>43<i>人</i></strong>
+                                    <span>幕墙设计师</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="yd-design-wrap4">
+                                    <strong>19<i>人</i></strong>
+                                    <span>机电设计师</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="yd-design-wrap5">
+                                    <strong>19<i>人</i></strong>
+                                    <span>景观设计师</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="yd-design-wrap6">
+                                    <strong>43<i>人</i></strong>
+                                    <span>内装设计师</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="yd-design-right">
+                            <div class="yd-design-wrap7">
+                                <strong>258<i>人</i></strong>
+                                <span>总认证人才</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="yd-people-search clear">
+                        <div class="yd-search-wrap">
+                            <i></i>
+                            <input type="text" value="" placeholder="请输入搜素关键字"/>
+                        </div>
+                        <button>搜索</button>
+                    </div>
+                    <div class="yd-major clear">
+                        <div class="yd-major-left">专业及人物类型</div>
+                        <div class="yd-major-right">
+                            <ul class="check1">
+                            	<li th:each="labels,niter:${@pageLabel.$queryAll()}" th:attr="data-val=${niter.index+1}" th:class="${niter.index}==0?'now':''" th:text="${labels.label_name}" th:data="${labels.label_id}"></li>
+                               
+                                <li class="more">更多<i></i></li>
+                            </ul>
+                            <ul class="check1s">
+                           		<li th:each="labels,niters:${@pageLabel.$queryAll()}" th:class="${niters.index+1}>1?'dis-none':''">
+		                            <span data-val="1" th:data="${labels.label_id*100}">全选</span>
+		                            <span th:each="label,niter:${labels.labels}" th:attr="data-val=${niter.index+2}" th:text="${label.label_name}" th:data="${label.label_id}"></span>
+	                            </li>
+                            </ul>
+                            <div class="yixuan">
+                                <span>已选&gt;</span>
+                                <!--<p><span>顾问服务-全选</span><i></i></p>-->
+                                <!--<p><span>幕墙设计-幕墙下单/...</span><i></i></p>-->
+                                <div class="psadd">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="yd-location clear">
+                        <div class="yd-location-left">
+                            <div class="yd-location-wrap">
+                                <span>级别：</span>
+                                <select name="" id="" class="people-se">
+                                    <option value="0">不限</option>
+                                    <option value="1">初级设计师</option>
+                                    <option value="2">中级设计师</option>
+                                    <option value="3">高级设计师</option>
+                                    <option value="4">资深设计师</option>
+                                    <option value="5">专家设计师</option>
+                                    <option value="6">设计大师</option>
+                                </select>
+                            </div>
+                            <div class="yd-location-wrap">
+                                <span>从业年限：</span>
+                                <select name="" id="" class="people-se2">
+                                    <option value="0">不限</option>
+                                    <option value="1">1年以内</option>
+                                    <option value="2">1~3年</option>
+                                    <option value="3">3~5年</option>
+                                    <option value="4">5~10年</option>
+                                    <option value="5">10年以上</option>
+                                </select>
+                            </div>
+                            <div class="yd-location-wrap">
+                                <span>类型：</span>
+                                <select name="" id="" class="people-se3">
+                                    <option value="0">不限</option>
+                                    <option value="1">个人工作室</option>
+                                    <option value="2">企业用户</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="yd-location-right">清除筛选条件</div>
+                    </div>
+                </div>
+            </div>
+            <div class="yd-people-bottom" th:with="pageNum=${@serviceUsers.$queryAlls()}">
+                <ul class="yd-v1">
+                
+                    <li class="clear" th:each="user,niter:${pageNum.data}" th:inline="text">
+                        <div class="yd-people-img">
+                            <img th:src="${user.user_avatar!=null and user.user_avatar != ''}?${user.user_avatar}:'/img/asag.jpg'"/>
+                        </div>
+                        <div class="yd-people-design clear">
+                            <div class="yd-people-information">
+                                <a th:href="'/list-fabaodt/rencaidating/'+${user.user_id}">
+                                    <span>[[${user.user_nickname == null or user.user_nickname == ''? user.phone : user.user_nickname}]]<i th:style="'background: url('+${user.levelIcoPath}+')'"></i></span>
+                                    <strong>5年经验</strong>
+                                    <p>[[${user.user_resume == null or user.user_resume == ''}?'暂无':${user.user_resume}]]</p>
+                                </a>
+                            </div>
+                            
+                            <div class="yd-people-btn">
+                            	<a class="yd-people-invite" th:href="'/list-fabaodt/rencaidating/'+${user.user_id}">详情</a>
+                            	<a class="yd-people-invite" href="javascript:;" th:onclick="'addAtt('+${user.user_id}+',this)'" th:data="${user.is_att}">[[${user.is_att}==1?'取消关注':'关注']]</a>
+                            </div>
+                        </div>
+                    </li>
+                    
+                </ul>
+                <div class="tcdPageCode pageLabel" data-pageName="pepolePageNum" th:attr="data-pageNum=${pageNum.pageNum},data-pageIndex=${pageNum.pageIndex},data-maxIndex=${pageNum.maxIndex},data-pageCount=${pageNum.pageCount}"></div>
+                <!-- <div class="tcdPageCode">
+
+                </div> -->
+            </div>
+        </div>
+    </div>
+    
+	<!--底部-->
+	<div th:include="public/foot"></div>
+
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/chajian/jquery.page.js"></script>
+    <script src="/js/chajian/jquery.select.js"></script>
+    <script src="/js/chajian/jqkuozhan.js"></script>
+    <script src="/js/list/people.js"></script>
+    <script src="/js/list/fabao.js"></script>
+    
+    <script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+    <script type="text/javascript" src="/js/bg/task.js"></script>
+    <script type="text/javascript" src="/js/bg/page.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<div th:fragment="main" th:remove="tag" th:inline="text">
+	<yd:ajax key="editMobileSub" value="get.edit_mobile_sub"  />
+	
+	<div class="Z_g-right">
+		<div class="Z-acc1-1">
+			<div class="Z-title_inf">
+				账户安全 - 修改手机号码
+			</div>
+			<div>
+				
+				<div class="Z-validation">
+					<form class="form-ajax-sub" data-func="editMobileSub">
+						<ul>
+							<li class="Z-shoujiyanzhen">
+								<div>新手机号码</div>
+								<input data-error-info="请输入新手机号码" data-verify="true" name="mobile" placeholder="请输入新手机号码" type="text" />
+							</li>
+							<li class="Z-yanzhengma_ Z-shoujiyanzhen">
+								<div>手机验证码</div>
+								<input data-error-info="请输入短信验证码" data-verify="true" name="mobile_code" type="text" />
+								<a href="javascript:void(0)" data-type="editMobile" yd:ajax="onclick,get.get_mobile_code">获取短信验证码</a>
+								<div class="send_code" style="display:none;">
+					                <label class="obtain" data-type="editMobile" style="display: none;">重新获取</label>
+					                <label class="repeat" style="display: block;">
+					                    <!-- 重新发送 -->
+					                    <span class="count_down">已发送(60s)</span>
+					                </label>
+					            </div>
+							</li>
+							<li class="Z-tijiao_button">
+								<div></div>
+								<div class="Z-tijiao_ btn-add-edit"><a href="javascript:void(0)">提交</a></div>
+							</li>
+						</ul>
+					</form>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记-工作大厅</title>
+    <link rel="stylesheet" href="../css/public.css"/>
+    <link rel="stylesheet" href="../css/index.css"/>
+    <link rel="stylesheet" href="../css/work.css"/>
+    <link rel="stylesheet" href="../css/common.css"/>
+    <script type="text/javascript">localStorage.setItem('nvaNum',4);</script>
+</head>
+<body>
+    <!--顶部导航-->
+    <div th:include="public/hander"></div>
+    
+    <!-- 中间 -->
+    <div id="yd-work-container">
+        <div class="yd-work-wrap">
+            <div class="yd-work-top">
+                <div class="yd-title">
+                    <h1>工作大厅</h1> 
+                </div>
+                <div class="yd-text clear">
+                    <ul class="yd-task clear">
+                        <li>
+                            <div class="yd-wrap">
+                                <strong>214<i>个</i></strong>
+                                <span>进行中任务</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="yd-wrap2">
+                                <strong>2547<i>人</i></strong>
+                                <span>进行中的人员</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="yd-wrap3">
+                                <strong>43<i>人</i></strong>
+                                <span>已完成任务</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="yd-wrap4">
+                                <strong>9531574<i>&nbsp;¥</i></strong>
+                                <span>任务累计总金额</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="yd-search clear">
+                        <div class="yd-minsearch">
+                            <i></i>
+                            <input type="text" value="" placeholder="请输入搜索关键词"/>
+                        </div>
+                        <button>搜索</button>
+                    </div>
+                    <div class="yd-condition clear">
+                        <div class="yd-type clear">
+                            <span>任务类型</span>
+                            <select name="" id="" class="work-select">
+                                <option value="我的任务">我的任务</option>
+                                <option value="我的任务2">我的任务2</option>
+                                <option value="我的任务3">我的任务3</option>
+                            </select>
+                        </div>
+                        <div class="yd-type clear">
+                            <span>任务面积</span>
+                            <select name="" id="" class="work-select2">
+                                <option value="不限">不限</option>
+                                <option value="不限2">不限2</option>
+                                <option value="不限3">不限3</option>
+                            </select>
+                        </div>
+                        <div class="yd-type clear">
+                            <span>任务金额</span>
+                            <select name="" id="" class="work-select3">
+                                <option value="不限">不限</option>
+                                <option value="不限2">不限2</option>
+                                <option value="不限3">不限3</option>
+                            </select>
+                        </div>
+                        <div class="yd-type clear">
+                            <span>完成进度</span>
+                            <select name="" id="" class="work-select4">
+                                <option value="不限">不限</option>
+                                <option value="不限2">不限2</option>
+                                <option value="不限3">不限3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="yd-clearing">清除筛选条件</div>
+                </div>
+            </div>
+            <div class="yd-work-bottom">
+                <ul class="yd-project">
+                    <li class="clear" th:each="tastTemp,niter:${@taskTemp.$queryAll()}" th:inline="text">
+                        <div class="yd-project-wrap">
+                            <div class="yd-area">
+                                <div class="yd-area-top">
+                                    <span>项目代码：<strong>[[${tastTemp.tasktemp_num}]]</strong></span>
+                                    <span>项目面积：<strong>[[${tastTemp.tasktemp_area}]]㎡</strong></span>
+                                    <span>金额：<strong>[[${tastTemp.tasktemp_price}]]¥</strong></span>
+                                </div>
+                                <div class="yd-area-bottom">
+                                    <i></i>
+                                    <span>参加人员（[[${tastTemp.tasktemp_pnum}]]）</span>
+                                </div>
+                            </div>
+                            <div class="yd-schedule">
+                                <div class="yd-echarts" th:attr="data-val=${tastTemp.tasktemp_schedule}"></div>
+                                <div class="echarts-list">
+                                    <p class="yd-p1"><span></span><i></i></p>
+                                    <p class="yd-p2"></p>
+                                    <p class="yd-p3"></p>
+                                </div>
+                            </div> 
+                        </div>
+                    </li>
+                </ul>
+                <div class="tcdPageCode">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--底部-->
+    <div th:include="public/foot"></div>
+
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/echarts.min.js"></script>
+    <script src="../js/chajian/jquery.page.js"></script>
+    <script src="../js/chajian/jquery.select.js"></script>
+    <script src="../js/chajian/jqkuozhan.js"></script>
+    <script src="../js/work.js"></script>
+</body>
+</html>

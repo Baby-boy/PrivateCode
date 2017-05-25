@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>服务商公司认证</title>
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>  
+</head>
+<body>
+<div class="panel admin-panel margin-top">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>公司认证</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x"  th:inline="text" id="updateForm" >   
+       <input type="hidden" name="user_id"  th:value="${ydMangerUser.user_id}" />   
+       <!--  <div class="form-group">
+            <div class="label">
+                <label>服务商名称：</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" name="user_account" th:value="${ydMangerUser.user_account}" readonly="readonly" />
+                <div class="tips"></div>
+            </div>
+        </div> -->
+      
+      <div class="form-group">
+        <div class="label">
+          <label>公司名称：</label>
+        </div>
+        <div class="field">	
+          <input type="text" class="input w50" name="user_name" th:value="${ydMangerUser.user_ename}" readonly="readonly" />															
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+     <!--  <div class="form-group">
+        <div class="label">
+          <label>认证状态：</label>
+        </div>
+        <div class="field">	
+          <select class="select w50" name="user_cstate"  >
+          
+          	<option value="0" th:selected="${ydMangerUser.user_cstate==0? 'selected' : 'false'}"  >
+          		未认证
+          	</option>
+          	<option value="1" th:selected="${ydMangerUser.user_cstate==1? 'selected' : 'false'}"   >
+          		认证成功
+          	</option>
+          	<option value="2" th:selected="${ydMangerUser.user_cstate==2? 'selected' : 'false'}"   >
+          		认证失败
+          	</option>
+          	<option value="3" th:selected="${ydMangerUser.user_cstate==3? 'selected' : 'false'}"   >
+          		认证审核中
+          	</option>
+          </select>																
+          <div class="tips"></div>
+        </div>
+      </div> -->
+      <!-- 认证状态 -->															
+      <input type="hidden" name="user_cstate" id="userCstate" value="" />	
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+         <!--  <button class="button bg-main icon-check-square-o" type="button" id="btnSubmit"> 提交</button> -->
+          <button type="button" id="ThroughCertification"  class="button border-green">通过</button>															
+          <button type="button" id="AuthenticationReject"  class="button border-green">拒绝</button>	
+          <button type="button"  onclick="javascript:history.back(-1);" class="button border-green">返回</button>	
+          <button type="button" id="btnSubmit3"  class="button border-green">下载认证资料</button>	
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">
+
+//认证通过
+$("#ThroughCertification").click(function(){
+	$("#userCstate").val("1");
+	var data = $("#updateForm").serializeArray();
+	var ydMangerSystemAdmin = {};
+	$.each(data, function(k, v) {
+		ydMangerSystemAdmin[ v["name"] ] = v["value"];
+	});
+		
+		$.ajax({
+			url: "/system/updateUCstate",
+			data: $("#updateForm").serialize(),
+			type: "post",
+			success: function(datas) {
+				if(datas.msg==true){
+					alert("修改成功");
+					self.location=document.referrer;//返回上一页并刷新
+				}else{
+					alert("修改失败");
+				}
+			}
+		});
+	});	
+	
+//认证拒绝
+$("#AuthenticationReject").click(function(){
+	$("#userCstate").val("2");
+	var data = $("#updateForm").serializeArray();
+	var ydMangerSystemAdmin = {};
+	$.each(data, function(k, v) {
+		ydMangerSystemAdmin[ v["name"] ] = v["value"];
+	});
+		
+		$.ajax({
+			url: "/system/updateUCstate",
+			data: $("#updateForm").serialize(),
+			type: "post",
+			success: function(datas) {
+				if(datas.msg==true){
+					alert("修改成功");
+					self.location=document.referrer;//返回上一页并刷新
+				}else{
+					alert("修改失败");
+				}
+			}
+		});
+	});	
+	
+</script>
+</body></html>

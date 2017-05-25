@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>添加管理员</title>
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>  
+</head>
+<body>
+<div class="panel admin-panel margin-top">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>添加任务类型</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="/system/addTaskType" id="addForm" >   
+      <input type="hidden" name="id"  value="" />  
+      <div class="form-group">
+        <div class="label">
+          <label>任务类型名称：</label>
+        </div>
+        <div class="field">
+          <input id = "tasktName" type="text" class="input w50" name="taskt_name"  data-validate="required:请输入任务类型" />         
+          <div class="tips"></div>
+        </div>
+      </div>
+     <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="button" id="btnSubmit" > 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/	
+ 	
+	$("#btnSubmit").click(function() {
+		var value = $("#tasktName").val();
+		var reg = /^\s+$/g
+		if (value == null || value.length == 0 || value=="" || reg.test(value)) {
+			alert("不能为空");
+			return;
+		} else {
+			var data = $("#addForm").serializeArray();
+			var ydMangerSystemTaskType = {};
+			$.each(data, function(k, v) {
+				ydMangerSystemTaskType[v["name"]] = v["value"];
+			});
+
+			$.ajax({
+				url : "/system/addTaskType",
+				data : $("#addForm").serialize(),
+				type : "post",
+				success : function(datas) {
+					if (datas.msg == true) {
+						alert("添加成功");
+						location.reload();
+					};
+					if(datas.msg==false){
+						alert("添加失败");
+					};
+					if(datas.msg==100){
+						alert("请输入任务类型");
+					}
+				}
+			});
+		}
+	});
+
+	/*]]>*/
+</script>
+</body></html>

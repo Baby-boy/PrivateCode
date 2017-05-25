@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperSpcs">
+	
+	<select id="$queryAll" resultType="com.yd.gcj.entity.YdMangerSpcs">
+		select 
+			spcs_id,spcs_sid,spcs_eid,spcs_uname,spcs_grade,spcs_score,spcs_content,spcs_create_time,spcs_update_time
+		from 
+			yd_spcs
+		where 
+			spcs_sid = #{userId}
+	</select>
+	
+	<select id="$queryByUserId" resultType="com.yd.gcj.entity.YdMangerSpcs">
+		SELECT 
+			spcs_id,spcs_sid,spcs_eid,spcs_tid,spcs_tname,spcs_uname,spcs_grade,spcs_score,spcs_content,spcs_create_time,spcs_update_time
+			,task.task_term spcs_term,task.task_price spcs_price,task.task_pay_price spcs_pay_price
+		FROM 
+			yd_spcs spcs
+			LEFT JOIN yd_task task ON spcs.spcs_tid = task.task_id 
+		where 
+			spcs_eid = #{userId}
+	</select>
+	
+	<select id="$queryAllByPageNum" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerSpcs">
+		select 
+			(spcs_id,spcs_sid,spcs_eid,spcs_uname,spcs_grade,spcs_score,spcs_content,spcs_create_time,spcs_update_time)
+		from 
+			yd_spcs
+		where 
+			spcs_sid = #{spcs_sid}
+			limit #{startPageNum},#{queryPageNum}
+	</select>
+	
+	<select id="$queryById" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerSpcs">
+		select 
+			(spcs_id,spcs_sid,spcs_eid,spcs_uname,spcs_grade,spcs_score,spcs_content,spcs_create_time,spcs_update_time)
+		from 
+			yd_spcs
+		where 
+			spcs_id = #{spcs_id}
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerSpcs" useGeneratedKeys="true" keyProperty="spcs_id">
+		insert into yd_spcs
+		(spcs_sid,spcs_eid,spcs_tid,spcs_tname,spcs_uname,spcs_grade,spcs_reason,spcs_term,spcs_price,spcs_pay_price,spcs_content,spcs_update_time,spcs_create_time)
+		select 
+		#{spcs_sid},task_uid,#{spcs_tid},task_pname,#{spcs_uname},#{spcs_grade},#{spcs_reason},#{spcs_term},task_price,task_pay_price,#{spcs_content},#{spcs_update_time},#{spcs_create_time}
+		from yd_task
+		where task_id = #{spcs_tid}
+	</insert>
+	
+	<update id="$update" parameterType="com.yd.gcj.entity.YdMangerSpcs">
+		update yd_spcs
+		<set>
+			<trim suffixOverrides=",">
+				<if test="spcs_sid != null">spcs_sid = #{spcs_sid}</if>
+				<if test="spcs_eid != null">spcs_eid = #{spcs_eid}</if>
+				<if test="spcs_uname != null">spcs_uname = #{spcs_uname}</if>
+				<if test="spcs_grade != null">spcs_grade = #{spcs_grade}</if>
+				<if test="spcs_score != null">spcs_score = #{spcs_score}</if>
+				<if test="spcs_content != null">spcs_content = #{spcs_content}</if>
+				<if test="spcs_create_time != null">spcs_create_time = #{spcs_create_time}</if>
+				<if test="spcs_update_time != null">spcs_update_time = #{spcs_update_time}</if>
+			</trim>
+		</set>
+		where spcs_id = #{spcs_id}
+	</update>
+	
+	<delete id="$delete" parameterType="java.lang.Integer">
+		delete from yd_spcs
+		where spcs_id = #{spcs_id}
+	</delete>
+	
+</mapper>
+

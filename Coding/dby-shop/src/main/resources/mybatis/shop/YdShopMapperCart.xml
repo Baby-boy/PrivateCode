@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperCart">
+	<!-- 字段 -->
+	<sql id="field">
+ 		cart_id, user_id, store_id, depot_id, cart_num, goods_name, goods_price, goods_summary, store_name, goods_cover, created_time
+ 	</sql>
+ 	
+ 	<!-- 查询条件 -->
+	<sql id="where">
+  		<if test="depot_id != null and depot_id > 0">
+			depot_id = #{depot_id} and 
+  		</if>
+  		<if test="user_id != null and user_id > 0">
+			user_id = #{user_id} and 
+  		</if>
+	</sql>
+ 	
+ 	<!-- 字段 -->
+	<sql id="orderBy">
+		ORDER BY cart_id DESC
+ 	</sql>
+	
+	
+	<!-- window 窗口 -->
+	<select id="window" resultType="com.yd.dby.b.shop.entity.YdShopCart">
+		SELECT
+			cart_id, depot_id, cart_num, goods_name, goods_price, goods_cover
+		FROM
+			yd_cart
+		WHERE
+			user_id = #{user_id}
+		ORDER BY
+			cart_id DESC
+		LIMIT 5
+	</select>
+	
+	
+	<!-- total 总数 -->
+	<select id="total" resultType="java.lang.Integer">
+		SELECT
+			count(cart_id)
+		FROM
+			yd_cart
+		WHERE
+			user_id = #{user_id}
+	</select>
+	
+	
+	<!-- 列表 -->
+	<select id="lists" resultMap="YdShopMapperCartLists">
+		SELECT 
+			yd_depot.depot_stock, cart_id, s.store_id,
+			s.store_name, yd_cart.depot_id, cart_num,
+			goods_name, goods_price, goods_cover,
+			yd_depot.depot_is_available
+		FROM ( SELECT store_id, store_name FROM yd_cart GROUP BY store_id ) s 
+		LEFT OUTER JOIN
+			yd_cart
+		ON
+			s.store_id = yd_cart.store_id
+		LEFT JOIN
+			yd_depot
+		ON
+			yd_cart.depot_id = yd_depot.depot_id
+		WHERE
+			user_id = #{user_id}
+		ORDER BY
+			cart_id DESC
+	</select>
+	
+	
+	<resultMap id="YdShopMapperCartLists" type="java.util.HashMap">
+		<id property="store_id" column="store_id" />
+		<result property="store_name" column="store_name"/>
+		
+		<collection property="goods" javaType="java.util.ArrayList" ofType="java.util.HashMap">
+			<id property="store_id" column="depot_id" />
+			<result property="cart_id" column="cart_id"/>
+			<result property="depot_id" column="depot_id"/>
+			<result property="depot_stock" column="depot_stock"/>
+			<result property="depot_is_available" column="depot_is_available"/>
+			<result property="goods_name" column="goods_name"/>
+			<result property="goods_price" column="goods_price"/>
+			<result property="goods_cover" column="goods_cover"/>
+			<result property="cart_num" column="cart_num"/>
+		</collection>
+	</resultMap>
+	
+	
+	<select id="infoCartId" resultType="java.util.HashMap">
+		SELECT
+			<include refid="field"></include>
+		FROM
+			yd_cart
+		WHERE
+			cart_id = #{cart_id}
+	</select>
+	
+	
+	<select id="info" resultType="java.util.HashMap">
+		SELECT
+			<include refid="field"></include>
+		FROM
+			yd_cart
+		WHERE
+			user_id = #{user_id} AND depot_id = #{depot_id}
+	</select>
+	
+	
+	<!-- 新增品牌 -->
+	<insert id="store">
+		INSERT INTO
+			yd_cart(user_id, store_id, depot_id, goods_price, goods_name, store_name, goods_cover, created_time)
+		VALUE
+			( #{user_id}, #{store_id}, #{depot_id}, #{goods_price}, #{goods_name}, #{store_name}, #{goods_cover}, now() );
+	</insert>
+	
+	
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE
+			yd_cart
+		SET
+			cart_num = #{cart_num}
+		WHERE
+			cart_id = #{cart_id}
+	</update>
+	
+	
+	<update id="setNum">
+		UPDATE
+			yd_cart
+		SET
+			cart_num = cart_num <![CDATA[ + ]]> #{num}
+		WHERE
+			cart_id = #{cart_id}
+	</update>
+	
+	
+	<update id="delNum">
+		UPDATE
+			yd_cart
+		SET
+			cart_num = cart_num - #{num}
+		WHERE
+			cart_id = #{cart_id}
+	</update>
+	
+	
+	<delete id="delete">
+		DELETE FROM yd_cart WHERE user_id = #{user_id} AND cart_id = #{cart_id}
+	</delete>
+	
+</mapper>

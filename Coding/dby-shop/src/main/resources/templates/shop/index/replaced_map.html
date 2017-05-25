@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')},
+	navs=${@_nav.getByType('0')}
+	">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: home('')" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(circulation)" th:remove="tag"></div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		<!-- 中间内容 -->
+		<div id="container" style="margin: 10px auto 50px;">
+			
+			<div class="replaced-map">
+				
+				<div class="map-left">
+					<!-- <div class="city-linkage">
+						<select>
+							<option>上海</option>
+						</select>
+						<select>
+							<option>上海市</option>
+						</select>
+						<select>
+							<option>宝山区</option>
+						</select>
+					</div>
+					<div class="total-store"></div> -->
+					
+					<div id="r-result" class="store-list">
+						<p class="load-code">定位中...</p>
+					</div>
+				</div>
+				
+				<div id="l-map" class="map-right"></div>
+				
+			</div>
+			
+		</div>
+		<!-- 中间内容结束 -->
+		
+			<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		
+		<script type="text/javascript" id="mapScript" th:src="@{https://api.map.baidu.com/api?v=2.0&amp;ak=aIdZ2NDwuw60a7sGVtWbyk0QMIGHLM3K}"></script>
+		<script type="text/javascript" id="mapReplaced" th:src="@{/assets/js/replaced_map.js}" ></script>
+		
+		<script th:inline="javascript">
+		/*<![CDATA[*/
+		           
+			
+			
+		/*]]>*/
+		</script>
+		
+		
+	</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')},
+	navs=${@_nav.getByType('0')}
+	">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: home('')" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(maintenance)" th:remove="tag"></div>
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		
+		<!-- 中间内容 -->
+		<div id="container" th:inline="text">
+			
+			<div class="c2c-notice-details">
+				
+				<div class="details-wrap">
+					<h2 class="title" th:text="${data.article_title}"></h2>
+					<div class="time-share">
+						<small>时间：[[${ #calendars.format(data.article_time,'yyyy-MM-dd hh:mm:ss') }]]</small>
+						<div class="share">分享到：
+							<div class="bdsharebuttonbox">
+								<a href="javascript:;" class="bds_more" data-cmd="more" style="display: none;"></a>
+								<a href="javascript:;" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+								<a href="javascript:;" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+								<a href="javascript:;" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+								<a href="javascript:;" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+								<a href="javascript:;" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+							</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["tqq","weixin","douban","renren","tsina"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["tqq","weixin","douban","renren","tsina"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='https://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+						</div>
+						
+					</div>
+					
+					<div class="content" th:utext="${data.article_content}">
+						
+					</div>
+				</div>
+				
+				<div class="guess-you-like">
+					<h2>猜你喜欢</h2>
+					<div class="list">
+						<ul th:with="data=${@_recommend.listsByCode('news-bottom')}" th:inline="text">
+							<li th:each="item: ${data}">
+								<a target="_blank" th:href="@{/g/goods/}+${item.rec_fid}">
+									<div class="img"><img th:src="${@_url.goods()}+${item.rec_cover}" /></div>
+									<div class="title" th:text="${item.rec_title}"></div>
+									<div class="price" th:text="@{￥}+${item.rec_price}"></div>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+		<!-- 中间内容结束 -->
+		
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		
+		<script th:inline="javascript">
+			
+			
+		</script>
+	</body>
+</html>

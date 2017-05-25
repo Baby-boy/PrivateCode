@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+<link rel="stylesheet" th:href="@{/assets/shop/css/yd-tipbox.css}" />
+</head>
+<body th:with="searchkeys=${@_dict.many('web_search_key')}">
+	<yd:ajax key="memberCtcStore" value="get.ctc_store" />
+	<yd:ajax key="getCtcClassSon" value="get.ctcClassSon" />
+	<!-- 头部 -->
+	<div id="header">
+		<div th:include="shop/template/header :: header" th:tag="remove"></div>
+
+		<!-- 主导航 -->
+		<div class="main-nav">
+			<div class="nav">
+				<div th:include="shop/template/classify :: brand('',c2c_two)" th:remove="tag"></div>
+				<div th:include="shop/template/header :: nav(c2c)" th:remove="tag"></div>
+			</div>
+
+		</div>
+	</div>
+	<!-- 头部结束 -->
+
+	<!-- 中间内容 -->
+	<div id="container" style="margin: 0px auto;">
+		<div class="site-map">
+			<a href="#">C2C</a><span>&gt;</span> <a href="#">发布商品</a>
+		</div>
+		<form class="form-ajax-sub" id="memberCtcStoreId" data-func="memberCtcStore">
+			<div class="c2c-release" style="margin-top: 10px;">
+				<h2>商品信息</h2>
+				<ul>
+					<li><label for="ctc_name">商品标题</label> <input data-error-info="请输入商品名称" data-verify="true" name="ctc_name" type="text" placeholder="请输入您的标题" /></li>
+					<li><label for="ctc_name">商品分类</label>
+						<div class="select-ctc-class">
+							<select data-error-info="请选择一级分类" data-verify="true" name="ctc_classify_id1" data-value="" data-first-title="选择一级分类">
+								<option value="">选择一级分类</option>
+								<option th:each="item:${@_YdWebServiceMemberCtcClass.one()}" th:inline="text" th:attr="value=${item.cc_id}">[[${item.cc_name}]]</option>
+							</select> <select data-error-info="请选择二级分类" data-verify="true" style="display: none;" name="ctc_classify_id2" data-first-title="选择二级分类" disabled="disabled"></select>
+						</div></li>
+					<li><label for="ctc_summary">商品描述</label> <textarea data-error-info="请输入商品描述" data-verify="true" name="ctc_summary"></textarea></li>
+					<li><label for="">商品图片</label> <input type="file" style="display: none;" data-upload-code="ctcPics" accept="image/gif,image.jpg,image/png" id="ctcPics" data-btn="upload" class="none" />
+						<div class="enclosure" id="container1">
+							<dl id="ossfile">
+							</dl>
+							<div id="btnSelectFile" class="add-pic">
+								<span></span>
+							</div>
+						</div></li>
+					<li class="price"><label for="">商品价格</label> <input data-error-info="请输入商品价格" data-verify="true" name="ctc_price" type="number" placeholder="¥ 0.00" /> <label
+						class="width50" for="">运费</label> <input type="number" name="ctc_logistics_price" placeholder="¥ 0.00" /></li>
+					<li class="select-city"><label for="">所在地</label> <select data-error-info="请选择省" data-verify="true" class="province" name="ctc_province_id" data-value=""
+						data-first-title="选择省"></select> <select data-error-info="请选择市" data-verify="true" class="city" name="ctc_city_id" data-value="" data-first-title="选择市"></select> <select
+						data-error-info="请选择区" data-verify="true" class="area" name="ctc_area_id" data-value="" data-first-title="选择区"></select> <input type="hidden" data-pca="pca" name="ctc_pca" /><input
+						type="hidden" name="ctc_province_value" /> <input type="hidden" name="ctc_city_value" /> <input type="hidden" name="ctc_area_value" /></li>
+					<li class="width382"><label for="">商品成色</label> <select data-error-info="请选择商品成色" data-verify="true" name="ctc_quality_id" class="width360">
+							<option>请选择</option>
+							<option th:each="nitem:${@_YdWebServiceDict.listByCode('ctc_quality')}" th:value="${nitem.dict_id}" th:text="${nitem.dict_value}"></option>
+							<input type="hidden" name="ctc_quality_text" />
+
+					</select></li>
+					<li>
+						<div class="submit">
+							<input type="button" class="btn-add-edit" value="提  交" />
+						</div>
+					</li>
+				</ul>
+			</div>
+		</form>
+	</div>
+	<!-- 中间内容结束 -->
+
+
+	<yd:ajax key="c2c_release" value="c2c.release" />
+
+
+	<!-- 底部 -->
+	<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+
+	<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+
+	<script type="text/javascript" th:src="@{/assets/js/jquery.cxselect.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jq_select.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/functions.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/upload/uploadnew.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/shop/js/online_book.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/seller/js/store.get.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/seller/js/store.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/member/js/member.base.js}"></script>
+
+	<script type="text/javascript">
+		$(function() {
+
+			// 选择图片
+			$("#btnSelectFile span").click(function() {
+				$("#ctcPics").click();
+			});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperTaskMsg">
+	
+	<select id="$queryByTid" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerTaskMsg">
+		SELECT 
+			msg.taskmsg_id,msg.taskmsg_tid,msg.taskmsg_contents,msg.taskmsg_uid,msg.taskmsg_create_time,u.`user_type` AS taskmsg_utype
+		FROM 
+			yd_task_msg msg
+			LEFT JOIN yd_user u ON msg.`taskmsg_uid` = u.`user_id`
+		WHERE 
+			taskmsg_tid = #{taskmsg_tid}
+	</select>
+	
+	<select id="$queryById" parameterType="java.lang.Integer">
+		select 
+			taskmsg_id,taskmsg_tid,taskmsg_contents,taskmsg_uid,taskmsg_create_time
+		from 
+			yd_task_msg
+		where 
+			taskmsg_id = #{taskmsg_id}	
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerTaskMsg">
+		insert into yd_task_msg
+			(taskmsg_tid,taskmsg_contents,taskmsg_uid,taskmsg_create_time)
+		value
+			(#{taskmsg_tid},#{taskmsg_contents},#{taskmsg_uid},#{taskmsg_create_time})
+	</insert>
+	
+	<update id="$update" parameterType="com.yd.gcj.entity.YdMangerTaskMsg">
+		update from yd_task_msg
+		<set>
+			<trim suffixOverrides=",">
+				<if test="taskmsg_tid != null">taskmsg_tid = #{taskmsg_tid}</if>
+				<if test="taskmsg_contents != null">taskmsg_contents = #{taskmsg_contents}</if>
+				<if test="taskmsg_uid != null">taskmsg_uid = #{taskmsg_uid}</if>
+				<if test="taskmsg_create_time != null">taskmsg_create_time = #{taskmsg_create_time}</if>
+			</trim>
+		</set>
+		where taskmsg_id = #{taskmsg_id}
+	</update>
+	
+</mapper>
+

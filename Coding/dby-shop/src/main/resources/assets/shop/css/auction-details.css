@@ -1,0 +1,650 @@
+@charset "uft-8";
+#container {
+  margin: 10px auto 50px;
+  width: 1200px;
+  height: auto;
+  overflow: hidden;
+}
+#container .details-page {
+  height: auto;
+  overflow: hidden;
+}
+#container .details-page .top-screen {
+  margin-top: 10px;
+  height: auto;
+  overflow: hidden;
+  background: #fff;
+  padding: 20px 10px;
+  border-bottom: 1px solid #eee;
+}
+#container .details-page .top-screen ul {
+  height: 20px;
+  overflow: hidden;
+}
+#container .details-page .top-screen ul li {
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  padding: 0px 20px;
+  border-left: 1px solid #eee;
+  float: left;
+  color: #666;
+  font-size: 16px;
+  cursor: pointer;
+}
+#container .details-page .top-screen ul li span {
+  font-size: 14px;
+  color: #5e69ad;
+}
+#container .details-page .top-screen ul li:first-child {
+  border-left: 0;
+}
+#container .details-page .top-screen ul li.active {
+  color: #ff6700;
+}
+#container .details-page .pro-parameter {
+  height: auto;
+  overflow: hidden;
+  background: #fff;
+  padding: 10px 30px;
+}
+#container .details-page .pro-parameter .store-name {
+  height: 30px;
+  line-height: 30px;
+  overflow: hidden;
+  font-size: 12px;
+  color: #666;
+}
+#container .details-page .pro-parameter .store-name a {
+  color: #5e69ad;
+}
+#container .details-page .pro-parameter .store-name span {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  height: 24px;
+  line-height: 24px;
+  width: 64px;
+  border: 1px solid #ddd;
+  text-align: center;
+  background: #f8f8f8;
+  cursor: pointer;
+  margin-left: 20px;
+}
+#container .details-page .pro-parameter .store-name span small {
+  display: block;
+  font-size: 12px;
+  background: url(http://res.zwzyd.com/dby/web/images/icon_details.png) no-repeat;
+  background-position: 0 -183px;
+  text-indent: 16px;
+}
+#container .details-page .pro-parameter .parameter {
+  height: auto;
+  overflow: hidden;
+  margin-top: 20px;
+}
+#container .details-page .pro-parameter .parameter ul {
+  height: auto;
+  overflow: hidden;
+}
+#container .details-page .pro-parameter .parameter ul li {
+  width: 265px;
+  padding-right: 20px;
+  height: 24px;
+  line-height: 24px;
+  overflow: hidden;
+  float: left;
+  font-size: 12px;
+  color: #666;
+}
+#container .details-page .pro-parameter .parameter ul li a {
+  color: #5e69ad;
+}
+#container .details-page .tab-switch {
+  display: none;
+}
+#container .details-page .product-detail {
+  height: auto;
+  overflow: hidden;
+  display: block;
+}
+#container .details-page .product-details {
+  height: auto;
+  overflow: hidden;
+  padding: 10px;
+  background: #fff;
+}
+#container .details-page .product-details img {
+  max-width: 100%;
+}
+#container .details-page .bid-record {
+  height: auto;
+  overflow: hidden;
+  background: #fff;
+  margin-top: 20px;
+  padding: 0px 15px;
+}
+#container .details-page .bid-record .title {
+  height: 50px;
+  line-height: 50px;
+  overflow: hidden;
+  font-size: 16px;
+  color: #666;
+}
+#container .details-page .bid-record ul {
+  height: auto;
+  overflow: hidden;
+  background: #eee;
+  padding: 0px 10px;
+}
+#container .details-page .bid-record ul li {
+  height: 36px;
+  line-height: 36px;
+  overflow: hidden;
+  float: left;
+  padding-right: 20px;
+  font-size: 12px;
+  color: #666;
+}
+#container .details-page .bid-record ul li:first-child {
+  width: 220px;
+}
+#container .details-page .bid-record ul li:first-child + li {
+  width: 220px;
+}
+#container .details-page .bid-record ul li:first-child + li + li {
+  width: 410px;
+}
+#container .details-page .bid-record ul li:first-child + li + li + li {
+  width: 240px;
+  padding-right: 0;
+  text-align: center;
+  float: right;
+}
+#container .details-page .bid-record .list {
+  height: auto;
+  overflow: hidden;
+}
+#container .details-page .bid-record .list ul {
+  background: #fff;
+  border-bottom: 1px dashed #eee;
+}
+#container .details-page .bid-record .list ul:first-child li:first-child {
+  color: #ff6700;
+}
+#container .details-page .bid-record .list ul:first-child li:first-child + li {
+  color: #ff6700;
+}
+#container .details-page .promise {
+  height: auto;
+  overflow: hidden;
+  background: #fff;
+  margin-top: 20px;
+}
+#container .details-page .promise .title {
+  padding: 0px 10px;
+  height: 50px;
+  line-height: 50px;
+  overflow: hidden;
+  font-size: 16px;
+  color: #666;
+  border-bottom: 1px solid #eee;
+}
+#container .details-page .promise .content {
+  height: auto;
+  overflow: hidden;
+  padding: 10px;
+}
+#container .details-page .promise .content img {
+  max-width: 100%;
+}
+.product-show {
+  background: #fff;
+  min-width: 1240px;
+  height: auto;
+  overflow: hidden;
+}
+.product-show .min-width {
+  margin: 40px auto;
+}
+.product-show .left-info {
+  width: 960px;
+  height: auto;
+  overflow: hidden;
+  float: left;
+}
+.product-show .left-info .details-pic {
+  width: 540px;
+  height: auto;
+  overflow: hidden;
+  float: left;
+}
+.product-show .left-info .details-pic .thumbnail {
+  width: 70px;
+  height: auto;
+  overflow: hidden;
+  float: left;
+}
+.product-show .left-info .details-pic .thumbnail ul {
+  height: auto;
+  overflow: hidden;
+  font-size: 0px;
+}
+.product-show .left-info .details-pic .thumbnail ul li {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  padding: 4px;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+.product-show .left-info .details-pic .thumbnail ul li img {
+  width: 100%;
+  height: 100%;
+  vertical-align: bottom;
+}
+.product-show .left-info .details-pic .thumbnail ul .active {
+  border: 1px solid #ff6700;
+}
+.product-show .left-info .details-pic .big-picture {
+  width: 410px;
+  height: 410px;
+  overflow: hidden;
+  float: left;
+  margin-left: 40px;
+  position: relative;
+  z-index: 1;
+}
+.product-show .left-info .details-pic .big-picture img {
+  width: 100%;
+  height: 100%;
+  vertical-align: bottom;
+}
+.product-show .left-info .details-pic .detail-video {
+  width: 410px;
+  height: 410px;
+  overflow: hidden;
+  float: left;
+  margin-left: 40px;
+  display: none;
+}
+.product-show .left-info .details-pic .detail-video * {
+  width: 410px;
+  height: 410px;
+}
+.product-show .left-info .product-info {
+  width: 400px;
+  height: auto;
+  overflow: hidden;
+  float: right;
+}
+.product-show .left-info .product-info h2 {
+  height: 30px;
+  line-height: 30px;
+  overflow: hidden;
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+.product-show .left-info .product-info dl {
+  height: 52px;
+  border: 1px solid #eee;
+  border-left: 0;
+}
+.product-show .left-info .product-info dl dt {
+  width: 38px;
+  height: 42px;
+  float: left;
+  background: #ff6700;
+  color: #fff;
+  text-align: center;
+  line-height: 20px;
+  padding: 5px;
+  font-size: 14px;
+}
+.product-show .left-info .product-info dl dd {
+  margin-left: 65px;
+  height: 22px;
+  line-height: 22px;
+  overflow: hidden;
+  font-size: 12px;
+  color: #999;
+}
+.product-show .left-info .product-info dl dd > label {
+  color: #999;
+}
+.product-show .left-info .product-info dl dd > label strong {
+  color: #666;
+  font-weight: 100;
+}
+.product-show .left-info .product-info dl dd > span {
+  color: #999;
+  margin-right: 30px;
+}
+.product-show .left-info .product-info dl dd small {
+  font-size: 12px;
+  color: #666;
+}
+.product-show .left-info .product-info dl dd.margin4 {
+  margin-top: 4px;
+  font-size: 14px;
+}
+.product-show .left-info .product-info .introduce {
+  line-height: 26px;
+  color: #999;
+  font-size: 14px;
+  margin-top: 10px;
+}
+.product-show .left-info .product-info .introduce a {
+  color: #ff6700;
+  margin-left: 10px;
+}
+.product-show .left-info .product-info .introduce label {
+  float: left;
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  line-height: 30px;
+  margin-top: 5px;
+  color: #666;
+}
+.product-show .left-info .product-info .introduce a.consult {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  background: #fafafc none repeat scroll 0 0;
+  border: 1px solid #eee;
+  height: 30px;
+  line-height: 30px;
+  margin: 5px 0 0 5px;
+  overflow: hidden;
+  text-align: center;
+  width: 100.5px;
+}
+.product-show .left-info .product-info .introduce a.consult span {
+  color: #666;
+  display: block;
+  font-size: 12px;
+  text-indent: 24px;
+  background: url("http://res.zwzyd.com/dby/web/images/icon_details.png") no-repeat;
+  background-position: 6px -120px;
+}
+.product-show .left-info .product-info .introduce > span {
+  color: #999;
+  margin-left: 30px;
+}
+.product-show .left-info .product-info .introduce > span small {
+  font-size: 14px;
+  color: #666;
+}
+.product-show .left-info .product-info .introduce strong {
+  font-size: 28px;
+  color: #666;
+  margin-right: 5px;
+}
+.product-show .left-info .product-info .color6 strong,
+.product-show .left-info .product-info .color6 font {
+  color: #ff6700;
+}
+.product-show .left-info .product-info .buy {
+  overflow: hidden;
+  margin-top: 40px;
+  height: 40px;
+  width: 270px;
+  border: 1px solid #ff6700;
+}
+.product-show .left-info .product-info .buy input[type='text'] {
+  height: 20px;
+  line-height: 20px;
+  font-size: 14px;
+  width: 140px;
+  padding: 10px;
+  border: 0;
+  float: left;
+}
+.product-show .left-info .product-info .buy input[type='submit'] {
+  height: 40px;
+  line-height: 38px;
+  font-size: 16px;
+  width: 110px;
+  border: 0;
+  background: #ff6700;
+  color: #fff;
+  cursor: pointer;
+}
+.product-show .left-info .product-info .buy-link {
+  overflow: hidden;
+  margin-top: 40px;
+  height: 40px;
+}
+.product-show .left-info .product-info .buy-link a {
+  display: block;
+  width: 160px;
+  height: 40px;
+  line-height: 40px;
+  overflow: hidden;
+  background: #ff6700;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+}
+.product-show .left-info .product-info ul {
+  height: auto;
+  overflow: hidden;
+  padding: 10px 0px;
+  border: 1px solid #eee;
+  border-left: 0;
+  border-right: 0;
+  margin-top: 30px;
+}
+.product-show .left-info .product-info ul li {
+  width: 123.3333px;
+  padding-right: 10px;
+  float: left;
+  font-size: 12px;
+  color: #999;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+}
+.product-show .left-info .product-info ul li span {
+  color: #ff6700;
+}
+.product-show .left-info .product-info .see-more {
+  margin-top: 5px;
+  height: 30px;
+  line-height: 30px;
+  overflow: hidden;
+  background: url(http://res.zwzyd.com/dby/web/images/icon_details.png) no-repeat;
+  background-position: -7.5px -59px;
+}
+.product-show .left-info .product-info .see-more a {
+  font-size: 14px;
+  color: #666;
+  margin-left: 20px;
+  float: left;
+}
+.product-show .left-info .product-info .see-more a:hover {
+  color: #ff6700;
+}
+.product-show .right-info {
+  float: right;
+  width: 220px;
+  height: auto;
+  overflow: hidden;
+}
+.product-show .right-info .title {
+  height: 18px;
+  line-height: 18px;
+  overflow: hidden;
+  font-size: 12px;
+}
+.product-show .right-info .title span {
+  display: block;
+  width: 38px;
+  height: 18px;
+  line-height: 18px;
+  overflow: hidden;
+  background: #ff6700;
+  color: #fff;
+  font-size: 12px;
+  float: right;
+  text-align: center;
+}
+.product-show .right-info ul {
+  margin-top: 10px;
+  height: auto;
+  overflow: hidden;
+  margin-left: -5px;
+}
+.product-show .right-info ul li {
+  width: 100.5px;
+  height: 30px;
+  line-height: 30px;
+  overflow: hidden;
+  float: left;
+  margin: 5px 0px 0px 5px;
+  background: #fafafc;
+  border: 1px solid #eee;
+  text-align: center;
+}
+.product-show .right-info ul li a {
+  font-size: 12px;
+  color: #666;
+  display: block;
+  background: url(http://res.zwzyd.com/dby/web/images/icon_details.png) no-repeat;
+  text-indent: 24px;
+}
+.product-show .right-info ul li:first-child a {
+  background-position: 6px -120px;
+}
+.product-show .right-info ul li:first-child + li a {
+  background-position: 6px -150px;
+}
+.product-show .right-info ul li:first-child + li + li a {
+  background-position: 6px -210px;
+}
+.product-show .right-info ul li:first-child + li + li + li a {
+  background-position: 6px -180px;
+}
+.product-show .right-info .bid-record {
+  margin-top: 20px;
+  height: auto;
+  overflow: hidden;
+}
+.product-show .right-info .bid-record p {
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  font-size: 14px;
+}
+.product-show .right-info .bid-record dl {
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+.product-show .right-info .bid-record dl dd {
+  float: left;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  padding-right: 10px;
+  font-size: 12px;
+  color: #666;
+}
+.product-show .right-info .bid-record dl dd:first-child {
+  width: 35px;
+}
+.product-show .right-info .bid-record dl dd:first-child + dd {
+  width: 100px;
+}
+.product-show .right-info .bid-record dl dd:first-child + dd + dd {
+  width: 60px;
+  padding-right: 0;
+  text-align: right;
+}
+.product-show .right-info .bid-record .list {
+  height: auto;
+  overflow: hidden;
+}
+.product-show .right-info .bid-record .list dl {
+  margin-top: 0px;
+}
+.product-show .right-info .bid-record .list dl dd {
+  color: #999;
+}
+.product-show .right-info .bid-record .list dl:first-child dd:first-child {
+  color: #ff6700;
+}
+.product-show .right-info .bid-record .list dl:first-child dd:first-child + dd {
+  color: #ff6700;
+}
+.product-show .right-info .bid-record a {
+  display: block;
+  width: 96px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  border: 1px solid #eee;
+  background: #fafafc;
+  font-size: 14px;
+  float: right;
+  margin-top: 10px;
+  color: #666;
+}
+.product-show .process {
+  height: auto;
+  overflow: hidden;
+  min-width: 1200px;
+  border-top: 1px solid #f5f5f5;
+}
+.product-show .process ul {
+  height: auto;
+  width: 1200px;
+  overflow: hidden;
+  margin: 0px auto;
+  padding: 15px 0px;
+}
+.product-show .process ul li {
+  height: 24px;
+  line-height: 24px;
+  overflow: hidden;
+  float: left;
+  width: 198.4444px;
+  text-align: center;
+  border-right: 1px solid #ddd;
+  font-size: 14px;
+  color: #666;
+}
+.product-show .process ul li span {
+  font-size: 16px;
+  margin-right: 10px;
+}
+.product-show .process ul li:first-child {
+  width: 199.4444px;
+  border-left: 1px solid #ddd;
+}
+.zoomDiv {
+  z-index: 999;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 200px;
+  height: 200px;
+  background: #ffffff;
+  border: 1px solid #CCCCCC;
+  display: none;
+  text-align: center;
+  overflow: hidden;
+}
+.zoomMask {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  cursor: move;
+  z-index: 1;
+}

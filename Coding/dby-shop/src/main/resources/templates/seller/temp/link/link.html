@@ -1,0 +1,52 @@
+<div th:fragment="main" th:remove="tag">
+	<yd:ajax key="storeLink" value="get.store_link" />
+	<yd:ajax key="storeLinkDestroy" value="get.store_link_destroy" />
+	<yd:ajax key="storeLinkEdit" value="get.store_link_edit" />
+	<yd:ajax key="storeLinkSetShow" value="get.store_nav_setshow" />
+
+	<div class="d-right nav-page">
+		<ul class="btn-page-top">
+			<li yd:ajax="onclick,get.store_link" class="active">友情链接列表</li>
+			<li yd:ajax="onclick,get.linkCreate" class="active flr">新增友情链接</li>
+		</ul>
+		<div class="d-all pop">
+			<table class="list-table">
+				<thead>
+					<tr>
+						<th class="w200">名称</th>
+						<th class="w100">排序</th>
+						<th class="w400">友情链接地址</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item:${data}" th:inline="text">
+						<td>[[${item.sl_title}]]</td>
+						<td>[[${item.sl_sort}]]</td>
+						<td><a th:href="${item.sl_url}" target="_blank">跳转</a></td>
+
+						<!-- <td>
+						<isShow th:if="${item.isShow == 1}" th:remove="tag"> 
+						<a href="javascript:void(0)" th:attr="data-id=${item.navId}, data-is-show=${item.isShow}"
+								onclick="storeNavSetShow(this)">显示</a> </isShow> <isShow th:if="${item.isShow != 1}" th:remove="tag"> <a href="javascript:void(0)"
+								th:attr="data-id=${item.navId}, data-is-show=${item.isShow}" onclick="storeNavSetShow(this)">隐藏</a> 
+						</isShow>
+						</td> -->
+						<td class="btn-t-o"><span> <a href="javascript:void(0)" th:attr="data-id=${item.id}" onclick="storeLinkEdit(this)">编辑</a>
+						</span> <span> <a href="javascript:void(0)" class="del-alert" th:attr="data-id=${item.id}" data-func="storeLinkDestroy">删除</a>
+						</span></td>`
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="4"></td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+

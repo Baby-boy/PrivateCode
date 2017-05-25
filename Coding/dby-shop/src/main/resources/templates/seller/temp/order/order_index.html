@@ -1,0 +1,83 @@
+<div th:fragment="main" th:remove="tag">
+	<yd:ajax key="orderIndex" value="get.order_index"  />
+	<yd:ajax key="orderDelivery" value="get.order_delivery"  />
+	
+	<div class="d-right order-page">
+		<ul class="btn-page-top">
+			<li onclick="orderIndex([this, 1, 0])" data-state="0" class="active">全部订单</li>
+			<li onclick="orderIndex([this, 1, 1])" data-state="1">待付款</li>
+			<li onclick="orderIndex([this, 1, 2])" data-state="2">待发货</li>
+			<li onclick="orderIndex([this, 1, 3])" data-state="3">已发货</li>
+			<li onclick="orderIndex([this, 1, 4])" data-state="4">待评价</li>
+			<li onclick="orderIndex([this, 1, 5])" data-state="9">已取消</li>
+		</ul>
+		
+		<div class="search-body">
+			<form class="search-body-form" data-search-func="orderIndex">
+				<div class="s-node">
+					<span>订单编号：</span>
+					<input name="order_sn" placeholder="订单编号" class="text" type="text" />
+				</div>
+				<div class="s-node">
+					<a class="btn-s-a" href="javascript:void(0)"><botton type="button" class="btn-search btn-search-body">搜索</botton></a>
+				</div>
+			</form>
+		</div>
+		
+		<div class="d-all pop">
+			<table class="list-table order-lists">
+				<thead>
+					<tr>
+						<th colspan="2">商品</th>
+						<th class="w80">单价(元)</th>
+						<th class="w80">数量</th>
+						<th class="w80">买家名称</th>
+						<th class="w110">订单金额</th>
+						<th class="w110">状态与操作</th>
+					</tr>
+				</thead>
+				<tbody th:each="item:${data}" th:inline="text">
+					<tr>
+						<td class="order-info" colspan="7">
+							<span>订单号：[[${item.orderSn}]]</span>
+							<span>下单时间：[[${ #calendars.format(item.createdAt,'yyyy-MM-dd hh:mm:ss') }]]</span>
+							<a target="_blank" th:href="@{/seller/order/detail?id=}+${item.orderId}">查看详情</a>
+						</td>
+					</tr>
+					<tr class="goods-info" th:each="itemGoods, k:${item.goods}" th:inline="text">
+						<td class="w70 img"><a target="_blank" th:href="@{/g/goods/}+${itemGoods.goodsId}"><img th:src="${@_url.goods()}+${itemGoods.goodsCover}" /></a></td>
+						<td><p class="goods-name"><a target="_blank" th:href="@{/g/goods/}+${itemGoods.goodsId}">[[${itemGoods.goodsName}]]</a></p></td>
+						<td>￥[[${itemGoods.goodsGoodsPrice}]]</td>
+						<td>[[${itemGoods.goodsNum}]]</td>
+						<goods th:if="${k.index == 0}" remove="tag">
+						<td class="bdl" th:rowspan="${item.goods.size()}">[[${item.buyerName}]]</td>
+						<td class="bdl" th:rowspan="${item.goods.size()}">￥[[${item.totalPrice}]]<br/>（含运费[[${item.transportPrice}]]）<br/>在线支付</td>
+						<td class="bdl" th:rowspan="${item.goods.size()}">
+							<div th:switch="${item.state}">
+								<a href="javascript:;" th:case="2" onclick="orderDelivery(this)" class="btn cancel cancel-order" th:attr="data-id=${item.orderId}, data-order-sn=${item.orderSn}">去发货</a>
+								<a th:case="1">待付款</a>
+								<a th:case="3">待收货</a>
+
+							</div>
+						</td>
+						</goods>
+						
+					</tr>
+					<tr>
+						<td class="order-td-bg" colspan="7">&nbsp;</td>
+					</tr>
+				</tbody>
+				<tfoot>
+				
+				</tfoot>
+			</table>
+		</div>
+		<!-- 分页 -->
+		<div class="pagination"></div>
+	</div>
+	<script th:inline="javascript">
+		$(function() {
+			pagination(".pagination", [[${totalPage}]], [[${p}]], "orderIndex");
+		});
+	</script>
+</div>

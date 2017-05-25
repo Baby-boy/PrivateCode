@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:inline="text" th:with="task=${taskVo}">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--发布公告-->
+<div class="fbgg-box">
+    <div class="fabu">
+        <div class="jindu">
+            <div class="jindutit">任务进度</div>
+            <div class="jindus">
+                <div class="jinduxian"><div></div></div>
+                <ul>
+                    <li th:class="${task.task_state >= 0}?'isok':''">
+                        <span>1</span>
+                        <p>申请任务<br/>2016.09.06</p>
+                    </li>
+                    <li th:class="${task.task_state >= 2}?'isok':''">
+                        <span>2</span>
+                        <p>中标<br/>2016.09.06</p>
+                        <div></div>
+                    </li>
+                    <li th:class="${task.task_state >= 3}?'isok':''">
+                        <span>3</span>
+                        <p>签订合同<br/>2016.09.06</p>
+                        <div></div>
+                    </li>
+                    <li th:class="${task.task_state >= 4}?'isok':''">
+                        <span>4</span>
+                        <p>进行工作<br/>2016.09.06</p>
+                        <div></div>
+                    </li>
+                    <li th:class="${task.task_state >= 5}?'isok':''">
+                        <span>5</span>
+                        <p>雇主验收并付款</p>
+                        <div></div>
+                    </li>
+                    <li th:class="${task.task_state >= 6}?'isok':''">
+                        <span>6</span>
+                        <p>评价</p>
+                        <div></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="work-box">
+            <div class="worktit">
+                <a th:href="'/list-guzhu/guzhu-xuqiumiaoshu/'+${taskId}">需求描述</a>
+                <a href="###" class="now">合同</a>
+                <a th:href="'/list-guzhu/guzhu-gongzuotai/'+${taskId}">工作台</a>
+            </div>
+            <div class="contract">
+                <div class="contract-zt clear">
+                    <div class="jiong"></div>
+                    <div class="zt">
+                        <p class="p1">合同状态：已签订</p>
+                        <p class="p2">您与[[${contract.contract_sname}]]（服务商）完成签单了</p>
+                    </div>
+                </div>
+                <div class="lianxi">
+                    <p class="lianxit">服务方联系方式</p>
+                    <p class="phone"><i></i>[[${contract.contract_sphone}]]</p>
+                </div>
+                <div class="yaoqiu">
+                    <p class="lianxit">服务方要求</p>
+                    <p class="list huanhang">[[${contract.contract_scsd}]]</p>
+                </div>
+                
+                <div class="sanfang-ht">
+                    <div class="title">
+                        <i></i>
+                        <span>三方合同</span>
+                        <a href="javascript:;" class="onloads">下载打印</a>
+                        <a href="javascript:;" class="buchon">补充合同</a>
+                    </div>
+                    <p class="title-x">三方合同说明：此合同由雇主，服务商及xxx网在线签订，共同遵守</p>
+                    <div class="contentbox">
+                        <div class="duration">
+                            <p class="p1">工期</p>
+                            <!-- <p class="p2">该需求完成时间为 : <span class="span1">[[${#dates.format(contract.contract_pdesc_start,'yyyy-MM-dd')}]]</span> 至 <span class="span2">[[${#dates.format(contract.contract_pdesc_end,'yyyy-MM-dd')}]]</span> ，共计 <span class="span3">13</span>天</p> -->
+                        </div>
+                        <div class="zhifufs">
+                            <p class="p1">金额与支付方式</p>
+                            <!-- <p class="time">该需求完成时间为 : <span class="span">[[${#dates.format(contract.contract_pdesc_end,'yyyy-MM-dd')}]]</span></p> -->
+                            <!-- <p class="time">需求金额 : <span class="span">[[${contract.contract_price}]]¥</span><i>|</i>已付：<span class="span2">[[${task.task_pay_price}]]¥</span></p> -->
+                            <table class="jieduan">
+                                <thead>
+                                    <tr>
+                                        <th>项目阶段</th>
+                                        <th>付款金额</th>
+                                        <th>付款状态</th>
+                                        <th>完成时间</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- <tr>
+                                        <td class="wan">
+                                            <div class="qk"></div>
+                                            <div class="js">
+                                                <p class="p1">效果图</p>
+                                                <p class="p2">服务商先设计效果图，雇主满意了在进行下一步的工作</p>
+                                            </div>
+                                        </td>
+                                        <td class="you">50,000¥</td><td class="fukuan">已付款</td><td>2016年6月2日</td>
+                                    </tr> -->
+                                    <tr th:each="tpm,niter:${taskPM}">
+                                        <td class="wan">
+                                            <div th:class="${tpm.tpm_state == 1}?'qk':'qkno'"></div>
+                                            <div class="js">
+                                                <p class="p3">[[${tpm.tpm_name}]]</p>
+                                                <p class="p2">[[${tpm.tpm_desc}]]</p>
+                                            </div>
+                                        </td>
+                                        <td th:class="${tpm.tpm_state == 1}?'you':''">[[${tpm.tpm_money}]]￥</td>
+                                        <td th:class="${tpm.tpm_state == 1}?'you':''">[[${tpm.tpm_state == 1}?'已付款':'']]</td>
+                                        <!-- <td>[[${tpm.tpm_state == 1}?${#dates.format(tpm.tpm_update_time,'yyyy-MM-dd')}:'']]</td> -->
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+					
+					
+					<div class="bianji-pact">
+                        <div class="compile-tit">合同内容</div>
+                        
+                        <p class="yiju">注：该需求的核心功能描述已比较详细。 详细明确的需求描述可以有效避免交易纠纷的产生。 QQ聊天记录等双方私下协商的内容不作为官方处理纠纷的直接证据。</p>
+                        <div class="buchong">
+                            <p class="buchong-tit">补充合同</p>
+                            <p class="bu-list huanhang">[[${contract.contract_supp==null?'暂无':contract.contract_supp}]]</p>
+                        </div>
+                        <div class="buchong">
+                            <p class="buchong-tit">双方责任</p>
+                            <p class="bu-list">1.雇主与服务商应确认各项目阶段具体内容、工作期限、支付金额的事项，无异议后服务商开始工作。<br/>2.本协议订立后,服务商应按照约定的工作期限、工作内容完成工作并提交工作成果，双方可协商变更各项目阶段工作内容、期限、支付金额等内容，变更须以补充协议或者其他明确的方式作出，否则视为未变更。<br/>3.服务商未能在工作期限内（含变更期限）完成工作（含变更内容）的，雇主有权要求返还各项目阶段托管金额。<br/>4.雇主需向服务商提交所需的相关资料，并对其完整性、准确性负责；如因雇主未能按时按量提交资料的，工作期限应根据雇主延误的时间进行延期，服务商对此不承担责任。<br/>5.服务商完成阶段性工作，雇主应在3个工作日内予以验收，如验收合格应支付已完成阶段的费用；如在3个工作日内未予以验收的，视为验收合格，服务商有权要求雇主支付已完成阶段费用。<br/>6.服务商已完成项目阶段内容，经雇主验收合格并确认支付后产生纠纷的，已支付费用不予退回。<br/>7. 在项目进行期间,双方应保持联络通畅,3个工作日没有进行回应一方,对方有权提请XX或者由XX网主动按照《XX网服务协议》等相关规定进行处置。<br/>8.由于不可抗力因素致使项目无法按照约定的期限或是内容履行时，双方应及时协商解决。因不可抗力所导致的合同双方中任何一方的延迟或未能履约，均不构成违约责任，亦不得对由此造成的损失要求赔偿。不可抗力是指不能预见、不能避免并无法克服的情况，包含地震、洪水等自然灾害以及战争等人力无法抗拒的情形。<br/>9.如双方执行本协议产生争议，可协商解决，如协商不成，双方一致同意由XX网进行调解/仲裁，如任何一方对XX网调解/仲裁不满的，应在XX网调解/仲裁结果出具后3个工作日内提起诉讼主张。<br/>10.XX网受理诉讼主张后，将冻结交易，诉讼主张方应在一个月内提交立案通知书等提起诉讼的证明资料，否则视为同意接受XX网调解/仲裁结果，任何一方均有权要求XXX网执行该调解/仲裁。</p>
+                        </div>
+                        <div class="buchong">
+                            <p class="buchong-tit">资金流向及发票开具说明</p>
+                            <p class="bu-list">1.本协议需求金额由雇主托管至XXX网，属于托管性质，XXX网非收款方；<br/>2.XX网在交易结束扣取平台服务费后，将剩余需求金额按照雇主指令、雇主与服务商协商结果、《XX网服务规则》等划转至服务商或者返还至雇主；<br/>3.XX网所收取的平台服务费部分由XX网开具发票，划转至服务商部分由服务商开具；<br/>4.本协议下发票通常由XX网和服务商（自然人由XX网代开）两部分组成，收款方不同，印章不同；<br/>5.服务商属于企业性质的，全额由服务商开具，服务商属于自然人性质的，XX网默认代开，雇主与服务商也可协商由服务商开具；<br/>6.详细内容请参阅《XX网发票开具规则》。</p>
+                        </div>
+                        <div class="buchong">
+                            <p class="buchong-tit">售后保障</p>
+                            <p class="bu-list">服务商承诺为雇主提供以下售后服务，具体为：<br/>服务商承诺保证完成，保证质量并修改到满意为止。 当雇主部分或全额付款后，若服务商违背承诺，雇主有权发起维权， 经判定维权成功，雇主可获得双倍赔付（双倍赔付由服务商的保证金赔付和服务商需退还的交易款项两部分共同构成）。<br/>» 服务商违背了该项承诺？立即 发起争议维权<br/>服务商承诺保证提供源码。 交易完成后5天内，如服务商拒绝向雇主提供可供二次开发使用的完整程序代码（非部署/安装性质），雇主有权发起维权，判定成立后，雇主可得双倍赔付。<br/>» 服务商违背了该项承诺？立即 发起争议维权</p>
+                        </div>
+
+                        <ul class="tongyi">
+                        
+                            <li>
+                                <p>甲方（雇主）：[[${contract.contract_esig}]]</p>
+                                <p>签署日期：[[${contract.contract_esigd}]]</p>
+                                <div></div>
+                            </li>
+                            
+                            <li>
+                                <p>乙方（服务方）：[[${contract.contract_ssig}]]</p>
+                                <p>签署日期：[[${contract.contract_ssigd}]]</p>
+                                <div></div>
+                            </li>
+                            
+                        </ul>
+                        
+                    </div>
+					
+					
+                    <!-- <div class="bianji-pact">
+                        <div class="compile-tit">合同内容</div>
+                        <div class="pact-tit clear">
+                            <ul class="jiafang">
+                                <li>
+                                    <p>甲方（雇主方）:</p>
+                                </li>
+                                <li>
+                                    <p>地址</p>
+                                </li>
+                                <li>
+                                    <p>联系人</p>
+                                </li>
+                                <li>
+                                    <p>电话</p>
+                                </li>
+                            </ul>
+                            <ul class="jiafang">
+                                <li>
+                                    <p>乙方（服务方） </p>
+                                </li>
+                                <li>
+                                    <p>地址</p>
+                                </li>
+                                <li>
+                                    <p>联系人</p>
+                                </li>
+                                <li>
+                                    <p>电话</p>
+                                </li>
+                            </ul>
+                            <p class="attention">根据中国人民共和国合同法及国家有关规定，结合本工程的具体情况，为明确责任，协作配合，确保工程质量，经甲，乙双方协商一致，签订本合同，共同遵守。</p>
+                        </div>
+                        <div class="pact-list">
+                            <p class="pact-list-tit">第一条，基本信息</p>
+                            <ul class="jiafang">
+                                <li>
+                                    <p>工程名称/代码：</p>
+                                </li>
+                                <li>
+                                    <p>工程描述：</p>
+                                </li>
+                                <li>
+                                    <p>保密协议：</p>
+                                </li>
+                                <li>
+                                    <p>服务协议：</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pact-list">
+                            <p class="pact-list-tit">第二条，服务内容及深度要求</p>
+                        </div>
+                        <div class="pact-list">
+                            <p class="pact-list-tit">第三条，各阶段工期要求</p>
+                        </div>
+                        <div class="pact-list">
+                            <p class="pact-list-tit">第四条，甲方需提交资料</p>
+                        </div>
+                        <div class="pact-list">
+                            <p class="pact-list-tit">第五条，乙方需要提交的成果</p>
+                        </div>
+                        <div class="pact-list">
+                            <p class="pact-list-tit">第六条，甲方权利与责任</p>
+                        </div>
+                        <div class="pact-list">
+                            <p class="pact-list-tit">第七条，合同款及支付</p>
+                        </div>
+                        <div class="pact-list">
+                            <p class="pact-list-tit">第八条，各阶段工期要求</p>
+                        </div>
+                        <div class="pact-list">
+                            <p class="pact-list-tit">第九条，违约责任</p>
+                        </div>
+                        <div class="pact-list">
+                            <p class="pact-list-tit">第十条，合同生效及其他</p>
+                        </div>
+                        <div class="else clear">
+                            <div class="elsele">其他</div>
+                            <div class="elseri">
+                                <p>1，本合同附件与正文具有同等法律效力</p>
+                                <p>2，本合同一式两份，自双方签字之日起生效。</p>
+                            </div>
+                        </div>
+                        <div class="signature clear">
+                            <ul class="signaturele">
+                                <li class="input">
+                                    <p>甲方：</p>
+                                </li>
+                                <li class="input">
+                                    <p>代表签字：</p>
+                                </li>
+                                <li class="input">
+                                    <p>日期：</p>
+                                </li>
+                            </ul>
+                            <ul class="signaturele">
+                                <li class="input">
+                                    <p>乙方：</p>
+                                </li>
+                                <li class="input">
+                                    <p>代表签字：</p>
+                                </li>
+                                <li class="input">
+                                    <p>日期：</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <p class="yiju">注：该需求的核心功能描述已比较详细。 详细明确的需求描述可以有效避免交易纠纷的产生。 QQ聊天记录等双方私下协商的内容不作为官方处理纠纷的直接证据。</p>
+                        <div class="buchong">
+                            <p class="buchong-tit">补充合同</p>
+                            <p class="bu-list">1.雇主与服务商应确认各项目阶段具体内容、工作期限、支付金额的事项，无异议后服务商开始工作。<br/>2.本协议订立后,服务商应按照约定的工作期限、工作内容完成工作并提交工作成果，双方可协商变更各项目阶段工作内容、期限、支付金额等内容，变更须以补充协议或者其他明确的方式作出，否则视为未变更。<br/>3.服务商未能在工作期限内（含变更期限）完成工作（含变更内容）的，雇主有权要求返还各项目阶段托管金额。<br/>4.雇主需向服务商提交所需的相关资料，并对0其完整性、准确性负责；如因雇主未能按时按量提交资料的，工作期限应根据雇主延误的时间进行延期，服务商对此不承担责任。<br/>5.服务商完成阶段性工作，雇主应在3个工作日内予以验收，如验收合格应支付已完成阶段的费用；如在3个工作日内未予以验收的，视为验收合格，服务商有权要求雇主支付已完成阶段费用。<br/>6.服务商已完成项目阶段内容，经雇主验收合格并确认支付后产生纠纷的，已支付费用不予退回。<br/>7. 在项目进行期间,双方应保持联络通畅,3个工作日没有进行回应一方,对方有权提请XX或者由XX网主动按照《XX网服务协议》等相关规定进行处置。</p>
+                        </div>
+                        <div class="buchong">
+                            <p class="buchong-tit">双方责任</p>
+                            <p class="bu-list">1.雇主与服务商应确认各项目阶段具体内容、工作期限、支付金额的事项，无异议后服务商开始工作。<br/>2.本协议订立后,服务商应按照约定的工作期限、工作内容完成工作并提交工作成果，双方可协商变更各项目阶段工作内容、期限、支付金额等内容，变更须以补充协议或者其他明确的方式作出，否则视为未变更。<br/>3.服务商未能在工作期限内（含变更期限）完成工作（含变更内容）的，雇主有权要求返还各项目阶段托管金额。<br/>4.雇主需向服务商提交所需的相关资料，并对其完整性、准确性负责；如因雇主未能按时按量提交资料的，工作期限应根据雇主延误的时间进行延期，服务商对此不承担责任。<br/>5.服务商完成阶段性工作，雇主应在3个工作日内予以验收，如验收合格应支付已完成阶段的费用；如在3个工作日内未予以验收的，视为验收合格，服务商有权要求雇主支付已完成阶段费用。<br/>6.服务商已完成项目阶段内容，经雇主验收合格并确认支付后产生纠纷的，已支付费用不予退回。<br/>7. 在项目进行期间,双方应保持联络通畅,3个工作日没有进行回应一方,对方有权提请XX或者由XX网主动按照《XX网服务协议》等相关规定进行处置。<br/>8.由于不可抗力因素致使项目无法按照约定的期限或是内容履行时，双方应及时协商解决。因不可抗力所导致的合同双方中任何一方的延迟或未能履约，均不构成违约责任，亦不得对由此造成的损失要求赔偿。不可抗力是指不能预见、不能避免并无法克服的情况，包含地震、洪水等自然灾害以及战争等人力无法抗拒的情形。<br/>9.如双方执行本协议产生争议，可协商解决，如协商不成，双方一致同意由XX网进行调解/仲裁，如任何一方对XX网调解/仲裁不满的，应在XX网调解/仲裁结果出具后3个工作日内提起诉讼主张。<br/>10.XX网受理诉讼主张后，将冻结交易，诉讼主张方应在一个月内提交立案通知书等提起诉讼的证明资料，否则视为同意接受XX网调解/仲裁结果，任何一方均有权要求XXX网执行该调解/仲裁。</p>
+                        </div>
+                        <div class="buchong">
+                            <p class="buchong-tit">资金流向及发票开具说明</p>
+                            <p class="bu-list">1.本协议需求金额由雇主托管至XXX网，属于托管性质，XXX网非收款方；<br/>2.XX网在交易结束扣取平台服务费后，将剩余需求金额按照雇主指令、雇主与服务商协商结果、《XX网服务规则》等划转至服务商或者返还至雇主；<br/>3.XX网所收取的平台服务费部分由XX网开具发票，划转至服务商部分由服务商开具；<br/>4.本协议下发票通常由XX网和服务商（自然人由XX网代开）两部分组成，收款方不同，印章不同；<br/>5.服务商属于企业性质的，全额由服务商开具，服务商属于自然人性质的，XX网默认代开，雇主与服务商也可协商由服务商开具；<br/>6.详细内容请参阅《XX网发票开具规则》。</p>
+                        </div>
+                        <div class="buchong">
+                            <p class="buchong-tit">售后保障</p>
+                            <p class="bu-list">服务商承诺为雇主提供以下售后服务，具体为：<br/>服务商承诺保证完成，保证质量并修改到满意为止。 当雇主部分或全额付款后，若服务商违背承诺，雇主有权发起维权， 经判定维权成功，雇主可获得双倍赔付（双倍赔付由服务商的保证金赔付和服务商需退还的交易款项两部分共同构成）。<br/>» 服务商违背了该项承诺？立即 发起争议维权<br/>服务商承诺保证提供源码。 交易完成后5天内，如服务商拒绝向雇主提供可供二次开发使用的完整程序代码（非部署/安装性质），雇主有权发起维权，判定成立后，雇主可得双倍赔付。<br/>» 服务商违背了该项承诺？立即 发起争议维权</p>
+                        </div>
+
+                        <ul class="tongyi">
+                            <li>
+                                <p>甲方（雇主）：XXXXXX</p>
+                                <p>签署日期：2016年05月31日</p>
+                                <div></div>
+                            </li>
+                            <li>
+                                <p>乙方（服务方）：XXXXXX</p>
+                                <p>签署日期：2016年05月31日</p>
+                                <div></div>
+                            </li>
+                        </ul>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+<div class="zhezhao dis-none"></div>
+<div class="fbgg-popup dis-none">
+    <div class="guanbi"></div>
+    <h4>补充内容</h4>
+    <form action="">
+        <textarea name="" id="" cols="30" rows="10" placeholder="选择项目地点"></textarea>
+        <button type="submit">确定</button>
+    </form>
+</div>
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+<script src="/js/common.js"></script>
+</html>

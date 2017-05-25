@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="keywords" content=""/>
+		<meta name="description" content=""/>
+		<meta name="Authorization" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/css/yd-tipbox.css}" />
+		<link rel="stylesheet" th:href="@{/assets/member/css/member.css}" />
+		<link rel="stylesheet" th:href="@{/assets/member/css/member2.css}" />
+		<link rel="stylesheet" th:href="@{/assets/member/css/user.css}" />
+		<link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+	
+		
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')},
+		navs=${@_nav.getByType('0')}
+		">
+	<div>
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div> 
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: home('')" th:remove="tag"></div> 
+					<div th:include="shop/template/header :: nav(home)" th:remove="tag"></div> 
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+
+		<div id="container">
+			<div class="g-content">
+				<div class="g-left">
+					<!-- <h1 yd:ajax="onclick,get.member_index">个人中心</h1> -->
+					<h1>个人中心</h1>
+					<ul class="g-shop clear">
+						<h2 th:inline="text">全部功能</h2>
+						<li th:if="${session.store != '' and session.store != null}" th:remove="tag"><span></span><a href="javascript:;" yd:ajax="onclick,get.seller_index">商家中心</a></li>
+						<li><span></span><a id="memberOrderIndex" href="javascript:;" onclick="memberOrderIndex(this)">我的订单</a></li>
+						<!--<li><span></span><a href="javascript:;" yd:ajax="onclick,get.bespoke">我的预约</a></li>-->
+						<!-- <li><span></span><a href="javascript:;" yd:ajax="onclick,get.member_sale">我的拍卖</a></li> -->
+						<li><span></span><a href="javascript:;" id="my_ctc" yd:ajax="onclick,get.my_ctc">我的懒鱼</a></li>
+						<li><span></span><a href="javascript:;" id="" yd:ajax="onclick,get.ctc_create">发布懒鱼</a></li>
+						<li><span></span><a href="javascript:;" yd:ajax="onclick,get.follow_goods">我的关注</a></li>
+						<li><span></span><a href="javascript:;" id="my_circulation" yd:ajax="onclick,get.circulation_goods">流通置换</a></li>
+						<li><span></span><a href="javascript:;" id="myService" onclick="memberService([this, 1, 0])">我的售后</a></li>
+						<li><span></span><a href="javascript:;" id="myComplain" onclick="memberComplain([this, 1, 0])">交易投诉</a></li>
+					</ul>
+					<ul class="g-shop g-account clear">
+						<h2>账号中心</h2>
+						<li><span></span><a href="javascript:;" yd:ajax="onclick,get.member_info">账户信息</a></li>
+						<li><span></span><a href="javascript:;" yd:ajax="onclick,get.member_security">账户安全</a></li>
+						<li><span></span><a href="javascript:;" yd:ajax="onclick,get.member_balance">账户余额</a></li>
+						<!-- <li><span></span><a href="javascript:;" yd:ajax="onclick,get.member_coupon">优惠券</a></li> -->
+						<li><span></span><a href="javascript:;" yd:ajax="onclick,get.member_address">收货地址</a></li>
+						<li><span></span><a href="javascript:;" yd:ajax="onclick,get.member_wish">我的许愿</a></li>
+					</ul>
+				</div>
+
+				<div id="right">
+				
+				</div>
+			</div>
+		</div>
+
+<!-- 		<div th:include="shop/template/footer :: footer" th:remove="tag"></div> -->
+		<yd:ajax key="memberSecurity" value="get.member_security" />
+		<yd:ajax key="memberService" value="get.member_service"  />
+		<yd:ajax key="memberComplain" value="get.member_complain"  />
+		<yd:ajax key="memberOrderIndex" value="get.member_order_index"  />
+	</div>
+
+	<!-- 底部 -->
+	<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+
+	<script type="text/javascript" th:src="@{/assets/js/jquery-1.11.1.min.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/shop/js/common.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/member/js/member.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/js/yd-tipbox-min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.page.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/store+json2.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.cxselect.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/js/jq_select.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/member/js/member.base.js}" ></script>
+	<!-- <script type="text/javascript" th:src="@{/assets/member/js/member.store.js}" ></script> -->
+	<script type="text/javascript" th:src="@{/assets/seller/js/store.get.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/seller/js/store.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/upload/plupload.full.min.js}" ></script>
+	
+	<yd:ajax key="auth0_event_member_login" value="auth0_request_member_login" />
+	<yd:ajax key="auth0_event_member_autologin" value="auth0_request_member_autologin" />
+	<script type="text/javascript" th:src="@{/assets/auth.js}" ></script>
+	
+	<script type="text/javascript">
+		$(function() {
+			setTimeout(function() {
+				memberOrderIndex($(this));
+			}, 100);
+			
+			/* if ( store.get('Authorization') != "undefined" ) {
+				auth0_event_member_autologin();
+			} */
+		});
+	</script>
+	</body>
+</html>

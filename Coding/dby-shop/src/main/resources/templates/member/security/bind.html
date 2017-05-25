@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="keywords" content=""/>
+		<meta name="description" content=""/>
+		<title>普通用户注册</title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/index.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/member.css}"/>
+		<link rel="stylesheet" th:href="@{/assets/css/yd-tipbox.css}" />
+	</head>
+	
+	
+	<body th:with="searchkeys=${@_dict.many('web_search_key')}">
+		<!--头部-->
+		<div class="Z-Login_header">
+			<div class="Z-Login_box">
+				<div class="Z-logo">
+					<a href="/"><img th:src="${@_url.goods()}+${@_redis.get('site_logo')}" /></a>
+				</div>
+				<span>注册并绑定</span>
+				
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			$(".Z-twomenu .Z-putong").click(function() {
+				$(".existence").show();
+				$(".new-reg").hide();
+			});
+			$(".Z-twomenu .Z-qiye").click(function() {
+				$(".existence").hide();
+				$(".new-reg").show();
+			});
+		</script>
+		
+		<!--内容-->
+		<div class="Z-content_zhuce">
+			<div class="Z-contentBox">
+				
+				<div class="Z-twomenu">
+					<div class="Z-putong reg-switch active">
+						<a href="javascript:;">已有用户</a>
+					</div>
+					<div class="Z-qiye reg-switch">
+						<a href="javascript:;">绑定新账户</a>
+					</div>
+				</div>
+				
+				<!-- 已有用户 -->
+				<div class="reg-section existence">
+					<div class="Z-zhanghu">
+						<input type="hidden" id="member_token" />
+						<ul>
+							<li>
+								<div class="Z-con_title">手机号码</div>
+								<input type="text" placeholder="请输入您的手机号码" id="exist_member_mobile" />
+							</li>
+							<li class="Z-twoinput">
+								<div class="Z-con_title">短信验证码</div>
+								<input type="text" placeholder="手机验证码" id="exist_member_salt" />
+								<a href="javascript:void(0);" id="getMobileId" onclick="auth0_event_member_register_sms($(this))">获取短信验证码</a>
+								<div class="send_code" onclick="auth0_event_member_register_sms( $('#getMobileId') )" style="display:none;">
+					                <label class="obtain" style="display: none;">重新获取</label>
+					                <label class="repeat" style="display: block;">
+					                    <!-- 重新发送 -->
+					                    <span class="count_down">已发送(60s)</span>
+					                </label>
+					            </div>
+							</li>
+							<li class="Z-foveinput">
+								<div class="Z-con_title"></div>
+								<input type="checkbox" id="exist_agree" />
+								<span>我已阅读并同意 
+									<a href="#">《多宝鱼用户注册协议》</a>
+								</span>
+							</li>
+							<li class="Z-firvinput">
+								<div class="Z-con_title"></div>
+								<input type="button" value="绑定" onclick="exist_thirdParty_member_register($(this))"/>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+				
+				<div class="reg-section new-reg" style="display: none;">
+					<div class="Z-zhanghu">
+						<input type="hidden" id="member_token" />
+						<ul>
+							<li>
+								<div class="Z-con_title">会员名</div>
+								<input type="text" placeholder="会员名一旦设置成功，无法修改" id="member_name" />
+								<input type="hidden" name="openid" id="openid" th:value="${openid}" />
+								<input type="hidden" name="tpl_type" id="tpl_type" th:value="${tpl_type}" />
+							</li>
+							<li>
+								<div class="Z-con_title">手机号码</div>
+								<input type="text" placeholder="请输入您的手机号码" id="member_mobile" />
+							</li>
+							<li class="Z-twoinput">
+								<div class="Z-con_title">短信验证码</div>
+								<input type="text" placeholder="手机验证码" id="member_salt" />
+								<a href="javascript:void(0);" id="getMobileId" onclick="auth0_event_member_register_sms($(this))">获取短信验证码</a>
+								<div class="send_code" onclick="auth0_event_member_register_sms( $('#getMobileId') )" style="display:none;">
+					                <label class="obtain" style="display: none;">重新获取</label>
+					                <label class="repeat" style="display: block;">
+					                    <!-- 重新发送 -->
+					                    <span class="count_down">已发送(60s)</span>
+					                </label>
+					            </div>
+							</li>
+							<li>
+								<div class="Z-con_title">设置密码</div>
+								<input type="password" placeholder="建议至少使用两种字符组合" id="member_password" />
+							</li>
+							<li>
+								<div class="Z-con_title">确认密码</div>
+								<input type="password" placeholder="请再次输入密码" id="member_repeat_password" />
+							</li>
+							<li class="Z-foveinput">
+								<div class="Z-con_title"></div>
+								<input type="checkbox" id="agree" />
+								<span>我已阅读并同意 
+									<a href="#">《多宝鱼用户注册协议》</a>
+								</span>
+							</li>
+							<li class="Z-firvinput">
+								<div class="Z-con_title"></div>
+								<input type="button" value="注册并绑定" onclick="thirdParty_member_register($(this))"/>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+				
+			</div>
+		</div>
+		
+		<!-- 底部 -->
+		<yd:ajax key="thirdParty_member_register" value="thirdParty_member_register_" />
+		<yd:ajax key="exist_thirdParty_member_register" value="exist_thirdParty_member_register_" />
+		
+		
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		<script type="text/javascript" th:src="@{/assets/shop/js/jquery-1.11.1.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/js/common.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/js/yd-tipbox-min.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/js/store+json2.min.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/member/js/member.js}"></script>
+		<yd:ajax key="auth0_event_member_register_sms" value="auth0_request_member_register_sms" />
+		<script type="text/javascript" th:src="@{/assets/register.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/member/js/register.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/js/functions.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/seller/js/store.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/upload/uploadnew.js}" ></script>
+		
+	</body>
+</html>

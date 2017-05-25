@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperCtcClass">
+
+	<sql id="orderBy">
+		ORDER BY cc_sort ASC
+	</sql>
+	
+	<select id="one" resultType="java.util.HashMap">
+		SELECT
+			cc_id, cc_pid, cc_name, cc_imgsrc
+		FROM
+			yd_ctc_class
+		WHERE
+			cc_pid = 0
+		<include refid="orderBy"></include>
+	</select>
+	
+	<select id="son" resultType="java.util.HashMap">
+		SELECT
+			cc_id, cc_pid, cc_name, cc_imgsrc
+		FROM
+			yd_ctc_class
+		WHERE
+			cc_pid = #{cc_id}
+		<include refid="orderBy"></include>
+	</select>
+</mapper>

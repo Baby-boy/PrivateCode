@@ -1,0 +1,28 @@
+package com.yd.gcj.router;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/consult")
+public class YdMangerPageRouterConsult<HttpServletRequest> {
+	
+	private static final String pageFiles = "consult/";
+	
+	@RequestMapping("/help")
+	public String help() {
+		return pageFiles+"help";
+	}
+	
+	@RequestMapping("/online-detail")
+	public String onlineDetail() {
+		return pageFiles+"online-detail";
+	}
+	
+	@RequestMapping("/online")
+	public String online() {
+		return pageFiles+"online";
+	}
+	
+	
+}

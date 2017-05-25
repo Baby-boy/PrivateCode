@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperGoods">
+
+	<sql id="where">
+		<trim prefix="where" suffixOverrides="and">
+			<if test="goodsName !=null and goodsName !=''">
+				goods_name like '%${goodsName}%' and
+			</if>
+			<if test="depot_classify1 !=null and depot_classify1 !=''">
+				depot_classify1 = #{depot_classify1} and
+			</if>
+			<if test="depot_classify2 !=null and depot_classify2 !=''">
+				depot_classify2 = #{depot_classify2} and
+			</if>
+			<if test="depot_classify3 !=null and depot_classify3 !=''">
+				depot_classify3 = #{depot_classify3} and
+			</if>
+			<if test="brand_id !=null and brand_id !=''">
+				brand_id = #{brand_id} and
+			</if>
+			<if test="priceStart != null and priceStart !=''">
+				depot_price <![CDATA[ >= ]]> #{priceStart} and
+			</if>
+			<if test="priceEnd != null and priceEnd !=''">
+				depot_price <![CDATA[ <= ]]> #{priceEnd} and
+			</if>
+			depot_type = 1 AND depot_is_available = 1 AND yd_depot.activity_id = 0
+		</trim>
+	</sql>
+	
+	
+	<sql id="orderBy">
+		<if test="orderBy == 'priceHigh' ">
+			ORDER BY depot_price DESC
+		</if>
+		<if test="orderBy == 'priceLow' ">
+			ORDER BY depot_price ASC
+		</if>
+		<if test="orderBy == 'favHigh' ">
+			ORDER BY goods_total_fav DESC
+		</if>
+	</sql>
+
+	<!-- 根据品牌id查询所有商品 -->
+	<select id="goodsListByBrand_id" resultMap="YdShopMapperGoodsSearch">
+		SELECT
+		yd_depot.depot_id, yd_goods.goods_name, yd_depot.depot_price, yd_goods.goods_cover
+		FROM
+		yd_depot
+		LEFT JOIN
+		yd_goods
+		ON
+		yd_goods.goods_id = yd_depot.goods_id
+		<include refid="where"></include>
+		ORDER BY
+		yd_depot.depot_created_time DESC
+		LIMIT #{to}, 12
+
+	</select>
+	
+	
+	<select id="search" resultMap="YdShopMapperGoodsSearch">
+		SELECT
+			yd_depot.depot_id, yd_goods.goods_name, yd_depot.depot_price, yd_goods.goods_cover
+		FROM
+		yd_depot
+		LEFT JOIN
+			yd_goods
+		ON
+			yd_goods.goods_id = yd_depot.goods_id
+		<include refid="where"></include>
+		<include refid="orderBy"></include>
+		LIMIT #{to}, 40
+	</select>
+	
+	
+	<select id="activityGoods" resultType="java.util.HashMap">
+		SELECT
+			yd_depot.depot_id, yd_goods.goods_name, yd_depot.depot_price, yd_goods.goods_cover,
+			yd_depot.depot_pre_stock, yd_depot.depot_min_bid
+		FROM
+			yd_depot
+		LEFT JOIN
+			yd_goods
+		ON
+			yd_goods.goods_id = yd_depot.goods_id
+		WHERE
+			yd_depot.activity_id = #{activityId} AND
+			yd_depot.depot_is_available = 1 AND
+			yd_depot.depot_type = 5
+		LIMIT #{to}, 40
+	</select>
+	
+	<select id="activityGoodsTotal" resultType="java.lang.Integer">
+		SELECT
+			count( yd_depot.depot_id )
+		FROM
+			yd_depot
+		LEFT JOIN
+			yd_goods
+		ON
+			yd_goods.goods_id = yd_depot.goods_id
+		WHERE
+			yd_depot.activity_id = #{activityId} AND
+			yd_depot.depot_is_available = 1 AND
+			yd_depot.depot_type = 5
+	</select>
+
+
+	<!-- 分页总数 -->
+	<select id="total" resultType="java.lang.Integer">
+		SELECT
+		count(yd_depot.depot_id)
+		FROM
+		yd_depot
+		LEFT JOIN
+		yd_goods
+		ON
+		yd_goods.goods_id = yd_depot.goods_id
+		<include refid="where"></include>
+	</select>
+
+
+	<!-- 确认订单页。商品-及店铺信息 -->
+	<select id="confirmOrderGoods" resultMap="YdShopMapperConfirmOrderGoods">
+		SELECT
+		s.store_id, s.user_id as store_user_id, s.store_name, s.store_address,
+		yd_depot.depot_id, yd_depot.depot_stock, yd_goods.goods_name,
+		yd_depot.depot_price, yd_depot.depot_original_price, yd_goods.goods_cover,
+		yd_goods.goods_freight, yd_depot.depot_type, yd_depot.activity_id,
+		yd_depot.depot_pre_stock, yd_depot.depot_min_bid
+		FROM ( SELECT store_id, user_id, store_name, store_address FROM yd_store ) s
+		LEFT OUTER JOIN
+		yd_depot
+		ON
+		s.store_id
+		= yd_depot.`store_id`
+		LEFT JOIN
+		yd_goods
+		ON
+		yd_goods.`goods_id` = yd_depot.`goods_id`
+		WHERE
+		yd_depot.`depot_id` = #{depot_id}
+	</select>
+
+
+	<!-- 确认订单页。商品-及店铺信息 -->
+	<select id="confirmOrderCart" resultMap="YdShopMapperConfirmOrderGoods">
+		SELECT
+		s.store_id, s.user_id as store_user_id, s.store_name, s.store_address,
+		yd_depot.depot_id, yd_depot.depot_stock, yd_cart.cart_id, yd_cart.cart_num, yd_goods.goods_name,
+		yd_depot.depot_price, yd_depot.depot_original_price, yd_goods.goods_cover,
+		yd_goods.goods_freight, yd_depot.depot_type, yd_depot.activity_id,
+		yd_depot.depot_pre_stock, yd_depot.depot_min_bid
+		FROM ( SELECT store_id, user_id, store_name, store_address FROM yd_store ) s
+		LEFT OUTER JOIN
+		yd_cart
+		ON
+		s.store_id =
+		yd_cart.`store_id`
+		LEFT JOIN
+		yd_depot
+		ON
+		yd_depot.`depot_id` = yd_cart.`depot_id`
+		LEFT JOIN
+		yd_goods
+		ON
+		yd_goods.`goods_id` = yd_depot.`goods_id`
+
+		WHERE yd_cart.`cart_id` IN
+		<foreach item="item" index="index" collection="ids" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+
+
+	<resultMap id="YdShopMapperConfirmOrderGoods" type="java.util.HashMap">
+		<id property="store_id" column="store_id" />
+		<result property="store_user_id" column="store_user_id" />
+		<result property="store_name" column="store_name" />
+		<result property="store_address" column="store_address" />
+
+		<collection property="goods" javaType="java.util.ArrayList" ofType="java.util.HashMap">
+			<id property="store_id" column="goods_id" />
+			<result property="depot_id" column="depot_id" />
+			
+			<result property="depot_type" column="depot_type" />
+			<result property="activity_id" column="activity_id" />
+			<result property="depot_pre_stock" column="depot_pre_stock" />
+			<result property="depot_min_bid" column="depot_min_bid" />
+			
+			
+			<result property="cart_id" column="cart_id" />
+			<result property="cart_num" column="cart_num" />
+			<result property="goods_name" column="goods_name" />
+			<result property="depot_stock" column="depot_stock" />
+			<result property="depot_price" column="depot_price" />
+			<result property="depot_original_price" column="depot_original_price" />
+			<result property="goods_cover" column="goods_cover" />
+			<result property="goods_freight" column="goods_freight" />
+		</collection>
+	</resultMap>
+
+
+
+	<select id="info" resultType="java.util.HashMap">
+		SELECT
+		yd_depot.depot_id, yd_goods.goods_id, yd_goods.goods_name, yd_goods.goods_summary, yd_goods.goods_cover, yd_goods.goods_price,
+		yd_goods.`goods_num`, yd_depot.depot_price, yd_depot.depot_stock, yd_goods.store_id, yd_store.store_name
+		FROM
+		yd_depot
+		LEFT JOIN
+		yd_goods
+		ON
+		yd_depot.`goods_id` = yd_goods.`goods_id`
+		LEFT JOIN
+		yd_store
+		ON
+		yd_goods.`store_id` = yd_store.`store_id`
+		WHERE
+		yd_depot.`depot_id` = #{depot_id}
+	</select>
+
+	<resultMap id="YdShopMapperGoodsSearch" type="java.util.HashMap">
+		<id property="depot_id" column="depot_id" />
+		<result property="goods_name" column="goods_name" />
+		<result property="goods_price" column="depot_price" />
+		<result property="goods_cover" column="goods_cover" />
+	</resultMap>
+
+
+	<select id="get_many_recommend" resultType="java.util.HashMap">
+		SELECT
+		yd_depot.goods_id,
+		yd_depot.depot_id,
+		yd_goods.goods_name,
+		left(yd_goods.goods_summary, 20) as goods_summary,
+		yd_goods.goods_cover,
+		yd_goods.goods_total_fav,
+		yd_depot.depot_total_view,
+		yd_depot.depot_stock,
+		yd_depot.depot_price
+		FROM
+		yd_depot
+		JOIN yd_goods ON yd_depot.goods_id =
+		yd_goods.goods_id
+		WHERE
+		yd_depot.depot_type = 1
+		LIMIT 0, 15;
+	</select>
+
+	<select id="get_many_normal" resultType="java.util.HashMap">
+		SELECT
+		yd_depot.goods_id,
+		yd_depot.depot_id,
+		yd_goods.goods_name,
+		left(yd_goods.goods_summary, 20) as goods_summary,
+		yd_goods.goods_cover,
+		yd_depot.depot_stock,
+		yd_goods.goods_total_fav,
+		yd_depot.depot_total_view,
+		yd_depot.depot_price
+		FROM
+		yd_depot
+		JOIN yd_goods ON yd_depot.goods_id =
+		yd_goods.goods_id
+		WHERE
+		yd_depot.depot_type = 1
+		LIMIT 0, 15;
+	</select>
+
+	<select id="get_many_maintenance" resultType="java.util.HashMap">
+		SELECT
+		yd_depot.goods_id,
+		yd_depot.depot_id,
+		yd_goods.goods_name,
+		left(yd_goods.goods_summary, 20) as goods_summary,
+		yd_goods.goods_cover,
+		yd_goods.goods_total_fav,
+		yd_depot.depot_total_view,
+		yd_depot.depot_stock,
+		yd_depot.depot_price
+		FROM
+		yd_depot
+		JOIN yd_goods ON yd_depot.goods_id =
+		yd_goods.goods_id
+		WHERE
+		yd_depot.depot_type = 2
+		LIMIT 0, 15;
+	</select>
+
+	<select id="get_many_auction" resultType="java.util.HashMap">
+		SELECT
+		yd_depot.goods_id,
+		yd_depot.depot_id,
+		yd_goods.goods_name,
+		left(yd_goods.goods_summary, 20) as goods_summary,
+		yd_goods.goods_cover,
+		yd_goods.goods_total_fav,
+		yd_depot.depot_total_view,
+		yd_depot.depot_stock,
+		yd_depot.depot_current_bid,
+		(
+		UNIX_TIMESTAMP(yd_activity.activity_begin_time) -
+		UNIX_TIMESTAMP(NOW())
+		) AS diff_time
+		FROM
+		yd_depot
+		JOIN yd_goods ON yd_depot.goods_id = yd_goods.goods_id
+		JOIN yd_activity ON yd_depot.activity_id = yd_activity.activity_id
+		WHERE
+		yd_depot.depot_type = 3
+		LIMIT 0, 15;
+	</select>
+
+	<select id="get_many_groupon" resultType="java.util.HashMap">
+		SELECT
+		yd_depot.goods_id,
+		yd_depot.depot_id,
+		yd_goods.goods_name,
+		left(yd_goods.goods_summary, 20) as goods_summary,
+		yd_goods.goods_cover,
+		yd_goods.goods_total_fav,
+		yd_depot.depot_total_view,
+		yd_depot.depot_stock,
+		yd_depot.depot_pre_stock,
+		yd_depot.depot_price,
+		yd_depot.depot_original_price,
+		(
+		UNIX_TIMESTAMP(yd_activity.activity_begin_time) - UNIX_TIMESTAMP(NOW())
+		) AS diff_time
+		FROM
+		yd_depot
+		JOIN yd_goods ON yd_depot.goods_id = yd_goods.goods_id
+		JOIN yd_activity ON
+		yd_depot.activity_id = yd_activity.activity_id
+		WHERE
+		yd_depot.depot_type = 4
+		LIMIT 0, 15;
+	</select>
+
+	<select id="get_many_seckill" resultType="java.util.HashMap">
+		SELECT
+		yd_depot.goods_id,
+		yd_depot.depot_id,
+		yd_goods.goods_name,
+		left(yd_goods.goods_summary, 20) as goods_summary,
+		yd_goods.goods_cover,
+		yd_goods.goods_total_fav,
+		yd_depot.depot_total_view,
+		yd_depot.depot_stock,
+		yd_depot.depot_pre_stock,
+		yd_depot.depot_price,
+		yd_depot.depot_original_price,
+		(
+		UNIX_TIMESTAMP(yd_activity.activity_begin_time) - UNIX_TIMESTAMP(NOW())
+		) AS diff_time
+		FROM
+		yd_depot
+		JOIN yd_goods ON yd_depot.goods_id = yd_goods.goods_id
+		JOIN yd_activity ON
+		yd_depot.activity_id = yd_activity.activity_id
+		WHERE
+		yd_depot.depot_type = 5
+		LIMIT 0, 15;
+	</select>
+
+
+
+
+	<select id="get_only_normal" resultMap="YdMapperGoods_get_only">
+		SELECT
+		*
+		FROM
+		yd_depot
+		LEFT JOIN
+		yd_goods
+		ON
+		yd_depot.`goods_id` = yd_goods.`goods_id`
+		LEFT JOIN
+		yd_store
+		ON
+		yd_goods.`store_id` =
+		yd_store.`store_id`
+		WHERE
+		yd_depot.`depot_id` = #{depot_id}
+		LIMIT 1;
+	</select>
+
+	<select id="get_only_maintenance" resultMap="YdMapperGoods_get_only">
+		SELECT
+		fav_goods.fav_fid IS NOT NULL AS is_fav_goods,
+		fav_store.fav_fid IS NOT NULL AS is_fav_store,
+		yd_store.user_id,
+		yd_depot.depot_id,
+		yd_goods.goods_id,
+		yd_goods.goods_name,
+		yd_goods.goods_summary,
+		yd_goods.goods_afterservice,
+		yd_goods.goods_serialnumber,
+		yd_goods.goods_cover,
+		yd_goods.goods_pics,
+		yd_goods.goods_attrs,
+		yd_goods.goods_contents,
+		yd_goods.goods_total_fav,
+		yd_goods.goods_avg_score,
+		yd_brand.brand_id,
+		yd_brand.brand_name,
+		yd_depot.depot_total_view,
+		yd_depot.depot_stock,
+		yd_depot.depot_price,
+		yd_store.store_id,
+		yd_store.store_name,
+		yd_store.store_is_brand,
+		yd_store.store_is_self,
+		t.gct_pic,
+		t.gct_good,
+		t.gct_neutral,
+		t.gct_bad,
+		(
+		t.gct_good + t.gct_neutral + t.gct_bad
+		) AS gct_total
+		FROM
+		yd_depot
+		JOIN yd_goods ON yd_depot.goods_id = yd_goods.goods_id
+		JOIN yd_store ON yd_store.store_id = yd_goods.store_id
+		JOIN
+		yd_brand ON yd_brand.brand_id = yd_goods.brand_id
+		LEFT JOIN
+		yd_favorite AS fav_goods ON yd_depot.goods_id = fav_goods.fav_fid
+		AND fav_goods.user_id = 1
+		AND fav_goods.fav_type = 2
+		LEFT JOIN yd_favorite AS fav_store ON yd_store.store_id =
+		fav_store.fav_fid
+		AND fav_store.user_id = 1
+		AND fav_store.fav_type = 1
+		LEFT JOIN yd_goods_comment_total AS t ON t.goods_id =
+		yd_goods.goods_id
+		WHERE
+		yd_depot.depot_id = 1
+		LIMIT 1;
+	</select>
+
+
+	<select id="get_only_auction" resultMap="YdMapperGoods_get_only">
+		SELECT
+		fav_goods.fav_fid IS NOT NULL AS is_fav_goods,
+		fav_store.fav_fid IS NOT NULL AS is_fav_store,
+		yd_store.user_id,
+		yd_goods.goods_id,
+		yd_goods.goods_name,
+		yd_goods.goods_summary,
+		yd_goods.goods_afterservice,
+		yd_goods.goods_serialnumber,
+		yd_goods.goods_cover,
+		yd_goods.goods_pics,
+		yd_goods.goods_attrs,
+		yd_goods.goods_contents,
+		yd_goods.goods_total_fav,
+		yd_depot.depot_total_view,
+		yd_depot.depot_total_bid,
+		yd_brand.brand_id,
+		yd_brand.brand_name,
+		yd_store.store_id,
+		yd_store.store_name,
+		yd_store.store_is_brand,
+		yd_store.store_is_self,
+		yd_depot.depot_id,
+		yd_depot.depot_is_bail,
+		yd_depot.depot_stock,
+		yd_depot.depot_pre_stock,
+		yd_depot.depot_current_bid,
+		yd_depot.depot_min_bid,
+		yd_depot.depot_reserve_price,
+		yd_activity.activity_begin_time,
+		yd_activity.activity_end_time,
+		UNIX_TIMESTAMP(NOW()) as
+		`current_time`
+		FROM
+		yd_depot
+		JOIN yd_goods ON yd_depot.goods_id = yd_goods.goods_id
+		JOIN yd_store ON yd_store.store_id = yd_goods.store_id
+		JOIN yd_brand ON yd_brand.brand_id =
+		yd_goods.brand_id
+		JOIN yd_activity
+		ON yd_depot.activity_id = yd_activity.activity_id
+		LEFT JOIN yd_favorite AS fav_goods ON yd_depot.goods_id = fav_goods.fav_fid
+		AND fav_goods.user_id
+		= 1
+		AND fav_goods.fav_type = 2
+		LEFT JOIN yd_favorite AS fav_store ON yd_store.store_id = fav_store.fav_fid
+		AND fav_store.user_id = 1
+		AND fav_store.fav_type = 1
+		WHERE
+		yd_depot.depot_id
+		= 1
+		LIMIT 1;
+
+	</select>
+
+
+	<select id="get_only_groupon" resultMap="YdMapperGoods_get_only">
+		SELECT
+		fav_goods.fav_fid IS NOT NULL AS is_fav_goods,
+		fav_store.fav_fid IS NOT NULL AS is_fav_store,
+		yd_store.user_id,
+		yd_goods.goods_id,
+		yd_goods.goods_name,
+		yd_goods.goods_summary,
+		yd_goods.goods_afterservice,
+		yd_goods.goods_serialnumber,
+		yd_goods.goods_cover,
+		yd_goods.goods_pics,
+		yd_goods.goods_attrs,
+		yd_goods.goods_contents,
+		yd_goods.goods_total_fav,
+		yd_goods.goods_avg_score,
+		yd_brand.brand_id,
+		yd_brand.brand_name,
+		yd_depot.depot_total_view,
+		yd_store.store_id,
+		yd_store.store_name,
+		yd_store.store_is_brand,
+		yd_store.store_is_self,
+		yd_depot.depot_id,
+		yd_depot.depot_stock,
+		yd_depot.depot_pre_stock,
+		yd_depot.depot_price,
+		yd_depot.depot_original_price,
+		yd_activity.activity_begin_time,
+		yd_activity.activity_end_time,
+		UNIX_TIMESTAMP(NOW()) as `current_time`
+		FROM
+		yd_depot
+		JOIN yd_goods ON yd_depot.goods_id
+		= yd_goods.goods_id
+		JOIN yd_store ON yd_store.store_id = yd_goods.store_id
+		JOIN yd_brand ON yd_brand.brand_id = yd_goods.brand_id
+		JOIN yd_activity
+		ON yd_depot.activity_id =
+		yd_activity.activity_id
+		LEFT JOIN yd_favorite AS fav_goods ON yd_depot.goods_id = fav_goods.fav_fid
+		AND fav_goods.user_id = 1
+		AND fav_goods.fav_type = 2
+		LEFT JOIN yd_favorite AS
+		fav_store ON yd_store.store_id = fav_store.fav_fid
+		AND fav_store.user_id = 1
+		AND fav_store.fav_type = 1
+		WHERE
+		yd_depot.depot_id = 1
+		LIMIT 1;
+	</select>
+
+
+	<select id="get_only_seckill" resultMap="YdMapperGoods_get_only">
+		SELECT
+		fav_goods.fav_fid IS NOT NULL AS is_fav_goods,
+		fav_store.fav_fid IS NOT NULL AS is_fav_store,
+		yd_store.user_id,
+		yd_goods.goods_id,
+		yd_goods.goods_name,
+		yd_goods.goods_summary,
+		yd_goods.goods_afterservice,
+		yd_goods.goods_serialnumber,
+		yd_goods.goods_cover,
+		yd_goods.goods_pics,
+		yd_goods.goods_attrs,
+		yd_goods.goods_contents,
+		yd_goods.goods_total_fav,
+		yd_depot.depot_total_view,
+		yd_goods.goods_avg_score,
+		yd_brand.brand_id,
+		yd_brand.brand_name,
+		yd_store.store_id,
+		yd_store.store_name,
+		yd_store.store_is_brand,
+		yd_store.store_is_self,
+		yd_depot.depot_id,
+		yd_depot.depot_stock,
+		yd_depot.depot_price,
+		yd_depot.depot_original_price,
+		yd_activity.activity_begin_time,
+		yd_activity.activity_end_time,
+		UNIX_TIMESTAMP(NOW()) as `current_time`
+		FROM
+		yd_depot
+		JOIN yd_goods ON yd_depot.goods_id = yd_goods.goods_id
+		JOIN
+		yd_store ON yd_store.store_id = yd_goods.store_id
+		JOIN yd_brand ON yd_brand.brand_id = yd_goods.brand_id
+		JOIN yd_activity
+		ON yd_depot.activity_id = yd_activity.activity_id
+		LEFT JOIN
+		yd_favorite AS fav_goods ON yd_depot.goods_id = fav_goods.fav_fid
+		AND fav_goods.user_id = 1
+		AND fav_goods.fav_type = 2
+		LEFT JOIN yd_favorite AS fav_store ON yd_store.store_id =
+		fav_store.fav_fid
+		AND fav_store.user_id = 1
+		AND fav_store.fav_type = 1
+		WHERE
+		yd_depot.depot_id = 1
+		LIMIT 1;
+	</select>
+
+
+	<!-- 店铺排行榜 -->
+	<select id="shopRankingList" resultType="java.util.HashMap">
+		SELECT
+		yd_depot.depot_id, yd_goods.goods_name, yd_depot.depot_price, yd_goods.goods_cover, yd_goods.goods_total_sell
+		FROM
+		yd_depot
+		LEFT
+		JOIN
+		yd_goods
+		ON
+		yd_goods.goods_id = yd_depot.goods_id
+		WHERE
+		yd_goods.store_id = #{store_id} AND yd_depot.depot_type = 1 AND yd_depot.depot_is_available = 1
+		ORDER BY
+		yd_goods.goods_total_sell DESC
+		LIMIT 5
+	</select>
+
+
+	<!-- 养护首页 -->
+	<select id="maintenanceIndex" resultType="java.util.HashMap">
+		SELECT
+		yd_depot.depot_id, yd_goods.goods_name, yd_depot.depot_price, yd_goods.goods_cover, yd_goods.goods_total_sell
+		FROM
+		yd_depot
+		LEFT JOIN
+		yd_goods
+		ON
+		yd_goods.goods_id = yd_depot.goods_id
+		WHERE
+		yd_depot.depot_type = 2 AND yd_depot.depot_is_available = 1
+		ORDER BY
+		yd_goods.goods_id DESC
+		LIMIT 4
+	</select>
+
+
+	<select id="get_every_normal" resultType="java.util.HashMap">
+		select yt.depot_id,yg.goods_id,yg.goods_name,yg.goods_price,yg.goods_cover from yd_depot yt
+		left join yd_goods yg on
+		yg.goods_id=yt.goods_id
+		where yt.depot_type=1 and yt.depot_classify3 = #{depot_classify3}
+		order by yt.depot_created_time desc
+		limit 0,5
+	</select>
+
+	<select id="get_some_normal" resultType="java.util.HashMap">
+		select yt.depot_id,yg.goods_id,yg.goods_name,yg.goods_price,yg.goods_cover from yd_depot yt
+		left join yd_goods yg on
+		yg.goods_id=yt.goods_id
+		where yt.depot_type=1 and yt.depot_classify3=#{depot_classify3}
+		order by yt.depot_created_time asc
+		limit 0,5
+	</select>
+
+
+	<resultMap id="YdMapperGoods_get_only" type="java.util.HashMap">
+		<id property="depot_id" column="depot_id" />
+		<result property="depot_stock" column="depot_stock" />
+		<result property="is_fav_goods" column="is_fav_goods" />
+		<result property="is_fav_store" column="is_fav_store" />
+		<result property="goods_id" column="goods_id" />
+		<result property="goods_name" column="goods_name" />
+		<result property="goods_summary" column="goods_summary" />
+		<result property="goods_afterservice" column="goods_afterservice" />
+		<result property="goods_serialnumber" column="goods_serialnumber" />
+		<result property="goods_cover" column="goods_cover" />
+		<result property="goods_pics" column="goods_pics" />
+		<result property="goods_attrs" column="goods_attrs" />
+		<result property="goods_contents" column="goods_contents" />
+		<result property="goods_is_bail" column="depot_is_bail" />
+		<result property="goods_stock" column="depot_stock" />
+		<result property="goods_pre_stock" column="depot_pre_stock" />
+		<result property="goods_current_bid" column="depot_current_bid" />
+		<result property="goods_min_bid" column="depot_min_bid" />
+		<result property="goods_price" column="depot_price" />
+		<result property="goods_original_price" column="depot_original_price" />
+		<result property="store_id" column="store_id" />
+		<result property="store_name" column="store_name" />
+		<result property="store_is_brand" column="store_is_brand" />
+		<result property="store_is_self" column="store_is_self" />
+		<result property="activity_begin_time" column="activity_begin_time" />
+		<result property="activity_end_time" column="activity_end_time" />
+		<result property="current_time" column="current_time" />
+		<result property="goods_total_view" column="depot_total_view" />
+		<result property="goods_total_fav" column="goods_total_fav" />
+		<result property="goods_total_comment" column="gct_total" />
+		<result property="goods_total_see" column="goods_total_see" />
+		<result property="goods_total_pic_comment" column="gct_pic" />
+		<result property="goods_total_good_comment" column="gct_good" />
+		<result property="goods_total_neutral_comment" column="gct_neutral" />
+		<result property="goods_total_bad_comment" column="gct_bad" />
+		<result property="brand_id" column="brand_id" />
+		<result property="brand_name" column="brand_name" />
+		<result property="brand_id" column="brand_id" />
+		<result property="goods_total_bid" column="depot_total_bid" />
+		<result property="goods_reserve_price" column="depot_reserve_price" />
+		<result property="goods_reserve_price" column="depot_reserve_price" />
+		<result property="im_id" column="user_id" />
+	</resultMap>
+
+
+	<update id="updateStockMinus">
+		UPDATE
+			yd_depot
+		SET
+			depot_stock = depot_stock - #{num}
+		WHERE
+			depot_id = #{depotId}
+	</update>
+	
+	<update id="updateStockAdd">
+		UPDATE
+			yd_depot
+		SET
+			depot_stock = depot_stock <![CDATA[ + ]]> #{num}
+		WHERE
+			depot_id = #{depotId}
+	</update>
+	
+
+	<update id="updatePreStockMinus">
+		UPDATE
+			yd_depot
+		SET
+			depot_pre_stock = depot_pre_stock - #{num}
+		WHERE
+			depot_id = #{depotId}
+	</update>
+
+	<update id="updatePreStockAdd">
+		UPDATE
+			yd_depot
+		SET
+			depot_pre_stock = depot_pre_stock <![CDATA[ + ]]> #{num}
+		WHERE
+			depot_id = #{depotId}
+	</update>
+
+
+</mapper>
+
+        

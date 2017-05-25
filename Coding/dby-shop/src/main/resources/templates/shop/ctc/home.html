@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+</head>
+<body th:inline="text" th:with="searchkeys=${@_dict.many('web_search_key')}">
+	<!-- 头部 -->
+	<div id="header">
+		<div th:include="shop/template/header :: header" th:remove="tag"></div>
+
+		<!-- 主导航 -->
+		<div class="main-nav">
+			<div class="nav">
+				<div th:include="shop/template/classify :: brand('',c2c_two)" th:remove="tag"></div>
+				<div th:include="shop/template/header :: nav(c2c)" th:remove="tag"></div>
+			</div>
+
+		</div>
+	</div>
+	<!-- 头部结束 -->
+
+	<!-- 中间内容 -->
+	<div id="container">
+		<div class="c2c-seller-info">
+			<div class="seller-top">
+
+				<div class="left">
+					<div class="headimg">
+						<img th:src="${@_url.goods()}+${user.user_avatar}+'?x-oss-process=image/resize,m_pad,h_94,w_94'" />
+					</div>
+					<div class="seller-name" th:text="${user.user_username==''? '未知':user.user_username}"></div>
+					<div>
+						所在地:
+						<div th:text="${user.user_address==''? '未知':user.user_address}"></div>
+					</div>
+					<div>
+						注册时间：
+						<div th:text="${#dates.format(user.user_created_time==null? 0:user.user_created_time, 'yyyy年MM月dd日  HH:mm')}"></div>
+					</div>
+					<div class="seller-auth">
+						<i></i>
+					</div>
+				</div>
+
+				<div class="right">
+					<div class="reliable">
+						<div class="success">
+							<strong>成功转卖<font th:text="${user.ctc_sell_num==null? 0:user.ctc_sell_num}"></font>件
+							</strong>（最近三个月）
+						</div>
+						<div class="content">
+							<div class="tag">
+								<label>靠谱度</label> <strong>0</strong>人评价
+							</div>
+							<div class="bar">
+								<i style="left: 50%;"></i>
+							</div>
+							<div class="progress">
+								<div class="bg-img"></div>
+								<ul>
+									<li>
+										<p>1</p>
+										<p>很不靠谱</p>
+									</li>
+									<li>
+										<p>2</p>
+										<p>不靠谱</p>
+									</li>
+									<li class="active">
+										<p>3</p>
+										<p>还行</p>
+									</li>
+									<li>
+										<p>4</p>
+										<p>很靠谱</p>
+									</li>
+									<li>
+										<p>5</p>
+										<p>非常靠谱</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="cost">
+						<div class="success"></div>
+						<div class="content">
+							<div class="tag">
+								<label>性价比</label> <strong>0</strong>人评价
+							</div>
+							<div class="bar">
+								<i style="left: 90%;"></i>
+							</div>
+							<div class="progress">
+								<div class="bg-img"></div>
+								<ul>
+									<li>
+										<p>1</p>
+										<p>亏大了</p>
+									</li>
+									<li>
+										<p>2</p>
+										<p>不值</p>
+									</li>
+									<li>
+										<p>3</p>
+										<p>还行</p>
+									</li>
+									<li>
+										<p>4</p>
+										<p>很划算</p>
+									</li>
+									<li class="active">
+										<p>5</p>
+										<p>超值</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- 来自卖家的评论列表 -->
+			<div class="seller-comment-list">
+				<div class="col-name">来自买家的评论</div>
+				<ul class="list-head">
+					<li>商品信息</li>
+
+					<!-- th:href="@{/ctc/sellHome/}+${item.user_id}" -->
+					<li><a th:href="@{/ctc/sellHome/}+${uid}">全部评价<front th:text="${counts}"></front></a> <a th:href="@{/ctc/sellHome1/}+${uid}">好评<front th:text="${goodcounts}">（1867）</front></a>
+						<a th:href="@{/ctc/sellHome2/}+${uid}">中评（<front th:text="${midcounts}"></front>）
+					</a> <a th:href="@{/ctc/sellHome3/}+${uid}">差评（<front th:text="${lowcounts}"></front>）
+					</a> <!-- <font class="pull-right">用户</font> --></li>
+				</ul>
+
+				<div class="comment-wrap">
+					<!-- 列表开始 -->
+					<div class="comment-item" th:each="item:${ctc_comments.ctcs}">
+						<div class="product-info">
+							<div class="title" th:text="${item==null? 0:item.ydMemberCtc.ctc_name}"></div>
+							<div class="price">
+								<span th:text="${item==null? 0: '¥'+item.ydMemberCtc.ctc_price}"> </span>
+							</div>
+						</div>
+						<div class="content" th:text="${item==null? 0:item.ctc_comment_content}">
+							<!-- 评论 -->
+							<!-- <div class="second-comment">
+								<div class="comment-time" th:text="${item.time==null? 0:item.time}"></div>
+							</div> -->
+							<!-- 追加评论 -->
+							<!-- <div class="second-comment">[追加评论] 哟，店家这颠倒是非的 能力 我先点个赞。什么叫怎么给我解决 还直言差评？我就说不给好评 而且你只说让我掰,这叫怎么解决都不行了吗？我退货了吗，没有，我只是跟你说插头压扁了。我还嚣张 还是你嚣张一些吧。居然还会颠倒是非了。</div> -->
+							<!-- 回复 -->
+							<!-- <div class="reply">[ 掌柜解释 ] 本来懒得理你这种人的，开头一个“哟”字真让我恶心！来！反正都给差评了，我们撕个痛快吧！快递导致不可控制的问题，我们也没有办法，问题既然已经出了，是不是要解决？？让你掰了一下是不是好了？更何况这算事情吗？一件很简单的事情：插头，弯了</div> -->
+						</div>
+						<div style="display: inline-block;">
+							<div th:text="${item.time==null? 0:item.time}"></div>
+						</div>
+						<div class="username">
+							<!-- <font th:if="${item.ctc_comment_is_name} eq 0" >
+							****<span>（匿名）</span>
+						</font> -->
+							<font th:if="${item.ctc_comment_is_name} eq 1"> <a target="_blank" th:href="@{/ctc/sellHome/}+${item.user_id}"> <span>[[${item.user.user_username}]]</span>
+							</a>
+							</font>
+						</div>
+					</div>
+					<!-- 列表结束 -->
+				</div>
+				<!-- 分页 -->
+				<div class="pagination"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 中间内容结束 -->
+
+	<!-- 底部 -->
+	<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+	<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+
+	<script type="text/javascript" th:src="@{/assets/js/jquery.page.link.js}"></script>
+
+	<script th:inline="javascript">
+			/*<![CDATA[*/
+			$(function(){
+				// 分页
+				pagination(".pagination", [[${ctc_comments.totalPage}]], [[${ctc_comments.p}]]);
+			/* 	alert("${ctc_comments.p}"); */
+				
+			});
+			/*]]>*/
+	</script>
+</body>
+</html>

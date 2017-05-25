@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+</head>
+<style>
+	.list img{
+		width:15px;
+	}
+</style>
+<body>
+    <!--雇主个人信息内容头部-->
+    <div class="top">
+         <div class="img">
+             <img th:with="avatar=${user.user_avatar}" th:src="${avatar!=null and avatar!=''?avatar:'/img/asag.jpg'}"/>
+         </div>
+         <div class="list">
+             <p class="p1">[[${user.user_nickname}]]</p>
+             <a href="guzhu-guanzhu" class="p2"><i></i>我关注的<span>（<span class="attNum">[[${user.attentionNum}]]</span>）</span></a>
+             <a href="guzhu-xiugaiziliao" class="p2"><i></i>修改账户资料</a>
+         </div>
+         <div class="list">
+         	<img src="../images/skill_4.png" alt="技能已认证" />
+         	<img src="../images/skill_3.png" alt="信息已认证" />
+         	<img src="../images/icon_shiming_hover.png" alt="已实名认证"  />
+         </div>
+         <a href="guzhufang" class="renwu">我的任务</a>
+     </div>
+</body>
+</html>

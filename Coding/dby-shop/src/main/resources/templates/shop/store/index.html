@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<title></title>
+<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+</head>
+<body th:with="searchkeys=${@_dict.many('web_search_key')},
+	navs=${@_nav.getByType('0')}
+	">
+
+	<yd:ajax key="storeGoodsAll" value="shop.store_goods_all" />
+	<yd:ajax key="storeInfo" value="shop.store_info" />
+
+	<!-- 头部 -->
+	<div id="header-store">
+		<div th:include="shop/template/header_store :: header" th:remove="tag"></div>
+		<!-- 主导航 -->
+		<div class="main-nav">
+			<div class="nav">
+				<div th:include="shop/template/classify :: home('')" th:remove="tag"></div>
+				<div th:include="shop/template/header :: nav(home)" th:remove="tag"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 头部结束 -->
+
+	<!-- 二级banner -->
+	<div class="second-banner" style="background: none;">
+		<div class="banner-wrap">
+			<div class="banner">
+				<div class="block_home_slider">
+					<div id="home_slider" class="flexslider">
+						<ul class="slides store-slides">
+							<!-- 
+								<li th:each="item:${datas}"><a href="#"><img th:src="${@_url.other()}+'banner-1.png'" alt="" title="" /></a></li>
+								
+								<li><a href="#"><img th:src="${@_url.other()}+'banner-2.png'" alt="" title="" /></a></li>
+				
+								<li><a href="#"><img th:src="${@_url.other()}+'banner-3.png'" alt="" title="" /></a></li>
+								 -->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 中间内容 -->
+	<div id="container" style="margin: 10px auto;">
+		<div class="store">
+			<div class="left">
+				<!-- 本店搜索 -->
+				<div class="store-search">
+					<h2>本店搜索</h2>
+					<form active="">
+						<div class="from">
+							<p>
+								<label for="">关键字</label> <input type="text" name="goods_name" th:value="${goods_name}" placeholder="" />
+							</p>
+							<p>
+								<label for="">价格</label><input class="start" name="start_price" type="text" th:value="${start_price}" placeholder="¥" /> <input class="end" name="end_price" type="text"
+									th:value="${end_price}" placeholder="¥" />
+							</p>
+							<div class="submit">
+								<input type="submit" value="搜   索" />
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<!-- 商品分类 -->
+				<div class="sorts">
+					<h2>商品分类</h2>
+					<ul th:inline="text" th:with="dataClass=${@_YdShopServiceStoreGoodsClassify.lists(store_id)}">
+						<li th:each="item:${dataClass}">
+							<h3>
+								<a href="javascript:;" onclick="storeGoodsAll($(this))" th:text="${item.title}"></a> <em>&gt;</em>
+							</h3>
+							<dl>
+								<dd th:each="sitem:${item.nodes}">
+									<a th:href="@{/store/}+${store_id}+@{?class_id=}+${sitem.id}" th:text="${sitem.title}"></a>
+								</dd>
+							</dl>
+						</li>
+					</ul>
+				</div>
+
+				<!-- 排行榜 -->
+				<div class="ranking" th:inline="text" th:with="dataRankingGoods=${@_YdShopServiceGoods.shopRankingList(store_id)}">
+					<h2>排行榜</h2>
+					<dl th:each="item:${dataRankingGoods}">
+						<dt>
+							<a target="_blank" th:href="@{/g/goods/}+${item.depot_id}"> <img th:src="${@_url.goods()}+${item.goods_cover}+@{?x-oss-process=image/resize,m_pad,h_60,w_60}" />
+							</a>
+						</dt>
+						<dd class="title">
+							<a target="_blank" th:href="@{/g/goods/}+${item.depot_id}" th:text="${item.goods_name}"></a>
+						</dd>
+						<dd class="price">¥[[${item.depot_price}]]</dd>
+						<dd class="text">
+							已售出<span th:text="${item.goods_total_sell}"></span>件
+						</dd>
+					</dl>
+				</div>
+
+				<!-- 友情链接 -->
+				<div class="flink">
+					<h2>友情链接</h2>
+					<ul>
+						<li th:each="dataStores:${data.dataStores}">
+							<a target="_blank" th:href="${dataStores.sl_url}"   th:text="${dataStores.sl_title}"></a>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+			<div class="right">
+
+				<div class="store-top">
+					<strong>商品列表</strong>
+				</div>
+
+				<div class="store-pro-list" th:with="dataGoods=${data.dataGoods}">
+					<ul th:include="shop/public/store_goods :: main" th:remove="tag"></ul>
+					<div class="pagination"></div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+	<!-- 中间内容结束 -->
+
+
+	<!-- 底部 -->
+
+	<div th:include="shop/template/footer :: javascript"></div>
+	<div th:include="shop/template/footer :: footer"></div>
+	<script type="text/javascript" th:src="@{/assets/shop/js/store.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.page.link.js}"></script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+			$(function(){
+				where["store_id"] = [[${store_id}]];
+				
+				// storeGoodsAll($(this));
+				
+				/* storeInfo($(this)); */
+				
+				$(".brand-page .wrap-content .col-name .select span").click(function(){
+					$(this).next("ul").slideToggle(200);
+				});
+				$(".brand-page .wrap-content .col-name .select ul li").click(function(){
+					$(this).parent().slideToggle(200);
+					$(this).parent().prev("span").html( $(this).html() );
+					$(this).parent().next("input").val( $(this).attr("data-val") );
+				});
+				// 分页
+				pagination(".pagination", [[${data.totalPage}]], [[${data.p}]], "newsLists");
+			});
+			/*]]>*/
+		</script>
+
+
+</body>
+</html>

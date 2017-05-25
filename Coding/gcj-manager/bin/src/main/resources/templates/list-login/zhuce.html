@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body>
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<div class="sjbd-box">
+    <ul class="zhuce">
+        <a href="javascript:selType(1);"><li class="now">我是设计师</li></a>
+        <a href="javascript:selType(0);"><li>我是雇主</li></a>
+    </ul>
+    <div class="bangding" th:with="pc=(${session.phoneCodeMsg!=null}?${session.phoneCodeMsg}:'0')">
+	        <div class="top">账户信息</div>
+	        <div class="list">
+	            <p class="p1">手机号</p>
+	            <input type="text" placeholder="请输入您的手机号" class="input1 phoneNum" name="userPhone" mark="mark" keyWord="手机号" isNull="false"/>
+	            <p class="p1">验证码</p>
+	            <input type="text" class="input2" placeholder="请输入手机验证码" name="phoneCode" mark="mark" keyWord="验证码" isNull="false"/>
+	            <span th:with="s=(${pc!='0'}?${pc.sy}:'60'),state=(${pc!='0'}?${pc.state}:'0')" th:attr="data-time=${s},data-state=${state}"  onclick="sendRegist(this)">发送验证码</span>
+	            <p class="p1">设置密码</p>
+	            <input type="password" class="input1" placeholder="请输入新密码" name="userPwd" mark="mark" keyWord="密码" isNull="false"/>
+	            <p class="p1">确认密码</p>
+	            <input type="password" class="input1" placeholder="请再次确认新密码" name="userRePwd" mark="mark" keyWord="确认密码" isNull="false"/>
+	            <button type="button" onclick="submitRegist()">立即注册</button>
+	            <div class="p2">
+	                <p class="p3">
+	                    <input type="checkbox" onchange="setIsAgree(this)" value="0" name="isAgree" mark="mark"/>
+	                    <span>我已阅读</span>
+	                    <a href="#">服务协议、隐私政策</a>
+	                </p>
+	                <p class="p4">
+	                    <span>已有账号？</span>
+	                    <a href="login">马上登录</a>
+	                </p>
+	            </div>
+	        </div>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+<script src="/js/chajian/checkbox.js"></script>
+<script src="/js/common.js"></script>
+<script>
+var yanzheng1=new gongneng($(".bangding .list>span").eq(0));
+yanzheng1.yanzhengma();
+</script>	
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/bg/submits.js"></script>
+
+</html>

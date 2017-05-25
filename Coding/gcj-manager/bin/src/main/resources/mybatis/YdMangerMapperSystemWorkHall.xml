@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.system.mapper.YdMangerMapperSystemWorkHall">
+	<!-- 后台 -->
+	<select id="queryAllWorkHall" resultType="com.yd.gcj.entity.YdMangerTaskTemp" >
+		select tasktemp_id,tasktemp_num,tasktemp_area,tasktemp_price,tasktemp_pnum,tasktemp_schedule 
+		from yd_task_temp
+		where 1 =1
+		<if test="tasktemp_num !=null and tasktemp_num != '' ">
+			and	tasktemp_num = #{tasktemp_num}
+		</if>
+	</select>
+	
+	<select id="queryWorkHallByTaskTempId" resultType="com.yd.gcj.entity.YdMangerTaskTemp" >
+		select * from yd_task_temp
+		where tasktemp_id = #{tasktemp_id}
+	</select>
+	
+	<insert id="addWorkHall" parameterType="com.yd.gcj.entity.YdMangerTaskTemp" >
+		insert into yd_task_temp(tasktemp_id,tasktemp_num,tasktemp_area,tasktemp_price,tasktemp_pnum,tasktemp_schedule)
+		value(#{tasktemp_id},#{tasktemp_num},#{tasktemp_area},#{tasktemp_price},#{tasktemp_pnum},#{tasktemp_schedule})
+	</insert>
+	
+	<update id="updateWorkHallTaskTempId" parameterType="com.yd.gcj.entity.YdMangerTaskTemp" >
+		update yd_task_temp
+		<set>
+			<trim>
+				<if test="tasktemp_num != null and tasktemp_num !=''">tasktemp_num = #{tasktemp_num},</if>
+				<if test="tasktemp_area != null and tasktemp_area !=''">tasktemp_area = #{tasktemp_area},</if>
+				<if test="tasktemp_price != null and tasktemp_price !=''">tasktemp_price = #{tasktemp_price},</if>
+				<if test="tasktemp_pnum != null and tasktemp_pnum !=''">tasktemp_pnum = #{tasktemp_pnum},</if>
+				<if test="tasktemp_schedule != null and tasktemp_schedule !=''">tasktemp_schedule = #{tasktemp_schedule},</if>
+			</trim>
+		</set>
+		where tasktemp_id = #{tasktemp_id}
+	</update>
+	
+	<delete id="deleteWorkHallByTaskTempId">
+		delete from yd_task_temp
+		where tasktemp_id = #{tasktemp_id}
+	</delete>
+</mapper>

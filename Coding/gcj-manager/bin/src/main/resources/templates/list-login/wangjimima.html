@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:with="pc=(${session.phoneCodeMsg!=null}?${session.phoneCodeMsg}:'0')" th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<div class="sjbd-box">
+    <div class="bangding">
+        <div class="top">忘记密码</div>
+        <div class="list">
+            <p class="p1">手机号</p>
+            <input type="text" placeholder="请输入您的手机号" class="input1 userPhone"/>
+            <p class="p1">验证码</p>
+            <input type="text" placeholder="请输入手机验证码" class="input2 userPhoneCode"/>
+            <span th:with="s=(${pc!='0'}?${pc.sy}:'60'),state=(${pc!='0'}?${pc.state}:'0')" th:attr="data-time=${s},data-state=${state}"  onclick="sendforget(this)">发送验证码</span>
+            <p class="p1">设置密码</p>
+            <input type="password" placeholder="请输入新密码" class="input1 userPwd"/>
+            <p class="p1">确认密码</p>
+            <input type="password" placeholder="请再次确认新密码" class="input1 userPwdRe"/>
+            <button type="button" onclick="forget()">确定</button>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+<script src="/js/chajian/checkbox.js"></script>
+<script>
+    var daoji=new gongneng($(".list>span"));
+    daoji.yanzhengma();
+</script>
+<script src="/js/common.js"></script>
+
+<script type="text/javascript" src="/js/bg/submits.js"></script>
+<script  src="/js/bg/ajaxPost.js"></script>
+<script  src="/js/bg/user.js"></script>
+
+</html>

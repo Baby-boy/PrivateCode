@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/auction-details.css}" />
+	</head>
+	<body>
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: auction('',c2c_two)" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(auction)" th:remove="tag"></div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		<!-- 商品展示信息 -->
+		<div class="product-show" th:with="item=${@_YdShopServiceGoods.get_only_auction(1,id)}">
+			<div class="min-width">
+				<div class="left-info">
+					<div class="details-pic">
+						<div class="thumbnail">
+							<ul class="tb-thumb" id="thumblist">
+								<li th:each="sitem:${item.goods_pics}">
+									<img th:src="@{http://res.zwzyd.com/dby/web__${sitem}__?x-oss-process=image/resize,m_pad,h_60,w_60}" th:attr="mid=@{http://res.zwzyd.com/dby/web__${sitem}__?x-oss-process=image/resize,m_pad,h_100,w_100},big=@{http://res.zwzyd.com/dby/web__${sitem}__}" />
+								</li>
+							</ul>
+						</div>
+						<div class="detail-video" style="display:none;">
+							<video width="800" height="" controls="controls">
+								<source src="images/demoimg/01.mp4" type="video/mp4"></source>
+								<source src="myvideo.ogv" type="video/ogg"></source>
+								<source src="myvideo.webm" type="video/webm"></source>
+								<object width="" height="" type="application/x-shockwave-flash" data="myvideo.swf">
+									<param name="movie" value="myvideo.swf" />
+									<param name="flashvars" value="autostart=true&amp;file=myvideo.swf" />
+								</object>
+								当前浏览器不支持 video直接播放，点击这里下载视频： <a href="myvideo.webm">下载视频</a>
+							</video>
+						</div>
+						<div class="big-picture">
+							<a th:href="${sitem}" th:each="sitem,niter:${item.goods_pics}" th:if="${niter.index} lt 1">
+								<img class="jqzoom" th:src="@{http://res.zwzyd.com/dby/web__${sitem}__}" th:attr="rel=${sitem}" />
+							</a>
+						</div>
+					</div>
+					<div class="product-info">
+						<h2 th:text="${item.goods_name}">经典商务双肩包</h2>
+						<dl th:if="${item.activity_end_time - item.current_time} lt 1">
+							<dt style="background:#ccc;">已结束</dt>
+							<dd class="margin4">此次拍卖已结束</dd>
+							<dd><small>39</small><span>人已报名</span><small>0</small><span>次围观</span></dd>
+						</dl>
+						<dl th:if="${item.activity_end_time - item.current_time} gt 0">
+							<dt>正在进行</dt>
+							<dd class="margin4">距离结束仅剩：<label class="end-time" data-endtime="2016-10-10 10:00:00">00 天 10 时 44 分</label></dd>
+							<dd><small>39</small><span>人已报名</span><small>708</small><span>次围观</span></dd>
+						</dl>
+						<div class="introduce">当前价：<strong>99</strong>元<span>出价<small>10</small>次</span></div>
+						<div class="introduce color6">保证金：<strong>50</strong><font>元</font><span>出价不成拍则结束后退还</span></div>
+						<div class="introduce">参与资格：本次拍卖仅支持注册及以上级别会员参与</div>
+						<div th:if="${@_Auction.check_is_bail(null)} neq 3" th:remove="tag">
+							<div class="buy-link">
+								<a th:href="@{/auction/bond/__${item.depot_id}__}">交保证金报名</a>
+							</div>
+						</div>
+						<div th:if="${@_Auction.check_is_bail(null)} eq 3" th:remove="tag">
+							<div class="buy">
+								<input type="text" value="" placeholder="请输入您的出价" />
+								<input type="submit" value="确定出价" />
+							</div>
+						</div>
+						<ul>
+							<li>起拍价：¥1.00</li>
+							<li>加价幅度：<span>¥200</span></li>
+							<li>保留价：无</li>
+							<li style="display:none;">延时周期：0分钟/次</li>
+							<li style="display:none;">拍卖方式：升价拍</li>
+							<li>佣   金：无</li>
+						</ul>
+					</div>
+					
+				</div>
+				<div class="right-info">
+					<div class="title">进入该拍卖专场</div>
+					<ul>
+						<li><a href="#">留言咨询</a></li>
+						<li><a href="#">在线咨询</a></li>
+						<li><a href="#">进店逛逛</a></li>
+						<li><a href="#">关注店铺</a></li>
+					</ul>
+					
+					<div class="bid-record">
+						<p>出价记录（10）</p>
+						<dl>
+							<dd>状态</dd>
+							<dd>价格</dd>
+							<dd>竞拍人</dd>
+						</dl>
+						<div class="list">
+							<dl th:each="item,niter:${@_Auction.select_history_bid(null)}" th:switch="${niter.index}" th:inline="text">
+								<dd th:case="0">领先</dd>
+								<dd th:case="*">出局</dd>
+								<dd>¥[[${#numbers.formatDecimal(item.price, 0, 2)}]]</dd>
+								<dd th:text="${item.user.nickname}">***启</dd>
+							</dl>
+						</div>
+						
+						<a href="javascript:;">查看更多&gt;</a>
+					</div>
+				</div>
+			</div>
+			<div class="process">
+				<ul>
+					<li>竞拍流程：</li>
+					<li><span>01</span>竞拍流程</li>
+					<li><span>02</span>参与竞拍</li>
+					<li><span>03</span>竞拍成功</li>
+					<li><span>04</span>支付货款</li>
+					<li><span>05</span>交易成功</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 商品展示信息结束 -->
+		
+		<!-- 中间内容 -->
+		<div id="container">
+			<div class="details-page">
+			
+				<div class="left-section">
+					
+					<div class="category-list">
+						<div class="col-title">大家都在买</div>
+						<div class="pro-section">
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/ac_img8.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_05.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_06.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_07.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+						</div>
+					</div>
+					
+					<div class="category-list">
+						<div class="col-title">相关商品</div>
+						<div class="pro-section">
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/ac_img8.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_05.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_06.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+							<dl>
+								<dt>
+									<a href=""><img src="images/demoimg/img_07.png" /></a>
+								</dt>
+								<dd class="title"><a href="#">CARTIER/卡地亚 蓝气球系列精钢女士机械腕表W6920085</a></dd>
+								<dd class="price">¥288.00</dd>
+							</dl>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="right-section">
+					<div class="top-screen">
+						<ul>
+							<li class="active">拍品描述</li>
+							<li>出价记录</li>
+							<li>卖家承诺</li>
+							<li>保证金须知</li>
+						</ul>
+					</div>
+					
+					<div class="tab-switch product-detail" th:with="item=${@_YdShopServiceGoods.get_only_auction(1,id)}" th:inline="text">
+						<!-- 参数 -->
+						<div class="pro-parameter">
+							<div class="store-name">
+								品牌：<a href="#" th:text="${item.brand_name}">圣康尼（SAUCONY）</a>
+							</div>
+							<div class="parameter">
+								<ul>
+									<li th:each="sitem:${item.goods_attrs}">[[${sitem.dict_key}]]：[[${sitem.dict_value}]]</li>
+								</ul>
+							</div>
+						</div>
+						<!-- 参数结束 -->
+						
+						<!-- 正文 -->
+						<div class="product-details">
+							<div th:each="sitem:${item.goods_contents}" th:remove="tag">
+								<img th:src="@{http://res.zwzyd.com/dby/web__${sitem.dict_value}__}" th:if="${sitem.dict_key} == 1" />
+								<div th:text="${sitem.dict_value}" th:if="${sitem.dict_key} == 2" th:remove="tag"></div><br/>
+							</div>
+						</div>
+						<!-- 正文结束 -->
+					
+					</div>
+					
+					<!-- 出价记录 -->
+					<div class="tab-switch bid-record">
+						<div class="title">出价记录</div>
+						<ul>
+							<li>状态</li>
+							<li>价格</li>
+							<li>竞拍人</li>
+							<li>时间</li>
+						</ul>
+						<div class="list">
+							<ul>
+								<li>领先</li>
+								<li>¥86000.00</li>
+								<li>***启</li>
+								<li>13:16</li>
+							</ul>
+							<ul>
+								<li>出局</li>
+								<li>¥86000.00</li>
+								<li>***启</li>
+								<li>13:16</li>
+							</ul>
+							<ul>
+								<li>出局</li>
+								<li>¥86000.00</li>
+								<li>***启</li>
+								<li>13:16</li>
+							</ul>
+							<ul>
+								<li>出局</li>
+								<li>¥86000.00</li>
+								<li>***启</li>
+								<li>13:16[代理]</li>
+							</ul>
+							<ul>
+								<li>出局</li>
+								<li>¥86000.00</li>
+								<li>***启</li>
+								<li>13:16</li>
+							</ul>
+							<ul>
+								<li>出局</li>
+								<li>¥86000.00</li>
+								<li>***启</li>
+								<li>13:16</li>
+							</ul>
+							<ul>
+								<li>出局</li>
+								<li>¥86000.00</li>
+								<li>***启</li>
+								<li>13:16</li>
+							</ul>
+							<ul>
+								<li>出局</li>
+								<li>¥86000.00</li>
+								<li>***启</li>
+								<li>13:16[代理]</li>
+							</ul>
+							<ul>
+								<li>出局</li>
+								<li>¥86000.00</li>
+								<li>***启</li>
+								<li>13:16</li>
+							</ul>
+						</div>
+						<div id="sales" class="pagelist pagelist-right pagelist-margin10">
+							<a class="active" href="#">1</a>
+							<a href="#">2</a>
+							<a href="#">3</a>
+							<a href="#">下一页&gt;</a>
+						</div>
+					</div>
+					<!-- 出价记录 -->
+					
+					<!-- 卖家承诺 -->
+					<div class="tab-switch promise">
+						<div class="title">卖家承诺</div>
+						<div class="content">
+							<img src="images/demoimg/auction_01.png" />
+						</div>
+					</div>
+					<!-- 卖家承诺结束 -->
+					
+					<!-- 保证金须知 -->
+					<div class="tab-switch promise">
+						<div class="title">保证金须知</div>
+						<div class="content">
+							<img src="images/demoimg/auction_02.png" />
+						</div>
+					</div>
+					<!-- 保证金须知结束 -->
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		<script type="text/javascript" th:src="@{/assets/shop/js/jquery.imagezoom.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/details.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/jquery.page.js}" ></script>
+		<script>
+			$(function(){
+				$("#sales").createPage({
+			        pageCount:42,
+			        current:1,
+			        backFn:function(page){
+			            console.log(p);
+			        }
+			    });
+			});
+		</script>
+	</body>
+</html>

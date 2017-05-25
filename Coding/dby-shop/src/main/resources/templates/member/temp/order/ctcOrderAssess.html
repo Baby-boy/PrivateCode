@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="Authorization" />
+<title></title>
+<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/yd-tipbox.css}" />
+<link rel="stylesheet" th:href="@{/assets/member/css/member.css}" />
+<link rel="stylesheet" th:href="@{/assets/member/css/member2.css}" />
+<link rel="stylesheet" th:href="@{/assets/member/css/user.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+<style type="text/css">
+.enclosure1 {
+	width: 500px;
+	height: 60px;
+	min-height: 60px;
+	float: left;
+}
+
+.enclosure1 dl {
+	height: auto;
+	float: left;
+}
+
+.enclosure1 dl dd {
+	width: 50px;
+	height: 50px;
+	position: relative;
+	padding: 4px;
+	border: 1px solid #eee;
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.enclosure1 dl dd img {
+	width: 100%;
+	height: 100%;
+}
+
+.enclosure1 dl dd i {
+	position: absolute;
+	display: block;
+	width: 20px;
+	height: 20px;
+	background: url(/assets/member/images/icon_close.png) no-repeat;
+	background-size: 100% 100%;
+	left: -8px;
+	top: -8px;
+	cursor: pointer;
+	display: none;
+}
+
+.enclosure1 dl dd:hover i {
+	display: block;
+}
+
+.add-pic {
+	width: 60px;
+	height: 60px;
+	overflow: hidden;
+	float: left;
+	cursor: pointer;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.add-pic span {
+	display: block;
+	width: 60px;
+	height: 60px;
+	overflow: hidden;
+	background: url(/assets/member/images/icon_add_pic.png) no-repeat;
+	background-size: 100% 100%;
+	float: left;
+	cursor: pointer;
+}
+
+.add-pic input {
+	display: none;
+}
+
+.goods-img img {
+	width: 60px;
+	height: 60px;
+}
+
+.store-img {
+	width: 70px;
+	height: 70px;
+}
+</style>
+</head>
+<body th:inline="text" th:with="searchkeys=${@_dict.many('web_search_key')},
+		navs=${@_nav.getByType('0')}
+		">
+	<div>
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: home('')" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(home)" th:remove="tag"></div>
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		<form id="orderAssess" method="post">
+			<div id="container">
+				<div class="g-content clear">
+					<div class="j-store">
+						<div class="store-inform">卖家信息</div>
+						<div class="j-inform">
+							<!-- 订单id -->
+							<input type="hidden" name="ctc_order_id" th:value="${ydCtcOrder.ctc_order_id}" />
+							<div class="inform-left store-img">
+								<img th:src="${@_url.goods()}+${ydMemberCtc.ctc_cover}+@{?x-oss-process=image/resize,m_pad,h_70,w_70}" alt="显示错误"></img>
+							</div>
+							<div class="j-text">
+								<h4>[[${ydCtcOrder.user_name}]]</h4>
+								<!-- <p>
+									被评卖家：<span>[[${ydCtcOrder.user_name}]]</span>
+								</p> -->
+								<!-- 							<span class="describe">宝贝与描述相符：</span> -->
+							</div>
+						</div>
+					</div>
+					<div class="j-score2">
+						<div class="score clear">
+							<span>宝贝评分</span>
+							<!-- <div class="j-all">
+								<input id="single" value="0" type="checkbox" name="comment_is_name" /> <span>匿名评论</span>
+							</div> -->
+						</div>
+						<div class="yd-scoreBox" style="height: auto; overflow: hidden;">
+							<!--商品一-->
+							<div class="score2 clear comment-list" th:attr="data-id=${ydMemberCtc.ctc_id}">
+
+								<!-- 商品id -->
+								<input type="hidden" name="ctc_id" th:value="${ydMemberCtc.ctc_id}" />
+								<div class="score2-left">
+									<h4>商品</h4>
+									<div class="recharge clear">
+										<div class="recharge-left goods-img">
+											<img th:src="${@_url.goods()}+${ydMemberCtc.ctc_cover}+@{?x-oss-process=image/resize,m_pad,h_60,w_60}" alt="显示错误"></img>
+										</div>
+										<div class="recharge-right" th:inline="text">[[${ydMemberCtc.ctc_name}]]</div>
+										<br />
+										<div class="recharge-right" th:inline="text">[[${ydMemberCtc.ctc_summary}]]</div>
+									</div>
+								</div>
+								<div class="score2-right">
+									<h4>
+										商品与描述相符<span>（打分匿名）</span>
+									</h4>
+									<div class="rating clear">
+										<div class="rating_icon" style="float: left;"></div>
+									</div>
+
+									<div class="yd-textareaBox" style="width: auto; overflow: hidden; position: relative;">
+										<textarea name="ctc_comment_content" id="" cols="" rows="" oninput="strxz(this)"></textarea>
+										<div class="j-entry">
+											最多输入<span>200</span>字
+										</div>
+									</div>
+
+									<!-- <div class="yd-upload" style="height: 60px; width: 600px; line-height: 60px; margin-top: 10px;">
+										<input type="hidden" name="commentPicsList" />
+										<h4 class="yd-upload-name" style="width: 100px; height: 60px; float: left;">上传图片</h4>
+										<input type="file" style="display: none;" name="commentPics" data-upload-code="commentPics" accept="image/gif,image.jpg,image/png" id="commentPics" data-btn="upload"
+											class="none" />
+										<div class="enclosure1">
+											<dl class="commentPicsList"></dl>
+											<div class="add-pic">
+												<span th:attr="data-id=${ydMemberCtc.ctc_id}"></span>
+											</div>
+										</div>
+									</div> -->
+								</div>
+							</div>
+
+						</div>
+						<div class="j-score3">
+							<!-- <h4>店铺动态评分</h4>
+						<div class="seller clear">
+							<span>卖家服务态度</span>
+							<div class="rating clear">
+								<div class="rating_icon" style="float:left;"></div>
+							</div>
+						</div>
+						<div class="seller clear">
+							<span>卖家发货速度</span>
+							<div class="rating clear">
+								<div class="rating_icon" style="float:left;"></div>
+							</div>
+						</div> -->
+							<button type="button" id="adSubmit">发表评论</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</form>
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+
+		<yd:ajax key="memberSecurity" value="get.member_security" />
+		<yd:ajax key="memberService" value="get.member_service" />
+		<yd:ajax key="memberOrderIndex" value="get.member_order_index" />
+	</div>
+
+	<!-- 底部 -->
+	<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+
+	<script type="text/javascript" th:src="@{/assets/js/jquery-1.11.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/shop/js/common.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/yd-tipbox-min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.page.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/functions.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/upload/uploadnew.js}"></script>
+
+	<script type="text/javascript" th:src="@{/assets/js/store+json2.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.cxselect.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jq_select.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/member/js/member.base.js}"></script>
+	<!-- <script type="text/javascript" th:src="@{/assets/member/js/member.store.js}" ></script> -->
+	<script type="text/javascript" th:src="@{/assets/seller/js/store.get.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/seller/js/store.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/upload/plupload.full.min.js}"></script>
+
+	<script type="text/javascript" th:src="@{/assets/auth.js}"></script>
+
+	<script type="text/javascript" th:src="@{/assets/shop/js/jquery.raty.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/member/js/member2.js}"></script>
+
+</body>
+<script type="text/javascript">
+	_goodsPics = [];
+	var clickId = 0;
+	$(function() {
+
+		/*加载卫生评分*/
+		$('.rating_icon').raty({
+			number : 5,//多少个星星设置
+			score : 0,//初始值是设置
+			targetType : 'number',//类型选择，number是数字值，hint，是设置的数组值
+			path : '/assets/member/images/',
+			cancelOff : 'cancel-off-big.png',
+			cancelOn : 'cancel-on-big.png',
+			size : 40,
+			starHalf : 'star-half-big.png',
+			starOff : 'star-off-big.png',
+			starOn : 'star-on-big.png',
+			cancel : false,
+			targetKeep : true,
+			precision : false,//是否包含小数
+			readOnly : false
+		//只读
+		// click: function(score, evt) {
+		//   alert(score);
+		// }
+		});
+
+		$(".score2-right textarea").keyup(function() {
+			var num = 200;
+			var texLength = $(this).val().length;
+			$(".score2-right .j-entry span").html(num - texLength);
+		});
+
+		// 上传图片
+		$(".enclosure1 .add-pic span").click(function() {
+			clickId = $(this).attr("data-id");
+
+			if ($(this).parent().prev().find("dd").length >= 5) {
+				$.alert({
+					type : 3,
+					info : "最多可上传5张图片"
+				});
+				return;
+			}
+			$("#commentPics").click();
+
+		});
+
+		// 删除图片
+		$(".enclosure1 dl").on("click", "dd i", function() {
+			$(this).parents("dd").remove();
+		});
+
+		// 图片选择
+
+		$(".yd-menu-first").on(
+				"change",
+				function() {
+					var objUrl = getObjectURL(this.files[0]);
+					if (objUrl) {
+						$(this).parent("div").prev("dl").append(
+								"<dd><img src=" + objUrl + "  /><i></i></dd>");
+					}
+				});
+
+		// 创建Blob对象
+		function getObjectURL(file) {
+			var url = null;
+			if (window.createObjectURL != undefined) {
+				url = window.createObjectURL(file);
+			} else if (window.URL != undefined) {
+				url = window.URL.createObjectURL(file);
+			} else if (window.webkitURL != undefined) {
+				url = window.webkitURL.createObjectURL(file);
+			}
+			return url;
+		}
+	});
+
+	//限制评论输入的字数
+	function strxz(tag) {
+		var v = $(tag).val();
+		var num = 200;
+		if (v.length > num) {
+			alert("最多字数200")
+			var value = v.substring(0, num);
+			$(tag).val(value);
+		}
+	}
+</script>
+
+<script type="text/javascript" th:inline="javascript">
+	/*<![CDATA[*/
+	$("#adSubmit")
+			.click(
+					function() {
+						//1  正常 不匿名
+						var single = 1;
+						if ($('#single').prop('checked')) {
+							single = $("#single").val();
+						}
+						var formValueData = {};
+						var ctc_order_id = $("input[name='ctc_order_id']").val(); //订单id
+						var score = $(this).find("input[name='score']").val(); // 等级
+						var i = 0;
+						$(".comment-list")
+								.each(
+										function(k, v) {
+											var textAreaText = $(this).find("textarea[name='ctc_comment_content']").val(); // 内容
+											var score = $(this).find("input[name='score']").val(); // 等级
+											var ctc_id = $(this).find(
+													"input[name='ctc_id']")
+													.val(); //商品id
+
+											formValueData[i] = {};
+											formValueData[i]["ctc_comment_content"] = textAreaText;
+											formValueData[i]["ctc_id"] = ctc_id;
+											formValueData[i]["score"] = score;
+											i++;
+										});
+
+						//评价星级
+						var aa = $("input[name='score']");
+						for (var ii = 0; ii < aa.length; ii++) {
+							if (aa.eq(ii).val() == "") {
+								$.alert({
+									type : 3,
+									info : "请选择评价星级"
+								});
+								return false;
+							}
+						}
+
+						$.ajax({
+							url : "/ctc/addOrderAssess1",
+							data : {
+								data : JSON.stringify(formValueData),
+								single : single,
+								ctc_order_id : ctc_order_id
+							},
+							type : "post",
+							success : function(datas) {
+								if (datas.success) {
+									$.alert({
+										type : 4,
+										info : datas.info
+									});
+									setTimeout(function() {
+										window.location.href = "/member";
+									}, 1000);
+
+								} else {
+									errorShopAlert(datas);
+								}
+							}
+						});
+					});
+
+	/*]]>*/
+</script>
+</html>

@@ -1,0 +1,26 @@
+/*呼一呼*/
+.yd-pattern ul li span{
+	color:#666;
+	font-size:16px;
+	width: 97px;
+	float: left;
+	display: inline-block;
+	*display:inline;
+	zoom:1;
+	margin:47px 41px 0 38px;
+}
+.yd-pattern ul li img{
+	float:left;
+	margin-top:41px;
+}
+.yd-wrapper-two{
+	width: 1200px;
+	padding:59px 0 80px 0;
+	overflow: hidden;
+	margin:0 auto;
+	cursor: pointer;
+}
+.yd-wrapper-two img{
+	width: 1194px;
+	height: 223px;
+}

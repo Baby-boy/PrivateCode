@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperRefundReason">
+
+	<!-- 查询退货 -->
+	<select id="lists" resultType="com.yd.dby.c.member.entity.YdRefundReason" >
+		SELECT
+			reason_id, reason_info, sort, update_time
+		FROM
+			yd_refund_reason		
+		ORDER BY sort DESC
+	</select>
+</mapper>

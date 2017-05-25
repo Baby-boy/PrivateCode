@@ -1,0 +1,37 @@
+<div th:fragment="main" th:remove="tag">
+	<input id="totalPage" type="hidden" th:value="${totalPage}" />
+	<input id="p" th:value="${p}" type="hidden" />
+	<div class="com-table-main">
+		<div class="comments-item" th:each="item:${dataComments}" th:inline="text">
+			<div class="column1">
+				<div th:class="@{grade-star g-star}+${item.comment_score}"></div>
+			  	<div class="comment-day">收货[[${item.relative_date}]]后评论</div>
+			  	<div class="comment-time"></div>
+			  	<div class="features">
+			  	</div>
+			</div>
+			<div class="column2">
+				<div class="p-comment" th:text="${item.comment_content}"></div>
+				
+				<div class="p-show-img">
+					<ul>
+						<li th:each="img: ${item.comment_pics}"><img th:if="${img} neq ''" th:src="${@_url.goods()}+${img}+@{?x-oss-process=image/resize,m_pad,h_35,w_35}" /></li>
+					</ul>
+				</div>
+				<div class="comment-operate">
+					<a href="javascript:;">点赞<span>（[[${item.comment_total_like}]]）</span></a>
+					<a href="javascript:;">回复<span>（[[${item.comment_total_reply}]]）</span></a>
+				</div>
+			</div>
+			<div class="column3">
+				<div class="username">
+					[[${item.user_nickname}]]<span th:if="${item.comment_is_name} eq 0">（匿名）</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="pagination"><ul></ul></div>
+	<script th:inline="javascript">
+
+	</script>
+</div>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperInMessage">
+	<select id="queryInMessageUser" resultType="com.yd.dby.a.sys.entity.YdSysUserFull" >
+		select user_username,user_avatar from yd_user
+		where user_id = #{user_id}
+	</select>
+	
+	<select id="queryGoods" resultType="com.yd.dby.d.seller.entity.YdSellerGoods" >
+		select yg.goods_name,yg.goods_price,yg.goods_cover,yd.depot_id from yd_goods yg
+		left join yd_depot yd on yd.goods_id = yg.goods_id
+		where yg.goods_id = #{goods_id}
+	</select>
+	
+	<!-- 查询留言用户的昵称和头像 -->
+	<select id="queryMessageUserByUserId" resultType="com.yd.dby.a.sys.entity.YdSysUserFull" >
+		select user_nickname,user_avatar from yd_user
+		where user_id = #{user_id}
+	</select>
+	
+	<!-- 查询卖家的头像 昵称 -->
+	<select id="querySellerUserByUserId" resultType="com.yd.dby.a.sys.entity.YdSysUserFull" >
+		select user_nickname,user_avatar from yd_user
+		where user_id = #{seller_userId}
+	</select>
+	
+	<!-- 查询当前ctc商品信息在message_ctc表中是否已经存在 -->
+	<select id="queryCtcMessage" resultType="java.util.HashMap" >
+		select * from yd_message_ctc
+		where ctc_id = #{ctc_id}
+	</select>
+	
+	<!-- 更新已经在message_ctc中存在的商品信息 -->
+	<update id="updateCtcMessage" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="messae_ctc_id" >
+		update yd_message_ctc
+		<trim>
+			<set>
+				ctc_img = #{ctc_img},
+				ctc_name = #{ctc_name},
+				ctc_price = #{ctc_price},
+				ctc_summary = #{ctc_summary}
+			</set>		
+		</trim>
+		where message_ctc_id = #{messae_ctc_id}	
+	</update>
+	
+	<!-- 添加普通商品留言 -->
+	<insert id="inMessage" parameterType="com.yd.dby.b.shop.entity.YdShopInMessage" useGeneratedKeys="true" keyProperty="im_mid" >
+		insert into yd_message_goods(im_store_id,im_depot_id,goods_name,goods_price,goods_pic,user_id,user_name,user_avatar,im_time)
+		value(#{im_store_id},#{im_depot_id},#{goods_name},#{goods_price},#{goods_pic},#{user_id},#{user_name},#{user_avatar},now())
+	</insert>
+	
+	<insert id="addMessage" parameterType="com.yd.dby.b.shop.entity.YdShopMessage" >
+		insert into yd_message(message_state,message_type,message_obj_id,message_content,create_date,message_author_id,message_author_name,message_author_img)
+		value(1,3,#{message_obj_id},#{message_content},#{create_date},#{message_author_id},#{message_author_name},#{message_author_img})
+	</insert>
+	
+	<!-- 添加ctc商品留言 -->
+	<insert id="ctcSaveMessage" parameterType="com.yd.dby.b.shop.entity.YdCtcMessage" useGeneratedKeys="true" keyProperty="messae_ctc_id" >
+		insert into yd_message_ctc(ctc_id,ctc_img,ctc_name,ctc_price,ctc_summary)
+		value(#{ctc_id},#{ctc_img},#{ctc_name},#{ctc_price},#{ctc_summary})
+	</insert>
+	
+	<insert id="saveMessage" parameterType="java.util.HashMap">
+		insert into yd_message(
+		message_state,
+		message_type,
+		message_obj_id,
+		message_content,
+		create_date,
+		message_author_id,
+		message_author_name,
+		message_author_img,
+		message_receive_id,
+		message_receive_name,
+		message_receive_img,
+		message_farther_id)
+		value(
+		1,
+		2,
+		#{message_obj_id},
+		#{message_content},
+		#{create_date},
+		#{message_author_id},
+		#{message_author_name},
+		#{message_author_img},
+		#{message_receive_id},
+		#{message_receive_name},
+		#{message_receive_img},
+		#{message_farther_id})
+	</insert>	
+</mapper>

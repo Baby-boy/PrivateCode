@@ -1,0 +1,61 @@
+<div th:fragment="main" th:remove="tag">
+	<div class="Z_g-right">
+		<div class="Z-acc1-1">
+			<div class="Z-title_inf">
+				优惠券
+			</div>
+			
+			<!--更改信息-->
+			<div class="Z-assets">
+				<div class="Z-cou_youhui">
+					<ul clear="clear">
+						<li th:each="item:${data}" th:inline="text" th:if="${item.begintime lt #dates.createNow() and item.endtime gt #dates.createNow()}">
+							<div class="Z-up">
+								<div>¥[[${item.money}]]
+								<div th:switch="${item.type}" th:remove="tag"><span th:case="1">无限制</span><span th:case="2">满 [[${item.fullMoney}]]</span><span th:case="3">无限制</span><span th:case="4">满 [[${item.fullMoney}]]</span></div></div>
+							</div>
+							<div class="Z-zzz">有效期至 [[${ #calendars.format(item.endtime,'yyyy-MM-dd') }]]</div>
+							<div class="Z-do">
+								<div>[优惠券]
+									<div th:switch="${item.type}" th:remove="tag">
+										<span th:case="1" th:remove="tag">全场通用</span>
+										<span th:case="2" th:remove="tag">全场通用</span>
+										<span th:case="3" th:remove="tag">[[${item.storeName}]]</span>
+										<span th:case="4" th:remove="tag">[[${item.storeName}]]</span>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="Z-cou_shixiao">
+					<div class="Z-shixiao_title">
+						<div>失效券</div>
+					</div>
+					<div class="Z-cou_youhui1">
+						<ul class="clear">
+							<li th:each="item:${data}" th:inline="text" th:if="${item.begintime gt #dates.createNow() or item.endtime lt #dates.createNow()}">
+							<div class="Z-up">
+								<div>¥[[${item.money}]]
+								<div th:switch="${item.type}" th:remove="tag"><span th:case="1">无限制</span><span th:case="2">满 [[${item.fullMoney}]]</span><span th:case="3">无限制</span><span th:case="4">满 [[${item.fullMoney}]]</span></div></div>
+							</div>
+							<div class="Z-zzz">有效期至 [[${ #calendars.format(item.endtime,'yyyy-MM-dd') }]]</div>
+							<div class="Z-do">
+								<div>[优惠券]
+									<div th:switch="${item.type}" th:remove="tag">
+										<span th:case="1" th:remove="tag">全场通用</span>
+										<span th:case="2" th:remove="tag">全场通用</span>
+										<span th:case="3" th:remove="tag">[[${item.storeName}]]</span>
+										<span th:case="4" th:remove="tag">[[${item.storeName}]]</span>
+									</div>
+								</div>
+							</div>
+						</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>

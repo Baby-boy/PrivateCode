@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperCoupon">
+    <select id="get_many" resultType="java.util.HashMap">
+		SELECT
+			yd_coupon.coupon_id,
+			yd_coupon.coupon_type,
+			yd_coupon.coupon_money,
+			yd_coupon.coupon_full_money,
+			yd_coupon.coupon_end_time,
+			yd_coupon.coupon_created_time,
+			ifnull(yd_store.store_name, '') as store_name,
+			ifnull(yd_store.store_id, 0) as store_id
+		FROM
+			yd_receive_coupon
+		JOIN yd_coupon ON yd_receive_coupon.coupon_id = yd_coupon.coupon_id
+		left JOIN yd_store ON yd_coupon.store_id = yd_store.store_id
+
+		order by yd_receive_coupon.coupon_id desc
+		limit 10;
+	</select>
+
+    <!-- 确认订单页-用户可使用的店铺优惠券 -->
+    <select id="listConfirmOrder" resultType="java.util.HashMap">
+		SELECT
+			yd_coupon.coupon_id, yd_coupon.coupon_name, yd_coupon.store_id, yd_coupon.coupon_type,
+			yd_coupon.coupon_money, yd_coupon.coupon_full_money, yd_coupon.coupon_store_type
+		FROM
+			yd_receive_coupon
+		JOIN
+			yd_coupon
+		ON
+			yd_receive_coupon.coupon_id = yd_coupon.coupon_id
+		WHERE
+			yd_receive_coupon.user_id = #{user_id}
+		AND
+			yd_coupon.store_id = #{store_id}
+		AND
+		    yd_coupon.coupon_type = 2
+		AND
+			yd_coupon.coupon_begin_time <![CDATA[ <= ]]> NOW()
+		AND
+			yd_coupon.`coupon_end_time` <![CDATA[ > ]]> NOW()
+	</select>
+
+
+    <!-- 确认订单页-用户可使用的全场优惠券 -->
+    <select id="listConfirmOrderFull" resultType="java.util.HashMap">
+	 	SELECT
+	 	  yd_coupon.coupon_id, yd_coupon.coupon_name, yd_coupon.coupon_money,
+	 	  yd_coupon.coupon_full_money, yd_coupon.coupon_type
+	 	FROM
+	 	  yd_receive_coupon
+	 	JOIN
+	 	  yd_coupon
+	 	ON
+	 	yd_receive_coupon.coupon_id = yd_coupon.coupon_id
+	 	WHERE
+	 	  yd_receive_coupon.user_id = #{user_id}
+	 	AND
+	 	  yd_coupon.coupon_type = 1
+        AND
+			yd_coupon.coupon_begin_time <![CDATA[ <= ]]> NOW()
+		AND
+			yd_coupon.`coupon_end_time` <![CDATA[ > ]]> NOW()
+	</select>
+
+
+    <delete id="deleteReceiveCoupon">
+        DELETE FROM yd_receive_coupon WHERE user_id = #{userId} AND coupon_id IN
+        <foreach collection="couponIds" index="index" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>
+
+		
+		

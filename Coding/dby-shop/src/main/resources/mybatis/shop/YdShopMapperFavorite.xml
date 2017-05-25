@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperFavorite">
+	
+	<!-- 字段 -->
+	<sql id="field">
+		fav_id, user_id, fav_type, fav_fid, fav_created_time
+	</sql>
+	
+	
+	<!-- 查询条件 -->
+	<sql id="where">
+		<trim prefix="where" suffixOverrides="and">
+			<if test="fav_fid != null">
+				fav_fid = #{fav_fid} and
+			</if>
+			<if test="fav_type !=null">
+				fav_type = #{fav_type} and
+			</if>
+			<if test="user_id != null">
+				user_id = #{user_id} and
+			</if>
+		</trim>
+	</sql>
+	
+	
+	<!-- 排序 -->
+	<sql id="orderBy">
+		ORDER BY fav_id DESC
+	</sql>
+	
+	<insert id="store">
+		INSERT INTO yd_favorite(user_id, fav_type, fav_fid, fav_created_time)
+		VALUE( #{user_id}, #{fav_type}, #{fav_fid}, now())
+	</insert>
+	
+	
+	<select id="info" resultType="com.yd.dby.b.shop.entity.YdFavorite">
+		SELECT
+			<include refid="field"></include>
+		FROM
+			yd_favorite
+			<include refid="where"></include>
+		LIMIT 1
+	</select>
+	
+	<delete id="destory">
+		DELETE FROM
+			yd_favorite
+		<include refid="where"></include>
+	</delete>
+	
+</mapper>

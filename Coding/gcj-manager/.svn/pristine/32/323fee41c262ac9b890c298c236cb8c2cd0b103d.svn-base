@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title></title>  
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>
+    <script src="/system/js/jquery.page.js"></script>
+    
+    <link rel="stylesheet" href="../css/public.css"/>
+    <link rel="stylesheet" href="../css/index.css"/>
+    <link rel="stylesheet" href="../css/work.css"/>
+    <link rel="stylesheet" href="../css/common.css"/>
+    
+    <style type="text/css">
+    	.main{
+    		width:100%;
+    		min-height:200px;
+    	}
+    	.main .items{
+    		width:1250px;
+    		height:auto;
+    		margin:0 auto;
+    	}
+    	.main .items .item{
+    		width:300px;
+    		height:60px;
+    		border:1px solid #cccccc;
+    		float:left;
+    		margin-left:10px;
+    		margin-top:10px;
+    	}
+    	.main .items .item .left{
+    		width:80%;
+    		heigth:100%;
+    		padding:5px;
+    		font-size:14px;
+    		float:left;
+    	}
+    	.main .items .item .rigth{
+    		width:20%;
+    		heigth:100%;
+    		float:left;
+    		padding-top:5px;
+    	}
+    	.main .items .item .rigth p,.main .items .item .rigth p a{
+    		text-align: center;
+    	}
+    </style>
+    
+</head>
+<body>
+
+
+<form method="get" action="/system/queryAllTaskType" th:inline="text" id="queryForm" >
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 任务信息管理</strong></div>
+    <div class="padding border-bottom">
+
+      <ul class="search">
+         <li>
+         	<button type="button"  class="button border-green" onclick="javascript:location.href='/system/addtasktype'">添加任务类型</button>
+            <!-- <input type="text" placeholder="请输入任务类型名称" name="taskt_name" th:value="${taskt_name}" class="input" style="width:250px; line-height:17px;display:inline-block" /> -->
+        </li>
+        <!-- <li>
+        	<button type="submit"  class="button border-green" id="tatsubmit" >查询</button>
+        </li> -->
+      </ul>
+
+    </div>
+  <!--   <table class="table table-hover text-center">
+      <tr>
+        <th >序号</th>
+        <th>任务类型名称</th>
+        <th>操作</th>          
+      </tr>
+
+        <tr th:each="taskTypeList,obj:${taskTypeList}" >
+           <td><input type="hidden" name="taskt_id" th:text="${taskTypeList.taskt_id}" /></td> 
+          <td th:text="${obj.count}"></td>
+          <td th:text="${taskTypeList.taskt_name}"></td>
+          <td>
+	          <div class="button-group"> 
+	         	 <a class="button border-red" href="javascript:void(0)" th:attr="taskt_id=${taskTypeList.taskt_id}" onclick="return delTaskType( $(this) )">删除</a> 
+	         	 <a class="button border-red" th:href="@{/system/updateTaskTypeByTaskTypeId/}+${taskTypeList.taskt_id}">修改</a>
+	          </div>
+          </td>
+          <td><div class="button-group"> <a class="button border-red" href="javascript:void(0)" onclick="javascript:location.href='/system/addadmin'">修改</a> </div></td>
+        </tr>
+    </table> -->
+    <div class="yd-work-bottom">
+    
+    	<div class="main">
+    		<div class="items">
+				<div class="item" th:each="taskTypeList,obj:${taskTypeList}" th:inline="text">
+					<div class="left">
+						<p>序号：[[${obj.count}]]</p>
+						<p th:id ="taskt_name1_+${taskTypeList.taskt_id}">名称：[[${taskTypeList.taskt_name}]]</p>
+						<p th:id ="taskt_name2_+${taskTypeList.taskt_id}" style="display:none;">名称：<input type="text" th:id="taskt_name_+${taskTypeList.taskt_id}" name="taskt_name" th:value="${taskTypeList.taskt_name}"/></p>
+					</div>
+					<div class="rigth">
+						<p><a href="javascript:void(0)" th:attr="taskt_id=${taskTypeList.taskt_id}" onclick="return delTaskType( $(this) )">删除</a></p> 
+				        <p th:id="show_+${taskTypeList.taskt_id}"><a th:href="'javascript:showTasktName('+${taskTypeList.taskt_id}+');'">修改</a></p>
+				        <p th:id="update_+${taskTypeList.taskt_id}" style="display:none;"><a th:href="'javascript:updateTasktName('+${taskTypeList.taskt_id}+');'">保存</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+     </div>
+  </div>
+</form>
+<!-- <div class="pagination thePage">
+ <ul>
+　</ul>
+</div> -->
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+/*  $(function() {
+	 pagination(".pagination ul",[[${totalPage}]],[[${p}]] );
+}); 
+
+function pagination(node, totalPage, cpage) {
+	$(node).createPage({
+       pageCount: totalPage,
+       current: cpage,
+       backFn:function(p){
+           //单击回调方法，p是当前页码
+       }
+   });
+}    */      
+
+function delTaskType(me){
+	if(confirm("您确定要删除吗?")){
+		$.post("deleteTaskType",{"taskt_id":me.attr("taskt_id")},function(data){
+			if(data.msg==true){
+				alert("删除成功");
+			location.reload();
+			}else{
+				alert("删除失败")
+			}
+		}); 
+	}
+};
+
+//变成文本框
+function showTasktName(tasktId){
+	$("#taskt_name1_"+tasktId).hide();
+	$("#taskt_name2_"+tasktId).css("display","block");
+	$("#show_"+tasktId).hide();
+	$("#update_"+tasktId).css("display","block");
+};	
+
+//修改任务类型名称
+function updateTasktName(tasktId){
+	var tasktName=$("#taskt_name_"+tasktId).val();
+	//alert(tasktName);
+	$.ajax({
+		url: "/system/updateTaskType",
+		data: {
+			"taskt_id":tasktId,
+			"taskt_name":tasktName
+		},
+		type: "post",
+		success: function(datas) {
+			if(datas.msg==true){
+				alert("修改成功");
+				location.reload();
+			}else{
+				alert("修改失败");
+			}
+		}
+	});  
+};	
+	
+//条件搜索
+$('#tatsubmit').click(function(){
+	$('#queryForm').submit();
+});
+/*]]>*/
+</script>
+</body></html>

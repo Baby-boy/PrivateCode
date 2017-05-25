@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperRefund">
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerRefund">
+		insert into yd_refund
+			(refund_fid,refund_gid,refund_tid,refund_fname,refund_gname
+			,refund_fphone,refund_gphone,refund_captial,refund_reason,refund_contents
+			,refund_state,refund_filename,refund_filepath,refund_create_time,refund_update_time)
+		value
+			(#{refund_fid},#{refund_gid},#{refund_tid},#{refund_fname},#{refund_gname},#{refund_fphone}
+			,#{refund_gphone},#{refund_captial},#{refund_reason},#{refund_contents},#{refund_state},#{refund_filename}
+			,#{refund_filepath},#{refund_create_time},#{refund_update_time})
+	</insert>
+	
+</mapper>
+

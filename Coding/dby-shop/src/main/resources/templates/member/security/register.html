@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="keywords" content=""/>
+		<meta name="description" content=""/>
+		<title>普通用户注册</title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/index.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/member.css}"/>
+		<link rel="stylesheet" th:href="@{/assets/css/yd-tipbox.css}" />
+	</head>
+	
+	
+	<body th:with="searchkeys=${@_dict.many('web_search_key')}">
+		<!--头部-->
+		<div class="Z-Login_header">
+			<div class="Z-Login_box">
+				<div class="Z-logo">
+					<a href="/"><img th:src="${@_url.goods()}+${@_redis.get('site_logo')}" /></a>
+				</div>
+				<span class="header-title-">欢迎注册</span>
+				
+			</div>
+		</div>
+		
+		<!--内容-->
+		<div class="Z-content_zhuce">
+			<div class="Z-contentBox">
+				<div class="Z-twomenu">
+					<div class="Z-putong reg-switch active">
+						<a href="javascript:;">普通用户注册</a>
+					</div>
+					<div class="Z-qiye reg-switch">
+						<a href="javascript:;">企业用户注册</a>
+					</div>
+					<div class="Z-fuwuxuzhi" style="display:none;"><p>服务须知：</p><p>审核时间<span>2-7</span>天</p></div>
+				</div>
+				
+				<!-- 普通用户注册 -->
+				<div class="reg-section">
+					<div class="Z-zhanghu">
+						<input type="hidden" id="member_token" />
+						<div class="Z-zhanghu_title">
+							账户信息 
+						</div>
+						<ul>
+							<li>
+								<div class="Z-con_title">会员名</div>
+								<input type="text" placeholder="会员名一旦设置成功，无法修改" id="member_name" />
+							</li>
+							<li>
+								<div class="Z-con_title">手机号码</div>
+								<input type="text" placeholder="请输入您的手机号码" id="member_mobile" />
+							</li>
+							<li class="Z-twoinput">
+								<div class="Z-con_title">短信验证码</div>
+								<input type="text" placeholder="手机验证码" id="member_salt" />
+								<a href="javascript:void(0);" id="getMobileId" onclick="auth0_event_member_register_sms($(this))">获取短信验证码</a>
+								<div class="send_code" onclick="auth0_event_member_register_sms( $('#getMobileId') )" style="display:none;">
+					                <label class="obtain" style="display: none;">重新获取</label>
+					                <label class="repeat" style="display: block;">
+					                    <!-- 重新发送 -->
+					                    <span class="count_down">已发送(60s)</span>
+					                </label>
+					            </div>
+							</li>
+							<li>
+								<div class="Z-con_title">设置密码</div>
+								<input type="password" placeholder="建议至少使用两种字符组合" id="member_password" />
+							</li>
+							<li>
+								<div class="Z-con_title">确认密码</div>
+								<input type="password" placeholder="请再次输入密码" id="member_repeat_password" />
+							</li>
+							<li class="Z-foveinput">
+								<div class="Z-con_title"></div>
+								<input type="checkbox" id="agree" />
+								<span>我已阅读并同意 
+									<a href="#">《多宝鱼用户注册协议》</a>
+								</span>
+							</li>
+							<li class="Z-firvinput">
+								<div class="Z-con_title"></div>
+								<input type="button" value="立即注册" onclick="auth0_event_member_register()"/>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+				<!-- 企业用户注册 -->
+				<div class="reg-section" style="display:none;">
+					<form id="sellerRegisterForm">
+					<div class="Z-zhanghu">
+						<div class="Z-zhanghu_title">
+							账户信息
+						</div>
+						<ul>
+							<li>
+								<div class="Z-con_title">会员名</div>
+								<input data-verify="true" data-error-info="请输入会员名" type="text" placeholder="会员名一旦设置成功，无法修改" name="user_username" />
+							</li>
+							<li class="Z-firstinput">
+								<div class="Z-con_title Z-con_title1">联系人姓名</div>
+								<input data-verify="true" data-error-info="请输入联系人姓名" type="text" name="user_truename" placeholder="请输入真实姓名"/>
+							</li>
+							<li>
+								<div class="Z-con_title Z-con_title1">手机号码</div>
+								<input data-verify="true" data-error-info="请输入手机号码" type="text" name="user_mobile" placeholder="输入您的手机号码"/>
+							</li>
+							<li class="Z-twoinput Z-ttwo">
+								<div class="Z-con_title Z-con_title1">短信验证码</div>
+								<input data-verify="true" data-error-info="请输入短信验证码" type="text" name="mobile_code" />
+								<a href="javascript:void(0);" onclick="auth0_event_member_register_sms($(this))">获取短信验证码</a>
+								<div class="send_code" style="display:none;">
+					                <label class="obtain" style="display: none;">重新获取</label>
+					                <label class="repeat" style="display: block;">
+					                    <!-- 重新发送 -->
+					                    <span class="count_down">已发送(60s)</span>
+					                </label>
+					            </div>
+							</li>
+							
+							<!-- <li class="Z-firstinput">
+								<div class="Z-con_title Z-con_title1">用户名</div>
+								<input type="text" placeholder="您的用户名和登录名"/>
+								<span>
+									<img src="https://woadby.oss-cn-beijing.aliyuncs.com/dby/images/Z-gouzi_gouzi.png" alt="" />
+								</span>
+							</li> -->
+							<li class="Z-firstinputt">
+								<div class="Z-con_title Z-con_title1">设置密码</div>
+								<input data-verify="true" data-error-info="请输入密码" type="password" name="password" placeholder="建议至少使用两种字符组合"/>
+								<div class="Z-anquanchengdu">
+									<p>安全程度：</p>
+									<ul>
+										<li>弱</li>
+										<li>中</li>
+										<li>强</li>
+									</ul>
+								</div>
+							</li>
+							<li class="Z-hehe">
+								<div class="Z-con_title Z-con_title1">确认密码</div>
+								<input data-verify="true" data-error-info="请输入确认密码" type="password" name="password_confirmation" placeholder="请再次输入密码"/>
+								<div class="Z-mimachangdu">密码长度只能在6-20位字符之间</div>
+							</li>
+						</ul>
+					</div>
+					
+					<div class="Z-zhanghu">
+						<div class="Z-zhanghu_title">
+							公司信息
+						</div>
+						<ul>
+							<li class="Z-firstinput">
+								<div class="Z-con_title Z-con_title1">店铺名称</div>
+								<input data-verify="true" data-error-info="请输入店铺名称" type="text" name="store_name" placeholder="请输入店铺名称"/>
+							</li>
+							<li class="Z-firstinput">
+								<div class="Z-con_title Z-con_title1">公司名称</div>
+								<input data-verify="true" data-error-info="请输入公司名称" type="text" name="company_name" placeholder="公司名称"/>
+							</li>
+							<li>
+								<div class="Z-con_title Z-con_title1">公司地址</div>
+								<input data-verify="true" data-error-info="请输入公司地址" type="text" name="company_address" placeholder="请输入现公司地址"/>
+							</li>
+							<li class="Z-daimazheng">
+								<div class="Z-con_title Z-con_title1">营业执照</div>
+								<div class="Z-daimabox z-company-business-licence">
+									<div class="Z-lefttext">彩色扫描件或数码照片</div>
+									<input data-verify="true" data-error-info="请上传营业执照" type="hidden" name="company_business_licence" />
+									<div class="Z-rightshangchuan">
+										<img src="https://woadby.oss-cn-beijing.aliyuncs.com/dby/images/Z-shangchuan.png"/>
+										<span>上传资料</span>
+									</div>
+									<input type="file" data-btn="upload" data-upload-type="other" id="companyBusinessLicence" data-upload-code="companyBusinessLicence" accept="image/gif,image.jpg,image/png" multiple="multiple"  style="display:none" />
+								</div>
+							</li>
+							<li class="Z-daimazheng">
+								<div class="Z-con_title Z-con_title1">机构代码证</div>
+								<div class="Z-daimabox z-company-organization-code">
+									<div class="Z-lefttext">彩色扫描件或数码照片</div>
+									<input data-verify="true" data-error-info="请上传机构代码证" type="hidden" name="company_organization_code" />
+									<div class="Z-rightshangchuan">
+										<img src="https://woadby.oss-cn-beijing.aliyuncs.com/dby/images/Z-shangchuan.png"/>
+										<span>上传资料</span>
+									</div>
+									<input type="file" data-btn="upload" data-upload-type="other" id="companyOrganizationCode" data-upload-code="companyOrganizationCode" accept="image/gif,image.jpg,image/png" multiple="multiple"  style="display:none" />
+								</div>
+							</li>
+							<li>
+								<div class="Z-con_title Z-con_title1">对公银行账户</div>
+								<input data-verify="true" data-error-info="请输入对公银行账户" type="text" name="company_bank_account" placeholder="基本户，一般账户均可"/>
+							</li>
+							<li class="Z-daimazheng">
+								<div class="Z-con_title Z-con_title1">法人身份证</div>
+								<div class="Z-daimabox z-legal-person-positive">
+									<div class="Z-lefttext">身份证-正面</div>
+									<input data-verify="true" data-error-info="请上传法人身份证-正面" type="hidden" name="legal_person_positive" />
+									<div class="Z-rightshangchuan">
+										<img src="https://woadby.oss-cn-beijing.aliyuncs.com/dby/images/Z-shangchuan.png"/>
+										<span>上传资料</span>
+									</div>
+									<input type="file" data-btn="upload" data-upload-type="other" id="legalPersonPositive" data-upload-code="legalPersonPositive" accept="image/gif,image.jpg,image/png" multiple="multiple"  style="display:none" />
+								</div>
+							</li>
+							<li class="Z-daimazheng">
+								<div class="Z-con_title Z-con_title1">&nbsp;</div>
+								<div class="Z-daimabox z-legal-person-negative">
+									<div class="Z-lefttext">身份证-反面</div>
+									<input data-verify="true" data-error-info="请上传法人身份证-反面" type="hidden" name="legal_person_negative" />
+									<div class="Z-rightshangchuan">
+										<img src="https://woadby.oss-cn-beijing.aliyuncs.com/dby/images/Z-shangchuan.png"/>
+										<span>上传资料</span>
+									</div>
+									<input type="file" data-btn="upload" data-upload-type="other" id="legalPersonNegative" data-upload-code="legalPersonNegative" accept="image/gif,image.jpg,image/png" multiple="multiple"  style="display:none" />
+								</div>
+							</li>
+							<li class="Z-foveinput">
+								<div class="Z-con_title Z-con_title1"></div>
+								<input type="checkbox" name="agree" />
+								<span>我已阅读并同意 
+									<a href="#">《多宝鱼用户注册协议》</a>
+								</span>
+							</li>
+							<li class="Z-firvinput">
+								<div class="Z-con_title Z-con_title1"></div>
+								<input type="button" value="立即审核" onclick="auth_event_seller_register( $(this) )" />
+							</li>
+						</ul>
+					</div>
+					
+					<!-- 
+					<div class="Z-zhanghu">
+						<div class="Z-zhanghu_title">
+							联系人信息
+						</div>
+						<ul>
+							<li class="Z-firstinput">
+								<div class="Z-con_title Z-con_title1">联系人姓名</div>
+								<input type="text" placeholder="真实姓名"/>
+							</li>
+							<li>
+								<div class="Z-con_title Z-con_title1">验证手机</div>
+								<input type="text" placeholder="输入您的手机号码"/>
+							</li>
+							<li class="Z-twoinput Z-ttwo">
+								<div class="Z-con_title Z-con_title1">短信验证码</div>
+								<input type="text" />
+								<a href="#">获取短信验证码</a>
+								<div class="send_code" style="display:none;">
+					                <label class="obtain" style="display: none;">重新获取</label>
+					                <label class="repeat" style="display: block;">
+					                    
+					                    <span class="count_down">已发送(60s)</span>
+					                </label>
+					            </div>
+							</li>
+							<li class="Z-foveinput">
+								<div class="Z-con_title Z-con_title1"></div>
+								<input type="checkbox" />
+								<span>我已阅读并同意 
+									<a href="#">《多宝鱼用户注册协议》</a>
+								</span>
+							</li>
+							<li class="Z-firvinput">
+								<div class="Z-con_title Z-con_title1"></div>
+								<input type="button" value="立即审核" onclick="auth_event_seller_register()" />
+							</li>
+						</ul>
+					</div>
+					 -->
+					</form>
+				</div>
+				
+			</div>
+		</div>
+		
+		<!-- 底部 -->
+		<yd:ajax key="auth0_event_member_register" value="auth0_request_member_register" />
+		<yd:ajax key="auth_event_seller_register" value="auth_request_seller_register" />
+		
+		
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		<script type="text/javascript" th:src="@{/assets/shop/js/jquery-1.11.1.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/js/common.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/js/yd-tipbox-min.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/js/store+json2.min.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/member/js/member.js}"></script>
+		<yd:ajax key="auth0_event_member_register_sms" value="auth0_request_member_register_sms" />
+		<script type="text/javascript" th:src="@{/assets/register.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/member/js/register.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/js/functions.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/seller/js/store.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/upload/uploadnew.js}" ></script>
+		
+	</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title></title>  
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>
+    <script src="/system/js/jquery.page.js"></script>
+</head>
+<body>
+<form method="get" action="/system/queryAllAdmin" th:inline="text" id="queryForm" >
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 管理员信息管理</strong></div>
+    <div class="padding border-bottom">
+
+      <ul class="search">
+        <li>
+            <button type="button"  class="button border-green" onclick="javascript:location.href='/system/addadmin'">添加管理员</button>
+            <input type="text" placeholder="请输入管理员名称" name="admin_name" th:value="${admin_name}" class="input" style="width:250px; line-height:17px;display:inline-block" />
+        </li>
+        <li>
+            <select name="admin_is_super" class="input" style="width:200px; line-height:17px;" >
+                <option value="">请选择</option>
+                <option value="0" th:selected="${admin_is_super==0? 'selected' : 'false'}" >超级管理员</option>
+                <option value="1" th:selected="${admin_is_super==1? 'selected' : 'false'}" >子管理员</option>
+            </select>
+        </li>
+        <li>
+            <button type="submit"  class="button border-green" id="adsubmit" >查询</button>
+        </li>
+      </ul>
+
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th>序号</th>
+        <th>管理员名称</th>
+        <th>管理员账号</th>       
+        <th>管理员密码</th> 
+        <th>登陆次数</th>
+        <th>是否超管</th>
+        <th>手机号码</th>
+        <th>创建时间</th>
+        <th>修改时间时间</th>
+        <th>最后登录时间</th>
+        <th>操作</th>       
+      </tr>
+
+        <tr th:each="adminList,obj:${adminList}" >
+<!--           <td><input type="checkbox" name="admin_id" th:text="${adminList.admin_id}" /></td> -->
+          
+		  <td  th:text="${obj.count}"></td>
+          <td th:text="${adminList.admin_name}"></td>
+          <td th:text="${adminList.admin_account}"></td>
+          <td th:text="${adminList.admin_password}"></td>
+          <td th:text="${adminList.admin_login_num}"></td>
+          <td th:text="${adminList.admin_is_super== 0 ? '是' : '否'}"></td>
+          <td th:text="${adminList.admin_phone}"></td>
+          <td th:text="${#calendars.format(adminList.admin_create_time,'yyyy-MM-dd hh:mm:ss')}"></td>
+          <td th:text="${#calendars.format(adminList.admin_update_time,'yyyy-MM-dd hh:mm:ss')}"></td>
+          <td th:text="${#calendars.format(adminList.admin_last_time,'yyyy-MM-dd hh:mm:ss') }"></td>
+          <td><div class="button-group"> 
+		          <a class="button border-red" href="javascript:void(0)" th:attr="admin_id=${adminList.admin_id}" onclick="return delAdmin( $(this) )">删除</a>
+		          <a class="button border-red" th:href="@{/system/updateAdminByAdminId/}+${adminList.admin_id}">修改</a> 
+	          </div>
+          </td>
+        </tr>
+    </table>
+  </div>
+</form>
+<div class="pagination thePage">
+ <ul>
+　</ul>
+</div>
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/	
+ $(function() {
+	 pagination(".pagination ul",[[${totalPage}]],[[${p}]] );
+ }); 
+ 
+function pagination(node, totalPage, cpage) {
+	$(node).createPage({
+        pageCount: totalPage,
+        current: cpage,
+        backFn:function(p){
+            //单击回调方法，p是当前页码
+        }
+    });
+}  
+
+
+
+
+
+//条件搜索
+$('#adsubmit').click(function(){
+	$('#queryForm').submit();
+});
+
+//删除指定的管理员
+function delAdmin(me){
+	if(confirm("您确定要删除吗?")){
+		 $.post("deleteAdmin",{"admin_id":me.attr("admin_id")},function(data){
+			if(data.msg==true){
+				alert("删除成功");
+				location.reload();
+			}else{
+				alert("删除失败")
+			}
+		}); 
+		 
+	}
+};
+
+/*]]>*/
+</script>
+</body></html>

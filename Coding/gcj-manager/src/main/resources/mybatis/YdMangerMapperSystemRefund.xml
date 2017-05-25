@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.system.mapper.YdMangerMapperSystemRefund">
+	<!-- 查询所有的退款信息 -->
+	<select id="queryAllRefund" resultType="com.yd.gcj.entity.vo.YdMangerRefundVo" >
+		select * from yd_refund
+		where 1 = 1
+		<if test="refund_fphone !=null and refund_fphone!= ''">
+			and refund_fphone like  CONCAT(CONCAT('%', #{refund_fphone, jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="refund_gphone !=null and refund_gphone!= ''">
+			and refund_gphone like  CONCAT(CONCAT('%', #{refund_gphone, jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="refund_state !=null ">
+			and refund_state = #{refund_state}
+		</if>
+	</select>
+	
+	<select id="queryRefundByRefundId" resultType="com.yd.gcj.entity.vo.YdMangerRefundVo">
+		select * from yd_refund
+		where refund_id = #{refund_id}
+	</select>
+	
+	<update id="updateRefundStateByRefundId" parameterType="com.yd.gcj.entity.vo.YdMangerRefundVo" >
+		update yd_refund
+		<set>
+			<trim>
+				refund_state = #{refund_state}
+			</trim>
+		</set>
+		where refund_id = #{refund_id}
+	</update>
+</mapper>

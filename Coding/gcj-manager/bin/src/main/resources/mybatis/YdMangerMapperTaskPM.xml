@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperTaskPM">
+	
+	<select id="$queryByTid" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerTaskPM">
+		select 
+			tpm_id,tpm_taskid,tpm_name,tpm_desc,tpm_state,tpm_msg,tpm_isbalance,tpm_money,tpm_create_time,tpm_update_time
+		from 
+			yd_taskpm
+		where
+			tpm_taskid = #{tpm_taskid}
+	</select>
+	
+	<select id="$queryById" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerTaskPM">
+		select 
+			tpm_id,tpm_taskid,tpm_name,tpm_desc,tpm_state,tpm_msg,tpm_isbalance,tpm_money,tpm_create_time,tpm_update_time
+		from 
+			yd_taskpm
+		where 
+			tpm_id = #{tpm_id}
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerTaskPM" useGeneratedKeys="true" keyProperty="tpm_id">
+		insert into yd_taskpm
+			(tpm_taskid,tpm_name,tpm_state,tpm_isbalance,tpm_money,tpm_desc,tpm_create_time,tpm_update_time)
+		value
+			(#{tpm_taskid},#{tpm_name},#{tpm_state},#{tpm_isbalance},#{tpm_money},#{tpm_desc},#{tpm_create_time},#{tpm_update_time})
+	</insert>
+	
+	<update id="$update" parameterType="com.yd.gcj.entity.YdMangerTaskPM">
+		update yd_taskpm
+		<set>
+			<trim suffixOverrides=",">
+				<if test="tpm_taskid != null">tpm_taskid = #{tpm_taskid}</if>
+				<if test="tpm_name != null">tpm_name = #{tpm_name}</if>
+				<if test="tpm_desc != null">tpm_desc = #{tpm_desc}</if>
+				<if test="tpm_state != null">tpm_state = #{tpm_state}</if>
+				<if test="tpm_msg != null">tpm_msg = #{tpm_msg}</if>
+				<if test="tpm_isbalance != null">tpm_isbalance = #{tpm_isbalance}</if>
+				<if test="tpm_money != null">tpm_money = #{tpm_money}</if>
+				<if test="tpm_update_time != null">tpm_update_time = #{tpm_update_time}</if>
+			</trim>
+		</set>
+		where tpm_id = #{tpm_id}
+	</update>
+	
+	<update id="$updateState">
+		update from yd_taskpm
+		set tpm_state = #{tpm_state},tpm_update_time = #{tpm_update_time}
+		where tpm_id = #{tpm_id}
+	</update>
+	
+	<delete id="$delete" parameterType="java.lang.Integer">
+		delete from yd_taskpm
+		where tpm_id = #{tpm_id}
+	</delete>
+	
+</mapper>
+

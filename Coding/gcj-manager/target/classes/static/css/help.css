@@ -1,0 +1,59 @@
+@charset "utf-8";
+
+body{
+	background: #f7f7f7;
+}
+#yd-help{
+	width: 100%;
+	min-width:1200px;
+	height:auto;
+	margin:15px 0 52px;
+}
+.yd-help-wrap{
+	width: 1200px;
+	height:auto;
+	background: #fff;
+	margin:0 auto;
+}
+.yd-help-contain{
+	padding:26px 20px 130px;
+	overflow: hidden;
+}
+.yd-help-title{
+	border-bottom:1px solid #eee;
+	overflow:hidden;
+}
+.yd-help-title h1{
+	color:#3cc8b4;
+	font-size: 18px;
+	padding-bottom:22px;
+	font-weight: normal;
+}
+.yd-demand{
+	overflow: hidden;
+	width: 100%;
+	height:auto;
+}
+.yd-demand1{
+	width: 100%;
+	height:auto;
+	padding:23px 0 38px;
+	border-top:1px dashed #f7f7f7;
+}
+.yd-demand1:first-child{
+	border-top:0;
+}
+.yd-demand1 h5{
+	color:#333;
+	font-size: 16px;
+	font-weight: normal;
+}
+.yd-demand1 h5:first-child + h5{
+	margin-top: 5px;
+}
+.yd-demand1 p{
+	color:#999;
+	font-size: 14px;
+	margin-top: 10px;
+	line-height: 25px;
+}

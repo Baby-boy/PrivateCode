@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperUser">
+
+	<!-- 查询个人详情 -->
+	<select id="queryDetailByUid" resultType="com.yd.dby.c.member.entity.User">
+		select * from yd_user where user_id=#{uid}
+	</select>
+
+	<select id="dataOrderTotal" resultType="java.lang.Integer">
+		SELECT count(*) FROM yd_order WHERE buyer_id = #{user_id}
+	</select>
+
+	<select id="dataCouponTotal" resultType="java.lang.Integer">
+		SELECT count(*) FROM yd_receive_coupon WHERE user_id = #{user_id}
+	</select>
+
+	<select id="dataFollowTotal" resultMap="YdWebMapperUserFollow">
+		SELECT fav_type, COUNT(*) AS total FROM yd_favorite WHERE user_id = #{user_id} GROUP BY fav_type ORDER BY fav_type ASC
+	</select>
+
+	<update id="updateMobile">
+		UPDATE
+		yd_user
+		SET
+		user_mobile = #{mobile}
+		WHERE
+		user_id = #{user_id}
+	</update>
+
+	<resultMap id="YdWebMapperUserFollow" type="java.util.HashMap">
+	</resultMap>
+	
+	<select id="findByMobile" resultType="com.yd.dby.c.member.entity.User">
+		select user_id from yd_user where user_mobile = #{mobile}
+	</select>
+</mapper>

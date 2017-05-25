@@ -1,0 +1,92 @@
+<div th:fragment="main" th:remove="tag">
+	<link rel="stylesheet" th:href="@{/assets/css/common.css}" />
+	<link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+	
+	<yd:ajax key="memberCtcUpdate" value="get.ctc_update" />
+		
+	<div class="d-right ctc-create">
+		
+		<!-- 中间内容 -->
+		<div id="container2" style="margin: 0px auto;">
+			<div class="c2c-release" style="margin-top: 10px;">
+				<h2>发布懒鱼</h2>
+				<form class="form-ajax-sub" data-func="memberCtcUpdate">
+				<input name="ctc_id" type="hidden" />
+				<ul>
+					<li>
+						<label for="ctc_name">商品标题</label>
+						<input name="ctc_name" type="text" placeholder="请输入您的标题" />
+					</li>
+					<li>
+						<label for="ctc_summary">商品描述</label>
+						<textarea name="ctc_summary"></textarea>
+					</li>
+					<li>
+						<label for="">商品描述</label>
+						<div class="enclosure" id="container1">
+							<dl id="ossfile">
+							</dl>
+							<div id="selectfiles" class="add-pic">
+								<span></span>
+							</div>
+							<div id="postfiles" class="start-upload">
+								<span></span>
+							</div>
+							<input type="radio" name="myradio" checked="true" value="random_name" hidden="hidden" />
+						</div>
+					</li>
+					<li class="price">
+						<label for="">商品价格</label>
+						<input name="ctc_price" type="text" placeholder="¥ 0.00" />
+						<label class="width50" for="">运费</label>
+						<input type="text" name="ctc_logistics_price" placeholder="¥ 0.00" />
+					</li>
+					<li class="select-city">
+						<label for="">所在地</label>
+						<select class="province" name="ctc_province_id" data-value="" data-first-title="选择省"></select>
+						<select class="city" name="ctc_city_id" data-value="" data-first-title="选择市"></select>
+						<select class="area" name="ctc_area_id" data-value="" data-first-title="选择区"></select>
+						<input type="hidden" data-pca="pca" name="ctc_pca" />
+					</li>
+					<li class="width382">
+						<label for="">商品成色</label>
+						<select name="ctc_surpass" class="width360">
+							<option>请选择</option>
+							<option th:each="nitem:${@_YdWebServiceDict.list('ctc_quality')}"  th:value="${nitem.id}" th:text="${nitem.name}">
+							</option>
+							<input type="hidden" name="ctc_surpass_str" />
+						</select>
+					</li>
+					<li>
+						<div class="submit">
+							<input type="button" class="btn-add-edit" value="提  交" />
+						</div>
+					</li>
+				</ul>
+				</form>
+			</div>
+			
+		</div>
+		<!-- 中间内容结束 -->
+
+	</div>
+	
+	<script type="text/javascript" th:src="@{/assets/upload/plupload.full.min.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/upload/uploads.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.cxselect.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/js/jq_select.js}" ></script>
+	<script th:inline="javascript">
+		restoreFormInput([[${data}]], ".form-ajax-sub");
+		
+		setTimeout(function() {
+			var selectData = {ctc_province_id: [[${data.ctc_province_id}]], ctc_city_id: [[${data.ctc_city_id}]], ctc_area_id: [[${data.ctc_area_id}]]};
+			restorePca(selectData, ".select-city");
+		}, 100);
+		$("select[name='ctc_surpass'] option[value='"+[[${data.ctc_surpass}]]+"']").prop("selected", true);
+	</script>
+	<script type="text/javascript">
+		$("body").on("change", "select[name='ctc_surpass']", function() {
+			$(this).next("input").val( $(this).find("option:selected").text() );
+		});
+	</script>
+</div>

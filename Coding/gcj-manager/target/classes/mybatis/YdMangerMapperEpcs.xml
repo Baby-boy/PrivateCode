@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperEpcs">
+	
+	<select id="$queryAllByTid" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerEpcs">
+		select 
+			*
+		from 
+			yd_epcs
+		where 
+			epcs_tid = #{epcs_tid}
+	</select>
+	
+	<select id="$queryAllByUserId" resultType="com.yd.gcj.entity.YdMangerEpcs">
+		SELECT * 
+			FROM yd_epcs
+		WHERE 
+			epcs_tid IN (SELECT task_id FROM yd_task WHERE task_id IN (SELECT tender_tid FROM yd_tender WHERE tender_uid = #{userId}))
+	</select>
+	
+	<select id="$queryBySql" parameterType="java.lang.String" resultType="com.yd.gcj.entity.YdMangerEpcs">
+		select 
+			epcs_id,epcs_tid,epcs_money,epcs_pmoney,epcs_sid,epcs_duration,epcs_level,epcs_desc,epcs_contents,epcs_create_time,epcs_update_time
+		from 
+			yd_epcs
+		where 1=1
+			#{sql}
+	</select>
+	
+	<select id="$queryCountNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_epcs
+		where 
+			epcs_tid = #{taskId}
+	</select>
+	
+	<select id="$queryCountNumBySql" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select 
+			count(*)
+		form 
+			yd_epcs
+		where 
+			#{sql}
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerEpcs" useGeneratedKeys="true" keyProperty="epcs_id">
+		insert into yd_epcs
+			(epcs_tid,epcs_tname,epcs_eid,epcs_ename,epcs_term,epcs_contents,epcs_evaluation,epcs_reason,epcs_create_time,epcs_update_time)
+		select 
+			#{epcs_tid},task_pname,#{epcs_eid},#{epcs_ename},task_term,#{epcs_contents},#{epcs_evaluation},#{epcs_reason},#{epcs_create_time},#{epcs_update_time}
+		from yd_task where task_id = #{epcs_tid}
+	</insert>
+	
+	<update id="$update" parameterType="com.yd.gcj.entity.YdMangerEpcs">
+		update yd_epcs
+		<set>
+			<trim suffixOverrides=",">
+				<if test="epcs_tid !=null">epcs_tid=#{epcs_tid},</if>
+				<if test="epcs_money != null">epcs_money=#{epcs_money},</if>
+				<if test="epcs_pmoney != null">epcs_pmoney=#{epcs_pmoney},</if>
+				<if test="epcs_sid != null">epcs_sid=#{epcs_sid},</if>
+				<if test="epcs_duration != null">epcs_duration=#{epcs_duration},</if>
+				<if test="epcs_level != null">epcs_level=#{epcs_level},</if>
+				<if test="epcs_desc != null">epcs_tid=#{epcs_desc},</if>
+				<if test="epcs_contents != null">epcs_contents=#{epcs_contents},</if>
+				<if test="epcs_create_time != null">epcs_create_time=#{epcs_create_time},</if>
+				<if test="epcs_update_time != null">epcs_update_time=#{epcs_update_time},</if>
+			</trim>
+		</set>
+		where epcs_id = #{epcs_id}
+	</update>
+	
+	<delete id="$delete" parameterType="java.lang.Integer">
+		delete from yd_epcs
+		where epcs_id = #{epcs_id}
+	</delete>
+	
+</mapper>
+

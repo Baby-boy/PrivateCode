@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperFeedBack">
+	
+	<select id="$queryAllByPageNum" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerFeedBack">
+		select 
+			fb_id,fb_problem,fb_uid,fb_phone,fb_content,fb_isread,fb_remarks,fb_create_time,fb_update_time
+		from 
+			yd_feedback
+		where 1=1 
+			limit #{startPageNum},#{queryPageNum}
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerFeedBack" useGeneratedKeys="true" keyProperty="fb_id">
+		insert into yd_feedback 
+		(fb_problem,fb_uid,fb_phone,fb_content,fb_isread,fb_remarks,fb_create_time,fb_update_time)
+		value
+		(#{fb_problem},#{fb_uid},#{fb_phone},#{fb_content},#{fb_isread},#{fb_remarks},#{fb_create_time},#{fb_update_time})
+	</insert>
+	
+	<update id="$updateIsRead" parameterType="java.lang.Integer">
+		update from yd_feedback 
+		set fb_isread = 1 
+		where fb_id = #{fb_id}
+	</update>
+	
+	<update id="$updateRemarks" parameterType="java.lang.Integer">
+		update yd_feedback 
+		set fb_remarks = #{fb_remarks}
+		where fb_id = #{fb_id}
+	</update>
+	
+	<update id="$delete" parameterType="java.lang.Integer">
+		update form yd_feedback
+		set fb_isdel = 1
+		where fb_id = #{fb_id}
+	</update>
+	
+</mapper>
+

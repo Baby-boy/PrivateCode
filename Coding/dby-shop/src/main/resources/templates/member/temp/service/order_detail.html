@@ -1,0 +1,135 @@
+<div th:fragment="main" th:remove="tag">
+	<div class="d-right order-refund-page order-refund-detail-page" id="saleRefund" th:inline="text">
+		<div class="refund-content">
+			<div class="refund-progres">
+				<div class="ncm-flow-step">
+			        <dl class="step-first current">
+			          <dt>买家申请退款</dt>
+			          <dd class="bg"></dd>
+			        </dl>
+			        <dl class="current">
+			          <dt>商家处理退款申请</dt>
+			          <dd class="bg"> </dd>
+			        </dl>
+			        <dl th:class="${data.refund_state} eq 3 ? 'current' : ''">
+			          <dt>平台审核，退款完成</dt>
+			          <dd class="bg"> </dd>
+			        </dl>
+				</div>
+			</div>
+			
+			
+			<div class="refund-reason">
+				<h3 class="title">我的退款申请</h3>
+					
+				<div class="form-field">
+					<div class="field-hd">
+						<label for="fea1">退款编号：</label>
+					</div>
+					<div class="field-bd">
+						[[${data.refund_sn}]]
+					</div>
+				</div>
+				<div class="form-field">
+					<div class="field-hd">
+						<label for="fea1">申请人（买家）：</label>
+					</div>
+					<div class="field-bd">
+						[[${data.buyer_name}]]
+					</div>
+				</div>
+				<div class="form-field">
+					<div class="field-hd">
+						<label for="fea1">退款原因：</label>
+					</div>
+					<div class="field-bd">
+						[[${data.reason_info}]]
+					</div>
+				</div>
+				<div class="form-field">
+					<div class="field-hd">
+						<label for="fea1">退款金额：</label>
+					</div>
+					<div class="field-bd">
+						[[${data.refund_amount}]]
+					</div>
+				</div>
+				<div class="form-field">
+					<div class="field-hd">
+						<label for="fea1">退款说明：</label>
+					</div>
+					<div class="field-bd">
+						[[${data.buyer_message}]]&nbsp;
+					</div>
+				</div>
+				<div class="form-field">
+					<div class="field-hd">
+						<label for="fea1">凭证上传：</label>
+					</div>
+					<div class="field-bd">
+						[[${data.pic_info}]]
+					</div>
+				</div>
+				
+				<h3 class="title">商家退款处理</h3>
+				<div class="form-field">
+					<div class="field-hd">
+						<label for="fea1">处理状态：</label>
+					</div>
+					<div class="field-bd" th:switch="${data.seller_state}">
+						<span th:case="1">待审核</span>
+						<span th:case="2">同意</span>
+						<span th:case="3">不同意</span>
+					</div>
+				</div>
+				<div class="form-field">
+					<div class="field-hd">
+						<label for="fea1">商家备注：</label>
+					</div>
+					<div class="field-bd">[[${data.seller_message}]]&nbsp;</div>
+				</div>
+				<div class="form-field">
+					<div class="field-hd">
+						<label for="fea1">平台备注：</label>
+					</div>
+					<div class="field-bd">[[${data.admin_message}]]&nbsp;</div>
+				</div>
+				
+			</div>
+		</div>
+		<div class="goods-content">
+			<h3 class="title">退款/退货商品</h3>
+			<div class="goods-info" th:each="item: ${dataGoods}">
+				<span class="goods-img"><img th:src="${@_url.goods()}+${item.goods_cover}+@{?x-oss-process=image/resize,m_pad,h_50,w_50}" /></span>
+				<p>[[${item.goods_name}]]</p>
+				<p class="price-num">¥[[${item.goods_price}]] * [[${item.refund_num}]] (数量)</p>
+			</div>
+			<div class="order-content">
+				<dl>
+					<dt>运&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;费：</dt>
+					<dd>￥[[${dataOrder.transport_price}]]</dd>
+					<dt>订单总额：</dt>
+					<dd> ¥[[${dataOrder.total_price}]] (退款：¥[[${data.refund_amount}]])</dd>
+					
+					<dt>订单编号：</dt>
+					<dd th:text="${data.order_sn}"></dd>
+					<dt>下单时间：</dt>
+					<dd>[[${dataOrder.created_at}]]</dd>
+					
+					<dt>物流单号：</dt>
+					<dd>[[${dataOrder.shipping_code}]]&nbsp;</dd>
+					
+					<dt>收&nbsp;&nbsp;货&nbsp;人：</dt>
+					<dd>[[${dataOrder.receipt_name}]]&nbsp;</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+			$(function() {
+
+			});
+		/*]]>*/
+	</script>
+</div>

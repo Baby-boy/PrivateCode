@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.d.seller.mapper.YdSellerMapperGoodsAttribute">
+	<!-- 字段 -->
+	<sql id="field">
+		goods_id, depot_id, classify_id, type_id, attr_id, attr_value_id
+	</sql>
+	
+	
+	<!-- 条件 -->
+	<sql id="where">
+		<trim prefix="where" suffixOverrides="and">
+			<if test="goods_id > 0"> goods_id = #{goods_id} and </if>
+		  	<if test="depot_id > 0"> depot_id = #{depot_id} and </if>
+		  	<if test="classify_id > 0">classify_id = #{classify_id} and </if>
+		  	<if test="type_id > 0">type_id = #{type_id} and </if>
+		</trim>
+	</sql>
+	
+	<insert id="store">
+		INSERT INTO yd_goods_attribute
+			(
+				<include refid="field"></include>
+			)
+		VALUE
+			(
+				#{goods_id}, #{depot_id}, #{classify_id},
+				#{type_id}, #{attr_id}, #{attr_value_id}
+			);
+	</insert>
+	
+	
+	<!-- 列表 -->
+	<select id="lists" resultType="java.util.HashMap">
+		SELECT
+			<include refid="field"></include>
+		FROM yd_goods_attribute
+		<include refid="where"></include>
+	</select>
+	
+	
+	<!-- 删除 -->
+	<delete id="delete">
+		DELETE
+		FROM yd_goods_attribute
+		<include refid="where"></include>
+	</delete>
+</mapper>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="keywords" content=""/>
+		<meta name="description" content=""/>
+		<meta name="Authorization" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/css/yd-tipbox.css}" />
+		<link rel="stylesheet" th:href="@{/assets/member/css/member.css}" />
+		<link rel="stylesheet" th:href="@{/assets/member/css/member2.css}" />
+		<link rel="stylesheet" th:href="@{/assets/member/css/user.css}" />
+		<link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+		
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')},
+		navs=${@_nav.getByType('0')}
+		">
+	<div>
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div> 
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: home('')" th:remove="tag"></div> 
+					<div th:include="shop/template/header :: nav(home)" th:remove="tag"></div> 
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		<div id="container" class="order-detail-page" th:inline="text">
+			<div class="g-content d-content clear">
+				<div class="w-locat">我的位置：我的订单&nbsp;&gt;&nbsp;<span>订单详情</span></div>
+				<div class="w-success clear">
+					<div class="w-s1">
+						当前订单状态：
+						<div th:switch="${data.state}" th:remove="tag">
+							<span th:case="1">等待买家付款</span>
+							<span th:case="2">等待卖家发货</span>
+							<span th:case="4">交易成功</span>
+							<span th:case="5">退换货</span>
+							<span th:case="6">交易成功</span>
+							<span th:case="9">交易关闭</span>
+						</div>
+						<p th:if="${data.state} eq 4">&nbsp;交易成功，请给卖家评价</p>
+					</div>
+					<div class="w-s2" th:if="${data.state} eq 4">评价</div>
+				</div>
+				<div class="w-inform2">
+					<div class="w-order1">订单信息</div>
+					<div class="w-order2">
+						<h4>卖家信息</h4>
+						<ul class="clear">
+							<li class="li1">店铺名称：<a target="_blank" class="store-name" th:href="@{/store/}+${data.store_id}"><span th:text="${data.store_name}"></span></a>
+							<a href="" class="btn-store-contact">和我联系</a>
+							</li>
+							<li class="li2">真实姓名：[[${data.user_truename}]]</li>
+							<li class="li3">城市：[[${data.user_pca}]]</li>
+							<li class="li4">联系电话：[[${data.store_telephone}]]&nbsp;|&nbsp;[[${data.store_mobile}]]</li>
+							<li class="li5">邮件：[[${data.user_email}]]<!-- <span>发站內信</span> --></li>
+						</ul>
+					</div>
+					<div class="w-order2">
+						<h4>订单信息</h4>
+						<ul class="clear order-info-list">
+							<li>订单编号：[[${data.order_sn}]]</li>
+							<li th:if="${data.shipping_time} neq 0">第三方交易号：[[${data.pay_sn}]]</li>
+							<li>联系电话：[[${data.receipt_mobile}]]</li>
+							<li>创建时间：[[${data.created_at}]]</li>
+							<li th:if="${data.shipping_time} > 0">发货时间：[[${data.shipping_time}]]</li>
+							<li th:if="${data.payment_time} > 0">付款时间：[[${data.payment_time_text}]]</li>
+						</ul>
+						
+						<table class="list-table order-lists">
+							<tbody th:inline="text">
+								<tr class="order-title">
+									<td colspan="2">宝贝</td>
+									<td>单价</td>
+									<td>数量</td>
+									<td>优惠</td>
+									<td>商品总价格</td>
+									<td>运费</td>
+								</tr>
+								<tr class="goods-info" th:each="itemGoods, k:${dataGoods}" th:inline="text">
+									<td class="w70 img">
+										<a target="_blank" th:href="@{/g/goods/}+${itemGoods.goods_id}">
+										<img th:src="${@_url.goods()}+${itemGoods.goods_cover}" /></a>
+									</td>
+									<td width="300" style="border-left: 0;">
+										<p class="goods-name">
+											<a target="_blank" th:href="@{/g/goods/}+${itemGoods.goods_id}">[[${itemGoods.goods_name}]]</a>
+										</p>
+									</td>
+									<td>￥[[${itemGoods.goods_price}]]</td>
+									<td>[[${itemGoods.goods_num}]]</td>
+									<td>￥[[${itemGoods.discount_price}]]</td>
+									<td>￥[[${itemGoods.goods_pay_price}]]</td>
+									<goods th:if="${k.index == 0}" remove="tag">
+									<td th:rowspan="${dataGoods.size()}">￥[[${data.transport_price}]]</td>
+									</goods>
+								</tr>
+							</tbody>
+						</table>
+						<div class="total-price">订单总金额：<h3>[[${data.total_price}]]</h3>元</div>
+						
+					</div>
+					<div class="w-order2 w-order3 clear">
+						<h4>物流信息</h4>
+						<ul class="clear logis-info-list">
+							<li>收货地址：<span th:text="${data.receipt_address}"></span></li>
+							<li>买家留言：<span th:text="${data.order_message}"></span></li>
+							<li>发货地址：<span th:text="${data.shipping_address}"></span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+	
+		<yd:ajax key="memberSecurity" value="get.member_security" />
+		<yd:ajax key="memberService" value="get.member_service"  />
+		<yd:ajax key="memberOrderIndex" value="get.member_order_index"  />
+	</div>
+
+	<!-- 底部 -->
+	<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+
+	<script type="text/javascript" th:src="@{/assets/js/jquery-1.11.1.min.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/shop/js/common.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/js/yd-tipbox-min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.page.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/store+json2.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.cxselect.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/js/jq_select.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/member/js/member.base.js}" ></script>
+	<!-- <script type="text/javascript" th:src="@{/assets/member/js/member.store.js}" ></script> -->
+	<script type="text/javascript" th:src="@{/assets/seller/js/store.get.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/seller/js/store.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/upload/plupload.full.min.js}" ></script>
+	
+	<script type="text/javascript" th:src="@{/assets/auth.js}" ></script>
+	
+	</body>
+</html>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.d.seller.mapper.YdSellerMapperCoupon">
+	<!-- 店铺优惠券列表 -->
+	<select id="index" resultMap="YdWebMapperCouponList" >
+		select coupon_id,coupon_name,store_id,coupon_type,coupon_store_type,coupon_money,coupon_full_money,coupon_total_stock,coupon_stock,
+		coupon_begin_time,coupon_end_time,coupon_created_time
+		from yd_coupon where store_id = #{store_id} and coupon_type = 2
+		limit #{to},#{perPage}
+	</select>
+	
+	<resultMap type="java.util.HashMap" id="YdWebMapperCouponList">
+		<id property="coupon_id" column="coupon_id" />
+		<result property="coupon_name" column="coupon_name" />
+		<result property="store_id" column="store_id" />
+		<result property="coupon_type" column="coupon_type" />
+		<result property="coupon_store_type" column="coupon_store_type" />
+		<result property="coupon_money" column="coupon_money" />
+		<result property="coupon_full_money" column="coupon_full_money" />
+		<result property="coupon_total_stock" column="coupon_total_stock" />
+		<result property="coupon_stock" column="coupon_stock" />
+		<result property="coupon_begin_time" column="coupon_begin_time" />
+		<result property="coupon_end_time" column="coupon_end_time" />
+		<result property="coupon_created_time" column="coupon_created_time" />
+	</resultMap>
+	
+	<select id="totalCoupon" resultType="java.lang.Integer" >
+		select count(1) from yd_coupon
+		where store_id = #{store_id} and coupon_type = 2
+	</select>
+	
+	<select id="edit" resultMap="YdWebMapperCouponList">
+		select * from yd_coupon
+		where coupon_id = #{coupon_id}
+	</select>
+	
+	<insert id="store" parameterType="java.util.HashMap">
+		insert into yd_coupon(
+			coupon_name,
+			store_id,
+			coupon_type,
+			coupon_store_type,
+			coupon_money,
+			coupon_full_money,
+			coupon_total_stock,
+			coupon_stock,
+			coupon_begin_time,
+			coupon_end_time,
+			coupon_created_time
+		)
+		value(
+			#{coupon_name},
+			#{store_id},
+			2,
+			#{coupon_store_type},
+			#{coupon_money},
+			#{coupon_full_money},
+			#{coupon_total_stock},
+			0,
+			#{coupon_begin_time},
+			#{coupon_end_time},
+			now()
+		)
+	</insert>
+	
+	<update id="update" parameterType="java.util.HashMap" >
+		update yd_coupon
+		<trim>
+			<set>
+				coupon_name = #{coupon_name},
+				coupon_store_type = #{coupon_store_type},
+				coupon_money = #{coupon_money},
+				coupon_full_money = #{coupon_full_money},
+				coupon_total_stock = #{coupon_total_stock},
+				coupon_begin_time = #{coupon_begin_time},
+				coupon_end_time = #{coupon_end_time}
+			</set>
+		</trim>
+		where coupon_id = #{coupon_id} and store_id = #{store_id}
+	</update>
+	
+	<delete id="destroy" >
+		delete from yd_coupon
+		where coupon_id = #{coupon_id} and store_id = #{store_id}
+	</delete>
+	
+</mapper>

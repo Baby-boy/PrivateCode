@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>个人技能认证</title>
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>  
+</head>
+<style>
+	.jineng {
+		float: left;
+		margin-top: 5px;
+		border: 1px solid #22cc77;
+		background: #EFFFFD;
+		color: #22cc77;
+		text-align: center;
+    	width: 9%;
+    	margin-left: 6px;
+	}
+</style>
+<body>
+<div class="panel admin-panel margin-top">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>技能认证</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x"  th:inline="text" id="updateForm" >
+       <input type="hidden" name="userl_uid"  th:value="${ydMangerUserLabelVo.userl_uid}" />    
+        <div class="form-group">
+            <div class="label">
+                <label>昵称：</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" name="user_nickname" th:value="${ydMangerUserVo.user_nickname}" readonly="readonly" />
+                <div class="tips"></div>
+            </div>
+        </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>真实姓名：</label>
+        </div>
+        <div class="field">	
+          <input type="text" class="input w50" name="user_name" th:value="${ydMangerUserLabelVo.user_name}" readonly="readonly" />															
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>手机号：</label>
+        </div>
+        <div class="field">	
+        	<input type="text" class="input w50" name="user_phone" th:value="${ydMangerUserVo.user_phone}" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>技能名称：</label>
+        </div>
+        <div class="field"  name="article_type">	
+	         <p class="jineng" th:each="userSkillList:${userSkillList}"><span>[[${userSkillList.userl_name}]]</span><i></i></p>
+          <div class="tips"></div>
+        </div>
+      </div>
+      <!-- <div class="form-group">
+        <div class="label">
+          <label>认证文件：</label> 
+        </div>
+        <div class="field">	
+   			<div class="touxiang">
+               <div class="img">
+                   <img class="headimg" alt="" src="/img/asag.jpg"/>
+               </div>
+           	</div>
+          	<div class="tips"></div>
+        </div>
+      </div> -->
+      <!-- 认证状态 -->															
+      <input type="hidden" name="user_skillstate" id="userSkillstate" value="" />	
+      <!-- <div class="form-group">
+        <div class="label">
+          <label>认证状态：</label>
+        </div>
+        <div class="field">	
+          <select class="input w50" name="user_skillstate"  >
+          
+          	<option th:value="0" th:selected="${ydMangerUserLabelVo.user_skillstate==0? 'selected' : 'false'}"  >
+          		未认证
+          	</option>
+          	<option th:value="1" th:selected="${ydMangerUserLabelVo.user_skillstate==1? 'selected' : 'false'}"   >
+          		认证成功
+          	</option>
+          	<option th:value="2" th:selected="${ydMangerUserLabelVo.user_skillstate==2? 'selected' : 'false'}"   >
+          		认证失败
+          	</option>
+          	<option th:value="3" th:selected="${ydMangerUserLabelVo.user_skillstate==3? 'selected' : 'false'}"   >
+          		认证审核中
+          	</option>
+          </select>																
+          <div class="tips"></div>
+        </div>
+      </div> -->
+      
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <!-- <button class="button bg-main icon-check-square-o" type="button" id="btnSubmit"> 提交</button> -->
+          <button type="button" id="ThroughCertification"  class="button border-green">通过</button>															
+          <button type="button" id="AuthenticationReject"  class="button border-green">拒绝</button>	
+          <button type="button"  onclick="javascript:history.back(-1);" class="button border-green">返回</button>	
+          <button type="button" id="btnSubmit3"  class="button border-green">下载认证资料</button>	
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">
+
+//认证通过
+$("#ThroughCertification").click(function(){
+	$("#userSkillstate").val("1");
+	var data = $("#updateForm").serializeArray();
+	var ydMangerSystemAdmin = {};
+	$.each(data, function(k, v) {
+		ydMangerSystemAdmin[ v["name"] ] = v["value"];
+	});
+		$.ajax({
+			url: "/system/updateUCSkillState",
+			data: $("#updateForm").serialize(),
+			type: "post",
+			success: function(datas) {
+				if(datas.msg==true){
+					alert("修改成功");
+					self.location=document.referrer;//返回上一页并刷新
+				}else{
+					alert("修改失败");
+				}
+			}
+		}); 
+	});	
+	
+//认证拒绝
+$("#AuthenticationReject").click(function(){
+	$("#userSkillstate").val("2");
+	var data = $("#updateForm").serializeArray();
+	var ydMangerSystemAdmin = {};
+	$.each(data, function(k, v) {
+		ydMangerSystemAdmin[ v["name"] ] = v["value"];
+	});
+	 $.ajax({
+			url: "/system/updateUCSkillState",
+			data: $("#updateForm").serialize(),
+			type: "post",
+			success: function(datas) {
+				if(datas.msg==true){
+					alert("修改成功");
+					self.location=document.referrer;//返回上一页并刷新
+				}else{
+					alert("修改失败");
+				}
+			}
+		}); 
+	});	
+	
+</script>
+</body></html>

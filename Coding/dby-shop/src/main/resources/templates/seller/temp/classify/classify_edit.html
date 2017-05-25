@@ -1,0 +1,50 @@
+<div th:fragment="main" th:remove="tag">
+	<script th:inline="javascript">
+		treeEachOption([[${classStoreData}]], "请选择上级分类", ".select-store-class select", [[${data.pid}]]);
+	</script>
+	<div class="d-right classify-create-page">
+		<ul class="btn-page-top">
+			<li yd:ajax="onclick,get.store_classify">店铺分类</li>
+			<li class="active">新增分类</li>
+		</ul>
+		<div class="input-dl-all">
+			<form class="form-ajax-sub" data-func="storeGoodsClassifyUpdate">
+			<input type="hidden" name="sc_id" />
+			<dl>
+				<dt>分类名称：</dt>
+				<dd><input data-error-info="请输入分类名称" data-verify="true" placeholder="请输入导航名称" name="title" type="text" class="text w200" /></dd>
+			</dl>
+			<dl>
+				<dt>上级分类：</dt>
+				<dd class="select-store-class">
+					<select data-error-info="请选择上级分类" data-verify="true" class="select" name="pid"></select>
+				</dd>
+			</dl>
+			<dl>
+				<dt>排序：</dt>
+				<dd><input type="text" data-error-info="请输入排序" data-verify="true" placeholder="请输入排序" name="sort" value="255" class="text w100" /></dd>
+			</dl>
+			<dl>
+				<dt>是否显示：</dt>
+				<dd class="span-radio">
+					<isShow th:if="${data.is_show == 1}" th:remove="tag">
+						<span><input type="radio" value="1" checked="checked" name="is_show" />显示</span>
+						<span><input type="radio" value="2" name="is_show" />不显示</span>
+					</isShow>
+					<isShow th:if="${data.is_show != 1}" th:remove="tag">
+						<span><input type="radio" value="1" name="is_show" />显示</span>
+						<span><input type="radio" value="2" checked="checked" name="is_show" />不显示</span>
+					</isShow>
+				</dd>
+			</dl>
+			<dl>
+				<dt>&nbsp;</dt>
+				<dd><botton type="submit" class="btn btn-orange btn-lg btn-add-edit">提交</botton></dd>
+			</dl>
+			</form>
+		</div>
+	</div>
+	<script th:inline="javascript">
+		restoreFormInput([[${data}]], ".form-ajax-sub");
+	</script>
+</div>

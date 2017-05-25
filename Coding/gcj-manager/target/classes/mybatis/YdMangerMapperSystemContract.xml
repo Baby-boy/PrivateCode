@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.system.mapper.YdMangerMapperSystemContract">
+	<!-- 根据task_id查询项目任务所对应的合同信息 -->
+	<select id="queryContractByTaskId" resultType="com.yd.gcj.entity.YdMangerContract" >
+		select contract_id,contract_eid,contract_tid,contract_eaddr,contract_ename,contract_ephone,contract_sid,contract_sname,contract_saddr,
+			contract_sphone,contract_pname,contract_pdesc,contract_cp,contract_sp,contract_scsd,contract_durat,contract_pad,contract_pbr,contract_paresp,
+			contract_pbresp,contract_pay,contract_dal,contract_ce,contract_ds,contract_esig,contract_esiga,contract_esigd,contract_eissign,contract_ssig,
+			contract_ssiga,contract_ssigd,contract_sissign,contract_supp,contract_create_time,contract_update_time
+		from yd_contract
+		where contract_tid = #{task_id}
+	</select>
+</mapper>

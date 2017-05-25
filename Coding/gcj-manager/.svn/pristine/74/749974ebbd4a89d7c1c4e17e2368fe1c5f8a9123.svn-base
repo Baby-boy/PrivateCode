@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit" />
+<title></title>
+<link rel="stylesheet" href="/system/css/pintuer.css" />
+<link rel="stylesheet" href="system/css/admin.css" />
+<script src="/system/js/jquery.js"></script>
+<script src="/system/js/pintuer.js"></script>
+</head>
+<body th:inline="text">
+<div class="panel admin-panel">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>任务详情</strong></div>
+  <div class="body-content" style="margin-top: 1%;">
+    <form method="post" class="form-x" action="" th:inlie="text" >
+      <div class="form-group">
+        <div class="label">
+          <label>任务编号：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerTaskVo.task_num}" name="task_num" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+        <div class="label">
+          <label>雇主姓名：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerTaskVo.user_name}" name="user_name" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>任务名称：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerTaskVo.task_pname}" name="task_pname" readonly="readonly" />  
+          <div class="tips"></div>
+        </div>
+        <div class="label">
+          <label>任务地点：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerTaskVo.task_paddr}" name="task_paddr" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>期限：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerTaskVo.task_term}" name="task_term" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+        <div class="label">
+          <label>详情描述：</label>
+        </div>
+        <div class="field-task">														 
+          <textarea  class="input w100" style="width:400px" name="task_discrip" th:inline="text" >[[${ydMangerTaskVo.task_discrip}]]</textarea>
+          <div class="tips"></div>
+        </div>
+      </div>
+            
+      <div class="form-group">
+        <div class="label">
+          <label>任务状态：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerTaskVo.state}" name="task_state" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+        <div class="label">
+          <label>任务报价：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerTaskVo.task_price}" name="task_price" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+            
+      <div class="form-group">
+        <div class="label">
+          <label>合同签订状态：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerTaskVo.task_contract_state}" name="task_contract_state" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+        <div class="label">
+          <label>参与人数：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerTaskVo.task_pnum}" name="task_pnum" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>实际参与人数：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerTaskVo.task_pnum_actual}" name="task_pnum_actual" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+        <div class="label">
+          <label>工作进度：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerTaskVo.task_schedule}" name="task_schedule" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+            
+      <div class="form-group">
+        <div class="label">
+          <label>是否托管：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerTaskVo.task_hosting==0? '否' : '是'}" name="task_hosting" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+        <div class="label">
+          <label>托管金额：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerTaskVo.task_host_price}" name="task_host_price" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+            
+      <div class="form-group">
+        <div class="label">
+          <label>发布时间：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${#calendars.format(ydMangerTaskVo.task_start_time,'yyyy-MM-dd hh:mm:ss')}" name="task_start_time" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+        <div class="label">
+          <label>截止时间：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${#calendars.format(ydMangerTaskVo.task_end_time,'yyyy-MM-dd hh:mm:ss')}" name="task_end_time" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+            
+      <div class="form-group">
+        <div class="label">
+          <label>信息创建时间：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${#calendars.format(ydMangerTaskVo.task_create_time,'yyyy-MM-dd hh:mm:ss')}" name="task_create_time" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+        <div class="label">
+          <label>信息修改时间：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${#calendars.format(ydMangerTaskVo.task_update_time,'yyyy-MM-dd hh:mm:ss')}" name="task_update_time" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>项目文件：</label>
+        </div>
+        <div class="field-task">
+          <ul class="wenjian clear">
+                <li th:each="file,niter:${filesTaskList}"><i></i><span>[[${file.filesName}]]</span></li>
+            </ul>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field-task" style="margin-top: 20px;margin-left: 26%;">
+          <a id="check"  class="button border-red" th:style="${ydMangerTaskVo.task_contract_state gt 0}?'':'cursor:not-allowed'"  th:href="${ydMangerTaskVo.task_contract_state gt 0}?@{/system/queryContractByTaskId/}+${ydMangerTaskVo.task_id}:'###'">合同详情</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a id="check"  class="button border-red"  th:href="@{/system/queryTenderByTaskId/}+${ydMangerTaskVo.task_id}">投标详情</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+<script type="text/javascript">
+	
+</script>
+</html>

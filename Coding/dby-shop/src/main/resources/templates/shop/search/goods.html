@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+		<style type="text/css">
+			.pagination {
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')},
+	navs=${@_nav.getByType('0')},
+	_goodsUrl=${@_url.goods()}
+	">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: home('')"></div>
+					
+					<div th:include="shop/template/header :: nav(circulation)"></div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		
+		<!-- 中间内容-->
+		<div id="container" style="margin: 0px auto;">
+			<div class="search-page">
+				<div class="site-map">
+					<a href="#">全部结果</a><span>&gt;</span>
+					<a href="#" th:text="${goodsName}"></a>
+					<label>共<font th:text="${data.total}"></font>件商品</label>
+				</div>
+				
+				<!-- 筛选 -->
+				<div class="pro-screen">
+					<ul>
+						<li th:if="${dataWhere.dataClass} != null and ${dataWhere.dataClass.size()} gt 0">
+							<div class="left">
+								<label>分类：</label>
+								<dl>
+									<dd><a th:class="${depot_classify3} eq null ? 'active' : ''" th:href="${depot_classify3} neq null ? @{/search?}+${dataSearchWhere.classify}+'depot_classify2='+${dataWhere.dataClass[0].cly_pid} : @{/search?}+${dataSearchWhere.classify}">全部</a>
+									<a th:each="item: ${dataWhere.dataClass}" th:class="${item.cly_id} eq ${depot_classify3} ? 'active' : ''" th:href="@{/search?}+${dataSearchWhere.classify}+${dataWhere.classifyKey}+'='+${item.cly_id}" th:text="${item.cly_name}"></a></dd>
+								</dl>
+							</div>
+						</li>
+						<li th:if="${dataWhere.dataBrand} != null and ${dataWhere.dataBrand.size()} gt 0">
+							<div class="left">
+								<label>品牌：</label>
+								<dl>
+									
+									<dd>
+										<a th:class="${brand_id} eq null ? 'active' : ''" th:href="@{/search?}+${dataSearchWhere.brand}">全部</a>
+										<a th:each="item: ${dataWhere.dataBrand}" th:href="@{/search?}+${dataSearchWhere.brand}+'brand_id='+${item.brand_id}" th:class="${item.brand_id} eq ${brand_id} ? 'active' : ''" th:text="${item.brand_name}"></a>
+									</dd>
+								</dl>
+							</div>
+						</li>
+					</ul>
+				</div>
+				
+				<!-- 排序 -->
+				<div class="screen-sort">
+					<div class="left">
+						<ul>
+							<li th:class="${orderBy} eq 'default' or ${orderBy} eq null or ${orderBy} eq '' ? active : ''"><a th:href="@{/search?}+${dataSearchWhere.orderBy}+'orderBy=default'">综合排序</a></li>
+							<!-- <li class="active"><a th:href="@{/search?}+${dataSearchWhere.orderBy}+'orderBy=time-high'">上架时间</a></li> -->
+							<li th:class="${orderBy} eq 'priceHigh' ? active : ''"><a th:href="@{/search?}+${dataSearchWhere.orderBy}+'orderBy=priceHigh'">价格</a></li>
+							<li th:class="${orderBy} eq 'favHigh' ? active : ''"><a th:href="@{/search?}+${dataSearchWhere.orderBy}+'orderBy=favHigh'">人气</a></li>
+						</ul>
+					</div>
+					<div class="right search-price-">
+						<form id="searchFormPrice" method="get">
+							<input type="submit" value="确定" />
+							<input type="text" name="priceEnd" th:value="${priceEnd}" />
+							<span>-</span>
+							<input type="text" name="priceStart" th:value="${priceStart}" />
+						</form>
+					</div>
+				</div>
+				
+				<!-- 列表 -->
+				<div class="pro-list">
+					<ul th:inline="text">
+						<li th:each="item:${data.data}">
+							<a target="_blank" th:href="@{/g/goods/}+${item.depot_id}">
+								<div class="img"><img th:src="${_goodsUrl}+${item.goods_cover}+@{?x-oss-process=image/resize,m_pad,h_246,w_246}" /></div>
+								<div class="title" th:text="${item.goods_name}"></div>
+								<div class="price" th:text="'￥'+${item.goods_price}"></div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="pagination"></div>
+		</div>
+		
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		
+		<script type="text/javascript" th:src="@{/assets/js/jquery.page.link.js}"></script>
+		
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			$(function(){
+				// 分页
+				pagination(".pagination", [[${data.totalPage}]], [[${data.p}]], "newsLists");
+				
+				var whereAll = [[${dataSearchWhere.price}]];
+				
+				$("#searchFormPrice").submit(function(e) {
+					e.preventDefault();
+					var priceStart = $("input[name='priceStart']").val();
+					var priceEnd = $("input[name='priceEnd']").val();
+					window.location.href = "/search?"+whereAll+"priceStart="+priceStart+"&priceEnd="+priceEnd;
+				});
+			});
+			/*]]>*/
+		</script>
+		
+		
+	</body>
+</html>

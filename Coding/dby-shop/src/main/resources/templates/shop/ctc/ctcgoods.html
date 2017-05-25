@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+<style type="text/css">
+.pagination {
+	text-align: center;
+}
+</style>
+</head>
+<body
+	th:with="searchkeys=${@_dict.many('web_search_key')},
+	navs=${@_nav.getByType('0')},
+	_goodsUrl=${@_url.goods()}
+	">
+	<!-- 头部 -->
+	<div id="header">
+		<div th:include="shop/template/header :: header" th:remove="tag"></div>
+
+		<!-- 主导航 -->
+		<div class="main-nav">
+			<div class="nav">
+				<div th:include="shop/template/classify :: home('')"></div>
+
+				<div th:include="shop/template/header :: nav(circulation)"></div>
+			</div>
+
+		</div>
+	</div>
+	<!-- 头部结束 -->
+
+
+	<!-- 中间内容-->
+	<div id="container" style="margin: 0px auto;">
+		<div class="search-page">
+			<div class="site-map">
+				<a href="#">全部结果</a><span>&gt;</span> <label>共<font
+					th:text="${date.total}"></font>件商品
+				</label>
+			</div>
+
+			<!-- 排序 -->
+			<div class="screen-sort">
+				<div class="left">
+					<ul>
+						<li class="active"><a href="#">上架时间</a></li>
+					</ul>
+				</div>
+				<div class="right search-price-">
+					<form id="addForm">
+						<input type="submit" value="确定" /> <input type="text"
+							name="highPrice" th:value="${date.highPrice}" /> <span>-</span>
+						<input type="text" name="lowPrice" th:value="${date.lowPrice}" />
+						<font>价格区间</font> <input type="hidden" name="cc_id"
+							th:value="${date.cc_id==null? '':date.cc_id}" />
+					</form>
+				</div>
+			</div>
+
+			<!-- 列表 -->
+			<div class="pro-list">
+				<ul th:inline="text">
+					<li th:each="ctc:${date.ctcs}"><a target="_blank"
+						th:href="@{/ctc/CtcComment/}+${ctc.ctc_id}">
+							<div class="img">
+								<img th:src="${_goodsUrl}+${ctc.ctc_cover}" />
+							</div>
+							<div class="title" th:text="${ctc.ctc_name}"></div>
+							<div class="price" th:text="'￥'+${ctc.ctc_price}"></div>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="pagination"></div>
+	</div>
+
+
+	<!-- 底部 -->
+	<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+	<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+
+	<script type="text/javascript"
+		th:src="@{/assets/js/jquery.page.link.js}"></script>
+
+	<script th:inline="javascript">
+			/*<![CDATA[*/
+			/* $("#btnSubmit").click(function() {
+				$.ajax({
+					url : "/ctc/queryAllCtcGoods",
+					data : $("#addForm").serialize(),
+					type : "get"
+				});
+			});
+				
+			}); */
+			$(function(){
+				// 分页
+				pagination(".pagination", [[${date.totalPage}]], [[${date.p}]], "newsLists");
+				
+			});
+			/*]]>*/
+		</script>
+
+
+</body>
+</html>

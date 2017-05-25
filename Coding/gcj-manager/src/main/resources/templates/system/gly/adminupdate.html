@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>修改管理员</title>
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>  
+</head>
+<body>
+<div class="panel admin-panel margin-top">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>修改管理员</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="/system/updateAdmin" th:inline="text" id="updateForm" >   
+       <input type="hidden" name="admin_id"  th:value="${ydMangerSystemAdmin.admin_id}" />   
+      <div class="form-group">
+        <div class="label">
+          <label>管理员名称：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="admin_name" th:value="${ydMangerSystemAdmin.admin_name}" />         
+          <div class="tips"></div>
+        </div>
+      </div>
+        <div class="form-group">
+            <div class="label">
+                <label>管理员密码：</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" name="admin_password" th:value="${ydMangerSystemAdmin.admin_password}" />
+                <div class="tips"></div>
+            </div>
+        </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>登陆次数：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="admin_login_num" th:value="${ydMangerSystemAdmin.admin_login_num}" />         
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>管理员账号：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="admin_account" th:value="${ydMangerSystemAdmin.admin_account}" />         
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+     <div class="form-group">
+        <div class="label">
+          <label>手机号码：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="admin_phone" th:value="${ydMangerSystemAdmin.admin_phone}" />         
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+     <div class="form-group">
+        <div class="label">
+          <label>是否为超级管理员：</label>
+        </div>
+        <div class="field">
+          <div class="button-group radio">
+          
+          <label th:class="'button '+ ${ydMangerSystemAdmin.admin_is_super eq 0 ? 'active' : ''} ">
+         	  <span class="icon icon-check"></span>             
+              <input name="admin_is_super" value="0" type="radio" th:checked="${ydMangerSystemAdmin.admin_is_super eq 0 ? 'true' : 'false'}" />是             
+          </label>             
+        
+          <label th:class="'button '+ ${ydMangerSystemAdmin.admin_is_super eq 1 ? 'active' : ''}"><span class="icon icon-times"></span>          	
+              <input name="admin_is_super" value="1"  type="radio" th:checked="${ydMangerSystemAdmin.admin_is_super eq 1 ? 'true' : 'false'}" />否
+          </label>         
+           </div>       
+        </div>
+     </div>
+     <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="button" id="btnSubmit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">
+
+//ajax提交表单
+$("#btnSubmit").click(function(){
+		var data = $("#updateForm").serializeArray();
+		var ydMangerSystemAdmin = {};
+	$.each(data, function(k, v) {
+		ydMangerSystemAdmin[ v["name"] ] = v["value"];
+	});
+		
+		$.ajax({
+			url: "/system/updateAdmin",
+			data: $("#updateForm").serialize(),
+			type: "post",
+			success: function(datas) {
+				if(datas.msg==true){
+					alert("修改成功");
+					location.reload();
+				}else{
+					alert("修改失败");
+				}
+			}
+		});
+	});	
+	
+</script>
+</body></html>

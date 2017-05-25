@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功城记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/city-cg.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+    <link rel="stylesheet" href="/css/progress.css"/>
+    <script type="text/javascript">localStorage.setItem('nvaNum',2);</script>
+</head>
+<body>
+<!--顶部导航-->
+   	<div th:include="public/hander"></div>
+   	
+<!--发包大厅-->
+<div class="hall-box">
+    <div class="hall">
+        <div class="title">发包大厅</div>
+            <table>
+                <tbody>
+                <tr class="type-one">
+                    <td><i>*</i>项目名称</td>
+                    <td>
+                        <input type="text" placeholder="请输入项目名称（必填）" class="taskName"/>
+                    </td>
+                </tr>
+                <tr class="type-one">
+                    <td>项目预算</td>
+                    <td>
+                        <input type="text" placeholder="可以价" class="price" style="width:164px;"/>&emsp;<span style="color:#999999;">元</span>
+                    </td>
+                </tr>
+                <tr class="type-two">
+                    <td>项目地点</td>
+                    <td>
+                        <div id="sjld" style="width:100%;position:relative;z-index:9999" class="clear">
+                            <div class="m_zlxg" id="shenfen">
+                                <p title="">选择省份</p>
+                                <div class="m_zlxg2">
+                                    <ul></ul>
+                                </div>
+                                <div class="sele-tj"></div>
+                            </div>
+
+                            <div class="m_zlxg" id="chengshi">
+
+                                <p title="">选择城市</p>
+
+                                <div class="m_zlxg2">
+
+                                    <ul></ul>
+
+                                </div>
+                                <div class="sele-tj"></div>
+                            </div>
+
+                            <div class="m_zlxg" id="quyu">
+
+                                <p title="">选择区域</p>
+
+                                <div class="m_zlxg2">
+
+                                    <ul></ul>
+
+                                </div>
+                                <div class="sele-tj"></div>
+                            </div>
+
+                            <input id="sfdq_num" type="hidden" value="" />
+
+                            <input id="csdq_num" type="hidden" value="" />
+                        	<!-- 省市值 -->
+                            <input id="sfdq_tj" type="hidden" class="taskAddrP" value="北京" />
+                        	<!-- 城市值 -->
+                            <input id="csdq_tj" type="hidden" class="taskAddrC" value="市辖区" />
+                        	<!-- 区域值 -->
+                            <input id="qydq_tj" type="hidden" class="taskAddrA" value="东城区" />
+							
+                        </div>
+                    </td>
+                </tr>
+                <tr class="type-two">
+                    <td>项目规模</td>
+                    <td>
+                        <select name="" id="guimo" class="item-ads taskSize"  th:with="dicts=${@serviceDictionaryData.$queryPScale()}" th:inline="text">
+                            <option th:each="dict,niter:${dicts}" th:value="${dict.dictdata_value}" >[[${dict.dictdata_value}]]</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="type-two">
+                    <td>截止时间</td>
+                    <td>
+                        <input id="yugu" type="text" class="laydate-icon date-input taskPtime"/>
+                    </td>
+                </tr>
+                <tr class="type-three">
+                    <td>项目类型</td>
+                    <td>
+                        <span class="">全部</span>
+                        <span th:each="type,niter:${@pageTaskType.$queryAll()}" th:text="${type.taskt_name}" th:value="${niter.index+1}" th:data="${type.taskt_id}" class="taskType"></span>
+                    </td>
+                </tr>
+                <tr class="type-four" th:with="labelss=${@pageLabel.$queryAll()}">
+                    <td>专业及任务类型</td>
+                    <td>
+                        <ul class="check1">
+                        	<li th:each="labels,niter:${labelss}" th:attr="data-val=${niter.index+1}" th:text="${labels.label_name}" th:class="${niter.index}==0?'now':''" th:data="${labels.label_id}"></li>
+                            <li class="more">更多<i>
+                            </i></li>
+                        </ul>
+                        <ul class="check1s">
+                            <li th:each="labels,niters:${labelss}" th:class="${niters.index+1}>1?'dis-none':''">
+                            <span data-val="1" th:data="0">全选</span>
+                            <span th:each="label,niter:${labels.labels}" th:attr="data-val=${niter.index+2}" th:text="${label.label_name}" th:data="${label.label_id}"></span>
+                            </li>
+                        </ul>
+                        <div class="yixuan">
+                            <span>已选&gt;</span>
+                            <!--<p><span>顾问服务-全选</span><i></i></p>-->
+                            <!--<p><span>幕墙设计-幕墙下单/...</span><i></i></p>-->
+                            <div class="psadd">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="type-five">
+                    <td>任务描述</td>
+                    <td>
+                        <textarea name="miaoshu" id="miaoshu" cols="30" rows="10" placeholder="字数控制在1000字以内" class="description"></textarea>
+                        <p><i>0</i>/1000</p>
+                    </td>
+                </tr>
+                <tr class="type-six">
+                    <td>工期要求</td>
+                    <td>
+                        <input type="text" placeholder="请输入工期需求 （如：3个月）" class="term"/>
+                    </td>
+                </tr>
+                <tr class="type-seven">
+                    <td>任务附件</td>
+                    <td>
+                        <ul class="chuanok">
+                            <!-- <li>
+                                <i></i>
+                                <p>松山湖北部体育公园任务书2016-8-19s.pptx</p>
+                                <span>删除</span>
+                            </li> -->
+                        </ul>
+                        <div class="chuan">
+                            <input type="file" id="files" name="files" onchange="uploadimg(this)"/>
+                            <i></i>
+                            <p>上传</p>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="xieyi">
+                <input type="checkbox" class="isOk"/>
+                <!--<div class="newinput">-->
+                    <!--<input type="text">-->
+                    <!--<i></i>-->
+                <!--</div>-->
+                <span>发包声明：同意 <a href="javascript:;">《功城记项目发布协议》</a></span>
+                <p>任务发布后会有客服人员联系您</p>
+            </div>
+            <div class="fabu">
+                <button type="button" class="button-ok">确认发布</button>
+                <a href="#"><i></i>返回</a>
+            </div>
+    </div>
+</div>
+<!--底部-->
+<div class="btmone-box btmtwo2">
+    <div class="btmone btmtwo2">
+        <div class="btmleft">
+            <img src="/images/erweima.jpg" alt=""/>
+            <div class="btmleft-ri">
+                <p class="p1">4006-123-011</p>
+                <p class="p2">联系电话：<i>400-123-011</i></p>
+                <p class="p2">电子邮箱：<i>gognchengji@163.com</i></p>
+            </div>
+        </div>
+        <div class="btmright">
+            <a href="#">关于我们</a>
+            <i>|</i>
+            <a href="#">平台介绍</a>
+            <i>|</i>
+            <a href="/consult/help">帮助中心</a>
+        </div>
+    </div>
+</div>
+<div class="btmtwo btmtwo2">
+    Copyright ©2016沪ICP备368825号 沪公网安备2553147号
+</div>
+
+
+<div class="zhezhao dis-none"></div>
+
+<!--协议-->
+<div class="yd-fabao-xieyi dis-none">
+    <div class="fabao-xieyi">
+        <div class="content">
+            <p class="title">协议</p>
+            <p class="content">
+                 若您已经注册为本网站用户，即表示您已充分阅读、理解并同意自己与本网站订立本协议，且您自愿受本协议的条款约束。本网站有权随时变更本协议并在本网站上予以公告。经修订的条款一经在本网站的公布后，立即自动生效。如您不同意相关变更，必须停止使用本网站。本协议内容包括协议正文及所有功城记网已经发布的各类规则。所有规则为本协议不可分割的一部分，与本协议正文具有同等法律效力。一旦您继续使用本网站，则表示您已接受并自愿遵守经修订后的条款。<br/>
+<br/>
+第一条　用户资格<br/>
+ <br/>
+1、只有符合下列条件之一的自然人或法人才能申请成为本网站用户，可以使用本网站的服务：<br/>
+<br/>
+　　A、年满十八岁，并具有民事权利能力和民事行为能力的自然人；<br/>
+<br/>
+　　B、无民事行为能力人或限制民事行为能力人应经过其监护人的同意；<br/>
+<br/>
+　　C、根据中国法律、法规、行政规章成立并合法存在的机关、企事业单位、社团组织和其他组织。无法人资格的单位或组织不当注册为本网站用户的，其与本网站之间的协议自始无效，本网站一经发现，有权立即终止对该用户的服务，并追究其使用本网站服务的一切法律责任。<br/>
+<br/>
+2、用户需要提供明确的联系地址和联系电话，并提供真实姓名或名称。<br/>
+<br/>
+3、本网站用户须承诺遵守法律法规、社会主义制度、国家利益、公民合法权益、公共秩序、社会道德风尚和信息真实性。<br/>　　
+<br/>
+第二条　用户的权利和义务<br/>
+<br/>
+1、用户有权根据本协议及本网站发布的相关规则，利用本网站发布需求信息、查询用户信息、参与需求投标，在本网站社区及相关产品发布信息，参加本网站的有关活动及有权享受本网站提供的其他有关资讯及信息服务。<br/>
+<br/>
+2、用户须自行负责自己的用户账号和密码，且须对在用户账号密码下发生的所有活动（包括但不限于发布需求信息、网上点击同意各类协议、规则、参与需求投标等）承担责任。用户有权根据需要更改登录和账户提现密码。因用户的过错导致的任何损失由用户自行承担，该过错包括但不限于：不按照交易提示操作，未及时进行交易操作，遗忘或泄漏密码，密码被他人破解，用户使用的计算机被他人侵入。<br/>
+<br/>
+3、用户应当向本网站提供真实准确的注册信息，包括但不限于真实姓名、身份证号、联系电话、地址、邮政编码等。保证本网站可以通过上述联系方式与自己进行联系。同时，用户也应当在相关资料实际变更时及时更新有关注册资料。<br/>
+<br/>
+4、用户在本网站注册的账号名称，不得有下列情形：<br/>
+<br/>
+（1）违反宪法或法律法规规定的；<br/>
+<br/>
+（2）危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的；<br/>
+<br/>
+（3）损害国家荣誉和利益的，损害公共利益的；<br/>
+<br/>
+（4）煽动民族仇恨、民族歧视，破坏民族团结的；<br/>
+<br/>
+（5）破坏国家宗教政策，宣扬邪教和封建迷信的；<br/>
+<br/>
+（6）散布谣言，扰乱社会秩序，破坏社会稳定的；<br/>
+<br/>
+（7）散布淫秽、色情、赌博、暴力、凶杀、恐怖或者教唆犯罪的；<br/>
+<br/>
+（8）侮辱或者诽谤他人，侵害他人合法权益的；<br/>
+<br/>
+（9）含有法律、行政法规禁止的其他内容的。<br/>
+<br/> 
+5、用户不得以虚假信息骗取账号名称注册，或其账号头像、简介等注册信息存在违法和不良信息。<br/>
+<br/>
+6、用户不得冒用、关联机构或社会名人注册账号名称。<br/>
+<br/>
+7、用户不得以任何形式擅自转让或授权他人使用自己在本网站的用户帐号（实名认证通过后，不能进行变更）。<br/>
+<br/>
+8、用户有义务确保在本网站上发布的需求信息真实、准确，无误导性。<br/>　
+<br/>
+9、用户在本网站上发布需求和在社区内及相关产品发布信息，不得违反国家法律、法规、行政规章的规定，不得侵犯他人知识产权或其他合法权益的信息，不得违背社会公共利益或公共道德，不得违反功城记网的相关规定。<br/>
+<br/>
+10、用户在本网站交易中应当遵守诚实信用原则，不得以干预或操纵发布需求等不正当竞争方式扰乱网上交易秩序，不得从事与网上交易无关的不当行为。<br/>
+<br/>
+11、用户不应采取不正当手段（包括但不限于虚假需求、互换好评等方式）提高自身或他人信用度，或采用不正当手段恶意评价其他用户，降低其他用户信用度。<br/>
+<br/>
+12、用户不得违反《银行卡业务管理办法》使用银行卡，或利用信用卡套取现金（以下简称套现）；用户不得盗刷他人银行卡；用户不得明知或应知他人可能盗刷银行卡而与对方进行交易。<br/>
+<br/>
+13、用户承诺自己在使用本网站实施的所有行为遵守法律、法规、行政规章和本网站的相关规定以及各种社会公共利益或公共道德。如有违反导致任何法律后果的发生，用户将以自己的名义独立承担相应的法律责任。<br/>
+<br/>
+14、用户在本网站网上交易过程中如与其他用户因交易产生纠纷，可以请求本网站从中予以协调处理。用户如发现其他用户有违法或违反本协议的行为，可以向本网站举报。<br/>
+<br/>
+15、除功城记网另有规定外，用户应当自行承担因交易产生的相关费用，并依法纳税。<br/>
+<br/>
+16、未经本网站书面允许，用户不得将本网站的任何资料以及在交易平台上所展示的任何信息作商业性利用（包括但不限于以复制、修改、翻译等形式制作衍生作品、分发或公开展示）。<br/>　
+<br/>
+17、用户不得使用以下方式登录网站或破坏网站所提供的服务：<br/>
+<br/>
+　　A、以任何机器人软件、蜘蛛软件、爬虫软件、刷屏软件或其它自动方式访问或登录本网站；<br/>
+<br/>
+　　B、通过任何方式对本公司内部结构造成或可能造成不合理或不合比例的重大负荷的行为；<br/>
+<br/>
+　　C、通过任何方式干扰或试图干扰网站的正常工作或网站上进行的任何活动。<br/>
+<br/>
+18、用户有权在同意本网站相关规则的前提下享受消费者保障服务（包括但不限于诚信保证、保证完成、保证原创、保证提供源码、保证推广效果、三个月维护、免费修改等）。<br/>
+<br/>                 
+            </p>
+        </div>
+        <div class="guanbi"></div>
+        <div class="button">
+            <button type="button">关闭</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal">
+    <div class="modal-content">
+        <p class="modalms">文件上传中，请稍等.......</p>
+        <div class="progress progress-striped active">
+            <div class="progress-bar progress-bar-warning">
+            </div>
+        </div>
+        <div id="curProgress"></div>
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+<script src="/js/city-cgjs/address.js"></script>
+<script src="/js/chajian/jquery.select.js"></script>
+<script src="/js/bg/ajaxPost.js"></script>
+<script>
+    $(".type-two select").select();
+    $("#sjld").sjld("#shenfen","#chengshi","#quyu");
+    $(".type-two div.item-ads").each(function (i,obj) {
+        $(obj).css("zIndex",999-i);
+    });
+</script>
+<script src="/laydate/laydate.js"></script>
+<script src="/js/list/fabao.js"></script>
+<script src="/js/list/Popup.js"></script>
+
+<script type="text/javascript">
+var upLoadNum = 0;
+var _fileIds = "";
+</script>
+<script src="/js/progress.js"></script>
+<script type="text/javascript" src="/js/upload/functions.js"></script>
+<script type="text/javascript" src="/js/upload/plupload.full.min.js"></script>
+<script type="text/javascript" src="/js/upload/upload.js"></script>
+<script type="text/javascript" src="/js/bg/fileUpload.js"></script>
+
+<script>
+    laydate({
+     elem: '#yugu', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+     event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+     });
+</script>
+</html>

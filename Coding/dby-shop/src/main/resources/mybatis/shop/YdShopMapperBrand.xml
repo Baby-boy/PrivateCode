@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperBrand">
+
+	
+	<select id="brandIndex" resultType="java.util.HashMap">
+		SELECT
+			brand_id, brand_name, brand_pic, brand_class
+		FROM
+			yd_brand
+		WHERE
+			brand_recommend = 1
+		ORDER BY
+			brand_sort ASC
+		LIMIT 16
+	</select>
+
+	
+	<select id="getTypeBrand" resultType="java.util.HashMap">
+		SELECT
+			brand_id, brand_name
+		FROM
+			yd_brand
+		WHERE
+			brand_id
+			IN ( SELECT brand_id FROM yd_type_brand WHERE type_id = #{type_id} )
+	</select>
+	
+	
+
+	<select id="get_many" resultMap="YdShopMapperBrand_ResultMap_get_many">
+		SELECT
+			brand_id,
+			brand_logo,
+			brand_name
+		FROM
+			yd_brand
+		ORDER BY
+			brand_sort DESC
+		LIMIT 20;
+	</select>
+	
+	<resultMap id="YdShopMapperBrand_ResultMap_get_many" type="java.util.Map">
+		<id property="id" column="brand_id" />
+		<result property="logo" column="brand_logo" />
+		<result property="name" column="brand_name" />
+	</resultMap>
+</mapper>

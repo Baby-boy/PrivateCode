@@ -1,0 +1,52 @@
+<div th:fragment="main" th:remove="tag">
+	<yd:ajax key="storeNav" value="get.store_nav" />
+	<yd:ajax key="storeNavDestroy" value="get.store_nav_destroy" />
+	<yd:ajax key="storeNavEdit" value="get.store_nav_edit" />
+	<yd:ajax key="storeNavSetShow" value="get.store_nav_setshow" />
+	
+	<div class="d-right nav-page">
+		<ul class="btn-page-top">
+			<li class="active">导航列表</li>
+			<li yd:ajax="onclick,get.navCreate" class="active flr">新增导航</li>
+		</ul>
+		<div class="d-all pop">
+			<table class="list-table">
+				<thead>
+					<tr>
+						<th class="w80">排序</th>
+						<th class="w600">导航名称</th>
+						<th class="w120">是否显示</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item:${data}" th:inline="text">
+						<td>[[${item.navSort}]]</td>
+						<td>[[${item.navTitle}]]</td>
+						<td>
+							<isShow th:if="${item.isShow == 1}" th:remove="tag">
+								<a href="javascript:void(0)" th:attr="data-id=${item.navId}, data-is-show=${item.isShow}" onclick="storeNavSetShow(this)">显示</a>
+							</isShow>
+							<isShow th:if="${item.isShow != 1}" th:remove="tag">
+								<a href="javascript:void(0)" th:attr="data-id=${item.navId}, data-is-show=${item.isShow}" onclick="storeNavSetShow(this)">隐藏</a>
+							</isShow>
+						</td>
+						<td class="btn-t-o">
+							<span><a href="javascript:void(0)" th:attr="data-id=${item.navId}" onclick="storeNavEdit(this)" >编辑</a></span>
+							<span><a href="javascript:void(0)" class="del-alert" th:attr="data-id=${item.navId}" data-func="storeNavDestroy">删除</a></span>
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="4"></td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+	
+	
+	
+	

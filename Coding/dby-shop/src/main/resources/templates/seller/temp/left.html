@@ -1,0 +1,61 @@
+<div th:fragment="left">
+	<yd:ajax key="storeService" value="get.store_service" />
+	<yd:ajax key="goodsDepot" value="get.goods_depot" />
+	<yd:ajax key="goodsIllegal" value="get.goods_illegal" />
+	<yd:ajax key="goodsIndex" value="get.goods_index" />
+	<yd:ajax key="storeCouponIndex" value="get.store_coupon" />
+
+	<div class="g-left">
+		<h1 yd:ajax="onclick,get.goods_create" style="cursor: pointer">发布宝贝</h1>
+		<ul class="g-shop clear">
+			<h2>商品</h2>
+			<li><span></span><a href="javascript:;" id="goodsIndex" data-f1="0" data-f2="1" onclick="goodsIndex($(this))">出售中的宝贝</a></li>
+			<li><span></span><a href="javascript:goodsDepot([this, 1]);" id="goodsDepot">仓库中的宝贝</a></li>
+			<li><span></span><a href="javascript:goodsIllegal([this, 1]);">违规下架的宝贝</a></li>
+			<!--<li><span></span><a href="javascript:;" yd:ajax="onclick,get.goods_pic">图片空间</a></li>-->
+		</ul>
+		<ul class="g-shop g-account clear">
+			<h2>订单物流</h2>
+			<li><span></span><a href="javascript:;" id="storeOrderIndex" yd:ajax="onclick,get.order_index">订单管理</a></li>
+			<li><span></span><a href="javascript:;" yd:ajax="onclick,get.store_address">发货地址</a></li>
+			<!-- <li><span></span><a href="javascript:;" yd:ajax="onclick,get.rreight_template">运费模板</a></li> -->
+			<!-- <li><span></span><a href="javascript:;" yd:ajax="onclick,get.comment">评价管理</a></li> -->
+		</ul>
+		<ul class="g-shop g-account clear">
+			<h2>促销</h2>
+			<li><span></span><a href="/seller/seckill">秒杀管理</a></li>
+			<li><span></span><a href="javascript:;" yd:ajax="onclick,get.groupBuyingIndex">团购管理</a></li>
+		</ul>
+		<ul class="g-shop g-account clear">
+			<h2>店铺</h2>
+			<li><span></span><a th:href="@{/store/}+${session.store_id}" target="_blank">店铺首页</a></li>
+			<li><span></span><a href="javascript:;" yd:ajax="onclick,get.store_setting">店铺设置</a></li>
+			<li><span></span><a href="javascript:;" yd:ajax="onclick,get.store_nav">店铺导航</a></li>
+			<li><span></span><a id="storeClassify" href="javascript:;" yd:ajax="onclick,get.store_classify">店铺分类</a></li>
+			<li><span></span><a href="javascript:;" yd:ajax="onclick,get.store_link">友情链接</a></li>
+			<li><span></span><a href="javascript:;" onclick="storeCouponIndex(this)">优惠券</a></li>
+		</ul>
+		<ul class="g-shop g-account clear">
+			<h2>售后服务</h2>
+			<!-- <li><span></span><a href="javascript:;" data-title="换货记录" data-type="3" onclick="storeService([this, 1])">换货记录</a></li>
+			<li><span></span><a href="javascript:;" data-title="维修记录" data-type="4" onclick="storeService([this, 1])">维修记录</a></li> -->
+			<li><span></span><a id="storeRefund" href="javascript:;" data-title="退款记录" data-type="1" onclick="storeService([$(this), 1])">退款记录</a></li>
+			<li><span></span><a href="javascript:;" data-title="退货记录" data-type="2" onclick="storeService([$(this), 1])">退货记录</a></li>
+		</ul>
+		<!-- <ul class="g-shop g-account clear">
+			<h2>统计结算</h2>
+			<li><span></span><a href="javascript:;" yd:ajax="onclick,get.information">申请结算</a></li>
+			<li><span></span><a href="javascript:;" yd:ajax="onclick,get.security">结算记录</a></li>
+			<li><span></span><a href="javascript:;" yd:ajax="onclick,get.security">店铺统计</a></li>
+			<li><span></span><a href="javascript:;" yd:ajax="onclick,get.security">商品统计</a></li>
+			<li><span></span><a href="javascript:;" yd:ajax="onclick,get.security">操作日志</a></li>
+		</ul> -->
+	</div>
+	<!-- <script type="text/javascript" th:src="@{/assets/auth.js}"></script> -->
+	<script type="text/javascript" th:src="@{/assets/js/jquery.ajax.js}"></script>
+	<script type="text/javascript">
+		/* auth0_event_refresh(); */
+	</script>
+</div>
+
+

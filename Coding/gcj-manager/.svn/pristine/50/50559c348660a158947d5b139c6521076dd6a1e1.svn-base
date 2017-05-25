@@ -1,0 +1,72 @@
+
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功城记</title>
+</head>
+<body>
+<form action="/page/file/uploadimg" method="post" enctype="multipart/form-data">
+	<input type="file" value="上传文件" name="m"/>
+	<input type="submit" value="上传"/>
+</form>
+<input type="button" value="上传" onclick="uploadimg()"/>
+<input type="text" class="testValue"/>
+<input type="button" value="下载" onclick="send()"/>
+<script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/js/bg/Base64.js"></script>
+<script type="text/javascript">
+
+//需要Base64见：http://www.webtoolkit.info/javascript-base64.html
+
+function make_basic_auth(user, password) {
+  var tok = user + ':' + password;
+  var hash = Base64.encode(tok);
+  return "Basic " + hash;
+} 
+
+var auth = make_basic_auth("117182798@qq.com","av8zvxxvpthag9u2");
+var url = "https://dav.jianguoyun.com/dav/gcj/6364395083.txt";
+
+function send(){
+	$(".testValue").val(auth);
+	// 原始JavaScript
+	var xml = new XMLHttpRequest();
+	xml.open("GET",url);
+	xml.setRequestHeader("Authorization", auth);
+	xml.send();
+}
+
+
+/*
+
+
+$(".testValue").val(auth);
+
+// 原始JavaScript
+var xml = new XMLHttpRequest();
+xml.open("GET",url,true);
+xml.setRequestHeader("Authorization", auth);
+xml.send(null);
+
+// ExtJS
+ Ext.Ajax.request({
+    url : url,
+    method : 'GET',
+    headers : { Authorization : auth }
+});
+
+
+// jQuery
+$.ajax({
+    url : url,
+    method : 'GET',
+    beforeSend : function(req) {
+        req.setRequestHeader('Authorization', auth);
+    }
+});
+
+*/
+</script>
+</body>
+</html>

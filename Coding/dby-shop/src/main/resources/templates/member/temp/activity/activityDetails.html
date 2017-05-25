@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+		<style type="text/css">
+			.pagination {
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body class="activity-detail-page" th:style="@{background: url}+@{'('}+${@_url.goods()}+${ydActivity.activity_pc_bg}+@{') center 178px no-repeat'}+@{;background-color: }+${ydActivity.activity_bg_color}" th:with="searchkeys=${@_dict.many('web_search_key')},
+	navs=${@_nav.getByType('0')},
+	_goodsUrl=${@_url.goods()}
+	">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: home('')"></div>
+					
+					<div th:include="shop/template/header :: nav(circulation)"></div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		
+		<!-- 中间内容-->
+		<div id="container" th:style="@{margin: 0px auto;}">
+			<div class="search-page">
+				 <div class="pro-screen">
+				</div>  
+				
+				<!-- 列表 -->
+				<div class="pro-list">
+					<ul th:inline="text">
+						<li th:each="item:${ydSellerGoodsList}">
+							<a target="_blank" th:href="@{/g/goods/}+${item.depot_id}">
+								<div class="img"><img th:src="${_goodsUrl}+${item.goods_cover}+@{?x-oss-process=image/resize,m_pad,h_246,w_246}" /></div>
+								<div class="title" th:text="${item.goods_name}"></div>
+								<div class="price" th:text="'￥'+${item.goods_price}"></div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="pagination"></div>
+		</div>
+		
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		
+		<script type="text/javascript" th:src="@{/assets/js/jquery.page.link.js}"></script>
+		
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			$(function(){
+				// 分页
+				pagination(".pagination", [[${data.totalPage}]], [[${data.p}]], "newsLists");
+				
+			});
+			/*]]>*/
+		</script>
+		
+		
+	</body>
+</html>

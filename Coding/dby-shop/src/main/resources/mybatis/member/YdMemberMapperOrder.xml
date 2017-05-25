@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperOrder">
+
+	<sql id="field">
+		yd_order.order_id, yd_order.order_sn, yd_order.pay_sn, yd_order.store_id,
+		yd_order.store_name, yd_order.buyer_id, yd_order.buyer_name, yd_order.payment_code,
+		yd_order.payment_time, yd_order.finnshed_time, yd_order.type, yd_order.state_service,
+		yd_order.processing_status, yd_order.state, yd_order.coupon_id, yd_order.coupon_price,
+		yd_order.goods_price, yd_order.total_price, yd_order.refund_price,
+		yd_order.transport_price, yd_order.transport_fid, yd_order.transport_address,
+		yd_order.invoice_type, yd_order.invoice_no, yd_order.created_at,
+		yd_order.cancel_reason, yd_order.updated_at, yd_order.receipt_address,
+		yd_order.integral, yd_store.store_telephone, yd_store.store_mobile, yd_order.shipping_time,
+		yd_order.order_message, yd_user.user_truename, yd_user.user_pca, yd_user.user_email,
+		yd_order.shipping_address, yd_order.receipt_mobile, yd_order.receipt_name, yd_order.receipt_address,
+		yd_order.shipping_code, yd_order.logis_code, yd_order.receipt_name
+	</sql>
+	
+	<select id="index" resultMap="YdWebMapperOrderList">
+		SELECT
+			t.order_id,
+			t.order_sn,
+			t.buyer_id,
+			t.buyer_name,
+			t.store_id,
+			t.store_name,
+			t.payment_code,
+			t.payment_time,
+			t.finnshed_time,
+			t.type,
+			t.state_service,
+			t.state,
+			t.total_price,
+			t.coupon_price,
+			t.goods_price,
+			t.refund_price,
+			t.transport_price,
+			t.transport_fid,
+			t.created_at,
+			yd_order_goods.og_id,
+			yd_order_goods.goods_id,
+			yd_order_goods.goods_name,
+			yd_order_goods.og_state,
+			yd_order_goods.goods_num,
+			yd_order_goods.goods_price as goods_goods_price,
+			yd_order_goods.goods_cover,
+			yd_order_goods.goods_pay_price
+		FROM
+		(
+			SELECT
+				order_id,
+				order_sn,
+				buyer_id,
+				buyer_name,
+				store_id,
+				store_name,
+				payment_code,
+				payment_time,
+				finnshed_time,
+				type,
+				state_service,
+				state,
+				total_price,
+				coupon_price,
+				goods_price,
+				refund_price,
+				transport_price,
+				transport_fid,
+				created_at
+			FROM yd_order
+			<trim prefix="where" suffixOverrides="and">
+				<if test="state > 0">
+					yd_order.state = #{state} and 
+		  		</if>
+		  		<if test="order_sn != null and order_sn != ''">
+		  		 	yd_order.order_sn like '%${order_sn}%' and
+		  		</if>
+		  		<if test="type > 0">
+					yd_order.type = #{type} and 
+		  		</if>
+		  		buyer_id = #{user_id}
+			</trim>
+			ORDER BY order_id DESC
+			LIMIT #{to}, #{perPage}
+		) t 
+		LEFT OUTER JOIN yd_order_goods
+		ON
+		t.order_id = yd_order_goods.order_id
+	</select>
+	
+	<select id="total" resultType="java.lang.Integer">
+		SELECT
+			COUNT(order_id)
+		FROM
+			yd_order
+		<trim prefix="where" suffixOverrides="and">
+			<if test="state > 0">
+				state = #{state} and 
+	  		</if>
+	  		<if test="order_sn != null and order_sn != ''">
+	  		 	order_sn like '%${order_sn}%' and
+	  		</if>
+	  		<if test="type > 0">
+				type = #{type} and 
+	  		</if>
+	  		buyer_id = #{user_id}
+		</trim>
+	</select>
+	
+	<select id="totalService" resultType="java.lang.Integer" >
+		select count(refund_id) from yd_order_refund 
+		<include refid="WhereRefund"></include>
+	</select>
+	
+	<sql id="WhereRefund" >
+		<trim prefix="where" suffixOverrides="and" >
+			<if test="state_service == 2 ">
+				<!-- 退款 -->
+				 refund_type = 1 and buyer_id = #{user_id}
+			</if>
+			<if test="state_service == 1 ">
+				<!-- 退货 -->
+				 refund_type = 2 and buyer_id = #{user_id}
+			</if>
+			<if test="state_service == 3 ">
+				<!-- 退货 -->
+				 refund_type = 3 and buyer_id = #{user_id}
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 查询退货 -->
+	<select id="saleService" resultMap="YdWebMapperOrderRefundList" >
+		select * from yd_order_refund
+		<include refid="WhereRefund"></include>
+		limit #{to},#{perPage}		
+	</select>
+	
+	<resultMap type="java.util.HashMap" id="YdWebMapperOrderRefundList">
+		<id property="refuundId" column="refund_id" />
+		<result property="orderId" column="order_id"/>
+		<result property="orderSn" column="order_sn"/>
+		<result property="refundSn" column="refund_sn"/>
+		<result property="storeId" column="store_id"/>
+		<result property="storeName" column="store_name"/>
+		<result property="buyerId" column="buyer_id"/>
+		<result property="buyerName" column="buyer_name"/>
+		<result property="goodsId" column="goods_id"/>
+		<result property="orderGoodsId" column="order_goods_id"/>
+		<result property="goodsName" column="goods_name"/>
+		<result property="goodsNum" column="goods_num"/>
+		<result property="refundAmount" column="refund_amount"/>
+		<result property="goodsImage" column="goods_image"/>
+		<result property="orderGoodsType" column="order_goods_type"/>
+		<result property="refundType" column="refund_type"/>
+		<result property="sellerState" column="seller_state"/>
+		<result property="refundState" column="refund_state"/>
+		<result property="returnType" column="return_type"/>
+		<result property="orderLock" column="order_lock"/>
+		<result property="goodState" column="goods_state"/>
+		<result property="addTime" column="add_time"/>
+		<result property="sellerTime" column="seller_time"/>
+		<result property="adminTime" column="admin_time"/>
+		<result property="reasonId" column="reason_id"/>
+		<result property="reasonInfo" column="reason_info"/>
+		<result property="picInfo" column="pic_info"/>
+		<result property="buyerMessage" column="buyer_message"/>
+		<result property="sellerMessage" column="seller_message"/>
+		<result property="adminMadessage" column="admin_message"/>
+		<result property="expressId" column="express_id"/>
+		<result property="invoiceNo" column="invoice_no"/>
+		<result property="shipTime" column="ship_time"/>
+		<result property="delayTime" column="delay_time"/>
+		<result property="receiveTime" column="receive_time"/>
+		<result property="receiveMessage" column="receive_message"/>
+		<result property="commisRate" column="commis_rate"/>
+	</resultMap>
+	
+	<resultMap id="YdWebMapperOrderList" type="java.util.HashMap">
+		<id property="orderId" column="order_id" />
+		<result property="orderSn" column="order_sn"/>
+		<result property="buyerId" column="buyer_id"/>
+		<result property="buyerName" column="buyer_name"/>
+		<result property="storeId" column="store_id"/>
+		<result property="storeName" column="store_name"/>
+		<result property="paymentTime" column="payment_time"/>
+		<result property="finnshedTime" column="finnshed_time"/>
+		<result property="type" column="type"/>
+		<result property="stateService" column="state_service"/>
+		<result property="state" column="state"/>
+		<result property="totalPrice" column="total_price"/>
+		<result property="couponPrice" column="coupon_price"/>
+		<result property="goodsPrice" column="goods_price"/>
+		<result property="refundPrice" column="refund_price"/>
+		<result property="transportPrice" column="transport_price"/>
+		<result property="transportFid" column="transport_fid"/>
+		<result property="createdAt" column="created_at"/>
+		<result property="receivingTime" column="receiving_time"/>
+		<collection property="goods" javaType="java.util.ArrayList" ofType="java.util.HashMap">
+			<id property="orderId" column="goods_id" />
+			<result property="goodsId" column="goods_id"/>
+			<result property="ogId" column="og_id"/>
+			<result property="goodsName" column="goods_name"/>
+			<result property="ogState" column="og_state"/>
+			<result property="goodsNum" column="goods_num"/>
+			<result property="goodsGoodsPrice" column="goods_goods_price"/>
+			<result property="goodsCover" column="goods_cover"/>
+			<result property="goodsPayPrice" column="goods_pay_price"/>
+		</collection>
+	</resultMap>
+	
+	
+	<!-- 修改订单状态 -->
+	<update id="editOrderState">
+		UPDATE
+			yd_order
+		<set>
+			state = 9,
+			<if test="cancel_reason != null">cancel_reason = #{cancel_reason},</if>
+ 		</set>
+		WHERE
+			order_id = #{order_id}
+	</update>
+	
+	<!-- 修改订单状态 已完成 -->
+	<update id="editOrderStateByOrderId">
+		UPDATE
+			yd_order
+		<set>
+			state = 4,
+			receiving_time=#{receiving_time}
+ 		</set>
+		WHERE
+			order_id = #{order_id}
+	</update>
+	
+	<!-- 评价成功之后 修改商品的 -->
+	<update id="updateGoodsAssessNum">
+		update yd_goods
+		<set>
+			<trim>
+				goods_total_comment = #{goods_total_comment}
+			</trim>
+		</set>
+		where goods_id = #{goods_id}
+	</update>
+	
+	
+	<!-- 根据仓库id查到当前商品id -->
+	<select id="queryGoodsIdBuyDepotId" resultType="java.util.HashMap" >
+		select goods_id from yd_depot
+		where depot_id = #{depot_id}		
+	</select>
+	
+	<!-- 查询当前商品的评价总数 -->
+	<select id="queryGoodsTotalComment" resultType="java.util.HashMap" >
+		select goods_total_comment from yd_goods
+		where goods_id = #{goods_id}
+	</select>
+	
+	<select id="info" resultType="java.util.HashMap">
+		SELECT
+			<include refid="field"></include>
+		FROM
+			yd_order
+		LEFT JOIN
+			yd_store
+		ON
+			yd_order.store_id = yd_store.store_id
+		LEFT JOIN
+			yd_user
+		ON
+			yd_store.user_id = yd_user.user_id
+		WHERE
+			yd_order.buyer_id = #{user_id} AND yd_order.order_id = #{order_id}
+		LIMIT 1
+	</select>
+	
+	
+	<!-- 订单商品 -->
+	<select id="orderGoods" resultType="com.yd.dby.b.shop.entity.YdOrderGoods">
+		SELECT
+			og_id, order_id, goods_id, goods_name, og_state, goods_num, goods_price,
+			goods_pay_price, discount_price, store_id, buyer_id, goods_summary, goods_cover,
+			goods_original_price, og_num, og_return_state, og_price, created_at
+		FROM
+			yd_order_goods
+		WHERE
+			order_id = #{order_id}
+	</select>
+	
+	
+	<!-- 订单商品 -->
+	<select id="orderGoodsMap" resultType="java.util.HashMap">
+		SELECT
+			og_id, order_id, goods_id, goods_name, og_state, goods_num, goods_price,
+			goods_pay_price, discount_price, store_id, buyer_id, goods_summary, goods_cover,
+			goods_original_price, og_num, og_return_state, og_price, created_at
+		FROM
+			yd_order_goods
+		WHERE
+			order_id = #{order_id}
+	</select>
+	
+	
+	<!-- 获取所有订单正常商品 -->
+	<select id="orderGoodsNormal" resultType="com.yd.dby.b.shop.entity.YdOrderGoods">
+		SELECT
+			og_id, order_id, goods_id, goods_name, og_state, goods_num, goods_price,
+			goods_pay_price, discount_price, store_id, buyer_id, goods_summary, goods_cover,
+			goods_original_price, og_num, og_return_state, og_price, created_at
+		FROM
+			yd_order_goods
+		WHERE
+			order_id = #{order_id} AND og_state = 1
+	</select>
+	
+	
+	<!-- 获取所有订单退款-退货商品 -->
+	<select id="orderGoodsRefund" resultType="com.yd.dby.b.shop.entity.YdOrderGoods">
+		SELECT
+			og_id, order_id, goods_id, goods_name, og_state, goods_num, goods_price,
+			goods_pay_price, discount_price, store_id, buyer_id, goods_summary, goods_cover,
+			goods_original_price, og_num, og_return_state, og_price, created_at, refund_num
+		FROM
+			yd_order_goods
+		WHERE
+			order_id = #{orderId} AND ((og_state <![CDATA[ > ]]> 1) OR ( refund_num <![CDATA[ > ]]> 0 ))
+	</select>
+	
+	
+	<select id="queryOrderInfomationByOrderSn"  resultType="com.yd.dby.b.shop.entity.YdOrder" >
+		SELECT yo.store_name,yog.*,yst.store_logo AS  storeLogo FROM yd_order yo
+		LEFT JOIN yd_order_goods yog ON yo.order_id = yog.order_id 
+		LEFT JOIN yd_store yst ON yo.store_id = yst.store_id
+ 		WHERE order_sn = #{orderSn}
+ 		
+ 		
+	</select>
+	
+	<select id="queryOrderGoodsByOrderId" resultType="com.yd.dby.b.shop.entity.YdOrderGoods" >
+		SELECT * FROM yd_order_goods 
+		WHERE order_id = #{order_id}
+	</select>
+	
+	<!-- 查询订单的收货时间 -->
+	<select id="queryReceivingTimeByOrderId" resultType="com.yd.dby.b.shop.entity.YdOrder" >
+		select receiving_time from yd_order
+		where order_id = #{order_id}
+	</select>
+	
+	
+	<update id="update">
+		update yd_order
+		<trim prefix="set" suffixOverrides=",">
+			<if test="state != null">state = #{state},</if>
+ 		</trim>
+		where order_id = #{order_id}
+	</update>
+	
+	
+	<update id="updateOrderState">
+		update yd_order
+		<set>
+			<trim>
+				state = 6,
+				evaluation_time = #{evaluation_time}
+			</trim>
+		</set>
+		where order_id = #{order_id}
+	</update>
+	
+	
+	<insert id="addComment" parameterType="com.yd.dby.c.member.entity.YdComment" >
+		insert into yd_comment(user_id,order_id,goods_id,comment_grade,comment_score,comment_content,comment_pics,comment_is_pic,comment_total_like,comment_total_reply,comment_created_time,comment_buy_time,comment_is_name )
+		value(#{user_id},#{order_id},#{goods_id},#{comment_grade},#{comment_score},#{comment_content},#{comment_pics},#{comment_is_pic},0,0,#{comment_created_time},#{comment_buy_time},#{comment_is_name})			
+	</insert>
+	
+	
+	<!-- 获取单条订单商品信息 -->
+	<select id="findByOrderGoods" resultType="com.yd.dby.b.shop.entity.YdOrderGoods">
+		SELECT
+			og_id, goods_id, goods_name, goods_num, goods_price, goods_pay_price, discount_price,
+			store_id, goods_cover
+		FROM
+			yd_order_goods
+		WHERE
+			og_id = #{orderGoodsId}
+	</select>
+	
+
+	<!-- 退货-退款 -（修改全部订单商品状态） -->
+	<update id="updateOrderGoodsStateAll">
+		UPDATE
+			yd_order_goods
+		SET
+			og_state = #{ogState},
+			refund_num = goods_num
+		WHERE
+			order_id = #{orderId}
+	</update>
+	
+	
+	<!-- 退货-退款 -（修改单个订单商品状态） -->
+	<update id="updateOrderGoodsState">
+		UPDATE
+			yd_order_goods
+		<trim prefix="set" suffixOverrides=",">
+			<if test="ogState != null">og_state = #{ogState},</if>
+			<if test="reasonNum != null">refund_num = #{reasonNum},</if>
+ 		</trim>
+		WHERE
+			og_id = #{ogId}
+	</update>
+
+
+	<!-- 删除订单  -->
+	<delete id="delete">
+		DELETE yd_order, yd_order_goods FROM
+			yd_order
+		LEFT JOIN
+			yd_order_goods
+		ON
+			yd_order.order_id = yd_order_goods.order_id
+		WHERE
+			yd_order.order_id = #{orderId}
+	</delete>
+</mapper>

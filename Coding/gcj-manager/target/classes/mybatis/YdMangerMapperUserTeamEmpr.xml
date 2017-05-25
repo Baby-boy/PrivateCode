@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperUserTeamEmpr">
+	<select id="$queryAllByTeamId" resultType="com.yd.gcj.entity.YdMangerUserTeamEmpr">
+		select * from yd_team_empr where empr_tmid = #{teamId}
+	</select>
+	
+	<select id="$queryAllByUserId" resultType="com.yd.gcj.entity.YdMangerUserTeamEmpr">
+		select * from yd_team_empr 
+		where 
+		empr_tmid = (select team_id from yd_user_team where team_uid = #{userId})
+	</select>
+	
+	<select id="$queryByEmprId">
+		select * from yd_team_empr
+		where
+		empr_id = #{emprId}
+	</select>
+	
+	<select id="$queryCountByTeamId">
+		select count(*) from yd_team_empr
+		where empr_tmid = #{teamId}
+	</select>
+	
+	<select id="$queryCountByUserId">
+		select count(*) from yd_team_empr
+		where empr_tmid = (select team_id from yd_user_team where team_uid = #{userId})
+	</select>
+	
+	<insert id="insert">
+		insert into yd_team_empr (empr_tmid,empr_name,empr_phone)
+		values
+		<foreach  collection="emprs" item="empr" index="index"  separator=",">
+			(#{empr.empr_tmid},#{empr.empr_name},#{empr.empr_phone})
+		</foreach>
+	</insert>
+	
+	<delete id="deleteByEmprId">
+		delete from yd_team_empr
+		where empr_id = #{emprId}
+	</delete>
+	
+	<delete id="deleteByTeamId">
+		delete from yd_team_empr
+		where empr_tmid = #{teamId}
+	</delete>
+	
+	<delete id="$deleteByUserId">
+		delete from yd_team_empr
+		where empr_tmid = (select team_id from yd_user_team where team_uid = #{userId})
+	</delete>
+	
+</mapper>
+

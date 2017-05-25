@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperTaskActive">
+	
+	<select id="$queryByTid" resultType="com.yd.gcj.entity.vo.YdMangerTaskActiveVo">
+		SELECT 
+			taska_id,taska_tid,taska_auid,taska_buid,taska_contents,taska_group,taska_create_time
+			,user.`user_nickname` AS nickname,user.`user_ename` AS ename,user.`user_type` AS `type`
+		FROM 
+			yd_task_active active
+			LEFT JOIN yd_user USER ON active.`taska_auid` = user.`user_id`
+		where 
+			taska_tid = #{taskId}
+			ORDER BY taska_group,taska_create_time
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerTaskActive">
+		CALL procedure_task_active(#{taska_tid},#{taska_auid},#{taska_buid},#{taska_contents},#{taska_group},#{taska_create_time})
+	</insert>
+	
+	<delete id="$delete" parameterType="java.lang.Integer">
+		delete from yd_taska
+		where taska_id = #{taska_id}
+	</delete>
+	
+</mapper>
+

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperBanner">
+	
+	<select id="$queryAll" resultType="com.yd.gcj.entity.YdMangerBanner">
+		select 
+			banner_id,banner_title,banner_subtitle,banner_type,banner_jumpurl,banner_imgsrc,banner_isopen,banner_sort,banner_create_time,banner_update_time
+		from 
+			yd_banner
+	</select>
+	<select id="$queryAllByPage" resultType="com.yd.gcj.entity.YdMangerBanner">
+		select 
+			banner_id,banner_title,banner_subtitle,banner_type,banner_jumpurl,banner_imgsrc,banner_isopen,banner_sort,banner_create_time,banner_update_time
+		from 
+			yd_banner
+			limit #{startPageNum},#{queryPageNum}
+	</select>
+	
+	<select id="$queryByIds" parameterType="list" resultType="com.yd.gcj.entity.YdMangerBanner">
+		select 
+			banner_id,banner_title,banner_subtitle,banner_type,banner_jumpurl,banner_imgsrc,banner_isopen,banner_sort,banner_create_time,banner_update_time
+		from 
+			yd_banner
+		where 
+			banner_id in 
+			<foreach item="id" index="#{ids}" collection="list" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+	</select>
+	
+	<select id="$queryById" resultType="com.yd.gcj.entity.YdMangerBanner">
+		select 
+			banner_id,banner_title,banner_subtitle,banner_type,banner_jumpurl,banner_imgsrc,banner_isopen,banner_sort,banner_create_time,banner_update_time
+		from 
+			yd_banner
+		where 
+			banner_id = #{banner_id}
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerBanner">
+		insert into yd_banner
+			(banner_title,banner_subtitle,banner_type,banner_jumpurl,banner_imgsrc,banner_isopen,banner_sort,banner_create_time,banner_update_time)
+		value 
+			(#{banner_title},#{banner_subtitle},#{banner_type},#{banner_jumpurl},#{banner_imgsrc},#{banner_isopen},#{banner_sort},#{banner_create_time},#{banner_update_time})
+	</insert>
+	
+	<update id="$update" parameterType="com.yd.gcj.entity.YdMangerBanner">
+		update yd_banner
+		<set>
+			<trim>
+				<if test="banner_title != null">banner_title = #{banner_title},</if>
+				<if test="banner_subtitle != null">banner_subtitle = #{banner_subtitle},</if>
+				<if test="banner_type != null">banner_type = #{banner_type},</if>
+				<if test="banner_jumpurl != null">banner_jumpurl = #{banner_jumpurl},</if>
+				<if test="banner_imgsrc != null">banner_imgsrc = #{banner_imgsrc},</if>
+				<if test="banner_isopen != null">banner_isopen = #{banner_isopen},</if>
+				<if test="banner_sort != null">banner_sort = #{banner_sort},</if>
+				<if test="banner_update_time != null">banner_update_time = #{banner_update_time},</if>
+			</trim>
+		</set>
+		where banner_id = #{banner_id}
+	</update>
+	
+	<delete id="$delete">
+		delete from yd_banner
+		where banner_id = #{banner_id}
+	</delete>
+	
+	<select id="$test" resultType="java.lang.Integer">
+		SET @p_in = 1;
+CALL demo_in_parameter(@p_in);
+	</select>
+</mapper>
+

@@ -1,0 +1,120 @@
+<div th:fragment="main" th:remove="tag" th:inline="text">
+	<yd:ajax key="memberBalance" value="get.member_balance" />
+	<yd:ajax key="cardStore" value="get.card_store" />
+	
+	<div class="Z_g-right member-balance">
+		<div class="Z-acc1-1">
+			<div class="Z-title_inf">
+				账户资产
+			</div>
+			
+			<!--更改信息-->
+			<div class="Z-assets">
+				<div class="Z-bottom_line">
+					<div class="Z-saaets_yue">
+						<span class="Z-yue_spa">账户余额</span>
+						<div>
+							<div class="Z-saa_yue">
+								<span>¥</span>[[${data.user_money}]]
+							</div>
+							<a href="#" class="Z-first_chongzhi">
+								充值
+							</a>
+							<a href="#" class="Z-last_tixian">
+								提现
+							</a>
+						</div>
+					</div>
+					
+					<!--
+					<div class="Z-saa_card">
+						<span class="Z-yue_spa">银行卡
+							<a class="Z-card_guanli" href="#">
+								管理
+							</a>
+						</span>
+						<div class="Z-card_box">
+							<div>
+								<img src="http://res.excelsiorbrand.cn/dby/images/card_1.png"/>
+							</div>
+							<div>
+								<img src="http://res.excelsiorbrand.cn/dby/images/card_2.png"/>
+							</div>
+							<div class="Z-card_no">
+								<a href="javascript:void(0)" style="display: block;"><img src="http://res.excelsiorbrand.cn/dby/images/card_3.png"/></a>
+							</div>
+						</div>
+					</div>
+					-->
+				</div>
+				
+				<div class="Z-saa_zhangdan">
+					<span class="Z-yue_spa">账单</span>
+					<ul class="couunt">
+						<li>
+							<span class="c-time">时间</span>
+							<span class="c-type">类型</span>
+							<span class="c-num">交易明细</span>
+							<span class="c-money">金额</span>
+						</li>
+						<li th:each="item:${dataBill}" th:inline="text">
+							<span class="c-time">[[${ #calendars.format(item.moneyCreatedTime,'yyyy-MM-dd hh:mm:ss') }]]</span>
+							<span class="c-type"><div th:switch="${item.moneyType}" th:remove="tag"><span th:case="1" th:remove="tag">充值</span><span th:case="2" th:remove="tag">购买商品</span><span th:case="3" th:remove="tag">拍卖交压金</span><span th:case="4" th:remove="tag">拍卖竞价</span><span th:case="5" th:remove="tag">c2c购买商品</span><span th:case="6" th:remove="tag">提现</span></div></span>
+							<span class="c-num">&nbsp;[[${item.moneyContent}]]</span>
+							<span class="c-money">[[${item.moneyNum}]]</span>
+						</li>
+					</ul>
+					<div class="Z-page clear">
+						<!-- 分页 -->
+						<div class="pagination"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!--
+	<div class="Z-jump s-edit-address-body add-card" style="display: block">
+		<div class="Z-newly2">
+			<div class="Z-add_new">
+				添加银行卡
+			</div>
+			<span class="close-win" data-close-class=".s-edit-address-body">×</span>
+			<div class="Z-new_table">
+				<form class="form-ajax-sub" data-func="cardStore">
+				<ul>
+					<input type="hidden" name="id" />
+					<li>
+						<div class="Z_note">持卡人：</div>
+						<input type="text" data-error-info="请输入持卡人姓名" data-verify="true" name="card_name" placeholder="请输入持卡人姓名" />
+						
+					</li>
+					<li>
+						<div class="Z_note">手机号：</div>
+						<input type="text" data-error-info="请输入持卡人手机号" data-verify="true" name="card_mobile" placeholder="请输入持卡人手机号" />
+					</li>
+					<li>
+						<div class="Z_note">身份证：</div>
+						<input type="text" data-error-info="请输入持卡人身份证号码" data-verify="true" name="card_id" placeholder="请输入持卡人身份证号码" />
+					</li>
+					<li>
+						<div class="Z_note">卡号：</div>
+						<input type="text" data-error-info="请输入持卡人卡号" data-verify="true" name="card_sn" placeholder="请输入持卡人卡号" />
+					</li>
+					<li>
+						<div class="Z_note">&nbsp;</div>
+						<botton type="submit" class="btn btn-orange btn-add-edit">保存信息</botton>
+					</li>
+				</ul>
+				</form>
+			</div>
+		</div>
+	</div>
+	-->
+	<script th:inline="javascript">
+		$(function() {
+			pagination(".pagination", [[${totalPage}]], [[${p}]], "memberBalance");
+		});
+	</script>
+</div>

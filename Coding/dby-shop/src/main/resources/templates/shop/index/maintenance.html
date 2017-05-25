@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')},
+	navs=${@_nav.getByType('0')}
+	">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: home('')" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(maintenance)" th:remove="tag"></div>
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		<!--二级banner-->
+		<div class="second-banner">
+			<a target="_blank" href="javascript:;" th:inline="text" th:with="item=${@_banner.findByType('maintenance')}">
+				<img th:if="${item} neq null" th:src="${@_url.goods()}+${item.banner_cover}" style="max-height: 490px;" />
+			</a>
+			
+		</div>
+		
+		<!-- 中间内容 -->
+		<div id="container">
+			<div class="curing-page">
+				<!-- 我要养护 -->
+				<div class="want-curing">
+					<div class="col-title">
+						<span>养护套餐</span>
+						<a target="_blank" href="/maintenance/queryAllMaintenance">更多套餐&gt;&gt;</a>
+					</div>
+					<div class="list curing">
+						<ul th:with="data=${@_YdShopServiceGoods.maintenanceIndex()}" th:inline="text">
+							<li th:each="item: ${data}">
+								<div class="picture">
+									<a target="_blank" th:href="@{/g/goods/}+${item.depot_id}"><img th:src="${@_url.goods()}+${item.goods_cover}+@{?x-oss-process=image/resize,m_pad,w_285}" /></a>
+								</div>
+								<div class="title"><a target="_blank" th:href="@{/g/goods/}+${item.depot_id}" th:text="${item.goods_name}"></a></div>
+								<div class="price" th:text="@{￥}+${item.depot_price}"></div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+				<!-- 养护流程 -->
+				<div class="curing-process">
+					<div class="col-title">
+						<span>养护流程</span>
+					</div>
+					<img th:src="${@_url.goods()+'yh-l.png'}" />
+				</div>
+				
+				<!-- 
+				<div class="curing-process">
+					<div class="col-title">
+						<span>养护流程</span>
+					</div>
+					<div class="process">
+						<div class="bg-line"></div>
+						<ul>
+							<li>
+								<div class="text">前台接收</div>
+								<div class="icon">1</div>
+							</li>
+							<li>
+								<div class="text">调拨工厂</div>
+								<div class="icon">2</div>
+							</li>
+							<li>
+								<div class="text">消毒分发</div>
+								<div class="icon">3</div>
+							</li>
+							<li>
+								<div class="text">技师养护</div>
+								<div class="icon">4</div>
+							</li>
+							<li>
+								<div class="text">货品质检消毒 调拨出厂</div>
+								<div class="icon">5</div>
+							</li>
+							<li>
+								<div class="text">完成养护顾客取货</div>
+								<div class="icon">6</div>
+							</li>
+						</ul>
+					</div>
+					<div class="process-text">
+						<ul>
+							<li>
+								<div class="title">1、前台接收</div>
+								<div class="content">
+									北京、上海、成都会所养护中心前台接收货品，接待人员对货品信息进行登记，并拍照上传至养护服务系统；初步制定养护服务方案，明确报价并收取费用。
+								</div>
+							</li>
+							<li>
+								<div class="title">2、调拨工厂</div>
+								<div class="content">
+									养护中心前台将货品调拨养护工厂；专业物流运送货品至养护工厂。
+								</div>
+							</li>
+							<li>
+								<div class="title">3、消毒分发</div>
+								<div class="content">
+									货品消毒，根据货品需要养护的不同项目分发给专长技师进行服务。
+								</div>
+							</li>
+							<li>
+								<div class="title">4、技师养护</div>
+								<div class="content">
+									技师出具详细养护方案，严格按照12道养护工序进行专业养护工作。
+								</div>
+							</li>
+							<li>
+								<div class="title">5、货品质检，消毒、调拨出厂</div>
+								<div class="content">
+									货品养护后由专业质检人员进行严格质量检查，再次消毒、包装后由专业物流送出工厂
+								</div>
+							</li>
+							<li>
+								<div class="title">6、完成养护，顾客取货</div>
+								<div class="content">
+									完成养护后，养护服务系统会自动发送物品养护完成的通知短信，顾客可选择到就近的养护中心提取自己的货品或者拨打养护中心服务电话选择快递送货上门（快递费用顾客自行支付）。
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+				
+				 -->
+				<!-- 服务范围 -->
+				<div class="service-range">
+					<div class="col-title">
+						<span>服务范围</span>
+					</div>
+					<ul>
+						<li>
+							<dl>
+								<dt>名表维修</dt>
+								<dd>测试走时精度</dd>
+								<dd>调节表带、更换电池</dd>
+								<dd>外观清洗、打磨修复</dd>
+							</dl>
+							<div class="pic">
+								<a href="javascript:;"><img th:src="${@_url.goods()+'yh-f1.png'}" /></a>
+							</div>
+						</li>
+						<li>
+							<dl>
+								<dt>皮具养护</dt>
+								<dd>真皮箱包、皮革服装洗护、修复及保养</dd>
+								<dd>真皮沙发及高级轿车真皮座垫清洗养护</dd>
+								<dd>名贵鞋履的维护与养护</dd>
+							</dl>
+							<div class="pic">
+								<a href="javascript:;"><img th:src="${@_url.goods()+'yh-f2.png'}" /></a>
+							</div>
+						</li>
+						<li>
+							<dl>
+								<dt>珠宝养护</dt>
+								<dd>专业珠宝清洗</dd>
+								<dd>专业珠宝清洗</dd>
+								<dd>断链修补</dd>
+							</dl>
+							<div class="pic">
+								<a href="javascript:;"><img th:src="${@_url.goods()+'yh-f3.png'}" /></a>
+							</div>
+						</li>
+					</ul>
+				</div>
+				
+				<!-- 经典案例 -->
+				<div class="curing-case">
+					<div class="col-title">
+						<span>经典案例</span>
+					</div>
+					<ul>
+						<li>
+							<dl>
+								<dt>皮具养护</dt>
+								<dd>皮具养护事业部，采用专业测色、调色仪、蒸汽去污机、日本进口手动缝制工具等先进设备，解决深层清洁、喷色且保留原线等多种难度大的问题，达到“还原性”养护效果。</dd>
+							</dl>
+							<div class="pic">
+								<div class="slider-pic">
+									<div class="block_home_slider">
+										<div id="home_slider" class="flexslider">
+											<ul class="slides">
+												<li><a href="#"><img src="http://hhzhi.oss-cn-hongkong.aliyuncs.com/dby/uploads/other/curing_017.png" alt="" title="" /></a></li>
+												
+												<li><a href="#"><img src="http://hhzhi.oss-cn-hongkong.aliyuncs.com/dby/uploads/other/curing_018.png" alt="" title="" /></a></li>
+								
+												<li><a href="#"><img src="http://hhzhi.oss-cn-hongkong.aliyuncs.com/dby/uploads/other/curing_017.png" alt="" title="" /></a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<dl>
+								<dt>皮具养护</dt>
+								<dd>皮具养护事业部，采用专业测色、调色仪、蒸汽去污机、日本进口手动缝制工具等先进设备，解决深层清洁、喷色且保留原线等多种难度大的问题，达到“还原性”养护效果。</dd>
+							</dl>
+							<div class="pic">
+								<div class="slider-pic">
+									<div class="block_home_slider">
+										<div id="home_slider" class="flexslider">
+											<ul class="slides">
+												<li><a href="#"><img src="http://hhzhi.oss-cn-hongkong.aliyuncs.com/dby/uploads/other/curing_018.png" alt="" title="" /></a></li>
+												
+												<li><a href="#"><img src="http://hhzhi.oss-cn-hongkong.aliyuncs.com/dby/uploads/other/curing_017.png" alt="" title="" /></a></li>
+								
+												<li><a href="#"><img src="http://hhzhi.oss-cn-hongkong.aliyuncs.com/dby/uploads/other/curing_018.png" alt="" title="" /></a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				
+				<!-- 联系我们 -->
+				<div class="contact">
+					<div class="col-title">
+						<span>联系我们</span>
+					</div>
+					<div class="left">
+						<img th:src="${@_url.goods()+'footer_qrcode.png'}" />
+					</div>
+					<div class="right" style="display:none;">
+						<ul>
+							<li>
+								<h4>多宝鱼中国北京养护中心</h4>
+								<div class="text">北京市东城区金宝街18-8号1F-2F</div>
+								<div class="text">电话：010-65288883</div>
+							</li>
+							<li>
+								<h4>多宝鱼中国北京养护中心</h4>
+								<div class="text">北京市东城区金宝街18-8号1F-2F</div>
+								<div class="text">电话：010-65288883</div>
+							</li>
+							<li>
+								<h4>多宝鱼中国北京养护中心</h4>
+								<div class="text">北京市东城区金宝街18-8号1F-2F</div>
+								<div class="text">电话：010-65288883</div>
+							</li>
+							<li>
+								<h4>多宝鱼中国北京养护中心</h4>
+								<div class="text">北京市东城区金宝街18-8号1F-2F</div>
+								<div class="text">电话：010-65288883</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- 中间内容结束 -->
+		
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+	</body>
+</html>

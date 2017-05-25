@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperGoodsRecord">	
+	<select id="lists" resultMap="YdWebMapperGoodsRecordLists">
+		SELECT
+			yd_goods_record.goods_id, yd_goods.goods_name, yd_goods.goods_cover, yd_goods.goods_price
+		FROM
+			yd_goods_record
+		LEFT JOIN
+			yd_goods
+		ON
+			yd_goods_record.goods_id = yd_goods.goods_id
+		WHERE
+			yd_goods_record.user_id = #{user_id}
+	</select>
+
+	
+	<resultMap id="YdWebMapperGoodsRecordLists" type="java.util.HashMap">
+		<result property="goodsId" column="goods_id" />
+		<result property="goodsName" column="goods_name" />
+		<result property="goodsCover" column="goods_cover" />
+		<result property="goodsPrice" column="goods_price" />
+	</resultMap>
+</mapper>

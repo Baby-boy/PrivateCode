@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperTenderCase">
+	
+	<select id="$queryByTenderId" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerTenderCase">
+		select 
+			tc_tenderid,tc_caseid
+		from 
+			yd_tender_case
+		where 
+			tc_tenderid = #{tc_tenderid}
+	</select>
+	
+	<select id="$queryCOuntNumByTenderId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_tender_case
+		where 
+			tc_tenderid = #{tc_tenderid}
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerTenderCase">
+		insert into yd_tender_case
+			(tc_tenderid,tc_caseid)
+		value
+			(#{tc_tenderid},#{tc_caseid})
+	</insert>
+	
+	<delete id="$delete" parameterType="java.lang.Integer">
+		delete from yd_tender_case 
+		where tc_tenderid = #{tc_tenderid} and tc_caseid = #{tc_caseid}
+	</delete>
+	
+</mapper>
+

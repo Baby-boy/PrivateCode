@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperUserTeamFile">
+
+	<select id="$queryAllByUserId" resultType="com.yd.gcj.entity.YdMangerFiles">
+		select * from yd_files
+		where files_id in 
+		(select file_id from yd_team_file where file_uid = #{userId})
+	</select>
+	
+	<insert id="$insert" useGeneratedKeys="true" keyProperty="file_id">
+		insert into yd_team_file 
+		(file_uid,file_fid)
+		value
+		(#{file_uid},#{file_fid})
+	</insert>
+	
+	<delete id="$deleteById">
+		delete from yd_team_file
+		where file_id = #{id}
+	</delete>
+	
+	<delete id="$deleteByUserId">
+		delete from yd_team_file
+		where file_uid = #{userId}
+	</delete>
+	
+</mapper>
+

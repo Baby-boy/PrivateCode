@@ -1,0 +1,89 @@
+<div th:fragment="main" th:remove="tag" th:inline="text">
+	<yd:ajax key="memberInfoUpdate" value="get.member_info_update" />
+	<div class="Z_g-right user-info-page">
+		<div class="Z-acc">
+			<div class="Z-title_inf">账户信息</div>
+			<form class="form-ajax-sub" data-func="memberInfoUpdate">
+				<ul>
+					<li>
+						<div>用户名：</div>[[${data.user_username}]]
+					</li>
+					<li>
+						<div>会员等级：</div> <img th:src="'http://res.excelsiorbrand.cn/dby/images/vip-'+${data.user_grade==0? 1:data.user_grade}+'.jpg'" alt="" />
+					</li>
+					<li class="Z-shouji">
+						<div class="text-height">昵称：</div> <input type="text" name="user_nickname" th:value="${data.user_nickname}" class="text" />
+					</li>
+					<li class="Z-xinbie">
+						<div>性别：</div> <input type="radio" th:attr="checked=${data.user_sex eq 1} ? 'true' : 'false'" name="user_sex" value="1" /> 男 <input type="radio"
+						th:attr="checked=${data.user_sex eq 2} ? 'true' : 'false'" name="user_sex" value="2" /> 女 <input type="radio" th:attr="checked=${data.user_sex eq 3} ? 'true' : 'false'"
+						name="user_sex" value="3" /> 保密
+					</li>
+					<li class="Z-shengri">
+						<div>生日：</div> <span id="birthday"> <select th:attr="data-value=${data.user_birthday}" name="year"></select> 年 <select th:attr="data-value=${data.user_birthday}"
+							name="month"></select> 月 <select th:attr="data-value=${data.user_birthday}" name="day"></select> 日
+					</span>
+					</li>
+					<li class="Z-shouji">
+						<div>手机号码：</div> <span th:if="${data.user_mobile == ''}" th:remove="tag"> <span>未绑定<a href="javascript:void(0)" yd:ajax="onclick,get.verify_mobile">立即绑定</a></span>
+					</span> <span th:if="${data.user_mobile != ''}" th:remove="tag"> <span>[[${data.user_mobile}]]<a href="javascript:void(0)" yd:ajax="onclick,get.edit_mobile">修改</a></span>
+					</span>
+					</li>
+					<!-- 
+					<li class="Z-youxiang">
+						<div>邮箱地址：</div>
+						<span th:if="${data.userEmail == ''}" th:remove="tag">
+							<span>未绑定<a href="#">立即绑定</a></span>
+						</span>
+						<span th:if="${data.userEmail != ''}" th:remove="tag">
+							<span>[[${data.userEmail}]]<a href="#">修改</a></span>
+						</span>
+					</li>
+					 -->
+					<li class="Z-suozaidi">
+						<div>所在地：</div>
+						<div class="select-city">
+							<select data-verify="true" data-error-info="请选择省" name="user_province_id" class="province" data-value="" data-first-title="选择省" disabled="disabled"></select> <select
+								data-verify="true" data-error-info="请选择市" name="user_city_id" class="city" data-value="" data-first-title="选择市" disabled="disabled"></select> <select data-verify="true"
+								data-error-info="请选择区" name="user_area_id" class="area" data-value="" data-first-title="选择地区" disabled="disabled"></select> <input type="hidden" data-pca="pca"
+								th:value="${data.user_pca}" name="user_pca" />
+						</div>
+					</li>
+					<li>
+						<div>&nbsp;</div>
+						<div class="user-info-btn-l">
+							<botton type="submit" class="btn btn-orange btn-lg btn-add-edit">保存修改</botton>
+						</div>
+					</li>
+				</ul>
+			</form>
+			<div class="Z_portrait">
+				<img th:src="${@_url.goods()}+${data.user_avatar == null? data.user_avatar:'logo.png'}+'?x-oss-process=image/resize,m_pad,h_120,w_120'" /> 
+				修改头像
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.cxselect.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jq_select.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/birthday.js}"></script>
+	<script th:inline="javascript" type="text/javascript">
+		$(function(){
+			$("#birthday").birthday();
+			var t = [[${data.user_birthday}]];
+			date = new Date(Date.parse(t.replace(/-/g, "/")));
+			date = date.getTime();
+			var birthday = new Date();
+			birthday.setTime(date);
+			$("select[name='year'] option[value='"+birthday.getFullYear()+"']").prop("selected", true);
+			$("select[name='month'] option[value='"+(birthday.getMonth()+1)+"']").prop("selected", true);
+			$("select[name='day'] option[value='"+birthday.getDate()+"']").prop("selected", true);
+
+			setTimeout(function() {
+				var selectData = {user_province_id: [[${data.user_province_id}]], user_city_id: [[${data.user_city_id}]], user_area_id: [[${data.user_area_id}]]};
+
+				restorePca(selectData, ".select-city");
+			}, 100);
+			
+		});
+	</script>
+</div>

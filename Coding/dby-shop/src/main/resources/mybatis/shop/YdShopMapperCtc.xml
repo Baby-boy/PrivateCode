@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperCtc">
+   
+    <!-- 留言 -->
+    <insert id="Release">
+        INSERT INTO yd_ctc (
+            user_id,
+            ctc_name,
+            ctc_summary,
+            ctc_pics,
+            ctc_price,
+            ctc_logistics_price,
+            ctc_province_id,
+            ctc_city_id,
+            ctc_province_value,
+            ctc_city_value,
+            ctc_quality,
+            ctc_created_time
+        )
+        VALUE
+            (
+                #{user_id},
+                #{ctc_name},
+                #{ctc_summary},
+                #{ctc_pics},
+                #{ctc_price},
+                #{ctc_logistics_price},
+                #{ctc_province_id},
+	            #{ctc_city_id},
+	            #{ctc_province_value},
+	            #{ctc_city_value},
+	            #{ctc_quality},
+                now()
+            );
+    </insert>
+    
+    
+    <select id="listByClassId2" resultType="java.util.HashMap">
+    	SELECT
+    		ctc_id, ctc_name, ctc_cover, ctc_price, ctc_classify_id1, ctc_classify_id2
+    	FROM
+    		yd_ctc
+    	WHERE
+	    	ctc_is_available = 1 AND ctc_classify_id2 = #{ctc_classify_id2}
+	    LIMIT 10
+    </select>
+    
+    
+    <select id="get_ctc" resultMap="YdCtc">
+	    SELECT
+	    	yd_ctc.ctc_id, yd_ctc.ctc_name, yd_ctc.ctc_cover, yd_ctc.ctc_price,
+	    	yd_ctc.ctc_classify_id1, yd_ctc.ctc_classify_id2
+	    FROM
+	    	yd_ctc_class
+	    LEFT JOIN
+	    	yd_ctc
+	    ON
+	    	yd_ctc.`ctc_classify_id2` = yd_ctc_class.`cc_id`
+	    WHERE
+	    	yd_ctc.ctc_is_available = 1
+    </select>
+    
+    
+    <select id="info" resultType="java.util.HashMap">
+    	SELECT
+    		user_username, ctc_id, ctc_name, yd_ctc.user_id, yd_ctc.ctc_cover,
+    		ctc_is_available, ctc_logistics_price, ctc_created_time,
+    		ctc_price
+    	FROM
+    		yd_ctc
+    	LEFT JOIN
+    		yd_user
+    	ON
+    		yd_user.user_id = yd_ctc.user_id
+    	WHERE
+    		yd_ctc.ctc_id = #{ctc_id}
+    	LIMIT 1
+    </select>
+    
+    
+   <select id="get_ctc_type"  resultMap="YdCtcType">
+   SELECT ycc.cc_id,ycc.cc_name from yd_ctc_class ycc where ycc.cc_pid=0
+    </select>
+   <select id="get_ctc_type_two"  resultMap="YdCtcTypeTwo">
+   SELECT ycc.cc_id,ycc.cc_name,ycc.cc_pid from yd_ctc_class ycc where ycc.cc_pid<![CDATA[ != ]]>0
+    </select>
+    <resultMap id="YdCtc" type="java.util.Map">
+		<id property="id" column="ctc_id" />
+		<result property="cover" column="ctc_cover" />
+		<result property="name" column="ctc_name" />
+		<result property="summary" column="ctc_summary" />
+		<result property="price" column="ctc_price" />
+	</resultMap>
+	<resultMap id="YdCtcType" type="java.util.Map">
+		<id property="id" column="cc_id" />
+		<result property="name" column="cc_name" />
+	</resultMap>
+    <resultMap id="YdCtcTypeTwo" type="java.util.Map">
+		<id property="id" column="cc_id" />
+		<result property="name" column="cc_name" />
+		<result property="pid" column="cc_pid" />
+	</resultMap>
+	
+	
+	<update id="updateState">
+		UPDATE
+			yd_ctc
+		SET
+			ctc_is_available = #{ctc_is_available}
+		WHERE
+			ctc_id = #{ctc_id}
+	</update>
+    
+    
+</mapper>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperUser">
+	
+	<select id="$queryAll" resultType="com.yd.gcj.entity.vo.YdMangerUserVo">
+		select 
+			user_id,user_level,user_sex,user_account,user_name,user_nickname,user_avatar,user_phone,user_email,user_provid,user_cityid,user_areaid,user_pca,user_address,user_cprice,user_pcn,user_cstate,user_skillstate,user_type,user_ename,user_otype,user_birthday,user_resume,user_create_time,user_update_time,user_verified
+		from 
+			yd_user
+		where 
+			user_type != 0
+		limit #{startPageNum},#{queryPageNum}
+	</select>
+	
+	<select id="$queryAllInLogin" resultType="com.yd.gcj.entity.vo.YdMangerUserVo">
+		SELECT 
+			user_id,user_level,user_sex,user_account,user_name,user_nickname,user_avatar,user_phone,user_email,user_provid,user_cityid,user_areaid,user_pca,user_address,user_cprice,user_pcn,user_cstate,user_skillstate,user_type,user_ename,user_otype,user_birthday,user_resume,user_create_time,user_update_time,user_verified
+			,(SELECT COUNT(*) FROM yd_attention att WHERE att.`att_aid` = #{userId} AND u.`user_id` = att.`att_bid` ) is_att
+		FROM 
+			yd_user u
+		WHERE 
+			user_type != 0
+		limit #{startPageNum},#{queryPageNum}
+	</select>
+	
+	
+	<select id="$queryCountByS" resultType="java.lang.Integer">
+		select count(*)
+		from yd_user
+		where user_type > 0
+	</select>
+	
+	<select id="$queryCountByRSP" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_user 
+		WHERE 
+			user_type = 0 
+		ORDER BY user_taskcount
+	</select>
+	
+	<select id="$queryRSP" resultType="com.yd.gcj.entity.YdMangerUser">
+		select 
+			user_id,user_level,user_sex,user_account,user_name,user_nickname,user_avatar,user_phone,user_email,user_qqtoken,user_wxtoken,user_provid,user_cityid,user_areaid,user_pca,user_address,user_cprice,user_pcn,user_cstate,user_skillstate,user_type,user_ename,user_otype,user_birthday,user_resume,user_taskcount,user_create_time,user_update_time,user_verified
+		from 
+			yd_user 
+		where
+			user_type = 0
+			order by user_taskcount desc
+			limit #{startPageNum},#{queryPageNum}
+	</select>
+	
+	<select id="$queryById" resultMap="UserMap">
+		SELECT * 
+		FROM yd_user AS `user`
+		LEFT JOIN yd_user_label AS label ON user.`user_id`=label.`userl_uid`
+		WHERE `user`.`user_id` = #{userId}
+	</select>
+	
+	<select id="$queryDetailById" resultMap="userDetail">
+		SELECT *
+		FROM yd_user AS `user`
+		LEFT JOIN yd_user_label AS label ON user.`user_id`=label.`userl_uid`
+		LEFT JOIN yd_cases AS cases ON `user`.`user_id` = cases.`case_sid`
+		LEFT JOIN yd_spcs AS spcs ON user.`user_id` = spcs.`spcs_sid`
+		WHERE `user`.`user_id` = #{userId}
+	</select>
+	
+	<select id="$queryUserImgPath" resultType="java.lang.String">
+		select user_avatar 
+		from yd_user
+		where user_id = #{userId}
+	</select>
+	
+	<select id="$queryVerifiedByUserId" resultType="java.lang.Integer">
+		select user_verified from yd_user where user_id = #{userId}
+	</select>
+	
+	<resultMap type="com.yd.gcj.entity.vo.YdMangerUserVo" id="UserMap" autoMapping="true">
+         <id property="user_id" column="user_id"/>
+         <collection property="userLabels" ofType="com.yd.gcj.entity.YdMangerUserLabel" autoMapping="true">
+             <id property="userl_id" column="userl_id"/>
+         </collection>
+    </resultMap>
+	
+	<resultMap type="com.yd.gcj.entity.vo.YdMangerUserDetail" id="userDetail" autoMapping="true">
+         <id property="user_id" column="user_id"/>
+         <collection property="userLabels" ofType="com.yd.gcj.entity.YdMangerUserLabel" autoMapping="true">
+             <id property="userl_id" column="userl_id"/>
+         </collection>
+         <collection property="cases" ofType="com.yd.gcj.entity.YdMangerCases" autoMapping="true">
+             <id property="case_id" column="case_id"/>
+         </collection>
+         <collection property="spcs" ofType="com.yd.gcj.entity.YdMangerSpcs" autoMapping="true">
+             <id property="spcs_id" column="spcs_id"/>
+         </collection>
+    </resultMap>
+	
+	<select id="$userIsExist" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_user 
+		where 
+			user_phone = #{user_phone}
+	</select>
+	
+	<select id="$userIsExistById" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_user 
+		where 
+			user_id = #{user_id}
+	</select>
+	
+	<select id="$queryByTaskId" resultType="com.yd.gcj.entity.vo.YdMangerUserVo">
+		select * 
+		from yd_user
+		where user_id = (select tender_uid from yd_tender where tender_tid = #{taskId} and tender_type = 1)
+	</select>
+	
+	<insert id="$regist"  parameterType="com.yd.gcj.entity.YdMangerUser" useGeneratedKeys="true" keyProperty="user_id">
+		insert into yd_user
+			(user_phone,user_pwd,user_type,user_create_time,user_update_time)
+		value 
+			(#{user_phone},#{user_pwd},#{user_type},#{user_create_time},#{user_update_time})
+	</insert>
+	
+	<select id="$queryByPhone" resultType="com.yd.gcj.entity.vo.YdMangerUserVo">
+		select 
+			user_id,user_level,user_sex,user_account,user_pwd,user_ppwd,user_name,user_nickname,user_avatar,user_phone,user_email,user_qqtoken,user_wxtoken,user_provid,user_cityid,user_areaid,user_pca,user_address,user_cprice,user_pcn,user_cstate,user_skillstate,user_type,user_ename,user_otype,user_birthday,user_resume,user_create_time,user_update_time,user_verified
+		from 
+			yd_user 
+		where 
+			user_phone = #{user_phone}
+	</select>
+	
+	<select id="$queryByPhoneAndType" resultType="com.yd.gcj.entity.vo.YdMangerUserVo">
+		select 
+			user_id,user_level,user_sex,user_account,user_pwd,user_ppwd,user_name,user_nickname,user_avatar,user_phone,user_email,user_qqtoken,user_wxtoken,user_provid,user_cityid,user_areaid,user_pca,user_address,user_cprice,user_pcn,user_cstate,user_skillstate,user_type,user_ename,user_otype,user_birthday,user_resume,user_create_time,user_update_time,user_verified
+		from 
+			yd_user 
+		where 
+			user_phone = #{user_phone} and user_type = #{user_type}
+	</select>
+	
+	<select id="$queryCountNumBySql" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_user
+		where 1=1
+			#{sql}
+	</select>
+	
+	<update id="$update" parameterType="com.yd.gcj.entity.YdMangerUser">
+		update yd_user
+		<set>
+			<trim>
+				<if test="user_level != null">user_level = #{user_level},</if>
+				<if test="user_sex != null">user_sex = #{user_sex},</if>
+				<if test="user_account != null">user_account = #{user_account},</if>
+				<if test="user_name != null">user_name = #{user_name},</if>
+				<if test="user_nickname != null">user_nickname = #{user_nickname},</if>
+				<if test="user_avatar != null">user_avatar = #{user_avatar},</if>
+				<if test="user_phone != null">user_phone = #{user_phone},</if>
+				<if test="user_email != null">user_email = #{user_email},</if>
+				<if test="user_qqtoken != null">user_qqtoken = #{user_qqtoken},</if>
+				<if test="user_wxtoken != null">user_wxtoken = #{user_wxtoken},</if>
+				<if test="user_provid != null">user_provid = #{user_provid},</if>
+				<if test="user_cityid != null">user_cityid = #{user_cityid},</if>
+				<if test="user_areaid != null">user_areaid = #{user_areaid},</if>
+				<if test="user_pca != null">user_pca = #{user_pca},</if>
+				<if test="user_address != null">user_address = #{user_address},</if>
+				<if test="user_cprice != null">user_cprice = #{user_cprice},</if>
+				<if test="user_pcn != null">user_pcn = #{user_pcn},</if>
+				<if test="user_cstate != null">user_cstate = #{user_cstate},</if>
+				<if test="user_skillstate != null">user_skillstate = #{user_skillstate},</if>
+				<if test="user_type != null">user_type = #{user_type},</if>
+				<if test="user_ename != null">user_ename = #{user_ename},</if>
+				<if test="user_otype != null">user_otype = #{user_otype},</if>
+				<if test="user_birthday != null">user_birthday = #{user_birthday},</if>
+				<if test="user_resume != null">user_resume = #{user_resume},</if>
+				<if test="user_update_time != null">user_update_time = #{user_update_time},</if>
+			</trim>
+		</set>
+		where user_id = #{user_id}
+	</update>
+	
+	<update id="$updateNickname">
+		update yd_user
+		set user_nickname = #{nickname}
+		where user_id = #{userId}
+	</update>
+	
+	<update id="$updateUserName">
+		update yd_user
+		set user_name = #{userName},user_verified = 3
+		where user_id = #{userId}
+	</update>
+	
+	<update id="$updateAddr">
+		update yd_user
+		set user_pca = #{userAddr}
+		where user_id = #{userId}
+	</update>
+	
+	<update id="$updateResume">
+		update yd_user
+		set user_resume = #{userResume}
+		where user_id = #{userId}
+	</update>
+	
+	<update id="$updateEmail">
+		update yd_user
+		set user_email = #{userEmail}
+		where user_id = #{userId}
+	</update>
+	
+	<update id="$updateQQ">
+		update yd_user
+		set user_qqtoken = #{userQQ}
+		where user_id = #{userId}
+	</update>
+	
+	
+	<update id="$updatePwd">
+		update yd_user
+		set user_pwd = #{user_pwd}
+		where user_id = #{user_id}
+	</update> 
+	
+	<update id = "$enterCFA">
+		update yd_user
+		set user_cstate = #{user_cstate},user_ename = #{user_ename}
+		where user_id = #{user_id}
+	</update>
+	
+	<update id="$updatePPwd">
+		update yd_user
+		set user_ppwd = #{user_ppwd}
+		where user_id = #{user_id}
+	</update> 
+	
+	<update id="$updateOtype">
+		update yd_user
+		set user_otype = #{otype}
+		where user_id = #{userId}
+	</update>
+	
+	<update id="$updateUserPhone">
+		update yd_user
+		set user_phone = #{phone}
+		where user_id = #{userId}
+	</update>
+	
+	<update id="$forgetPwd">
+		update yd_user
+		set user_pwd = #{userPwd}
+		where user_phone = #{userPhone}
+	</update>
+	
+	<update id="$updateUserAvatar">
+		update yd_user
+		set user_avatar = #{avatar}
+		where user_id = #{userId}
+	</update>
+	
+	<update id="$updateVerifiedState">
+		update yd_user
+		set user_verified = #{verified}
+		where user_id = #{userId}
+	</update>
+	
+	<select id="$queryIdByPhoneAndPwd" resultType="java.lang.Integer">
+		select count(*)
+		from yd_user
+		where user_id = #{userId} and user_pwd = #{loginPwd}
+	</select>
+	<select id="$queryByIdAndPhone" resultType="java.lang.Integer">
+		select count(*)
+		from yd_user
+		where user_phone = #{phone} and user_id = #{userId}
+	</select>
+
+</mapper>

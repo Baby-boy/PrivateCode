@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记-任务大厅-任务详情</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+    <link rel="stylesheet" href="/css/task-detail.css"/>
+    <link rel="stylesheet" href="/css/common.css"/>
+</head>
+<body th:inline="text" th:with="userType=${session.user}!=null?${session.user.user_type}:'-1'">
+    <!--顶部导航-->
+    <div th:include="public/hander"></div>
+    
+    <!-- 中间 -->
+    <div id="yd-task">
+        <div class="yd-task-wrap">
+            <div class="yd-task-top">
+                <div class="yd-task-title">
+                    <h1>[[${taskDetail.task_pname}]]</h1>
+                    <span>[[${taskDetail.startDateTime}]]发布</span>
+                </div>
+                <div class="yd-task-text clear">
+                    <div class="yd-task-left">
+                        <div class="yd-task-people">
+                            <span class="yd-num"><i></i>人数：5人</span>
+                            <div class="yd-end">
+                                <i></i>
+                                <strong>距结束：</strong>
+                                <p>[[${taskDetail.remainDT}]]</p>
+                            </div>
+                        </div>
+                        <div class="yd-locat">
+                            <span class="yd-minlocat"><i></i>[[${taskDetail.task_paddr}]]</span>
+                            <span class="yd-fly"><i></i><span th:each="label,niter:${taskDetail.labels}">[[(${niter.index}==0?'':' , ')+${label.taskl_name}]]</span></span>
+                        </div>
+                    </div>
+                    <div class="yd-btn-div">
+                    	<a href="###" th:style="${userType}!=0 ?'':'display:none'" class="yd-btn yd-btn-sc" th:data="${taskDetail.is_collect}" th:onclick="'collect('+${taskDetail.task_id}+',this)'">[[${taskDetail.is_collect}==0?'收藏任务':'取消收藏']]</a>
+                    	<a th:href="${taskDetail.is_apply}==0?'/list-fuwushang/shenqingrenwu-bj/'+${taskDetail.task_id}:'###'" th:style="${userType}!=0 ?'':'display:none'" class="yd-btn yd-btn-a"  th:data="${taskDetail.is_apply}" th:onclick="${taskDetail.is_apply}==0?'':'cancelTender('+${taskDetail.task_id}+',this)'">[[${taskDetail.is_apply}==0?'申请任务':'撤销申请']]</a>
+                    </div>
+                </div>
+            </div>
+            <div class="yd-task-bottom">
+                <div class="yd-detail-big">
+                    <ul class="yd-detail">
+                        <li class="active">任务详情</li>
+                        <li>任务互动</li>
+                        <li>申请企业</li>
+                        <li>发布方</li>
+                    </ul>
+                </div>
+                <div class="yd-detail-text">
+                    <div class="yd-detail-text1">
+                    	[[${taskDetail.task_discrip}]]
+                    </div>
+                    <div class="yd-detail-text2">
+                        <div class="yd-wrap-h2">
+                            <h2>任务概述</h2>
+                        </div>
+                        <div class="yd-mindetail">
+                            <h5>任务描述</h5>
+                            <div class="yd-mindetail-wrap">
+                                <p>
+                                [[${taskDetail.task_discrip}]]
+                                </p>
+                                <!-- <p>通过邀请知名设计机构，寻求理念创新，技术专业和高水平的设计方案，最终选定中标单位。方案综合考虑项目理念，在功能，心里，环境营造，设施等方面，突出体育公园+青少年教育这一场所特征。</p>
+                                <p>1，项目名称：东莞松山湖北部体育公园项目</p>
+                                <p>2，规模概况：项目位于广东省东莞市松山湖北部工业城内，周边以医药，金融，电商及科技类产业大楼为主，东南方为华为终端总部及南方工厂，近年来发展比较迅速。松山湖北景区据此2.3公里，为区域休闲娱乐核心，交通已超负载。目前配套设施，尤其运动场所，相对缺乏。松山湖北管委会投4000余万元，携手万科合作建设一座新型的体育公园，满足园区周边的头需求同事万科计划注入户外教育功能，打造青少年户外拓展基地。后期计划万科运营。项目为c4用地（体育用地）性质，占地面积8441㎡，容积率0.55，计容见面4643㎡，具体功能要求以附件ppt任务说明为准。结合政府需求，定期组织篮球，羽毛球等赛事，邀请国内企业。，国际学校，社区参与，辐射珠三角客源市场，打造松山湖的策划你是个新名片；</p> -->
+                            </div>
+                        </div>
+                        <div class="yd-mindetail2">
+                            <h5>成果交付标准</h5>
+                            <div class="yd-mindetail-wrap">
+                                <p>
+                                [[${taskDetail.task_discrip}]]
+                                </p>
+                                <!-- <p>1，成果要求深度为概念方案；</p>
+                                <p>2，准确完整的概念方案文本（含各层功能平面）；</p>
+                                <p>3，SU模型及表现效果图（效果图为可选）；</p>
+                                <p>4，具体的设计要求可详见项目任务书。</p> -->
+                            </div>
+                        </div>
+                        <ul class="yd-plan">
+                            <li>
+                                <strong>[[${taskDetail.task_price}]]<i>&nbsp;¥</i></strong>
+                                <span>预算金额</span>
+                            </li>
+                            <li>
+                                <strong><i>[[${taskDetail.task_pnum}]]</i></strong>
+                                <span>计划人数</span>
+                            </li>
+                            <li>
+                                <strong>[[${#calendars.format(taskDetail.task_end_time,'yyyy-MM-dd')}]]</strong>
+                                <span>竞标截止时间</span>
+                            </li>
+                        </ul>
+                        <div class="yd-inform">
+                            <div class="yd-inform1">
+                                <h2>任务信息</h2>
+                            </div>
+                            <div class="yd-attachment">
+                                <h5>任务附件</h5>
+                                <div class="yd-attachment-text">
+                                    <a th:each="file,niter:${files}" href="javascript:;" target="_blank"><i></i>[[${file.files_name}]]</a>
+                                    <!-- <a href="##"><i></i>红线图.dwg</a> -->
+                                </div>
+                                <div class="yd-remark">
+                                    <h5>其他备注</h5>
+                                    <div class="yd-remark-text">
+                                        <p>1，概念方案周期为10天，2016年9月5日前提交成果；</p>
+                                        <p>2，因项目土地情况不稳定，亦存在因条件变化导致重复设计的风险。</p>
+                                        <p>3，详细信息可扫描附件加入微信群了解咨询。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="yd-detail-text yd-detail-mintext" style="display:none">
+                    <div class="yd-interact">
+                        <textarea name="" placeholder="字数控制在2000字以内" class="contents"></textarea>
+                        <span>0/200</span>
+                        <button class="yd-btn-a yd-btn-min yd-btn-sub yd-btn-color" th:onclick="'active('+${taskDetail.task_id}+',0,0,\'.contents\')'">发送</button>
+                    </div>
+                    <div class="yd-interact2">
+                        <div class="yd-interact2-title">
+                            <h2>任务互动</h2>
+                        </div>
+                        <ul class="yd-interact2-good">
+                        	
+                            <li th:each="active,niter:${taskDetail.actives}">
+                                <div class="yd-good-left">
+                                    <div class="yd-good-img">
+                                        <img src="/images/work/author.png" alt=""/>
+                                    </div>
+                                    <div class="yd-good-text">
+                                        <div class="yd-good-head">
+                                            <span class="yd-author">[[${active.nickname}]]</span>
+                                            <span class="yd-time">[[${#dates.format(active.taska_create_time,'yyyy年MM月dd日 HH:mm:ss')}]]</span>
+                                        </div>
+                                        <span class="yd-reply">[[${active.taska_contents}]]</span>
+                                        <span class="yd-scheme">[[${active.ename}+${active.typeD}]]</span>
+                                        <span class="yd-good-plan">回复</span>
+                                    </div>
+                                </div>
+                                <div class="yd-good-replan" style="display:none">
+                                    <textarea placeholder="字数控制在2000字以内" th:class="'content'+${active.taska_id}"></textarea>
+                                    <span>0/200</span>
+                                    <div class="yd-good-btn">
+                                        <button class="yd-btn-a yd-btn-pall yd-btn-min back">取消</button>
+                                        <button class="yd-btn-a yd-btn-color yd-btn-min yd-btn-sub yd-brn-right" th:onclick="'active('+${taskDetail.task_id}+','+${active.taska_auid}+','+${active.taska_group}+','+'\'.content'+${active.taska_id}+'\')'">发送</button>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <ul class="yd-detail-text" style="display:none">
+                    <li class="yd-apply clear" th:each="tender,niter:${taskDetail.tenderVos}">
+                        <div class="yd-building-left clear">
+                            <div class="yd-building-img">
+                                <img src="/images/work/author.png" alt=""/>
+                            </div>
+                            <div class="yd-building-content">
+                                <span>[[${tender.tender_uine}]]<i th:style="'background-img:url('+${tender.levelIcoPath}+')'"></i></span>
+                                <strong><i></i>[[${tender.tender_uname}]]</strong>
+                            </div>
+                        </div>
+                        <span class="yd-building-right">于[[${#dates.format(tender.tender_create_time,'yyyy年MM月dd日 HH时mm分ss秒')}]]申请</span>
+                    </li>
+                </ul>
+                <ul class="yd-detail-text" style="display:none">
+                    <li class="yd-apply clear">
+                        <div class="yd-building-left clear">
+                            <div class="yd-building-img">
+                                <img src="/images/work/author.png" alt=""/>
+                            </div>
+                            <div class="yd-building-content">
+                                <span>[[${taskDetail.user_name}]]</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--底部-->
+    <div th:include="public/foot"></div>
+    
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/chajian/jqkuozhan.js"></script>
+    <script src="/js/task-detail.js"></script>
+    
+    <script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+    <script type="text/javascript" src="/js/bg/task.js"></script>
+</body>
+</html>

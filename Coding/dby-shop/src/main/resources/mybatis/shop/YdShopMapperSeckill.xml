@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperSeckill">
+	
+	<sql id="fieldGoods">
+		sg_id, seckill_id, depot_id, store_id, store_name, sg_sort, sg_apply_time, sg_state, sg_season, sg_cover
+	</sql>
+	
+	<sql id="field">
+		seckill_id, seckill_title, seckill_subtitle, seckill_logo,
+		seckill_cover, seckill_sort, seckill_state, start_time, end_time, create_time
+	</sql>
+	
+	<sql id="where">
+		<trim prefix="where" suffixOverrides="and">
+			seckill_state = 1
+		</trim>
+	</sql>
+	
+	<select id="lists" resultType="com.yd.dby.d.seller.entity.YdSellerSeckill">
+		SELECT
+			<include refid="field"></include>
+		FROM yd_seckill
+			<include refid="where"></include>
+		ORDER BY seckill_sort DESC
+	</select>
+	
+	
+	<!-- 查询秒杀专场信息 -->
+	<select id="info" resultType="com.yd.dby.d.seller.entity.YdSellerSeckill">
+		SELECT <include refid="field"></include> FROM yd_seckill WHERE seckill_id = #{id};
+	</select>
+</mapper>

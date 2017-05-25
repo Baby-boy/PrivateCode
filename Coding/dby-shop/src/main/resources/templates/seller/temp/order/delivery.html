@@ -1,0 +1,121 @@
+<div th:fragment="main" th:remove="tag">
+	<div class="d-right delivery-page">
+		<ul class="btn-page-top">
+			<li class="active">确认发货</li>			
+		</ul>
+		
+		<div class="d-all pop">
+			<table class="list-table order-lists">
+				<tbody th:inline="text">
+					<tr>
+						<td class="order-td-bg" colspan="4">
+							<h4><span>第一步</span>确认收货信息及交易详情</h4>
+						</td>
+					</tr>
+					<tr>
+						<td class="order-info" colspan="4">
+							<span>订单号：[[${data.order_sn}]]</span>
+							<span>下单时间：[[${ #calendars.format(data.created_at,'yyyy-MM-dd hh:mm:ss') }]]</span>
+						</td>
+					</tr>
+					<tr class="goods-info" th:each="itemGoods, k:${dataGoods}" th:inline="text">
+						<td class="w70 img"><a target="_blank" th:href="@{/g/goods/}+${itemGoods.goods_id}"><img th:src="${@_url.goods()}+${itemGoods.goods_cover}" /></a></td>
+						<td>
+							<p class="goods-name" style="width: 370px;">
+								<a target="_blank" th:href="@{/g/goods/}+${itemGoods.goods_id}">[[${itemGoods.goods_name}]]</a>
+								<br /><span>￥[[${itemGoods.goods_price}]]</span> X 
+								<span>[[${itemGoods.goods_num}]]</span>
+							</p>
+						</td>
+						<goods th:if="${k.index == 0}" remove="tag">
+						<td class="bdl" th:rowspan="${dataGoods.size()}">￥[[${data.total_price}]]<br/>（含运费[[${data.transport_price}]]）<br/>在线支付</td>
+						<td class="bdl" width="400" th:rowspan="${dataGoods.size()}">
+							<textarea placeholder="发货备注" rows="3" name="deliver_explain" cols="30"></textarea>
+						</td>
+						</goods>
+					</tr>
+					<tr>
+						<td class="delivery-member-info" colspan="4">
+							<h4>收货人信息：</h4>
+							<span class="text-receipt-address" th:text="${data.receipt_address}"></span>
+							<a href="javascript:;" class="btn btn-mini btn-orange btn-edit-take-delivery">编辑</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="order-td-bg" colspan="4">
+							<h4><span>第二步</span>确认发货信息</h4>
+						</td>
+					</tr>
+					<tr>
+						<td class="delivery-member-info" colspan="4">
+							<h4>我的发货信息：</h4>
+							<span class="geliver-goods-address" th:each="item: ${dataAddress}" th:if="${item.isDefault} eq 1" th:attr="data-id=${item.id}" th:text="${item.saLinkman}+@{&nbsp;&nbsp;}+${item.saLinktel}+@{&nbsp;&nbsp;}+${item.saPca}+${item.saStreet}"></span>
+							<a href="javascript:;" class="btn btn-mini btn-orange btn-edit-arss">编辑</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="order-td-bg" colspan="4">
+							<h4><span>第三步</span>选择物流服务</h4>
+						</td>
+					</tr>
+					<tr class="goods-info">
+						<td width="150">
+							<span class="item-k">选择快递</span>
+						</td>
+						<td width="200">
+							<input type="hidden" name="logis_code" th:value="${dataLogis[0].logis_code}" />
+							<select class="select" name="shipping_express">
+								<option th:each="item: ${dataLogis}" th:text="${item.logis_title}" th:attr="data-code=${item.logis_code}" th:value="${item.logis_title}"></option>
+							</select>
+						</td>
+						<td class="text-align-left">
+							<input class="text" name="shipping_code" placeholder="物流单号" type="text" />
+						</td>
+						<td>
+							<a href="javascript:;" class="btn btn-orange btn-confirm-delivery">确认发货</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<div class="Z-jump s-edit-address-take-body" style="display:none;">
+				<div class="Z-newly2" style="max-width: 500px">
+					<div class="Z-add_new">
+						修改收货地址
+					</div>
+					<span class="close-win" data-close-class=".s-edit-address-take-body">×</span>
+					<div class="Z-new_table">
+						<textarea cols="55" class="area-take-address" rows="3" th:text="${data.receipt_address}"></textarea>
+						<br />
+						<a class="btn btn-orange btn-lg btn-edit-take-address-sub" th:attr="data-id=${data.order_id}" href="javascript:;">确认</a>
+					</div>
+				</div>
+			</div>
+			<div class="Z-jump s-edit-address-body" style="display:none;">
+				<div class="Z-newly2">
+					<div class="Z-add_new">
+						选择发货地址
+					</div>
+					<span class="close-win" data-close-class=".s-edit-address-body">×</span>
+					<div class="Z-new_table">
+						<table style="width: 100%;">
+							<tr th:each="item: ${dataAddress}">
+								<td th:text="${item.saLinkman}"></td>
+								<td th:text="${item.saLinktel}"></td>
+								<td th:text="${item.saPca}+${item.saStreet}"></td>
+								<td><a href="javascript:;" th:attr="data-data=${item.saLinkman}+${item.saLinktel}+${item.saPca}+${item.saStreet}, data-id=${item.id}" class="btn btn-mini btn-sel-delivery-arss">选择</a></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+		var orderId = [[${data.order_id}]];
+		
+		$("select[name='shipping_express']").change(function() {
+			$("input[name='logis_code']").val( $(this).find("option:selected").attr("data-code") );
+		});
+	</script>
+</div>

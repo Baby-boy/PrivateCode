@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperOrder">
+
+	<insert id="store" useGeneratedKeys="true" keyProperty="order_id">
+		INSERT INTO
+		yd_order(
+			order_sn, store_id, store_name, buyer_id, buyer_name, coupon_id, type,
+			coupon_price, goods_price, total_price, transport_price, transport_address,
+			invoice_type, invoice_no, created_at, order_message, receipt_name, receipt_mobile, receipt_address 
+		)
+		VALUE (
+			#{order_sn}, #{store_id}, #{store_name}, #{buyer_id},
+			#{buyer_name}, #{coupon_id}, #{type}, #{coupon_price}, #{goods_price},
+			#{total_price}, #{transport_price}, #{transport_address},
+			#{invoice_type}, #{invoice_no}, now(), #{order_message},
+			#{receipt_name}, #{receipt_mobile}, #{receipt_address}
+		)
+		
+	</insert>
+
+	<select id="SelectGoods" resultType="java.util.HashMap">
+		SELECT
+			yd_depot.depot_id,
+			yd_depot.depot_stock,
+			yd_depot.depot_price,
+			yd_goods.goods_id,
+			yd_goods.goods_name
+		FROM
+			yd_depot
+		JOIN yd_goods ON yd_depot.goods_id = yd_depot.goods_id
+		LIMIT 5;
+	</select>
+
+	
+	<select id="SelectCoupon" resultType="java.util.HashMap">
+		SELECT
+			yd_coupon.coupon_id,
+			yd_coupon.coupon_type,
+			yd_coupon.coupon_money,
+			yd_coupon.coupon_full_money,
+			yd_coupon.coupon_end_time,
+			yd_coupon.coupon_created_time,
+			ifnull(yd_store.store_name, '') as store_name,
+			ifnull(yd_store.store_id, 0) as store_id
+		FROM
+			yd_receive_coupon
+		JOIN yd_coupon ON yd_receive_coupon.coupon_id = yd_coupon.coupon_id
+		left JOIN yd_store ON yd_coupon.store_id = yd_store.store_id
+
+		order by yd_receive_coupon.coupon_id desc
+		limit 10;
+	</select>
+
+	
+	<!-- 支付成功 - 修改订单状态 -->
+	<update id="paySuccess">
+		UPDATE
+			yd_order
+		SET
+			state = 2,
+			pay_sn = #{pay_sn},
+			payment_time = #{payment_time}
+		WHERE
+			order_sn = #{order_sn}
+	</update>
+	
+</mapper>

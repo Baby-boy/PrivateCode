@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+		<style type="text/css">
+			.cart-store .store-goods{
+				border: 1px solid #ff6700;
+			}
+			.cart-store .shop-icon {
+				position: relative;
+				width: 20px;
+				top: 2px;
+			}
+			.cart-store .store-name {
+				padding: 10px 0;
+			}
+			.cart-store .store-name .checkbox {
+				margin: 0 20px 0 20px;
+			}
+			#container .cart-page .have-product ul.cart-list li.choice span {
+				margin-left: 15px;
+			}
+			.cart-store {
+				margin-top: 15px;
+			}
+		</style>
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')}">
+		<!-- 头部 -->
+		<div id="header-cart">
+			<div th:include="shop/template/header :: cart('1')" th:remove="tag"></div>
+		</div>
+		
+		<div id="container">
+			<div class="cart-page">
+				<div class="have-product">
+					<ul class="top-title">
+						<li class="choice">
+							<span></span>全选
+						</li>
+						<li class="picture"></li>
+						<li class="title">商品名称</li>
+						<li class="price">单价</li>
+						<li class="number">数量</li>
+						<li class="subtotal">小计</li>
+						<li class="handle">操作</li>
+					</ul>
+					<!-- 购物车列表 -->
+					<div class="cart-wrap">
+						<div class="cart-store" th:inline="text" th:each="item:${data}">
+							<div class="store-name">
+								<span class="checkbox"></span>
+								<img class="shop-icon" th:src="${@_url.images()}+'logo-22.png'" />
+								<span class="shop-name">店铺：</span>
+								<a target="_block" class="shop-url" th:href="@{/store/}+${item.store_id}" th:text="${item.store_name}"></a>
+							</div>
+							<div class="store-goods">
+								<ul th:each="gitem:${item.goods}" th:attr="data-id=${gitem.cart_id}, data-depot-id=${gitem.depot_id}" th:class="${gitem.depot_stock} eq '0' ? 'cart-list cart-invalid' : 'cart-list'">
+									<li class="choice">
+										<span class="span-checkbox" th:if="${gitem.depot_stock} gt 0" th:attr="data-id=${gitem.cart_id}"></span>
+									</li>
+									<li class="picture">
+										<a target="_blank" th:href="@{/g/goods/}+${gitem.depot_id}">
+											<img th:src="${@_url.goods()}+${gitem.goods_cover}+@{?x-oss-process=image/resize,m_pad,h_80,w_80}" />
+										</a>
+										<span th:if="${gitem.depot_stock} le 0" class="item-invalid">失效</span>
+									</li>
+									<li class="title">
+										<a target="_blank" th:href="@{/g/goods/}+${gitem.depot_id}" th:text="${gitem.goods_name}"></a>
+									</li>
+									<li class="price"><span th:text="${gitem.goods_price}"></span>元</li>
+									<li class="number">
+										<div class="num-control">
+											<span class="reduce">-</span>
+											<input type="text" th:value="${gitem.cart_num}" />
+											<span class="plus">+</span>
+										</div>
+									</li>
+									<li class="subtotal"><span th:text="${gitem.goods_price * gitem.cart_num}"></span>元</li>
+									<li class="handle">
+										<span th:attr="data-id=${gitem.cart_id}">×</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- 购物车列表结束 -->
+					
+					<div class="go-pay">
+						<a class="continue-shop" href="/search">继续购物</a>
+						<div class="info">共<span class="total-pieces">0</span>件商品，已选择<span class="selected">4</span>件</div>
+						<div class="right-pay">
+							<input type="submit" id="btnCartBalance" value="去结算" />
+							<div class="total-price">合计（不含运费）：<strong>0</strong>元</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		<script type="text/javascript" th:src="@{/assets/js/jquery.ajax.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/cart.js}" ></script>
+		
+		
+	</body>
+</html>

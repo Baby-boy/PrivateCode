@@ -1,0 +1,49 @@
+package com.yd.gcj.controller.page;
+
+import java.util.HashMap;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.yd.gcj.service.YdMangerServiceBank;
+
+
+@RestController
+@RequestMapping(value="/page/bank",produces = {"application/json;charset=UTF-8"})
+public class YdMangerControllerPageBank<HttpSerlvetRequest> {
+	@Autowired
+	private YdMangerServiceBank ydMangerServiceBank;
+	
+	/***
+	 * 添加银行卡信息（后期需要移植到银行卡信息接口控制器）
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value = "/addBankMsg", method = RequestMethod.POST)
+	public Object addBankMsg(@RequestBody HashMap<String, Object> map) {
+		return ydMangerServiceBank.$addBankMsg(map);
+	}
+	
+	/***
+	 * 删除银行卡信息（后期需要移植到银行卡信息接口控制器）
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value = "/delBankMsg", method = RequestMethod.POST)
+	public Object delBankMsg(@RequestBody HashMap<String, Object> map) {
+		return ydMangerServiceBank.$delBankMsg(map);
+	}
+	
+	/***
+	 * 查询指定用户银行卡信息
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value = "/queryAll", method = RequestMethod.POST)
+	public Object queryAll(@RequestBody HashMap<String, Object> map){
+		return ydMangerServiceBank.$queryAll(map);
+	}
+}

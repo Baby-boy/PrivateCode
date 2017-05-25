@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.d.seller.mapper.YdSellerMapperStoreAddress">
+	<sql id="listWhere">
+		 where store_id = #{store_id}
+	</sql>
+	
+	<select id="index" resultMap="YdWebMapperStoreAddressList">
+		SELECT * FROM yd_store_address
+		<include refid="listWhere"></include>
+		ORDER BY created_at DESC
+	</select>
+	
+	<resultMap id="YdWebMapperStoreAddressList" type="java.util.HashMap">
+		<result property="id" column="id"/>
+		<result property="saTitle" column="sa_title"/>
+		<result property="storeId" column="store_id"/>
+		<result property="saSort" column="sa_sort"/>
+		<result property="isDefault" column="is_default"/>
+		<result property="saLinkman" column="sa_linkman"/>
+		<result property="saLinktel" column="sa_linktel"/>
+		<result property="saProvinceId" column="sa_province_id"/>
+		<result property="saCityId" column="sa_city_id"/>
+		<result property="saAreaId" column="sa_area_id"/>
+		<result property="saPca" column="sa_pca"/>
+		<result property="saStreet" column="sa_street"/>
+		<result property="createdAt" column="created_at"/>
+		<result property="updatedAt" column="updated_at"/>
+	</resultMap>
+	
+	
+	<insert id="store">
+		insert yd_store_address (store_id, sa_linkman, sa_linktel, sa_province_id, sa_city_id, sa_area_id, sa_pca, sa_street, created_at)
+		value ( #{store_id}, #{sa_linkman}, #{sa_linktel}, #{sa_province_id}, #{sa_city_id}, #{sa_area_id}, #{sa_pca}, #{sa_street}, #{created_at} );
+	</insert>
+	
+	<update id="update">
+		UPDATE
+			yd_store_address
+		SET
+			sa_linkman = #{saLinkman},
+			sa_linktel = #{saLinktel},
+			sa_province_id = #{saProvinceId},
+			sa_city_id = #{saCityId},
+			sa_area_id = #{saAreaId},
+			sa_pca = #{saPca},
+			sa_street = #{saStreet} 
+		<include refid="listWhere"></include> 
+		and id = #{id}
+	</update>
+	
+	<update id="setDefault">
+		UPDATE yd_store_address SET is_default = 2 <include refid="listWhere"></include>;
+		UPDATE
+			yd_store_address
+		SET
+			is_default = 1 
+		<include refid="listWhere"></include> 
+		and id = #{id}
+		
+	</update>
+	
+	<delete id="destroy">
+		delete from yd_store_address <include refid="listWhere"></include> and id = #{id};
+	</delete>
+</mapper>

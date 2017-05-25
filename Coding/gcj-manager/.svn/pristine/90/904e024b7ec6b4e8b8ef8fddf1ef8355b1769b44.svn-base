@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.system.mapper.YdMangerMapperSystemAdmin">
+
+	<select id="queryAllAdmin" resultType="com.yd.gcj.entity.YdMangerSystemAdmin">
+		select * from yd_admin
+		where 1=1 
+		<if test="admin_name !=null and admin_name != ''">
+			and admin_name like  CONCAT(CONCAT('%', #{admin_name, jdbcType=VARCHAR}),'%')
+		</if>
+		
+		<if test="admin_is_super !=null">
+			and admin_is_super = #{admin_is_super}
+		</if>
+	</select>
+	
+	<select id="queryAdminByAdminPhon" resultType="com.yd.gcj.entity.YdMangerSystemAdmin" >
+		select * from yd_admin
+		where admin_phone = #{admin_phone}
+	</select>
+	
+	<select id="queryAdminByAdmiName" resultType="com.yd.gcj.entity.YdMangerSystemAdmin" >
+		select * from yd_admin
+		where admin_name = #{admin_name}
+	</select>
+	
+	<select id="queryAdminByAdminAccount" resultType="com.yd.gcj.entity.YdMangerSystemAdmin" >
+		select * from yd_admin
+		where admin_account = #{admin_account}
+	</select>
+	
+	<select id="queryAdminByAdminId" resultType="com.yd.gcj.entity.YdMangerSystemAdmin" >
+		select * from yd_admin
+		where admin_id = #{admin_id}
+	</select>
+	
+	<select id="queryAdminByUserAccountAndUserPassword" resultType="com.yd.gcj.entity.YdMangerSystemAdmin" >
+		select * from yd_admin
+		where admin_account = #{admin_account} and admin_password = #{admin_password}
+	</select>
+	
+	<insert id="addAdmin" parameterType="com.yd.gcj.entity.YdMangerSystemAdmin" >
+		insert into yd_admin(admin_name,admin_password,admin_login_time,admin_login_num,admin_is_super,admin_gid,admin_account,admin_phone,admin_create_time,admin_update_time,admin_last_time)
+		value(#{admin_name},#{admin_password},now(),0,#{admin_is_super},#{admin_gid},#{admin_account},#{admin_phone},#{admin_create_time},#{admin_update_time},now())
+	</insert>
+	
+	<delete id="deleteAdmin" parameterType="java.lang.Integer" >
+		delete from yd_admin 
+		where admin_id= #{admin_id}
+	</delete>
+	
+	<update id="updateAdmin" parameterType="com.yd.gcj.entity.YdMangerSystemAdmin" >
+		update yd_admin
+		<set>
+			<trim>
+				<if test="admin_name != null and admin_name !=''">admin_name = #{admin_name},</if>
+				<if test="admin_password != null and admin_password !=''">admin_password = #{admin_password},</if>
+				<if test="admin_login_time != null and admin_login_time !=''">admin_login_time = #{admin_login_time},</if>
+				<if test="admin_login_num != null and admin_login_num !=''">admin_login_num = #{admin_login_num},</if>
+				admin_is_super = #{admin_is_super},
+				<if test="admin_gid != null and admin_gid !=''">admin_gid = #{admin_gid},</if>
+				<if test="admin_account != null and admin_account !=''">admin_account = #{admin_account},</if>
+				<if test="admin_phone != null and admin_phone !=''">admin_phone = #{admin_phone},</if>
+				<if test="admin_create_time != null and admin_create_time !=''">admin_create_time = #{admin_create_time},</if>
+				<if test="admin_last_time != null and admin_last_time !=''">admin_last_time = #{admin_last_time},</if>
+				admin_update_time = now()
+			</trim>
+		</set>
+		where admin_id = #{admin_id}
+	</update>
+	
+	<update id="updateAdminByAdminId">
+		update yd_admin
+		set admin_login_num = #{admin_login_num},
+		admin_login_time = now(),
+		admin_last_time = now()
+		where admin_id = #{admin_id}
+	</update>
+	
+	<update id="updateAdminPassword" >
+		update yd_admin
+		<set>
+			<trim>
+				admin_password = #{admin_newpassword},
+				admin_update_time = now()
+			</trim>
+		</set>
+		where admin_id = #{admin_id}
+	</update>
+</mapper>

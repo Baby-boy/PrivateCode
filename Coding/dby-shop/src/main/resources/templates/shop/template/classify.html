@@ -1,0 +1,229 @@
+		<!-- 首页 -->
+		<div th:fragment="home(value)">
+			<div th:class="${value}==active?'classify active':'classify'">
+				<div class="title">
+					<h2>全部商品分类</h2>
+				</div>
+				<ul>
+	               	<li th:each="item,niter:${@_classify.get('goods')}" th:if="${niter.index lt 7}">
+						<div class="first">
+							<h3><a target="_block" th:href="@{/search?depot_classify1=}+${item.id}" th:text="${item.name}">黄铂金</a></h3>
+							<p><a target="_block" th:each="nitem:${item.nodes}" th:href="@{/search?depot_classify2=}+${nitem.id}" th:text="${nitem.name}">足金</a></p>
+						</div>
+						<div class="menu">
+							<div class="second-class" th:each="nitem:${item.nodes}">
+								<h3 th:text="${nitem.name}">分类</h3>
+								<ul>
+									<li th:each="sitem:${nitem.nodes}"><a target="_block" th:href="@{/search?depot_classify3=}+${sitem.id}" th:text="${sitem.name}">男表</a><small>|</small></li>
+								</ul>
+							</div>
+							<dl>
+								<dt>
+									<a href="javascript:;">
+										<img src="https://woadby.oss-cn-beijing.aliyuncs.com/dby/13e0e061-feef-4a14-80e3-a820de5aaec9.jpg" />
+									</a>
+								</dt>
+								<dd class="title">到点下单立减1%</dd>
+							</dl>
+						</div>
+					</li>
+				</ul>
+               	<!-- 隐藏部分 -->
+               	<!-- <ul class="hidden-section">
+	               <li th:each="item,niter:${@_classify.get('goods')}" th:if="${niter.index gt 7}">
+						<div class="first">
+							<h3><a href="c2c_search.html" th:text="${item.name}">黄铂金</a></h3>
+							<p><a href="c2c_search.html" th:each="nitem:${item.nodes}" th:text="${nitem.name}">足金</a></p>
+						</div>
+						<div class="menu">
+							<div class="second-class" th:each="nitem:${item.nodes}">
+								<h3 th:text="${nitem.name}">分类</h3>
+								<ul>
+									<li th:each="sitem:${nitem.nodes}"><a href="c2c_search.html" th:text="${sitem.name}">男表</a><small>|</small></li>
+								</ul>
+							</div>
+							<dl>
+								<dt>
+									<a href="details.html">
+										<img th:src="@{/assets/shop/images/demoimg/img_02.png}" />
+									</a>
+								</dt>
+								<dd class="title">到点下单立减1%</dd>
+								<dd class="intro">原矿地槽清健康好胡</dd>
+								<dd class="price">¥2</dd>
+							</dl>
+						</div>
+					</li>
+               	</ul> -->
+               	<div class="more-classify"><i></i></div>
+			</div>
+		</div>
+		
+		
+		<!-- 品牌店 -->
+		<div th:fragment="brandstore(value)">
+			<div th:class="${value}==active?'classify classify2 active':'classify classify2'">
+				<div class="title">
+					<h2>全部商品分类</h2>
+				</div>
+				<ul>
+	               	<li th:each="item,niter:${@_classify.get('goods')}" th:if="${niter.index lt 5}">
+						<div class="first">
+							<h3><a href="##" th:text="${item.name}">黄铂金</a></h3>
+							<p><a th:each="nitem:${item.nodes}" href="##" th:text="${nitem.name}">足金</a></p>
+						</div>
+						<div class="menu">
+							<div class="second-class">
+								<ul>
+									<li th:each="nitem:${item.nodes}"><a href="##" th:text="${nitem.name}">翡翠</a></li>
+								</ul>
+							</div>
+						</div>
+					</li>
+               	</ul>
+               	<!-- 隐藏部分 -->
+               	<ul class="hidden-section">
+	               	<li th:each="item,niter:${@_classify.get('brandstore')}" th:if="${niter.index gt 5}">
+						<div class="first">
+							<h3><a href="##" th:text="${item.name}">黄铂金</a></h3>
+							<p><a th:each="nitem:${item.nodes}" href="##" th:text="${nitem.name}">足金</a></p>
+						</div>
+						<div class="menu">
+							<div class="second-class">
+								<ul>
+									<li th:each="nitem:${item.nodes}"><a href="##" th:text="${nitem.name}">翡翠</a></li>
+								</ul>
+							</div>
+						</div>
+					</li>
+               	</ul>
+               	<div class="more-classify"><i></i></div>
+        	</div>
+		</div>
+		
+		
+		<!-- 懒鱼  -->
+		<div th:fragment="ctc(value)">
+			<div th:class="${value}==active?'classify classify2 active':'classify classify2'">
+				<div class="title">
+					<h2>全部商品分类</h2>
+				</div>
+				<ul>
+	               	<li th:each="item,niter:${@_YdShopServiceCtcClass.listTree()}" th:if="${niter.index lt 5}">
+						<div class="first">
+							<h3><a target="_blank" href="javascript:;" th:text="${item.cc_name}"></a></h3>
+							<p><a target="_blank" th:each="nitem,nnindex:${item.nodes}" th:if="${nnindex.index lt 4}" th:href="@{/ctc/queryAllCtcGoods?cc_id=}+${item.id}" th:text="${nitem.cc_name}"></a></p>
+						</div>
+						<div class="menu">
+							<div class="second-class">
+								<ul>
+									<li th:each="nitem:${item.nodes}"><a target="_blank" th:href="@{/ctc/queryAllCtcGoods?cc_id=}+${nitem.id}" th:text="${nitem.cc_name}"></a></li>
+								</ul>
+							</div>
+						</div>
+					</li>
+               	</ul>
+               	<!-- 隐藏部分 -->
+               	<!-- <ul class="hidden-section">
+	               	<li th:each="item,niter:${@_classify.get('ctc')}" th:if="${niter.index gt 5}">
+						<div class="first">
+							<h3><a href="##" th:text="${item.name}">黄铂金</a></h3>
+							<p><a th:each="nitem:${item.nodes}" href="##" th:text="${nitem.name}">足金</a></p>
+						</div>
+						<div class="menu">
+							<div class="second-class">
+								<ul>
+									<li th:each="nitem:${item.nodes}"><a href="##" th:text="${nitem.name}">翡翠</a></li>
+								</ul>
+							</div>
+						</div>
+					</li>
+               	</ul> -->
+               	<div class="more-classify"><i></i></div>
+        	</div>
+		</div>
+		
+		
+		<!-- 拍卖 -->
+		<div th:fragment="auction(value)">
+			<div th:class="${value}==active?'classify classify1 active':'classify classify1'">
+				<div class="title">
+					<h2>全部商品分类</h2>
+				</div>
+				<div class="tip-text"><span>每天9:30上新</span></div>
+				<ul>
+	               	<li th:each="item,niter:${@_classify.get('auction')}" th:if="${niter.index lt 5}">
+						<div class="first">
+							<h3><a href="##" th:text="${item.name}">黄铂金</a></h3>
+							<p><a th:each="nitem:${item.nodes}" href="##" th:text="${nitem.name}">足金</a></p>
+						</div>
+						<div class="menu">
+							<div class="second-class">
+								<ul>
+									<li th:each="nitem:${item.nodes}"><a href="##" th:text="${nitem.name}">翡翠</a></li>
+								</ul>
+							</div>
+						</div>
+					</li>
+               	</ul>
+               	<!-- 隐藏部分 -->
+               	<ul class="hidden-section">
+	               	<li th:each="item,niter:${@_classify.get('auction')}" th:if="${niter.index lt 5}">
+						<div class="first">
+							<h3><a href="##" th:text="${item.name}">黄铂金</a></h3>
+							<p><a th:each="nitem:${item.nodes}" href="##" th:text="${nitem.name}">足金</a></p>
+						</div>
+						<div class="menu">
+							<div class="second-class">
+								<ul>
+									<li th:each="nitem:${item.nodes}"><a href="##" th:text="${nitem.name}">翡翠</a></li>
+								</ul>
+							</div>
+						</div>
+					</li>
+               	</ul>
+               	<div class="more-classify"><i></i></div>
+			</div>
+		</div>
+		
+		
+		<!-- 供货商城 -->
+		<div th:fragment="supply(value)">
+			<div th:class="${value}==active?'classify classify2 active':'classify classify2'">
+				<div class="title">
+					<h2>全部商品分类</h2>
+				</div>
+				<ul>
+	               	<li th:each="item,niter:${@_classify.get('supply')}" th:if="${niter.index lt 5}">
+						<div class="first">
+							<h3><a href="##" th:text="${item.name}">黄铂金</a></h3>
+							<p><a th:each="nitem:${item.nodes}" href="##" th:text="${nitem.name}">足金</a></p>
+						</div>
+						<div class="menu">
+							<div class="second-class">
+								<ul>
+									<li th:each="nitem:${item.nodes}"><a href="##" th:text="${nitem.name}">翡翠</a></li>
+								</ul>
+							</div>
+						</div>
+					</li>
+               	</ul>
+               	<!-- 隐藏部分 -->
+               	<ul class="hidden-section">
+	               	<li th:each="item,niter:${@_classify.get('supply')}" th:if="${niter.index gt 5}">
+						<div class="first">
+							<h3><a href="##" th:text="${item.name}">黄铂金</a></h3>
+							<p><a th:each="nitem:${item.nodes}" href="##" th:text="${nitem.name}">足金</a></p>
+						</div>
+						<div class="menu">
+							<div class="second-class">
+								<ul>
+									<li th:each="nitem:${item.nodes}"><a href="##" th:text="${nitem.name}">翡翠</a></li>
+								</ul>
+							</div>
+						</div>
+					</li>
+               	</ul>
+               	<div class="more-classify"><i></i></div>
+        	</div>
+		</div>

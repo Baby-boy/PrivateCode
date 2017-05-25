@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功城记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--发布公告-->
+<div class="fbgg-box">
+    <div class="fabu">
+        <div class="jindu">
+            <div class="jindutit">任务进度</div>
+            <div class="jindus">
+                <div class="jinduxian"><div></div></div>
+                <ul>
+                    <li th:class="${task.task_state >= 0}?'isok':''">
+                        <span>1</span>
+                        <p>发布需求<br/>2016.09.06</p>
+                    </li>
+                    <li th:class="${task.task_state >= 2}?'isok':''">
+                        <span>2</span>
+                        <p>选标中<br/>-</p>
+                        <div></div>
+                    </li>
+                    <li th:class="${task.task_state >= 3}?'isok':''">
+                        <span>3</span>
+                        <p>合同签订<br/>-</p>
+                        <div></div>
+                    </li>
+                    <li th:class="${task.task_state == 4}?'isok':''">
+                        <span>4</span>
+                        <p>服务商工作<br/>-</p>
+                        <div></div>
+                    </li>
+                    <li th:class="${task.task_state == 5}?'isok':''">
+                        <span>5</span>
+                        <p>验收并付款<br/>-</p>
+                        <div></div>
+                    </li>
+                    <li th:class="${task.task_state == 6}?'isok':''">
+                        <span>6</span>
+                        <p>评价<br/>-</p>
+                        <div></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="work-box">
+            <div class="worktit">
+                <a th:href="'/list-fuwushang/xuqiumiaoshu/'+${taskId}">需求描述</a>
+                <a href="###" class="now">合同</a>
+                <a th:href="'/list-fuwushang/fabugonggao/'+${taskId}">工作台</a>
+            </div>
+            <div class="compact-no">
+                <div class="jiong"></div>
+                <div class="quqian">
+                    <p class="p1">合同状态：[[${task.task_contract_state==1}?'未签订':${task.contract_state}]]</p>
+                    <p class="p2" th:if="${task.task_contract_state==1 or task.task_contract_state==4}">您未与需求方签署合同，现在您可以：<a th:if="${task.task_contract_state == 4}" th:href="'/list-fuwushang/hetongbianji/'+${taskId}">重新发起合同</a></p>
+                    <p class="p3">合同未签订，发生任何意外损失，本平台不负责~</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!--底部-->
+    <div th:include="public/foot"></div>
+    
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+</html>

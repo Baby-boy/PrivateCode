@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功城记-帮助中心</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+    <link rel="stylesheet" href="/css/help.css"/>
+</head>
+<body>
+    <!--顶部导航-->
+    <div th:include="public/hander"></div>
+    
+    <!-- 中间 -->
+    <div id="yd-help">
+        <div class="yd-help-wrap">
+            <div class="yd-help-contain">
+                <div class="yd-help-title">
+                    <h1>帮助中心</h1>
+                </div>
+                <div class="yd-demand">
+                    <div class="yd-demand1">
+                        <h5>我要发布需求</h5>
+                        <h5>我要发布什么样的需求？</h5>
+                        <p>目前平台上的注册设计师以建筑相关的设计行业为主，涵盖了以下类型：规划设计、建筑设计、室内设计、景观设计、家具设计、橱柜设计、目前设计、灯光设计、平面设计和其他。您的任务可大可小，只需要将您的需求详情以任务的形式发布于XX，必定能招募到符合您需要的设计师及其团队。<br/>提示：目前发布需求，需要您完成企业认证的相关流程，企业认证的指引说明请见这里。</p>
+                    </div>
+                    <div class="yd-demand1">
+                        <h5>如何找到设计师？</h5>
+                        <p>1. 发布您的设计任务<br/>
+                        发布任务是完全免费的。发布后等待平台上的设计师来提交申请。您可以随时查看提交申请的设计师名单和他们的申请留言。<br/>
+                        2. 在线选择意向合作方<br/>
+                        您可以通过设计师留下的联系方式，直接与设计师进行需求上的沟通。当招募期结束后，XX平台会为您计算出申请人的匹配度排名，您可以参考匹配度排名来选择合适的意向合作方。温馨提示：为了不影响您日后发布任务的相关操作，请务必完成该任务的勾选合作方流程，感谢您的配合。<br/>
+                        3. 线下交流后完成合作方的选择<br/>
+                        经过线下交流后，您将会选定合适的任务承担方，并开展相关工作。</p>
+                    </div>
+                    <div class="yd-demand1">
+                        <h5>如何找到需求任务？</h5>
+                        <p>1. 浏览XX平台上发布的任务<br/>
+                        XX上发布的任务是完全公开的，您可以通过平台上的工具浏览、过滤、搜索所有的任务，并查看其需求和详细信息。<br/>
+                        2. 在线申请合适的任务<br/>
+                        当您找到合适的需求任务后，可以进行在线申请成为候选方，并完成申请留言。<br/>
+                        3. 等待招募期完结后的入选结果<br/>
+                        任务的设计师招募期结束后，发布方会从申请者当中挑选合适的意向合作方，若您入选，发布方会尽快与您联系。温馨提示：为了让您成功入选的概率更高，请尽量完善会员资料及企业资料</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--底部-->
+    <div th:include="public/foot"></div>
+    
+    <script src="/js/jquery-1.11.1.min.js"></script>
+</body>
+</html>

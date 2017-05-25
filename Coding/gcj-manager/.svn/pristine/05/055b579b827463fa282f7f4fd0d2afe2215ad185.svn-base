@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功城记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:with="user=${session.user},msgSize=${session.msgSize}" th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--待签合同-->
+<div class="hetong-box">
+    <div class="hetong">
+        <!-- 服务商个人信息头部 -->
+        <div th:include="public/fuwushang/hander"></div>
+        <div class="hetong-xq clear">
+            <div class="left">
+                <a href="fuwushang">我的任务</a>
+                <a href="wodezhanghu">我的账户</a>
+                <a href="wodejianli">我的简历</a>
+                <a href="woderenzheng-shiming">我的认证</a>
+                <a href="wodepingjia" class="now">我的评价</a>
+                <a href="wodeshoucang">我的收藏</a>
+                <a href="wodexiaoxi-huifu" class="pos-relative">我的消息<span class="badge badge-my-msg" th:if="${msgSize!=null and msgSize.countMsgSize > 0}" th:text="${msgSize.countMsgSize}">66</span></a>
+                <a href="tuikuanzhong">我的退款</a>
+            </div>
+            <div class="right">
+                <div class="topr2">
+                    <i></i>我的评价
+                </div>
+                <ul class="daiqianlist myevaluate">
+                    <li class="clear" th:each="epc,niter:${epcs}">
+                        <div class="img">
+                            <img src="" alt=""/>
+                        </div>
+                        <div class="imgr">
+                            <div class="toplis">
+                                <div class="titlel"><a href="xuqiumiaoshu">[[${epc.epcs_tname}]]</a><span>- 已评价</span></div>
+                                <div class="titler">
+                                    	佣金：<span class="span1">100,000 ¥</span>  <i>丨</i>已支付佣金：<span class="span1">100,000 ¥</span>
+                               	</div>
+                            </div>
+                            <div class="botm clear">
+                                <div class="ones">
+                                    <p>雇主方：<span>[[${epc.epcs_ename}]]</span></p>
+                                    <p>工期：<span>[[${epc.epcs_term}]]</span></p>
+                                </div>
+                                <div class="three">
+                                    <p>评价：<span class="good">[[${epc.evaluation}]]</span>
+                                        <!-- <i>完成的很好</i>
+                                        <i>出乎我的意料</i> -->
+                                    </p>
+                                    <p>内容：<span>[[${epc.epcs_contents}]]</span></p>
+                                </div>
+                                <div class="twos">
+                                    <div><i></i>[[${#dates.format(epc.epcs_create_time,'yyyy-MM-dd')}]]</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- <li class="clear">
+                        <div class="img">
+                            <img src="" alt=""/>
+                        </div>
+                        <div class="imgr">
+                            <div class="toplis">
+                                <div class="titlel"><a href="xuqiumiaoshu">东莞松山湖北部体育公园项目概念方案</a><span>- 已评价</span></div>
+                                <div class="titler">
+                                    	佣金：<span class="span1">100,000 ¥</span>  <i>丨</i>已支付佣金：<span class="span1">0 ¥</span></div>
+                            </div>
+                            <div class="botm clear">
+                                <div class="ones">
+                                    <p>服务方：<span>张晓明</span></p>
+                                    <p>工期：<span>2016年5月12日完成</span></p>
+                                </div>
+                                <div class="three">
+                                    <p>评价：<span class="good">好评</span>
+                                        <i>完成的很好</i>
+                                        <i>出乎我的意料</i>
+                                    </p>
+                                    <p>内容：<span>很不错，完成的很好</span></p>
+                                </div>
+                                <div class="twos">
+                                    <div><i></i>2016-04-26</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+
+</html>

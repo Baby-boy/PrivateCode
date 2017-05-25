@@ -1,0 +1,39 @@
+
+	<div th:with="searchkeys=${@_dict.many('web_search_key')},
+		navs=${@_nav.getByType('0')}
+		">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div> 
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: home('')" th:remove="tag"></div> 
+					<div th:include="shop/template/header :: nav(home)" th:remove="tag"></div> 
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+
+		<div id="container">
+			<div class="g-content">
+				<div th:include="seller/temp/left" th:remove="tag"></div>
+
+				<div id="right">
+				
+				</div>
+			</div>
+		</div>
+
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+	
+		<yd:ajax key="memberSecurity" value="get.member_security" />
+		<yd:ajax key="memberService" value="get.member_service"  />
+		<script type="text/javascript">
+			setTimeout(function() {
+				goodsIndex( $(this) );
+			}, 100);
+		</script>
+	</div>
+

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperDict">
+    <select id="get_many" resultMap="YdShopMapperDict_ResultMap_get_many">
+        SELECT
+            yd_dict.dict_id,
+            yd_dict.dict_value
+        FROM
+            yd_dict
+        where dict_type = #{dict_type} 
+        order by dict_pid asc, dict_sort asc, dict_id asc;
+    </select>
+    
+     <select id="many" resultType="java.util.Map">
+        SELECT
+            yd_dict.dict_key,
+            yd_dict.dict_value
+        FROM
+            yd_dict
+        where dict_type = #{dict_type} 
+        order by dict_pid asc, dict_sort asc, dict_id asc;
+    </select>   
+    
+    
+    
+    <select id="get_many_simple" resultMap="YdShopMapperDict_ResultMap_get_many_simple">
+        SELECT
+            yd_dict.dict_id,
+            yd_dict.dict_value
+        FROM
+            yd_dict
+        where dict_type = #{dict_type} and dict_pid = #{dict_pid} 
+        order by dict_sort asc;
+    </select>
+    
+    <resultMap id="YdShopMapperDict_ResultMap_get_many" type="java.util.Map">
+        <id property="id" column="dict_id" />
+        <result property="name" column="dict_value" />
+    </resultMap>
+    
+    
+    <resultMap id="YdShopMapperDict_ResultMap_get_many_simple" type="java.util.Map">
+        <id property="id" column="dict_id" />
+        <result property="name" column="dict_value" />
+    </resultMap>
+</mapper>

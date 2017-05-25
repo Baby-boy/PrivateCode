@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>修改管理员</title>
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>  
+</head>
+<body>
+<div class="panel admin-panel margin-top">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>修改管理员</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x"  th:inline="text" id="updateForm" >   
+       <input type="hidden" name="banner_id"  th:value="${ydMangerBanner.banner_id}" />   
+        <div class="form-group">
+            <div class="label">
+                <label>图片标题：</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" name="banner_title" th:value="${ydMangerBanner.banner_title}" />
+                <div class="tips"></div>
+            </div>
+        </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>图片副标题：</label>
+        </div>
+        <div class="field">																
+          <input type="text" class="input w50" name="banner_subtitle" th:value="${ydMangerBanner.banner_subtitle}" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>类型：</label>
+        </div>
+        <div class="field">																
+<!--           <input type="text" class="input w50" name="banner_type" th:value="${ydMangerBanner.banner_type}" /> -->
+          <select class="input w50" >
+          	<option th:each="banner:${bannerTypeList}" th:value="${banner.banner_type}">
+          		[[${banner.banner_type==0? '轮播大图': '连接小图'}]]
+          	</option>
+          </select>
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>指向地址：</label>
+        </div>
+        <div class="field">																
+          <input type="text" class="input w50" name="banner_jumpurl" th:value="${ydMangerBanner.banner_jumpurl}" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>图片地址：</label>
+        </div>
+        <div class="field">																
+          <input type="text" class="input w50" name="banner_imgsrc" th:value="${ydMangerBanner.banner_imgsrc}" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>排序：</label>
+        </div>
+        <div class="field">																
+          <input type="text" class="input w50" name="banner_sort" th:value="${ydMangerBanner.banner_sort}" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>新窗口打开：</label>
+        </div>
+        <div class="field">
+          <div class="button-group radio">
+          
+          <label th:class="'button '+ ${ydMangerBanner.banner_isopen eq 0 ? 'active' : ''} ">
+         	  <span class="icon icon-check"></span>             
+              <input name="banner_isshow" value="0" type="radio" th:checked="${ydMangerBanner.banner_isopen eq 0 ? 'true' : 'false'}" />是             
+          </label>             
+        
+          <label th:class="'button '+ ${ydMangerBanner.banner_isopen eq 1 ? 'active' : ''}"><span class="icon icon-times"></span>          	
+              <input name="banner_isshow" value="1"  type="radio" th:checked="${ydMangerBanner.banner_isopen eq 1 ? 'true' : 'false'}" />否
+          </label>         
+           </div>       
+        </div>
+     </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="button" id="btnSubmit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">
+
+//ajax提交表单
+$("#btnSubmit").click(function(){
+		var data = $("#updateForm").serializeArray();
+		var ydMangerSystemAdmin = {};
+	$.each(data, function(k, v) {
+		ydMangerSystemAdmin[ v["name"] ] = v["value"];
+	});
+		
+		$.ajax({
+			url: "/system/updateBanner",
+			data: $("#updateForm").serialize(),
+			type: "post",
+			success: function(datas) {
+				if(datas.msg==true){
+					alert("修改成功");
+					location.reload();
+				}else{
+					alert("修改失败");
+				}
+			}
+		});
+	});	
+	
+</script>
+</body></html>

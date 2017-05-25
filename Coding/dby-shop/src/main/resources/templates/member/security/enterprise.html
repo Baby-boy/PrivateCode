@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="keywords" content=""/>
+		<meta name="description" content=""/>
+		<title>企业用户注册</title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/index.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/member.css}"/>
+		
+	</head>
+	
+	<body>
+		<!--头部-->
+		<div class="Z-Login_header">
+			<div class="Z-Login_box">
+				<div class="Z-logo">
+					<a href="/"><img src="http://res.zwzyd.com/dby/web/images/demoimg/logo_aa.png"/></a>
+				</div>
+				<span>欢迎注册</span>
+				
+			</div>
+		</div>
+		
+		<!--内容-->
+		<div class="Z-content_zhuce">
+			<div class="Z-contentBox">
+				<div class="Z-twomenu">
+					<div class="Z-qiye">
+						<a href="/register">普通用户注册</a>
+					</div>
+					<div class="Z-putong">
+						<a href="/enterprise">企业用户注册</a>
+					</div>
+					<div class="Z-fuwuxuzhi"><p>服务须知：</p><p>审核时间<span>2-7</span>天</p></div>
+				</div>
+				<div class="Z-zhanghu">
+					<div class="Z-zhanghu_title">
+						账户信息
+					</div>
+					<ul>
+						<li class="Z-firstinput">
+							<div class="Z-con_title Z-con_title1">用户名</div>
+							<input type="text" placeholder="您的用户名和登录名"/>
+							<span>
+								<img src="http://res.zwzyd.com/dby/web/images/demoimg/Z-gouzi_gouzi.png" alt="" />
+							</span>
+						</li>
+						<li class="Z-firstinputt">
+							<div class="Z-con_title Z-con_title1">设置密码</div>
+							<input type="password" placeholder="建议至少使用两种字符组合"/>
+							<div class="Z-anquanchengdu">
+								<p>安全程度：</p>
+								<ul>
+									<li class="Z-libac1">弱</li>
+									<li class="Z-libac2">中</li>
+									<li class="Z-libac3">强</li>
+								</ul>
+							</div>
+						</li>
+						<li class="Z-hehe">
+							<div class="Z-con_title Z-con_title1">确认密码</div>
+							<input type="password" placeholder="请再次输入密码"/>
+							<div class="Z-mimachangdu">密码长度只能在6-20位字符之间</div>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="Z-zhanghu">
+					<div class="Z-zhanghu_title">
+						公司信息
+					</div>
+					<ul>
+						<li class="Z-firstinput">
+							<div class="Z-con_title Z-con_title1">公司名称</div>
+							<input type="text" placeholder="您的用户名和登录名"/>
+						</li>
+						<li>
+							<div class="Z-con_title Z-con_title1">公司地址</div>
+							<input type="text" placeholder="请输入详细地址"/>
+						</li>
+						<li class="Z-daimazheng">
+							<div class="Z-con_title Z-con_title1">营业执照</div>
+							<div class="Z-daimabox">
+								<div class="Z-lefttext">彩色扫描件或数码照片</div>
+								<div class="Z-rightshangchuan">
+									<img src="http://res.zwzyd.com/dby/web/images/demoimg/Z-shangchuan.png"/>
+									<span>上传资料</span>
+								</div>
+								<input type="file" accept="image/*" multiple="multiple" class="head_img" style="display:none" />
+							</div>
+						</li>
+						<li class="Z-daimazheng">
+							<div class="Z-con_title Z-con_title1">机构代码证</div>
+							<div class="Z-daimabox">
+								<div class="Z-lefttext">彩色扫描件或数码照片</div>
+								<div class="Z-rightshangchuan">
+									<img src="http://res.zwzyd.com/dby/web/images/demoimg/Z-shangchuan.png"/>
+									<span>上传资料</span>
+								</div>
+								<input type="file" accept="image/*" multiple="multiple" class="head_img" style="display:none" />
+							</div>
+						</li>
+						<li>
+							<div class="Z-con_title Z-con_title1">对公银行账户</div>
+							<input type="text" placeholder="基本户，一般账户均可"/>
+						</li>
+						<li class="Z-daimazheng">
+							<div class="Z-con_title Z-con_title1">法人身份证</div>
+							<div class="Z-daimabox">
+								<div class="Z-lefttext">彩色扫描件或数码照片</div>
+								<div class="Z-rightshangchuan">
+									<img src="http://res.zwzyd.com/dby/web/images/demoimg/Z-shangchuan.png"/>
+									<span>上传资料</span>
+								</div>
+								<input type="file" accept="image/*" multiple="multiple" class="head_img" style="display:none" />
+							</div>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="Z-zhanghu">
+					<div class="Z-zhanghu_title">
+						联系人信息
+					</div>
+					<ul>
+						<li class="Z-firstinput">
+							<div class="Z-con_title Z-con_title1">联系人姓名</div>
+							<input type="text" placeholder="您的用户名和登录名"/>
+						</li>
+						<li>
+							<div class="Z-con_title Z-con_title1">验证手机</div>
+							<input type="text" placeholder="输入您的手机号码"/>
+						</li>
+						<li class="Z-twoinput Z-ttwo">
+							<div class="Z-con_title Z-con_title1">短信验证码</div>
+							<input type="text" />
+							<a href="#">获取短信验证码</a>
+							<div class="send_code" style="display:none;">
+				                <label class="obtain" style="display: none;">重新获取</label>
+				                <label class="repeat" style="display: block;">
+				                    <!-- 重新发送 -->
+				                    <span class="count_down">已发送(60s)</span>
+				                </label>
+				            </div>
+						</li>
+						<li class="Z-threeinput">
+							<div class="Z-con_title Z-con_title1">验证码</div>
+							<input type="text" />
+							<span>
+								<img src="http://res.zwzyd.com/dby/web/images/demoimg/yanzhengma.jpg"/>
+							</span>
+							<em>看不清？<a th:href="http://res.zwzyd.com/dby/web/images/demoimg/yanzhengma.jpg">换一张</a></em>
+						</li>
+						<li class="Z-foveinput">
+							<div class="Z-con_title Z-con_title1"></div>
+							<input type="checkbox" />
+							<span>我已阅读并同意 
+								<a href="#">《多宝鱼用户注册协议》</a>
+							</span>
+						</li>
+						<li class="Z-firvinput">
+							<div class="Z-con_title Z-con_title1"></div>
+							<input type="button" value="立即审核" />
+						</li>
+					</ul>
+				</div>
+				
+			</div>
+		</div>
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		
+		<script type="text/javascript" th:src="@{/assets/shop/js/jquery-1.11.1.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/member.js}" ></script>
+	</body>
+</html>

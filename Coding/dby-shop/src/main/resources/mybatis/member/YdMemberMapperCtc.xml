@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperCtc">
+	<sql id="picLists">
+		<trim prefix="where" suffixOverrides="and">
+
+		</trim>
+	</sql>
+
+
+	<sql id="field">
+		ctc_id, user_id, ctc_name, ctc_summary, ctc_is_available, ctc_cover, ctc_pics,
+		ctc_classify_id1, ctc_classify_id2, ctc_total_message, ctc_total_fav, ctc_price,
+		ctc_logistics_price, ctc_province_id, ctc_city_id, ctc_quality_id, ctc_area_id, ctc_province_value,
+		ctc_city_value, ctc_pca, ctc_created_time
+	</sql>
+
+	<sql id="onesql">
+		user_id,
+		ctc_id,
+		ctc_name,
+		ctc_summary,
+		ctc_is_available,
+		ctc_cover,
+		ctc_pics,
+		ctc_classify_id1,
+		ctc_classify_id2,
+		ctc_total_message,
+		ctc_total_fav,
+		ctc_price,
+		ctc_logistics_price,
+		ctc_province_id,
+		ctc_city_id,
+		ctc_area_id,
+		ctc_province_value,
+		ctc_city_value,
+		ctc_area_value,
+		ctc_pca,
+		ctc_created_time,
+		ctc_quality_text,
+		ctc_quality_id
+	</sql>
+
+	<!-- 根据uid查询出所有的懒鱼 -->
+	<select id="queryAllCtcByUid" resultMap="oneMap">
+		select
+		<include refid="onesql"></include>
+		from
+		yd_ctc
+		where user_id = #{uid}  ctc_is_available <![CDATA[<5]]>
+		LIMIT #{to}, 40
+	</select>
+	<!-- 查询单个的懒鱼详情 -->
+	<select id="queryOneCtcDetailById" resultType="java.util.HashMap">
+		select
+		user_id,
+		ctc_id,
+		ctc_name,
+		ctc_summary,
+		ctc_is_available,
+		ctc_cover,
+		ctc_pics,
+		ctc_classify_id1,
+		ctc_classify_id2,
+		ctc_total_message,
+		ctc_total_fav,
+		ctc_price,
+		ctc_logistics_price,
+		ctc_province_id,
+		ctc_city_id,
+		ctc_area_id,
+		ctc_province_value,
+		ctc_city_value,
+		ctc_area_value,
+		ctc_pca,
+		ctc_created_time,
+		ctc_quality_text,
+		ctc_quality_id,
+		yd_dict.dict_value
+		from
+		yd_ctc
+		left join yd_dict on yd_dict.dict_id=yd_ctc.ctc_quality_id
+		where ctc_id=#{ctc_id} and yd_dict.dt_code='ctc_quality'
+	</select>
+
+	<!-- 查询所有的懒鱼个数 -->
+	<select id="queryTotal" resultMap="oneMap">
+		select ctc_id from yd_ctc
+		where
+		1=1 and ctc_is_available=1
+		<if test="cc_id != null and cc_id != ''">
+			and ctc_classify_id2 =
+			#{cc_id}
+		</if>
+		<if test="highPrice != null and cc_id != ''">
+			and ctc_price <![CDATA[<]]>
+			#{highPrice}
+		</if>
+		<if test="lowPrice != null and cc_id != ''">
+			and ctc_price <![CDATA[>]]>
+			#{lowPrice}
+		</if>
+		order by ctc_created_time desc
+	</select>
+
+	<!-- 查询所有的懒鱼列表 -->
+	<select id="queryAllCtcGoods" resultMap="oneMap">
+		select
+		<include refid="onesql"></include>
+		from
+		yd_ctc
+		where
+		1=1 and ctc_is_available=1
+
+		<if test="cc_id != null and cc_id != ''">
+			and ctc_classify_id2 =
+			#{cc_id}
+		</if>
+		<if test="lowPrice != null and lowPrice != ''">
+			and ctc_price <![CDATA[>]]>
+			#{lowPrice}
+		</if>
+		<if test="highPrice != null and highPrice != ''">
+			and ctc_price <![CDATA[<]]>
+			#{highPrice}
+		</if>
+		<if test="_search == null or _search == ''">
+			order by ctc_created_time desc
+		</if>
+		<if test="_search == 1">
+			order by ctc_created_time desc
+		</if>
+		<if test="_search == 2">
+			order by ctc_price desc
+		</if>
+		LIMIT #{to}, 40
+	</select>
+
+
+	<select id="info" resultType="java.util.HashMap">
+		SELECT
+		<include refid="field"></include>
+		FROM
+		yd_ctc
+		WHERE
+		ctc_id = #{ctc_id}
+	</select>
+
+
+	<select id="index" resultMap="YdWebMapperMyCtc">
+		SELECT
+		<include refid="field"></include>
+		FROM
+		yd_ctc
+		WHERE
+		user_id = #{user_id} and ctc_is_available <![CDATA[<4]]>
+		LIMIT #{to}, #{perPage}
+	</select>
+
+	<select id="total" resultType="java.lang.Integer">
+		SELECT
+		COUNT(ctc_id)
+		FROM
+		yd_ctc
+		WHERE
+		user_id = #{user_id} and ctc_is_available <![CDATA[<5]]>
+	</select>
+
+	<resultMap id="oneMap" type="com.yd.dby.c.member.entity.YdMemberCtc">
+		<id column="ctc_id" property="ctc_id" jdbcType="INTEGER" />
+		<result property="user_id" column="user_id" />
+		<result property="ctc_name" column="ctc_name" />
+		<result property="ctc_summary" column="ctc_summary" />
+		<result property="ctc_is_available" column="ctc_is_available" />
+		<result property="ctc_cover" column="ctc_cover" />
+		<result property="ctc_pics" column="ctc_pics" />
+		<result property="ctc_classify_id1" column="ctc_classify_id1" />
+		<result property="ctc_classify_id2" column="ctc_classify_id2" />
+		<result property="ctc_total_message" column="ctc_total_message" />
+		<result property="ctc_total_fav" column="ctc_total_fav" />
+		<result property="ctc_price" column="ctc_price" />
+		<result property="ctc_logistics_price" column="ctc_logistics_price" />
+		<result property="ctc_province_id" column="ctc_province_id" />
+		<result property="ctc_city_id" column="ctc_city_id" />
+		<result property="ctc_area_id" column="ctc_area_id" />
+		<result property="ctc_province_value" column="ctc_province_value" />
+		<result property="ctc_city_value" column="ctc_city_value" />
+		<result property="ctc_area_value" column="ctc_area_value" />
+		<result property="ctc_pca" column="ctc_pca" />
+		<result property="ctc_quality_id" column="ctc_quality_id" />
+		<result property="ctc_quality_text" column="ctc_quality_text" />
+		<result property="ctc_created_time" column="ctc_created_time" />
+	</resultMap>
+	<resultMap id="YdWebMapperMyCtc" type="java.util.HashMap">
+		<result property="ctc_id" column="ctc_id" />
+		<result property="user_id" column="user_id" />
+		<result property="ctc_name" column="ctc_name" />
+		<result property="ctc_summary" column="ctc_summary" />
+		<result property="ctc_is_available" column="ctc_is_available" />
+		<result property="ctc_cover" column="ctc_cover" />
+		<result property="ctc_pics" column="ctc_pics" />
+		<result property="ctc_classify_id1" column="ctc_classify_id1" />
+		<result property="ctc_classify_id2" column="ctc_classify_id2" />
+		<result property="ctc_total_message" column="ctc_total_message" />
+		<result property="ctc_total_fav" column="ctc_total_fav" />
+		<result property="ctc_price" column="ctc_price" />
+		<result property="ctc_logistics_price" column="ctc_logistics_price" />
+		<result property="ctc_province_id" column="ctc_province_id" />
+		<result property="ctc_city_id" column="ctc_city_id" />
+		<result property="ctc_area_id" column="ctc_area_id" />
+		<result property="ctc_province_value" column="ctc_province_value" />
+		<result property="ctc_city_value" column="ctc_city_value" />
+		<result property="ctc_pca" column="ctc_pca" />
+		<result property="ctc_quality_id" column="ctc_quality_id" />
+		<result property="ctc_quality_text" column="ctc_quality_text" />
+		<result property="ctc_created_time" column="ctc_created_time" />
+	</resultMap>
+
+
+	<insert id="store">
+		INSERT INTO
+		yd_ctc (
+
+		user_id,
+		ctc_name,
+		ctc_summary,
+		ctc_pics,
+		ctc_price,
+		ctc_logistics_price,
+		ctc_province_id,
+		ctc_city_id,
+		ctc_area_id,
+		ctc_is_available,
+		ctc_total_message,
+		ctc_total_fav,
+		ctc_classify_id1,
+		ctc_classify_id2,
+		ctc_quality_id,
+		ctc_created_time,
+		ctc_cover,
+		ctc_pca
+		)
+		VALUE
+		(
+		#{user_id},
+		#{ctc_name},
+		#{ctc_summary},
+		#{ctc_pics},
+		#{ctc_price},
+		#{ctc_logistics_price},
+		#{ctc_province_id},
+		#{ctc_city_id},
+		#{ctc_area_id},
+		1,
+		#{ctc_total_message},
+		#{ctc_total_fav},
+		#{ctc_classify_id1},
+		#{ctc_classify_id2},
+		#{ctc_quality_id},
+		now(),
+		#{ctc_cover},
+		#{ctc_pca}
+		)
+	</insert>
+
+
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE yd_ctc
+		<trim prefix="set" suffixOverrides=",">
+			<if test="ctc_name != null">ctc_name = #{ctc_name},</if>
+			<if test="ctc_summary != null">ctc_summary = #{ctc_summary},</if>
+			<if test="ctc_pics != null">ctc_pics = #{ctc_pics},</if>
+			<if test="ctc_price != null">ctc_price = #{ctc_price},</if>
+			<if test="ctc_is_available != null">ctc_is_available = #{ctc_is_available},</if>
+			<if test="ctc_logistics_price != null">ctc_logistics_price = #{ctc_logistics_price},</if>
+			<if test="ctc_province_id != null">ctc_province_id = #{ctc_province_id},</if>
+			<if test="ctc_city_id != null">ctc_city_id = #{ctc_city_id},</if>
+			<if test="ctc_area_id != null">ctc_area_id = #{ctc_area_id},</if>
+			<if test="ctc_pca != null">ctc_pca = #{ctc_pca},</if>
+			<if test="ctc_quality_id != null">ctc_quality_id = #{ctc_quality_id},</if>
+			<if test="ctc_quality_text != null">ctc_quality_text = #{ctc_quality_text},</if>
+			<if test="ctc_classify_id1 != null">ctc_classify_id1 = #{ctc_classify_id1},</if>
+			<if test="ctc_classify_id2 != null">ctc_classify_id2 = #{ctc_classify_id2},</if>
+			<if test="ctc_cover != null">ctc_cover = #{ctc_cover},</if>
+		</trim>
+		WHERE ctc_id = #{ctc_id}
+	</update>
+	
+	<!-- 懒鱼下架 -->
+	<update id="soldOut">
+		update yd_ctc
+		<set>
+			<trim>
+				ctc_is_available = 2
+			</trim>
+		</set>
+		where ctc_id = #{id}
+	</update>
+	
+	<!-- 懒鱼 重新上架 -->
+	<update id="grand">
+		update yd_ctc
+		<set>
+			<trim>
+				ctc_is_available = 1
+			</trim>
+		</set>
+		where ctc_id = #{id}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM yd_ctc WHERE ctc_id = #{ctc_id}
+	</delete>
+</mapper>

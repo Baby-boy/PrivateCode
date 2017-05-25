@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功城记-在线充电-资讯</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+    <link rel="stylesheet" href="/css/online-detail.css"/>
+    <link rel="stylesheet" href="/css/common.css"/>
+    <script type="text/javascript">localStorage.setItem('nvaNum',7);</script>
+</head>
+<body th:inline="text" th:with="pageNum=${articlePageNum}">
+    <!--顶部导航-->
+    <div th:include="public/hander"></div>
+    
+    <!-- 中间 -->
+    <div id="yd-online">
+        <div class="yd-online-wrap">
+            <div class="yd-online-top">
+                <form action="" method="post">
+                    <div class="yd-online-search clear">
+                        <div class="yd-online-left">
+                            <i></i>
+                            <input type="text" value="" placeholder="输入你要搜素的关键字"/>
+                        </div>
+                        <div class="yd-online-right">搜索</div>
+                    </div>
+                </form>
+            </div>
+            <div class="yd-online-trade">
+                <div class="yd-trade-wrap">
+                    <ul class="yd-trade-title clear">
+                        <li th:class="${articleType==1?'active':''}" onclick="">行业资讯</li>
+                        <li th:class="${articleType==2?'active':''}" onclick="">行业规范</li>
+                    </ul>
+                    <div class="yd-online-content">
+                        <ul class="yd-online-all" th:with="article=${pageNum.data}">
+                            <li th:each="art,niter:${article}">
+                                <div class="yd-trade-node clear">
+                                    <a href="online-detail">[[${art.article_title}]]</a>
+                                    <span>[[${#dates.format(art.article_create_time,'yyyy-MM-dd')}]]</span>
+                                </div>
+                                <p>[[${art.article_subtitle}]]</p>
+                            </li>
+                        </ul>
+                        <div class="tcdPageCode pageLabel" data-pageName="articlePageNum" th:attr="data-pageNum=${pageNum.pageNum},data-pageIndex=${pageNum.pageIndex},data-maxIndex=${pageNum.maxIndex},data-pageCount=${pageNum.pageCount}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--底部-->
+    <div th:include="public/foot"></div>
+    
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/chajian/jqkuozhan.js"></script>
+    <script src="/js/online.js"></script>
+    <script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+    <script type="text/javascript" src="/js/bg/page.js"></script>
+    <script type="text/javascript">
+    	var url = "/page/article/set";
+    	var datas = {
+    		"type":type
+    	}
+    	var result = function(data){
+    		if(data.code == 200){
+    			window.history.go(0);
+    		}	
+    	}
+    	sendPost(url,datas,result);
+    </script>
+    
+</body>
+</html>

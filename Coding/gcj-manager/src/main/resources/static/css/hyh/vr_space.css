@@ -1,0 +1,108 @@
+/*vr空间*/
+.yd-wrapper-one.yd-wrapper-vr{
+	height:150px;
+}
+.yd-pattern ul li .yd-pattern-left{
+	float:left;
+	margin-left:18px;
+	margin-top:35px;
+	width: auto;
+	height: auto;
+	overflow: hidden;
+} 
+.yd-pattern-left strong{
+	color:#666;
+	font-size: 18px;
+	margin-bottom:8px;
+	display: block;
+}
+.yd-pattern-left span{
+	font-size:12px;
+	color:#999;
+}
+.yd-wrapper-one.yd-wrapper-vr ul li img{
+	float: right;
+	margin-right:33px;
+	margin-top:35px;
+}
+.yd-wrapper-one.yd-wrapper-vr ul li:hover strong{
+	color:#3cc8b4;
+}
+.yd-wrapper-one.yd-wrapper-vr ul li:hover span{
+	color:#3cc8b4;
+}
+.yd-wrapper-two{
+	width: 1200px;
+	padding:60px 0;
+	overflow: hidden;
+	margin:0 auto;
+	cursor: pointer;
+}
+.yd-wrapper-two img{
+	width: 1194px;
+	height: 274px;
+}
+.yd-vr-up{
+	width: 100%;
+	min-width: 1200px;
+	height:300px;
+}
+.yd-vr-up a{
+	display: block;
+	width: 100%;
+	height:100%;
+}
+.yd-vr-up a img{
+	width: 100%;
+	height: 100%;
+}
+.yd-vr-show{
+	width: 100%;
+	min-width: 1200px;
+	height:auto;
+	overflow: hidden;
+}
+.yd-vr-head{
+	width: 100%;
+	height:auto;
+	overflow: hidden;
+	padding:60px 0 37px 0;
+	text-align: center;
+}
+.yd-vr-head h1{
+	color:#333;
+	font-size:24px;
+	display: block;
+}
+.yd-vr-head span{
+	color:#c0c0c0;
+	font-size:12px;
+	display: block;
+	font-family: "Microsoft YaHei";
+}
+.yd-vr-banner{
+	width: 1200px;
+	height:270px;
+	overflow: hidden;
+	margin:0 auto;
+	padding-bottom: 80px;
+}
+.yd-vr-banner ul{
+	width: 100%;
+	height:270px;
+	overflow: hidden;
+}
+.yd-vr-banner ul li{
+	float: left;
+	width: 390px;
+	height:270px;
+	margin-left:13px;
+}
+.yd-vr-banner ul li:first-child{
+	margin-left:0;
+}
+.yd-vr-banner ul li img{
+	width: 390px;
+	height:270px;
+	float: left;
+}

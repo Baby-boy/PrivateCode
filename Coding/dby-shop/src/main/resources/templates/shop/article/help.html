@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')},
+	navs=${@_nav.getByType('0')}
+	">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: home('')" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(maintenance)" th:remove="tag"></div>
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		
+		<!-- 中间内容 -->
+		<div id="container">
+			<div class="help-center">
+				<div class="left">
+					<ul>
+						<li th:inline="text" th:each="item,n1iter:${@_YdShopServiceArticle.footer()}">
+							<div class="hr"></div>
+							<div th:class="${ac_id} eq ${item.ac_id} ? 'first-menu active' : 'first-menu'">
+								<h4 th:text="${item.ac_name}"></h4>
+								<i></i>
+							</div>
+							<dl th:style="${ac_id} eq ${item.ac_id} ? 'display: block' : 'display: none'">
+								<dd th:each="iitem,nn1iter: ${item.article}" th:class="${iitem.article_id} eq ${data.article_id} ? 'active' : ''">
+									<a th:target="${iitem.article_url} eq '' ? '' : '_blank'" th:href="${iitem.article_url == '' ? '/article/'+iitem.article_id+'?ac_id='+item.ac_id : iitem.article_url}" th:text="${iitem.article_title}"></a>
+								</dd>
+							</dl>
+						</li>
+					</ul>
+				</div>
+				<div class="right" th:inline="text">
+					<div class="title" th:text="${data.article_title}">文章标题</div>
+					<div class="content" th:utext="${data.article_content}">
+						文章内容
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 中间内容结束 -->
+		
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		
+		<script>
+			$(function(){
+				$("body").on("click",".help-center .left dl dd",function(){
+					$(this).addClass("active").siblings().removeClass("active");;
+				});
+				
+				$("body").on("click",".help-center .left .first-menu",function(){
+					if( !$(this).hasClass("active") ){
+						$(this).parents("ul").find("li .first-menu").removeClass("active");
+						$(this).parents("ul").find("li dl").slideUp();
+						$(this).addClass("active").next().slideDown();
+						$(".help-center .left dl dd").removeClass("active");
+					}
+				});
+				
+			});
+		</script>
+	</body>
+</html>

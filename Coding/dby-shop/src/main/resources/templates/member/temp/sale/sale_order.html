@@ -1,0 +1,63 @@
+<div th:fragment="main" th:remove="tag">
+	<div class="d-right sale-index-page">
+		<ul class="btn-page-top">
+			<li yd:ajax="onclick,get.member_sale">我的参拍商品</li>
+			<li class="active">我的拍卖订单</li>
+		</ul>
+		
+		<div class="search-body">
+			<form class="search-body-form" data-search-func="orderIndex">
+				<div class="s-node">
+					<span>订单编号：</span>
+					<input name="order_sn" placeholder="订单编号" class="text" type="text" />
+				</div>
+				<div class="s-node">
+					<a class="btn-s-a" href="javascript:void(0)"><botton type="button" class="btn-search btn-search-body">搜索</botton></a>
+				</div>
+			</form>
+		</div>
+		
+		<div class="d-all pop">
+			<table class="list-table order-lists">
+				<thead>
+					<tr>
+						<th colspan="2">商品</th>
+						<th class="w80">单价(元)</th>
+						<th class="w80">数量</th>
+						<th class="w120">订单金额</th>
+						<th class="w110">交易状态</th>
+						<th class="w110">状态与操作</th>
+					</tr>
+				</thead>
+				<tbody th:each="item:${data}" th:inline="text">
+					<tr>
+						<td class="order-info" colspan="7">
+							<span>订单号：[[${item.orderSn}]]</span>
+							<span>下单时间：[[${ #calendars.format(item.createdAt,'yyyy-MM-dd hh:mm:ss') }]]</span>
+							<span><a href="javascript:void(0)">[[${item.storeName}]]</a></span>
+							<a href="javascript:void(0)" class="flr">查看详情</a>
+						</td>
+					</tr>
+					<tr class="goods-info" th:each="itemGoods, k:${item.goods}" th:inline="text">
+						<td class="w70 img"><img th:src="${itemGoods.goodsImage}" /></td>
+						<td><p class="goods-name">[[${itemGoods.goodsName}]]</p></td>
+						<td>[[${itemGoods.goodsPrice}]]</td>
+						<td>[[${itemGoods.goodsNum}]]</td>
+						<goods th:if="${k.index == 0}" remove="tag">
+						<td class="bdl" th:rowspan="${item.goods.size()}">[[${item.totalPrice}]]<br/>（含运费[[${item.transportPrice}]]）<br/>在线支付</td>
+						<td class="bdl" th:rowspan="${item.goods.size()}">待付款</td>
+						<td class="bdl" th:rowspan="${item.goods.size()}">状态与操作</td>
+						</goods>
+						
+					</tr>
+					<tr>
+						<td class="order-td-bg" colspan="7">&nbsp;</td>
+					</tr>
+				</tbody>
+				<tfoot>
+				
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>

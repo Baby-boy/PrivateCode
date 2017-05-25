@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+<style type="text/css">
+.pagination * {
+	padding: 8px 14px;
+}
+.product-show .left-info .product-info ul li.btn-follow i,
+.product-show .left-info .product-info ul li.btn-follow-cancel i {
+	background-position-y: -4px;
+	background-position-x: -2px;
+}
+
+.product-show .left-info .product-info ul li.active i {
+	background-position: -2px -185px;
+}
+.bdshare-button-style0-16 a, .bdshare-button-style0-16 .bds_more {
+	padding-left: 0 !important;
+	line-height: inherit !important;
+	height: auto !important;
+	background-image: none !important;
+	margin: 0 !important;
+}
+</style>
+</head>
+<body th:inline="text"
+	th:with="searchkeys=${@_dict.many('web_search_key')},
+	navs=${@_nav.getByType('0')},
+	item=${@_YdShopServiceGoods.get_only_normal(session.user_id, id)},
+	every=${@_YdShopServiceGoods.get_every_normal(item.depot_type, item.depot_classify3)},
+	some=${@_YdShopServiceGoods.get_some_normal(item.depot_type, item.depot_classify3)},
+	is_favorite=${@_Fav.isFavorite(item.depot_id ,2)}
+	">
+	<!-- 头部 -->
+	<div id="header">
+		<div th:include="shop/template/header :: header" th:remove="tag"></div>
+
+		<!-- 主导航 -->
+		<div class="main-nav">
+			<div class="nav">
+				<div th:include="shop/template/classify :: index('')"
+					th:remove="tag"></div>
+				<div th:include="shop/template/header :: nav('index')"
+					th:remove="tag"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 头部结束 -->
+
+	<!-- 商品展示信息 -->
+	<div class="product-show" th:inline="text">
+		<div class="min-width">
+			<div class="left-info">
+				<div class="details-pic">
+					<div class="thumbnail">
+						<ul class="tb-thumb" id="thumblist">
+							<li th:each="sitem:${item.goods_pics}"><img
+								th:src="${@_url.goods()}+${sitem}+'?x-oss-process=image/resize,m_pad,h_60,w_60'"
+								th:attr="mid=${@_url.goods()}+${sitem}+'?x-oss-process=image/resize,m_pad,h_410,w_410', big=${@_url.goods()}+${sitem}" />
+							</li>
+						</ul>
+					</div>
+					<!-- <div class="detail-video" style="display: none;">
+						<video width="800" height="" controls="controls">
+							<source src="images/demoimg/01.mp4" type="video/mp4"></source>
+							<source src="myvideo.ogv" type="video/ogg"></source>
+							<source src="myvideo.webm" type="video/webm"></source>
+							<object width="" height="" type="application/x-shockwave-flash"
+								data="myvideo.swf">
+								<param name="movie" value="myvideo.swf" />
+								<param name="flashvars"
+									value="autostart=true&amp;file=myvideo.swf" />
+							</object>
+							当前浏览器不支持 video直接播放，点击这里下载视频：
+							<a href="myvideo.webm">下载视频</a>
+						</video>
+					</div> -->
+					<div class="big-picture">
+						<a th:href="${sitem}" th:each="sitem,niter:${item.goods_pics}"
+							th:if="${niter.index} lt 1"> <img class="jqzoom"
+							th:src="${@_url.goods()}+${sitem}+'?x-oss-process=image/resize,m_pad,h_410,w_410'"
+							th:attr="rel=${@_url.goods()}+${sitem}" />
+						</a>
+					</div>
+				</div>
+				<div class="product-info">
+					<h2 th:text="${item.goods_name}">经典商务双肩包</h2>
+					<div class="introduce">货号：[[${item.goods_serialnumber}]]</div>
+					<div class="introduce color6">门店：[[${item.store_name}]]</div>
+					<!-- <div class="introduce">简介：[[${item.goods_summary}]] <a href="#">详情...</a></div> -->
+					<div class="price-f">
+						<div class="con" th:if="${item.activity_id} eq 0">
+							<font>多宝鱼价：</font><strong
+								th:text="${#numbers.formatDecimal(item.goods_price, 1, 2)}"></strong>元
+						</div>
+						<div class="con" th:if="${item.depot_type} eq 5">
+							<font>活动价：</font><strong
+								th:text="${#numbers.formatDecimal(item.goods_min_bid, 1, 2)}"></strong>元
+							<div class="count-down">
+								剩余：
+								<span id="day_show">0</span>天
+							    <span id="hour_show">0</span>时
+							    <span id="minute_show">0</span>分
+							    <span id="second_show">0</span>秒
+							</div>
+						</div>
+						
+						<div class="con con1" style="display: none;">
+							<font>促销信息：</font>
+							<dl>
+								<dd>
+									<span>优惠</span>品牌限时特惠
+								</dd>
+								<dd>
+									<span>加价购</span>满1000.00元另加469.00元即可在购物车换购热销商品
+								</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="buy" th:if="${item.depot_stock} gt 0">
+						<input th:if="${item.depot_type} eq 5 and ${item.goods_pre_stock} gt 0" id="buy" type="submit" value="一键购买" th:attr="data-id=${item.depot_id}" />
+						<input th:if="${item.depot_type} eq 1 or ${item.depot_type} eq 6" id="buy" type="submit" value="一键购买" th:attr="data-id=${item.depot_id}" />
+						
+						<input id="add-cart" th:if="${item.depot_type} eq 1" type="submit" value="加入购物车" th:attr="data-id=${item.depot_id}" />
+					</div>
+					<div class="buy" th:if="${item.depot_stock} le 0">
+						<input class="btn-goods-null" type="button" value="商品已经售完" />
+					</div>
+					<div class="buy" th:if="${item.depot_type} eq 5 and ${item.goods_pre_stock} le 0">
+						<input class="btn-goods-null" type="button" value="商品已被抢完" />
+					</div>
+					<ul>
+						<li>
+							<i></i>
+							<span class="bdsharebuttonbox" data-tag="share_1">
+								<a href="javascript:;" class="bds_more" data-cmd="more" title="分享商品">分享商品</a>
+							</span>
+						</li>
+						
+						<li th:class="${is_favorite} eq true ? 'btn-follow-cancel active' : 'btn-follow'"
+							data-type="goods" th:attr="data-id=${item.depot_id}"><i></i><span>关注商品</span></li>
+						<!-- <li><i></i><span>浏览次数 [[${item.goods_total_see}]]</span></li> -->
+					</ul>
+					<div class="see-more">
+						<a target="_blank"
+							th:href="@{/search?depot_classify3=}+${item.depot_classify3}">查看更多同类产品</a>
+					</div>
+				</div>
+			</div>
+			<div class="right-info">
+				<div class="title">
+					[[${item.store_name}]]<span th:if="${item.store_is_self == 1}">自营</span>
+				</div>
+
+				<!-- 店铺id -->
+				<input type="hidden" name="im_store_id" th:value="${item.store_id}" />
+
+				<ul>
+					<!-- <li><a href="#">留言咨询</a></li>
+					<li><a href="#">在线咨询</a></li> -->
+					<li><a target="_blank" th:href="@{/store/}+${item.store_id}">进店逛逛</a></li>
+					<li><a href="javascript:;" class="btn-follow" data-type="store" th:attr="data-id=${item.store_id}">关注店铺</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 商品展示信息结束 -->
+
+	<!-- 中间内容 -->
+	<div id="container" style="width: 1200px;">
+		<div class="details-page">
+
+			<div class="left-section">
+
+				<div class="category-list">
+					<div class="col-title">大家都在买</div>
+					<div class="pro-section">
+						<dl th:inline="text" th:each="g:${every}">
+							<dt>
+								<a target="_blank" th:href="@{/g/goods/}+${g.depot_id}"><img
+									th:src="${@_url.goods()}+${g.goods_cover}+@{?x-oss-process=image/resize,m_pad,h_60,w_60}" /></a>
+							</dt>
+							<dd class="title">
+								<a target="_blank" th:href="@{/g/goods/}+${g.depot_id}">[[${g.goods_name}]]</a>
+							</dd>
+							<dd class="price">¥[[${g.goods_price}]]</dd>
+						</dl>
+					</div>
+				</div>
+
+				<div class="category-list">
+					<div class="col-title">相关商品</div>
+					<div class="pro-section">
+						<dl th:inline="text" th:each="g:${some}">
+							<dt>
+								<a target="_blank" th:href="@{/g/goods/}+${g.depot_id}"><img
+									th:src="${@_url.goods()}+${g.goods_cover}+@{?x-oss-process=image/resize,m_pad,h_60,w_60}" /></a>
+							</dt>
+							<dd class="title">
+								<a target="_blank" th:href="@{/g/goods/}+${g.depot_id}">[[${g.goods_name}]]</a>
+							</dd>
+							<dd class="price">¥[[${g.goods_price}]]</dd>
+						</dl>
+					</div>
+				</div>
+
+			</div>
+
+			<yd:ajax key="getGoodsComment" value="shop.goods_comment" />
+			<div class="right-section">
+				<div class="top-screen">
+					<ul>
+						<li class="active">商品详情</li>
+						<!-- <li>售后服务</li> -->
+						<li onclick="getGoodsComment(this)">商品评价<span
+							th:inline="text">（[[${item.goods_total_comment}]]）</span></li>
+					</ul>
+				</div>
+
+				<div class="tab-switch product-detail"
+					th:with="item=${@_YdShopServiceGoods.get_only_normal(1,id)}"
+					th:inline="text">
+					<!-- 参数 -->
+					<div class="pro-parameter">
+						<div class="store-name">
+							品牌：<a href="store.html" th:text="${item.brand_name}"></a>
+						</div>
+						<div class="parameter">
+							<ul class="goods-attrs">
+
+							</ul>
+						</div>
+					</div>
+					<!-- 参数结束 -->
+
+					<!-- 正文 -->
+					<div class="product-details goods-content-words"
+						th:text="${item.goods_content}"></div>
+					<div class="product-details goods-content-pics"></div>
+					<!-- 正文结束 -->
+
+
+
+					<!-- 在线留言 -->
+					<div class="message">
+						<form name="inMessahe">
+							<div class="title">在线留言</div>
+							<div class="textarea">
+								<textarea id="im_message" rows="10" cols="40" placeholder="请输入您的留言..." oninput="strxz(this)"></textarea>
+								<div class="text">
+									还可输入<span>200</span>字
+								</div>
+							</div>
+							<div class="submit">
+								<input type="button" id="inMessage" value="提  交" />
+							</div>
+						</form>
+					</div>
+					<!-- 在线留言结束 -->
+
+				</div>
+
+				<!-- 售后服务 -->
+				<!-- <div class="tab-switch after-sales">
+					<div class="title">售后服务</div>
+					<div class="content">
+						鉴于绝当商 品的特殊性<br /> 我们暂不提供7天无理由退换货服务<br /> 即非质量问题的商品不予退换，<br />
+						具体细则如下：<br /> <br /> 质量问题处理办法<br />
+						人为造成的缺损、外裂（手能摸出）、实物型号等参数与描述不符、或可出具省级鉴定部门的报告证明是假货等情况，我们认定是商品存在质量问题，可将您的商品予以退回。<br />
+						非质量问题处理办法<br />
+						由于未看清商品尺寸、色差、错误下单、主观认定商品与照片有差距、没想象中好、图片已拍出来的天然瑕疵等，我们将不受理您的退换货请求，请您悉知。<br />
+						<br /> 是否为质量问题的判断方法>><br /> 腕表等级说明>><br />
+					</div>
+					<div class="describe">
+						<p>最终解释权归</p>
+						<p>多宝鱼商城所有</p>
+					</div>
+				</div> -->
+				<!-- 售后服务结束 -->
+
+				<div class="tab-switch evaluate">
+					<div class="title">
+						<a th:href="@{/shop/goodsAssess/}+${item.goods_id}">商品评价</a>
+					</div>
+
+					<!-- 商品仓库id -->
+					<input type="hidden" name="im_depot_id" th:value="${item.goods_id}" />
+
+					<div class="total-appraise">
+						<div class="rate">
+							<strong id="praiseRate"></strong> <br /> <span>好评度</span>
+						</div>
+						<div class="percent">
+							<dl>
+								<dt>
+									好评<span id="goodsTotal1">(98%)</span>
+								</dt>
+								<dd>
+									<div style="width: 98%;"></div>
+								</dd>
+							</dl>
+							<dl>
+								<dt>
+									中评<span id="goodsTotal2">(1%)</span>
+								</dt>
+								<dd class="d1">
+									<div style="width: 1%;"></div>
+								</dd>
+							</dl>
+							<dl>
+								<dt>
+									差评<span id="goodsTotal3">(1%)</span>
+								</dt>
+								<dd class="d1">
+									<div style="width: 1%;"></div>
+								</dd>
+							</dl>
+						</div>
+					</div>
+
+					<div class="comments-list">
+						<div class="tab-main">
+							<ul th:inline="text">
+								<li onclick="getGoodsComment([this, 1])" data-state="1"
+									class="active"><a href="javascript:;">全部评价([[${item.goods_total_comment}]])</a></li>
+								<li onclick="getGoodsComment([this, 2])" data-state="2"><a
+									href="javascript:;">晒图([[${totalPics}]])</a></li>
+								<li onclick="getGoodsComment([this, 3])" data-state="3"><a
+									href="javascript:;">好评([[${total1}]])</a></li>
+								<li onclick="getGoodsComment([this, 4])" data-state="4"><a
+									href="javascript:;">中评([[${total2}]])</a></li>
+								<li onclick="getGoodsComment([this, 5])" data-state="5"><a
+									href="javascript:;">差评([[${total3}]])</a></li>
+							</ul>
+						</div>
+
+						<!-- 全部评价 -->
+						<div class="tab-con">
+							<!-- 全部评价 -->
+							<div class="screen-item" id="goodsComments">
+								<div th:include="shop/public/goods_comment :: main"
+									th:remove="tag"></div>
+
+								<div class="pagination">
+									<ul></ul>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 底部 -->
+	<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+
+
+	<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+	<script type="text/javascript"
+		th:src="@{/assets/shop/js/jquery.imagezoom.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/shop/js/details.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/assets/shop/js/jquery.page.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.ajax.js}"></script>
+	<script th:inline="javascript">
+			/*<![CDATA[*/
+			$(function(){
+				where["goods_id"] = [[${item.depot_id}]];
+				
+				// 属性
+				var str = "";
+				var goodsSelectAttrs = [[${item.goods_attr_select}]]
+				if ( goodsSelectAttrs != "" ) {
+					goodsSelectAttrs = JSON.parse( goodsSelectAttrs );
+					$.each(goodsSelectAttrs, function(k, v) {
+						str += "<li>"+v.key+"："+v.value+"</li>";
+					});
+				}
+				var goodsAttrs = [[${item.goods_attrs}]]
+				if ( goodsAttrs != "" ) {
+					goodsAttrs = JSON.parse( goodsAttrs );
+					$.each(goodsAttrs, function(k, v) {
+						str += "<li>"+v.key+"："+v.value+"</li>";
+					});
+				}
+				$(".goods-attrs").html( str );
+				
+				
+				// 详情图片
+				var goodsContentPics = [[${item.goods_content_pics}]];
+				var _urlGoods = "https://woadby.oss-cn-beijing.aliyuncs.com/dby/";
+				if ( goodsContentPics != "") {
+					goodsContentPics = goodsContentPics.split(",");
+					if ( goodsContentPics.length > 0 ) {
+						var str = "";
+						for(var ele in goodsContentPics) {
+							str += "<img src='"+_urlGoods+goodsContentPics[ele]+"' />";
+						}
+						$(".goods-content-pics").html(str);
+					}
+				}
+				$.each($(".pagelist"), function(index,value) {
+					$("#sales"+index).createPage({
+				        pageCount:[[${@_Comment.get_count(id,index)}]] / 10,
+				        current:1,
+				        backFn:function(page){
+				            console.log(p);
+				        }
+				    });
+				});
+				
+				
+				var goodsTotal = parseInt( [[${item.goods_total_comment}]] );
+				var total1 = parseInt( [[${total1}]] );
+				var total2 = parseInt( [[${total2}]] );
+				var total3 = parseInt( [[${total3}]] );
+				var totalP = 0;
+				var totalStr = "<span>%</span>";
+				if ( goodsTotal == 0 ) {
+					$("#praiseRate").html( "100"+totalStr );
+					$("#goodsTotal1").html( "(100%)" );
+					$("#goodsTotal2").html( "(100%)" );
+					$("#goodsTotal3").html( "(100%)" );
+				} else {
+					totalP = total1 / goodsTotal;
+					$("#praiseRate").html( totalP.toFixed(2)+""+totalStr );
+					totalP = total2 / goodsTotal;
+					$("#goodsTotal2").html( "("+ totalP.toFixed(2) +"%)" );
+					totalP = total3 / goodsTotal;
+					$("#goodsTotal3").html( "("+ totalP.toFixed(2) +"%)" );
+				}
+				
+				
+				
+				/*$(window).load(function(){
+					var img_list = [[${@_Comment.get_list_only_img(id)}]];
+					var img_list_arr = [];
+					$.each(img_list,function(index,value){
+						$.each(eval("("+value+")"),function(key,val){
+							img_list_arr.push(eval("'"+this+"'"));
+						});
+					});
+					$("#container .details-page .evaluate .comments-list .tab-main ul li").eq(1).find("em").html("("+img_list_arr.length+")");
+					$.each(img_list_arr,function(index,value){
+						if( index == 0 ){
+							$(" #comment-1 .show-img-list .big-img").html("<img src='http://res.zwzyd.com/dby/web"+this+"' />");
+							$("#comment-1 .show-img-list .thumb-list .img-list ul").append("<li class='active'><img src='http://res.zwzyd.com/dby/web"+this+"' /></li>");
+						}else{
+							$("#comment-1 .show-img-list .thumb-list .img-list ul").append("<li><img src='http://res.zwzyd.com/dby/web"+this+"' /></li>");
+						}
+					});
+					
+				});*/
+				
+			});
+			/*]]>*/
+		</script>
+		
+		<script type="text/javascript">
+			/* window._bd_share_config={
+				"common":{
+					"bdSnsKey":{},
+					"bdText":"",
+					"bdMini":"2",
+					"bdMiniList":false,
+					"bdPic":"",
+					"bdStyle":"0",
+					"bdSize":"16"
+				},
+				"share":{},
+				"image":{
+					"viewList":["tqq","weixin","douban","renren","tsina"],
+					"viewText":"分享到：","viewSize":"16"},
+					"selectShare":{
+						"bdContainerClass":null,
+						"bdSelectMiniList":["tqq","weixin","douban","renren","tsina"]
+					}
+			};
+			with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='https://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)]; */
+			
+			
+			
+			window._bd_share_config = {
+					common : {
+						bdText : '自定义分享内容',	
+						bdDesc : '自定义分享摘要',	
+						bdUrl : '自定义分享url地址', 	
+						bdPic : '自定义分享图片'
+					},
+					share : [{
+						"bdSize" : 16
+					}],
+					slide : [{	   
+						bdImg : 0,
+						bdPos : "right",
+						bdTop : 100
+					}],
+					image : [{
+						viewType : 'list',
+						viewPos : 'top',
+						viewColor : 'black',
+						viewSize : '16',
+						viewList : ['qzone','tsina','huaban','tqq','renren']
+					}],
+					selectShare : [{
+						"bdselectMiniList" : ['qzone','tqq','kaixin001','bdxc','tqf']
+					}]
+				}
+				with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+		</script>
+
+	<script type="text/javascript">
+		/*<![CDATA[*/
+		           
+		$(".message textarea").keyup(function() {
+			var num = 200;
+			var texLength = $(this).val().length;
+			$(".textarea .text span").html(num - texLength);
+		});
+
+		//限制评论输入的字数
+		function strxz(tag) {
+			var v = $(tag).val();
+			var num = 200;
+			if (v.length > num) {
+				var value = v.substring(0, num);
+				$(tag).val(value);
+			}
+		}
+		/*]]>*/
+	</script>
+	
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+			var timestamp = Date.parse(new Date());
+			var timestamp = parseInt( timestamp );
+			var intDiff = parseInt( 500 );//倒计时总秒数量
+			function timer(intDiff){
+			    window.setInterval(function(){
+			    var day=0,
+			        hour=0,
+			        minute=0,
+			        second=0;//时间默认值        
+			    if(intDiff > 0){
+			        day = Math.floor(intDiff / (60 * 60 * 24));
+			        hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+			        minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+			        second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+			    }
+			    if (minute <= 9) minute = '0' + minute;
+			    if (second <= 9) second = '0' + second;
+			    $('#day_show').html('<s></s>'+day+"");
+			    $('#hour_show').html('<s id="h"></s>'+hour+'');
+			    $('#minute_show').html('<s></s>'+minute+'');
+			    $('#second_show').html('<s></s>'+second+'');
+			    intDiff--;
+			    }, 1000);
+			} 
+			$(function(){
+			    timer(intDiff);
+			});
+			/*]]>*/
+		</script>
+</body>
+</html>

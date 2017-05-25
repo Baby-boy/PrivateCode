@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperArticleClass">
+	
+	<select id="queryById" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerArticleClass">
+		select 
+			ac_id,ac_code,ac_name,ac_sort
+		from 
+			yd_article_class 
+		where 
+			ac_id = #{ac_id};
+	</select>
+	
+	<select id="queryAll" resultType="com.yd.gcj.entity.YdMangerArticleClass">
+		select 
+			ac_id,ac_code,ac_name,ac_sort
+		from 
+			yd_article_class
+		limit #{startPageNum},#{queryPageNum}
+	</select>
+	
+	<select id="queryCountNum">
+		select count(*) from yd_article_class
+	</select>
+	
+	<insert id="insertArticleClass" parameterType="com.yd.gcj.entity.YdMangerArticleClass">
+		insert  into yd_article_class
+			(ac_code,ac_name,ac_sort)
+		value
+			(#{ac_code},#{ac_name},#{ac_sort});
+	</insert>
+	
+	<update id="updateArticleClass" parameterType="com.yd.gcj.entity.YdMangerArticleClass">
+		update yd_article_class
+			<set>
+			<trim suffixOverrides=",">
+				<if test="ac_code != null">ac_code = #{ac_code},</if>
+				<if test="ac_name != null">ac_name = #{ac_name},</if>
+				<if test="ac_sort != null">ac_sort = #{ac_sort},</if>
+			</trim>
+		</set>
+		where ac_id = #{ac_id}
+	</update>
+	
+	<delete id="deleteArticleClass" parameterType="java.lang.Integer">
+		delete from yd_article_class where ac_id = #{ac_id}
+	</delete>
+	
+</mapper>
+

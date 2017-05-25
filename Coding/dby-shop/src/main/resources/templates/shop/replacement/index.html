@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')}">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: index('')"></div>
+					
+					<div th:include="shop/template/header :: nav(substitution)"></div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		
+		<!-- 二级banner --> 
+		<div class="second-banner">
+			<img src="http://res.zwzyd.com/dby/web/images/demoimg/replaced_01.png" />
+			<div class="section-box">
+				<dl>
+					<dt></dt>
+					<dd class="title"><a href="replaced_map.html">我要流通</a></dd>
+					<dd class="text">商品流通 物品流通</dd>
+				</dl>
+				<dl>
+					<dt></dt>
+					<dd class="title"><a href="/substitution/appointment/5">在线评估</a></dd>
+					<dd class="text">商品流通 物品流通</dd>
+				</dl>
+				<dl>
+					<dt></dt>
+					<dd class="title"><a href="/substitution/appointment/6">线上预约</a></dd>
+					<dd class="text">商品流通 物品流通</dd>
+				</dl>
+			</div>
+		</div>
+		
+		<!-- 内容 -->
+		<div id="container">
+			
+			<div class="replaced-section">
+				<ul>
+					<li>
+						<h2>什么是流通？</h2>
+						<div class="content">
+							要做商品养护工作。首先要知道商品属性；才能对其进行专门的养护，因为每一种商品的属性不尽相同，如金属类的商品它的养护主要有防锈、防腐、防尘、防变形、防氧化等；对于此类商品就要采取一些防护措施：上机油、包上塑料袋等
+						</div>
+					</li>
+					<li>
+						<h2>流通的流程是什么？</h2>
+						<div class="content">
+							要做商品养护工作。首先要知道商品属性；才能对其进行专门的养护，因为每一种商品的属性不尽相同，如金属类的商品它的养护主要有防锈、防腐、防尘、防变形、防氧化等；对于此类商品就要采取一些防护措施：上机油、包上塑料袋等
+						</div>
+					</li>
+					<li>
+						<h2>流通的常见问题？</h2>
+						<div class="content">
+							要做商品养护工作。首先要知道商品属性；才能对其进行专门的养护，因为每一种商品的属性不尽相同，如金属类的商品它的养护主要有防锈、防腐、防尘、防变形、防氧化等；对于此类商品就要采取一些防护措施：上机油、包上塑料袋等
+						</div>
+					</li>
+					<li>
+						<h2>流通的常见问题？</h2>
+						<div class="content">
+							要做商品养护工作。首先要知道商品属性；才能对其进行专门的养护，因为每一种商品的属性不尽相同，如金属类的商品它的养护主要有防锈、防腐、防尘、防变形、防氧化等；对于此类商品就要采取一些防护措施：上机油、包上塑料袋等
+						</div>
+					</li>
+				</ul>
+			</div>
+			
+		</div>
+		
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		
+	</body>
+</html>

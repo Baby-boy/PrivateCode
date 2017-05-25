@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title></title>  
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>
+    <script src="/system/js/jquery.page.js"></script>
+    
+    <link rel="stylesheet" href="../css/public.css"/>
+    <link rel="stylesheet" href="../css/index.css"/>
+    <link rel="stylesheet" href="../css/work.css"/>
+    <link rel="stylesheet" href="../css/common.css"/>
+    
+    <style type="text/css">
+    	.tables {
+    		width:100%;
+    		margin-bottom: 20px;
+    	}
+    	.tables .items{
+    		width:1250px;
+    		height:auto;
+    		margin:0 auto;
+    	}
+    	.tables .item{
+    		width:300px;
+    		height:60px;
+    		border:1px solid #cccccc;
+    		float:left;
+    		margin-left:10px;
+    		margin-top:10px;
+    		text-align: left;
+    	}
+    	.tables .item .left{
+    		width:80%;
+    		heigth:100%;
+    		padding:5px;
+    		font-size:14px;
+    		float:left;
+    	}
+    	.tables .item .rigth{
+    		width:20%;
+    		heigth:100%;
+    		float:left;
+    		padding-top:5px;
+    	}
+    	.tables .item .rigth p,.tables .item .rigth p a{
+    		text-align: center;
+    	}
+    	.cancel-pd{
+    		padding:0 !important;
+    		text-align: center !important;
+    		font-size: 18px;
+    	}
+    	.h-20{
+    		height:2em !important;
+    	}
+    	.v-align{
+    		vertical-align:middle !important;
+    	}
+    </style>
+    
+</head>
+<body>
+
+
+<form method="get" action="/system/queryAllTaskType" th:inline="text" id="queryForm" >
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 任务信息管理</strong></div>
+    <div class="padding border-bottom">
+      <ul class="search">
+         <li>
+         	<button type="button"  class="button border-green" onclick="javascript:location.href='/system/addProTaskTypes'">添加专业类型</button>
+         	<button type="button"  class="button border-green" onclick="javascript:location.href='/system/toAddProTaskType'">添加任务类型</button>
+        </li>
+      </ul>
+    </div>
+    <table class="table table-hover text-center tables" th:each="ta,obj:${taskLabelVos}" th:inline="text" th:with="labels=${ta.labels}">
+        <tbody>
+            <!--item1-->
+           	<tr class="h-20">
+                <td class="left items">
+					<p class="cancel-pd" th:id ="taskt_name1_+${ta.label_id}">[[${ta.label_name}]]</p>
+					<p  class="cancel-pd" th:id ="taskt_name2_+${ta.label_id}" style="display:none;"><input type="text" th:id="taskt_name_+${ta.label_id}" name="taskt_name" th:value="${ta.label_name}"/></p>
+				</td>
+				<td class="rigth">
+					<p>
+						<a th:id="show_+${ta.label_id}" th:href="'javascript:showTasktName('+${ta.label_id}+');'">修改</a>
+						<a th:id="update_+${ta.label_id}" style="display:none;" th:href="'javascript:updateTasktName('+${ta.label_id}+');'">保存</a>
+						<a href="javascript:void(0)" th:attr="label_id=${ta.label_id}" onclick="return delTaskType( $(this) )">删除</a>
+					</p> 
+				</td>
+            </tr>
+            <tr class="item" th:each="label,niter:${labels}"  th:inline="text">
+                <td class="left items">
+					<p>序号：[[${niter.count}]]</p>
+					<p th:id ="taskt_name1_+${label.label_id}">名称：[[${label.label_name}]]</p>
+					<p th:id ="taskt_name2_+${label.label_id}" style="display:none;">名称：<input type="text" th:id="taskt_name_+${label.label_id}" name="taskt_name" th:value="${label.label_name}"/></p>
+				</td>
+				<td class="rigth">
+					<p><a href="javascript:void(0)" th:attr="label_id=${label.label_id}" onclick="return delTaskType( $(this) )">删除</a></p> 
+			        <p th:id="show_+${label.label_id}"><a th:href="'javascript:showTasktName('+${label.label_id}+');'">修改</a></p>
+			        <p th:id="update_+${label.label_id}" style="display:none;"><a th:href="'javascript:updateTasktName('+${label.label_id}+');'">保存</a></p>
+				</td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+</form>
+<!-- <div class="pagination thePage">
+ <ul>
+　</ul>
+</div> -->
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+/*  $(function() {
+	 pagination(".pagination ul",[[${totalPage}]],[[${p}]] );
+}); 
+
+function pagination(node, totalPage, cpage) {
+	$(node).createPage({
+       pageCount: totalPage,
+       current: cpage,
+       backFn:function(p){
+           //单击回调方法，p是当前页码
+       }
+   });
+}    */      
+
+function delTaskType(me){
+	if(confirm("您确定要删除吗?")){
+		$.post("deleteProTaskType",{"label_id":me.attr("label_id")},function(data){
+			if(data.msg==true){
+				alert("删除成功");
+			location.reload();
+			}else{
+				alert("删除失败")
+			}
+		}); 
+	}
+};
+
+//变成文本框
+function showTasktName(tasktId){
+	$("#taskt_name1_"+tasktId).hide();
+	$("#taskt_name2_"+tasktId).css("display","block");
+	$("#show_"+tasktId).hide();
+	$("#update_"+tasktId).css("display","block");
+};	
+
+//修改任务类型名称
+function updateTasktName(tasktId){
+	var tasktName=$("#taskt_name_"+tasktId).val();
+	//alert(tasktName);
+	$.ajax({
+		url: "/system/updateProTaskType",
+		data: {
+			"label_id":tasktId,
+			"label_name":tasktName
+		},
+		type: "post",
+		success: function(datas) {
+			if(datas.msg==true){
+				alert("修改成功");
+				location.reload();
+			}else{
+				alert("修改失败");
+			}
+		}
+	});   
+};	
+	
+//条件搜索
+$('#tatsubmit').click(function(){
+	$('#queryForm').submit();
+});
+/*]]>*/
+</script>
+</body></html>

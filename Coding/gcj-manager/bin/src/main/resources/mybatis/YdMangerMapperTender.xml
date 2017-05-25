@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperTender">
+	
+	<select id="$queryByTid" resultType="com.yd.gcj.entity.vo.YdMangerTenderVo">
+		select 
+			*
+		from 
+			yd_tender
+		where 
+			tender_tid = #{taskId}
+			<choose>
+				<when test="type == 0"> and tender_utype > 0</when>
+				<otherwise> and tender_utype = #{type}</otherwise>
+			</choose>
+			limit #{startPageNum},#{queryPageNum}
+	</select>
+	
+	<select id="$queryById" resultType="com.yd.gcj.entity.vo.YdMangerTenderVo">
+		select * 
+		from yd_tender
+		where tender_id = #{tenderId}
+	</select>
+	
+	<select id="$queryCountByTids" resultType="com.yd.gcj.entity.vo.YdMangerTenderNumVo">
+		SELECT 
+			tender_tid AS id,COUNT(tender_tid) AS num 
+		FROM yd_tender 
+		WHERE tender_tid IN
+		<foreach  collection="tids" item="tid" index="index" open="(" separator="," close=")">#{tid}</foreach>
+		GROUP BY tender_tid
+	</select>
+	
+	<select id="$queryByType" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerTender">
+		select 
+			tender_id,tender_tid,tender_uid,tender_uname,tender_uphone,tender_uemail,tender_uine,tender_ugnum,tender_ulevel,tender_price,tender_pnum,tender_conts,tender_state,tender_pcomm,tender_type,tender_isdel,tender_create_time,tender_update_time,tender_utype
+		from 
+			yd_tender
+		where 
+			tender_tid = #{tender_tid} and tender_type = #{tender_type} 
+	</select>
+	
+	<select id="$queryBySid" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerTender">
+		select 
+			tender_id,tender_tid,tender_uid,tender_uname,tender_uphone,tender_uemail,tender_uine,tender_ugnum,tender_ulevel,tender_price,tender_pnum,tender_conts,tender_state,tender_pcomm,tender_type,tender_isdel,tender_create_time,tender_update_time
+		from 
+			yd_tender
+		where 
+			tender_uid = #{tender_uid}
+			limit #{startPageNum},#{queryPageNum}
+	</select>
+	
+	<select id="$queryLearByTaskId" resultType="com.yd.gcj.entity.vo.YdMangerTenderVo">
+		select * 
+		from yd_tender
+		where tender_tid = #{taskId} and tender_type = 1
+	</select>
+	
+	<select id="$queryCountNumBySid" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_tender
+		where 
+			tender_sid = #{tender_sid}
+	</select>
+	
+	<select id="$queryCountNumByTid" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_tender
+		where 
+			tender_tid = #{tender_tid}
+	</select>
+	
+	<select id="$isExist" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_tender
+		where 
+			tender_tid = #{tender_tid} and tender_uid = #{tender_uid}
+	</select>
+	
+	<select id="$isExistLeader" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_tender
+		where 
+			tender_tid = #{taskId} and tender_type = #{type}
+	</select>
+	
+	<select id="$isExistLeaderIsSelf" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_tender
+		where 
+			tender_id = #{tenderId} and tender_uid = #{userId} and tender_type = 1
+	</select>
+	
+	<select id="$queryState" resultType="java.lang.Integer">
+		select 
+			tender_state
+		from 
+			yd_tender
+		where 
+			tender_id = #{tender_id}
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerTender">
+		insert into yd_tender 
+			(tender_tid,tender_uid,tender_uname,tender_uphone,tender_uemail,tender_uine,tender_ugnum,tender_ulevel,tender_price,tender_pnum,tender_conts,tender_state,tender_pcomm,tender_type,tender_isdel,tender_create_time,tender_update_time,tender_utype)
+		value 
+			(#{tender_tid},#{tender_uid},#{tender_uname},#{tender_uphone},#{tender_uemail},#{tender_uine},
+			#{tender_ugnum},#{tender_ulevel},#{tender_price},#{tender_pnum},#{tender_conts},#{tender_state},
+			#{tender_pcomm},#{tender_type},#{tender_isdel},#{tender_create_time},#{tender_update_time},#{tender_utype})
+	</insert>
+	
+	<update id="$update" parameterType="com.yd.gcj.entity.YdMangerTender">
+		update yd_tender
+		<set>
+			<trim suffixOverrides=",">
+				<if test="tender_price != null">tender_price = #{tender_price},</if>
+				<if test="tender_pnum != null">tender_pnum = #{tender_pnum},</if>
+				<if test="tender_conts != null">tender_conts = #{tender_conts},</if>
+				<if test="tender_update_time != null">tender_update_time = #{tender_update_time},</if>
+			</trim>
+		</set>
+		where tender_id = #{tender_id} and tender_tid = #{tender_tid} and tender_uid = #{tender_uid}
+	</update>
+	
+	<update id="$selection">
+		update yd_tender
+		set 
+			tender_type = #{type},
+			tender_state = #{state},
+			tender_update_time=#{updateTime}
+		where tender_id = #{tenderId}
+	</update>
+	
+	<update id="$updateState">
+		update yd_tender
+		set tender_state = #{tender_state},tender_update_time=#{tender_update_time}
+		where tender_id = #{yd_tender}
+	</update>
+	
+	<delete id="$delete">
+		delete from yd_tender
+		where tender_tid = #{taskId} and tender_uid = #{userId}
+	</delete>
+	
+</mapper>
+

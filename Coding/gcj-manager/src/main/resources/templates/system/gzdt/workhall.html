@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title></title>  
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>
+    <script src="/system/js/jquery.page.js"></script>
+</head>
+<body>
+<form method="get" action="/system/queryAllWorkHall" id="queryForm" th:inline="text" >
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder">工作大厅管理</strong></div>
+    <div class="padding border-bottom">
+
+      <ul class="search">
+        <li>
+            <button type="button"  class="button border-green" onclick="javascript:location.href='/system/addworkhall'">添加大厅数据</button>
+            <input type="text" placeholder="请输入编号" name="tasktemp_num" th:value="${tasktemp_num}" class="input" style="width:250px; line-height:17px;display:inline-block" />
+        </li>
+        <li>
+            <button id="whsubmit" type="button"  class="button border-green">查询</button>
+        </li>
+      </ul>
+
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="120">序号</th>
+        <th>工作编号</th>       
+        <th>工作面积</th>
+        <th>金额</th>
+        <th>参与人数</th>
+        <th>完成进度(%)</th>
+        <th>操作</th>       
+      </tr>
+
+        <tr th:each="taskTempList,obj:${taskTempList}" >
+<!--           <td><input type="checkbox" name="tasktemp_id" th:text="${taskTempList.tasktemp_id}" /></td> -->
+          <td th:text="${obj.count}"></td>
+          <td th:text="${taskTempList.tasktemp_num}"></td>
+          <td th:text="${taskTempList.tasktemp_area}"></td>
+          <td th:text="${taskTempList.tasktemp_price}"></td>
+          <td th:text="${taskTempList.tasktemp_pnum}"></td>
+          <td th:text="${taskTempList.tasktemp_schedule}"></td>
+          <td>
+          	<div class="button-group"> 
+	          <a class="button border-red" href="javascript:void(0)" th:attr="tasktemp_id=${taskTempList.tasktemp_id}" onclick="return delWorkHall( $(this) )">删除</a> 
+	          <a class="button border-red" th:href="@{/system/updateWorkHallBytTaskTempId/}+${taskTempList.tasktemp_id}">修改</a> 
+	         </div>
+          </td>
+        </tr>
+    </table>
+  </div>
+</form>
+<div class="pagination thePage">
+ <ul>
+　</ul>
+</div>
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+$(function() {
+	 pagination(".pagination ul",[[${totalPage}]],[[${p}]] );
+}); 
+
+function pagination(node, totalPage, cpage) {
+	$(node).createPage({
+       pageCount: totalPage,
+       current: cpage,
+       backFn:function(p){
+           //单击回调方法，p是当前页码
+       }
+   });
+}   
+           
+//删除工作大厅数据
+function delWorkHall(me){
+	if(confirm("您确定要删除吗?")){
+		 $.post("deleteWorkHall",{"tasktemp_id":me.attr("tasktemp_id")},function(data){
+			if(data.msg==true){
+				alert("删除成功");
+				location.reload();
+			}else{
+				
+				alert("删除失败")
+			}
+		}); 
+		 
+	}
+};
+
+//条件搜索
+$('#whsubmit').click(function(){
+	$('#queryForm').submit();
+});
+/*]]>*/
+</script>
+</body></html>

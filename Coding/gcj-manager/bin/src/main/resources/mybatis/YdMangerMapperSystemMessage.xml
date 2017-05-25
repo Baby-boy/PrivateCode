@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.system.mapper.YdMangerMapperSystemMessage">
+	<!-- 后台 --> 							 
+	<select id="queryAllMessage" resultType="com.yd.gcj.entity.vo.YdMangerMessageVo" >
+		SELECT ym.*,yu.user_name,yu.user_nickname,ydu.user_nickname AS user_nickname_receive, ydu.user_name AS user_name_recive,yt.task_num FROM yd_message ym 
+		LEFT JOIN yd_user yu ON ym.msg_said = yu.user_id 
+		LEFT JOIN yd_user ydu ON ym.msg_sbid = ydu.user_id
+		LEFT JOIN yd_task yt ON ym.msg_tid = yt.task_id
+		WHERE ym.msg_type > 0
+		<if test="user_nickname !=null and user_nickname !='' ">
+		  and yu.user_nickname like  CONCAT(CONCAT('%', #{user_nickname, jdbcType=VARCHAR}),'%')
+		</if>
+		
+		<if test="msg_type !=null and msg_type != ''">
+			and ym.msg_type = #{msg_type}
+		</if>
+		
+		<if test="msg_isdel !=null">
+			and ym.msg_isdel = #{msg_isdel}
+		</if>
+	</select>
+	
+	<select id="queryAllMessageAdmin" resultType="com.yd.gcj.entity.vo.YdMangerMessageVo" >
+		SELECT ym.*,ya.admin_id,ya.admin_name,yu.user_name,yu.user_nickname,yt.task_num FROM yd_message ym
+		LEFT JOIN yd_admin ya ON ym.msg_said = ya.admin_id
+		LEFT JOIN yd_user yu ON ym.msg_sbid = yu.user_id
+		LEFT JOIN yd_task yt ON yt.task_id = ym.msg_tid
+		WHERE ym.msg_type = 0
+		<if test="admin_name !=null and admin_name != '' ">
+			and ya.admin_name like  CONCAT(CONCAT('%', #{admin_name, jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="user_nickname !=null and user_nickname != '' ">
+			and yu.user_nickname like  CONCAT(CONCAT('%', #{user_nickname, jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="msg_sbid !=null">
+			and	msg_sbid = #{msg_sbid}
+		</if>
+	</select>
+	
+	<select id="queryMessageByMsgId" resultType="com.yd.gcj.entity.vo.YdMangerMessageVo" >
+		SELECT ym.*,ya.admin_name,yu.user_name FROM yd_message ym
+		LEFT JOIN yd_admin ya ON ym.msg_said = ya.admin_id
+		LEFT JOIN yd_user yu ON ym.msg_sbid = yu.user_id
+		where ym.msg_id = #{msg_id} and ym.msg_type = 0
+	</select>
+	
+	 <update id="deleteMessageByMsgId" parameterType="com.yd.gcj.entity.vo.YdMangerMessageVo" >
+		delete from yd_message
+		where msg_id = #{msg_id}
+	</update>
+	
+	<update id="updateAdminMessageByMsgId" parameterType="com.yd.gcj.entity.vo.YdMangerMessageVo" >
+		update yd_message
+		<set>
+			<trim>
+				<if test="msg_type != null">msg_type = #{msg_type},</if>
+				<if test="msg_said!= null">msg_said = #{msg_said},</if>
+				<if test="msg_sbid != null">msg_sbid = #{msg_sbid},</if>
+				<if test="msg_contents != null">msg_contents = #{msg_contents},</if>
+				<if test="msg_tid != null">msg_tid = #{msg_tid},</if>
+				<if test="msg_isdel != null">msg_isdel = #{msg_isdel},</if>
+				<if test="msg_create_time != null">msg_create_time = #{msg_create_time}</if>
+			</trim>
+		</set>
+		where msg_id = #{msg_id}
+	</update> 
+	
+	<insert id="addMessage" parameterType="com.yd.gcj.entity.vo.YdMangerMessageVo" >
+		insert into yd_message(msg_id,msg_type,msg_said,msg_sbid,msg_contents,msg_tid,msg_isdel,msg_create_time)
+		value(#{msg_id},#{msg_type},#{msg_said},#{msg_sbid},#{msg_contents},#{msg_tid},0,now())
+	</insert>
+</mapper>

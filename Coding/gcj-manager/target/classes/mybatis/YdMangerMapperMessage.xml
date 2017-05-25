@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperMessage">
+	
+	<select id="$queryByUserIdAndByPageNum" resultType="com.yd.gcj.entity.vo.YdMangerMessageVo">
+		SELECT 
+			msg_id,msg_type,msg_said,msg_sbid,msg_contents,msg_tid,msg_isdel,msg_create_time
+			,CASE WHEN msg_type = 1 OR msg_type = 3 THEN task.task_pname END AS task_name
+			,CASE WHEN msg_type = 2 THEN u.user_nickname END AS user_name
+		FROM 
+			yd_message msg
+			LEFT JOIN yd_task task ON task.`task_id` = msg.`msg_tid`
+			LEFT JOIN yd_user u ON u.`user_id` = msg.`msg_said`
+		WHERE
+			<if test="type == 0">
+				msg_type = 0 and (msg_sbid = #{userId} or msg_sbid = 0)
+			</if>
+			<if test="type == 1">
+				<choose>
+				<when test="userType == 0">
+					msg_type = 1 and msg_sbid = #{userId}
+				</when>
+				<otherwise>
+					msg_type = 1 and msg_sbid = #{userId} and msg_tid in (select tender_tid from yd_tender where tender_uid = #{userId})
+				</otherwise>
+			</choose>
+			</if>
+			<if test="type == 2">
+				msg_type = 2 and msg_sbid = #{userId}
+			</if>
+			
+			limit #{startPageNum},#{queryPageNum} 
+	</select>
+	
+	<select id="$queryCountNumByUserId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_message 
+		where 
+			(msg_said = #{user_id} or msg_sbid) and msg_isdel = #{msg_isdel} and msg_type = #{msg_type}
+			limit #{startPageNum},#{queryPageNum}
+	</select>
+	
+	<select id="$queryAllTypeMsgSize" resultType="com.yd.gcj.entity.YdMangerMsgSize">
+		SELECT 
+		(SELECT COUNT(*) FROM yd_message WHERE (msg_sbid = 0 OR msg_sbid = #{userId}) AND msg_id NOT IN (SELECT msgtr_mid FROM yd_message_tr WHERE msgtr_uid = #{userId}) AND msg_type = 0) AS systemMsgSize,
+		(SELECT COUNT(*) FROM yd_message WHERE (msg_sbid = 0 OR msg_sbid = #{userId}) AND msg_id NOT IN (SELECT msgtr_mid FROM yd_message_tr WHERE msgtr_uid = #{userId}) AND msg_type = 1) AS taskMsgSize,
+		(SELECT COUNT(*) FROM yd_message WHERE (msg_sbid = 0 OR msg_sbid = #{userId}) AND msg_id NOT IN (SELECT msgtr_mid FROM yd_message_tr WHERE msgtr_uid = #{userId}) AND msg_type = 2) AS leaveMsgSize
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerMessage">
+		insert into yd_message
+			(msg_type,msg_said,msg_sbid,msg_contents,msg_tid,msg_isdel,msg_create_time)
+		value
+			(#{msg_type},#{msg_said},#{msg_sbid},#{msg_contents},#{msg_tid},#{msg_isdel},#{msg_create_time})
+	</insert>
+	
+	<delete id="$delete" parameterType="java.lang.Integer">
+		delete from yd_message
+		where msg_id = #{msg_id}
+	</delete>
+	
+</mapper>
+

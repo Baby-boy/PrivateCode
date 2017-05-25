@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	<body>
+		<input type="file" name="file" id="file" multiple="multiple" />
+		
+		
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		
+		<script th:src="@{/assets/js/jquery.ui.widget.js}"></script>
+		<script th:src="@{/assets/js/jquery.iframe-transport.js}"></script>
+		<script th:src="@{/assets/js/jquery.fileupload.js}"></script>
+		
+		<script type="text/javascript">
+			$(function() {
+				
+				$('#file').fileupload({
+					url: "/aliyun/oss/upload",
+			        dataType: 'json',
+			        done: function (e, data) {
+			        	console.log( data );
+			        	console.log( e );
+			        }
+			    });
+			});
+		</script>
+	</body>
+</html>

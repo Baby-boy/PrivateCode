@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.system.mapper.YdMangerMapperSystemPicture">
+	<!-- 后台 -->
+	<select id="queryAllPicture" resultType="com.yd.gcj.entity.YdMangerBanner" >
+		select banner_id,banner_title,banner_subtitle,banner_type,banner_jumpurl,banner_imgsrc,banner_isopen,banner_create_time,banner_update_time
+		from yd_banner
+		where 1 = 1
+		<if test="banner_title !=null and banner_title !='' ">
+			and banner_title like  CONCAT(CONCAT('%', #{banner_title, jdbcType=VARCHAR}),'%')
+		</if> 
+		order by banner_sort asc
+	</select>
+	
+	<select id="queryPictureByBannerId" resultType="com.yd.gcj.entity.YdMangerBanner" >
+		select banner_id,banner_title,banner_subtitle,banner_type,banner_jumpurl,banner_imgsrc,banner_isopen,banner_sort
+		from yd_banner
+		where banner_id = #{banner_id} 
+		order by banner_sort asc
+	</select>
+	
+	<select id="queryAllBannerType" resultType="com.yd.gcj.entity.YdMangerBanner" >
+		select distinct  banner_type
+		from yd_banner
+	</select>
+	
+	<insert id="addPicture" parameterType="com.yd.gcj.entity.YdMangerBanner">
+		insert into yd_banner(banner_id,banner_title,banner_subtitle,banner_type,banner_jumpurl,banner_imgsrc,banner_isopen,banner_sort,banner_create_time,banner_update_time)
+		value(#{banner_id},#{banner_title},#{banner_subtitle},#{banner_type},#{banner_jumpurl},#{banner_imgsrc},#{banner_isopen},#{banner_sort},now(),now())
+	</insert>
+	
+	<delete id="deletePictureByBannerid">
+		delete from yd_banner
+		where banner_id = #{banner_id}
+	</delete>
+</mapper>

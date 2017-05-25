@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功城记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:with="task=${taskVo},contract=${contract}" th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--发布公告-->
+<div class="fbgg-box">
+    <div class="fabu">
+        <div class="jindu">
+            <div class="jindutit">任务进度</div>
+            <div class="jindus">
+                <div class="jinduxian"><div></div></div>
+                <ul>
+                    <li th:class="${task.task_state >= 0}?'isok':''">
+                        <span>1</span>
+                        <p>发布需求<br/>2016.09.06</p>
+                    </li>
+                    <li th:class="${task.task_state >= 2}?'isok':''">
+                        <span>2</span>
+                        <p>选标中<br/>-</p>
+                        <div></div>
+                    </li>
+                    <li th:class="${task.task_state >= 3}?'isok':''">
+                        <span>3</span>
+                        <p>合同签订<br/>-</p>
+                        <div></div>
+                    </li>
+                    <li th:class="${task.task_state == 4}?'isok':''">
+                        <span>4</span>
+                        <p>服务商工作<br/>-</p>
+                        <div></div>
+                    </li>
+                    <li th:class="${task.task_state == 5}?'isok':''">
+                        <span>5</span>
+                        <p>验收并付款<br/>-</p>
+                        <div></div>
+                    </li>
+                    <li th:class="${task.task_state == 6}?'isok':''">
+                        <span>6</span>
+                        <p>评价<br/>-</p>
+                        <div></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="work-box">
+            <div class="worktit">
+                <a th:href="'/list-fuwushang/xuqiumiaoshu/'+${taskId}">需求描述</a>
+                <a href="###" class="now">合同</a>
+                <a th:href="'/list-fuwushang/fabugonggao/'+${taskId}">工作台</a>
+            </div>
+            <div class="compile-pact">
+                <div class="compile-tit">
+                    <i></i>编辑合同
+                </div>
+                <div class="pact-tit clear">
+                    <ul class="jiafang">
+                       <li>
+                           <label for="name">甲方（雇主方）</label>
+                           <input type="text" class="type-1" id="name" placeholder="" name="ename" isNull="false" keyWord="您的姓名" e="e"   th:value="${contract.contract_ename}"/>
+                       </li>
+                        <li>
+                            <label for="addres">地址</label>
+                            <textarea id="addres" cols="30" rows="10" placeholder="" name="eaddr" isNull="false" keyWord="地址" e="e">[[${contract.contract_eaddr}]]</textarea>
+                        </li>
+                        <!-- <li>
+                            <label for="lianxi">联系人</label>
+                            <input type="text" class="type-2" id="lianxi" placeholder=""  th:value="${contract.contract_ephone}"/>
+                        </li> -->
+                        <li>
+                            <label for="phone">电话</label>
+                            <input type="text" class="type-2" id="phone" placeholder="" name="ephone" isNull="false" keyWord="手机号" e="e" th:value="${contract.contract_ephone}"/>
+                        </li>
+                    </ul>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="name2">乙方（服务方） </label>
+                            <input type="text" class="type-1" id="name2" placeholder=""  name="sname" isNull="false" e="e" th:value="${contract.contract_sname}"/>
+                        </li>
+                        <li>
+                            <label for="addres2">地址</label>
+                            <textarea id="addres2" cols="30" rows="10" placeholder="" name="saddr" isNull="false" e="e">[[${contract.contract_saddr}]]</textarea>
+                        </li>
+                        <!-- <li>
+                            <label for="lianxi2">联系人</label>
+                            <input type="text" class="type-2" id="lianxi2" placeholder=""  th:value="${contract.contract_sphone}"/>
+                        </li> -->
+                        <li>
+                            <label for="phone2">电话</label>
+                            <input type="text" class="type-2" id="phone2" placeholder="" name="sphone" isNull="false" e="e" th:value="${contract.contract_sphone}"/>
+                        </li>
+                    </ul>
+                    <p class="attention">根据中国人民共和国合同法及国家有关规定，结合本工程的具体情况，为明确责任，协作配合，确保工程质量，经甲，乙双方协商一致，签订本合同，共同遵守。</p>
+                </div>
+                <div class="pact-list">
+                    <p class="pact-list-tit">第一条，基本信息</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="gcname">工程名称/代码</label>
+                            <input type="text" class="type-2" id="gcname" placeholder="请输入您的项目名称" name="pname" isNull="false" keyWord="工程名称" e="e" th:value="${contract.contract_pname}"/>
+                        </li>
+                        <li>
+                            <label for="miaoshu">工程描述</label>
+                            <textarea id="miaoshu" cols="30" rows="10" placeholder="请输入您的项目描述" name="pdesc" e="e">[[${contract.contract_pdesc}]]</textarea>
+                        </li>
+                        <li>
+                            <label for="xieyi">保密协议</label>
+                            <textarea id="xieyi" cols="30" rows="10" placeholder="保密协议" name="cp"  e="e">[[${contract.contract_cp}]]</textarea>
+                        </li>
+                        <li>
+                            <label for="fuwu">服务协议</label>
+                            <textarea id="fuwu" cols="30" rows="10" placeholder="服务协议" name="sp"  e="e">[[${contract.contract_sp}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pact-list">
+                    <p class="pact-list-tit">第二条，服务内容及深度要求</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="yaoqiu"></label>
+                            <textarea id="yaoqiu" cols="30" rows="10" placeholder="请输入您的服务内容及深度要求" name="scsd" e="e">[[${contract.contract_scsd}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pact-list">
+                <p class="pact-list-tit">第三条，各阶段工期要求</p>
+                <ul class="jiafang">
+                    <li>
+                        <label for="jieduan"></label>
+                        <textarea id="jieduan" cols="30" rows="10" placeholder="请输入各阶段工期要求" name="durat" e="e">[[${contract.contract_durat}]]</textarea>
+                    </li>
+                </ul>
+            </div>
+
+                <div class="pact-list">
+                    <p class="pact-list-tit">第四条，甲方需提交资料</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="ziliao"></label>
+                            <textarea id="ziliao" cols="30" rows="10" placeholder="请输入各阶段工期要求" name="pad" e="e">[[${contract.contract_pad}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pact-list">
+                    <p class="pact-list-tit">第五条，乙方需要提交的成果</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="chengguo"></label>
+                            <textarea id="chengguo" cols="30" rows="10" placeholder="请输入需要提交的成果" name="pbr" e="e">[[${contract.contract_pbr}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pact-list">
+                    <p class="pact-list-tit">第六条，甲方权利与责任</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="zeren"></label>
+                            <textarea id="zeren" cols="30" rows="10" placeholder="请输入权利与责任" name="paresp" e="e">[[${contract.contract_paresp}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pact-list">
+                    <p class="pact-list-tit">第七条，合同款及支付</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="zhifuht"></label>
+                            <textarea id="zhifuht" cols="30" rows="10" placeholder="请输入合同款及支付" name="pbresp" e="e">[[${contract.contract_pbresp}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pact-list">
+                    <p class="pact-list-tit">第八条，各阶段工期要求</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="gongqi"></label>
+                            <textarea id="gongqi" cols="30" rows="10" placeholder="请输入各阶段工期要求" name="pay" e="e">[[${contract.contract_pay}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pact-list">
+                    <p class="pact-list-tit">第九条，违约责任</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="weiyue"></label>
+                            <textarea id="weiyue" cols="30" rows="10" placeholder="请输入违约责任" name="dal" e="e">[[${contract.contract_dal}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pact-list">
+                    <p class="pact-list-tit">第十条，合同生效及其他</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="qita"></label>
+                            <textarea id="qita" cols="30" rows="10" placeholder="其他" name="ce" e="e">[[${contract.contract_ce}]]</textarea>
+                        </li>
+                    </ul>
+                </div>
+				
+				
+				<!--<div class="pact-list">
+                    <p class="pact-list-tit">项目佣金</p>
+                    <ul class="jiafang">
+                        <li>
+                            <label for="yaoqiu"></label>
+                            <textarea id="yaoqiu" cols="30" rows="10" placeholder="请输入项目佣金" name="price" e="e">[[${contract.contract_scsd}]]</textarea>
+                        </li>
+                    </ul>
+                </div>-->
+				
+                <!--2017-02-16新增-->
+                <div class="pact-list">
+                    <p class="pact-list-tit">任务付款及模块</p>
+                    <ul class="jiafang">
+                        <li class="project-period">
+                            <span>项目佣金：</span><input class="date-input taskPtime p-mr-30 price" type="text" th:value="${taskVo.task_price}" name="price" e="e" isNull="false"  keyWord="项目佣金"/>
+                            <span>项目工期：</span><input class="laydate-icon date-input taskPtime contractPdescStart" id="project-start" type="text"/>&emsp;至&emsp;<input class="laydate-icon date-input taskPtime contractPdescEnd" id="project-end" type="text"/>
+                        </li>
+                        <li>
+			                <table class="contract-info">
+			                    <thead>
+			                        <tr>
+			                            <th>模块名称</th>
+			                            <th>模块金额(元)</th>
+			                            <th>模块描述</th>
+			                            <th>操作</th>
+			                        </tr>
+			                    </thead>
+			                    <tbody>
+									<tr th:each="pm,niter:${taskPM}">
+										<td>[[${pm.tpm_name}]]</td>
+										<td class="subprice">[[${pm.tpm_money}]]</td>
+										<td>[[${pm.tpm_desc}]]</td>
+										<td><a class="btn-delete" th:data="${pm.tpm_id}" href="#2">删除</a></td>
+									</tr>
+			                    </tbody>
+			                </table>
+			                <div class="info-input-btn"><a href="#add-module" id="add-module-trigger">添加付款模块</a></div>
+                        </li>
+                    </ul>
+                </div>
+				
+                <div class="else clear">
+                    <div class="elsele">其他</div>
+                    <div class="elseri">
+                        <p>1，本合同附件与正文具有同等法律效力</p>
+                        <p>2，本合同一式两份，自双方签字之日起生效。</p>
+                    </div>
+                </div>
+                
+                <div class="signature clear">
+                    <ul class="signaturele">
+                        <li class="input">
+                            <label for="jf-jiafang">甲方：</label>
+                            <input type="text" id="jf-jiafang" class="type1" th:value="${contract.contract_esig}" name="esig" e="e" isNull="false" keyWord="甲方姓名"/>
+                        </li>
+                        <li class="input">
+                            <label for="jf-date">日期：</label>
+                            <input type="text" id="jf-date" class="type1" th:value="${contract.contract_esigd}"/>
+                        </li>
+                    </ul>
+                    <ul class="signaturele">
+                        <li class="input">
+                            <label for="yf-jiafang">乙方：</label>
+                            <input type="text" id="yf-jiafang" class="type1" th:value="${contract.contract_ssig}" name="ssig" e="e" isNull="false" keyWord="乙方姓名"/>
+                        </li>
+                        <li class="input">
+                            <label for="jf-date">日期：</label>
+                            <input type="text" id="yf-date" class="type1" th:value="${contract.contract_ssigd}"/>
+                        </li>
+                    </ul>
+                </div>
+                <div class="download">
+                    <a href="javascript:;" class="button1">下载打印</a>
+                    <a href="###" class="button2" th:onclick="'submitHetong('+${contract.contract_id}+','+${taskId}+','+${task.task_contract_state}+',2)'">提交并确认合同</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!--底部-->
+    <div th:include="public/foot"></div>
+    <div class="modal hide fade" id="add-module">
+        <div class="popup-mokuaijia">
+            <div class="guanbi" id="close"></div>
+            <h4>增加模块</h4>
+            <p>模块名称</p>
+            <input type="text" id="taskName" placeholder="请输入模块名称" class="yanzheng1 taskPmName"/>
+            <p>模块金额</p>
+            <input type="text" id="taskPrice" placeholder="请输入模块金额" class="yanzheng1 taskPmPrice"/>
+            <p>模块描述</p>
+            <textarea cols="30" id="taskDescription" rows="10" placeholder="详情描述" class="taskPmDesc"></textarea>
+            <div class="button">
+                <button type="button" id="confirm" class="subPmBtn" th:data="${taskId}">确定</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jquery.select.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/bg/task.js"></script>
+<script type="text/javascript" src="/js/bg/contract.js"></script>
+<script src="/laydate/laydate.js"></script>
+<script type="text/javascript">
+    laydate({
+        elem: '#project-start',
+        event: 'focus'
+    });
+    laydate({
+        elem: '#project-end',
+        event: 'focus'
+    });
+    
+    
+</script>
+</html>

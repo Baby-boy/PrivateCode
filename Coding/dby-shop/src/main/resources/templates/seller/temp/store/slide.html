@@ -1,0 +1,152 @@
+<div th:fragment="main" th:remove="tag">
+	<yd:ajax key="slideUpdate" value="get.slide_update"  />
+	
+	<div class="d-right slide-page">
+		<ul class="btn-page-top">
+			<li yd:ajax="onclick,get.store_setting">店铺设置</li>
+			<li class="active">幻灯片设置</li>
+		</ul>
+		<div>
+			<!-- banner --> 
+			<div class="second-banner" style="background: none;">
+				<div class="banner-wrap">
+					<div class="banner">
+						<div class="block_home_slider">
+							<div id="home_slider" class="flexslider">
+								<ul class="slides store-banner-slides">
+									<!-- 
+									<li><a href="#"><img th:src="${@_url.other()}+'banner-1.png'" alt="" title="" /></a></li>
+									
+									<li><a href="#"><img th:src="${@_url.other()}+'banner-1.png'" alt="" title="" /></a></li>
+					
+									<li><a href="#"><img th:src="${@_url.other()}+'banner-1.png'" alt="" title="" /></a></li>
+									 -->
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="pic-page">
+				<form class="form-ajax-sub" data-func="slideUpdate">
+					<ul class="pic-list store-branner-thumb-list">
+						
+						<li>
+							<a class="del" href="javascript:void(0)">X</a>
+							<div class="img-all">
+								<img class="img" th:src="${@_url.other()}+'banner-1.png'" />
+							</div>
+							<div class="img-info">
+								<p><input type="text" placeholder="跳转URL..." class="text" /></p>
+							</div>
+						</li>
+						
+					</ul>
+					<div class="bottom-operate-btn">
+						<div class="btn-file">
+							<a href="javascript:;" class="btn btn-orange">上传图片</a>
+							<input type="file" class="none" data-upload-type="other" data-upload-code="storeSlide" id="storeSlide" data-btn="upload"  />
+						</div>
+						<botton class="btn btn-orange sub btn-add-edit" type="submit">提交</botton>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" th:src="@{/assets/js/functions.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/upload/uploadnew.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/shop/js/jquery.flexslider-min.js}"></script>
+	<script th:inline="javascript">
+		$(function() {
+			var strB = '';
+			var strT = '';
+			var bannerList = "";
+			
+			if (_data.storeBanner != "") {
+				bannerList = JSON.parse( _data.storeBanner );
+				console.log(bannerList);
+				$.each(bannerList, function(k, v) {
+					strB += '<li><a target="_blank" href="'+v.href+'"><img src="'+_urlOther+v.src+'" alt="" title="" /></a></li>';
+					strT += '<li>'
+							+'<div class="img-all">'
+							+'<img class="img" src="'+_urlOther+v.src+'" />'
+							+'</div>'
+							+'<div class="img-info">'
+							+'<p><input type="hidden" value="'+v.src+'" name="slide_src" /><input type="text" placeholder="'+v.href+'" value="'+v.href+'" name="slide_href" class="text" /></p>'
+							+'</div>'
+							+'</li>';
+				});
+			
+				$(".store-banner-slides").html( strB );
+				$(".store-branner-thumb-list").html( strT );
+			}
+			
+			//二级banner
+			
+			if( $(".second-banner .banner").length > 0 ){
+				$(".second-banner .banner").flexslider({
+					animation : 'slide',
+					controlNav : true,
+					directionNav : true,
+					animationLoop : true,
+					slideshow : true,
+					useCSS : false,
+					slideshowSpeed:5000,
+					nextText: '&gt;',
+			    	prevText: '&lt;',
+				});
+			}
+			
+			if( $(".second-banner .banner-2").length > 0 ){
+				$(".second-banner .banner-2").flexslider({
+					animation : 'slide',
+					controlNav : true,
+					directionNav : true,
+					animationLoop : true,
+					slideshow : true,
+					useCSS : false,
+					slideshowSpeed:5000,
+					nextText: '&gt;',
+			    	prevText: '&lt;',
+				});
+			}
+			
+			if( $(".second-banner .banner-3").length > 0 ){
+				$(".second-banner .banner-3").flexslider({
+					animation : 'slide',
+					controlNav : true,
+					directionNav : true,
+					animationLoop : true,
+					slideshow : true,
+					useCSS : false,
+					slideshowSpeed:5000,
+					nextText: '&gt;',
+			    	prevText: '&lt;',
+				});
+			}
+			
+			if( $(".second-banner .banner-4").length > 0 ){
+				$(".second-banner .banner-4").flexslider({
+					animation : 'slide',
+					controlNav : true,
+					directionNav : true,
+					animationLoop : true,
+					slideshow : true,
+					useCSS : false,
+					slideshowSpeed:5000,
+					nextText: '&gt;',
+			    	prevText: '&lt;',
+				});
+			}
+			
+		});
+	
+	</script>
+	
+</div>
+
+
+
+
+

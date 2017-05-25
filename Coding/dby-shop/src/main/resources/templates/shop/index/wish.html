@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+<style type="text/css">
+.second-banner {
+	max-height: 660px;
+}
+</style>
+</head>
+<body
+	th:with="searchkeys=${@_dict.many('web_search_key')},
+	navs=${@_nav.getByType('0')}
+	">
+	<!-- 头部 -->
+	<div id="header">
+		<div th:include="shop/template/header :: header" th:remove="tag"></div>
+
+		<!-- 主导航 -->
+		<div class="main-nav">
+			<div class="nav">
+				<div th:include="shop/template/classify :: home('')"></div>
+				<div th:include="shop/template/header :: nav('')"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 头部结束 -->
+
+	<form id="addWish">
+		<!-- 中间内容 -->
+		<div id="container">
+			<div class="wish-page">
+				<h2>许愿池</h2>
+				<div class="content">
+					<textarea name="wish_content" role="10" rows="10"
+						placeholder="请输入您想要的商品" oninput="strxz(this)"></textarea>
+					<div class="text">
+						还可输入<span>200</span>字
+					</div>
+				</div>
+				<div class="operation">
+					<div class="submit">发表许愿</div>
+<!-- 					<div class="cancel">取消</div> -->
+				</div>
+			</div>
+		</div>
+		<!-- 中间内容结束 -->
+	</form>
+
+	<!-- 底部 -->
+	<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+
+	<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+
+	<script type="text/javascript">
+		/*<![CDATA[*/
+		$(function() {
+			$(".submit").click(function() {
+				if ($(".content textarea").val() == "") {
+					$.alert({
+						type : 3,
+						info : "请输入内容"
+					});
+					return;
+				} else {
+					$("#addWish").click(function() {
+						$.ajax({
+							url : "/member/wish/addWish",
+							data : $("#addWish").serialize(),
+							type : "post",
+							success : function(datas) {
+								if (datas.msg == true) {
+									$.alert({
+										type:4,
+										info: "提交成功"
+									});
+									 setTimeout(function() {
+										location.reload();
+									}, 500); 
+								} else if (datas.msg == false) {
+									$.alert({
+										info: "提交失败"
+									});
+								} 
+							}
+						});
+					});
+				}
+				/* $.alert({
+					info: "提交成功"
+				}); */
+			});
+		});
+
+		$(".wish-page textarea").keyup(function() {
+			var num = 200;
+			var texLength = $(this).val().length;
+			$(".wish-page .text span").html(num - texLength);
+		});
+
+		//限制评论输入的字数
+		function strxz(tag) {
+			var v = $(tag).val();
+			var num = 200;
+			if (v.length > num) {
+				var value = v.substring(0, num);
+				$(tag).val(value);
+			}
+		}
+		/*]]>*/
+	</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperNews">
+
+	<select id="hot" resultType="java.util.HashMap">
+		SELECT
+			yd_dict.dict_id as tag_id,
+			yd_dict.dict_value as tag_name,
+			yd_news.title,
+			yd_news.created_time
+		FROM
+			yd_news
+		JOIN yd_dict ON yd_news.tag_id = yd_dict.dict_id
+		limit 5
+	</select>
+	
+	<select id="count" resultType="java.util.HashMap">
+		SELECT * FROM yd_news
+		limit 10
+	</select>
+	<select id="selectAll" resultType="java.util.HashMap">
+		SELECT
+			yd_dict.dict_id as tag_id,
+			yd_dict.dict_value as tag_name,
+			yd_news.title,
+			yd_news.content,
+			yd_news.created_time
+		FROM
+			yd_news
+		JOIN yd_dict ON yd_news.tag_id = yd_dict.dict_id
+		limit 10
+	</select>
+	
+	
+	
+	
+	
+	<select id="hot2" resultType="java.util.HashMap">
+		SELECT
+			yd_dict.dict_id as tag_id,
+			yd_dict.dict_value as tag_name,
+			yd_news.title,
+			yd_news.created_time
+		FROM
+			yd_news
+		JOIN yd_dict ON yd_news.tag_id = yd_dict.dict_id
+		where type = #{type} limit 5; 
+	</select>
+	
+	<select id="count2" resultType="java.util.HashMap">
+		SELECT * FROM yd_news where type = #{type} limit 10;
+	</select>
+	<select id="selectAll2" resultType="java.util.HashMap">
+		SELECT
+			yd_dict.dict_id as tag_id,
+			yd_dict.dict_value as tag_name,
+			yd_news.title,
+			yd_news.content,
+			yd_news.created_time
+		FROM
+			yd_news
+		JOIN yd_dict ON yd_news.tag_id = yd_dict.dict_id
+		where type = #{type} limit 10; 
+	</select>
+	
+</mapper>

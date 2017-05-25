@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title></title>  
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <link rel="stylesheet" href="/system/layer/skin/layer.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>
+    <script src="/system//layer/layer.min.js"></script>
+    <script src="/system/js/jquery.page.js"></script>
+</head>
+<body>
+<form method="get" action="/system/queryAllMessageAdmin" id="queryForm" th:inline="text" >
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder">用户消息管理</strong></div>
+    <div class="padding border-bottom">
+
+      <ul class="search">
+        
+        <!-- <li>
+          <button type="button"  class="button border-green" id="checkall"><span class="icon-check"></span> 全选</button>
+          <button type="button" class="button border-red" id="delBatch"><span class="icon-trash-o" ></span> 批量删除</button>
+        </li> -->
+       
+        <li>
+        	<button type="button"  class="button border-green" onclick="javascript:location.href='/system/addmessage'">添加系统消息</button>
+            <input type="text" placeholder="请输入发送方名称" name="admin_name" th:value="${admin_name}" class="input" style="width:250px; line-height:17px;display:inline-block" />
+        </li>
+        
+        <li>
+            <input type="text" placeholder="请输入接收方昵称" name="user_nickname" th:value="${user_nickname}" class="input" style="width:250px; line-height:17px;display:inline-block" />
+        </li>
+        <li>
+            <button type="submit" id="adsubmit"  class="button border-green">查询</button>
+        </li>
+      </ul>
+
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="120">序号</th>
+        <th>消息类型</th>       
+        <th>发送消息方</th>
+        <th>接收消息方</th>
+        <th>消息内容</th>
+        <th>任务编号</th>
+        <th>发送时间</th>
+        <th>操作</th>       
+      </tr>
+
+        <tr th:each="messageList,obj:${messageList}" >
+<!--           <td><input id ="msg_id" type="checkbox" name="msg_id" th:value="${messageList.msg_id}" th:text="${messageList.msg_id}" /></td> -->
+          <td th:text="${obj.count}"></td>
+          <td th:switch="${messageList.msg_type}">
+          	<p th:case=" '0' " >系统消息</p>
+          	<p th:case=" '1' " >任务消息</p>
+          	<p th:case=" '2' " >留言消息</p>
+          	<p th:case=" '3' " >评价消息</p>
+          </td>
+          <td th:text="${messageList.admin_name}"></td>
+          <td>[[${messageList.msg_sbid}==0?'全部':${messageList.user_nickname}]]</td>
+          
+          <td >
+	          <label id="msg" th:text="${messageList.msg_contents}" hidden="true"></label>
+	          <a class="id" >内容详情</a>
+          </td>
+          <td th:text="${messageList.task_num}"></td>
+          <td th:text="${#calendars.format(messageList.msg_create_time,'yyyy-MM-dd hh:mm:ss')}"></td>
+          <td>
+	          <div class="button-group"> 
+	          	<a class="button border-red" href="javascript:void(0)" th:attr="msg_id=${messageList.msg_id}" onclick="return delMessage( $(this) )">删除</a> 
+	          	<a class="button border-red" th:href="@{/system/updateAdminMessageByMsgId/}+${messageList.msg_id}">修改</a> 
+	          </div>
+          </td>
+        </tr>
+    </table>
+  </div>
+</form>
+<div class="pagination thePage">
+ <ul>
+　</ul>
+</div>
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+$(function() {
+	 pagination(".pagination ul",[[${totalPage}]],[[${p}]] );
+}); 
+
+function pagination(node, totalPage, cpage) {
+	$(node).createPage({
+       pageCount: totalPage,
+       current: cpage,
+       backFn:function(p){
+           //单击回调方法，p是当前页码
+       }
+   });
+}        
+
+$('.id').on('click', function(){
+	var value = $(this).prev().html();
+	var pageii = $.layer({
+	    type: 1,
+	    title: false,
+	    area: ['auto', 'auto'],
+	    border: [0], //去掉默认边框
+	    shade: [0], //去掉遮罩
+	    closeBtn: [0, false], //去掉默认关闭按钮
+	    shift: 'right', //从左动画弹出
+	    page: {
+	        html: '<div style="width:420px; height:260px; padding:20px; border:1px solid #ccc; background-color:#eee;"><p>'+value+' </p><button id="pagebtn" class="btns" onclick="">关闭</button></div>'
+	    }
+	});
+	//自设关闭
+	$('#pagebtn').on('click', function(){
+	    layer.close(pageii);
+	});
+});
+
+function delMessage(me){
+	if(confirm("您确定要删除吗?")){
+		 $.post("deleteMessage",{"msg_id":me.attr("msg_id")},function(data){
+			if(data.msg==true){
+				alert("删除成功");
+				location.reload();
+			}else{
+				
+				alert("删除失败")
+			}
+		}); 
+		 
+	}
+};
+
+//条件搜索
+$('#adsubmit').click(function(){
+	$('#queryForm').submit();
+});
+
+$("#checkall").click(function(){ 
+	  $("input[name='msg_id']").each(function(){
+		  if (this.checked) {
+			  this.checked = false;
+		  }
+		  else {
+			  this.checked = true;
+		  }
+	  });
+	})
+
+$("#delBatch").click(function(){
+	var Checkbox=false;
+	 $("input[name='msg_id']").each(function(){
+	  if (this.checked==true) {		
+		Checkbox=true;	
+	  }
+	});
+	if (Checkbox){
+		var t=confirm("您确认要删除选中的内容吗？");
+		if (t==true){
+			//获取选中内容的id
+			var msg_id = $("#msg_id").val();
+			
+		} return false; 		
+	}
+	else{
+		alert("请选择您要删除的内容!");
+		return false;
+	}
+});
+	
+	
+/*]]>*/
+</script>
+</body></html>

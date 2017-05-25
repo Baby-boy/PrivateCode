@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperAttention">
+	<select id="$queryAll" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerAttention">
+		select 
+			att.att_id,att.att_aid,att.att_bid,att.att_uname,att.att_pname,att.att_create_time,u.user_avatar as attr_bavatar
+		from 
+			yd_attention att
+			left join yd_user u on att.att_bid = u.user_id 
+		where att.att_aid = #{att_aid}
+	</select>
+	
+	<select id="$queryACountNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_attention
+		where
+		 	att_aid = #{att_aid}
+	</select>
+	
+	<select id="$queryBCountNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_attention
+		where
+		 	att_bid = #{att_bid}
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerAttention" useGeneratedKeys="true" keyProperty="att_id">
+		insert into yd_attention
+			(att_aid,att_bid,att_uname,att_pname,att_create_time)
+		value
+			(#{att_aid},#{att_bid},
+			(select user_nickname from yd_user where user_id = #{att_bid}),
+			(select user_ename from  yd_user where user_id = #{att_bid}),
+			#{att_create_time})
+	</insert>
+	
+	<delete id="$delete">
+		delete from yd_attention 
+		where att_aid = #{userAId} and att_bid = #{userBId}
+	</delete>
+	
+	<select id="$isExist" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_attention
+		where 
+			att_aid = #{att_aid} and att_bid = #{att_bid}
+	</select>
+</mapper>
+

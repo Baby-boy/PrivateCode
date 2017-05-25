@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')},
+	navs=${@_nav.getByType('0')}
+	">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: home('')" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(groupon)"></div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		<!-- 二级banner --> 
+		<div class="second-banner">
+			<div class="banner">
+				<div class="block_home_slider">
+					<div id="home_slider" class="flexslider">
+						<ul class="slides">
+							<li th:each="item:${@_cache.get('web_groupon_banner')}">
+								<a href="javascript:;">
+									<img th:src="${item.img1}" />
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 中间内容 -->
+		<div id="container">
+			
+			<!-- 今日上新 -->
+			<div class="today-new">
+				<h2>今日上新</h2>
+				<div class="list">
+					<ul>
+						<li th:each="item:${@_cache.get('web_groupon_news')}">
+							<div class="left">
+								<div class="img"><a th:href="${item.url1}"><img th:src="${@_url.goods()}+${item.img1}" /></a></div>
+								<div class="line"></div>
+								<h3 th:text="${item.text1}">典藏名表拍卖专场 </h3>
+								<p><small th:text="${item.text2}">低至3.8折</small></p>
+								<div class="link"><a th:href="${item.url1}">立即选购</a></div>
+							</div>
+							<div class="right">
+								<a th:href="${item.url1}">
+									<img th:src="${@_url.goods()}+${item.img2}" />
+									<div class="count-down"><span class="set-time" th:attr="data-current=${item.time1},data-starttime=${item.time2},data-endtime=${item.time3}">剩3天</span></div>
+								</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="groupon-page">
+				<!-- 品牌团 -->
+				<div class="wrap-content">
+					<div class="col-name">
+						<label>品牌团</label>
+					</div>
+					<div class="list">
+						<ul>
+							<li th:each="item,niter:${@_cache.get('web_groupon_floor1')}" th:if="${niter.index} lt 8">
+								<div class="img">
+									<a th:href="${item.url1}"><img th:src="${@_url.goods()}+${item.img1}" /></a>
+								</div>
+								<div class="bottom-info">
+									<div class="title">
+										<span class="surplus-time" th:attr="data-current=${item.time1},data-starttime=${item.time2},data-endtime=${item.time3}">剩余2天 19：00：01</span>
+										<a th:href="${item.url1}" th:text="${item.text1}">笑佛冰种飘花翡翠挂件</a>
+									</div>
+									<div class="price">
+										<span><strong th:text="${item.float1}">1612</strong>元起</span>
+										<a th:href="${item.url1}">马上抢</a>
+										<label>388人抢购</label>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+				<!-- 单品团 -->
+				<div class="wrap-content" th:each="item,niter:${@_cache.get('web_groupon_floor2')}" th:if="${niter.index} lt 1">
+					<div class="col-name">
+						<label>单品团</label>
+						<dl>
+							<dd th:each="sitem,sniter:${item.nodes}" th:class="${sniter.index}==0?active:''" th:if="${sniter.index} lt 5"><a href="javascript:;" th:text="${sitem.text1}">黄铂金</a></dd>
+						</dl>
+					</div>
+					<div class="list">
+						<ul th:each="sitem,sniter:${item.nodes}" th:if="${sniter.index} lt 5" th:class="${sniter.index}==0?'display:block;':'display:none;'" >
+							<li th:each="fitem,fniter:${sitem.nodes}" th:if="${fniter.index} lt 8">
+								<div class="img">
+									<a th:href="${item.url1}"><img th:src="${@_url.goods()}+${item.img1}" /></a>
+								</div>
+								<div class="bottom-info">
+									<div class="title">
+										<span class="surplus-time" th:attr="data-current=${fitem.time1},data-starttime=${fitem.time2},data-endtime=${fitem.time3}">剩余2天 19：00：01</span>
+										<a th:href="${fitem.url1}" th:text="${fitem.text1}">笑佛冰种飘花翡翠挂件</a>
+									</div>
+									<div class="price">
+										<span><strong th:text="${fitem.float1}">1612</strong>元起</span>
+										<a th:href="${fitem.url1}">马上抢</a>
+										<label th:text="${fitem.text2}">388人抢购</label>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+		<!-- 中间内容结束 -->
+		
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		<script>
+			$(function(){
+				var time = $("span.surplus-time").attr("data-current");
+				setInterval(function(){
+					updateEndTime2("span.set-time",time);
+					updateEndTime1("span.surplus-time",time);
+					time++;
+				},1000);
+				
+				$(".groupon-page .col-name dl dd").mouseenter(function(){
+					$(this).addClass("active").siblings().removeClass("active");
+					$(".wrap-content .list ul").eq($(this).index()).show().siblings().hide();
+				});
+			});
+		</script>
+		
+		
+	</body>
+</html>

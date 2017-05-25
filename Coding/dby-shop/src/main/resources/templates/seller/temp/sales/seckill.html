@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="keywords" content=""/>
+		<meta name="description" content=""/>
+		<meta name="Authorization" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/css/yd-tipbox.css}" />
+		<link rel="stylesheet" th:href="@{/assets/member/css/member.css}" />
+		<link rel="stylesheet" th:href="@{/assets/member/css/member2.css}" />
+		<link rel="stylesheet" th:href="@{/assets/member/css/user.css}" />
+		<link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+		
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')},
+		navs=${@_nav.getByType('0')}
+		">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div> 
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: home('')" th:remove="tag"></div> 
+					<div th:include="shop/template/header :: nav(home)" th:remove="tag"></div> 
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		<div id="container">
+			<div class="g-content">
+				<div th:include="seller/temp/left" th:remove="tag"></div>
+
+				<div id="right">
+					<div class="d-right goods-page">
+					    <ul class="btn-page-top" data-btn-grid="grid">
+					      <li class="active">秒杀商品</li>
+					      <li><a href="/seller/seckill/create">新增秒杀商品</a></li>
+					    </ul>
+					    
+					    <div class="d-all pop">
+							<table class="list-table seckill-lists">
+								<thead>
+									<tr>
+										<th class="w300">商品信息</th>
+										<th class="seckill-info w200">所属专场信息</th>
+										<th class="w120">活动价格</th>
+										<th class="w120">活动库存</th>
+										<th>申请时间</th>
+										<th class="w120">操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:inline="text" th:each="item: ${data}">
+										<td class="seckill-img-goods"><img th:src="${@_url.goods()}+${item.goods_cover}+@{?x-oss-process=image/resize,m_pad,h_40,w_40}" /><a th:text="${item.goods_name}"></a></td>
+										<td class="seckill-info" th:if="${item.seckill_title} neq null">
+											<span>[[${item.seckill_title}]]</span>
+											<p><span>开始时间：[[${item.start_time}]]</span><br/><span>结束时间：[[${item.end_time}]]</span></p>
+										</td>
+										<td class="seckill-info" th:if="${item.seckill_title} eq null" th:switch="${item.sg_state}">
+											<p th:case="1">未审核</p>
+											<p th:case="3">未通过审核<br /><span th:text="${item.sg_state}"></span></p>
+										</td>
+										<td th:text="${item.depot_min_bid}"></td>
+										<td th:text="${item.depot_pre_stock}"></td>
+										<td th:text="${item.sg_apply_time_text}"></td>
+										<td th:switch="${item.sg_state}">
+											<a href="javascript:;" class="btn-operate-alert" data-func="seckillCancel" th:case="1" th:attr="data-id=${item.sg_id}">取消申请</a>
+											<a href="javascript:;" th:case="2">
+												<div th:switch="${item.seckill_state}">
+													<span th:case="1">正常</span>
+													<span th:case="2">管理员关闭</span>
+													<span th:case="3">已结束</span>
+												</div>
+											</a>
+											<a href="javascript:;" th:case="3" th:title="${item.sg_season}">审核未通过<br/>查看原因</a>
+										</td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="4"></td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+						
+						
+					    <!-- 分页 -->
+					    <div class="pagination"></div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- 底部 -->
+	<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+
+	<script type="text/javascript" th:src="@{/assets/js/jquery-1.11.1.min.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/shop/js/common.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/js/yd-tipbox-min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.page.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/store+json2.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.cxselect.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/js/jq_select.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/member/js/member.base.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/seller/js/store.get.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/seller/js/store.js}" ></script>
+	<script type="text/javascript" th:src="@{/assets/upload/plupload.full.min.js}" ></script>
+	
+	
+	</body>
+</html>

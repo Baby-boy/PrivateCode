@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperArticle">
+	
+	<select id="$queryAll" resultType="com.yd.gcj.entity.YdMangerArticle">
+		select 
+			*
+		from 
+			yd_article 
+			where article_type = #{type}
+			limit #{startPageNum},#{queryPageNum};
+	</select>
+	
+	<select id="$queryCountAll" resultType="java.lang.Integer">
+		select count(*) from yd_article where article_type = #{type}
+	</select>
+	
+	<select id="$queryById" resultType="com.yd.gcj.entity.YdMangerArticle">
+		select 
+			article_id,article_title,article_subtitle,article_sort,article_isshow,article_type,article_create_time,article_update_time 
+		from 
+			yd_article 
+		where 
+			user_id = #{article_id};
+	</select>
+	
+	<select id="$qeuryCountNum" resultType="com.yd.gcj.entity.YdMangerArticle">
+		select
+		 	count(*) 
+		from 
+			yd_article 
+	</select>
+	
+	<insert id="$insertArticle" parameterType="com.yd.gcj.entity.YdMangerArticle" useGeneratedKeys="true" keyProperty="article_id">
+		insert into yd_user 
+			(article_title,article_subtitle,article_sort,article_isshow,article_type,article_create_time,article_update_time ) 
+		value
+		 	(#{article_title},#{article_subtitle},#{article_sort},#{article_isshow},#{article_type},#{article_create_time},#{article_update_time} );
+	</insert>
+	
+	<update id="$updateArticle" parameterType="com.yd.gcj.entity.YdMangerArticle">
+		update yd_article
+		<set>
+			<trim suffixOverrides=",">
+				<if test="article_title != null">article_title = #{article_title},</if>
+				<if test="article_subtitle != null">article_subtitle = #{article_subtitle},</if>
+				<if test="article_sort >= 0">article_sort = #{article_sort},</if>
+				<if test="article_isshow >= 0">article_isshow = #{article_isshow},</if>
+				<if test="article_type >= 0">article_type = #{article_type},</if>
+				<if test="article_update_time >= 0l">article_update_time = #{article_update_time},</if>
+			</trim>
+		</set>
+		where article_id = #{article_id}
+	</update>
+	
+	<delete id="$deleteArticle" parameterType="java.lang.Integer">
+		delete from yd_article where article_id = #{article_id}
+	</delete>
+	
+</mapper>
+

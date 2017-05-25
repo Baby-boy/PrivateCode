@@ -1,0 +1,94 @@
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li,
+p,
+input {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+input[type=submit],
+input[type=reset],
+input[type=button]{
+  filter:chroma(color=#000000);
+}
+a {
+  color: #333;
+  text-decoration: none;
+}
+a:focus{
+  outline: none;
+}
+img {
+  border: none;
+  /**/
+}
+body {
+  min-width: 1200px;
+}
+input {
+  outline: none;
+}
+textarea{
+  outline: none;
+  resize: none;
+}
+button {
+  cursor: pointer;
+  outline: none;
+  filter:chroma(color=#000000);
+}
+* {
+  font-family: "Microsoft YaHei", Arial;
+  font-size: 14px;
+}
+i {
+  font-style: normal;
+}
+.clear:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.dis-block {
+  display: block;
+}
+.dis-none {
+  display: none;
+}
+.huanhang{
+	white-space:pre-line;
+}
+.member-info li em{
+	margin-left:10px;
+}
+.member-info li em:first-child{
+	margin-left:0;
+}
+.member-info li em.skill-one{
+	width:19px;
+	height:19px;
+	display:inline-block;
+}
+.member-info li em.skill-two{
+	width:19px;
+	height:19px;
+	display:inline-block;
+}
+.member-info li em.skill-three{
+	width:19px;
+	display:inline-block;
+}
+.member-info li em img{
+	width:19px;
+	vertical-align: middle;
+}
+.nav-links>li:last-child:hover .nav-dropdown{
+	height:250px !important;
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperUserTeam">
+	
+	<select id="$queryByUserId" resultType="com.yd.gcj.entity.vo.YdMangerUserTeamVo">
+		select * 
+		from yd_user_team
+		where team_uid = #{userId}
+	</select>
+	
+	<select id="$isExsitByUserId" resultType="java.lang.Integer">
+		select count(*)
+		from yd_user_team
+		where team_uid = #{userId}
+	</select>
+	
+	<insert id="$insert" useGeneratedKeys="true" keyProperty="team_id">
+		insert into yd_user_team
+			(team_uid,team_state,team_isresid,team_ename,team_create_time,team_update_time)
+		value
+			(#{team_uid},#{team_state},#{team_isresid},#{team_ename},#{team_create_time},#{team_update_time})
+	</insert>
+	
+	<update id="$update">
+		update yd_user_team
+		<set>
+			<trim>
+				<if test="team_state != null">team_state = #{team_state},</if>
+				<if test="team_isresid != null">team_isresid = #{team_isresid},</if>
+				<if test="team_ename != null">team_ename = #{team_ename},</if>
+				<if test="team_update_time != null">team_update_time = #{team_update_time},</if>
+			</trim>
+		</set>
+		where team_id = #{team_id}
+	</update>
+	
+	<delete id="$deleteByUserId">
+		delete from yd_user_team
+		where team_uid = #{userId}
+	</delete>
+	
+</mapper>
+

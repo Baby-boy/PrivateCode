@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title></title>  
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>
+    <script src="/system/js/jquery.page.js"></script>
+</head>
+<body>
+<form method="get" action="/system/queryAllTask" id="queryForm" th:inline="text" >
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 任务信息管理</strong></div>
+    <div class="padding border-bottom">
+
+      <ul class="search">
+         <li>
+            <input type="text" placeholder="请输入任务编号" name="task_num" th:value="${task_num}" class="input" style="width:250px; line-height:17px;display:inline-block" />
+        </li>
+        <li>
+            <select name="task_state" class="input" style="width:200px; line-height:17px;" >
+                <option value="">请选择</option>
+                <option value="0" th:selected="${task_state==0? 'selected' : 'false'}">审核中</option>
+                <option value="1" th:selected="${task_state==1? 'selected' : 'false'}">审核通过</option>
+                <option value="2" th:selected="${task_state==2? 'selected' : 'false'}">选标中</option>
+                <option value="3" th:selected="${task_state==3? 'selected' : 'false'}">合同待签订</option>
+                <option value="4" th:selected="${task_state==4? 'selected' : 'false'}">工作中</option>
+                <option value="5" th:selected="${task_state==5? 'selected' : 'false'}">待评价</option>
+                <option value="6" th:selected="${task_state==6? 'selected' : 'false'}">任务完成</option>
+                <option value="7" th:selected="${task_state==7? 'selected' : 'false'}">申请退款</option>
+                <option value="8" th:selected="${task_state==8? 'selected' : 'false'}">退款已完成</option>
+                <option value="9" th:selected="${task_state==9? 'selected' : 'false'}">审核失败</option>
+            </select>
+        </li>
+        <li>
+        	<button type="submit"  class="button border-green" id="tasubmit" >查询</button>
+        </li>
+      </ul>
+
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th>序号</th>
+        <th>任务编号</th>       
+        <th>雇主</th>
+        <th>项目名称</th>
+        <th>任务状态</th>
+        <th>提交时间</th> 
+        <th>修改时间</th> 
+        <th>文件下载</th> 
+        <th>操作</th>       
+      </tr>
+
+        <tr th:each="taskList,obj:${taskList}" >
+<!--           <td><input type="hidden" name="task_id" th:text="${taskList.task_id}" /></td> -->
+          <td th:text="${obj.count}"></td>
+          <td th:text="${taskList.task_num}"></td>
+          <td th:text="${taskList.user_name}"></td>           
+          <td th:text="${taskList.task_pname}"></td>
+          <td th:switch="${taskList.task_state}">
+          	<p th:case=" '0' ">审核中</p>
+          	<p th:case=" '1' ">审核通过</p>
+          	<p th:case=" '2' ">选标中</p>
+          	<p th:case=" '3' ">合同待签订</p>
+          	<p th:case=" '4' ">工作中</p>
+          	<p th:case=" '5' ">待评价</p>
+          	<p th:case=" '6' ">任务完成</p>
+          	<p th:case=" '7' ">申请退款</p>
+          	<p th:case=" '8' ">退款已完成</p>
+          	<p th:case=" '9' ">审核失败</p>
+          </td>
+          <td th:text=" ${#calendars.format(taskList.task_create_time,'yyyy-MM-dd hh:mm:ss')}"></td>
+          <td th:text=" ${#calendars.format(taskList.task_update_time,'yyyy-MM-dd hh:mm:ss')}"></td> 
+          <td><a>下载</a></td> 
+          <td><div class="button-group">
+          	 <a class="button border-red" th:href="@{/system/queryTaskByTaskId/}+${taskList.task_id}">详情</a> 
+<!--          	 <a class="button border-red" href="javascript:void(0)" th:attr="task-id=${taskList.task_id}" onclick="return delTask( $(this) )">删除</a>  -->
+			<!--  <a id="check"  class="button border-red" th:style="${taskList.task_state eq 0 or taskList.task_state eq 1 or taskList.task_state eq 9 }?'':'cursor:not-allowed'" th:href="${taskList.task_state eq 0 or taskList.task_state eq 1 or taskList.task_state eq 9 }?@{/system/queryTaskStateByTaskId/}+${taskList.task_id}:'###'">审核</a>          	 -->
+			 <a id="check" th:if="${taskList.task_state==0}"  class="button border-red" th:style="${taskList.task_state eq 0}?'':'cursor:not-allowed'" th:href="'javascript:submitTaskState('+${taskList.task_id}+',1);'">通过</a>          	
+			 <a id="check" th:if="${taskList.task_state==0}" class="button border-red" th:style="${taskList.task_state eq 0}?'':'cursor:not-allowed'" th:href="'javascript:submitTaskState('+${taskList.task_id}+',9);'">拒绝</a>          	
+          </div></td>
+<!--           <td><div class="button-group"> <a class="button border-red" href="javascript:void(0)" onclick="javascript:location.href='/system/addadmin'">修改</a> </div></td> -->
+        </tr>
+    </table>
+  </div>
+</form>
+<div class="pagination thePage">
+ <ul>
+　</ul>
+</div>
+<script type="text/javascript" th:inline="javascript">
+
+//提交任务审核信息（修改状态）
+function submitTaskState(taskId,state){
+	$.ajax({
+		url: "/system/updateTaskStateByTaskId",
+		data: {
+			"task_id":taskId,
+			"task_state":state
+		},
+		type: "post",
+		success: function(datas) {
+			if(datas.msg==200){
+				alert("修改成功");
+				location.reload();
+			};
+			if(datas.msg==300){
+				alert("当前状态不需要审核");
+			};
+			if(datas.msg==400){
+				alert("修改失败");
+			};
+			if(datas.msg==100){
+				alert("没有查到当前任务信息");
+			};
+		}
+	});
+}
+
+
+/*<![CDATA[*/
+$(function() {
+	 pagination(".pagination ul",[[${totalPage}]],[[${p}]] );
+}); 
+
+function pagination(node, totalPage, cpage) {
+	$(node).createPage({
+       pageCount: totalPage,
+       current: cpage,
+       backFn:function(p){
+           //单击回调方法，p是当前页码
+       }
+   });
+}            
+           
+function delTask(me){
+	if(confirm("您确定要删除吗?")){
+		$.post("deleteTask",{"task_id":me.attr("task-id")},function(data){
+			if(data.msg==true){
+				alert("删除成功");
+            location.reload();
+			}else{
+				
+				alert("删除失败")
+			}
+		}); 
+	}
+};
+
+/*]]>*/
+</script>
+</body></html>

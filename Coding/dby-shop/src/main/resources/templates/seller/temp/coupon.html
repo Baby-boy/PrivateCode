@@ -1,0 +1,50 @@
+<div th:fragment="coupon" th:remove="tag">
+	<div class="Z_g-right">
+		<div class="Z-acc1-1">
+			<div class="Z-title_inf">
+				优惠券
+			</div>
+			
+			<!--更改信息-->
+			<div class="Z-assets">
+				<div class="Z-cou_youhui">
+					<ul clear="clear">
+						<li th:each="item:${body}" th:switch="${item.type}" th:inline="text" th:if="${item.expire eq 0 }">
+							<div class="Z-up">
+								<div th:case="1">¥[[${item.money}]]<span>无限制</span></div>
+								<div th:case="2">¥[[${item.money}]]<span>满[[${item.limitmoney}]]</span></div>
+								<div th:case="3">¥[[${item.money}]]<span>无限制</span></div>
+								<div th:case="4">¥[[${item.money}]]<span>满[[${item.limitmoney}]]</span></div>
+							</div>
+							<div class="Z-zzz">有效期至2016-09-30</div>
+							<div class="Z-do">
+								<div>[优惠券]<span th:text="${item.store_id}"></span></div>
+							</div>
+						</li>					
+					</ul>
+				</div>
+				<div class="Z-cou_shixiao">
+					<div class="Z-shixiao_title">
+						<div>失效券</div>
+					</div>
+					<div class="Z-cou_youhui1">
+						<ul class="clear">
+							<li th:each="item:${body}" th:switch="${item.type}" th:inline="text" th:if="${item.expire gt 0 }">
+							<div class="Z-up">
+								<div th:case="1">¥[[${item.money}]]<span>无限制</span></div>
+								<div th:case="2">¥[[${item.money}]]<span>满[[${item.limitmoney}]]</span></div>
+								<div th:case="3">¥[[${item.money}]]<span>无限制</span></div>
+								<div th:case="4">¥[[${item.money}]]<span>满[[${item.limitmoney}]]</span></div>
+							</div>
+							<div class="Z-zzz">有效期至2016-09-30</div>
+							<div class="Z-do">
+								<div>[优惠券]<span th:text="${item.store_id}"></span></div>
+							</div>
+						</li>		
+						</ul>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>

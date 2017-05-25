@@ -1,0 +1,130 @@
+<div th:fragment="main" th:remove="tag">
+	<yd:ajax key="storeAddress" value="get.store_address"  />
+	<yd:ajax key="storeAddressStore" value="get.store_address_store"  />
+	<yd:ajax key="storeAddressDestory" value="get.store_address_destroy"  />
+	<yd:ajax key="storeAddressUpdate" value="get.store_address_update"  />
+	<yd:ajax key="storeAddressSetDefault" value="get.store_address_set_default"  />
+	
+	<div class="Z_g-right address-page">
+		<div class="Z-acc1-1">
+			<div class="Z-title_inf">
+				发货地址
+			</div>
+			
+			<!--更改信息-->
+			<div class="Z-address_information">
+				<div class="Z-add_title">
+					<div class="Z-shouhuoren">发货人</div>
+					<div class="Z-xiangxidizhi">详细地址</div>
+					<div class="Z-shoujihaoma">手机</div>
+					<div class="Z-caozuo">操作</div>
+					<div class="Z-zhuangtai">状态</div>
+				</div>
+				<div class="Z-add_con">
+					<ul>
+						<li th:each="item:${data}" th:inline="text">
+							<div class="Z-con_name">[[${item.saLinkman}]]</div>
+							<div class="Z-con_add">[[${item.saPca}]][[${item.saStreet}]]</div>
+							<div class="Z-con_number">[[${item.saLinktel}]]</div>
+							<div class="Z-con_operation">
+								<a href="javascript:void(0);" th:attr="data-id=${item.id}" class="Z-edit s-edit-address">编辑</a>
+								<a href="javascript:void(0);" th:attr="data-id=${item.id}" class="Z-delete del-alert" data-func="storeAddressDestory">删除</a>
+							</div>
+							<isDefault th:if="${item.isDefault == 1}" th:remove="tag">
+								<a href="javascript:void(0);" class="Z-con_state Z-con_state1 Z-conn">默认</a>
+							</isDefault>
+							<isDefault th:if="${item.isDefault != 1}"  th:remove="tag">
+								<a href="javascript:void(0);" th:attr="data-id=${item.id}" onclick="storeAddressSetDefault(this)" class="Z-con_state Z-conn" >设为默认</a>
+							</isDefault>
+						</li>
+					</ul>
+				</div>
+				<div class="Z-jump s-edit-address-body" style="display:none">
+					<div class="Z-newly2">
+						<div class="Z-add_new">
+							修改发货信息
+						</div>
+						<span class="close-win" data-close-class=".s-edit-address-body">×</span>
+						<div class="Z-new_table">
+							<form class="form-ajax-sub" data-func="storeAddressUpdate">
+							<ul>
+								<input type="hidden" name="id" />
+								<li>
+									<div class="Z_note">发货人姓名：</div>
+									<input type="text" data-error-info="请输入发货人姓名" data-verify="true" name="saLinkman" placeholder="发货人姓名" />
+								</li>
+								<li>
+									<div class="Z_note">手机号：</div>
+									<input type="text" data-error-info="请输入手机号" data-verify="true" name="saLinktel" placeholder="手机号" />
+								</li>
+								<li>
+									<div class="Z_note">地址：</div>
+									<div class="select-city">
+										<select data-verify="true" data-error-info="请选择省" name="saProvinceId" class="province" data-value="" data-first-title="选择省" disabled="disabled"></select>
+										<select data-verify="true" data-error-info="请选择市" name="saCityId" class="city" data-value="" data-first-title="选择市" disabled="disabled"></select>
+										<select data-verify="true" data-error-info="请选择区" name="saAreaId" class="area" data-value="" data-first-title="选择地区" disabled="disabled"></select>
+										<input type="hidden" data-pca="pca" name="saPca" />
+									</div>
+								</li>
+								<li class="Z-long">
+									<div class="Z_note">详细地址：</div>
+									<input data-verify="true" data-error-info="请输入详细地址" name="saStreet" type="text" placeholder="街道-门牌号 " />
+								</li>
+								<li>
+									<div class="Z_note">&nbsp;</div>
+									<botton type="submit" class="btn btn-orange btn-lg btn-add-edit">保存发货人信息</botton>
+								</li>
+							</ul>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="Z-newly">
+					<div class="Z-add_new">
+						新增发货人
+					</div>
+					<div class="Z-new_table">
+						<form class="form-ajax-sub" data-func="storeAddressStore">
+							<ul>
+								<li>
+									<div class="Z_note">发货人姓名：</div>
+									<input type="text" data-error-info="请输入发货人姓名" data-verify="true" name="sa_linkman" placeholder="发货人姓名" />
+								</li>
+								<li>
+									<div class="Z_note">手机号：</div>
+									<input type="text" data-error-info="请输入手机号" data-verify="true" name="sa_linktel" placeholder="手机号" />
+								</li>
+								<li>
+									<div class="Z_note">地址：</div>
+									<div class="select-city">
+										<select data-verify="true" data-error-info="请选择省" name="sa_province_id" class="province" data-value="" data-first-title="选择省" disabled="disabled"></select>
+										<select data-verify="true" data-error-info="请选择市" name="sa_city_id" class="city" data-value="" data-first-title="选择市" disabled="disabled"></select>
+										<select data-verify="true" data-error-info="请选择区" name="sa_area_id" class="area" data-value="" data-first-title="选择地区" disabled="disabled"></select>
+										<input type="hidden" data-pca="pca" name="sa_pca" />
+									</div>
+								</li>
+								<li class="Z-long">
+									<div class="Z_note">详细地址：</div>
+									<input data-verify="true" data-error-info="请输入详细地址" name="sa_street" type="text" placeholder="街道-门牌号 " />
+								</li>
+								<li>
+									<div class="Z_note">&nbsp;</div>
+									<botton type="submit" class="btn btn-orange btn-lg btn-add-edit">保存发货人信息</botton>
+								</li>
+							</ul>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+		_dataIdKey([[${data}]], "id");
+	</script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.cxselect.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jq_select.js}"></script>
+</div>
+	
+	
+	
+	

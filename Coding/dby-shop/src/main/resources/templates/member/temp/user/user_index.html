@@ -1,0 +1,184 @@
+<div th:fragment="main" th:remove="tag" th:inline="text">
+	<yd:ajax key="userIndex" value="get.member_index" />
+
+	<div class="g-right user-index-page">
+		<div class="g-member">
+			<div class="g-regular">
+				<div class="g-mimg">
+					<img th:src="${data.user_avatar}" />
+				</div>
+				<div class="g-minform">
+					<div class="g-minone clear">
+						<span class="g-tel">[[${data.user_mobile}]]</span>
+						<div class="g-mintwo">
+							<img width="14" th:src="'http://res.zwzyd.com/dby/web/images/vip-'+${data.user_grade}+'.jpg'" alt="" /> <span>普通会员</span>
+						</div>
+					</div>
+					<div class="g-safety clear">
+						<span>账户安全</span> <img src="http://res.zwzyd.com/dby/web/images/ac_img3.png" alt="" /> <span>中</span>
+					</div>
+					<div class="g-word">
+						<a href="javascript:void(0)" data-type="login" yd:ajax="onclick,get.edit_password">修改登录密码</a>
+
+						<div th:if="${data.user_payment_password == ''}" th:remove="tag">
+							<a href="javascript:void(0)" yd:ajax="onclick,get.set_pay_password">设置支付密码</a>
+						</div>
+						<div th:if="${data.user_payment_password != ''}" th:remove="tag">
+							<a href="javascript:void(0)" data-type="pay" yd:ajax="onclick,get.edit_password">修改支付密码</a>
+						</div>
+
+					</div>
+				</div>
+				<div class="g-proving">
+					<div class="provone">
+						<span class="prov"></span>
+						<div th:if="${data.user_mobile == ''}" th:remove="tag">
+							<p>
+								未验证手机<a href="javascript:void(0)" yd:ajax="onclick,get.verify_mobile">[去验证]</a>
+							</p>
+						</div>
+						<div th:if="${data.user_mobile != ''}" th:remove="tag">
+							<p>
+								已验证手机<a href="javascript:void(0)" yd:ajax="onclick,get.edit_mobile">[修改]</a>
+							</p>
+						</div>
+					</div>
+					<!-- 
+					<div class="provone provt">
+						<span class="prov provtwo"></span>
+						<p>未验证邮箱<a href="#">[点击验证]</a></p>
+					</div>
+					 -->
+				</div>
+			</div>
+			<div class="g-balance">
+				<div class="g-bala">
+					<h4>账户余额</h4>
+					<p>
+						余额：<span>￥[[${data.user_money}]]</span>元
+					</p>
+					<button class="g-btn">网银充值</button>
+					<button class="g-btnt">转账提现</button>
+				</div>
+			</div>
+			<div class="g-other">
+				<h4>其他信息</h4>
+				<ul class="clear g-collect">
+					<li class="g-goods">全部订单：<span>（[[${dataOrderTotal}]]）</span></li>
+					<li class="g-coupon">优惠券：<span>（[[${dataCouponTotal}]]）</span>张
+					</li>
+				</ul>
+				<ul class="clear g-collect">
+					<li class="g-goods">收藏商品：<span>（[[${dataFollowTotal[1]["total"]}]]）</span></li>
+					<li class="g-coupon">收藏店铺：<span>（[[${dataFollowTotal[0]["total"]}]]）</span></li>
+				</ul>
+			</div>
+		</div>
+
+		<div th:if="${dataOrder.size() > 0}" th:remove="tag">
+			<div class="d-all pop">
+				<table class="list-table order-lists">
+					<thead>
+						<tr>
+							<th colspan="2">商品</th>
+							<th class="w80">单价(元)</th>
+							<th class="w80">数量</th>
+							<th class="w120">订单金额</th>
+							<th class="w110">交易状态</th>
+							<th class="w110">状态与操作</th>
+						</tr>
+					</thead>
+					<tbody th:each="item:${dataOrder}" th:inline="text">
+						<tr>
+							<td class="order-info" colspan="7"><span>订单号：[[${item.orderSn}]]</span> <span>下单时间：[[${ #calendars.format(item.createdAt,'yyyy-MM-dd hh:mm:ss') }]]</span> <span><a
+									href="javascript:void(0)">[[${item.storeName}]]</a></span> <a href="javascript:void(0)" class="flr">查看详情</a></td>
+						</tr>
+						<tr class="goods-info" th:each="itemGoods, k:${item.goods}" th:inline="text">
+							<td class="w70 img"><img th:src="${itemGoods.goodsImage}" /></td>
+							<td><p class="goods-name">[[${itemGoods.goodsName}]]</p></td>
+							<td>[[${itemGoods.goodsPrice}]]</td>
+							<td>[[${itemGoods.goodsNum}]]</td>
+							<goods th:if="${k.index == 0}" remove="tag">
+							<td class="bdl" th:rowspan="${item.goods.size()}">[[${item.totalPrice}]]<br />（含运费[[${item.transportPrice}]]）<br />在线支付
+							</td>
+							<td class="bdl" th:rowspan="${item.goods.size()}">待付款</td>
+							<td class="bdl" th:rowspan="${item.goods.size()}">状态与操作</td>
+							</goods>
+
+						</tr>
+						<tr>
+							<td class="order-td-bg" colspan="7">&nbsp;</td>
+						</tr>
+					</tbody>
+					<tfoot>
+
+					</tfoot>
+				</table>
+
+				<!-- 分页 -->
+				<div class="pagination"></div>
+			</div>
+		</div>
+
+		<div class="g-hot">
+			<div class="g-title">
+				<ul class="clear">
+					<li class="hcolor">热门推荐</li>
+					<li>最近浏览商品</li>
+					<li>您关注的商品</li>
+				</ul>
+			</div>
+			<div class="g-substance">
+				<ul class="clear">
+					<li class="sub1" th:each="item:${dataHot}" th:inline="text">
+						<div class="g-simg">
+							<img th:src="${item.goodsImage}" alt="" />
+						</div>
+						<p class="g-sname" th:text="${item.goodsName}"></p>
+						<p class="g-sprice">
+							多宝鱼价:<span>￥[[${item.depotPrice}]]</span>
+						</p>
+						<div class="gw">加入购物车</div>
+					</li>
+				</ul>
+			</div>
+			<div class="g-substance" style="display: none">
+				<ul class="clear">
+					<li class="sub1" th:each="item:${dataGoodsRecord}" th:inline="text">
+						<div class="g-simg">
+							<img th:src="${item.goodsCover}" th:alt="${item.goodsName}" />
+						</div>
+						<p class="g-sname" th:text="${item.goodsName}"></p>
+						<p class="g-sprice">
+							多宝鱼价:<span>￥[[${item.goodsPrice}]]</span>
+						</p>
+						<div class="gw">加入购物车</div>
+					</li>
+				</ul>
+			</div>
+			<div class="g-substance" style="display: none">
+				<ul class="clear">
+					<li class="sub1" th:each="item:${dataFollow}" th:inline="text">
+						<div class="g-simg">
+							<img th:src="${item.goodsCover}" th:alt="${item.goodsName}" />
+						</div>
+						<p class="g-sname" th:text="${item.goodsName}"></p>
+						<p class="g-sprice">
+							多宝鱼价:<span>￥[[${item.goodsPrice}]]</span>
+						</p>
+						<div class="gw">加入购物车</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+		$(function() {
+			pagination(".pagination", [[${totalPage}]], [[${p}]], "userIndex");
+		});
+	</script>
+</div>
+
+
+
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperAds">
+
+	<select id="get_many" resultMap="YdMapperAdsResultMap_get_many">
+	SELECT
+			id,
+			pid,
+			jump_type,
+			jump_address,
+			title,
+			is_open,
+			subtitle,
+			imgsrc,
+			price,
+			original_price,
+			UNIX_TIMESTAMP(begin_time) AS begin_time,
+			UNIX_TIMESTAMP(end_time) AS end_time,
+			UNIX_TIMESTAMP(now()) AS now_time,
+			store_name,
+			activity_title,
+			total_bid,
+			dict_key,
+			dict_value
+		FROM
+			yd_web
+		LEFT JOIN yd_dict ON yd_web.tag_id = yd_dict.dict_id
+		WHERE type = #{type}
+		ORDER BY yd_web.sort, yd_web.id DESC
+	</select>
+	
+	<resultMap id="YdMapperAdsResultMap_get_many" type="java.util.Map">
+
+	</resultMap>
+	
+	<select id="get_list" resultMap="YdMapperAdsResultMap_get_many">
+		SELECT * FROM yd_ads WHERE ads_type = #{type}
+	</select>
+</mapper>
+
+

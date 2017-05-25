@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记-工作大厅</title>
+    <link rel="stylesheet" href="../css/public.css"/>
+    <link rel="stylesheet" href="../css/index.css"/>
+    <link rel="stylesheet" href="../css/work.css"/>
+    <link rel="stylesheet" href="../css/common.css"/>
+    <script type="text/javascript">localStorage.setItem('nvaNum',4);</script>
+</head>
+<body>
+    <!--顶部导航-->
+    <div th:include="public/hander"></div>
+    
+    <!-- 中间 -->
+    <div id="yd-work-container">
+        <div class="yd-work-wrap">
+            <div class="yd-work-top">
+                <div class="yd-title">
+                    <h1>工作大厅</h1> 
+                </div>
+                <div class="yd-text clear">
+                    <ul class="yd-task clear">
+                        <li>
+                            <div class="yd-wrap">
+                                <strong>214<i>个</i></strong>
+                                <span>进行中任务</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="yd-wrap2">
+                                <strong>2547<i>人</i></strong>
+                                <span>进行中的人员</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="yd-wrap3">
+                                <strong>43<i>人</i></strong>
+                                <span>已完成任务</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="yd-wrap4">
+                                <strong>9531574<i>&nbsp;¥</i></strong>
+                                <span>任务累计总金额</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="yd-search clear">
+                        <div class="yd-minsearch">
+                            <i></i>
+                            <input type="text" value="" placeholder="请输入搜索关键词"/>
+                        </div>
+                        <button>搜索</button>
+                    </div>
+                    <div class="yd-condition clear">
+                        <div class="yd-type clear">
+                            <span>任务类型</span>
+                            <select name="" id="" class="work-select">
+                                <option value="0">不限</option>
+                                <option value="1">顾问服务</option>
+                                <option value="2">建筑设计</option>
+                                <option value="3">幕墙设计</option>
+                                <option value="4">渲染服务</option>
+                                <option value="5">造价咨询</option>
+                                <option value="6">景观设计</option>
+                                <option value="7">灯光设计</option>
+                                <option value="8">方案设计</option>
+                            </select>
+                        </div>
+                        <div class="yd-type clear">
+                            <span>任务面积</span>
+                            <select name="" id="" class="work-select2">
+                                <option value="0">不限</option>
+                                <option value="1">0~100㎡</option>
+                                <option value="2">100~300㎡</option>
+                                <option value="3">301~800㎡</option>
+                                <option value="4">801~1000㎡</option>
+                                <option value="5">1001~1500㎡</option>
+                                <option value="6">1501~2000㎡</option>
+                                <option value="7">2001~3000㎡</option>
+                                <option value="8">3001㎡以上</option>
+                            </select>
+                        </div>
+                        <div class="yd-type clear">
+                            <span>任务金额</span>
+                            <select name="" id="" class="work-select3">
+                                <option value="不限">不限</option>
+                                <option value="1">0~1000元</option>
+                                <option value="2">1001~5000元</option>
+                                <option value="3">5001~10000元</option>
+                                <option value="4">10001~20000元</option>
+                                <option value="5">20001~50000元</option>
+                                <option value="6">50001~100000元</option>
+                                <option value="7">100000元以上</option>
+                            </select>
+                        </div>
+                        <div class="yd-type clear">
+                            <span>完成进度</span>
+                            <select name="" id="" class="work-select4">
+                                <option value="不限">不限</option>
+                                <option value="1">0~20%</option>
+                                <option value="2">20~30%</option>
+                                <option value="3">30~50%</option>
+                                <option value="4">50~70%</option>
+                                <option value="5">70~90%</option>
+                                <option value="6">100%</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="yd-clearing">清除筛选条件</div>
+                </div>
+            </div>
+            <div class="yd-work-bottom">
+                <ul class="yd-project">
+                    <li class="clear" th:each="tastTemp,niter:${@taskTemp.$queryAll()}" th:inline="text">
+                        <div class="yd-project-wrap">
+                            <div class="yd-area">
+                                <div class="yd-area-top">
+                                    <span>项目代码：<strong>[[${tastTemp.tasktemp_num}]]</strong></span>
+                                    <span>项目面积：<strong>[[${tastTemp.tasktemp_area}]]㎡</strong></span>
+                                    <span>金额：<strong>[[${tastTemp.tasktemp_price}]]¥</strong></span>
+                                </div>
+                                <div class="yd-area-bottom">
+                                    <i></i>
+                                    <span>参加人员（[[${tastTemp.tasktemp_pnum}]]）</span>
+                                </div>
+                            </div>
+                            <div class="yd-schedule">
+                                <div class="yd-echarts" th:attr="data-val=${tastTemp.tasktemp_schedule}"></div>
+                                <div class="echarts-list">
+                                    <p class="yd-p1"><span></span><i></i></p>
+                                    <p class="yd-p2"></p>
+                                    <p class="yd-p3"></p>
+                                </div>
+                            </div> 
+                        </div>
+                    </li>
+                </ul>
+                <div class="tcdPageCode">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--底部-->
+    <div th:include="public/foot"></div>
+
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/echarts.min.js"></script>
+    <script src="../js/chajian/jquery.page.js"></script>
+    <script src="../js/chajian/jquery.select.js"></script>
+    <script src="../js/chajian/jqkuozhan.js"></script>
+    <script src="../js/work.js"></script>
+</body>
+</html>

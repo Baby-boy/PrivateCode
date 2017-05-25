@@ -1,0 +1,53 @@
+
+	<div th:with="searchkeys=${@_dict.many('web_search_key')}">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div> 
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: index('')" th:remove="tag"></div> 
+					<div th:include="shop/template/header :: nav(index)" th:remove="tag"></div> 
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+
+		<div id="container">
+			<div class="g-content">
+				<div class="g-left">
+					<h1 yd:ajax="onclick,get.member_index">个人中心</h1>
+					<ul class="g-shop clear">
+						<h2>购买中心</h2>
+						<li><span></span><a href="javascript:;" yd:ajax="onclick,get.order_index">我的订单</a></li>
+						<li><span></span><a href="javascript:;" yd:ajax="onclick,get.bespoke">我的预约</a></li>
+						<li><span></span><a href="javascript:;" yd:ajax="onclick,get.member_sale">我的拍卖</a></li>
+						<li><span></span><a href="javascript:;" yd:ajax="onclick,get.my_ctc">我的懒鱼</a></li>
+						<li><span></span><a href="javascript:;" yd:ajax="onclick,get.ctc_create">发布懒鱼</a></li>
+						<li><span></span><a href="javascript:;" yd:ajax="onclick,get.follow_goods">我的关注</a></li>
+						<li><span></span><a href="javascript:;" onclick="memberService([this, 1, 0])">我的售后</a></li>
+					</ul>
+					<ul class="g-shop g-account clear">
+						<h2>账号中心</h2>
+						<li><span></span><a href="javascript:;" yd:ajax="onclick,get.member_info">账户信息</a></li>
+						<li><span></span><a href="javascript:;" yd:ajax="onclick,get.member_security">账户安全</a></li>
+						<li><span></span><a href="javascript:;" yd:ajax="onclick,get.member_balance">账户余额</a></li>
+						<li><span></span><a href="javascript:;" yd:ajax="onclick,get.member_coupon">优惠券</a></li>
+						<li><span></span><a href="javascript:;" yd:ajax="onclick,get.member_address">收货地址</a></li>
+					</ul>
+				</div>
+
+				<div id="right">
+				
+				</div>
+			</div>
+		</div>
+
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+	
+		<yd:ajax key="memberSecurity" value="get.member_security" />
+		<yd:ajax key="memberService" value="get.member_service"  />
+				
+	</div>
+

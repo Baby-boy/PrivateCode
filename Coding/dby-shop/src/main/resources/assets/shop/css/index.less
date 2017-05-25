@@ -1,0 +1,663 @@
+@charset "utf-8";
+
+#main{
+    min-width: 1200px;
+    height: auto;
+    overflow: hidden;
+    margin: 0px auto;
+    background: #fff;
+    .main-top{
+        height: auto;
+        overflow: hidden;
+        margin-top: 10px;
+        .banner{
+            width: 720px;
+            height: 470px;
+            float: left;
+            margin-left: 220px;
+            position: relative;
+            ul{
+                width: 720px;
+                height: 470px;
+                overflow: hidden;
+                position: relative;
+                li{
+                    position: absolute;
+                    left: 0px;
+                    top: 0px;
+                    img{
+                        width: 720px;
+                        height: 470px;
+                        vertical-align: bottom;
+                    }
+                }
+            }
+            dl{
+                height: 32px;
+                overflow: hidden;
+                position: absolute;
+                left: -1px;
+                bottom: 0px;
+                dd{
+                    float: left;
+                    height: 32px;
+                    line-height: 32px;
+                    overflow: hidden;
+                    background: rgba(0,0,0,0.3);
+                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#30000000',endColorstr='#30000000');
+                    color: #fff;
+                    font-size: 12px;
+                    margin-left: 1px;
+                    width: 179.25px;
+                    text-align: center;
+                    font-family: "simsun";
+                    cursor: pointer;
+                }
+                dd.active{
+                    background: rgba(0,0,0,0.5);
+                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#50000000',endColorstr='#50000000');
+                }
+            }
+        }
+        .right-list{
+            height: auto;
+            overflow: hidden;
+            width: 250px;
+            float: right;
+            .bulletin{
+                height: auto;
+                overflow: hidden;
+                padding: 0px 14px;
+                border:1px solid #f0f0f0;
+                .title{
+                    height: 42px;
+                    line-height: 42px;
+                    overflow: hidden;
+                    border-bottom:1px solid #f0f0f0;
+                    font-size: 16px;
+                    a{
+                        float: right;
+                        font-size: 12px;
+                        color: #999;
+                    }
+                    a:hover{
+                        color: #e24d3b;
+                    }
+                }
+                .arc-list{
+                    height: auto;
+                    overflow: hidden;
+                    padding: 10px 0px 30px;
+                    ul{
+                        height: auto;
+                        overflow: hidden;
+                        li{
+                            height: 24px;
+                            line-height: 24px;
+                            overflow: hidden;
+                            font-size: 12px;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            a{
+                                color: #999;
+                                font-family: "simsun";
+                            }
+                            strong{
+                                color: #666;
+                                margin-right: 5px;
+                            }
+                            a:hover{
+                                color: #e24d3b;
+                            }
+                        }
+                    }
+                }
+            }
+            .recomm{
+                height: auto;
+                overflow: hidden;
+                padding: 0px 14px;
+                border:1px solid #f0f0f0;
+                margin-top: 10px;
+                dl{
+                    height: 90px;
+                    overflow: hidden;
+                    text-indent: 0px;
+                    padding: 15px 0px;
+                    dt{
+                        float: left;
+                        width: 90px;
+                        height: 90px;
+                        overflow: hidden;
+                        img{
+                            width: 100%;
+                            height: 100%;
+                            vertical-align: bottom;
+                        }
+                    }
+                    dd{
+                        margin-left: 100px;
+                        overflow: hidden;
+                    }
+                    dd.title{
+                        font-weight: bold;
+                        font-size: 18px;
+                        height: 20px;
+                        line-height: 20px;
+                        margin-top: 10px;
+                    }
+                    dd.intro{
+                        margin-top: 6px;
+                        font-size: 12px;
+                        color: #999;
+                        height: 20px;
+                        line-height: 20px;
+                    }
+                    dd.price{
+                        margin-top: 4px;
+                        color: #333;
+                        font-size: 14px;
+                        height: 20px;
+                        line-height: 20px;
+                    }
+                }
+            }
+            .client-download{
+                height: auto;
+                overflow: hidden;
+                padding: 0px 14px;
+                border:1px solid #f0f0f0;
+                margin-top: 10px; 
+                dl{
+                    overflow: hidden;
+                    text-indent: 0px;
+                    padding-top: 11px;
+                    dt{
+                        float: left;
+                        width: 100px;
+                        overflow: hidden;
+                        text-align: center;
+                        img{
+                            vertical-align: bottom;
+                        }
+                    }
+                    dd{
+                        position: relative;
+                        z-index: 9;
+                    }
+                    dd.title{
+                        font-weight: bold;
+                        font-size: 18px;
+                        height: 20px;
+                        line-height: 20px;
+                        margin-top: 20px;
+                    }
+                    dd.intro{
+                        margin-top: 6px;
+                        font-size: 12px;
+                        color: #999;
+                        height: 20px;
+                        line-height: 20px;
+                    }
+                    dd.price{
+                        margin-top: 4px;
+                        color: #333;
+                        font-size: 14px;
+                        height: 20px;
+                        line-height: 20px;
+                        text-align: center;
+                        text-indent: -8px;
+                    }
+                }
+            }
+        }
+    }
+    
+    .banner-bottom{
+        height: auto;
+        overflow: hidden;
+        margin-top: 5px;
+        ul{
+            height: auto;
+            overflow: hidden;
+            margin-left: -5px;
+            li{
+                float: left;
+                width: 196px;
+                height: 140px;
+                overflow: hidden;
+                margin-left: 5px;
+                padding: 0px 20px;
+                background: #f7f7f7;
+                dl{
+                    height: 140px;
+                    overflow: hidden;
+                    dt{
+                        width: 100px;
+                        float: right;
+                        height: 140px;
+                        overflow: hidden;
+                        text-align: right;
+                        a{
+                            display: block;
+                            width: 100%;
+                            height: 100%;
+                            overflow: hidden;
+                            position: relative;
+                            img{
+                                max-width: 100%;
+                                position: absolute;
+                                right: 0px;
+                                bottom: 0px;
+                            }
+                        }
+                    }
+                    dd{
+                        margin-right: 100px;
+                        height: auto;
+                        overflow: hidden;
+                    }
+                    dd.title{
+                        height: 30px;
+                        line-height: 30px;
+                        margin-top: 16px;
+                        a{
+                            font-size: 18px;
+                        }
+                    }
+                    dd.intro{
+                        font-size: 14px;
+                        color: #999;
+                        height: 20px;
+                        line-height: 20px;
+                    }
+                    dd.price{
+                        margin-top: 10px;
+                        height: 30px;
+                        line-height: 30px;
+                        color: #ff4a01;
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+                }
+            }
+            li:first-child{
+                background: url(http://res.zwzyd.com/dby/web/images/index_19.png) no-repeat left top;
+                a{
+                    display: block;
+                    width: 160px;
+                    height: 86px;
+                    margin: 27px auto;
+                    padding: 0px 20px;
+                    background: #fff;
+                    text-align: center;
+                    h2{
+                        height: 40px;
+                        line-height: 40px;
+                        overflow: hidden;
+                        border-bottom: 1px solid #ddd;
+                        font-size: 20px;
+                        letter-spacing: 6px;
+                    }
+                    p{
+                        height: 30px;
+                        line-height: 30px;
+                        overflow: hidden;
+                        font-size: 14px;
+                        text-align: center;
+                        color: #999;
+                        letter-spacing: 5px;
+                    }
+                }
+            }
+        }
+    }
+    .hot-recom{
+        margin-top: 20px;
+        height: auto;
+        overflow: hidden;
+        .col-title{
+            height: 40px;
+            line-height: 40px;
+            overflow: hidden;
+            span{
+                float: left;
+                font-size: 20px;
+            }
+            a.change{
+                color: #666;
+                display: block;
+                float: right;
+                height: 40px;
+                line-height: 40px;
+                overflow: hidden;
+                font-size: 14px;
+                background: url(http://res.zwzyd.com/dby/web/images/index_08.png) no-repeat right 13px;
+                padding-right: 24px;
+            }
+            img{
+                float: left;
+                margin-top: 14px;
+                margin-left: 20px;
+            }
+        }
+        .list{
+            height: auto;
+            overflow: hidden;
+            border:1px solid #efefef;
+            margin-top: 10px;
+            ul{
+                height: auto;
+                overflow: hidden;
+                margin-left: -1px;
+                li{
+                    float: left;
+                    width: 198px;
+                    border-left: 1px solid #efefef;
+                    text-align: center;
+                    padding: 25px 0px;
+                    height: auto;
+                    overflow: hidden;
+                    .img{
+                        padding-bottom: 10px;
+                        height: 130px;
+                        width: 100%;
+                        vertical-align: bottom;
+                        overflow: hidden;
+                        img{
+                            width: 100%;
+                            height: 100%;
+                            vertical-align: bottom;
+                        }
+                    }
+                    .title{
+                        height: 30px;
+                        line-height: 30px;
+                        overflow: hidden;
+                        font-size: 14px;
+                        -webkit-transition: all .5s;
+                        transition:all .5s;
+                    }
+                    .intro{
+                        height: 20px;
+                        line-height: 20px;
+                        overflow: hidden;
+                        font-size: 12px;
+                        color: #999;
+                    }
+                    .price{
+                        color: #ff4a01;
+                        font-size: 14px;
+                        height: 20px;
+                        line-height: 20px;
+                        overflow: hidden;
+                        margin-top: 4px;
+                    }
+                    .title:hover{
+                        color: #fb4b01;
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    .guarantee{
+        height: auto;
+        overflow: hidden;
+        margin-top: 20px;
+        height: auto;
+        overflow: hidden;
+        .col-title{
+            height: 40px;
+            line-height: 40px;
+            overflow: hidden;
+            span{
+                float: left;
+                font-size: 20px;
+            }
+            a{
+                float: right;
+                margin-left: 5px;
+                display: block;
+                height: 28px;
+                width: 28px;
+                text-align: center;
+                line-height: 28px;
+                overflow: hidden;
+                font-family: "simsun";
+                font-size: 16px;
+                color: #e8e8e8;
+                border:1px solid #e8e8e8;
+            }
+            a:hover{
+                color: #d1d1d1;
+                border:1px solid #d1d1d1;
+            }
+        }
+        .list{
+            height: auto;
+            overflow: hidden;
+            border:1px solid #efefef;
+            margin-top: 10px;
+            .left{
+                height: auto;
+                overflow: hidden;
+                float: left;
+                dl{
+                    float: left;
+                    height: 269px;
+                    overflow: hidden;
+                    width: 541px;
+                    margin-top: -1px;
+                    border-right: 1px solid #efefef;
+                    dt{
+                        float: left;
+                        width: 270px;
+                        height: 269px;
+                        border-right: 1px solid #efefef;
+                        border-top: 1px solid #efefef;
+                    }
+                    dd{
+                        width: 270px;
+                        float: left;
+                        border-top: 1px solid #efefef;
+                        height: 134px;
+                    }
+                    a{
+                        display: block;
+                        position: relative;
+                        span{
+                            position: absolute;
+                            left: 20px;
+                            top: 10px;
+                            padding: 2px 0px 2px 10px;
+                            *padding-right: 10px;
+                            border: 1px solid #ff4c00;
+                            font-size: 14px;
+                            color: #ff4c00;
+                            font-weight: bold;
+                        }
+                        span:before{
+                            content: "";
+                            display: block;
+                            width: 10px;
+                            height: 1px;
+                            background: #fff;
+                            float: right;
+                            margin-top: -3px;
+                        }
+                        img{
+                            max-width: 100%;
+                            max-height: 100%;
+                            vertical-align: bottom;
+                        }
+                    }
+                }
+            }
+            .right{
+                height: auto;
+                overflow: hidden;
+                ul{
+                    height: auto;
+                    overflow: hidden;
+                    width: 114px;
+                    margin-top: -1px;
+                    li{
+                        height: 52.8px;
+                        overflow: hidden;
+                        border-top: 1px dashed #efefef;
+                        img{
+                            width: 100%;
+                            height: 100%;
+                            vertical-align: bottom;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.container{
+    height: auto;
+    overflow: hidden;
+    min-width: 1200px;
+    background: #fff;
+    padding-bottom: 40px;
+    .section{
+        width: 1200px;
+        height: auto;
+        margin: 40px auto 0px;
+        .col-title{
+            height: 35px;
+            line-height: 35px;
+            border-bottom: 1px solid #fb4b01;
+            strong{
+                color: #ff4a01;
+                float: left;
+                font-size: 20px;
+                font-weight: 100;
+                margin-right: 5px;
+            }
+            span{
+                float: left;
+                font-size: 20px;
+            }
+            ul{
+                height: 35px;
+                float: right;
+                background: #fff;
+                border-left: 1px solid #ededed;
+                border-right: 1px solid #ededed;
+                li{
+                    float: left;
+                    height: 35px;
+                    line-height: 36px;
+                    margin-left: -1px;
+                    border-top: 1px solid #ededed;
+                    overflow: hidden;
+                    a{
+                        padding: 0px 20px;
+                        display: block;
+                        height: 16px;
+                        line-height: 16px;
+                        overflow: hidden;
+                        border-left: 1px solid #ededed;
+                        margin-top: 10px;
+                        font-size: 12px;
+                        color: #666;
+                    }
+                }
+                li.active{
+                    border-left:1px solid #fb4b01;
+                    border-right:1px solid #fb4b01;
+                    border-top: 2px solid #fb4b01;
+                    border-bottom:1px solid #fff;
+                    position: relative;
+                    z-index: 2;
+                    height: 33px;
+                    line-height: 33px;
+                    a{
+                        color: #fb4b01;
+                        margin-top: 9px;
+                        border-left: 0;
+                    }
+                }
+            }
+        }
+        .list{
+            height: auto;
+            overflow: hidden;
+            display: none;
+            border: 1px solid #efefef;
+            border-top: 0;
+            ul{
+                height: auto;
+                overflow: hidden;
+                margin-left: -1px;
+                margin-top: -1px;
+                li{
+                    float: left;
+                    width: 238.6px;
+                    border-left: 1px solid #efefef;
+                    border-top: 1px solid #efefef;
+                    text-align: center;
+                    padding: 30px 0px;
+                    background: #fff;
+                    overflow: hidden;
+                    -webkit-transition: all .5s;
+                    transition: all .5s;
+                    .img{
+                        padding-bottom: 10px;
+                        height: 160px;
+                        width: 100%;
+                        vertical-align: bottom;
+                        overflow: hidden;
+                        img{
+                            width: 100%;
+                            height: 100%;
+                            vertical-align: bottom;
+                        }
+                    }
+                    .title{
+                        height: 30px;
+                        line-height: 30px;
+                        overflow: hidden;
+                        font-size: 14px;
+                        -webkit-transition:all .5s;
+                        transition:all .5s;
+                    }
+                    .intro{
+                        height: 20px;
+                        line-height: 20px;
+                        overflow: hidden;
+                        font-size: 12px;
+                        color: #999;
+                    }
+                    .price{
+                        color: #ff4a01;
+                        font-size: 14px;
+                        height: 20px;
+                        line-height: 20px;
+                        overflow: hidden;
+                        margin-top: 4px;
+                    }
+                    .title:hover{
+                        color: #fb4b01;
+                    }
+                }
+                li:first-child{
+                    padding: 0px;
+                    width: 478.2px;
+                    img{
+                        width: 100%;
+                        height: 304px;
+                        vertical-align: bottom;
+                    }
+                }
+            }
+        }
+    }
+}

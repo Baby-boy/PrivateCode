@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.system.mapper.YdMangerMapperSystemCount">
+	<!-- 查询当月的会员数量变化 -->
+	<select id="queryAllInfomation" resultType="com.yd.gcj.entity.YdMangerCount" >
+		select * from yd_count
+		where count_date <![CDATA[ >= ]]> #{firstDay} and count_date <![CDATA[ <= ]]> #{lastDay}
+		ORDER BY countNum 
+	</select>
+	
+	<select id="queryAllInfomationByCountNum" resultType="com.yd.gcj.entity.YdMangerCount">
+		select * from yd_count
+		where countNum <![CDATA[ >= ]]> #{day} and countNum<![CDATA[ <= ]]> #{endDay}
+		ORDER BY countNum
+	</select>
+</mapper>

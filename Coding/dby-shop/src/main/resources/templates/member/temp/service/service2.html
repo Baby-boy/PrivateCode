@@ -1,0 +1,69 @@
+<div th:fragment="main" th:remove="tag">
+	<yd:ajax key="sellerService" value="get.store_service"  />
+	<yd:ajax key="sellerRefundHandle" value="get.store_refund_handle" />
+	<yd:ajax key="sellerRefundDetail" value="get.store_refund_detail" />
+	
+	<div class="d-right member-service-page" th:inline="text">
+		
+		<div class="search-body">
+			<form class="search-body-form" data-search-func="sellerService">
+				<div class="s-node">
+					<span>订单编号：</span>
+					<input name="order_sn" placeholder="订单编号" class="text" type="text" />
+				</div>
+				<div class="s-node">
+					<a class="btn-s-a" href="javascript:void(0)"><botton type="button" class="btn-search btn-search-body">搜索</botton></a>
+				</div>
+			</form>
+		</div>
+		
+		<div class="s-return pop">
+			<table class="table-list">
+				<thead>
+					<tr>
+						<th colspan="2">退款编号</th>
+						<th>退款金额</th>
+						<th>买家会员名</th>
+						<th>申请时间</th>
+						<th>处理状态</th>
+						<th>平台确认</th>
+						<th class="w80">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item:${datas}">
+						<td colspan="2">
+							<b class="title">订单编号：</b><a target="_blank" th:href="@{/seller/order/detail?id=}+${item.order_id}">[[${item.order_sn}]]</a><br />
+							<b class="title">退款编号：</b>[[${item.refund_sn}]]
+						</td>
+						<td th:text="${item.refund_amount}"></td>
+						<td th:text="${item.buyer_name}"></td>
+						<td th:text="${item.add_time_data}"></td>
+						<td th:switch="${item.seller_state}">
+							<span th:case="1">待审核</span>
+							<span th:case="2">同意</span>
+							<span th:case="3">不同意</span>
+						</td>
+						<td th:switch="${item.refund_state}">
+							<span th:case="1">无</span>
+							<span th:case="2">待处理</span>
+							<span th:case="3" th:text="${item.seller_state} eq 3 ? '无' : '已完成'"></span>
+						</td>
+						<td>
+							<a th:if="${item.seller_state} eq 1" href="javascript:;" class="btn-refund-handle" th:attr="data-refund-id=${item.refund_id}">处理</a>
+							<a th:if="${item.seller_state} neq 1" href="javascript:;" class="btn-refund-detail" th:attr="data-refund-id=${item.refund_id}">查看</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="pagination"></div>
+		</div>
+		<!-- 分页 -->
+		
+	</div>
+	<script th:inline="javascript">
+		$(function() {
+			pagination(".pagination", [[${totalPage}]], [[${p}]], "memberService");
+		});
+	</script>
+</div>

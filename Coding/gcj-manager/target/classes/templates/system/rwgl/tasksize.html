@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title></title>  
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>
+    <script src="/system/js/jquery.page.js"></script>
+</head>
+<body>
+<form method="get" action="/system/queryAllTaskSize" th:inline="text" id="queryForm" >
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder">任务规模管理</strong></div>
+    <div class="padding border-bottom">
+
+      <ul class="search">
+        <li>
+            <button type="button"  class="button border-green" onclick="javascript:location.href='/system/taskSizeadd'">添加规模</button>
+            <input type="text" placeholder="请输入任务规模" name="dictdata_value" th:value="${dictdata_value}" class="input" style="width:250px; line-height:17px;display:inline-block" />
+        </li>
+        
+        <li>
+            <button type="submit"  class="button border-green" id="adsubmit" >查询</button>
+        </li>
+      </ul>
+
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="120">序号</th>
+        <th>名称</th>
+        <th>规模</th>       
+        <th>操作</th>       
+      </tr>
+
+        <tr th:each="dictionaryDataList,obj:${dictionaryDataList}" >
+<!--           <td><input type="checkbox" name="dict_id" th:text="${dictionaryDataList.dict_id}" /></td> -->
+          <td th:text="${obj.count}"></td>
+          <td th:text="${dictionaryDataList.dictdata_name}"></td>
+          <td th:text="${dictionaryDataList.dictdata_value}"></td>
+          <td><div class="button-group"> 
+		          <a class="button border-red" href="javascript:void(0)" th:attr="dict_id=${dictionaryDataList.dict_id}" onclick="return delTaskSize( $(this) )">删除</a>
+		          <a class="button border-red" th:href="@{/system/updateTaskSizeByDictId/}+${dictionaryDataList.dict_id}">修改</a> 
+	          </div>
+          </td>
+        </tr>
+    </table>
+  </div>
+</form>
+<div class="pagination thePage">
+ <ul>
+　</ul>
+</div>
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/	
+ $(function() {
+	 pagination(".pagination ul",[[${totalPage}]],[[${p}]] );
+ }); 
+ 
+function pagination(node, totalPage, cpage) {
+	$(node).createPage({
+        pageCount: totalPage,
+        current: cpage,
+        backFn:function(p){
+            //单击回调方法，p是当前页码
+        }
+    });
+}  
+
+
+
+
+
+//条件搜索
+$('#adsubmit').click(function(){
+	$('#queryForm').submit();
+});
+
+//删除指定的管理员
+function delTaskSize(me){
+	if(confirm("您确定要删除吗?")){
+		 $.post("deleteTaskSzie",{"dict_id":me.attr("dict_id")},function(data){
+			if(data.msg==true){
+				alert("删除成功");
+				location.reload();
+			}else{
+				alert("删除失败")
+			}
+		}); 
+		 
+	}
+};
+
+/*]]>*/
+</script>
+</body></html>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperStore">
+	<!-- 正常出售商品条件 -->
+	<sql id="normalGoods">
+		<trim prefix="where" suffixOverrides="and">
+			yd_depot.depot_type = 1 AND
+			yd_depot.depot_is_available = 1 AND
+			yd_goods.store_id = #{store_id} AND 
+			<if test="goods_name !=null and goods_name !=''">
+				yd_goods.goods_name like '%${goods_name}%' and
+			</if>
+			<if test="start_price !=null and start_price !=''">
+				yd_depot.depot_price <![CDATA[ >= ]]> #{start_price} and
+			</if>
+			<if test="end_price !=null and end_price !=''">
+				yd_depot.depot_price <![CDATA[ <= ]]> #{end_price} and
+			</if>
+			<if test="class_id !=null and class_id > 0">
+				yd_depot.depot_classify12 = #{class_id} and
+			</if>
+		</trim>
+	</sql>
+	
+	
+	
+	<sql id="where">
+		<trim prefix="where" suffixOverrides="and">
+			store_is_available = 1
+		</trim>
+	</sql>
+
+	<select id="get_many" resultMap="YdShopMapperStoreMap_get_many">
+		SELECT
+			store_id,
+			store_name,
+			store_logo,
+			store_cover
+		FROM
+			yd_store
+		ORDER BY
+			yd_store.store_id DESC
+		LIMIT 10;
+	</select>
+	
+	<resultMap id="YdShopMapperStoreMap_get_many" type="java.util.HashMap">
+		<id property="id" column="store_id" />
+		<result property="name" column="store_name" />
+		<result property="logo" column="store_logo" />
+		<result property="cover" column="store_cover" />
+	</resultMap>
+	<resultMap id="YdShopMapperStoreMap_get_many_brand" type="com.yd.dby.b.shop.entity.YdStore">
+		<id property="store_id" column="store_id" />
+		<result property="store_name" column="store_name" />
+		<result property="store_logo" column="store_logo" />
+		<result property="store_cover" column="store_cover" />
+	</resultMap>
+
+	<resultMap id="YdShopMapperStoreMap_get_hot" type="java.util.HashMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="cover" column="cover" />
+		<result property="num" column="num" />
+		<result property="price" column="price" />
+	</resultMap>
+	
+	<select id="recommend_goods" resultType="java.util.HashMap">
+		SELECT
+			yd_goods.goods_name,
+			yd_goods.goods_id,
+			yd_goods.goods_cover,
+			yd_depot.depot_price,
+			yd_dict.dict_id AS tag_id,
+			yd_dict.dict_value AS tag_name
+		FROM
+			yd_depot
+		JOIN yd_goods ON yd_depot.goods_id = yd_goods.goods_id
+		JOIN yd_dict ON yd_depot.tag_id = yd_dict.dict_id
+		LIMIT 20;
+	</select>
+	
+
+	<select id="top_sell_goods" resultType="java.util.HashMap">
+		SELECT
+			yd_goods.goods_name,
+			yd_goods.goods_id,
+			yd_goods.goods_cover,
+			t.total,
+			t.avg_price
+		FROM
+			yd_total_store_goods_sell AS t
+		JOIN yd_goods ON t.goods_id = yd_goods.goods_id
+		WHERE
+			date_format(time, '%Y-%m') = date_format(now(), '%Y-%m')
+		limit 4;
+	</select>
+
+	<select id="link" resultType="java.util.HashMap">
+		SELECT sl_title as title, sl_url as url FROM yd_store_link LIMIT 5;
+	</select>
+	
+	
+	<select id="classfiy" resultType="java.util.HashMap">
+        SELECT
+            id,
+            pid,
+            name
+        FROM
+            yd_store_goods_classify
+        order by pid asc, sort asc, id asc;
+	</select>
+
+	<select id="goodsAll" resultType="java.util.HashMap">
+        SELECT
+            yd_depot.depot_id, yd_goods.goods_name, yd_depot.depot_price, yd_goods.goods_cover
+        FROM
+            yd_depot
+        LEFT JOIN
+        	yd_goods
+        ON
+        	yd_depot.goods_id = yd_goods.goods_id
+        <include refid="normalGoods"></include>
+        
+        ORDER by
+        	yd_goods.goods_created_time DESC
+        LIMIT #{to}, #{perPage}
+	</select>
+	
+	<select id="goodsAllTotal" resultType="java.lang.Integer">
+		SELECT
+            count(*)
+        FROM
+            yd_depot
+        LEFT JOIN
+        	yd_goods
+        ON
+        	yd_depot.goods_id = yd_goods.goods_id
+        <include refid="normalGoods"></include>
+	</select>
+	
+	<select id="info" resultType="java.util.HashMap">
+		SELECT
+            store_id, user_id, store_name, store_summary, store_logo, store_cover,
+            store_banner, store_address
+        FROM
+            yd_store
+        WHERE
+        	store_id = #{store_id}
+	</select>
+	
+	<select id="banner" resultType="java.util.HashMap">
+		SELECT
+            store_banner
+        FROM
+            yd_store
+        WHERE
+        	store_id = #{store_id}
+	</select>
+	
+	<!-- 店铺列表 -->
+	<select id="total" resultType="java.lang.Integer">
+		SELECT
+			count(store_id)
+		FROM
+			yd_store
+	    <include refid="where"></include>
+	</select>
+	
+	
+	<!-- 店铺列表 -->
+	<select id="get_many_brand" resultMap="YdShopMapperStoreMap_get_many_brand">
+		SELECT
+			store_id,
+			store_name,
+			store_logo,
+			store_cover
+		FROM
+			yd_store
+	    <include refid="where"></include>
+		ORDER BY
+			store_id DESC
+		LIMIT
+			#{to}, #{perPage}
+	</select>
+	
+	
+	<!-- 附近店铺 -->
+	<select id="nearbyStore" resultType="java.util.HashMap">
+		SELECT
+			ys.store_id,ys.store_name,ys.store_cover, ys.store_logo,
+			ys.store_avg_score,ys.store_banner,ys.store_longitude,
+			ys.store_latitude, ys.store_address, ys.store_mobile,
+			ROUND(
+				ASIN(SQRT(
+					POW(SIN((#{latitude} * PI() / 180 - ys.store_latitude * PI() / 180) / 2),2) + 
+						COS(#{latitude} * PI() / 180) * COS(ys.store_latitude * PI() / 180) * 
+					POW(SIN((#{longitude} * PI() / 180 - ys.store_longitude * PI() / 180) / 2),2)
+						)
+				) * 6378.138 * 2 * 1000
+			) AS distance
+		FROM
+			yd_store ys
+		WHERE
+			ys.store_is_available=1 
+		ORDER BY
+			distance
+		LIMIT
+			#{to}, #{perPage}
+	</select>
+	
+	<!-- 店铺列表 -->
+	<select id="nearbyTotal" resultType="java.lang.Integer">
+		SELECT
+			count(store_id)
+		FROM
+			yd_store
+	</select>
+</mapper>

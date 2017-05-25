@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.d.seller.mapper.YdSellerMapperClassify">
+	<select id="one" resultMap="YdWebMapperClassify">
+		select * from yd_classify where cly_pid = 0
+	</select>
+	
+	<select id="son" resultMap="YdWebMapperClassify">
+		select * from yd_classify where cly_pid = #{class_id}
+	</select>
+	
+	<select id="info" resultMap="YdWebMapperClassify">
+		select * from yd_classify where cly_id = #{id} 
+	</select>
+	
+	<resultMap id="YdWebMapperClassify" type="java.util.HashMap">
+		<result property="classId" column="cly_id" />
+		<result property="classType" column="cly_type" />
+		<result property="classTitle" column="cly_name" />
+		<result property="classSort" column="cly_sort" />
+		<result property="classPid" column="cly_pid" />
+		<result property="classThumb" column="cly_imgsrc" />
+		<result property="adsId" column="ads_id" />
+		<result property="clyTotalGoods" column="cly_total_goods" />
+		<result property="clyCreatedTime" column="cly_created_time" />
+	</resultMap>
+	
+	
+</mapper>

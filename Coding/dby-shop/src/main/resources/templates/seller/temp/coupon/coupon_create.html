@@ -1,0 +1,52 @@
+<div th:fragment="main" th:remove="tag">
+	<yd:ajax key="storeCoupon" value="get.coupon_save"  />
+	<div class="d-right nav-create-page">
+		<ul class="btn-page-top">
+			<li yd:ajax="onclick,get.store_coupon">优惠券列表</li>
+			<li class="active">添加优惠券</li>
+		</ul>
+		<div class="input-dl-all">
+			<form class="form-ajax-sub" data-func="storeCoupon">
+			<dl>
+				<dt>优惠券名称：</dt>
+				<dd><input data-error-info="请输入优惠券名称" data-verify="true" name="coupon_name" placeholder="请输入优惠券名称" type="text" class="text w200" /></dd>
+			</dl>
+			<dl>
+				<dt>起止时间：</dt>
+				<dd>
+					<input data-error-info="请选择开始时间" data-verify="true" name="coupon_begin_time"  placeholder="请选择开始时间" type="text" class="text w200" /> ~ 
+					<input data-error-info="请选择结束时间" data-verify="true" name="coupon_end_time"  placeholder="请选择结束时间" type="text" class="text w200" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>类型：</dt>
+				<dd>
+					<input type="radio" checked="checked" value="1" name="coupon_store_type" id="coupon_store_type1" />
+					<label for="coupon_store_type1">满减</label>
+					<input type="radio" name="coupon_store_type" value="2" id="coupon_store_type2" />
+					<label for="coupon_store_type2">减免</label></dd>
+			</dl>
+			<dl class="coupon_full_money">
+				<dt>消费金额：</dt>
+				<dd><input  name="coupon_full_money" placeholder="请输入消费金额" type="text" class="text w100" /></dd>
+			</dl>
+			<dl>
+				<dt>优惠面额：</dt>
+				<dd><input data-error-info="请输入优惠面额" data-verify="true" name="coupon_money" placeholder="请输入优惠面额" type="text" class="text w100" /></dd>
+			</dl>
+			<dl>
+				<dt>发放总数：</dt>
+				<dd><input data-error-info="请输入发放总数" data-verify="true" name="coupon_total_stock" placeholder="请输入发放总数" type="text" class="text w100" /></dd>
+			</dl>
+			<dl>
+				<dt>&nbsp;</dt>
+				<dd><botton type="submit" class="btn btn-orange btn-lg btn-add-edit">提交</botton></dd>
+			</dl>
+			</form>
+		</div>
+	</div>
+</div>
+	
+	
+	
+	

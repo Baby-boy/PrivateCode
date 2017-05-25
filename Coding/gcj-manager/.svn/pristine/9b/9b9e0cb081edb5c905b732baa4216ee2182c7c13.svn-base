@@ -1,0 +1,42 @@
+package com.yd.gcj.service;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.yd.gcj.entity.YdMangerTPMsg;
+
+public interface YdMangerServiceTPMsg {
+	
+//	 tpmsg_token,tpmsg_nikname,tpmsg_uid,tpmsg_imgpath,tpmsg_type
+	 
+	List<YdMangerTPMsg> $queryByTid(@Param("taskmsg_tid") Integer taskmsg_tid);
+	
+	/***
+	 * 查询指定公告信息
+	 * @param taskmsg_id
+	 * @return
+	 */
+	YdMangerTPMsg $queryById(@Param("taskmsg_id") Integer taskmsg_id);
+	
+	/***
+	 * 发布新的任务公告
+	 * @param taskmsg
+	 * @return
+	 */
+	Integer $insert(YdMangerTPMsg taskmsg);
+	
+	/***
+	 * 修改公告信息
+	 * @param taskmsg
+	 * @return
+	 */
+	Integer $update(YdMangerTPMsg taskmsg);
+	
+	/***
+	 * 删除指定的公告信息
+	 * @param taskmsg_id
+	 * @return
+	 */
+	Integer $delete(@Param("taskmsg_id") Integer taskmsg_id);
+}

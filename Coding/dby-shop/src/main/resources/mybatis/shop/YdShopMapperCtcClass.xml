@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperCtcClass">
+	<sql id="field">
+		cc_id as id, cc_pid as pid, cc_sort, cc_name, cc_imgsrc, cc_total_goods
+	</sql>
+
+	<select id="listTree" resultType="java.util.HashMap">
+		SELECT
+		<include refid="field"></include>
+		FROM
+		yd_ctc_class
+		WHERE
+		cc_is_recommend = 1
+		ORDER BY
+		cc_sort ASC
+	</select>
+</mapper>

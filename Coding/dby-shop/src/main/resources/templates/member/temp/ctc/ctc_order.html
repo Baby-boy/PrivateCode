@@ -1,0 +1,80 @@
+<div th:fragment="main" th:remove="tag">
+
+	<yd:ajax key="ctcOrderDestory" value="get.ctcOrder_destory" />
+	<yd:ajax key="ctcAssess" value="get.ctc_assess" />
+	<yd:ajax key="ctcOrderCancel" value="get.ctc_order_cancel" />
+
+
+	<div class="d-right order-page">
+		<ul class="btn-page-top">
+			<li onclick="myCtc([this, 1, 0])">我发布的</li>
+			<li onclick="myCtcOrder([this, 1, 1])" data-type="1" class="active">我卖出的</li>
+			<li onclick="myCtcOrder([this, 1, 2])" data-type="2">我买到的</li>
+		</ul>
+
+		<div class="publish pop">
+			<div class="f-publish">
+				<div class="f-number">
+					<ul class="clear">
+						<li class="f-shop">商品</li>
+<!-- 						<li class="f-orderSn">订单编号</li> -->
+						<li class="f-price">单价</li>
+						<li class="f-time">成交时间</li>
+						<li class="f-operate">操作</li>
+					</ul>
+				</div>
+			</div>
+			<div class="f-number2 f-number3" th:each="item:${data}" th:inline="text">
+				<ul class="clear">
+					<li class="f-shop">
+						<div class="f-img">
+							<!-- th:src="${@_url.goods()}+${item.ctc_cover}" -->
+							<img th:src="${@_url.goods()}+${item.goodsImg}" alt="" />
+						</div>
+						<div class="f-test">
+							<p>[[${item.goodsName}]]</p>
+						</div>
+					</li>
+<!-- 					<li class="f-orderSn">[[${item.orderSn}]]</li> -->
+					<li class="f-price">￥[[${item.goodsPrice}]]</li>
+					<li class="f-time">[[${item.time}]]</li>
+					<li class="f-operate">
+						<span th:if="${item.state} eq 4"> 
+								<span th:if="${item.user_id} neq ${user_id}">
+							<a th:href="@{/ctc/addOrderAssess/}+${item.ctc_order_id}">
+								评价
+							</a>
+								</span>
+						</span>
+						<span th:if="${item.state} eq 1">
+							<span class="go-pay">去付款</span>
+						</span> 
+						 <span th:if="${item.state} eq 1">
+						 <span th:if="${item.user_id} neq ${user_id}">
+							<span class="delete btn-operate-alert" th:if="${item.user_id} neq ${user_id}" data-func="ctcOrderCancel" th:attr="data-id=${item.ctc_order_id}">
+							取消
+							</span>
+							</span>
+						</span> 
+						<span th:if="${item.state} eq 8">
+						已取消
+						</span>
+						<span th:if="${item.user_id} neq ${user_id}">
+							<span class="delete del-alert" th:if="${item.state} neq 9" data-func="ctcOrderDestory" th:attr="data-id=${item.ctc_order_id}">
+							删除
+							</span>
+						</span> 
+						
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 分页 -->
+		<div class="pagination"></div>
+	</div>
+	<script th:inline="javascript">
+		$(function() {
+			pagination(".pagination", [[${totalPage}]], [[${p}]], "myCtcOrder");
+		});
+	</script>
+</div>

@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperCtcComment">
+	<resultMap id="BaseResultMap" type="com.yd.dby.b.shop.entity.YdCtcComment">
+		<id column="ctc_comment_id" jdbcType="INTEGER" property="ctc_comment_id" />
+		<result column="user_id" jdbcType="INTEGER" property="user_id" />
+		<result column="seller_id" jdbcType="INTEGER" property="seller_id" />
+		<result column="ctc_order_id" jdbcType="INTEGER" property="ctc_order_id" />
+		<result column="ctc_id" jdbcType="INTEGER" property="ctc_id" />
+		<result column="ctc_comment_grade" jdbcType="INTEGER" property="ctc_comment_grade" />
+		<result column="ctc_comment_score" jdbcType="REAL" property="ctc_comment_score" />
+		<result column="ctc_comment_content" jdbcType="VARCHAR" property="ctc_comment_content" />
+		<result column="ctc_comment_pics" jdbcType="VARCHAR" property="ctc_comment_pics" />
+		<result column="ctc_comment_is_name" jdbcType="INTEGER" property="ctc_comment_is_name" />
+		<result column="ctc_comment_is_pic" jdbcType="INTEGER" property="ctc_comment_is_pic" />
+		<result column="ctc_comment_total_like" jdbcType="INTEGER" property="ctc_comment_total_like" />
+		<result column="ctc_comment_total_reply" jdbcType="INTEGER" property="ctc_comment_total_reply" />
+		<result column="ctc_comment_created_time" jdbcType="DECIMAL" property="ctc_comment_created_time" />
+		<result column="ctc_comment_buy_time" jdbcType="DECIMAL" property="ctc_comment_buy_time" />
+		<result column="seller_replay_content" jdbcType="VARCHAR" property="seller_replay_content" />
+	</resultMap>
+	<resultMap id="oneMap" type="com.yd.dby.b.shop.entity.YdCtcComment">
+		<id column="ctc_comment_id" jdbcType="INTEGER" property="ctc_comment_id" />
+		<result column="user_id" jdbcType="INTEGER" property="user_id" />
+		<result column="seller_id" jdbcType="INTEGER" property="seller_id" />
+		<result column="ctc_order_id" jdbcType="INTEGER" property="ctc_order_id" />
+		<result column="ctc_id" jdbcType="INTEGER" property="ctc_id" />
+		<result column="ctc_comment_grade" jdbcType="INTEGER" property="ctc_comment_grade" />
+		<result column="ctc_comment_score" jdbcType="REAL" property="ctc_comment_score" />
+		<result column="ctc_comment_content" jdbcType="VARCHAR" property="ctc_comment_content" />
+		<result column="ctc_comment_pics" jdbcType="VARCHAR" property="ctc_comment_pics" />
+		<result column="ctc_comment_is_name" jdbcType="INTEGER" property="ctc_comment_is_name" />
+		<result column="ctc_comment_is_pic" jdbcType="INTEGER" property="ctc_comment_is_pic" />
+		<result column="ctc_comment_total_like" jdbcType="INTEGER" property="ctc_comment_total_like" />
+		<result column="ctc_comment_total_reply" jdbcType="INTEGER" property="ctc_comment_total_reply" />
+		<result column="ctc_comment_created_time" jdbcType="DECIMAL" property="ctc_comment_created_time" />
+		<result column="ctc_comment_buy_time" jdbcType="DECIMAL" property="ctc_comment_buy_time" />
+		<result column="seller_replay_content" jdbcType="VARCHAR" property="seller_replay_content" />
+		<association property="ydMemberCtc" javaType="com.yd.dby.c.member.entity.YdMemberCtc">
+			<result column="ctc_name" jdbcType="VARCHAR" property="ctc_name" />
+			<result column="ctc_price" jdbcType="DECIMAL" property="ctc_price" />
+		</association>
+		<association property="user" javaType="com.yd.dby.c.member.entity.User">
+			<result column="user_username" jdbcType="VARCHAR" property="user_username" />
+		</association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		ctc_comment_id, user_id, seller_id, ctc_order_id, ctc_id, ctc_comment_grade, ctc_comment_score,
+		ctc_comment_content, ctc_comment_pics, ctc_comment_is_name,
+		ctc_comment_is_pic, ctc_comment_total_like,
+		ctc_comment_total_reply, ctc_comment_created_time, ctc_comment_buy_time, seller_replay_content
+	</sql>
+	<!-- 查询所有的好评数 -->
+	<select id="goodCounts" resultType="java.lang.Integer">
+		select count(1)
+		from
+		yd_ctc_comment
+		INNER JOIN yd_ctc ON yd_ctc_comment.ctc_id = yd_ctc.ctc_id
+		where
+		yd_ctc_comment.seller_id=#{uid}
+		<if test="type!=0">
+			and ctc_comment_grade=#{type}
+		</if>
+
+		order by yd_ctc_comment.ctc_comment_created_time desc
+
+	</select>
+	<!--根据uid查询出所有的评论及订单 -->
+	<select id="queryAllCtcCommentBySellerId" resultMap="oneMap">
+		select
+		yd_ctc_comment.seller_replay_content,
+		yd_ctc_comment.ctc_comment_buy_time,
+		yd_ctc_comment.ctc_comment_created_time,
+		yd_ctc_comment.ctc_comment_total_like,
+		yd_ctc_comment.ctc_comment_total_reply,
+		yd_ctc_comment.ctc_comment_is_pic,
+		yd_ctc_comment.ctc_comment_is_name,
+		yd_ctc_comment.ctc_comment_pics,
+		yd_ctc_comment.ctc_comment_content,
+		yd_ctc_comment.ctc_comment_score,
+		yd_ctc_comment.ctc_comment_grade,
+		yd_ctc_comment.ctc_comment_id,
+		yd_ctc_comment.ctc_id,
+		yd_ctc_comment.user_id,
+		yd_ctc_comment.ctc_order_id,
+		yd_ctc.ctc_price,
+		yd_user.user_username,
+		yd_ctc.ctc_name
+		from
+		yd_ctc_comment
+		inner join yd_ctc on yd_ctc_comment.ctc_id = yd_ctc.ctc_id
+		inner join yd_user on yd_user.user_id=yd_ctc_comment.user_id
+		where
+		yd_ctc_comment.seller_id = #{uid}
+		order
+		by
+		yd_ctc_comment.ctc_comment_created_time
+		desc
+		<!-- <if test="type!=null or type != 0"> and yd_ctc_comment.ctc_comment_grade=#{type} </if> -->
+
+
+	</select>
+	<!--根据uid分类查询出所有的评论及订单 -->
+	<select id="queryAllCtcCommentsBySellerId" resultMap="oneMap">
+		select
+		yd_ctc_comment.seller_replay_content,
+		yd_ctc_comment.ctc_comment_buy_time,
+		yd_ctc_comment.ctc_comment_created_time,
+		yd_ctc_comment.ctc_comment_total_like,
+		yd_ctc_comment.ctc_comment_total_reply,
+		yd_ctc_comment.ctc_comment_is_pic,
+		yd_ctc_comment.ctc_comment_is_name,
+		yd_ctc_comment.ctc_comment_pics,
+		yd_ctc_comment.ctc_comment_content,
+		yd_ctc_comment.ctc_comment_score,
+		yd_ctc_comment.ctc_comment_grade,
+		yd_ctc_comment.ctc_comment_id,
+		yd_ctc_comment.ctc_id,
+		yd_ctc_comment.user_id,
+		yd_ctc_comment.ctc_order_id,
+		yd_ctc.ctc_price,
+		yd_user.user_username,
+		yd_ctc.ctc_name
+		from
+		yd_ctc_comment
+		inner join yd_ctc ON yd_ctc_comment.ctc_id =
+		yd_ctc.ctc_id
+		inner join yd_user on yd_user.user_id=yd_ctc_comment.user_id
+		where
+		yd_ctc_comment.seller_id = #{uid}
+		<if test="type!=0">
+			and yd_ctc_comment.ctc_comment_grade=#{type}
+		</if>
+		order
+		by
+		yd_ctc_comment.ctc_comment_created_time
+		desc
+		limit #{to} ,10
+	</select>
+
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from yd_ctc_comment
+		where ctc_comment_id = #{ctc_comment_id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from yd_ctc_comment
+		where ctc_comment_id = #{ctc_comment_id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.yd.dby.b.shop.entity.YdCtcComment">
+		insert into yd_ctc_comment (ctc_comment_id, user_id, seller_id,
+		ctc_order_id, ctc_id, ctc_comment_grade,
+		ctc_comment_score,
+		ctc_comment_content, ctc_comment_pics,
+		ctc_comment_is_name, ctc_comment_is_pic, ctc_comment_total_like,
+		ctc_comment_total_reply, ctc_comment_created_time,
+		ctc_comment_buy_time,
+		seller_replay_content)
+		values (#{ctc_comment_id,jdbcType=INTEGER}, #{user_id,jdbcType=INTEGER}, #{seller_id,jdbcType=INTEGER},
+		#{ctc_order_id,jdbcType=INTEGER},
+		#{ctc_id,jdbcType=INTEGER}, #{ctc_comment_grade,jdbcType=INTEGER},
+		#{ctc_comment_score,jdbcType=REAL}, #{ctc_comment_content,jdbcType=VARCHAR},
+		#{ctc_comment_pics,jdbcType=VARCHAR},
+		#{ctc_comment_is_name,jdbcType=INTEGER}, #{ctc_comment_is_pic,jdbcType=INTEGER}, #{ctc_comment_total_like,jdbcType=INTEGER},
+		#{ctc_comment_total_reply,jdbcType=INTEGER},
+		#{ctc_comment_created_time,jdbcType=DECIMAL},
+		#{ctc_comment_buy_time,jdbcType=DECIMAL}, #{seller_replay_content,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.yd.dby.b.shop.entity.YdCtcComment">
+		insert into yd_ctc_comment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ctc_comment_id != null">
+				ctc_comment_id,
+			</if>
+			<if test="user_id != null">
+				user_id,
+			</if>
+			<if test="seller_id != null">
+				seller_id,
+			</if>
+			<if test="ctc_order_id != null">
+				ctc_order_id,
+			</if>
+			<if test="ctc_id != null">
+				ctc_id,
+			</if>
+			<if test="ctc_comment_grade != null">
+				ctc_comment_grade,
+			</if>
+			<if test="ctc_comment_score != null">
+				ctc_comment_score,
+			</if>
+			<if test="ctc_comment_content != null">
+				ctc_comment_content,
+			</if>
+			<if test="ctc_comment_pics != null">
+				ctc_comment_pics,
+			</if>
+			<if test="ctc_comment_is_name != null">
+				ctc_comment_is_name,
+			</if>
+			<if test="ctc_comment_is_pic != null">
+				ctc_comment_is_pic,
+			</if>
+			<if test="ctc_comment_total_like != null">
+				ctc_comment_total_like,
+			</if>
+			<if test="ctc_comment_total_reply != null">
+				ctc_comment_total_reply,
+			</if>
+			<if test="ctc_comment_created_time != null">
+				ctc_comment_created_time,
+			</if>
+			<if test="ctc_comment_buy_time != null">
+				ctc_comment_buy_time,
+			</if>
+			<if test="seller_replay_content != null">
+				seller_replay_content,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ctc_comment_id != null">
+				#{ctc_comment_id,jdbcType=INTEGER},
+			</if>
+			<if test="user_id != null">
+				#{user_id,jdbcType=INTEGER},
+			</if>
+			<if test="seller_id != null">
+				#{seller_id,jdbcType=INTEGER},
+			</if>
+			<if test="ctc_order_id != null">
+				#{ctc_order_id,jdbcType=INTEGER},
+			</if>
+			<if test="ctc_id != null">
+				#{ctc_id,jdbcType=INTEGER},
+			</if>
+			<if test="ctc_comment_grade != null">
+				#{ctc_comment_grade,jdbcType=INTEGER},
+			</if>
+			<if test="ctc_comment_score != null">
+				#{ctc_comment_score,jdbcType=REAL},
+			</if>
+			<if test="ctc_comment_content != null">
+				#{ctc_comment_content,jdbcType=VARCHAR},
+			</if>
+			<if test="ctc_comment_pics != null">
+				#{ctc_comment_pics,jdbcType=VARCHAR},
+			</if>
+			<if test="ctc_comment_is_name != null">
+				#{ctc_comment_is_name,jdbcType=INTEGER},
+			</if>
+			<if test="ctc_comment_is_pic != null">
+				#{ctc_comment_is_pic,jdbcType=INTEGER},
+			</if>
+			<if test="ctc_comment_total_like != null">
+				#{ctc_comment_total_like,jdbcType=INTEGER},
+			</if>
+			<if test="ctc_comment_total_reply != null">
+				#{ctc_comment_total_reply,jdbcType=INTEGER},
+			</if>
+			<if test="ctc_comment_created_time != null">
+				#{ctc_comment_created_time,jdbcType=DECIMAL},
+			</if>
+			<if test="ctc_comment_buy_time != null">
+				#{ctc_comment_buy_time,jdbcType=DECIMAL},
+			</if>
+			<if test="seller_replay_content != null">
+				#{seller_replay_content,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.yd.dby.b.shop.entity.YdCtcComment">
+		update yd_ctc_comment
+		<set>
+			<if test="user_id != null">
+				user_id = #{user_id,jdbcType=INTEGER},
+			</if>
+			<if test="seller_id != null">
+				seller_id = #{seller_id,jdbcType=INTEGER},
+			</if>
+			<if test="ctc_order_id != null">
+				ctc_order_id = #{ctc_order_id,jdbcType=INTEGER},
+			</if>
+			<if test="ctc_id != null">
+				ctc_id = #{ctc_id,jdbcType=INTEGER},
+			</if>
+			<if test="ctc_comment_grade != null">
+				ctc_comment_grade = #{ctc_comment_grade,jdbcType=INTEGER},
+			</if>
+			<if test="ctc_comment_score != null">
+				ctc_comment_score = #{ctc_comment_score,jdbcType=REAL},
+			</if>
+			<if test="ctc_comment_content != null">
+				ctc_comment_content = #{ctc_comment_content,jdbcType=VARCHAR},
+			</if>
+			<if test="ctc_comment_pics != null">
+				ctc_comment_pics = #{ctc_comment_pics,jdbcType=VARCHAR},
+			</if>
+			<if test="ctc_comment_is_name != null">
+				ctc_comment_is_name = #{ctc_comment_is_name,jdbcType=INTEGER},
+			</if>
+			<if test="ctc_comment_is_pic != null">
+				ctc_comment_is_pic = #{ctc_comment_is_pic,jdbcType=INTEGER},
+			</if>
+			<if test="ctc_comment_total_like != null">
+				ctc_comment_total_like = #{ctc_comment_total_like,jdbcType=INTEGER},
+			</if>
+			<if test="ctc_comment_total_reply != null">
+				ctc_comment_total_reply = #{ctc_comment_total_reply,jdbcType=INTEGER},
+			</if>
+			<if test="ctc_comment_created_time != null">
+				ctc_comment_created_time = #{ctc_comment_created_time,jdbcType=DECIMAL},
+			</if>
+			<if test="ctc_comment_buy_time != null">
+				ctc_comment_buy_time = #{ctc_comment_buy_time,jdbcType=DECIMAL},
+			</if>
+			<if test="seller_replay_content != null">
+				seller_replay_content = #{seller_replay_content,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ctc_comment_id = #{ctc_comment_id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.yd.dby.b.shop.entity.YdCtcComment">
+		update yd_ctc_comment
+		set user_id = #{user_id,jdbcType=INTEGER},
+		seller_id = #{seller_id,jdbcType=INTEGER},
+		ctc_order_id =
+		#{ctc_order_id,jdbcType=INTEGER},
+		ctc_id = #{ctc_id,jdbcType=INTEGER},
+		ctc_comment_grade = #{ctc_comment_grade,jdbcType=INTEGER},
+		ctc_comment_score =
+		#{ctc_comment_score,jdbcType=REAL},
+		ctc_comment_content = #{ctc_comment_content,jdbcType=VARCHAR},
+		ctc_comment_pics = #{ctc_comment_pics,jdbcType=VARCHAR},
+		ctc_comment_is_name =
+		#{ctc_comment_is_name,jdbcType=INTEGER},
+		ctc_comment_is_pic = #{ctc_comment_is_pic,jdbcType=INTEGER},
+		ctc_comment_total_like = #{ctc_comment_total_like,jdbcType=INTEGER},
+		ctc_comment_total_reply =
+		#{ctc_comment_total_reply,jdbcType=INTEGER},
+		ctc_comment_created_time = #{ctc_comment_created_time,jdbcType=DECIMAL},
+		ctc_comment_buy_time =
+		#{ctc_comment_buy_time,jdbcType=DECIMAL},
+		seller_replay_content = #{seller_replay_content,jdbcType=VARCHAR}
+		where ctc_comment_id = #{ctc_comment_id,jdbcType=INTEGER}
+	</update>
+
+</mapper>

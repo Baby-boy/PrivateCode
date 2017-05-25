@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperComment">
+	<!-- 查询条件 -->
+	<sql id="where">
+		<trim prefix="where" suffixOverrides="and">
+		  	<if test="comment_is_pic != null">
+		  		 comment_is_pic = #{comment_is_pic} and 
+		  	</if>
+		  	<if test="comment_grade == 1">
+		  		 comment_score <![CDATA[ > ]]> 3 and 
+		  	</if>
+		  	<if test="comment_grade == 2">
+		  		 comment_score = 3 and 
+		  	</if>
+		  	<if test="comment_grade == 3">
+		  		 comment_score <![CDATA[ < ]]> 3 and 
+		  	</if>
+		  	goods_id = #{goods_id}
+		</trim>
+	</sql>
+	
+	<select id="lists" resultType="java.util.HashMap">
+        SELECT
+        	yd_comment.user_id, yd_comment.comment_id, yd_comment.comment_grade, yd_comment.comment_score,
+        	yd_comment.comment_pics, yd_comment.comment_content, yd_comment.comment_is_name,
+        	yd_comment.comment_total_like, yd_comment.comment_total_reply, yd_comment.comment_created_time,
+        	yd_comment.comment_buy_time, yd_user.user_nickname
+        FROM
+        	yd_comment
+        LEFT JOIN
+        	yd_user
+        ON
+        	yd_comment.user_id = yd_user.user_id
+        <include refid="where"></include>
+        LIMIT #{to}, #{perPage}
+    </select>
+    
+    
+
+	<select id="total" resultType="java.lang.Integer">
+        SELECT
+        	count(comment_id)
+        FROM
+        	yd_comment
+       	<include refid="where"></include>
+    </select>
+	
+
+
+	<select id="get_count" resultType="java.lang.Integer">
+        SELECT count(*) FROM yd_comment
+        JOIN yd_user ON yd_comment.user_id = yd_user.user_id
+    </select>
+    
+	<select id="get_list_only_img" resultType="java.lang.String">
+        SELECT
+            yd_comment.comment_pics
+        FROM
+            yd_comment 
+    </select>
+
+	<select id="get_list" resultMap="YdMapperComment_get_list">
+        SELECT
+            yd_comment.comment_id,
+            yd_comment.comment_score,
+            yd_comment.comment_content,
+            yd_comment.comment_pics,
+            yd_comment.comment_created_time,
+            yd_comment.comment_buy_time,
+            yd_user.user_id,
+            yd_user.user_nickname,
+            yd_user.user_avatar
+        FROM
+            yd_comment
+        JOIN yd_user ON yd_comment.user_id = yd_user.user_id
+        ORDER BY
+            yd_comment.comment_id DESC
+        LIMIT #{page_start}, 10;
+    </select>
+ 
+    
+    <resultMap id="YdMapperComment_get_list" type="java.util.HashMap">
+        <id property="comment_id" column="comment_id" />
+        <result property="score" column="comment_score" />
+        <result property="content" column="comment_content" />
+        <result property="pics" column="comment_pics" />
+        <result property="created_time" column="comment_created_time" />
+        <result property="buy_time" column="comment_buy_time" />
+        <association property="user" javaType="java.util.HashMap">
+            <id property="id" column="user_id" />
+            <id property="nickname" column="user_nickname" />
+            <id property="avatar" column="user_avatar" />
+        </association>
+    </resultMap>
+
+
+
+
+</mapper>

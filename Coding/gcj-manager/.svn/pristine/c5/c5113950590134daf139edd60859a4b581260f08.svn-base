@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta charset="utf-8" name="renderer" content="webkit" />
+<title>功成记</title>
+<link rel="stylesheet" href="/css/public.css" />
+<link rel="stylesheet" href="/css/index.css" />
+</head>
+<body
+	th:with="user=${session.user},nums=${session.nums},msgSize=${session.msgSize}"
+	th:inline="text">
+	<!--顶部导航-->
+	<div th:include="public/hander"></div>
+
+	<!--待签合同-->
+	<div class="hetong-box">
+		<div class="hetong">
+			<div th:include="public/guzhu/hander"></div>
+			<div class="hetong-xq clear">
+				<div class="left">
+					<a href="guzhufang" class="now">任务管理</a> <a href="guzhu-fukuan">付款管理</a>
+					<a href="woderenzheng">我的认证</a> <a href="guzhu-dianping">点评管理</a> <a
+						href="guzhu-xiaoxihuifu" class="pos-relative">我的消息<span
+						class="badge badge-my-msg"
+						th:if="${msgSize!=null and msgSize.countMsgSize > 0}"
+						th:text="${msgSize.countMsgSize}">0</span></a>
+				</div>
+				<div class="right">
+					<div class="topr">
+						<a href="guzhufang">已发布任务<span>（[[${nums.releaseNum}]]）</span></a>
+						<a href="guzhu-daiqianding" class="now">待签订任务<span>（[[${nums.signedNum}]]）</span></a>
+						<a href="guzhu-working">工作中任务<span>（[[${nums.workingNum}]]）</span></a>
+						<a href="guzhu-daipingjia">待评价任务<span>（[[${nums.evaluationNum}]]）</span></a>
+						<a href="guzhu-yiwancheng">已完成任务<span>（[[${nums.endNum}]]）</span></a>
+						<a href="guzhu-tuikuan">退款中任务<span>（[[${nums.refundNum}]]）</span></a>
+					</div>
+					<ul class="daiqianlist">
+
+						<li th:each="task,niter:${taskVos}">
+							<div class="toplis">
+								<div class="titlel">
+									<a th:href="'guzhu-xuqiumiaoshu/'+${task.task_id}">[[${task.task_pname}]]</a><span>-
+										[[${task.state}]]</span>
+								</div>
+								<div class="titler">
+									佣金：<span class="span1">[[${task.task_price}]] ¥</span> <i>丨</i>已支付佣金：<span
+										class="span1">[[${task.task_host_price}]] ¥</span>
+								</div>
+							</div>
+							<div class="botm clear">
+								<div class="ones">
+									<p>
+										服务商：<span>[[${task.task_state lt 3}?'暂无':'待完善']]</span>
+									</p>
+									<p>
+										发布日期：<span>[[${task.startDateTime}]]</span>
+									</p>
+								</div>
+								<!-- <div class="ones">
+                                <p><span>1000</span>㎡</p>
+                                <p>任务面积</p>
+                            </div> -->
+								<div class="ones">
+									<p>
+										<span>[[${task.tender_num}]]</span>人
+									</p>
+									<p>申请人数</p>
+								</div>
+								<div class="twos">
+									<a th:if="${task.task_state == 3}" th:href="@{/list-guzhu/hetong/}+${task.task_id}">[[${task.contractStateE}]]</a>
+									<a th:if="${task.task_state lt 3} and ${task.tender_num gt 0}" th:href="'guzhu-xuanzerencai/'+${task.task_id}">选标</a> 
+									<a th:if="${task.task_state==3 and task.task_contract_state==3}" th:href="'javascript:startWorking('+${task.task_id}+');'">开始工作</a>
+								</div>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--底部-->
+	<div th:include="public/foot"></div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/chajian/jqkuozhan.js"></script>
+<script type="text/javascript">
+	function startWorking(taskId) {
+		var url = "/page/task/startWorking";
+		var datas = {
+			"taskId" : taskId
+		}
+		var result = function(data) {
+			Popups(data.msg, function() {
+				if (data.code == 200) {
+					window.location.href = "/list-guzhu/guzhu-working";
+				}
+			});
+		}
+		sendPost(url, datas, result);
+	}
+</script>
+</html>

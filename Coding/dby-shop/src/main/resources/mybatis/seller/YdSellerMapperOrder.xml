@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.d.seller.mapper.YdSellerMapperOrder">
+
+	<sql id="field">
+		order_id, order_sn, pay_sn, store_id, store_name, buyer_id, buyer_name,
+		payment_code, payment_time, finnshed_time, type, state_service, processing_status,
+		state, coupon_id, coupon_price, goods_price, total_price, refund_price, transport_price,
+		transport_fid, transport_address, invoice_type, invoice_no, created_at, cancel_reason,
+		updated_at, receipt_address, integral, shipping_code, receipt_name
+	</sql>
+	
+	<sql id="infosField">
+		yd_order.order_id, yd_order.order_sn, yd_order.pay_sn, yd_order.store_id,
+		yd_order.store_name, yd_order.buyer_id, yd_order.buyer_name, yd_order.payment_code,
+		yd_order.payment_time, yd_order.finnshed_time, yd_order.type, yd_order.state_service,
+		yd_order.processing_status, yd_order.state, yd_order.coupon_id, yd_order.coupon_price,
+		yd_order.goods_price, yd_order.total_price, yd_order.refund_price,
+		yd_order.transport_price, yd_order.transport_fid, yd_order.transport_address,
+		yd_order.invoice_type, yd_order.invoice_no, yd_order.created_at,
+		yd_order.cancel_reason, yd_order.updated_at, yd_order.receipt_address,
+		yd_order.integral, yd_store.store_telephone, yd_store.store_mobile, yd_order.shipping_time,
+		yd_order.order_message, yd_user.user_truename, yd_user.user_pca, yd_user.user_email,
+		yd_order.shipping_address, yd_order.receipt_mobile, yd_order.receipt_name, yd_order.receipt_address
+	</sql>
+	
+
+	<select id="index" resultMap="YdWebMapperOrderList">
+		SELECT
+			t.order_id,
+			t.order_sn,
+			t.buyer_id,
+			t.buyer_name,
+			t.payment_code,
+			t.payment_time,
+			t.finnshed_time,
+			t.type,
+			t.state_service,
+			t.state,
+			t.total_price,
+			t.coupon_price,
+			t.goods_price,
+			t.refund_price,
+			t.transport_price,
+			t.transport_fid,
+			t.created_at,
+			yd_order_goods.goods_id,
+			yd_order_goods.goods_name,
+			yd_order_goods.og_state,
+			yd_order_goods.goods_num,
+			yd_order_goods.goods_price as goods_goods_price,
+			yd_order_goods.goods_cover,
+			yd_order_goods.goods_pay_price
+		FROM
+		(
+			SELECT
+				order_id,
+				store_id,
+				order_sn,
+				buyer_id,
+				buyer_name,
+				payment_code,
+				payment_time,
+				finnshed_time,
+				TYPE,
+				state_service,
+				state,
+				total_price,
+				coupon_price,
+				goods_price,
+				refund_price,
+				transport_price,
+				transport_fid,
+				created_at
+			FROM yd_order
+			<trim prefix="where" suffixOverrides="and">
+				<if test="state > 0">
+					yd_order.state = #{state} and 
+		  		</if>
+		  		<if test="order_sn != null and order_sn != ''">
+		  		 	yd_order.order_sn = #{order_sn} and 
+		  		</if>
+		  		<if test="order_id != null">
+		  		 	yd_order.order_id = #{order_id} and 
+		  		</if>
+		  		store_id = #{store_id} 
+		  		<if test="order_id == null">
+		  		 	ORDER BY order_id DESC 
+		  		</if>
+		  		<if test="to != null">
+		  		 	LIMIT #{to}, #{perPage}
+		  		</if>
+			</trim>
+			
+			
+		) t 
+		LEFT OUTER JOIN yd_order_goods
+		ON
+		t.order_id = yd_order_goods.order_id
+	</select>
+	
+	<select id="total" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			yd_order
+		<trim prefix="where" suffixOverrides="and">
+			<if test="state > 0">
+				state = #{state} and 
+	  		</if>
+	  		<if test="order_sn != null and order_sn != ''">
+	  		 	order_sn = order_sn and 
+	  		</if>
+	  		store_id = #{store_id}
+		</trim>
+	</select>
+	
+	<resultMap id="YdWebMapperOrderList" type="java.util.HashMap">
+		<id property="orderId" column="order_id" />
+		<result property="orderSn" column="order_sn"/>
+		<result property="buyerId" column="buyer_id"/>
+		<result property="buyerName" column="buyer_name"/>
+		<result property="paymentTime" column="payment_time"/>
+		<result property="finnshedTime" column="finnshed_time"/>
+		<result property="type" column="type"/>
+		<result property="stateService" column="state_service"/>
+		<result property="state" column="state"/>
+		<result property="totalPrice" column="total_price"/>
+		<result property="couponPrice" column="coupon_price"/>
+		<result property="goodsPrice" column="goods_price"/>
+		<result property="refundPrice" column="refund_price"/>
+		<result property="transportPrice" column="transport_price"/>
+		<result property="transportFid" column="transport_fid"/>
+		<result property="createdAt" column="created_at"/>
+		
+		<collection property="goods" javaType="java.util.ArrayList" ofType="java.util.HashMap">
+			<id property="orderId" column="goods_id" />
+			<result property="goodsId" column="goods_id"/>
+			<result property="goodsName" column="goods_name"/>
+			<result property="ogState" column="og_state"/>
+			<result property="goodsNum" column="goods_num"/>
+			<result property="goodsGoodsPrice" column="goods_goods_price"/>
+			<result property="goodsCover" column="goods_cover"/>
+			<result property="goodsPayPrice" column="goods_pay_price"/>
+		</collection>
+	</resultMap>
+	
+	
+	<select id="info" resultType="java.util.HashMap">
+		SELECT
+			<include refid="field"></include>
+		FROM
+			yd_order
+		WHERE
+			store_id = #{store_id} AND order_id = #{order_id}
+		LIMIT 1
+	</select>
+	
+	<select id="infos" resultType="java.util.HashMap">
+		SELECT
+			<include refid="infosField"></include>
+		FROM
+			yd_order
+		LEFT JOIN
+			yd_store
+		ON
+			yd_order.store_id = yd_store.store_id
+		LEFT JOIN
+			yd_user
+		ON
+			yd_store.user_id = yd_user.user_id
+		WHERE
+			yd_order.store_id = #{store_id} AND yd_order.order_id = #{order_id}
+		LIMIT 1
+	</select>
+	
+	<!-- 订单商品 -->
+	<select id="orderGoods" resultType="java.util.HashMap">
+		SELECT
+			og_id, order_id, goods_id, goods_name, og_state, goods_num, goods_price,
+			goods_pay_price, store_id, discount_price, buyer_id, goods_summary, goods_cover,
+			goods_original_price, og_num, og_return_state, og_price, created_at
+		FROM
+			yd_order_goods
+		WHERE
+			order_id = #{order_id}
+	</select>
+	
+	
+	<!-- 获取所有订单退款-退货商品 -->
+	<select id="orderGoodsRefund" resultType="com.yd.dby.b.shop.entity.YdOrderGoods">
+		SELECT
+			og_id, order_id, goods_id, goods_name, og_state, goods_num, goods_price,
+			goods_pay_price, discount_price, store_id, buyer_id, goods_summary, goods_cover,
+			goods_original_price, og_num, og_return_state, og_price, created_at, refund_num
+		FROM
+			yd_order_goods
+		WHERE
+			order_id = #{order_id} AND (og_state <![CDATA[ > ]]> 1) OR ( refund_num <![CDATA[ > ]]> 0 )
+	</select>
+	
+	
+	<update id="updateTake">
+		UPDATE
+			yd_order
+		SET
+			receipt_address = #{text}
+		WHERE
+			store_id = #{store_id} AND order_id = #{order_id}
+	</update>
+	
+	
+	<update id="deliver">
+		UPDATE
+			yd_order
+		<trim prefix="set" suffixOverrides=",">
+			<if test="shipping_express != null">shipping_express = #{shipping_express},</if>
+			<if test="logis_code != null">logis_code = #{logis_code},</if>
+			<if test="shipping_code != null">shipping_code = #{shipping_code},</if>
+			<if test="deliver_explain != null and deliver_explain != ''">deliver_explain = #{deliver_explain},</if>
+			<if test="shipping_address != null">shipping_address = #{shipping_address},</if>
+			<if test="shipping_id != null">shipping_id = #{shipping_id},</if>
+			state = 3
+ 		</trim>
+		WHERE
+			store_id = #{store_id} AND order_id = #{order_id}
+	</update>
+</mapper>

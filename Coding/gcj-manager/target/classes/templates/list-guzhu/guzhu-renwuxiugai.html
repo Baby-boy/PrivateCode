@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/city-cg.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--发包大厅-->
+<div class="hall-box">
+    <div class="hall">
+        <div class="title">修改任务资料
+        </div>
+            <table>
+                <tbody>
+                <tr class="type-one">
+                    <td>项目名称</td>
+                    <td>
+                        <input type="text" placeholder="请输入您的项目名称（必填）" th:value="${task.task_pname}"/>
+                    </td>
+                </tr>
+                <tr class="type-one">
+                    <td>项目金额</td>
+                    <td>
+                        <input type="text" placeholder="请输入您的项目金额" class="price" style="width:164px;" th:value="${task.task_price}"/>
+                    </td>
+                </tr>
+                <tr class="type-two">
+                    <td>项目地点</td>
+                    <td>
+                    	<div id="sjld" style="width:100%;position:relative;z-index:9999" class="clear">
+                            <div class="m_zlxg" id="shenfen">
+                                <p title="">选择省份</p>
+                                <div class="m_zlxg2">
+                                    <ul></ul>
+                                </div>
+                                <div class="sele-tj"></div>
+                            </div>
+
+                            <div class="m_zlxg" id="chengshi">
+
+                                <p title="">选择城市</p>
+
+                                <div class="m_zlxg2">
+
+                                    <ul></ul>
+
+                                </div>
+                                <div class="sele-tj"></div>
+                            </div>
+
+                            <div class="m_zlxg" id="quyu">
+
+                                <p title="">选择区域</p>
+
+                                <div class="m_zlxg2">
+
+                                    <ul></ul>
+
+                                </div>
+                                <div class="sele-tj"></div>
+                            </div>
+                        </div>
+                    	<input id="sfdq_num" type="hidden" value="" />
+                        <input id="csdq_num" type="hidden" value="" />
+                    	<!-- 省市值 -->
+                        <input id="sfdq_tj" type="hidden" class="taskAddrP" value="" />
+                    	<!-- 城市值 -->
+                        <input id="csdq_tj" type="hidden" class="taskAddrC" value="" />
+                    	<!-- 区域值 -->
+                        <input id="qydq_tj" type="hidden" class="taskAddrA" value="" />
+                    </td>
+                </tr>
+                <tr class="type-two">
+                    <td>项目规模</td>
+                    <td>
+                        <select name="" id="guimo" class="item-ads taskSize">
+                            <option value="1~3人">1~3人</option>
+                            <option value="3~7人">3~7人</option>
+                            <option value="7~10人">7~10人</option>
+                            <option value="10~15人">10~15人</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="type-two">
+                    <td>截止时间</td>
+                    <td>
+                        <input id="yugu" type="text" class="laydate-icon date-input taskPtime" th:value="${#dates.format(task.task_end_time,'yyyy-MM-dd')}"/>
+                    </td>
+                </tr>
+                <tr class="type-three">
+                    <td>项目类型</td>
+                    <td>
+                        <span class="nowok" data="0">不限</span>
+                        <span th:each="type,niter:${task.typess}" th:text="${type.taskt_name}" th:value="${niter.index+1}" th:data="${type.taskt_id}" th:class="${type.is_select != 0}?'taskType nowok':'taskType'">办公研发建筑</span>
+                    </td>
+                </tr>
+                <tr class="type-four">
+                    <td>专业及任务类型</td>
+                    <td th:with="labelvos=${task.labelVos}">
+                        <ul class="check1">
+                        	<li th:each="labels,niter:${labelvos}" th:attr="data-val=${niter.index+1}" th:text="${labels.label_name}" th:data="${labels.label_id}" th:class="${labels.is_select}==1?'now':''"></li>
+                            <li class="more">更多<i></i></li>
+                        </ul>
+                        <ul class="check1s">
+							<li th:each="labels,niters:${labelvos}" th:class="${niters.index+1}>1?'dis-none':''">
+							 <span data-val="1" th:data="0">全选</span>
+							 <span th:each="label,niter:${labels.labels}" th:attr="data-val=${niter.index+2}" th:text="${label.label_name}" th:data="${label.label_id}" th:class="${label.is_select}==1?'now':''"></span>
+							</li>
+                        </ul>
+                        <div class="yixuan">
+                            <span>已选&gt;</span>
+                            <div class="psadd">
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="type-five">
+                    <td>任务描述</td>
+                    <td>
+                        <textarea name="miaoshu" id="miaoshu" cols="30" rows="10" placeholder="字数控制在1000字以内" class="description">[[${task.task_discrip}]]</textarea>
+                        <p><i>0</i>/1000</p>
+                    </td>
+                </tr>
+                <tr class="type-six">
+                    <td>工期要求</td>
+                    <td>
+                        <input type="text" placeholder="请输入您的工期需求（必填）" th:value="${task.task_term}" class="term"/>
+                    </td>
+                </tr>
+                <tr class="type-seven">
+                    <td>任务附件</td>
+                    <td>
+                        <ul class="chuanok">
+                        	<li th:each="file,niter:${files}"><i></i><p>[[${file.files_name}]]</p><span th:attr="data-fileId=${file.files_id},data-taskId=${task.task_id}" >删除</span></li>
+                            <!-- <li><i></i><p>松山湖北部体育公园任务书2016-8-19s.pptx</p><span>删除</span></li> -->
+                        </ul>
+                        <div class="chuan">
+                            <input type="file" id="files" name="files" th:onchange="'uploadimg('+${task.task_id}+')'"/>
+                            <i></i>
+                            <p>上传</p>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- <div class="xieyi">
+                <input type="checkbox"/>
+                <p>发包声明：同意 <a href="#">《XXXXXX协议》</a></p>
+                <span>任务发布后会先进入后台审核，客服会联系您</span>
+            </div> -->
+            <div class="fabu">
+                <button type="button" th:onclick="'taskUpdate('+${task.task_id}+')'" style="background: #3cc8b4;">确认修改</button>
+            </div>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+<div class="zhezhao dis-none"></div>
+<!-- <div class="fb-tuijian dis-none">
+    <div class="title">
+        <p class="p1">系统为您推荐出已为您工作过的服务商</p>
+        <p class="p2">
+            <input type="checkbox"/>
+            全选
+        </p>
+    </div>
+    <ul class="rencai">
+        <li>
+            <div class="img">
+                <img src="" alt=""/>
+            </div>
+            <div class="rencais">
+                <p class="p1"><span>凡高工舍建筑设计事物所</span><i></i></p>
+                <p class="p2"><i></i><span>XXX</span></p>
+            </div>
+            <div class="input">
+                <input type="checkbox"/>邀请
+            </div>
+        </li>
+    </ul>
+    <a href="#">前往人才大厅选择人才</a>
+</div> -->
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+<script src="/js/city-cgjs/address.js"></script>
+<script src="/js/chajian/jquery.select.js"></script>
+<script>
+    $(".type-two select").select();
+    $("#sjld").sjld("#shenfen","#chengshi","#quyu");
+    $(".type-two div.item-ads").each(function (i,obj) {
+        $(obj).css("zIndex",999-i);
+    })
+</script>
+<script src="/js/list/fabao.js"></script>
+
+<script type="text/javascript" src="/js/bg/ajaxfileupload.js"></script>
+<script type="text/javascript">
+function uploadimg(taskId){
+	$.ajaxFileUpload({
+ 		url:'/page/task/addTaskFile/'+taskId,//用于文件上传的服务器端请求地址  
+        secureuri:false,//一般设置为false
+        fileElementId:"files",//文件上传空间的id属性  <input type="file" id="file" name="file" />  
+        dataType: 'json',
+        type:"POST",
+        success: function (data){
+        	Popups(data.msg,function(){
+        		if(data.code == 200){
+             		
+             	}
+        	});
+         	
+        }
+     });
+}
+</script>
+
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/bg/task.js"></script>
+<script src="/laydate/laydate.js"></script>
+<script>
+laydate({
+	elem:'#yugu',
+	event:'focus'
+})
+
+</script>
+</html>

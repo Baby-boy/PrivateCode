@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperRecommend">
+
+
+	<sql id="field">
+		rec_id, rec_fid, rec_title, rec_cover, rec_price, rec_code, rec_sort
+	</sql>
+
+	<select id="listsByCode" resultType="java.util.HashMap">
+		SELECT
+			<include refid="field"></include>
+		FROM
+			yd_recommend
+		WHERE
+			rec_code = #{rec_code}
+		ORDER BY rec_sort ASC
+	</select>
+
+</mapper>

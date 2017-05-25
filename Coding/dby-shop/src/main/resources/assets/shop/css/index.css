@@ -1,0 +1,692 @@
+@charset "utf-8";
+#main {
+  min-width: 1200px;
+  height: auto;
+  overflow: hidden;
+  margin: 0px auto;
+  background: #fff;
+}
+#main .main-top {
+  height: auto;
+  overflow: hidden;
+  margin-top: 10px;
+}
+#main .main-top .banner {
+  width: 720px;
+  height: 470px;
+  float: left;
+  margin-left: 220px;
+  position: relative;
+  text-align: center;
+}
+#main .main-top .banner ul {
+  width: 720px;
+  height: 470px;
+  overflow: hidden;
+  position: relative;
+}
+#main .main-top .banner ul li {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+#main .main-top .banner ul li img {
+  width: 720px;
+  height: 470px;
+  vertical-align: bottom;
+}
+/*
+#main .main-top .banner dl {
+  height: 32px;
+  overflow: hidden;
+  position: absolute;
+  left: -1px;
+  bottom: 0px;
+}
+#main .main-top .banner dl dd {
+  float: left;
+  height: 32px;
+  line-height: 32px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#30000000', endColorstr='#30000000');
+  color: #fff;
+  font-size: 12px;
+  margin-left: 1px;
+  width: 179.25px;
+  text-align: center;
+  font-family: "simsun";
+  cursor: pointer;
+}
+#main .main-top .banner dl dd.active {
+  background: rgba(0, 0, 0, 0.5);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#50000000', endColorstr='#50000000');
+}
+*/
+#main .main-top .banner dl {
+	width: auto;
+	display: inline-block;
+	margin: 0 auto;
+	border-radius: 9px;
+	position: relative;
+	top: -47px;
+	background-color: #fff;
+	background: rgba(255, 255, 255, 0.5);
+	height: 18px;
+	padding: 0 8px;
+}
+#main .main-top .banner dl dd {
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	border-radius: 50%;
+	position: relative;
+	top: -3.5px;
+	margin: 0 1px;
+	background-color: #444444;
+}
+#main .main-top .banner dl dd.active {
+	background-color: #ff6427;
+}
+#main .main-top .right-list {
+  height: auto;
+  overflow: hidden;
+  width: 250px;
+  float: right;
+}
+#main .main-top .right-list .bulletin {
+  height: auto;
+  overflow: hidden;
+  padding: 0px 14px;
+  border: 1px solid #f0f0f0;
+}
+#main .main-top .right-list .bulletin .title {
+  height: 42px;
+  line-height: 42px;
+  overflow: hidden;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 16px;
+}
+#main .main-top .right-list .bulletin .title a {
+  float: right;
+  font-size: 12px;
+  color: #999;
+}
+#main .main-top .right-list .bulletin .title a:hover {
+  color: #e24d3b;
+}
+#main .main-top .right-list .bulletin .arc-list {
+  height: 120px;
+  overflow: hidden;
+  padding: 10px 0px 30px;
+}
+#main .main-top .right-list .bulletin .arc-list ul {
+  height: auto;
+  overflow: hidden;
+}
+#main .main-top .right-list .bulletin .arc-list ul li {
+  height: 24px;
+  line-height: 24px;
+  overflow: hidden;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#main .main-top .right-list .bulletin .arc-list ul li a {
+  color: #999;
+  font-family: "simsun";
+}
+#main .main-top .right-list .bulletin .arc-list ul li strong {
+  color: #666;
+  margin-right: 5px;
+}
+#main .main-top .right-list .bulletin .arc-list ul li a:hover {
+  color: #e24d3b;
+}
+#main .main-top .right-list .recomm {
+  height: auto;
+  overflow: hidden;
+  padding: 0px 14px;
+  border: 1px solid #f0f0f0;
+  margin-top: 10px;
+}
+#main .main-top .right-list .recomm dl {
+  height: 90px;
+  overflow: hidden;
+  text-indent: 0px;
+  padding: 15px 0px;
+}
+#main .main-top .right-list .recomm dl dt {
+  float: left;
+  width: 90px;
+  height: 90px;
+  overflow: hidden;
+}
+#main .main-top .right-list .recomm dl dt img {
+  width: 100%;
+  height: 100%;
+  vertical-align: bottom;
+}
+#main .main-top .right-list .recomm dl dd {
+  margin-left: 100px;
+  overflow: hidden;
+}
+#main .main-top .right-list .recomm dl dd.title {
+  font-weight: bold;
+  font-size: 18px;
+  height: 20px;
+  line-height: 20px;
+  margin-top: 10px;
+}
+#main .main-top .right-list .recomm dl dd.intro {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #999;
+  height: 20px;
+  line-height: 20px;
+}
+#main .main-top .right-list .recomm dl dd.price {
+  margin-top: 4px;
+  color: #333;
+  font-size: 14px;
+  height: 20px;
+  line-height: 20px;
+}
+#main .main-top .right-list .client-download {
+  height: auto;
+  overflow: hidden;
+  padding: 0px 14px;
+  border: 1px solid #f0f0f0;
+  margin-top: 10px;
+}
+#main .main-top .right-list .client-download dl {
+  overflow: hidden;
+  text-indent: 0px;
+  padding-top: 11px;
+}
+#main .main-top .right-list .client-download dl dt {
+  float: left;
+  width: 100px;
+  overflow: hidden;
+  text-align: center;
+}
+#main .main-top .right-list .client-download dl dt img {
+  vertical-align: bottom;
+}
+#main .main-top .right-list .client-download dl dd {
+  position: relative;
+  z-index: 9;
+}
+#main .main-top .right-list .client-download dl dd.title {
+  font-weight: bold;
+  font-size: 18px;
+  height: 20px;
+  line-height: 20px;
+  margin-top: 20px;
+}
+#main .main-top .right-list .client-download dl dd.intro {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #999;
+  height: 20px;
+  line-height: 20px;
+}
+#main .main-top .right-list .client-download dl dd.price {
+  margin-top: 4px;
+  color: #333;
+  font-size: 14px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  text-indent: -8px;
+}
+#main .banner-bottom {
+  height: auto;
+  overflow: hidden;
+  margin-top: 5px;
+}
+#main .banner-bottom ul {
+  height: auto;
+  overflow: hidden;
+}
+#main .banner-bottom ul li {
+  float: left;
+  width: 236px;
+  height: 140px;
+  overflow: hidden;
+  background: #f7f7f7;
+  margin-right: 5px;
+}
+#main .banner-bottom ul li:last-child {
+	margin-right: 0;
+}
+#main .banner-bottom ul li dl {
+  height: 140px;
+  overflow: hidden;
+}
+#main .banner-bottom ul li dl dt {
+  width: 100px;
+  float: right;
+  height: 140px;
+  overflow: hidden;
+  text-align: right;
+}
+#main .banner-bottom ul li dl dt a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+#main .banner-bottom ul li dl dt a img {
+  max-width: 100%;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+}
+#main .banner-bottom ul li dl dd {
+  margin-right: 100px;
+  height: auto;
+  overflow: hidden;
+}
+#main .banner-bottom ul li dl dd.title {
+  height: 30px;
+  line-height: 30px;
+  margin-top: 16px;
+}
+#main .banner-bottom ul li dl dd.title a {
+  font-size: 18px;
+}
+#main .banner-bottom ul li dl dd.intro {
+  font-size: 14px;
+  color: #999;
+  height: 20px;
+  line-height: 20px;
+}
+#main .banner-bottom ul li dl dd.price {
+  margin-top: 10px;
+  height: 30px;
+  line-height: 30px;
+  color: #ff4a01;
+  font-size: 14px;
+  font-weight: bold;
+}
+#main .banner-bottom ul li:first-child {
+  background: url(https://woadby.oss-cn-beijing.aliyuncs.com/dby/images/index_19.png) no-repeat left top;
+}
+/*
+#main .banner-bottom ul li:first-child a {
+  display: block;
+  width: 160px;
+  height: 86px;
+  margin: 27px auto;
+  padding: 0px 20px;
+  background: #fff;
+  text-align: center;
+}
+*/
+#main .banner-bottom ul li:first-child a h2 {
+  height: 40px;
+  line-height: 40px;
+  overflow: hidden;
+  border-bottom: 1px solid #ddd;
+  font-size: 20px;
+  letter-spacing: 6px;
+}
+#main .banner-bottom ul li:first-child a p {
+  height: 30px;
+  line-height: 30px;
+  overflow: hidden;
+  font-size: 14px;
+  text-align: center;
+  color: #999;
+  letter-spacing: 5px;
+}
+#main .hot-recom {
+  margin-top: 20px;
+  height: auto;
+  overflow: hidden;
+}
+#main .hot-recom .col-title {
+  height: 40px;
+  line-height: 40px;
+  overflow: hidden;
+}
+#main .hot-recom .col-title span {
+  float: left;
+  font-size: 20px;
+}
+#main .hot-recom .col-title a.change {
+  color: #666;
+  display: block;
+  float: right;
+  height: 40px;
+  line-height: 40px;
+  overflow: hidden;
+  font-size: 14px;
+  background: url(http://res.zwzyd.com/dby/web/images/index_08.png) no-repeat right 13px;
+  padding-right: 24px;
+}
+#main .hot-recom .col-title img {
+  float: left;
+  margin-top: 14px;
+  margin-left: 20px;
+}
+#main .hot-recom .list {
+  height: auto;
+  overflow: hidden;
+  border: 1px solid #efefef;
+  margin-top: 10px;
+}
+#main .hot-recom .list ul {
+  height: auto;
+  overflow: hidden;
+  margin-left: -1px;
+}
+#main .hot-recom .list ul li {
+  float: left;
+  width: 198.8px;
+  text-align: center;
+  /*padding-bottom: 15px;*/
+  height: auto;
+  overflow: hidden;
+  border-right: 1px solid #efefef;
+  position: relative;
+  right: -1px;
+}
+#main .hot-recom .list ul li .img {
+  /*padding-bottom: 10px;*/
+  height: 198px;
+  width: 100%;
+  vertical-align: bottom;
+  overflow: hidden;
+}
+#main .hot-recom .list ul li .img img {
+  width: 100%;
+  height: 100%;
+  vertical-align: bottom;
+}
+#main .hot-recom .list ul li .title {
+  height: 30px;
+  line-height: 30px;
+  overflow: hidden;
+  font-size: 14px;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+  padding: 0 6px;
+}
+#main .hot-recom .list ul li .intro {
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  font-size: 12px;
+  color: #999;
+}
+#main .hot-recom .list ul li .price {
+  color: #ff4a01;
+  font-size: 14px;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+#main .hot-recom .list ul li .title:hover {
+  color: #fb4b01;
+}
+#main .guarantee {
+  margin-top: 20px;
+  height: auto;
+  overflow: hidden;
+}
+#main .guarantee .col-title {
+  height: 40px;
+  line-height: 40px;
+  overflow: hidden;
+}
+#main .guarantee .col-title span {
+  float: left;
+  font-size: 20px;
+}
+#main .guarantee .col-title a {
+  float: right;
+  margin-left: 5px;
+  display: block;
+  height: 28px;
+  width: 28px;
+  text-align: center;
+  line-height: 28px;
+  overflow: hidden;
+  font-family: "simsun";
+  font-size: 16px;
+  color: #e8e8e8;
+  border: 1px solid #e8e8e8;
+}
+#main .guarantee .col-title a:hover {
+  color: #d1d1d1;
+  border: 1px solid #d1d1d1;
+}
+#main .guarantee .list {
+  height: auto;
+  overflow: hidden;
+  border: 1px solid #efefef;
+  margin-top: 10px;
+}
+#main .guarantee .list .left {
+  height: auto;
+  overflow: hidden;
+  float: left;
+}
+#main .guarantee .list .left dl {
+  float: left;
+  height: 269px;
+  overflow: hidden;
+  width: 541px;
+  margin-top: -1px;
+  border-right: 1px solid #efefef;
+}
+#main .guarantee .list .left dl dt {
+  float: left;
+  width: 270px;
+  height: 269px;
+  border-right: 1px solid #efefef;
+  border-top: 1px solid #efefef;
+}
+#main .guarantee .list .left dl dd {
+  width: 270px;
+  float: left;
+  border-top: 1px solid #efefef;
+  height: 134px;
+}
+#main .guarantee .list .left dl a {
+  display: block;
+  position: relative;
+  height: 100%;
+}
+#main .guarantee .list .left dl a span {
+  position: absolute;
+  left: 20px;
+  top: 10px;
+  padding: 2px 0px 2px 10px;
+  *padding-right: 10px;
+  border: 1px solid #ff4c00;
+  font-size: 14px;
+  color: #ff4c00;
+  font-weight: bold;
+}
+#main .guarantee .list .left dl a span:before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 1px;
+  background: #fff;
+  float: right;
+  margin-top: -3px;
+}
+#main .guarantee .list .left dl a img {
+
+  height: 100%;
+  width: 100%;
+  vertical-align: bottom;
+}
+#main .guarantee .list .right {
+  height: auto;
+  overflow: hidden;
+}
+#main .guarantee .list .right ul {
+  height: auto;
+  overflow: hidden;
+  width: 114px;
+  margin-top: -1px;
+}
+#main .guarantee .list .right ul li {
+  height: 52.8px;
+  overflow: hidden;
+  border-top: 1px dashed #efefef;
+}
+#main .guarantee .list .right ul li img {
+  width: 100%;
+  height: 100%;
+  vertical-align: bottom;
+}
+.container {
+  height: auto;
+  overflow: hidden;
+  min-width: 1200px;
+  background: #fff;
+  padding-bottom: 40px;
+}
+.container .section {
+  width: 1200px;
+  height: auto;
+  margin: 40px auto 0px;
+}
+.container .section .col-title {
+  height: 35px;
+  line-height: 35px;
+  border-bottom: 1px solid #fb4b01;
+}
+.container .section .col-title strong {
+  color: #ff4a01;
+  float: left;
+  font-size: 20px;
+  font-weight: 100;
+  margin-right: 5px;
+}
+.container .section .col-title span {
+  float: left;
+  font-size: 20px;
+}
+.container .section .col-title ul {
+  height: 35px;
+  float: right;
+  background: #fff;
+  border-left: 1px solid #ededed;
+  border-right: 1px solid #ededed;
+}
+.container .section .col-title ul li {
+  float: left;
+  height: 35px;
+  line-height: 36px;
+  margin-left: -1px;
+  border-top: 1px solid #ededed;
+  overflow: hidden;
+}
+.container .section .col-title ul li a {
+  padding: 0px 20px;
+  display: block;
+  height: 16px;
+  line-height: 16px;
+  overflow: hidden;
+  border-left: 1px solid #ededed;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #666;
+}
+.container .section .col-title ul li.active {
+  border-left: 1px solid #fb4b01;
+  border-right: 1px solid #fb4b01;
+  border-top: 2px solid #fb4b01;
+  border-bottom: 1px solid #fff;
+  position: relative;
+  z-index: 2;
+  height: 33px;
+  line-height: 33px;
+}
+.container .section .col-title ul li.active a {
+  color: #fb4b01;
+  margin-top: 9px;
+  border-left: 0;
+}
+.container .section .list {
+  height: auto;
+  overflow: hidden;
+  display: none;
+  border: 1px solid #efefef;
+  border-top: 0;
+}
+.container .section .list ul {
+  height: auto;
+  overflow: hidden;
+  margin-left: -12px;
+  margin-top: -1px;
+  position: relative;
+  right: -1px;
+}
+.container .section .list ul li {
+  float: left;
+  width: 232px;
+  margin-left: 10px;
+  text-align: center;
+  background: #fff;
+  margin-bottom: 12px;
+  overflow: hidden;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+.container .section .list ul li .img {
+  height: 232px;
+  width: 100%;
+  vertical-align: bottom;
+  overflow: hidden;
+}
+.container .section .list ul li .img img {
+  width: 100%;
+  height: 100%;
+  vertical-align: bottom;
+}
+.container .section .list ul li .title {
+  height: 42px;
+  line-height: 42px;
+  overflow: hidden;
+  font-size: 14px;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+  padding: 0 6px;
+}
+.container .section .list ul li .intro {
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  font-size: 12px;
+  color: #999;
+}
+.container .section .list ul li .price {
+  color: #ff4a01;
+  font-size: 14px;
+  height: 14px;
+  line-height: 14px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.container .section .list ul li .title:hover {
+  color: #fb4b01;
+}
+.container .section .list ul li:first-child {
+  padding: 0px;
+  width: 474px;
+}
+.container .section .list ul li:first-child img {
+  width: 100%;
+  height: 304px;
+  vertical-align: bottom;
+}

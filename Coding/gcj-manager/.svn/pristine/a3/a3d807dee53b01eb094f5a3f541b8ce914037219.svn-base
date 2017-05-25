@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+	<meta charset="UTF-8"/>
+    <title>攻城计</title>
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="/css/banner.css"/>
+    <style>
+    	/*修改之前布局*/
+        .nav{
+            display: block;
+            background-color: #fff;
+        }
+        .nav-container{
+            width: 1200px;
+            margin:0 auto;
+            height:88px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        .nav-logo{
+            float: left;
+            position: relative;
+            margin-right: 40px;
+			height: 88px;
+			overflow: hidden;
+			width: 250px;
+        }
+        .nav-logo img{
+			position: absolute;
+			left: 18px;
+			top: 10px;
+        }
+        .nav-logo a>img:last-child{
+            position: absolute;
+            top:42px;
+            left: 0px;
+			width: 222px;
+        }
+        .nav-main-links{
+            /*margin-left: 40px;*/
+            box-sizing: border-box;
+        }
+        .nav-main-links>li{
+            float: left;
+            height: 88px;
+            padding-top: 13px;
+            /*line-height: 88px;*/
+            /*padding-right: 10px;*/
+            /*padding-left: 5px;*/
+            /*padding-right: 5px;*/
+            margin-right: 20px;
+            border-bottom: 2px solid transparent;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+
+        }
+        .nav-main-links>li>a{
+            display: block;
+            height: 73px;
+            line-height: 73px;
+            text-align: center;
+        }
+        /*2017-02-15改*/
+        .nav-main-links>li:hover{
+            border-color: #3cc8b4;
+        }
+        .nav-main-links>li:hover a{
+            color: #3cc8b4;
+        }
+        .nav-links>li:hover a{
+            color: #3cc8b4;
+        }
+        
+        /*顶部迁移部分*/
+        .feedback{
+            position: relative;
+        }
+        .clear-fix:before,.clear-fix:after{
+            content:' ';
+            display: table;
+        }
+        .clear-fix:after{
+            clear:both;
+        }
+        .nav-links{
+            padding: 0;
+            margin:0;
+            box-sizing: border-box;
+            float: right;
+        }
+        .nav-links>li{
+            float:left;
+            height: 88px;
+            /*line-height: 88px;*/
+            padding-top: 13px;
+            /*padding-left: 10px;*/
+            /*padding-right: 10px;*/
+            margin-right: 20px;
+            border-bottom: 2px solid transparent;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+
+        }
+        .nav-links>li>a{
+            display: block;
+            height: 73px;
+            line-height: 73px;
+            text-align: center;
+        }
+        .nav-links>li.active,.nav-main-links>li.active{
+            border-color: #3cc8b4;
+        }
+        .nav-links>li.active>a,.nav-main-links>li.active>a{
+            color:#3cc8b4;
+        }
+        .nav-links>li>em{
+            font-style: normal;
+            display: inline-block;
+            height: 75px;
+            line-height: 75px;
+            border-bottom:none;
+        }
+		.nav-links li.yd-login a{
+			background: #3cc8b4;
+			color: #fff;
+			height: 24px;
+			line-height: 24px;
+			margin-top: 25px;
+			width: 60px;
+			border-radius: 2rem;
+			font-size:12px;
+		}
+		.nav-links li.yd-register a{
+			background: #ccc;
+			color: #fff;
+			height: 24px;
+			line-height: 24px;
+			margin-top: 25px;
+			width: 60px;
+			border-radius: 2rem;
+			font-size:12px;
+		}
+		
+        .user-portrait{
+            margin-right: 0;
+        }
+        .user-portrait>a>img{
+            max-width: 50px;
+            max-height:50px;
+            border-radius:50%;
+            vertical-align: middle;
+        }
+        .nav-links>li:last-child:hover .nav-dropdown{
+            height: 202px;
+        }
+        .nav-dropdown{
+            /*display: none;*/
+            position: absolute;
+            top:88px;
+            right:0px;
+            z-index: 999999;
+            box-sizing: border-box;
+            height:0px;
+            width: 260px;
+            -webkit-box-shadow: 0 0 3px #ddd;
+            -moz-box-shadow: 0 0 3px #ddd;
+            box-shadow: 0 0 3px #ddd;
+            background-color: #f2f9fd;
+            transition: height .2s ease;
+            overflow: hidden;
+        }
+        .media{
+            border-bottom:1px solid #ddd;
+            padding: 10px 20px;
+        }
+        .media>a{
+            display: block;
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+            float: left;
+            border:1px solid #ddd;
+        }
+        .media-object{
+            vertical-align: middle;
+            max-width:100%;
+        }
+        .media-body{
+            float: left;
+        }
+        .member-info{
+            padding: 0;
+            margin:0;
+        }
+        .member-info>li{
+            height: 25px;
+            line-height: 25px;
+            padding-left: 20px;
+            text-align: left;
+        }
+        .nav-dropdown-close-handles{
+            padding: 10px 20px;
+        }
+        .nav-dropdown-close-handles>li:hover,.nav-dropdown-close-handles>li:hover a{
+            color:#047b6b;
+        }
+        .nav-dropdown-close-handles>li:first-child{
+            float: left;
+            height: 40px;
+            line-height: 40px;
+        }
+        .nav-dropdown-close-handles>li:last-child{
+            float: right;
+            height: 40px;
+            line-height: 40px;
+        }
+        /*2017-02-20新增*/
+        .shortcut{
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        .shortcut li{
+            height: 26px;
+            line-height: 26px;
+        }
+        .shortcut li:hover a span{
+            color:#047b6b;
+        }
+        .shortcut li:first-child{
+            float: left;
+        }
+        .shortcut li+li{
+            float: right;
+        }
+        .shortcut a>img{
+            vertical-align: middle;
+            width: 19px;
+        }
+        /*.shortcut .blue{
+            display: none;
+        }*/
+        .shortcut a{
+            font-size: 0px;
+            -webkit-font-size-adjust: none;
+        }
+        .shortcut a span:first-of-type{
+            position: relative;
+            top:4px;
+            left: 5px;
+            font-size: 14px;
+            line-height: 1;
+        }
+    
+    /*徽章部分*/
+    .pos-relative{
+        position: relative;
+    }
+    .badge{
+        position: absolute;
+        top:7px;
+        right:-17px;
+        display: inline-block;
+        line-height: 1.5;
+        height: 1.5em;
+        border-radius:.75em;
+        padding: 0 .5em;
+        font-size: 10px;
+        -webkit-font-size-adjust: none;
+        -webkit-transform: scale(0.8);
+        -moz-transform: scale(0.8);
+        -ms-transform: scale(0.8);
+        -o-transform: scale(0.8);
+        transform: scale(0.8);
+        background-color: #FF5029;
+        color: #fff;
+    }
+    .po-top{
+        top:-24px;
+    }
+	
+	
+    </style>
+</head>
+<body th:with="user=${session.user},msgSize=${session.msgSize}" th:inline="text">
+    <!--顶部导航-->
+    <nav class="nav">
+        <div class="nav-container clear-fix">
+            <div class="nav-logo">
+                <a href="javascript:void(0);">
+					<img src="/images/log_03_02.gif" alt="gif"/>
+					<img src="/images/log_03_03.png" alt="logo"/>
+				</a>
+            </div>
+            <ul class="nav-main-links">
+                <li data="2" th:if="${user!=null} and ${user.user_type}!=null and ${user.user_type==0}"><a href="/list-fabaodt/fabaodating">发包大厅</a></li>
+                <li data="3"><a href="/task/task">任务大厅</a></li>
+                <li data="5"><a href="/people/people">人才大厅</a></li>
+                <li data="4"><a href="/work/work-hall">工作大厅</a></li>
+                <li data="9"><a href="/hyh/call_call">呼一呼</a></li>
+                <li data="6"><a href="/vr/vr_space">VR空间</a></li>
+                <li data="7"><a href="/consult/online">在线充电</a></li>
+                <li data="8"><a href="#">SIMCITY</a></li>
+            </ul>
+            <ul class="nav-links">
+				
+                <li class="yd-login" th:if="${user==null}"><a href="/list-login/login">登陆</a></li>
+                <li class="yd-register" th:if="${user==null}"><a href="/list-login/zhuce">注册</a></li>
+				<li class="first" th:if="${user!=null}"><a th:href="${user!=null ? user.user_type == 0 ? '/list-guzhu/guzhufang':'/list-fuwushang/fuwushang':'/list-login/login'}">[[${user != null}?(${user.user_nickname != null and user.user_nickname != ''}?${user.user_nickname}:${user.phone}):'登录']]</a></li>
+                <li class="feedback user-portrait" th:if="${user!=null}">
+                    <a th:class="'pos-relative'+${msgSize!=null and msgSize.countMsgSize > 0?' pos-header':''}" href="javascript:void(0)" th:if="${user != null}"><span class="badge" th:if="${msgSize!=null and msgSize.countMsgSize > 0}" th:text="${msgSize.countMsgSize}">0</span><img th:with="avatar=${user!=null ? user.user_avatar : null}" th:src="${avatar != null and avatar != ''?avatar:'/img/asag.jpg'}"  alt=""/></a>
+                    <div class="nav-dropdown"  th:if="${user!=null}">
+                        <div class="media clear-fix">
+                            <a href="#"><img th:with="avatar=${user!=null ? user.user_avatar : null}" th:src="${avatar != null and avatar != '' ? avatar :'/img/asag.jpg'}"  class="media-object"/></a>
+                            <div class="media-body">
+                                <ul class="member-info">
+                                    <li><a href="#">[[${user.phone}]]</a></li>
+                                    <li>等级：<i></i></li>
+                                    <li>余额：<code>[[${user.user_cprice}]]</code></li>
+                                    <li>身份：[[${user.user_type == 0?'雇主':'设计师'}]]</li>
+                                    <li>
+                                    	<em class="skill-one"><img src="/images/skill_4.png"></img></em>
+                                    	<em class="skill-two"><img src="/images/skill_3.png"></img></em>
+                                    	<em class="skill-three"><img src="/images/icon_shiming_hover.png"></img></em>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <ul class="shortcut clear-fix">
+                            <li>
+                                <a th:href="${user.user_type > 0}?'/list-fuwushang/woderenzheng-shiming':'/list-guzhu/woderenzheng'">
+                                    <img class="white" src="/images/icon_shiming_1.png" alt=""/>
+                                    <img class="blue" src="/images/icon_shiming_hover.png" alt=""/>
+                                    <span>实名认证</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pos-relative" th:href="${user!=null}?(${user.user_type == 0}?'/list-guzhu/guzhu-xiaoxihuifu':'/list-fuwushang/wodexiaoxi-huifu'):'#'">
+                                    <img class="white" src="/images/icon_msg.png" alt=""/>
+                                    <img class="blue" src="/images/icon_msg_hover.png" alt=""/>
+                                    <span>未读消息</span><span class="badge po-top" style="color: #fff" th:if="${msgSize!=null and msgSize.countMsgSize > 0}">[[${msgSize.countMsgSize}]]</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-dropdown-close-handles clear-fix">
+                            <li><a th:href="${user!=null ? user.user_type == 0 ? '/list-guzhu/guzhufang':'/list-fuwushang/fuwushang':'/list-login/login'}">个人中心</a></li>
+                            <li><a href="/list-login/loginOut">退出</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    
+    
+    <!-- <header class="header">
+        <div class="header-wrapper">
+            <div class="logo" style="cursor:pointer">
+                <img src="/images/log_03_02.gif" alt="gif"/>
+                <img src="/images/log_03_03.png" alt="logo"/>
+            </div>
+            <ul class="nav-links nav-main-links">
+                <li data="2" th:if="${user!=null} and ${user.user_type}!=null and ${user.user_type==0}"><a href="/list-fabaodt/fabaodating">发包大厅</a></li>
+                <li data="3"><a href="/task/task">任务大厅</a></li>
+                <li data="5"><a href="/people/people">人才大厅</a></li>
+                <li data="4"><a href="/work/work-hall">工作大厅</a></li>
+                <li data="9"><a href="#">呼一呼</a></li>
+                <li data="6"><a href="#">VR空间</a></li>
+                <li data="7"><a href="/consult/online">在线充电</a></li>
+                <li data="8"><a href="#">SIMCITY</a></li>
+            </ul>
+            <ul class="header-btns">
+                <li class="active"><a th:href="${user!=null ? user.user_type == 0 ? '/list-guzhu/guzhufang':'/list-fuwushang/fuwushang':'/list-login/login'}">[[${user != null}?(${user.user_nickname != null and user.user_nickname != ''}?${user.user_nickname}:${user.phone}):'登录']] </a></li>
+                <li th:if="${user==null}"><a href="/list-login/zhuce">注册</a></li>
+                <li class="feedback user-portrait"  th:if="${user!=null}">
+                    <a class="pos-relative" href="javascript:void(0)"><span class="badge">666</span><img th:with="avatar=${user!=null ? user.user_avatar : null}" th:src="${avatar != null and avatar != ''?avatar:'/img/asag.jpg'}"  alt=""/></a>
+                    <div class="nav-dropdown">
+                        <div class="media clear-fix">
+                            <a href="#"><img th:with="avatar=${user!=null ? user.user_avatar : null}" th:src="${avatar != null and avatar != '' ? avatar :'/img/asag.jpg'}"  class="media-object"/></a>
+                            <div class="media-body">
+                                <ul class="member-info">
+                                    <li><a href="#">[[${user.phone}]]</a></li>
+                                    <li>等级：L1会员</li>
+                                    <li>余额：<code>[[${user.user_cprice}]]</code></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <ul class="shortcut clear-fix">
+                            <li>
+                                <a th:href="${user.user_type > 0}?'/list-fuwushang/woderenzheng-shiming':'#'">
+                                    <img class="white" src="/images/icon_shiming_1.png" alt=""/>
+                                    <img class="blue" src="/images/icon_shiming_hover.png" alt=""/>
+                                    <span>实名认证</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pos-relative" th:href="${user!=null}?(${user.user_type == 0}?'/list-guzhu/guzhu-xiaoxihuifu':'/list-fuwushang/wodexiaoxi-huifu'):'#'">
+                                    <img class="white" src="/images/icon_msg.png" alt=""/>
+                                    <img class="blue" src="/images/icon_msg_hover.png" alt=""/>
+                                    <span>未读消息</span><span class="badge po-top" style="color: #fff">666</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-dropdown-close-handles clear-fix">
+                            <li><a th:href="${user!=null ? user.user_type == 0 ? '/list-guzhu/guzhufang':'/list-fuwushang/fuwushang':'/list-login/login'}">个人中心</a></li>
+                            <li><a href="/list-login/loginOut">退出</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <nav class="nav">
+        <div class="nav-container clear-fix">
+            <div class="nav-logo">
+                <a href="javascript:void(0);"><img src="/images/log_03_03.png" alt=""/><img src="/images/log_03_02.gif" alt=""/></a>
+            </div>
+            <ul class="nav-main-links">
+                <li data="2" th:if="${user!=null} and ${user.user_type}!=null and ${user.user_type==0}"><a href="/list-fabaodt/fabaodating">发包大厅</a></li>
+                <li data="3"><a href="/task/task">任务大厅</a></li>
+                <li data="4"><a href="/work/work-hall">工作大厅</a></li>
+                <li data="5"><a href="/people/people">人才大厅</a></li>
+                <li data="6"><a href="#">VR空间</a></li>
+                <li data="7"><a href="/consult/online">在线充电</a></li>
+                <li data="8"><a href="#">SIMCITY</a></li>
+            </ul>
+            <ul class="nav-links">
+                <li><a th:href="${user!=null ? user.user_type == 0 ? '/list-guzhu/guzhufang':'/list-fuwushang/fuwushang':'/list-login/login'}">[[${user != null}?(${user.user_nickname != null and user.user_nickname != ''}?${user.user_nickname}:${user.phone}):'登陆']]</a></li>
+                <li th:if="${user==null}"><em>|</em></li>
+                <li th:if="${user==null}"><a href="/list-login/zhuce">注册</a></li>
+                <li class="feedback user-portrait">
+                    <a class="pos-relative" href="javascript:void(0)" th:if="${user != null}"><span class="badge">666</span><img th:with="avatar=${user!=null ? user.user_avatar : null}" th:src="${avatar != null and avatar != ''?avatar:'/img/asag.jpg'}"  alt=""/></a>
+                    <div class="nav-dropdown"  th:if="${user!=null}">
+                        <div class="media clear-fix">
+                            <a href="#"><img th:with="avatar=${user!=null ? user.user_avatar : null}" th:src="${avatar != null and avatar != '' ? avatar :'/img/asag.jpg'}"  class="media-object"/></a>
+                            <div class="media-body">
+                                <ul class="member-info">
+                                    <li><a href="#">[[${user.phone}]]</a></li>
+                                    <li>等级：L1会员</li>
+                                    <li>余额：<code>[[${user.user_cprice}]]</code></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <ul class="shortcut clear-fix">
+                            <li>
+                                <a th:href="${user.user_type > 0}?'/list-fuwushang/woderenzheng-shiming':'#'">
+                                    <img class="white" src="/images/icon_shiming_1.png" alt=""/>
+                                    <img class="blue" src="/images/icon_shiming_hover.png" alt=""/>
+                                    <span>实名认证</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pos-relative" th:href="${user!=null}?(${user.user_type == 0}?'/list-guzhu/guzhu-xiaoxihuifu':'/list-fuwushang/wodexiaoxi-huifu'):'#'">
+                                    <img class="white" src="/images/icon_msg.png" alt=""/>
+                                    <img class="blue" src="/images/icon_msg_hover.png" alt=""/>
+                                    <span>未读消息</span><span class="badge po-top" style="color: #fff">666</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-dropdown-close-handles clear-fix">
+                            <li><a th:href="${user!=null ? user.user_type == 0 ? '/list-guzhu/guzhufang':'/list-fuwushang/fuwushang':'/list-login/login'}">个人中心</a></li>
+                            <li><a href="/list-login/loginOut">退出</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav> -->
+    <script type="text/javascript">
+    	$(function(){
+    		$(".logo,.nav-logo").click(function(){
+    			window.location.href="/index";
+    		});
+    		
+    		var nvaNum = localStorage.getItem('nvaNum');
+    		$(".nav-main-links li[class='active']").removeClass("active");
+    		if(nvaNum!=0){
+    			$(".nav-main-links li[data="+nvaNum+"]").addClass("active");
+    		}
+    	});
+    	
+    	
+    	//头像闪动
+    	setInterval(function(){
+    		$('.feedback.user-portrait .pos-relative.pos-header').fadeToggle();
+    	},100);
+    	
+    </script>
+
+</body>
+</html>

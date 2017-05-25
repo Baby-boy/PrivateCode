@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperArticle">
+
+	<!-- 查询条件 -->
+	<sql id="where">
+		<trim prefix="where" suffixOverrides="and">
+			<if test="ac_id != null">
+				ac_id = #{ac_id} and
+			</if>
+			<if test="article_title != null and article_title != ''">
+				article_title like '%${article_title}%' and
+			</if>
+			article_show = 1
+		</trim>
+	</sql>
+
+
+	<!-- 排序 -->
+	<sql id="orderBy">
+		ORDER BY article_sort ASC
+	</sql>
+
+
+	<!-- 分页 -->
+	<sql id="page">
+		<if test="to != null">
+			LIMIT #{to}, #{perPage}
+		</if>
+	</sql>
+
+
+
+	<select id="footer" resultMap="YdShopMapperArticleFooter">
+		SELECT
+		a.article_id, a.article_title, a.article_sort, a.article_url, ac.ac_id, ac.ac_name
+		FROM ( SELECT ac_id, ac_name, ac_sort FROM
+		yd_article_class LIMIT 5 ) ac
+		LEFT OUTER JOIN
+		yd_article a
+		ON
+		a.`ac_id` = ac.ac_id
+		WHERE
+		a.article_show = 1
+		ORDER BY
+		ac.ac_sort ASC, a.article_sort ASC
+	</select>
+	<select id="footer1" resultType="java.util.HashMap">
+		select
+		yd_article.article_title,
+		yd_article.article_sort,
+		yd_article.article_content
+		from
+		yd_article_class
+		left join yd_article on
+		yd_article.ac_id=yd_article_class.ac_id
+		where yd_article_class .ac_code = "circulation" and article_show=1
+		order by yd_article.article_sort asc
+		limit 5
+	</select>
+
+	<resultMap id="YdShopMapperArticleFooter" type="java.util.HashMap">
+		<id property="ac_id" column="ac_id" />
+		<result property="ac_name" column="ac_name" />
+
+		<collection property="article" javaType="java.util.ArrayList" ofType="java.util.HashMap">
+			<id property="ac_id" column="article_id" />
+			<result property="article_id" column="article_id" />
+			<result property="article_url" column="article_url" />
+			<result property="article_title" column="article_title" />
+		</collection>
+	</resultMap>
+
+
+	<!-- 单条信息 -->
+	<select id="info" resultType="java.util.HashMap">
+		SELECT * FROM yd_article WHERE article_id = #{id}
+	</select>
+
+
+	<!-- 首页快报 -->
+	<select id="indexNews" resultType="java.util.HashMap">
+		SELECT article_id, ac_id, article_title, article_url FROM yd_article WHERE ac_id = 9 AND article_show = 1 ORDER BY article_sort ASC LIMIT
+		5
+	</select>
+
+
+	<!-- 列表 -->
+	<select id="lists" resultType="java.util.HashMap">
+		SELECT article_id, ac_id, article_url, article_title, article_time FROM yd_article
+		<include refid="where"></include>
+		<include refid="orderBy"></include>
+		<include refid="page"></include>
+	</select>
+
+
+	<!-- 分页总数 -->
+	<select id="total" resultType="java.lang.Integer">
+		SELECT count(article_id) FROM yd_article
+		<include refid="where"></include>
+	</select>
+</mapper>

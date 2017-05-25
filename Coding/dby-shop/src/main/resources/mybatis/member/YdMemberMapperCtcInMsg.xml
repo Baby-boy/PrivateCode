@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperCtcInMsg">
+	<!-- 根据ctc_id查询出所有的留言 -->
+	<select id="oneCtcMsg" resultType="java.util.HashMap">
+		SELECT ym.message_author_name,ym.message_content,ym.create_date FROM yd_message_ctc ymc 
+		LEFT JOIN yd_message ym ON ymc.message_ctc_id = ym.message_obj_id
+		WHERE ymc.ctc_id = #{ctc_id} and ym.message_farther_id = 0
+		order by create_date desc
+		<if test="to != null">
+			limit #{to},10
+		</if>
+	</select>
+	
+	<select id="querySellerMessage" resultType="java.util.HashMap" >
+		select ym.* from yd_message_ctc ymc
+		left join yd_message ym on ymc.message_ctc_id = ym.message_obj_id 
+		where ctc_id = #{ctc_id} and ym.message_farther_id >0
+	</select>
+
+</mapper>

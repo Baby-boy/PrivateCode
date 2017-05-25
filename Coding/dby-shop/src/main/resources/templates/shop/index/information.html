@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/yd-tipbox.css}" />
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')}">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div> 
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: index('')" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(value='information')" th:remove="tag"></div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		<yd:ajax key="information_page" value="information.page" />
+		
+		<div id="container">
+			
+			<div class="data-flow-page">
+				
+				<div class="title-wrap">
+					<span></span>
+					<strong>商品快讯</strong>
+				</div>
+				<div class="info-list">
+					<ul>
+						<li th:each="item:${@_ydShopServiceInformation.findAll(0)}">
+							<div class="title">
+							<a th:href="@{/information/{Id}(Id=${item.id})}" th:text="${item.title}">沈海斌团队：中秋假期会有大行情！？</a>
+							<span th:text="${#calendars.format(item.created_at,'yyyy-MM-dd HH:mm:ss')}">2016-09-27 14:56:00</span></div>
+							<div class="intro" th:text="${#ydString.substring(item.content,60)}">明后两天，欧美方面数据集中涌来，中秋佳节的“金银月饼” 或许比你想象的还大！</div>
+						</li>
+					</ul>
+				</div>
+				<div id="sales" class="pagelist pagelist-right pagelist-margin10">
+					<a class="active" href="#">1</a>
+					<a href="#">2</a>
+					<a href="#">3</a>
+					<a href="#">下一页&gt;</a>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		
+		<script type="text/javascript" th:src="@{/assets/shop/js/jquery.page.js}" ></script>
+		<script th:inline="text">
+			var information={};
+			$(function(){
+				$("#sales").createPage({
+			        pageCount:[[${@_ydShopServiceInformation.total()}]],
+			        current:1,
+			        backFn:function(page){
+			        	information_page(page);
+			        }
+			    });
+				
+				information.page = {
+					url : function(args){
+						return "/api/shop/information/";
+					},
+					tpl: function(args){
+						return "/shop/information/ajaxtemp::main";
+					},
+					params : function(args){
+						console.log(args);
+						return { "current" : args};
+					},
+					verification : function(args, params){
+						$.loading({
+							url:"/assets/shop/images/loading_01.gif"
+						});
+						return true;
+					},
+					callback : function(args, data){
+						$(".data-flow-page .info-list").html(data.responseText);
+						$.removeLoading();
+					}
+					
+				};
+				
+			});
+		</script>
+	</body>
+</html>

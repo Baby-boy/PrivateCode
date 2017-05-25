@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperMaintenance">
+	<!-- 查询所有的养护套餐 -->
+	<select id="queryAllMaintenance" resultType="com.yd.dby.d.seller.entity.YdSellerGoodsVo">
+		SELECT
+		yg.goods_id,yg.store_id,yg.goods_name,yg.goods_num,yg.goods_serialnumber,yg.goods_price,yg.goods_summary,yg.goods_total_sell,yg.goods_total_fav,yg.goods_total_comment,
+		yg.goods_total_see,
+		yg.goods_content,yg.goods_content_pics,yg.goods_attr_select,yg.goods_attrs,yg.goods_pics,yg.goods_cover,yg.goods_province_id,yg.goods_city_id,yg.goods_freight,
+		yg.brand_id,yg.brand_name,yg.goods_afterservice,yg.goods_avg_score,yg.goods_created_time,
+		yd.depot_id,yd.depot_price
+		FROM yd_goods yg
+		LEFT JOIN yd_depot yd ON yg.goods_id = yd.goods_id
+		WHERE yd.depot_type = 2
+		order by yg.goods_created_time
+		limit #{to},40
+	</select>
+	
+	<select id="queryAllNum" resultType="java.lang.Integer" >
+		select count(1) from yd_goods yg
+		LEFT JOIN yd_depot yd ON yg.goods_id = yd.goods_id
+		WHERE yd.depot_type = 2
+	</select>
+</mapper>

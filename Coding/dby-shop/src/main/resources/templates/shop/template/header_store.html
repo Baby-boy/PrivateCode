@@ -1,0 +1,69 @@
+
+<div th:fragment="header">
+	<div class="top-bar">
+		<div class="min-width">
+			<div class="left" id="auth_a"></div>
+
+			<div class="right">
+				<ul>
+					<li><a href="member/orders">我的订单</a></li>
+					<li><small>|</small><a href="/member">个人中心</a></li>
+					<li class="more"><small>|</small><a href="#">关注我们</a>
+						<div class="qr-code">
+							<img th:src="${@_url.goods()}+${@_redis.get('wx_qr')}" />
+						</div></li>
+					<li class="more"><small>|</small><a href="#">客户服务</a>
+						<div class="more-list" style="display: none;">
+							<dl>
+								<dd>
+									<a href="#">帮助中心</a>
+								</dd>
+								<dd>
+									<a href="javascript:;">贵宾专线：</a>
+								</dd>
+								<dd>
+									<a href="javascript:;">400-8756-789</a>
+								</dd>
+							</dl>
+						</div></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="head-layout">
+		<!-- logo -->
+		<div class="logo-wrap">
+			<a class="logo" href="/"><img th:src="${@_url.goods()}+${@_redis.get('site_logo')}" /></a>
+			<!-- <div class="city">
+				<span>北京</span> <a href="javascript:;">[切换]</a>
+			</div> -->
+		</div>
+
+		<!-- search -->
+		<div class="search-wrap">
+			<div class="search">
+				<form>
+					<input type="text" name="" value="" placeholder="请输入关键词" /> <input class="total-station" type="submit" value="搜索" /> <input class="this-shop" type="submit" value="搜本店" />
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="store-site">
+		<div class="left">
+			<span>店铺：典当行</span> <a href="#">进入店铺</a>
+		</div>
+		<div class="right">
+			<a href="#">关注店铺</a>
+		</div>
+	</div>
+
+	<div class="store-name">
+		<div class="min-width">
+			<span th:text="${dataStore.store_name}"></span>
+		</div>
+	</div>
+
+</div>
+

@@ -1,0 +1,112 @@
+package com.yd.gcj.service.impl;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.yd.gcj.entity.YdMangerBankTR;
+import com.yd.gcj.entity.vo.PageNum;
+import com.yd.gcj.mapper.YdMangerMapperBankTR;
+import com.yd.gcj.service.YdMangerServiceBankTR;
+import com.yd.gcj.tool.MapInitFactory;
+
+@Service("YdMangerServiceBankTR")
+public class YdMangerServiceImplBankTR implements YdMangerServiceBankTR{
+	
+	@Autowired
+	private YdMangerMapperBankTR ydMangerMapperBankTR;
+	
+	@Autowired
+	private HttpSession session;
+	
+	@Override
+	public PageNum $queryAll(Integer userId) {
+		
+		PageNum pageNum = new PageNum();
+		try {
+			Integer dataCountNum = ydMangerMapperBankTR.$queryCountNum(userId);
+			pageNum = new PageNum(session,dataCountNum,"banktrPageNum");
+			List<YdMangerBankTR> bankTRs = new ArrayList<YdMangerBankTR>();
+			bankTRs = ydMangerMapperBankTR.$queryAll(userId,pageNum.getStartPageNum(),pageNum.getPageNum());
+			pageNum.setData(bankTRs);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pageNum;
+	}
+
+	@Override
+	public Object $queryByDate(HashMap<String, Object> map) {
+		MapInitFactory mapInitFactory = new MapInitFactory();
+		try {
+			long dateStr = (long) map.get("btr_date");
+			Date btr_date = new Date(dateStr);
+			mapInitFactory.init().setData(ydMangerMapperBankTR.$queryByDate(btr_date));
+		} catch (Exception e) {
+			mapInitFactory.setSystemError();
+		}
+		return mapInitFactory.getMap();
+	}
+
+	@Override
+	public Object $queryBySql(HashMap<String, Object> map) {
+		MapInitFactory mapInitFactory = new MapInitFactory();
+		try {
+			
+		} catch (Exception e) {
+			mapInitFactory.setSystemError();
+		}
+		return mapInitFactory.getMap();// ydMangerMapperBankTR.$queryBySql(sql);
+	}
+
+	@Override
+	public Object $queryById(HashMap<String, Object> map) {
+		MapInitFactory mapInitFactory = new MapInitFactory();
+		try {
+			
+		} catch (Exception e) {
+			mapInitFactory.setSystemError();
+		}
+		return mapInitFactory.getMap();// ydMangerMapperBankTR.$queryById(btr_id);
+	}
+
+	@Override
+	public Object $queryCountNum(HashMap<String, Object> map) {
+		MapInitFactory mapInitFactory = new MapInitFactory();
+		try {
+			
+		} catch (Exception e) {
+			mapInitFactory.setSystemError();
+		}
+		return mapInitFactory.getMap();// ydMangerMapperBankTR.$queryCountNum(btr_uid);
+	}
+
+	@Override
+	public Object $queryCountNum() {
+		MapInitFactory mapInitFactory = new MapInitFactory();
+		try {
+			
+		} catch (Exception e) {
+			mapInitFactory.setSystemError();
+		}
+		return mapInitFactory.getMap();// ydMangerMapperBankTR.$queryCountNum();
+	}
+
+	@Override
+	public Object $insert(HashMap<String, Object> map) {
+		MapInitFactory mapInitFactory = new MapInitFactory();
+		try {
+			
+		} catch (Exception e) {
+			mapInitFactory.setSystemError();
+		}
+		return mapInitFactory.getMap();// ydMangerMapperBankTR.$insert(banktr);
+	}
+	
+}

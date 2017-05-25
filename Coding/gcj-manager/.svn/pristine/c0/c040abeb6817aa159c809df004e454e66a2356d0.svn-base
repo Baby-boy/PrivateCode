@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperLabel">
+
+	<select id="$queryAll" resultType="com.yd.gcj.entity.YdMangerLabel">
+		select 
+			label_id,label_type,label_name,label_pid
+		from 
+			yd_label
+	</select>
+	
+	<select id="$queryAllToTaskUpdate" resultType="com.yd.gcj.entity.YdMangerLabel">
+		SELECT label_id,label_type,label_name,label_pid,
+		(SELECT COUNT(*) FROM yd_task_label tlabel WHERE tlabel.`taskl_lid` = label.`label_id` AND tlabel.`taskl_tid` = #{taskId} ) is_select
+		FROM 
+			yd_label label
+	</select>
+	
+	<select id="$queryCountNum">
+		select 
+			count(*)
+		from 
+			yd_label
+	</select>
+	
+	<select id="$queryCountNumByType" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_label
+		where 
+			label_type = #{label_type}
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerLabel">
+		insert into yd_label
+			(label_type,label_name,label_id,label_pid)
+		value 
+			(#{label_type},#{label_name},#{label_id},#{label_pid})
+	</insert>
+	
+	<update id="$update" parameterType="com.yd.gcj.entity.YdMangerLabel">
+		update yd_label
+		<set>
+			<trim suffixOverrides=",">
+				<if test="label_type != null">label_type = #{label_type}</if>
+				<if test="label_name != null">label_name = #{label_name}</if>
+			</trim>
+		</set>
+		where label_id = #{label_id}
+	</update>
+	
+	<delete id="$delete" parameterType="java.lang.Integer">
+		delete from yd_label
+		where label_id = #{label_id}
+	</delete>
+	
+</mapper>
+

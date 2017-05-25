@@ -1,0 +1,67 @@
+<div th:fragment="main" th:remove="tag">
+	<yd:ajax key="followdestroy" value="get.follow_destroy" />
+	<yd:ajax key="followgoods" value="get.follow_goods" />
+	<yd:ajax key="followctcs" value="get.follow_ctcs" />
+		<yd:ajax key="followstore" value="get.follow_store" />
+	<div class="d-right follow-store-page">
+		<ul class="btn-page-top">
+			<li onclick="followgoods($(this))">我收藏的商品</li>
+			<li onclick="followctcs($(this))">我收藏的寄卖</li>
+			<li onclick="followstore($(this))" class="active">我关注的店铺</li>
+		</ul>
+
+		<div class="j-shop pop">
+			<div class="j-sbottom">
+				<div class="j-logo clear" th:each="item:${data}" th:inline="text">
+					<div class="logo-left">
+						<div class="logo-top follow-checkbox">
+							<span><img class="store-logo" th:src="${@_url.goods()}+${item.store_logo}" /></span>
+							<p>[[${item.store_name}]]</p>
+						</div>
+						<div class="logo-bottom">
+							<div class="j-people">
+								关注人气：<span>[[${item.store_total_fav}]]人</span>
+							</div>
+							<div class="j-server">
+								服务评价：<b class="tu"><i th:attr="style='width: '+${item.store_avg_score}/5*100+'%'"></i></b>[[${item.store_avg_score}]]
+							</div>
+							<div class="j-look">
+								关注时间：<span>[[${ #calendars.format(item.fav_created_time,'yyyy-MM-dd') }]]</span>
+							</div>
+							<a th:href="@{/store/}+${item.fav_fid}" target="_blank" class="istore">进入店铺</a> <a href="#" class="jcall">联系客服</a> <a href="javascript:;" class="jout btn-operate-alert"
+								data-func="followdestroy" th:attr="data-id=${item.fav_id}">取消关注</a>
+						</div>
+					</div>
+					<div class="logo-right">
+						<div class="sell" style="overflow: hidden">
+							<div class="sell1">店铺商品</div>
+						</div>
+						<ul class="clear">
+							<li th:each="itemGoods, k:${item.goods}" th:inline="text"><a target="_blank" th:href="@{/g/goods/}+${itemGoods.depot_id}"><img
+									th:src="${@_url.goods()}+${itemGoods.goods_cover}+@{?x-oss-process=image/resize,m_pad,h_130,w_130}" alt="" /></a><span th:text="'￥'+${itemGoods.depot_price}"></span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="j-choose clear" style="overflow:hidden">
+				<div class="choose1">
+					<input type="checkbox" value="" data-check-class=".follow-checkbox" class="check-all" />
+						全选
+				</div>
+				<div class="choose2">加入购物车</div>
+				<div class="choose3">取消关注</div>
+			</div> -->
+		</div>
+		<div class="pagination"></div>
+	</div>
+	<script th:inline="javascript">
+		$(function() {
+			pagination(".pagination", [[${totalPage}]], [[${p}]], "followgoods");
+		
+		});
+	</script>
+</div>
+
+
+
+

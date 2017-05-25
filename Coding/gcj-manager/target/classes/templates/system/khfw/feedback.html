@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title></title>  
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <link rel="stylesheet" href="/system/layer/skin/layer.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>
+    <script src="/system/js/layer.js"></script>
+    <script src="/system//layer/layer.min.js"></script>
+    <script src="/system/js/jquery.page.js"></script>
+</head>
+<body>
+<form method="get" action="/system/queryAllFeedback" id="queryForm" th:inline="text" >
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder">文章信息管理</strong></div>
+    <div class="padding border-bottom">
+
+      <ul class="search">
+        <li>
+            <input type="text" placeholder="请输入用户名称" name="user_name" th:value="${user_name}" class="input" style="width:250px; line-height:17px;display:inline-block" />
+        </li>
+        <li>
+            <select name="fb_isread" class="input" style="width:200px; line-height:17px;" onchange="changesearch()">
+                <option value="">请选择</option>
+                <option value="0" th:selected="${fb_isread==0? 'selected' : 'false'}" >已查看</option>
+                <option value="1" th:selected="${fb_isread==1? 'selected' : 'false'}" >未查看</option>
+            </select>
+        </li>
+        <li>
+            <button type="submit" id="fbsubmit"  class="button border-green">查询</button>
+        </li>
+      </ul>
+
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="120">序号</th>
+        <th>问题</th>       
+        <th>用户名称</th>
+        <th>联系手机号</th>
+        <th>反馈内容</th>
+        <th>是否查看</th>
+        <th>备注信息</th>
+        <th>创建时间</th>
+        <th>修改时间</th>
+        <th>操作</th>       
+      </tr>
+
+        <tr th:each="feedbackList,obj:${feedbackList}" >
+<!--           <td><input type="checkbox" name="fb_id" th:text="${feedbackList.fb_id}" /></td> -->
+          <td th:text="${obj.count}"></td>
+          <td th:text="${feedbackList.fb_problem}"></td>
+          <td th:text="${feedbackList.user_name}"></td>
+          <td th:text="${feedbackList.fb_phone}"></td>
+          
+<!--           <td th:text="${feedbackList.fb_content}"></td> -->
+		 <td>	
+	          <label id="content" th:text="${feedbackList.fb_content}" hidden="true"></label>
+		      <a class="fbContent" >内容详情</a>
+          </td>
+          <td th:text="${feedbackList.fb_isread==0? '已查看' : '未查看'}"></td>
+          
+<!--           <td th:text="${feedbackList.fb_remarks}"></td> -->
+          <td>	
+	          <label id="remarks" th:text="${feedbackList.fb_remarks}" hidden="true"></label>
+		      <a class="fbRemarks" >备注详情</a>
+          </td>
+          
+          <td th:text="${#calendars.format(feedbackList.fb_create_time,'yyyy-MM-dd hh:mm:ss')}"></td>
+          <td th:text="${#calendars.format(feedbackList.fb_update_time,'yyyy-MM-dd hh:mm:ss')}"></td>
+          <td><div class="button-group"> 
+          <a class="button border-red" href="javascript:void(0)" th:attr="fb-id=${feedbackList.fb_id}" onclick="return delFeedback( $(this) )">删除</a> 
+          <a class="button border-red" th:href="@{/system/updateRemarkByFbId/}+${feedbackList.fb_id}">备注</a>
+          </div></td>
+        </tr>
+    </table>
+  </div>
+</form>
+<div class="pagination thePage">
+ <ul>
+　</ul>
+</div>
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+$(function() {
+	 pagination(".pagination ul",[[${totalPage}]],[[${p}]] );
+}); 
+
+function pagination(node, totalPage, cpage) {
+	$(node).createPage({
+       pageCount: totalPage,
+       current: cpage,
+       backFn:function(p){
+           //单击回调方法，p是当前页码
+       }
+   });
+}  
+           
+$('.fbContent').on('click', function(){
+	var value = $(this).prev().html();
+	var pageii = $.layer({
+	    type: 1,
+	    title: false,
+	    area: ['auto', 'auto'],
+	    border: [0], //去掉默认边框
+	    shade: [0], //去掉遮罩
+	    closeBtn: [0, false], //去掉默认关闭按钮
+	    shift: 'right', //从左动画弹出
+	    page: {
+	        html: '<div style="width:420px; height:260px; padding:20px; border:1px solid #ccc; background-color:#eee;"><p>'+value+' </p><button id="pagebtn" class="btns" onclick="">关闭</button></div>'
+	    }
+	});
+	//自设关闭
+	$('#pagebtn').on('click', function(){
+	    layer.close(pageii);
+	});
+});
+
+$('.fbRemarks').on('click', function(){
+	var value = $(this).prev().html();
+	var pageii = $.layer({
+	    type: 1,
+	    title: false,
+	    area: ['auto', 'auto'],
+	    border: [0], //去掉默认边框
+	    shade: [0], //去掉遮罩
+	    closeBtn: [0, false], //去掉默认关闭按钮
+	    shift: 'right', //从左动画弹出
+	    page: {
+	        html: '<div style="width:420px; height:260px; padding:20px; border:1px solid #ccc; background-color:#eee;"><p>'+value+' </p><button id="pagebtn" class="btns" onclick="">关闭</button></div>'
+	    }
+	});
+	//自设关闭
+	$('#pagebtn').on('click', function(){
+	    layer.close(pageii);
+	});
+});
+
+function delFeedback(me){
+	if(confirm("您确定要删除吗?")){
+		 $.post("delFeedback",{"fb_id":me.attr("fb-id")},function(data){
+			if(data.msg==true){
+				alert("删除成功");
+				location.reload();
+			}else{
+				
+				alert("删除失败")
+			}
+		}); 
+		 
+	}
+};
+
+//条件搜索
+$('#fbsubmit').click(function(){
+	$('#queryForm').submit();
+});
+/*]]>*/
+</script>
+</body></html>

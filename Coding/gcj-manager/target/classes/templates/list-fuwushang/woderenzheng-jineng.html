@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功城记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:with="user=${session.user},msgSize=${session.msgSize}" th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--待签合同-->
+<div class="hetong-box">
+    <div class="hetong approve">
+        <!-- 服务商个人信息头部 -->
+        <div th:include="public/fuwushang/hander"></div>
+        <div class="hetong-xq clear">
+            <div class="left">
+                <a href="fuwushang">我的任务</a>
+                <a href="wodezhanghu">我的账户</a>
+                <a href="wodejianli">我的简历</a>
+                <a href="woderenzheng-shiming" class="now">我的认证</a>
+                <a href="wodepingjia">我的评价</a>
+                <a href="wodeshoucang">我的收藏</a>
+                <a href="wodexiaoxi-huifu" class="pos-relative">我的消息<span class="badge badge-my-msg" th:if="${msgSize!=null and msgSize.countMsgSize > 0}" th:text="${msgSize.countMsgSize}">66</span></a>
+                <a href="tuikuanzhong">我的退款</a>
+            </div>
+            <div class="right">
+                <div class="topr">
+                	<a href="woderenzheng-shiming">实名认证</a>
+                    <a href="woderenzheng">信息认证</a>
+                    <a href="woderenzheng-jineng" class="now">技能认证</a>
+                </div>
+                <div class="top-approve">
+                    <i></i>专业认证 -
+                    <span class="Checking" th:if="${user.user_skillstate == 0}">未认证</span>
+                    <span class="Pass" th:if="${user.user_skillstate == 1}">已认证</span>
+                    <span class="notPass" th:if="${user.user_skillstate == 2}">认证未通过</span>
+                    <span class="Checking" th:if="${user.user_skillstate == 3}">审核中</span>
+                </div>
+                <div class="myapprove approve-save">
+                    <ul class="check1">
+                    	<li th:each="labels,niter:${@pageLabel.$queryAll()}" th:attr="data-val=${niter.index+1}" th:text="${labels.label_name}" th:data="${labels.label_id}"></li>
+                    	<li class="more">更多</li>
+                    </ul>
+                    <ul class="check1s">
+                       <li th:each="labels,niters:${@pageLabel.$queryAll()}" th:class="${niters.index+1}>1?'dis-none':''">
+                        <span data-val="1" data="0">全选</span>
+                        <span th:each="label,niter:${labels.labels}" th:attr="data-val=${niter.index+2}" th:text="${label.label_name}" th:data="${label.label_id}"></span>
+                       </li>
+                      </ul>
+                    <div class="yixuan" style="margin-bottom:30px;">
+                        <span>已选&gt;</span>
+                        <div class="psadd">
+                        </div>
+                    </div>
+                    
+                    <input type="file" id="labelfile" style="display:none;" onclick="labelFileChange()"/>
+                    <label for="labelfile" style="cursor:pointer;color:#999999;">&emsp;上传&gt;&gt;认证信息</label>
+                    <ul class="img-list">
+                    	<li>
+                    		<p>认证成功合同-2017.3.15</p>
+                    		<span>删除</span>
+                    	</li>
+                    	<li>
+                    		<p>认证成功合同-2017.3.15</p>
+                    		<span>删除</span>
+                    	</li>
+                    	<li>
+                    		<p>认证成功合同-2017.3.15</p>
+                    		<span>删除</span>
+                    	</li>
+                    	<li>
+                    		<p>认证成功合同-2017.3.15</p>
+                    		<span>删除</span>
+                    	</li>
+                    	<li>
+                    		<p>认证成功合同-2017.3.15</p>
+                    		<span>删除</span>
+                    	</li>
+                    </ul>
+                    <button type="button" onclick="userLabel()">申请认证</button>
+                </div>
+                <div class="top-approve">
+                    <i></i> 职称认证 - 
+                    <span class="Checking" th:if="${user.user_jobtitle == 0 or user.user_jobtitle == null}">未认证</span>
+                    <span class="Pass" th:if="${user.user_jobtitle == 1}">已认证</span>
+                    <span class="notPass" th:if="${user.user_jobtitle == 2}">认证未通过</span>
+                    <span class="Checking" th:if="${user.user_jobtitle == 3}">审核中</span>
+                </div>
+                <div class="approve-save">
+                	<div class="approve-minsave" style="display:block;margin-bottom:15px;">
+                		<span style="color:#888888;">职称：</span>
+	                    <select class="jobtitle" style="width:140px;height:30px;outline:none;color:#777777;">
+	                        <option value="0">请选择</option>
+	                        <option value="1">初级设计师</option>
+	                        <option value="2">中级设计师</option>
+	                        <option value="3">高级设计师</option>
+	                        <option value="4">资深设计师</option>
+	                        <option value="5">专家设计师</option>
+	                        <option value="6">设计大师</option>
+	                    </select>
+                	</div>
+                    
+                    <input type="file" id="jobtitlefile" style="display:none;" onchange="uploadJobTitleFiles()"/>
+                    <label for="jobtitlefile" style="cursor:pointer;color:#999999;margin-left:29px;">&emsp;上传&gt;&gt;认证信息</label>
+                    <ul class="img-list" style="margin-left:44px;">
+                    	<li>
+                    		<p>认证成功合同-2017.3.15</p>
+                    		<span>删除</span>
+                    	</li>
+                    	<li>
+                    		<p>认证成功合同-2017.3.15</p>
+                    		<span>删除</span>
+                    	</li>
+                    	<li>
+                    		<p>认证成功合同-2017.3.15</p>
+                    		<span>删除</span>
+                    	</li>
+                    	<li>
+                    		<p>认证成功合同-2017.3.15</p>
+                    		<span>删除</span>
+                    	</li>
+                    	<li>
+                    		<p>认证成功合同-2017.3.15</p>
+                    		<span>删除</span>
+                    	</li>
+                    </ul>
+                    <button type="button" onclick="jobTitleVerified()" style="margin-left:46px;">申请认证</button>
+                    <div class="show-ok">职称：高级设计师</div>
+                </div>
+                <div class="top-approve">
+                    <i></i>我的技能
+                </div>
+                <div class="myapprove-ziliao">
+                    <div class="ziliaos" th:each="label,niter:${user.userLabels}" th:inline="text">
+                        <p>[[${label.userl_name}]]<span>补充</span><i>删除</i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+<script src="/js/list/jinengcheck.js"></script>
+<script src="/js/list/fabao.js"></script>
+
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/bg/user.js"></script>
+</html>

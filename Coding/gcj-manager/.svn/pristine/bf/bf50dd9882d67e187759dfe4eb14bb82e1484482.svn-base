@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit"/>
+    <title>功城记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+    <link rel="stylesheet" href="/css/woderenzhengShiming.css"/>
+</head>
+<body th:with="user=${session.user},smrz=(${session.smrz!=null}?${session.smrz}:'0'),msgSize=${session.msgSize}" th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--待签合同-->
+<div class="hetong-box">
+    <div class="hetong approve">
+        <!-- 服务商个人信息头部 -->
+        <div th:include="public/fuwushang/hander"></div>
+        <div class="hetong-xq clear">
+            <div class="left">
+                <a href="fuwushang">我的任务</a>
+                <a href="wodezhanghu">我的账户</a>
+                <a href="wodejianli">我的简历</a>
+                <a href="woderenzheng-shiming" class="now">我的认证</a>
+                <a href="wodepingjia">我的评价</a>
+                <a href="wodeshoucang">我的收藏</a>
+                <a href="wodexiaoxi-huifu" class="pos-relative">我的消息<span class="badge badge-my-msg" th:if="${msgSize!=null and msgSize.countMsgSize > 0}" th:text="${msgSize.countMsgSize}">66</span></a>
+                <a href="tuikuanzhong">我的退款</a>
+            </div>
+            <div class="right">
+                <div class="topr">
+                    <a href="woderenzheng-shiming" class="now">实名认证</a>
+                    <a href="woderenzheng">信息认证</a>
+                    <a href="woderenzheng-jineng">技能认证</a>
+                </div>
+                <!--<div class="topr2" style="margin-top: 20px">
+                    <i></i>相关信息填写
+                </div>-->
+
+                <!--提交页面-->
+                <form action="#" id="rnamereg" class="mt-20 change"  th:if="${user.user_verified == 0 or user.user_verified == 2}">
+                    <div class="list-item">
+                        <label for="r-name" class="list-label"><span class="c-red mr5">*</span>姓名：</label>
+                        <input name="rname" id="r-name" class="reg-input reg-foucs userName" type="text" placeholder="与身份证姓名一致"/>
+                    </div>
+                    <div class="list-item">
+                        <label for="r-name" class="list-label"><span class="c-red mr5">*</span>身份证号：</label>
+                        <input name="rname" id="r-name" class="reg-input reg-foucs idNum" type="text" placeholder="15-18位"/>
+                    </div>
+                    <div class="list-item">
+                        <label for="r-name" class="list-label"><span class="c-red mr5">*</span>从业年限：</label>
+                        <select class="rewuselect yosId" style="width:257px;height:33px;outline:none;color:#666666;">
+                        	<option value="0">请选择</option>
+                        	<option value="1">1年以内</option>
+                        	<option value="2">1~3年</option>
+                        	<option value="3">3~5年</option>
+                        	<option value="4">5年以上</option>
+                        </select>
+                    </div>
+                    <div class="list-item shouji-cg" style="padding-left:0;">
+                        <label for="rname" class="list-label"><span class="c-red mr5"></span>手机：</label>
+                        <input name="rname" id="rname" class="reg-input" type="text" autocomplete="off" disabled="true" th:value="${user.user_phone}"/>
+                        <span class="span fsyzm" th:with="s=(${smrz!='0'}?${smrz.sy}:'60'),state=(${smrz!='0'}?${smrz.state}:'0')" th:attr="data-time=${s},data-state=${state}"  th:onclick="'upphoneNum(this,'+${user.user_phone}+',\'smrz\')'">获取验证码</span>
+                    </div>
+                    <div class="list-item">
+                        <label for="r-name" class="list-label"><span class="c-red mr5">*</span>验证码：</label>
+                        <input name="rname" id="r-name" class="reg-input reg-foucs phoneCode" type="text" placeholder="请输入您的手机短信验证码"/>
+                    </div>
+                    <div class="list-item upload-list-item id-front-item clearfix">
+                        <label class="list-label fl"><span class="c-red pr5">*</span>身份证正面照片：</label>
+                        <div class="upload-info">
+                            <div class="pre-upload clearfix">
+                                <div class="imgBox"><img class="caraimgtag" src="/images/eg1_51a7432.png"/></div>
+                                <div class="tip">
+                                    <p>1.请上传身份证正面带有头像的扫描件或清晰照片</p>
+                                    <p>2. 照片要求格式为JPG/JPEG/GIF/PNG，大小不要超过3M</p>
+                                    <p class="spec-tips">注：您的证件信息不会被其他网友看到，我们将严格保密，请放心上传</p>
+                                </div>
+                                <div class="upload">
+                                    <label class="upload-btn" for="card-front">点击上传</label><input id="card-front" type="file" th:onchange="'caraupload('+${user.user_id}+')'" name="m"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item upload-list-item id-front-item clearfix">
+                        <label class="list-label fl"><span class="c-red pr5">*</span>身份证反面照片：</label>
+                        <div class="upload-info">
+                            <div class="pre-upload clearfix">
+                                <div class="imgBox"><img class="carbimgtag" src="/images/eg2_da6e811.png"/></div>
+                                <div class="tip">
+                                    <p>1. 请上传身份证正面带有头像的扫描件或清晰照片</p>
+                                    <p>2. 照片要求格式为JPG/JPEG/GIF/PNG，大小不要超过3M</p>
+                                    <p class="spec-tips">注：您的证件信息不会被其他网友看到，我们将严格保密，请放心上传</p>
+                                </div>
+                                <div class="upload">
+                                    <label class="upload-btn" for="card-back">点击上传</label><input id="card-back" type="file" th:onchange="'carbupload('+${user.user_id}+')'" name="m"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reg-submit">
+                        <!-- <div class="valicode">
+                            <span>请输入验证码</span>&nbsp;<input type="text" class="phoneCode" autocomplete="off" id="valicode"/>
+                        </div> -->
+                        <input class="reg-submit-btn" type="button" th:onclick="'verified('+${vId}+','+${user.user_id}+',\''+${user.user_phone}+'\')'" value="提交"/>
+                    </div>
+                </form>
+
+                <!--显示页面-->
+                <div class="mt-20 view-display" th:if="${user.user_verified == 1 or user.user_verified == 3}" th:with="v=${verified}">
+                    <div class="list-item">
+                        <label  class="list-label"><span class="c-red mr5"></span>认证状态：</label>
+                        <span>[[${user.user_verified == 1}?'已实名认证':(${user.user_verified == 3 } ? '认证审核中':'认证失败')]]</span>
+                    </div>
+                    <div class="list-item">
+                        <label  class="list-label"><span class="c-red mr5"></span>姓名：</label>
+                        <input  class="reg-input" type="text" th:value="${v.name}" readOnly="true"/>
+                    </div>
+                    <div class="list-item">
+                        <label  class="list-label"><span class="c-red mr5"></span>身份证号码：</label>
+                        <input  class="reg-input" type="text" th:value="${v.idNumDes}" readOnly="true"/>
+                    </div>
+                    <div class="list-item">
+                        <label  class="list-label"><span class="c-red mr5"></span>从业年限：</label>
+                        <input  class="reg-input" type="text" th:value="${v.yosDes}" readOnly="true"/>
+                    </div>
+                    <div class="list-item">
+                        <label  class="list-label"><span class="c-red mr5"></span>手机号：</label>
+                        <input  class="reg-input" type="text" autocomplete="off" disabled="true"  th:value="${user.phone}"/>
+                    </div>
+                    <div class="list-item upload-list-item id-front-item clearfix">
+                        <label class="list-label fl"><span class="c-red pr5"></span>身份证正面照片：</label>
+                        <div class="upload-info">
+                            <div class="pre-upload clearfix">
+                                <div class="imgBox cancel-mg"><img th:src="${v.v_idcaraimg}"/></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item upload-list-item id-front-item clearfix">
+                        <label class="list-label fl"><span class="c-red pr5"></span>身份证反面照片：</label>
+                        <div class="upload-info">
+                            <div class="pre-upload clearfix">
+                                <div class="imgBox cancel-mg"><img th:src="${v.v_idcarbimg}"/></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/list/newsrenzheng.js"></script>
+<script type="text/javascript" src="/js/chajian/jqkuozhan.js"></script>
+<script src="/js/chajian/checkbox.js"></script>
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/bg/submits.js"></script>
+
+<script type="text/javascript" src="/js/bg/ajaxfileupload.js"></script>
+
+<script>
+	var yanzheng1=new gongneng($(".fsyzm").eq(0));
+	yanzheng1.yanzhengma();
+</script>
+</html>

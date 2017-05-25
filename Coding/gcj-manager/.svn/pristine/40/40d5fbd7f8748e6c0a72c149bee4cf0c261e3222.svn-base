@@ -1,0 +1,20 @@
+package com.yd.gcj.util;
+
+public class MyStaticFactory {
+	
+	public static boolean queryGuzhuTask = false; 
+	
+	//windows服务器图片存放地址
+	private static String winPath = "D:/xiaodeng";
+	//linux图片存放地址
+	private static String linuxPath = "/opt/gcj";
+	
+	//头像文件夹
+	public static String headimg = "/headimg/";
+	//身份证图片存放的地方
+	public static String verifiedImg = "/verifiedImg/";
+	
+	public static String systemPath = winPath;
+	
+	
+}

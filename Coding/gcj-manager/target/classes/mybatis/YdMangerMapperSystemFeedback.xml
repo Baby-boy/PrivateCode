@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.system.mapper.YdMangerMapperSystemFeedback">
+	<!-- 后台 -->
+	<select id="queryAllFeedback" resultType="com.yd.gcj.entity.vo.YdMangerFeedbackVo" >
+		SELECT YF.*,YU.user_name FROM  yd_feedback YF LEFT JOIN yd_user YU ON YF.fb_uid=YU.user_id
+		where 1 = 1
+		<if test="user_name !=null and user_name != ''">
+			and user_name like  CONCAT(CONCAT('%', #{user_name, jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="fb_isread != null">
+			and fb_isread = #{fb_isread}
+		</if> 		
+	</select>
+	
+	<select id="queryFeedBackByFbId" resultType="com.yd.gcj.entity.vo.YdMangerFeedbackVo" >
+		SELECT YF.*,YU.user_name FROM  yd_feedback YF LEFT JOIN yd_user YU ON YF.fb_uid=YU.user_id
+		
+		where fb_id = #{fb_id} 		
+	</select>
+	
+	<delete id="delFeedback">
+		delete from yd_feedback 
+		where fb_id = #{fb_id}
+	</delete>
+	
+	<update id="updateRemarkByFbId" parameterType="com.yd.gcj.entity.vo.YdMangerFeedbackVo" >
+		update yd_feedback
+		<set>
+			<trim>
+				<if test="fb_problem != null and fb_problem !=''">fb_problem = #{fb_problem},</if>
+				<if test="fb_uid != null and fb_uid !=''">fb_uid = #{fb_uid},</if>
+				<if test="fb_phone!= null and fb_phone !=''">fb_phone = #{fb_phone},</if>
+				<if test="fb_content != null and fb_content !=''">fb_content = #{fb_content},</if>
+				fb_isread = 0,
+				<if test="fb_remarks != null and fb_remarks !=''">fb_remarks = #{fb_remarks},</if>
+				<if test="fb_create_time != null and fb_create_time !=''">fb_create_time = #{fb_create_time},</if>
+				fb_update_time = now()
+			</trim>
+		</set>
+		where fb_id = #{fb_id}
+	</update>
+	
+</mapper>

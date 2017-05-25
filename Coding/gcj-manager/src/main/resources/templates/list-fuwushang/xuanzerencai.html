@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body>
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<div class="select-persons">
+    <div class="select">
+        <div class="title">
+            <span>选择人才</span>
+            <span>共个 <i>(2)</i>申请</span>
+        </div>
+        <ul class="rencai">
+            <li>
+                <div class="img">
+                    <img src="" alt=""/>
+                </div>
+                <div class="rencais">
+                    <p class="p1"><a href="xuqiumiaoshu">凡高工舍建筑设计事物所</a><i></i></p>
+                    <p class="p2"><i></i><span>XXX</span></p>
+                    <p class="p3"><i></i><span>于2016年9月1日申请</span></p>
+                </div>
+                <div class="input">
+                    <a href="shenqingziliao" class="btn-1">查看申请资料</a>
+                    <a href="javascript:;" class="btn-2">选定</a>
+                </div>
+            </li>
+            <li>
+                <div class="img">
+                    <img src="" alt=""/>
+                </div>
+                <div class="rencais">
+                    <p class="p1"><a href="xuqiumiaoshu">凡高工舍建筑设计事物所</a><i></i></p>
+                    <p class="p2"><i></i><span>XXX</span></p>
+                    <p class="p3"><i></i><span>于2016年9月1日申请</span></p>
+                </div>
+                <div class="input">
+                    <a href="shenqingziliao" class="btn-1">查看申请资料</a>
+                    <a href="javascript:;" class="btn-2">选定</a>
+                </div>
+            </li>
+            <li>
+                <div class="img">
+                    <img src="" alt=""/>
+                </div>
+                <div class="rencais">
+                    <p class="p1"><a href="xuqiumiaoshu">凡高工舍建筑设计事物所</a><i></i></p>
+                    <p class="p2"><i></i><span>XXX</span></p>
+                    <p class="p3"><i></i><span>于2016年9月1日申请</span></p>
+                </div>
+                <div class="input">
+                    <a href="shenqingziliao" class="btn-1">查看申请资料</a>
+                    <a href="javascript:;" class="btn-2">选定</a>
+                </div>
+            </li>
+        </ul>
+        <a href="javascript:;" class="yaoqing">邀请</a>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+<div class="zhezhao dis-none"></div>
+<div class="refund-box dis-none">
+    <div class="guanbi"></div>
+    <h4>选择任务</h4>
+    <form action="">
+        <select name="" id="" class="refund-se">
+            <option value="0">选择原因</option>
+            <option value="1">原因1</option>
+            <option value="2">原因2</option>
+        </select>
+        <div class="select-tc">
+            <button type="submit">确认提交</button>
+            <button type="button">取消</button>
+        </div>
+    </form>
+</div>
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jquery.select.js"></script>
+<script>
+    $(".refund-box select").select();
+</script>
+<script src="/js/common.js"></script>
+</html>

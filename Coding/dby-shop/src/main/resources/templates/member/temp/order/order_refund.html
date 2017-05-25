@@ -1,0 +1,137 @@
+<div th:fragment="main" th:remove="tag">
+	<div class="d-right order-refund-page" id="saleRefund" th:inline="text">
+		<div class="refund-content">
+			<div class="refund-progres">
+				<div class="ncm-flow-step">
+			        <dl class="step-first current">
+			          <dt>买家申请退款</dt>
+			          <dd class="bg"></dd>
+			        </dl>
+			        <dl class="">
+			          <dt>商家处理退款申请</dt>
+			          <dd class="bg"> </dd>
+			        </dl>
+			        <dl class="">
+			          <dt>平台审核，退款完成</dt>
+			          <dd class="bg"> </dd>
+			        </dl>
+				</div>
+			</div>
+			
+			
+			<div class="refund-reason">
+				<h3 class="title">如果商家不同意，可以再次申请或投诉。</h3>
+				<form class="form-ajax-sub" data-func="postRefund">
+					<input name="orderGoodsId" type="hidden" th:value="${dataGoods.og_id}" />
+					<input name="orderId" type="hidden" th:value="${dataOrder.order_id}" />
+					<input name="goodsId" type="hidden" th:value="${dataGoods.goods_id}" />
+					<input name="type" type="hidden" value="1" />
+					<input type="hidden" name="reasonContent" class="reasonContent" />
+					
+					<div class="form-field">
+						<div class="field-hd">
+							<label for="fea1">退款原因<b>*</b>：</label>
+						</div>
+						<div class="field-bd">
+							<select name="reasonId" class="reasonId">
+								<option value="0">请选择退款原因</option>
+								<option th:each="item: ${dataReason}" th:text="${item.reason_info}" th:value="${item.reason_id}"></option>
+							</select>
+						</div>
+					</div>
+					<div class="form-field">
+						<div class="field-hd">
+							<label for="fea1">退款数量<b>*</b>：</label>
+						</div>
+						<div class="field-bd">
+							<div class="num-control">
+								<span class="reduce">-</span>
+								<input disabled="disabled" class="reasonNum" type="text" value="1" />
+								<span class="plus">+</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-field">
+						<div class="field-hd">
+							<label for="fea1">退款说明<b>&nbsp;</b>：</label>
+						</div>
+						<div class="field-bd">
+							<textarea name="buyerMessage" title="申请原因" rows="11" cols="50"></textarea>
+						</div>
+					</div>
+					<div class="form-field">
+						<div class="field-hd">
+							<label for="fea1">上传凭证<b>&nbsp;</b>：</label>
+						</div>
+						<div class="field-bd">
+							<div class="refund-pics-list">
+								<span>
+									<img src="https://woadby.oss-cn-beijing.aliyuncs.com/dby/9a2b9681-5ece-4b37-a04b-01552da4ae5b.png" />
+									<i>&nbsp;</i>
+								</span>
+							</div>
+							<span class="btn-file">
+								<a href="javascript:;" class="btn btn-default">上传图片</a>
+								<input type="file" data-upload-code="refundPics" id="refundPics" data-btn="upload" class="none" />
+							</span>
+						</div>
+					</div>
+					<div class="form-field">
+						<div class="field-hd">
+							&nbsp;
+						</div>
+						<div class="field-bd">
+							<a href="javascript:;" class="btn cancel btn-add-edit">提交退款申请</a>
+							<p>请提供实物图片(包含条形码)，以便您的退款或退货申请顺利通过审核。<br/>每张图片大小不超过5M，最多3张，支持GIF、JPG、PNG、BMP格式</p>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="goods-content">
+			<h3 class="title">退款/退货商品</h3>
+			<div class="goods-info">
+				<span class="goods-img"><img th:src="${@_url.goods()}+${dataGoods.goods_cover}+@{?x-oss-process=image/resize,m_pad,h_50,w_50}" /></span>
+				<p>【[[${dataOrder.store_name}]]】[[${dataGoods.goods_name}]]</p>
+			</div>
+			<div class="goods-price">
+				<dl>
+					<dt>单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：</dt>
+					<dd>￥[[${dataGoods.goods_price}]]<span class="goods-num">X[[${dataGoods.goods_num}]](数量)</span></dd>
+					<dt>小&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计：</dt>
+					<dd>￥[[${dataGoods.goods_pay_price}]]</dd>
+					<dt>商&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;家：</dt>
+					<dd>[[${dataOrder.store_name}]]</dd>
+				</dl>
+			</div>
+			<div class="order-content">
+				<h3 class="title">订单信息</h3>
+				<dl>
+					<dt>订单编号：</dt>
+					<dd th:text="${dataOrder.order_sn}"></dd>
+					<dt>运&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;费：</dt>
+					<dd>￥[[${dataOrder.transport_price}]]</dd>
+					<dt>总&nbsp;优&nbsp;惠：</dt>
+					<dd>-￥</dd>
+					<dt>总&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计：</dt>
+					<dd>￥[[${dataOrder.total_price}]]</dd>
+					<dt>成交时间：</dt>
+					<dd>[[${ #calendars.format(dataOrder.created_at,'yyyy-MM-dd hh:mm:ss') }]]</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		    var _refund_num = [[${dataGoods.goods_num}]];
+			$(function() {
+				$(".reasonId").change(function() {
+					$(".reasonContent").val( $(this).find("option:selected").text() );
+				});
+			});
+		/*]]>*/
+	</script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.ajax.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/functions.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/upload/uploadnew.js}"></script>
+</div>

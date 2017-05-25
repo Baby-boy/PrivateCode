@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body>
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<div class="logbanner">
+    <div class="login">
+        <div class="logins">
+            <ul class="top">
+	                <a href="/list-login/login"><li><span>我是设计师</span><i></i></li></a>
+	                <a href="/list-login/login-guzhu"><li class="now"><span>我是雇主</span><i></i></li></a>
+	            </ul>
+	            <div class="zhanghao">
+	                <div class="zhanghaoic"><i></i></div>
+	                <input type="text" placeholder="请输入账号"  name="userPhone" login="login" keyWord="账号" isNull="false"/>
+	            </div>
+	            <div class="zhanghao">
+	                <div class="mimaic"><i></i></div>
+	                <input type="password" placeholder="请输入密码"  name="userPwd" login="login" keyWord="密码" isNull="false"/>
+	            </div>
+	            <div class="wangji">
+	                <p><input type="checkbox" name="userIsAutoLogin" login="login" value="0" onchange="userIsAutoLogin(this)"/>自动登录</p>
+	                <a href="/list-login/wangjimima">忘记密码</a>
+	            </div>
+	            <button type="button" onclick="submitLogin(0)">登录</button>
+	            <p class="zhuce">还没有账号?<a href="zhuce">马上注册</a></p>
+	            <div class="xian">
+	                <span>第三方登录</span>
+	            </div>
+	            <ul class="sanfang">
+	                <a href="###" onclick="xtsj()"><li></li></a>
+	                <a href="###" onclick="xtsj()"><li></li> </a>
+	            </ul>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+<script src="/js/common.js"></script>
+
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/bg/submits.js"></script>
+
+<script type="text/javascript" src="/js/bg/atemp.js"></script>
+
+<script type="text/javascript">
+document.onkeydown=function(){
+   if (event.keyCode == 13){
+	   submitLogin(0);
+   }
+}
+</script>
+
+</html>

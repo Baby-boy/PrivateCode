@@ -1,0 +1,367 @@
+<div th:fragment="orders" th:remove="tag">
+	<div class="d-right">
+		<ul class="clear d-top">
+			<li class="d-edit">全部</li>
+			<li>代付款（0）</li>
+			<li>代发货（0）</li>
+			<li>待收货（0）</li>
+			<li>待评价（0）</li>
+		</ul>
+		<div class="d-all pop">
+			<div class="d-search clear">
+				<div class="d-shop">
+					<div class="d-sear">
+						<div class="d-search1">
+							<input type="text" value="" placeholder="输入商品标题/订单编号进行搜索"/>
+						</div>
+						<button>搜索</button>
+					</div>
+					<select name="" id="" class="d-filter">
+						<option value="">精简筛选条件</option>
+						<option value="">已付款</option>
+						<option value="">代付款</option>
+					</select>
+				</div>
+				<div class="d-date">
+					<div class="d-date1 clear">
+						<span>下单日期：</span>
+						<select name="" id="">
+							<option value="">三个月内</option>
+							<option value="">四个月内</option>
+							<option value="">五个月内</option>
+						</select>
+					</div>
+					<div class="d-date1 d-date2 clear">
+						<span>售后服务：</span>
+						<select name="" id="">
+							<option value="">保修</option>
+							<option value="">包换</option>
+							<option value="">包退</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="d-show">
+				<div class="d-show1">
+					<ul class="clear">
+						<li class="d-sp1">
+							<select name="" id="">
+								<option value="">全部订单</option>
+								<option value="">团购</option>
+								<option value="">秒杀</option>
+
+							</select>
+						</li>
+						<li class="d-sp2">单价</li>
+						<li class="d-sp3">数量</li>
+						<li class="d-sp4">商品操作</li>
+						<li class="d-sp5">实付款</li>
+						<li class="d-sp6">
+							<select name="" id="">
+								<option value="">订单状态</option>
+								<option value="">待付款</option>
+								<option value="">交易成功</option>
+							</select>
+						</li>
+						<li class="d-sp7">操作</li>
+					</ul>
+				</div>
+				<div class="d-show2">
+					<div class="d-show3">
+						<p class="d-sorder">主单号：1034210122067</p>
+						<p>下单时间：2016/09/23  15：04：45</p>
+					</div>
+					<div class="d-show4 clear">
+						<ul class="clear">
+							<li class="s1">
+								<div class="d-simg">
+									<img src="/assets/images/demoimg/ac_img7.png" alt="" />
+									<img src="../images/m1.png" alt="" class="imgg" />
+								</div>
+								<div class="d-stext">
+									<p>CARTIER/卡地亚 黄金戒指B4084600金色 50-60#</p>
+									<span>戒指尺码:52号</span>
+								</div>
+							</li>
+							<li class="s2">¥11300</li>
+							<li class="s3">1</li>
+							<li class="s4"></li>
+							<li class="s5">¥11300<span>在线支付</span></li>
+							<li class="s6"><span>代付款</span><a href="order_details.html" class="detail">订单详情</a></li>
+							<li class="s7"><a href="" class="spayment">立即付款</a><a href="">修改地址</a><span>取消订单</span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-show2 d-number">
+					<div class="d-show3">
+						<p class="d-sorder">主单号：1034210122067</p>
+						<p>下单时间：2016/09/23  15：04：45</p>
+						<img src="../images/or_img2.png" alt="" />
+					</div>
+					<div class="d-show4 clear">
+						<ul class="clear">
+							<li class="s1">
+								<div class="d-simg">
+									<img src="/assets/images/demoimg/ac_img7.png" alt="" />
+									<img src="../images/m2.png" alt="" class="imgg" />
+								</div>
+								<div class="d-stext">
+									<p>CARTIER/卡地亚 黄金戒指B4084600金色 50-60#</p>
+									<span>戒指尺码:52号</span>
+								</div>
+							</li>
+							<li class="s2">￥11300</li>
+							<li class="s3">1</li>
+							<li class="s4"></li>
+							<li class="s5">¥11300<span>在线支付</span></li>
+							<li class="s6">已取消<a href="order_details.html" class="detail">订单详情</a></li>
+							<li class="s7"><a href="">再次购买</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-show2 d-number2">
+					<div class="d-show3">
+						<p class="d-sorder">主单号：1034210122067</p>
+						<p>下单时间：2016/09/23  15：04：45</p>
+						<img src="../images/or_img2.png" alt="" />
+					</div>
+					<div class="d-show4 clear">
+						<ul class="clear">
+							<li class="s1">
+								<div class="d-simg">
+									<img src="/assets/images/demoimg/ac_img7.png" alt="" />
+									<img src="../images/m3.png" alt="" class="imgg" />
+								</div>
+								<div class="d-stext">
+									<p>CARTIER/卡地亚 黄金戒指B4084600金色 50-60#</p>
+									<span>戒指尺码:52号</span>
+								</div>
+							</li>
+							<li class="s2">¥11300</li>
+							<li class="s3">1</li>
+							<li class="s4"></li>
+							<li class="s5">¥11300<span>在线支付</span></li>
+							<li class="s6"><span>交易成功</span><a href="order_details.html" class="detail">订单详情</a><a href="orders_take.html">查看物流</a><a href="apple.html" class="out">退货/换货/维修</a></li>
+							<li class="s7"><a href="assess.html">评价</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-show2 d-number2">
+					<div class="d-show3">
+						<p class="d-sorder">主单号：1034210122067</p>
+						<p>下单时间：2016/09/23  15：04：45</p>
+						<img src="../images/or_img2.png" alt="" />
+					</div>
+					<div class="d-show4 clear">
+						<ul class="clear">
+							<li class="s1">
+								<div class="d-simg">
+									<img src="/assets/images/demoimg/ac_img7.png" alt="" />
+									<img src="../images/m4.png" alt="" class="imgg" />
+								</div>
+								<div class="d-stext">
+									<p>CARTIER/卡地亚 黄金戒指B4084600金色 50-60#</p>
+									<span>戒指尺码:52号</span>
+								</div>
+							</li>
+							<li class="s2">¥11300</li>
+							<li class="s3">1</li>
+							<li class="s4"></li>
+							<li class="s5">¥11300<span>在线支付</span></li>
+							<li class="s6"><span>物流派件中</span><a href="order_details.html" class="detail">订单详情</a><a href="orders_take.html">查看物流</a></li>
+							<li class="s7"><a href="">确认收货</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-show2 d-number2">
+					<div class="d-show3">
+						<p class="d-sorder">主单号：1034210122067</p>
+						<p>下单时间：2016/09/23  15：04：45</p>
+						<img src="../images/or_img2.png" alt="" />
+					</div>
+					<div class="d-show4 clear">
+						<ul class="clear">
+							<li class="s1">
+								<div class="d-simg"><img src="/assets/images/demoimg/ac_img7.png" alt="" /></div>
+								<div class="d-stext">
+									<p>CARTIER/卡地亚 黄金戒指B4084600金色 50-60#</p>
+									<span>戒指尺码:52号</span>
+								</div>
+							</li>
+							<li class="s2">¥11300</li>
+							<li class="s3">1</li>
+							<li class="s4"></li>
+							<li class="s5">¥11300<span>在线支付</span></li>
+							<li class="s6"><span>等待商家发货</span><a href="order_details.html" class="detail">订单详情</a><a href="apple.html" class="out">退货/换货/维修</a></li>
+							<li class="s7"><a href="">取消订单</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="d-all pop" style="display:none">
+			<div class="d-show">
+				<div class="d-show1">
+					<ul class="clear">
+						<li class="d-sp1">商品</li>
+						<li class="d-sp2">单价</li>
+						<li class="d-sp3">数量</li>
+						<li class="d-sp4">商品操作</li>
+						<li class="d-sp5">实付款</li>
+						<li class="d-sp6 d-spp">订单状态</li>
+						<li class="d-sp7">操作</li>
+					</ul>
+				</div>
+				<div class="d-show2">
+					<div class="d-show3">
+						<p class="d-sorder">主单号：1034210122067</p>
+						<p>下单时间：2016/09/23  15：04：45</p>
+					</div>
+					<div class="d-show4 clear">
+						<ul class="clear">
+							<li class="s1">
+								<div class="d-simg"><img src="/assets/images/demoimg/ac_img7.png" alt="" /></div>
+								<div class="d-stext">
+									<p>CARTIER/卡地亚 黄金戒指B4084600金色 50-60#</p>
+									<span>戒指尺码:52号</span>
+								</div>
+							</li>
+							<li class="s2">¥11300</li>
+							<li class="s3">1</li>
+							<li class="s4"></li>
+							<li class="s5">¥11300<span>在线支付</span></li>
+							<li class="s6"><span>代付款</span><a href="order_details.html" class="detail">订单详情</a></li>
+							<li class="s7"><a href="" class="spayment">立即付款</a><a href="">修改地址</a><span>取消订单</span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="d-all pop" style="display:none">
+			<div class="d-show">
+				<div class="d-show1">
+					<ul class="clear">
+						<li class="d-sp1">商品</li>
+						<li class="d-sp2">单价</li>
+						<li class="d-sp3">数量</li>
+						<li class="d-sp4">商品操作</li>
+						<li class="d-sp5">实付款</li>
+						<li class="d-sp6 d-spp">订单状态</li>
+						<li class="d-sp7">操作</li>
+					</ul>
+				</div>
+				<div class="d-show2 d-number2">
+					<div class="d-show3">
+						<p class="d-sorder">主单号：1034210122067</p>
+						<p>下单时间：2016/09/23  15：04：45</p>
+						<img src="../images/or_img2.png" alt="" />
+					</div>
+					<div class="d-show4 clear">
+						<ul class="clear">
+							<li class="s1">
+								<div class="d-simg"><img src="/assets/images/demoimg/ac_img7.png" alt="" /></div>
+								<div class="d-stext">
+									<p>CARTIER/卡地亚 黄金戒指B4084600金色 50-60#</p>
+									<span>戒指尺码:52号</span>
+								</div>
+							</li>
+							<li class="s2">¥11300</li>
+							<li class="s3">1</li>
+							<li class="s4"></li>
+							<li class="s5">¥11300<span>在线支付</span></li>
+							<li class="s6"><span>等待商家发货</span><a href="order_details.html" class="detail">订单详情</a><a href="apple.html" class="out">退货/换货/维修</a></li>
+							<li class="s7"><a href="">取消订单</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="d-all pop" style="display:none">
+			<div class="d-show">
+				<div class="d-show1">
+					<ul class="clear">
+						<li class="d-sp1">商品</li>
+						<li class="d-sp2">单价</li>
+						<li class="d-sp3">数量</li>
+						<li class="d-sp4">商品操作</li>
+						<li class="d-sp5">实付款</li>
+						<li class="d-sp6 d-spp">订单状态</li>
+						<li class="d-sp7">操作</li>
+					</ul>
+				</div>
+				<div class="d-show2 d-number2">
+					<div class="d-show3">
+						<p class="d-sorder">主单号：1034210122067</p>
+						<p>下单时间：2016/09/23  15：04：45</p>
+						<img src="../images/or_img2.png" alt="" />
+					</div>
+					<div class="d-show4 clear">
+						<ul class="clear">
+							<li class="s1">
+								<div class="d-simg"><img src="/assets/images/demoimg/ac_img7.png" alt="" /></div>
+								<div class="d-stext">
+									<p>CARTIER/卡地亚 黄金戒指B4084600金色 50-60#</p>
+									<span>戒指尺码:52号</span>
+								</div>
+							</li>
+							<li class="s2">¥11300</li>
+							<li class="s3">1</li>
+							<li class="s4"></li>
+							<li class="s5">¥11300<span>在线支付</span></li>
+							<li class="s6"><span>物流派件中</span><a href="order_details.html" class="detail">订单详情</a><a href="orders_take.html">查看物流</a></li>
+							<li class="s7"><a href="">确认收货</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="d-all pop" style="display:none">
+			<div class="d-show">
+				<div class="d-show1">
+					<ul class="clear">
+						<li class="d-sp1">商品</li>
+						<li class="d-sp2">单价</li>
+						<li class="d-sp3">数量</li>
+						<li class="d-sp4">商品操作</li>
+						<li class="d-sp5">实付款</li>
+						<li class="d-sp6 d-spp">订单状态</li>
+						<li class="d-sp7">操作</li>
+					</ul>
+				</div>
+				<div class="d-show2 d-number2">
+					<div class="d-show3">
+						<p class="d-sorder">主单号：1034210122067</p>
+						<p>下单时间：2016/09/23  15：04：45</p>
+						<img src="../images/or_img2.png" alt="" />
+					</div>
+					<div class="d-show4 clear">
+						<ul class="clear">
+							<li class="s1">
+								<div class="d-simg"><img src="/assets/images/demoimg/ac_img7.png" alt="" /></div>
+								<div class="d-stext">
+									<p>CARTIER/卡地亚 黄金戒指B4084600金色 50-60#</p>
+									<span>戒指尺码:52号</span>
+								</div>
+							</li>
+							<li class="s2">¥11300</li>
+							<li class="s3">1</li>
+							<li class="s4"></li>
+							<li class="s5">¥11300<span>在线支付</span></li>
+							<li class="s6"><span>交易成功</span><a href="order_details.html" class="detail">订单详情</a><a href="orders_take.html">查看物流</a><a href="apple.html" class="out">退货/换货/维修</a></li>
+							<li class="s7"><a href="assess.html">评价</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 分页 -->
+		<div class="g-pages clear">
+			<span>下一页&nbsp;&gt;</span>
+			<ul class="clear">
+				<li class="present">1</li>
+				<li>2</li>
+				<li>3</li>
+			</ul>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperGoodsBuf">
+	<sql id="whereLists">
+		<trim prefix="where" suffixOverrides="and">
+		  	type = #{buf_type}
+		</trim>
+	</sql>
+	
+	<select id="lists" resultMap="YdWebMapperGoodsBufLists">
+		SELECT
+			*
+		FROM
+			yd_goods_buf
+		<include refid="whereLists"></include>
+		limit 7
+	</select>
+
+	
+	<resultMap id="YdWebMapperGoodsBufLists" type="java.util.HashMap">
+		<result property="goodsId" column="goods_id" />
+		<result property="type" column="type" />
+		<result property="goodsName" column="goods_name" />
+		<result property="goodsImage" column="goods_image" />
+		<result property="goodsNum" column="goods_num" />
+		<result property="depotStock" column="depot_stock" />
+		<result property="storeId" column="store_id" />
+		<result property="depotPrice" column="depot_price" />
+		<result property="depotOriginalPrice" column="depot_original_price" />
+		<result property="goodsTotal" column="goods_total" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
+</mapper>

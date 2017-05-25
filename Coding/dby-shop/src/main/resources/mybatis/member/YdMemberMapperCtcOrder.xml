@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperCtcOrder">
+	<sql id="whereOrder">
+		<trim prefix="where" suffixOverrides="and">
+			<if test="type == 1">
+				yd_ctc_order.user_id = #{user_id} and state 
+				<![CDATA[ > ]]>
+				1
+			</if>
+			<if test="type != 1">
+				yd_ctc_order.buyer_id = #{user_id} AND state   <![CDATA[ < ]]>
+				9
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 根据ctc_order_id修改订单 -->
+	<update id="update">
+		update yd_ctc_order
+		<trim prefix="set" suffixOverrides=",">
+			<if test="state != null">state = #{state},</if>
+		</trim>
+		where yd_ctc_order.ctc_order_id=#{id}
+	</update>
+	<!-- 查看我的卖出的懒鱼和买进的懒鱼 -->
+	<select id="index" resultMap="YdWebMapperMyCtcOrder">
+		SELECT
+		yd_ctc_order.ctc_id,
+		yd_ctc_order.ctc_order_id,
+		yd_ctc_order.state,
+		yd_ctc_order.goods_name,
+		yd_ctc.ctc_cover,
+		yd_ctc.user_id,
+		yd_ctc_order.goods_price,
+		yd_ctc_order.created_at
+		FROM
+		yd_ctc_order
+		inner
+		JOIN yd_ctc ON
+		yd_ctc.ctc_id =
+		yd_ctc_order.ctc_id
+		<include refid="whereOrder"></include>
+		limit #{to},#{perPage}
+	</select>
+
+	<select id="total" resultType="java.lang.Integer">
+		SELECT
+		COUNT(*)
+		FROM
+		yd_ctc_order
+		inner JOIN yd_ctc ON
+		yd_ctc.ctc_id =
+		yd_ctc_order.ctc_id
+		<include refid="whereOrder"></include>
+	</select>
+
+	<resultMap id="YdWebMapperMyCtcOrder" type="java.util.HashMap">
+		<result property="ctcId" column="ctc_id" />
+		<result property="goodsName" column="goods_name" />
+		<result property="goodsImg" column="ctc_cover" />
+		<result property="goodsPrice" column="goods_price" />
+		<result property="state" column="state" />
+		<result property="user_id" column="user_id" />
+		<result property="createdAt" column="created_at" />
+		<result property="ctc_order_id" column="ctc_order_id" />
+	</resultMap>
+
+	<!-- 查看单个懒鱼的订单信息 -->
+	<select id="queryOneCtcOrderDetailById" resultType="com.yd.dby.b.shop.entity.YdCtcOrder">
+		select * from
+		yd_ctc_order
+		where yd_ctc_order.ctc_order_id=#{ctc_order_id}
+
+	</select>
+</mapper>

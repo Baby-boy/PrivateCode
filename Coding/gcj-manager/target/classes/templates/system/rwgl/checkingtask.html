@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>审核任务</title>
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>  
+    <script th:src="@{/system/kindeditor/kindeditor-min.js}" charset="utf-8"></script>
+	<script th:src="@{/system/kindeditor/lang/zh_CN.js}" charset="utf-8"></script>
+</head>
+<body>
+<div class="panel admin-panel margin-top">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>审核任务</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action=""  id="updateTaskForm" th:inline="text" >   
+      <input id="hidden" type="hidden" name="task_id"  th:value="${ydMangerTaskVo.task_id}" />
+      <input id="task_uid" type="hidden" name="task_uid"  th:value="${ydMangerTaskVo.task_uid}" />  
+      <div class="form-group">
+        <div class="label">
+          <label>任务编号：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="task_num" th:value="${ydMangerTaskVo.task_num}" readonly="readonly" />         
+
+          <div class="tips"></div>
+        </div>
+      </div>
+        <div class="form-group">
+            <div class="label">
+                <label>任务名称：</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" name="task_pname" th:value="${ydMangerTaskVo.task_pname}" readonly="readonly" />
+                <div class="tips"></div>
+            </div>
+        </div>
+     
+      <div class="form-group">
+        <div class="label">
+          <label>任务状态：</label>
+        </div>
+        <div class="field">
+           <select class="input" name="task_state" style="width:200px; line-height:17px;" >
+          	<option  th:value="0" th:selected="${ydMangerTaskVo.task_state==0? 'selected' : 'false'}" >审核中</option>
+          	<option  th:value="1" th:selected="${ydMangerTaskVo.task_state==1? 'selected' : 'false'}" >审核通过</option>
+          	<option  th:value="2" th:selected="${ydMangerTaskVo.task_state==2? 'selected' : 'false'}" >选标中</option>
+          	<option  th:value="3" th:selected="${ydMangerTaskVo.task_state==3? 'selected' : 'false'}" >合同待签订</option>
+          	<option  th:value="4" th:selected="${ydMangerTaskVo.task_state==4? 'selected' : 'false'}" >工作中</option>
+          	<option  th:value="5" th:selected="${ydMangerTaskVo.task_state==5? 'selected' : 'false'}" >待评价</option>
+          	<option  th:value="6" th:selected="${ydMangerTaskVo.task_state==6? 'selected' : 'false'}" >任务完成</option>
+          	<option  th:value="7" th:selected="${ydMangerTaskVo.task_state==7? 'selected' : 'false'}" >申请退款</option>
+          	<option  th:value="8" th:selected="${ydMangerTaskVo.task_state==8? 'selected' : 'false'}" >退款已完成</option>
+          	<option  th:value="9" th:selected="${ydMangerTaskVo.task_state==9? 'selected' : 'false'}" >审核失败</option>
+          </select> 
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+     <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="button" id ="btnSubmit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script type="text/javascript">
+ 	
+ 	 //ajax提交表单
+ 	$("#btnSubmit").click(function(){
+ 		var data = $("#updateTaskForm").serializeArray();     
+ 		var ydMangerTaskVo= {};
+ 		$.each(data, function(k, v) {
+ 			ydMangerTaskVo[ v["name"] ] = v["value"];
+ 		});
+ 			$.ajax({
+ 				url: "/system/updateTaskStateByTaskId",
+ 				data: $("#updateTaskForm").serialize(),
+ 				type: "post",
+ 				success: function(datas) {
+ 					if(datas.msg==200){
+ 						alert("修改成功");
+ 						location.reload();
+ 					};
+ 					if(datas.msg==300){
+ 						alert("当前状态不需要审核");
+ 					};
+ 					if(datas.msg==400){
+ 						alert("修改失败");
+ 					};
+ 					if(datas.msg==100){
+ 						alert("没有查到当前任务信息");
+ 					};
+ 				}
+ 			});
+ 		}); 
+	
+</script>
+</body></html>

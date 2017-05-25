@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta charset="utf-8" name="renderer" content="webkit" />
+<title>功城记</title>
+<link rel="stylesheet" href="/css/public.css" />
+<link rel="stylesheet" href="/css/index.css" />
+</head>
+<body th:with="user=${session.user},task=${taskVo}"
+	th:inline="text">
+	<!--顶部导航-->
+	<div th:include="public/hander"></div>
+
+	<!--发布公告-->
+	<div class="fbgg-box">
+		<div class="fabu">
+			<div class="jindu">
+				<div class="jindutit">任务进度</div>
+				<div class="jindus">
+					<div class="jinduxian">
+						<div></div>
+					</div>
+					<ul>
+						<li th:class="${task.task_state >= 0}?'isok':''"><span>1</span>
+							<p>
+								发布需求<br />2016.09.06
+							</p></li>
+						<li th:class="${task.task_state >= 2}?'isok':''"><span>2</span>
+							<p>
+								选标中<br />-
+							</p>
+							<div></div></li>
+						<li th:class="${task.task_state >= 3}?'isok':''"><span>3</span>
+							<p>
+								合同签订<br />-
+							</p>
+							<div></div></li>
+						<li th:class="${task.task_state == 4}?'isok':''"><span>4</span>
+							<p>
+								服务商工作<br />-
+							</p>
+							<div></div></li>
+						<li th:class="${task.task_state == 5}?'isok':''"><span>5</span>
+							<p>
+								验收并付款<br />-
+							</p>
+							<div></div></li>
+						<li th:class="${task.task_state == 6}?'isok':''"><span>6</span>
+							<p>
+								评价<br />-
+							</p>
+							<div></div></li>
+					</ul>
+				</div>
+			</div>
+			<div class="work-box">
+				<div class="worktit">
+					<a th:href="'/list-fuwushang/xuqiumiaoshu/'+${taskId}">需求描述</a> <a
+						href="###" class="now">合同</a> <a
+						th:href="'/list-fuwushang/fabugonggao/'+${taskId}">工作台</a>
+				</div>
+				<div class="compile-pact">
+				
+				
+					<div class="compile-tit">
+						<i></i>合同签订
+					</div>
+					<div class="list-fuwushang-center">
+						三方合同......
+					</div>
+					<div class="pact-list fuwushang-center">
+						<p class="fuwushang-center-p">托管总金额：<span style="color:red">[[${task.task_host_price}]] ￥</span></p>
+						<p class="fuwushang-center-p" style="margin-bottom:10px">托管资金列表</p>
+						
+						<table class="fuwushang-center-table">
+							<thead>
+								<tr>
+								<th>状态</th>
+								<th>资金</th>
+								<th>说明</th>
+							  </tr>
+							</thead>
+							<tbody>
+								<tr th:each="tpm,niter:${taskPMs}">
+									<td>[[${tpm.tpm_state == 1?'已托管':'暂无'}]]</td>
+									<td>[[${tpm.tpm_money}]]</td>
+									<td>[[${tpm.tpm_desc}]]</td>
+								 </tr>
+							</tbody>
+							
+						</table>
+					</div>
+					<div class="pact-list">
+						<p class="fuwushang-center-p" style="margin:16px 0">上传的合同文件:</p>
+						<ul class="wenjian clear">
+							<li onclick="preview()" style="cursor:pointer;">
+								<i></i>
+								<span>合同文件</span>
+							</li>
+						</ul>
+					</div>
+					<div class="bianji-pact" style="padding-left:147px;">
+						<ul class="tongyi">
+	                         <li>
+	                             <p>甲方（雇主）：[[${user.user_name}]]</p>
+	                             <p>签署日期：[[${#dates.format(date,'yyyy-MM-dd')}]]</p>
+	                             <div class="sftya" ></div>
+
+	                         </li>
+	                         
+	                         <li>
+	                             <p>乙方（服务方）：[[${tenderVo.tender_uname}]]</p>
+	                             <p>签署日期：[[${#dates.format(date,'yyyy-MM-dd')}]]</p>
+	                             <div class="sftyb"  style="display:none;"></div>
+	                         </li>
+                            
+                        </ul>
+					</div>
+					<div class="download">
+						<a href="javascript:;" class="button1">下载打印</a> 
+						<a href="###" class="button2" th:onclick="'submitContractStateMsg('+${user.user_id}+','+${taskId}+',3)'">确认合同</a>
+						<a href="###" class="button2" th:onclick="'submitContractStateMsg('+${user.user_id}+','+${taskId}+',4)'">合同不符</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="popup-mokuaijia dis-none preview-box" style="width:350px;margin-left:-205px;position: fixed;">
+		<div class="guanbi preview-guanbi" ></div>
+		<h4 style="font-weight:normal;">文件预览</h4>
+		<div class="preview-list clear"  th:each="file,niter:${files}" >
+			<a target="_blank" th:href="${file.files_path}" >
+				<i></i>
+				<p>[[${file.files_name}]]</p>	
+			</a>
+		</div>
+		<div class="button">
+			<button type="button" class="preview-guanbi">确定</button>
+		</div>
+	</div>
+	<div class="zhezhao dis-none preview-zhezhao"></div>
+	<!--底部-->
+	<div th:include="public/foot"></div>
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jquery.select.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/bg/task.js"></script>
+<script type="text/javascript" src="/js/bg/contract.js"></script>
+<script src="/laydate/laydate.js"></script>
+<script type="text/javascript">
+	laydate({
+		elem : '#project-start',
+		event : 'focus'
+	});
+	laydate({
+		elem : '#project-end',
+		event : 'focus'
+	});
+	function preview(){
+		$('.preview-box').removeClass('dis-none');
+		$('.preview-zhezhao').removeClass('dis-none');
+		$('.preview-box .preview-guanbi').on('click',function(){
+			$('.preview-box').addClass('dis-none');
+			$('.preview-zhezhao').addClass('dis-none')
+		})
+	}
+	
+</script>
+</html>

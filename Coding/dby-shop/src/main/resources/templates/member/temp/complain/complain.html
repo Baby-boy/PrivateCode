@@ -1,0 +1,71 @@
+<div th:fragment="main" th:remove="tag">
+	<style>
+		.s-list ul li.s-name{
+			width: 438px;
+		}
+		.refund-order-info .goods-img img {
+			width: 100%;
+		}
+		.refund-order-info .goods-img {
+			width: 40px;
+			height: 40px;
+			margin-right: 10px;
+			float: left;
+			display: inline-block;
+		}
+		.refund-order-info .goods-name {
+			color: #0279B9;
+		}
+	</style>
+
+	<div class="d-right" th:inline="text">
+		<ul class="btn-page-top">
+			<li class="active">投诉管理</li>
+		</ul>
+		
+		<div class="s-return pop">
+			<table class="table-list list-table">
+				<thead>
+					<tr>
+						<th class="w500">投诉商品</th>
+						<th>投诉主题</th>
+						<th>投诉时间</th>
+						<th>投诉状态</th>
+						<th class="w80">操作</th>
+					</tr>
+				</thead>
+				<tbody th:each="item:${data}">
+					<tr>
+						<td class="refund-order-info">
+							<span class="goods-img">
+								<img th:src="${@_url.goods()}+${item.goods_cover}" />
+							</span>
+							<b class="title goods-name">[[${item.goods_name}]]</b><br />
+							<b class="title">商家：</b>[[${item.accused_name}]]
+						</td>
+						<td th:text="${item.complain_subject_content}"></td>
+						<td th:text="${item.complain_datetime_text}"></td>
+						<td th:switch="${item.complain_state}">
+							<span th:case="1">新投诉</span>
+							<span th:case="2">投诉通过</span>
+							<span th:case="3">被投诉人已申诉</span>
+							<span th:case="4">提交仲裁</span>
+							<span th:case="9">已关闭</span>
+						</td>
+						<td>
+							<a href="javascript:;" class="btn-member-complain-detail" th:attr="data-complain-id=${item.complain_id}">查看</a> || 
+							<a href="javascript:;" class="enjoy btn-operate-alert" data-func="memberComplainDelete" th:attr="data-id=${item.complain_id}">取消</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- 分页 -->
+		<div class="pagination"></div>
+	</div>
+	<script th:inline="javascript">
+		$(function() {
+			pagination(".pagination", [[${totalPage}]], [[${p}]], "memberComplain");
+		});
+	</script>
+</div>

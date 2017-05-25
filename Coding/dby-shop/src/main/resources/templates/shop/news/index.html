@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')},
+	navs=${@_nav.getByType('0')}
+	">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: home('')" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(maintenance)" th:remove="tag"></div>
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		
+		<!-- 中间内容 -->
+		<div id="container">
+			
+			<div class="c2c-notice">
+				
+				<div class="notice-wrap left-notice">
+					<div class="search">
+						<form action="/news/notice">
+							<label>商城公告</label>
+							<input type="text" name="article_title" th:value="${article_title_n}" placeholder="" />
+							<input type="submit" class="btn-search btn-search-notice" value="搜 索" />
+						</form>
+					</div>
+					<div class="notice-head">
+						<div class="title">标题</div>
+						<div class="time">时间</div>
+					</div>
+					<div class="notice-list">
+						<ul th:inline="text">
+							<li th:each="item:${dataNotice.data}"><a target="_blank" th:href="@{/news/}+${item.article_id}" th:text="${item.article_title}"></a><span th:inline="text">[[${ #calendars.format(item.article_time,'yyyy-MM-dd hh:mm:ss') }]]</span></li>
+						</ul>
+					</div>
+					<div class="pagination pagination1"></div>
+				</div>
+				
+				<div class="notice-wrap right-notice">
+					<div class="search">
+						<form action="/news/sales">
+							<label>活动促销</label>
+							<input type="text" name="article_title" th:value="${article_title_s}" placeholder="" />
+							<input type="submit" class="btn-search btn-search-sales" value="搜 索" />
+						</form>
+					</div>
+					<div class="notice-head">
+						<div class="title">标题</div>
+						<div class="time">时间</div>
+					</div>
+					<div class="notice-list">
+						<ul>
+							<li th:each="item:${dataSales.data}"><a target="_blank" th:href="@{/news/}+${item.article_id}" th:text="${item.article_title}"></a><span th:inline="text">[[${ #calendars.format(item.article_time,'yyyy-MM-dd hh:mm:ss') }]]</span></li>
+						</ul>
+					</div>
+					<div class="pagination pagination2"></div>
+				</div>
+			</div>
+			
+		</div>
+		<!-- 中间内容结束 -->
+		
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		<script type="text/javascript" th:src="@{/assets/js/jquery.page.link.js}"></script>
+		
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			$(function(){
+				$("body").on("click",".help-center .left dl dd",function(){
+					$(this).addClass("active").siblings().removeClass("active");;
+				});
+				
+				$("body").on("click",".help-center .left .first-menu",function(){
+					if( !$(this).hasClass("active") ){
+						$(this).parents("ul").find("li .first-menu").removeClass("active");
+						$(this).parents("ul").find("li dl").slideUp();
+						$(this).addClass("active").next().slideDown();
+						$(".help-center .left dl dd").removeClass("active");
+					}
+				});
+				// 分页1
+				$(".pagination1").on("click", "a", function(e) {
+					e.preventDefault();
+					var aTitle = $(this).parents(".notice-wrap").find("input[name='article_title']").val();
+					
+					if ( aTitle == "" ) {
+						var href = $(this).attr("href");
+						href = href.replace("article_title", "");
+						window.location.href = "/news/notice"+href;
+						return;
+					}
+					window.location.href = "/news/notice"+$(this).attr("href");
+				});
+				// 分页2
+				$(".pagination2").on("click", "a", function(e) {
+					e.preventDefault();
+					var aTitle = $(this).parents(".notice-wrap").find("input[name='article_title']").val();
+					
+					if ( aTitle == "" ) {
+						var href = $(this).attr("href");
+						href = href.replace("article_title", "");
+						window.location.href = "/news/sales"+href;
+						return;
+					}
+					window.location.href = "/news/sales"+$(this).attr("href");
+				});
+				
+				// 分页
+				pagination(".pagination1", [[${dataNotice.totalPage}]], [[${np}]], "newsLists");
+				
+				pagination(".pagination2", [[${dataSales.totalPage}]], [[${sp}]], "newsLists");
+				
+			});
+			/*]]>*/
+		</script>
+	</body>
+</html>

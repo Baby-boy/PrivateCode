@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperSaleUserTop">
+
+	<sql id="mySale">
+		<trim prefix="where" suffixOverrides="and">
+			yd_sale_user_top.user_id = #{user_id}
+		  	<if test="state eq 1">
+		  		AND
+					yd_depot.`depot_time1` <![CDATA[ <= ]]> now()
+				AND
+					yd_depot.`depot_time2` <![CDATA[ >= ]]> now()
+		  	</if>
+			<if test="state eq 2">
+		  		 AND
+					yd_depot.`depot_time2` <![CDATA[ < ]]> now()
+		  	</if>
+		</trim>
+	</sql>
+	
+	<select id="index" resultMap="YdWebMapperSaleUserTopList">
+		SELECT
+			yd_sale_user_top.`depot_id`,yd_goods.`goods_name`, yd_depot.`depot_time1`, yd_depot.`depot_time2`, yd_depot.`depot_price4`, yd_sale_user_top.`money`, yd_depot.`depot_flag3`
+		FROM
+			yd_sale_user_top
+		LEFT JOIN
+			yd_depot
+		ON
+			yd_sale_user_top.`depot_id` = yd_depot.`depot_id`
+		LEFT JOIN
+			yd_goods
+		ON
+			yd_depot.`depot_id` = yd_goods.`goods_id`
+		<include refid="mySale"></include>
+	</select>
+	
+	<select id="total" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			yd_sale_user_top
+		LEFT JOIN
+			yd_depot
+		ON
+			yd_sale_user_top.`depot_id` = yd_depot.`depot_id`
+		<include refid="mySale"></include>
+	</select>
+	
+	<resultMap id="YdWebMapperSaleUserTopList" type="java.util.HashMap">
+		<result property="depotId" column="depot_id"/>
+		<result property="goodsName" column="goods_name"/>
+		<result property="depotTime1" column="depot_time1"/>
+		<result property="depotTime2" column="depot_time2"/>
+		<result property="depotPrice4" column="depot_price4"/>
+		<result property="money" column="money"/>
+		<result property="depotFlag" column="depot_flag"/>
+	</resultMap>
+</mapper>

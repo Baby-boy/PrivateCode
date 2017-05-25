@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.system.mapper.YdMangerMapperSystemTaskSize">
+	<!-- 查询所有的任务规模 -->
+	<select id="queryAllTaskSize" resultType="com.yd.gcj.entity.YdMangerDictionaryData">
+		select ydd.* from yd_dictionarydata ydd
+		where ydd.dict_value = 1055
+		<if test="dictdata_value !=null and dictdata_value != ''">
+			and dictdata_value like  CONCAT(CONCAT('%', #{dictdata_value, jdbcType=VARCHAR}),'%')
+		</if>
+	</select>
+	
+	<select id="queryTaskSizeByDictId" resultType="com.yd.gcj.entity.YdMangerDictionaryData">
+		select * from yd_dictionarydata 
+		where dict_id = #{dict_id}
+	</select>
+	
+	<delete id="deleteTaskSzie">
+		delete from yd_dictionarydata 
+		
+		where dict_id = #{dict_id}
+	</delete>
+	
+	<update id="updateTaskSize" parameterType="com.yd.gcj.entity.YdMangerDictionaryData" >
+		update yd_dictionarydata 
+		<set>
+			<trim>
+				dictdata_value = #{dictdata_value}
+			</trim>
+		</set>
+		where dict_id = #{dict_id}
+	</update>
+	
+	<insert id="addTaskSize" parameterType="com.yd.gcj.entity.YdMangerDictionaryData" >
+		insert into yd_dictionarydata(dict_value,dictdata_name,dictdata_value)
+		values(1055,#{dictdata_name},#{dictdata_value})
+	</insert>
+</mapper>

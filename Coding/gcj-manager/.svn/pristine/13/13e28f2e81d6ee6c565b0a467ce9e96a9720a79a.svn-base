@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta charset="utf-8" name="renderer" content="webkit" />
+<title>功城记</title>
+<link rel="stylesheet" href="/css/public.css" />
+<link rel="stylesheet" href="/css/index.css" />
+</head>
+<body th:with="user=${session.user},task=${taskDetail}" th:inline="text">
+	<!--顶部导航-->
+	<div th:include="public/hander"></div>
+
+	<!--发布公告-->
+	<div class="fbgg-box">
+		<div class="fabu">
+			<div class="jindu">
+				<div class="jindutit">任务进度</div>
+				<div class="jindus">
+					<div class="jinduxian">
+						<div></div>
+					</div>
+					<ul>
+						<li th:class="${task.task_state >= 0}?'isok':''"><span>1</span>
+							<p>
+								申请任务<br />
+							</p></li>
+						<li th:class="${task.task_state >= 1}?'isok':''"><span>2</span>
+							<p>
+								中标<br />
+							</p>
+							<div></div></li>
+						<li th:class="${task.task_state >= 2}?'isok':''"><span>3</span>
+							<p>
+								签订合同<br />
+							</p>
+							<div></div></li>
+						<li th:class="${task.task_state >= 3}?'isok':''"><span>4</span>
+							<p>
+								进行工作<br />
+							</p>
+							<div></div></li>
+						<li th:class="${task.task_state >= 4}?'isok':''"><span>5</span>
+							<p>雇主验收并付款</p>
+							<div></div></li>
+						<li th:class="${task.task_state >= 5}?'isok':''"><span>6</span>
+							<p>评价</p>
+							<div></div></li>
+					</ul>
+				</div>
+			</div>
+			<div class="work-box">
+				<div class="worktit">
+					<a th:href="'/list-fuwushang/xuqiumiaoshu/'+${taskId}">需求描述</a> <a
+						th:href="@{/list-fuwushang/hetong/}+${taskId}">合同</a> <a
+						href="###" class="now">工作台</a>
+				</div>
+				<h4>工作文件夹&emsp;&emsp;<span style="cursor:pointer;" th:onclick="'addFolder('+${taskId}+')'">新建文件夹</span></h4>
+				<ul class="wenjian clear">
+					<li th:each="folder,niter:${folders}"><i></i> <span>[[${folder.f_name}]]</span>
+						<!-- <a th:each="file,niter:${folder.files}" th:href="${file.files_path}">[[${file.files_name}]]</a> -->
+					</li>
+					<!-- <li>
+                    <i></i>
+                    <span>01封皮目录</span>
+                </li> -->
+				</ul>
+				<h4>工作跟进区</h4>
+				
+				<div class="mulu1">
+					<i></i><span class="addmokuai">付款跟进</span>
+				</div>
+				<div class="mulu1-list mulu2-list clear">
+					<ul>
+						<li class="two" th:each="taskpm,niter:${taskPM}">
+							<div class="one"></div> <i></i>
+							<div class="mulurenwu">
+								<p th:switch="${taskpm.tpm_state}">
+									状态：	
+									<span th:case="'0'">资金未进行托管</span>
+									<span th:case="'1'">资金托管申请中</span>
+									<span th:case="'2'">资金已托管</span>
+									<span th:case="'3'">资金托管申请已被拒绝，原因：<span style="background: red;">[[${taskpm.tpm_msg}]]</span></span>
+									<span th:case="'4'">节点已完成，佣金支付申请中</span>
+									<span th:case="'5'">项目已确认，节点佣金支付已完成</span>
+									<span th:case="'6'">佣金支付申请已被拒绝，原因：<span style="background: red;">[[${taskpm.tpm_msg}]]</span></span>
+								</p>
+								<p>描述：[[${taskpm.tpm_desc}]]</p>
+								<p>节点佣金：<span style="color:red;">[[${taskpm.tpm_money}]]</span> ¥</p>
+								<b class="b2"></b>
+							</div>
+							<button type="button" th:if="${taskpm.tpm_state == 0}" th:onclick="'stgsq('+${user.user_id}+','+${task.task_id}+','+${taskpm.tpm_id	}+')'">申请托管资金</button>
+							<button type="button" th:if="${taskpm.tpm_state == 1}">托管申请中</button>
+							<button type="button" th:if="${taskpm.tpm_state == 2}" th:onclick="'isFK('+${taskpm.tpm_id}+')'">节点完成，申请付款</button>
+							<button type="button" th:if="${taskpm.tpm_state == 3}" style="background: #ccc;">雇主拒绝托管佣金</button>
+							<button type="button" th:if="${taskpm.tpm_state == 4}">付款申请中</button>
+							<button type="button" th:if="${taskpm.tpm_state == 5}">完成付款</button>
+							<button type="button" th:if="${taskpm.tpm_state == 6}" th:onclick="'isFK('+${taskpm.tpm_id}+')'" style="background: red;">拒绝支付，重新申请佣金支付</button>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="mulu1">
+					<i></i><span class="addPaying">项目跟进</span>
+				</div>
+				<div class="mulu1-list clear">
+					<div class="two-box" th:each="task,niter:${taskModels}">
+						<div class="two">
+							<div class="one">
+								<div class="time">
+									<p>计划时间</p>
+									<p>[[${#dates.format(task.taskmd_ptime,'yyyy/MM/dd')}]]</p>
+								</div>
+								<div class="time">
+									<p>预警时间</p>
+									<p>[[${#dates.format(task.taskmd_etime,'yyyy/MM/dd')}]]</p>
+								</div>
+							</div>
+							<i></i>
+							<div class="mulurenwu">
+								<p>[[${task.taskmd_title}]]</p>
+								<p>
+									进行中...<!-- <span>80%</span> -->
+								</p>
+								<b class="b1"></b>
+							</div>
+							<p class="miaoshu1">任务描述</p>
+							<p class="miaoshu2">[[${task.taskmd_desc}]]</p>
+							<button class="button-tk">检查确认</button>
+						</div>
+					</div>
+
+					<div class="three">
+						<div class="gg-title">
+							<i></i>公告/通告
+						</div>
+						<div class="gonggao">雇主：请大家加快进度</div>
+						<button type="button">发布公告</button>
+					</div>
+				</div>
+				
+				<p class="mulubom">
+					<span>项目金额已支付，请您对服务商进行评价</span><a href="javascript:;">退款/维权申请>></a>
+				</p>
+				<div th:if="${task.task_state == 5}" class="pingjia">评价项目负责人，获取积分</div>
+			</div>
+		</div>
+	</div>
+	<!--底部-->
+	<div th:include="public/foot"></div>
+
+	<div class="zhezhao dis-none"></div>
+	<div class="fbgg-popup dis-none">
+		<div class="guanbi"></div>
+		<h4>发布公告</h4>
+		<textarea cols="30" rows="10" class="contents"></textarea>
+		<button type="button" th:onclick="'fabugonggao('+${taskId}+')'">发送</button>
+	</div>
+	<div class="refund-box dis-none">
+		<div class="guanbi"></div>
+		<h4>退款/维权申请</h4>
+		<p>选择原因</p>
+		<select name="" id="" class="refund-se reason">
+			<option value="其他原因">选择原因</option>
+			<option value="双方协商">双方协商</option>
+			<option value="其他原因">其他原因</option>
+		</select>
+		<p>详情描述</p>
+		<textarea cols="30" rows="10" placeholder="详情描述" class="content"></textarea>
+		<div class="uploading">
+			<i></i>
+			<div class="input">
+				<input type="file" />上传>>
+			</div>
+			<span>聊天记录等信息，方便客服人员了解详情</span>
+			<button type="button" th:onclick="'refund('+${taskId}+')'">申请</button>
+		</div>
+	</div>
+	<div class="popup-queren dis-none">
+		<div class="guanbi"></div>
+		<h4>检查确认</h4>
+		<textarea cols="30" rows="10"></textarea>
+		<div class="button">
+			<button type="submit">通过</button>
+			<button type="button">拒绝</button>
+		</div>
+	</div>
+	<div class="popup-evaluate dis-none">
+		<div class="guanbi"></div>
+		<h4>评价</h4>
+		<div class="xingji">
+			<span><input type="radio" name="ping" class="svaluation"
+				value="0" checked="checked" />好评</span> <span><input type="radio"
+				name="ping" class="svaluation" value="1" />中评</span> <span><input
+				type="radio" name="ping" class="svaluation" value="2" />差评</span>
+		</div>
+		<p>标签选择</p>
+		<select name="" id="" class="refund-se spcsReason">
+			<option value="其他">选择原因</option>
+			<option value="雇主态度差">雇主态度差</option>
+			<option value="工作不在合同范围内">工作不在合同范围内</option>
+			<option value="其他">其他</option>
+		</select>
+		<p>评价内容</p>
+		<textarea cols="30" rows="10" placeholder="详情描述" class="sContents"></textarea>
+		<div class="button">
+			<button type="button" th:onclick="'spcs('+${taskId}+')'">确定</button>
+		</div>
+	</div>
+	<div class="popup-shenqing dis-none">
+		<div class="guanbi"></div>
+		<h4>提交申请</h4>
+		<p>是否提交完成任务待雇主支付款项申请！</p>
+		<div class="button">
+			<button type="button" th:onclick="'sqfk('+${user.user_id}+','+${task.task_id}+')'">确认提交</button>
+			<button type="button">取消</button>
+		</div>
+	</div>
+
+	<div class="popup-fukuanjia dis-none">
+		<div class="guanbi"></div>
+		<h4>增加付款</h4>
+		<p>模块名称</p>
+		<input type="text" placeholder="请输入模块名称" class="yanzheng1 taskPmName" />
+		<p>模块金额</p>
+		<input type="text" placeholder="请输入模块金额" class="yanzheng1 taskPmPrice" />
+		<div class="button">
+			<button type="button" th:onclick="'addTaskPM('+${taskId}+')'">确定</button>
+		</div>
+	</div>
+	<div class="popup-mokuaijia dis-none">
+		<div class="guanbi"></div>
+		<h4>增加模块</h4>
+		<p>模块名称</p>
+		<input type="text" placeholder="请输入模块名称" class="yanzheng1 taskName" />
+		<p>模块金额</p>
+		<input type="text" placeholder="请输入模块金额" class="yanzheng1 taskPrice" />
+		<div class="time">
+			<div class="times">
+				<span>预估时间</span> <input id="yugu" type="text"
+					class="laydate-icon taskPtime" />
+			</div>
+			<div class="times">
+				<span>预警时间</span> <input id="yujing" type="text"
+					class="laydate-icon taskEtime" />
+			</div>
+			<div class="tishi">系统会对您填写的预警时间来预警，通红、黄、绿三种颜色来表示</div>
+		</div>
+		<p>模块要求</p>
+		<textarea cols="30" rows="10" placeholder="详情描述" class="taskDesc"></textarea>
+		<div class="button">
+			<button type="button" th:onclick="'addModel('+${taskId}+')'">确定</button>
+		</div>
+	</div>
+
+	<div class="popup-zhifu dis-none">
+		<div class="guanbi"></div>
+		<h4>付款选择</h4>
+		<p>
+			还需支付 <span>10,000 ¥</span>！
+		</p>
+		<div class="zhifu-fs">
+			<a href="javascript:;" class="fangshi1"></a> <a href="javascript:;"
+				class="fangshi2"></a> <a href="javascript:;" class="fangshi3"></a>
+		</div>
+		<div class="button">
+			<button type="button">返回上一步</button>
+		</div>
+	</div>
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jquery.select.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+<script src="/js/chajian/checkbox.js"></script>
+<script src="/laydate/laydate.js"></script>
+<script src="/js/list/fuwushang-work.js"></script>
+
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/bg/taskModel.js"></script>
+<script type="text/javascript" src="/js/bg/task.js"></script>
+
+</html>

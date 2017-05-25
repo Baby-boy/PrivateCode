@@ -1,0 +1,12 @@
+<div th:fragment="main" th:remove="tag">
+	<ul>
+		<li th:each="item:${dataGoods}" th:inline="text">
+			<a th:href="'/g/goods/'+${item.depot_id}" target="_blank">
+				<div class="img"><img th:src="${@_url.goods()}+${item.goods_cover}+@{?x-oss-process=image/resize,m_pad,h_234,w_234}" /></div>
+				<div class="title" th:text="${item.goods_name}"></div>
+				<!-- <div class="intro">全新</div> -->
+				<div class="price" th:text="'￥'+${item.depot_price}"></div>
+			</a>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<title>找回密码</title>
+<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+<link rel="stylesheet" th:href="@{/assets/shop/css/index.css}" />
+<link rel="stylesheet" th:href="@{/assets/shop/css/member.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/yd-tipbox.css}" />
+</head>
+
+
+<body th:with="searchkeys=${@_dict.many('web_search_key')}">
+	<!--头部-->
+	<div class="Z-Login_header">
+		<div class="Z-Login_box">
+			<div class="Z-logo">
+				<a href="/"><img th:src="${@_url.goods()}+${@_redis.get('site_logo')}" /></a>
+			</div>
+			<span class="header-title-">找回密码</span>
+
+		</div>
+	</div>
+
+	<!--内容-->
+	<div class="Z-content_zhuce">
+		<div class="Z-contentBox">
+			<!-- 普通用户注册 -->
+			<div class="reg-section">
+				<div class="Z-zhanghu">
+					<input type="hidden" id="member_token" />
+					<div class="Z-zhanghu_title">找回密码</div>
+					<ul>
+						<li>
+							<div class="Z-con_title">手机号码</div> <input type="text" placeholder="请输入您的手机号码" id="member_mobile" />
+						</li>
+						<li class="Z-twoinput">
+							<div class="Z-con_title">短信验证码</div> <input type="text" placeholder="手机验证码" id="member_salt" /> <a href="javascript:void(0);" id="getMobileId"
+							onclick="forgetPasswordSms($(this))">获取短信验证码</a>
+							<div class="send_code" onclick="forgetPasswordSms( $('#getMobileId') )" style="display: none;">
+								<label class="obtain" style="display: none;">重新获取</label> <label class="repeat" style="display: block;"> <!-- 重新发送 --> <span class="count_down">已发送(60s)</span>
+								</label>
+							</div>
+						</li>
+						<li>
+							<div class="Z-con_title">设置密码</div> <input type="password" placeholder="建议至少使用两种字符组合" id="member_password" />
+						</li>
+						<li>
+							<div class="Z-con_title">确认密码</div> <input type="password" placeholder="请再次输入密码" id="member_repeat_password" />
+						</li>
+						<li class="Z-firvinput">
+							<div class="Z-con_title"></div> <input type="button" value="立即修改" onclick="forgetPassword($(this))" />
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 底部 -->
+
+
+	<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+	<script type="text/javascript" th:src="@{/assets/shop/js/jquery-1.11.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/common.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/yd-tipbox-min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/store+json2.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/member/js/member.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/member/js/member.base.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/member/js/member.store.js}"></script>
+
+
+	<script type="text/javascript" th:src="@{/assets/register.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/member/register.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/functions.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/seller/js/store.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/upload/uploadnew.js}"></script>
+	
+	<yd:ajax key="forgetPasswordSms" value="forgetPasswordSms_" />
+	<yd:ajax key="forgetPassword" value="forgetPassword_" />
+
+</body>
+</html>

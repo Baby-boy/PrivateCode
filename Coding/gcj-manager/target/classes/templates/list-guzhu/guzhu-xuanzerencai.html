@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body  th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<div class="select-persons">
+    <div class="select">
+        <div class="title">
+            <span>选择任务</span>
+            <div class="guzhu-check">
+                <a href="###" class="now">企业用户</a>
+                <a th:href="'/list-guzhu/guzhu-gongzuoshi/'+${taskId}">个人工作室</a>
+            </div>
+        </div>
+        <ul class="rencai">
+        
+            <li th:each="tender,niter:${tenderVos}">
+                <div class="img">
+                    <img src="" alt=""/>
+                </div>
+                <div class="rencais">
+                    <p class="p1"><a th:href="'/list-guzhu/guzhu-guanzhu-xq/'+${tender.tender_id}">[[${tender.tender_uine == null?'':tender.tender_uine}]]</a><i></i></p>
+                    <p class="p2"><i></i><span>[[${tender.tender_uname}]]</span></p>
+                </div>
+                <div class="input">
+                    <a  th:href="'/list-guzhu/guzhu-guanzhu-xq/'+${tender.tender_id}" class="btn-1">查看申请资料</a>
+                    <a href="###" class="btn-2" th:data="${tender.tender_state}" th:onclick="'selectionE('+${taskId}+','+${tender.tender_id}+','+${tender.tender_uid}+',1,this)'">[[${tender.tender_state}==1?(${tender.tender_type}==1?'取消选定':'取消选定'):'选定']]</a>
+                </div>
+            </li>
+        </ul>
+        <a href="/people/people" class="yaoqing">邀请</a>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+<div class="zhezhao dis-none"></div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jquery.select.js"></script>
+<script type="text/javascript" src="/js/chajian/jqkuozhan.js"></script>
+<script>
+    $(".refund-box select").select();
+</script>
+<script src="/js/common.js"></script>
+
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/bg/tender.js"></script>
+</html>

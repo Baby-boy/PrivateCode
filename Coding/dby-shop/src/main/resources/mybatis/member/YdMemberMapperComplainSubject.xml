@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperComplainSubject">
+
+	
+	<select id="lists" resultType="com.yd.dby.c.member.entity.YdComplainSubject">
+		SELECT
+			complain_subject_id, complain_subject_content, complain_subject_desc
+		FROM
+			yd_complain_subject
+		WHERE
+			complain_subject_state = 1
+	</select>
+</mapper>

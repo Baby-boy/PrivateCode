@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.system.mapper.YdMangerMapperSystemTender">
+	<!-- 根据task_id查询项目任务所对应的投标信息 -->
+	<select id="queryTenderByTaskId" resultType="com.yd.gcj.entity.vo.YdMangerTenderVo" >
+		SELECT yd_tender.*, yt.task_pname,yu.user_name FROM yd_tender 
+			LEFT JOIN yd_task yt ON yd_tender.tender_tid = yt.task_id
+			LEFT JOIN yd_user yu ON yd_tender.tender_uid = yu.user_id 
+			WHERE tender_tid = #{task_id}
+			<if test="tender_pname !=null and tender_pname !=''">
+				and tender_pname like  CONCAT(CONCAT('%', #{tender_pname, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test="tender_uphone !=null and tender_uphone !=''">
+				and tender_uphone like  CONCAT(CONCAT('%', #{tender_uphone, jdbcType=VARCHAR}),'%')
+			</if>
+	</select>
+	
+	<select id="queryTenderByCondition" resultType="com.yd.gcj.entity.vo.YdMangerTenderVo" >
+		SELECT yd_tender.*, yt.task_pname,yu.user_name FROM yd_tender 
+			LEFT JOIN yd_task yt ON yd_tender.tender_tid = yt.task_id
+			LEFT JOIN yd_user yu ON yd_tender.tender_uid = yu.user_id 
+			WHERE tender_tid = #{task_id}
+			<if test="tender_uname !=null and tender_uname !=''">
+				and tender_uname like  CONCAT(CONCAT('%', #{tender_uname, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test="tender_uphone !=null and tender_uphone !=''">
+				and tender_uphone like  CONCAT(CONCAT('%', #{tender_uphone, jdbcType=VARCHAR}),'%')
+			</if>
+	</select>
+	
+	<select id="queryTenderByTenderId" resultType="com.yd.gcj.entity.vo.YdMangerTenderVo" >
+		SELECT yd_tender.*,yt.task_pname,yu.user_name
+			FROM yd_tender 
+			LEFT JOIN yd_task yt ON yd_tender.tender_tid = yt.task_id
+			LEFT JOIN yd_user yu ON yd_tender.tender_uid = yu.user_id 
+			WHERE tender_id = #{tender_id}
+	</select>
+</mapper>

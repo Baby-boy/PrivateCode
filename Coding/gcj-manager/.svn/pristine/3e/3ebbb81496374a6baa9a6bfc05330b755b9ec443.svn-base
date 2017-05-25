@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title></title>  
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>
+    <script src="/system/js/jquery.page.js"></script>
+</head>
+<body>
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder">个人充值记录</strong></div>
+    <div class="padding border-bottom">
+
+	<form method="get" action="/system/queryUserRechargeRecord" th:inline="text" id="queryForm" style="display: inline-block;float: left;" >
+      <ul class="search">
+         <li>
+            <!--<button type="button"  class="button border-green" onclick="javascript:location.href='/system/addadmin'">添加管理员</button>-->
+            <input type="text" placeholder="请输入用户姓名" name="user_name" th:value="${user_name}" class="input" style="width:250px; line-height:17px;display:inline-block" />
+            <input type="text" placeholder="请输入用户手机号" name="user_phone" th:value="${user_phone}" class="input" style="width:250px; line-height:17px;display:inline-block" />
+        </li> 
+        <li>
+            <button type="submit"  class="button border-green" id="adsubmit" >查询</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+        </li>
+      </ul>
+      </form>
+	<form action="/system/excelExport" id="exportForm" >
+		<input type="hidden" name="user_name" th:value="${user_name}" />
+		<input type="hidden" name="user_phone" th:value="${user_phone}" />
+		<button type="submit"  class="button border-green" id="exsubmit" >导出报表</button>
+	</form>
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th>序号</th>
+        <th>用户ID</th>
+        <th>用户姓名</th>
+        <th>用户昵称</th>
+        <th>用户手机号</th>
+        <th>用户邮箱</th>
+        <th>充值金额</th>
+        <th>账户总金额</th>
+        <th>银行名称/支付宝/微信</th>
+        <th>充值账号</th>
+        <th>类型</th>
+        <th>充值日期</th>
+      </tr>
+
+        <tr th:each="bankTRVoList,obj:${bankTRVoList}" >
+<!--           <td><input type="hidden" name="btr_id" th:text="${bankTRVoList.btr_id}" /></td>  -->
+          <td th:text="${obj.count}"></td>
+          <td th:text="${bankTRVoList.user_id}"></td>
+          <td th:text="${bankTRVoList.user_name}"></td>
+          <td th:text="${bankTRVoList.nickname}"></td>
+          <td th:text="${bankTRVoList.user_phone}"></td>
+          <td th:text="${bankTRVoList.user_email}"></td>
+          <td th:text="${bankTRVoList.btr_price}"></td>
+          <td th:text="${bankTRVoList.user_cprice}"></td>
+          <td th:text="${bankTRVoList.bank_name}"></td>
+          <td th:text="${bankTRVoList.btr_account}"></td>
+          <td th:text="${bankTRVoList.btrType}"></td>
+          <td th:text="${#calendars.format(bankTRVoList.btr_create_time,'yyyy-MM-dd hh:mm:ss')}"></td>  
+          
+        </tr>
+      <tr>
+      </tr>
+    </table>
+  </div>
+<div class="pagination thePage">
+ <ul>
+　</ul>
+</div>
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/	
+  $(function() {
+	 pagination(".pagination ul",[[${totalPage}]],[[${p}]]);
+ }); 
+ 
+function pagination(node, totalPage, cpage) {
+	$(node).createPage({
+        pageCount: totalPage,
+        current: cpage,
+        backFn:function(p){
+            //单击回调方法，p是当前页码
+        }
+    });
+}
+
+//条件搜索
+$('#adsubmit').click(function(){
+	$('#queryForm').submit();
+});
+//条件搜索
+$('#exsubmit').click(function(){
+	$
+});
+/*]]>*/
+</script>
+</body></html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit" />
+<title></title>
+<link rel="stylesheet" href="/system/css/pintuer.css" />
+<link rel="stylesheet" href="system/css/admin.css" />
+<script src="/system/js/jquery.js"></script>
+<script src="/system/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>服务商详情</strong></div>
+  <div class="body-content"  style="margin-top: 1%;">
+    <form method="post" class="form-x" action="" th:inlie="text" >  
+      <div class="form-group">
+        <div class="label">
+          <label>用户名称：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.user_account}" name="user_account" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+        
+        <div class="label">
+          <label>用户等级：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.level}" name="user_level" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <!-- <div class="form-group">
+        <div class="label">
+          <label>用户性别：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.user_sex==1? '男' : '女' }" name="user_sex" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div> -->
+      
+      <div class="form-group">
+        <div class="label">
+          <label>用户姓名：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.user_name}" name="user_name" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+        
+        <div class="label">
+          <label>用户昵称：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.user_nickname}" name="user_nickname" readonly="readonly"  />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>手机号：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.user_phone}" name="user_phone" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+        
+        <div class="label">
+          <label>邮箱：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.user_email}" name="user_email" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>省市区：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.user_pca}" name="user_pca" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+        
+        <div class="label">
+          <label>详细地址：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.user_address}" name="user_adress" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+      	<div class="label">
+          <label>公司名称：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.user_ename}" name="user_ename" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      
+        <div class="label">
+          <label>好评数：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.user_pcn}" name="user_pcn" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>公司认证状态：</label>
+        </div>
+        <div class="field-task">
+           <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.cstate}" name="user_cstate" readonly="readonly" /> 
+          <div class="tips"></div>
+        </div>
+        
+        <div class="label">
+          <label>技能认证状态：</label>
+        </div>
+        <div class="field-task">
+           <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.lstate}" name="user_skillstate" readonly="readonly" /> 
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>用户类型：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.type}" name="user_type" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+        
+        <div class="label">
+          <label>接单类型：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.otype}" name="user_otype" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>完成任务数量：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.user_taskcount}" name="user_taskcount" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+        
+        <div class="label">
+          <label>个人简历：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.user_resume}" name="user_resum" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>关注数量：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.attentionNum}" name="attentionNum" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+        
+        <div class="label">
+          <label>被关注数量：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.BeConcernedNum}" name="BeConcernedNum" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label>创建时间：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${#calendars.format(ydMangerUser.user_create_time,'yyyy-MM-dd hh:mm:ss')}" name="user_create_time" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+        
+        <div class="label">
+          <label>修改时间：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${#calendars.format(ydMangerUser.user_update_time,'yyyy-MM-dd hh:mm:ss')}" name="user_update_time" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label>是否冻结：</label>
+        </div>
+        <div class="field-task">
+          <input type="text" class="input w50" style="width:400px" th:value="${ydMangerUser.user_isdel}" name="user_isdel" readonly="readonly" />
+          <div class="tips"></div>
+        </div>
+      </div>
+            
+      <div class="form-group">
+        <div class="label">
+        </div>
+        <div class="field-task"  style="margin-top: 20px;margin-left: 26%;">
+          <a class="button border-red" href="javascript:void(0)" th:attr="user_id=${ydMangerUser.user_id}" onclick="return updateUser( $(this) )">冻结</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a class="button border-red" href="javascript:void(0)" th:attr="user_id=${ydMangerUser.user_id}" onclick="return  renewUser( $(this) )">恢复</a>
+        </div>
+      </div>
+      
+    </form>
+  </div>
+</div>
+
+</body>
+<script type="text/javascript">
+//冻结指定的服务商
+function updateUser(me){
+	if(confirm("您确定要冻结此用户吗?")){
+		 $.post("updateUserByUserId",{"user_id":me.attr("user_id")},function(data){
+			if(data.msg==200){
+				alert("冻结此用户成功");
+				location.reload();
+			};
+			if(dat.msg==100){
+				alert("用户不存在")
+			};
+			if(data.msg==300){
+				alert("冻结此用户失败");
+			};
+		}); 
+		 
+	}
+};
+
+//恢复冻结的用户
+function renewUser(me){
+	if(confirm("您确定要恢复冻结的用户吗?")){
+		 $.post("renewUserByUserId",{"user_id":me.attr("user_id")},function(data){
+			if(data.msg==200){
+				alert("恢复成功");
+				location.reload();
+			};
+			if(data.msg==100){
+				alert("用户不存在")
+			};
+			if(data.msg==300){
+				alert("恢复失败");
+			};
+		}); 
+		 
+	}
+};
+</script>
+
+</html>

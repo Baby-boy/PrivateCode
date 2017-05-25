@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>普通用户信息管理</title>
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <link rel="stylesheet" href="/system/layer/skin/layer.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>
+    <script src="/system//layer/layer.min.js"></script>
+    <script src="/system/js/jquery.page.js"></script>
+</head>
+<body>
+<form method="get" action="/system/queryAllServer" th:inline="text" id="queryForm" >
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder">服务商信息管理</strong></div>
+    <div class="padding border-bottom">
+
+      <ul class="search">
+        <li>
+            <input type="text" placeholder="请输入用户姓名" name="user_name" th:value="${user_name}" class="input" style="width:250px; line-height:17px;display:inline-block" />
+            <input type="hidden" id="userVerified" name="user_verified" value=""/>
+            <input type="hidden" id="userSkillstate" name="user_skillstate" value=""/>
+            <input type="hidden" id="userCstate" name="user_cstate" value=""/>
+        </li>
+        <!-- <li>
+            <select name="user_cstate" class="input" style="width:200px; line-height:17px;" onchange="changesearch()">
+                <option value="">请选择公司认证状态</option>
+                <option value="0" th:selected="${user_cstate==0? 'selected' : 'false'}" >未认证</option>
+                <option value="1" th:selected="${user_cstate==1? 'selected' : 'false'}">认证成功</option>
+                <option value="2" th:selected="${user_cstate==2? 'selected' : 'false'}">认证失败</option>
+                <option value="3" th:selected="${user_cstate==3? 'selected' : 'false'}">认证审核中</option>
+            </select>
+        </li>
+        <li>
+            <select name="user_skillstate" class="input" style="width:200px; line-height:17px;" onchange="changesearch()">
+                <option value="">请选择技能认证状态</option>
+                <option value="0" th:selected="${user_skillstate==0? 'selected' : 'false'}" >未认证</option>
+                <option value="1" th:selected="${user_skillstate==1? 'selected' : 'false'}">认证成功</option>
+                <option value="2" th:selected="${user_skillstate==2? 'selected' : 'false'}">认证失败</option>
+                <option value="3" th:selected="${user_skillstate==3? 'selected' : 'false'}">认证审核中</option>
+            </select>
+        </li> -->
+        <li>
+           <select name="user_type" id="userType" class="input" style="width:200px; line-height:17px;" onchange="changesearch()">
+               <option value="">全部</option>
+               <option value="0" th:selected="${user_verified == 3? 'selected' : 'false'}">实名认证审核中</option>
+               <option value="1" th:selected="${user_skillstate == 3? 'selected' : 'false'}">技能认证审核中</option>
+               <option value="2" th:selected="${user_cstate == 3? 'selected' : 'false'}">服务商认证审核中</option>
+           </select>
+        </li>
+        <li>
+            <button type="button" id="sesubmit"  class="button border-green">查询</button>
+        </li>
+      </ul>
+
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th>序号</th>
+        <th>用户姓名</th>       
+        <th>手机号码</th>
+        <th>是否冻结</th>
+        <th>公司名称</th>
+        <th>公司认证状态</th>
+        <th>技能认证状态</th>
+        <th>实名认证状态</th>
+        <th>操作</th>      
+      </tr>
+
+        
+        <tr th:each="serverList,obj:${serverList}" >
+<!--           <td ><input type="checkbox" name="user_id" th:text="${serverList.user_id}" /></td> -->
+          <td th:text="${obj.count}" ></td>
+          <td th:text="${serverList.user_name}" ></td>
+          <td th:text="${serverList.user_phone}"></td>
+          <td th:text="${serverList.user_isdel==0? '否' : '是' }" ></td>
+          <td th:text="${serverList.user_ename}" ></td>
+          <td th:switch="${serverList.user_cstate}" >
+          	<p th:case=" '0' " >未认证</p>
+          	<p th:case=" '1' " >认证成功</p>	
+          	<p th:case=" '2' " >认证失败</p>
+          	<p th:case=" '3' " >认证审核中</p>
+          </td>
+          <td th:switch="${serverList.user_skillstate}" >
+          	<p th:case=" '0' " >未认证</p>
+          	<p th:case=" '1' " >认证成功</p>	
+          	<p th:case=" '2' " >认证失败</p>
+          	<p th:case=" '3' " >认证审核中</p>
+          </td>
+          <td th:switch="${serverList.user_verified}" >
+          	<p th:case=" '0' " >未认证</p>
+          	<p th:case=" '1' " >认证成功</p>	
+          	<p th:case=" '2' " >认证失败</p>
+          	<p th:case=" '3' " >认证审核中</p>
+          </td>
+          <td>
+         	 <div class="button-group"> 
+<!--          	 	<a class="button border-red" href="javascript:void(0)" th:attr="user_id=${serverList.user_id}" onclick="return delServer( $(this) )">删除</a> -->
+				<a class="button border-red" th:href="@{/system/queryServerByUserId/}+${serverList.user_id}">详情</a>         	 	
+         	 	<a class="button border-red" th:style="${serverList.user_skillstate == 3}?'':'cursor:not-allowed'" th:href="${serverList.user_skillstate == 3}?@{/system/queryAllServerSkillStateByUserId/}+${serverList.user_id}:'###'">认证技能</a>
+         	 	<a class="button border-red" th:style="${serverList.user_cstate == 3}?'':'cursor:not-allowed'" th:href="${serverList.user_cstate == 3}?@{/system/queryCompany/}+${serverList.user_id}:'###'">认证公司</a>
+         	 	<a class="button border-red" th:style="${serverList.user_verified == 3}?'':'cursor:not-allowed'" th:href="${serverList.user_verified == 3}?@{/system/queryVerified/}+${serverList.user_id}:'###'">实名认证</a>
+          	 </div>
+          </td>
+        </tr>
+    </table>
+  </div>
+</form>
+<div class="pagination thePage">
+ <ul>
+　</ul>
+</div>
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+
+$(function() {
+	 pagination(".pagination ul",[[${totalPage}]],[[${p}]] );
+}); 
+
+function pagination(node, totalPage, cpage) {
+	$(node).createPage({
+       pageCount: totalPage,
+       current: cpage,
+       backFn:function(p){
+           //单击回调方法，p是当前页码
+       }
+   });
+} 
+           
+/* function delServer(me){
+	if(confirm("您确定要删除吗?")){
+		$.post("deleteServer",{"user_id":me.attr("user_id")},function(map){
+			if(map.msg==true){
+				alert("删除成功");
+				location.reload()
+			}else{
+				
+				alert("删除失败")
+			}
+		}); 
+	}
+} */
+
+//条件搜索
+$('#sesubmit').click(function(){
+	 var userType=$("#userType").val();
+	 if (userType == "0") {
+		 $("#userVerified").val("3");
+		 $("#userSkillstate").val("");
+		 $("#userCstate").val("");
+	 } else if (userType == "1") {
+		 $("#userSkillstate").val("3");
+		 $("#userCstate").val("");
+		 $("#userVerified").val("");
+	 }else if (userType == "2") {
+		 $("#userVerified").val("");
+		 $("#userSkillstate").val("");
+		 $("#userCstate").val("3");
+	 }else{
+		 $("#userVerified").val("");
+		 $("#userSkillstate").val("");
+		 $("#userCstate").val("");
+	 }
+	$('#queryForm').submit();
+});
+/*]]>*/
+</script>
+</body></html>

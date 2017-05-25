@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperClassify">
+    <select id="get_many" resultMap="YdMapperClassifyResultMap_get_many">
+        SELECT
+            yd_classify.cly_id,
+            yd_classify.cly_pid,
+            yd_classify.cly_name,
+            yd_classify.cly_imgsrc
+        FROM
+            yd_classify
+        LEFT JOIN yd_ads ON yd_classify.ads_id = yd_ads.ads_id
+        order by cly_sort asc, cly_id asc;
+    </select>
+    
+    
+    <!-- 单条分类信息 -->
+    <select id="info" resultType="java.util.HashMap">
+        SELECT
+            cly_id, cly_pid, type_id
+        FROM
+            yd_classify
+        WHERE
+        	cly_id = #{id}
+        LIMIT 1
+    </select>
+    
+    
+    <!-- 子分类 -->
+    <select id="son" resultType="java.util.HashMap">
+        SELECT
+            cly_id, cly_pid, type_id, cly_name
+        FROM
+            yd_classify
+        WHERE
+        	cly_pid = #{id}
+        ORDER BY
+        	cly_sort ASC
+    </select>
+    
+    
+    <select id="get_many_simple" resultMap="YdMapperClassifyResultMap_get_many">
+        SELECT
+            yd_classify.cly_id,
+            yd_classify.cly_name
+        FROM
+            yd_classify
+        LEFT JOIN yd_ads ON yd_classify.ads_id = yd_ads.ads_id
+        where cly_type = #{cly_type} and cly_pid = #{cly_pid} 
+        order by cly_sort asc;
+    </select>
+    
+    <resultMap id="YdMapperClassifyResultMap_get_many" type="java.util.Map">
+        <id property="id" column="cly_id" />
+        <result property="pid" column="cly_pid" />
+        <result property="name" column="cly_name" />
+        <result property="imgsrc" column="cly_imgsrc" />
+    </resultMap>
+</mapper>

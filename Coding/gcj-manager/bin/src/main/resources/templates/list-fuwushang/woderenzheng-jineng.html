@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功城记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:with="user=${session.user},msgSize=${session.msgSize}" th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<!--待签合同-->
+<div class="hetong-box">
+    <div class="hetong approve">
+        <!-- 服务商个人信息头部 -->
+        <div th:include="public/fuwushang/hander"></div>
+        <div class="hetong-xq clear">
+            <div class="left">
+                <a href="fuwushang">我的任务</a>
+                <a href="wodezhanghu">我的账户</a>
+                <a href="wodejianli">我的简历</a>
+                <a href="woderenzheng-shiming" class="now">我的认证</a>
+                <a href="wodepingjia">我的评价</a>
+                <a href="wodeshoucang">我的收藏</a>
+                <a href="wodexiaoxi-huifu" class="pos-relative">我的消息<span class="badge badge-my-msg" th:if="${msgSize!=null and msgSize.countMsgSize > 0}" th:text="${msgSize.countMsgSize}">66</span></a>
+            </div>
+            <div class="right">
+                <div class="topr">
+                	<a href="woderenzheng-shiming">实名认证</a>
+                    <a href="woderenzheng">信息认证</a>
+                    <a href="woderenzheng-jineng" class="now">技能认证</a>
+                </div>
+                <div class="top-approve">
+                    <i></i>技能认证
+                </div>
+                <div class="myapprove">
+                    <ul class="check1">
+                    	<li th:each="labels,niter:${@pageLabel.$queryAll()}" th:attr="data-val=${niter.index+1}" th:text="${labels.label_name}" th:data="${labels.label_id}"></li>
+                    	<li class="more">更多</li>
+                    </ul>
+                    <ul class="check1s">
+                       <li th:each="labels,niters:${@pageLabel.$queryAll()}" th:class="${niters.index+1}>1?'dis-none':''">
+                        <span data-val="1" data="0">全选</span>
+                        <span th:each="label,niter:${labels.labels}" th:attr="data-val=${niter.index+2}" th:text="${label.label_name}" th:data="${label.label_id}"></span>
+                       </li>
+                      </ul>
+                    <div class="yixuan">
+                        <span>已选&gt;</span>
+                        <div class="psadd">
+                        </div>
+                    </div>
+                </div>
+                <div class="top-approve">
+                    <i></i> 新增技能
+                </div>
+                <div class="approve-save">
+                    <input type="text" class="typeone reLabel" placeholder="请输入技能名"/>
+                    <button type="button" onclick="userLabel()">申请认证</button>
+                </div>
+                <div class="top-approve">
+                    <i></i>我的技能
+                </div>
+                <div class="myapprove-ziliao">
+                    <div class="ziliaos" th:each="label,niter:${user.userLabels}" th:inline="text">
+                        <p>[[${label.userl_name}]]<span>补充</span><i>删除</i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+<script src="/js/list/jinengcheck.js"></script>
+<script src="/js/list/fabao.js"></script>
+
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/bg/user.js"></script>
+</html>

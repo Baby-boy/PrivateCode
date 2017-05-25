@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+<style type="text/css">
+#container .details-page .product-details {
+	text-align: left;
+}
+</style>
+</head>
+<body th:with="navs=${@_nav.getByType('0')},
+	">
+	<!-- 头部 -->
+	<div id="header">
+		<div th:include="shop/template/header :: header" th:remove="tag"></div>
+
+		<!-- 主导航 -->
+		<div class="main-nav">
+			<div class="nav">
+				<div th:include="shop/template/classify :: index('')" th:remove="tag"></div>
+				<div th:include="shop/template/header :: nav('index')" th:remove="tag"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 头部结束 -->
+
+	<!-- 商品展示信息 -->
+	<div class="product-show" th:inline="text">
+		<div class="min-width">
+			<div class="left-info">
+				<div class="details-pic">
+					<div class="thumbnail">
+						<ul class="tb-thumb" id="thumblist">
+							<li th:each="sitem:${goodsPics}"><img th:src="${@_url.goods()}+${sitem}+'?x-oss-process=image/resize,m_pad,h_60,w_60'"
+								th:attr="mid=${@_url.goods()}+${sitem}+'?x-oss-process=image/resize,m_pad,h_410,w_410', big=${@_url.goods()}+${sitem}" /></li>
+						</ul>
+					</div>
+					<div class="detail-video" style="display: none;">
+						<video width="800" height="" controls="controls">
+							<source src="images/demoimg/01.mp4" type="video/mp4"></source>
+							<source src="myvideo.ogv" type="video/ogg"></source>
+							<source src="myvideo.webm" type="video/webm"></source>
+							<object width="" height="" type="application/x-shockwave-flash" data="myvideo.swf">
+								<param name="movie" value="myvideo.swf" />
+								<param name="flashvars" value="autostart=true&amp;file=myvideo.swf" />
+							</object>
+							当前浏览器不支持 video直接播放，点击这里下载视频：
+							<a href="myvideo.webm">下载视频</a>
+						</video>
+					</div>
+					<div class="big-picture">
+						<a th:href="${sitem}" th:each="sitem,niter:${goodsPics}"> <img class="jqzoom" th:src="${@_url.goods()}+${sitem}+'?x-oss-process=image/resize,m_pad,h_410,w_410'"
+							th:attr="rel=${@_url.goods()}+${sitem}" />
+						</a>
+					</div>
+				</div>
+				<div class="product-info">
+					<h2 th:text="${item.ctc_name}">经典商务双肩包</h2>
+					<div class="price-f">
+						<div class="con">
+							<font>多宝鱼价：</font><strong th:text="${#numbers.formatDecimal(item.ctc_price, 1, 2)}"></strong>元
+						</div>
+						<div class="con con1" style="display: none;">
+							<font>促销信息：</font>
+							<dl>
+								<dd>
+									<span>优惠</span>品牌限时特惠
+								</dd>
+								<dd>
+									<span>加价购</span>满1000.00元另加469.00元即可在购物车换购热销商品
+								</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="buy" th:inlione="text">
+						<a target="_blank" th:href="@{/pay/ctc_order?ctc_id=}+${item.ctc_id}"><input th:style="${item.user_id} eq ${session.user_id} ? 'display: none' : ''" id="ctcBuy" type="submit" value="一键购买" th:attr="ctc_id=${item.ctc_id}" /> </a>
+					</div>
+					<ul>
+						<li><i></i><span>分享商品</span></li>
+						<li th:class="${is_favorite} eq true ? 'active' : 'btn-follow'" data-type="ctcs" th:attr="data-id=${item.ctc_id}"><i></i><span>关注商品</span></li>
+						<!-- <li><i></i><span>浏览次数 [[${item.goods_total_see}]]</span></li> -->
+					</ul>
+				</div>
+			</div>
+			<div class="right-info">
+				<ul>
+					<li><a target="_blank" th:href="@{/ctc/sellHome/}+${item.user_id}">查看卖家</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 商品展示信息结束 -->
+	<!-- 中间内容 -->
+	<div id="container" style="width: 1200px;">
+		<div class="details-page">
+			<div class="right-section">
+				<div class="top-screen">
+					<ul>
+						<li class="active">商品详情</li>
+						<li><a th:href="@{/ctc/ctcMsg/}+${item.ctc_id}">留言列表</a></li>
+					</ul>
+				</div>
+
+				<div class="tab-switch product-detail" th:inline="text">
+					<!-- 参数 -->
+					<div class="pro-parameter">
+						<div class="store-name"></div>
+						商品名称：[[${item.ctc_name}]]<br /> 新旧程度：[[${item.dict_value}]] <br />卖家地址：[[${item.ctc_pca}==null?'未设置地址':${item.ctc_pca}]]
+						<div class="parameter">
+							<ul class="goods-attrs">
+
+							</ul>
+						</div>
+					</div>
+					<!-- 参数结束 -->
+
+					<!-- 正文 -->
+					<li class="active">商品简介</li> <br />
+					<div class="product-details goods-content-words" th:text="${item.ctc_summary}"></div>
+					<div class="product-details goods-content-pics"></div>
+					<!-- 正文结束 -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 底部 -->
+	<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+
+
+	<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+	<script type="text/javascript" th:src="@{/assets/shop/js/jquery.imagezoom.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/shop/js/details.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/shop/js/jquery.page.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.ajax.js}"></script>
+	<script th:inline="javascript">
+			/*<![CDATA[*/
+			           
+			           
+			$(function(){
+				// 详情图片
+				var goodsContentPics = [[${goodsPics}]];
+				var _urlGoods = "https://woadby.oss-cn-beijing.aliyuncs.com/dby/";
+				if ( goodsContentPics != "") {
+					/* goodsContentPics = JSON.parse( goodsContentPics ); */
+					if ( goodsContentPics.length > 0 ) {
+						var str = "";
+						for(var ele in goodsContentPics) {
+							str += "<img src='"+_urlGoods+goodsContentPics[ele]+"' />";
+						}
+						$(".goods-content-pics").html(str);
+					}
+				}
+				/* $.each($(".pagelist"), function(index,value) {
+					$("#sales"+index).createPage({
+				        pageCount:[[${@_Comment.get_count(id,index)}]] / 10,
+				        current:1,
+				        backFn:function(page){
+				            console.log(p);
+				        }
+				    });
+				}); */
+			});
+			/*]]>*/
+		</script>
+</body>
+</html>

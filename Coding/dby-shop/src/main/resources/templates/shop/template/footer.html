@@ -1,0 +1,81 @@
+	<div th:fragment="footer">
+		<!-- 底部 -->
+		<div id="footer">
+			<div class="min-width">
+				<div class="footer-service">
+					<ul>
+						<li class="icon1">
+							<div class="img"></div>
+							<div class="title">专业鉴定</div>
+							<div class="text">百人鉴定鉴定团队</div>
+						</li>
+						<li class="icon2">
+							<div class="img"></div>
+							<div class="title">权威鉴定</div>
+							<div class="text">高端商品出具证书</div>
+						</li>
+						<li class="icon3">
+							<div class="img"></div>
+							<div class="title">门店支持</div>
+							<div class="text">40家实体店面</div>
+						</li>
+						<li class="icon4">
+							<div class="img"></div>
+							<div class="title">真品好价格</div>
+							<div class="text">多宝鱼最具性价比</div>
+						</li>
+						<li class="icon5">
+							<div class="img"></div>
+							<div class="title">客服电话</div>
+							<div class="text"  th:text="${@_redis.get('site_phone')}"></div>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="service-link">
+					<div class="help-link">
+						<dl th:each="item,n1iter:${@_YdShopServiceArticle.footer()}">
+							<dt th:text="${item.ac_name}"></dt>
+							<dd th:each="second,n2iter:${item.article}" th:if="${n2iter.index} lt 5">
+								<a target="_blank" th:href="${second.article_url == '' ? '/article/'+second.article_id : second.article_url}" th:text="${second.article_title}">文章名称</a>
+							</dd>
+						</dl>
+					</div>
+					<div class="qr-code">
+						<dl>
+							<dt><img th:src="${@_url.goods()}+${@_redis.get('wx_qr')}" /></dt>
+							<dd class="title">多宝鱼科技</dd>
+							<dd class="address" th:text="${@_redis.get('company_address')}"></dd>
+							<dd class="tel" th:text="'客服电话：'+${@_redis.get('site_phone')}"></dd>
+							<dd class="mail" th:text="'邮箱：'+${@_redis.get('site_email')}"></dd>
+							<dd class="wx" th:text="'公众号：'+${@_redis.get('wx_code')}"></dd>
+						</dl>
+					</div>
+				</div>
+				
+				
+				<!-- 版权 -->
+				<div class="copy-right" th:inline="text">版权所有&nbsp;多宝鱼科技&nbsp;&nbsp;&nbsp;[[${@_redis.get('icp_number')}]]</div>
+				
+			</div>
+		</div>
+		<!-- 底部结束 -->
+			
+		<yd:ajax key="cart_store" value="cart_ajax.store" />
+		<yd:ajax key="cart_window" value="cart_ajax.window" />
+		<yd:ajax key="cart_update" value="cart_ajax.update" />
+		<yd:ajax key="cart_delete" value="cart_ajax.delete" />
+		<yd:ajax key="member_login_automatic" value="member_login_automatic_" />
+	</div>
+	
+	<!-- JS -->
+	<div th:fragment="javascript">
+		<link rel="stylesheet" th:href="@{/assets/shop/css/yd-tipbox.css}" />
+		<script type="text/javascript" th:src="@{/assets/shop/js/jquery-1.11.1.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/jquery.flexslider-min.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/common.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/yd-tipbox-min.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/store+json2.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/auth.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/shop.get.js}" ></script>
+	</div>

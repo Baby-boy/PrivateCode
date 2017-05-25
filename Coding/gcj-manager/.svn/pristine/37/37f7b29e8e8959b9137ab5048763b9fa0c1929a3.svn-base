@@ -1,0 +1,113 @@
+package com.yd.gcj.entity;
+
+public class YdMangerTPMsg {
+	
+	/**第三方账号token*/
+	private String tpmsg_token;
+	
+	/**第三方账号昵称*/
+	private String tpmsg_nikname;
+	
+	/**用户id（绑定后才有值，默认为0）*/
+	private Integer tpmsg_uid;
+	
+	/**第三方账号头像地址*/
+	private String tpmsg_imgpath;
+	
+	/**第三方类型描述（QQ or 微信）*/
+	private Integer tpmsg_type;
+
+	
+	
+	/**
+	 * 获取 第三方账号token
+	 * @return tpmsg_token
+	 */
+	public String getTpmsg_token() {
+		return tpmsg_token;
+	}
+	
+
+	/**
+	 * 设置 第三方账号token
+	 * @param tpmsg_token
+	 */
+	public void setTpmsg_token(String tpmsg_token) {
+		this.tpmsg_token = tpmsg_token;
+	}
+	
+
+	/**
+	 * 获取 第三方账号昵称
+	 * @return tpmsg_nikname
+	 */
+	public String getTpmsg_nikname() {
+		return tpmsg_nikname;
+	}
+	
+
+	/**
+	 * 设置 第三方账号昵称
+	 * @param tpmsg_nikname
+	 */
+	public void setTpmsg_nikname(String tpmsg_nikname) {
+		this.tpmsg_nikname = tpmsg_nikname;
+	}
+	
+
+	/**
+	 * 获取 用户id（绑定后才有值，默认为0）
+	 * @return tpmsg_uid
+	 */
+	public Integer getTpmsg_uid() {
+		return tpmsg_uid;
+	}
+	
+
+	/**
+	 * 设置 用户id（绑定后才有值，默认为0）
+	 * @param tpmsg_uid
+	 */
+	public void setTpmsg_uid(Integer tpmsg_uid) {
+		this.tpmsg_uid = tpmsg_uid;
+	}
+	
+
+	/**
+	 * 获取 第三方账号头像地址
+	 * @return tpmsg_imgpath
+	 */
+	public String getTpmsg_imgpath() {
+		return tpmsg_imgpath;
+	}
+	
+
+	/**
+	 * 设置 第三方账号头像地址
+	 * @param tpmsg_imgpath
+	 */
+	public void setTpmsg_imgpath(String tpmsg_imgpath) {
+		this.tpmsg_imgpath = tpmsg_imgpath;
+	}
+	
+
+	/**
+	 * 获取 第三方类型描述（QQor微信）
+	 * @return tpmsg_type
+	 */
+	public Integer getTpmsg_type() {
+		return tpmsg_type;
+	}
+	
+
+	/**
+	 * 设置 第三方类型描述（QQor微信）
+	 * @param tpmsg_type
+	 */
+	public void setTpmsg_type(Integer tpmsg_type) {
+		this.tpmsg_type = tpmsg_type;
+	}
+	
+	
+	
+}

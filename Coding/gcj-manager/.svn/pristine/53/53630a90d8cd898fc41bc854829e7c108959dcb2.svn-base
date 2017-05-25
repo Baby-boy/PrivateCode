@@ -1,0 +1,34 @@
+package com.yd.gcj.util;
+
+import java.io.InputStream;
+import java.util.Properties;
+
+public class MyStaticFactory {
+
+	public static boolean queryGuzhuTask = false;
+
+	// 头像文件夹
+	public static String headimg = "/headimg/";
+	// 身份证图片存放的地方
+	public static String verifiedImg = "/verifiedImg/";
+
+	public static String systemPath;
+
+	// 用于检测是否自动登录的检测次数
+	public static int num = 0;
+
+	static {
+		Properties properties = new Properties();
+		try {
+			// 读取本地配置文件
+			InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("application.properties");
+			properties.load(inputStream);
+			inputStream.close();
+			if (properties.containsKey("myStaticFactory.systemPath")) {
+				systemPath = properties.getProperty("myStaticFactory.systemPath");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

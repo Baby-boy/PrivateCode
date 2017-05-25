@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperUserLabel">
+	
+	<select id="$queryAll" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerUserLabel">
+		select 
+			userl_uid,userl_lid,userl_type,userl_name,userl_pid
+		from 
+			yd_user_label
+		where 
+			userl_uid = #{userl_uid}
+	</select>
+	
+	<select id="$queryById" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerUserLabel">
+		select 
+			userl_uid,userl_lid,userl_type,userl_name,userl_pid
+		from 
+			yd_user_label
+		where 
+			userl_id = #{userl_id}
+	</select>
+	
+	<select id="$queryCountNumById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			yd_user_label
+		where 
+			userl_id = #{userl_id}
+	</select>
+	
+	<select id="$queryByUidAndSkilltype" resultType="com.yd.gcj.entity.YdMangerUserLabel">
+		select 
+			userl_uid,userl_lid,userl_type,userl_name,userl_pid
+		from 
+			yd_user_label
+		where 
+			userl_uid = #{userl_uid} and userl_type = #{userl_type}
+	</select>
+	
+	
+	<delete id="$delete" parameterType="java.lang.Integer">
+		delete from yd_user_label
+		where userl_uid = #{userId}
+	</delete>
+	
+	<insert id="$insert" parameterType="java.util.HashMap">
+		insert into yd_user_label
+			(userl_uid,userl_lid,userl_type,userl_name,userl_pid)
+			select #{userId},label_id,label_type,label_name,label_pid from yd_label label where label_id in 
+			<foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+	</insert>
+	
+	<insert id="$insertRe">
+		insert into yd_user_label
+			(userl_uid,userl_lid,userl_type,userl_name,userl_pid)
+		value
+			(#{userId},0,3,#{reLable},0)
+	</insert>
+	
+	<update id="$update" parameterType="com.yd.gcj.entity.YdMangerUserLabel">
+		update yd_user_label
+		<set>
+			<trim prefixOverrides=",">
+				<if test="userl_uid != null">userl_uid = #{userl_uid},</if>
+				<if test="userl_lid != null">userl_lid = #{userl_lid},</if>
+				<if test="userl_type != null">userl_type = #{userl_type},</if>
+				<if test="userl_name != null">userl_name = #{userl_name},</if>
+			</trim>
+		</set>
+		where userl_id = #{userl_id}
+	</update>
+	
+	
+</mapper>
+

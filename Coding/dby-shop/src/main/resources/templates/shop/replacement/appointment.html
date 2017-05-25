@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/yd-tipbox.css}" />
+	</head>
+	<body>
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: index('')" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(substitution)" th:remove="tag"></div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		<!-- 内容 -->
+		<div id="container" style="margin: 0px auto;">
+			<div class="site-map">
+				<a href="#">置换</a><span>&gt;</span>
+				<a href="#">在线预约</a>
+			</div>
+			<div class="online-book">
+				<h2>联系方式</h2>
+				<ul>
+					<li>
+						<label for="">姓名</label>
+						<input type="text" name="user_name" value="" placeholder="请输入您的姓名" style="width: 180px;" />
+					</li>
+					<li>
+						<label for="">联系方式</label>
+						<input type="text" name="user_phone" value="" placeholder="请输入您的电话号码" />
+					</li>
+					<li>
+						<label for="">所在地区</label>
+						<select class="province" data-value="" data-first-title="选择省"></select>
+						<select class="city" data-value="" data-first-title="选择市"></select>
+						<select class="area" data-value="" data-first-title="选择区"></select>
+					</li>
+					<li>
+						<label for="">详情地址</label>
+						<input type="text" name="address_street" value="" placeholder="请输入您的详情地址" />
+					</li>
+				</ul>
+			</div>
+			
+			<div class="online-book" style="margin-top: 10px;">
+				<h2>商品信息</h2>
+				<ul>
+					<li>
+						<label for="">商品标题</label>
+						<input type="text" name="goods_name" value="" placeholder="请输入您的标题" />
+					</li>
+					<li>
+						<label for="ctc_summary">商品描述</label>
+						<textarea name="ctc_summary"></textarea>
+					</li>
+					<li>
+						<label for="">商品图片</label>
+						<div class="enclosure" id="container1">
+							<dl id="ossfile">
+							</dl>
+							<div id="selectfiles" class="add-pic">
+								<span></span>
+							</div>
+							<div id="postfiles" class="start-upload">
+								<span></span>
+							</div>
+							<input type="radio" name="myradio" checked="true" value="random_name" hidden="hidden" />
+						</div>
+					</li>
+					<li style="padding: 0;">
+						<div class="agreement">
+							<input type="checkbox" value="1" />
+							<a href="#">同意《流通置换》协议</a>
+						</div>
+					</li>
+					<li>
+						<div class="submit">
+							<input type="submit" value="提  交" th:attr="data-type=${id}" />
+						</div>
+					</li>
+				</ul>
+			</div>
+			
+		</div>
+		
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		
+		<yd:ajax key="online_book" value="online_book.release" />
+		
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		<script type="text/javascript" th:src="@{/assets/upload/plupload.full.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/upload/uploads.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/jquery.cxselect.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/online_book.js}" ></script>
+		
+	</body>
+</html>

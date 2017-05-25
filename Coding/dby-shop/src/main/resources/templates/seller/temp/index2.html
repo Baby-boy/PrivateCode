@@ -1,0 +1,263 @@
+<div th:fragment="main" th:remove="tag">
+	<!-- 头部 -->
+	<div id="header">
+		<div class="top-bar">
+			<div class="min-width">
+				<div class="left">
+					欢迎来[某某]到多宝鱼&nbsp;&nbsp;
+					<a class="login" href="javascript:void(0)" onclick="SellerLogout()">注销</a>
+				</div>
+				<div class="right">
+					<ul>
+						<li><a href="#">我的订单</a></li>
+						<li><small>|</small><a href="#">个人中心</a></li>
+						<li><small>|</small><a href="#">手机浏览</a></li>
+						<li><small>|</small><a href="#">客户服务</a></li>
+						<li><small>|</small><a href="#">网站导航</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="head-layout">
+			<!-- logo -->
+			<div class="logo-wrap">
+				<a class="logo" href="#"><img src="../images/logo.png" /></a>
+				<div class="city">
+					<span>北京</span>
+					<a href="javascript:;">[切换]</a>
+				</div>
+			</div>
+			
+			<!-- search -->
+			<div class="search-wrap">
+				<div class="search">
+					<form>
+						<div class="select">
+							<span>全部</span>
+							<ul>
+								<li data-val="0">全部</li>
+								<li data-val="1">品牌店</li>
+								<li data-val="2">拍卖</li>
+								<li data-val="3">C2C</li>
+								<li data-val="4">团购</li>
+								<li data-val="5">秒杀</li>
+							</ul>
+							<input type="hidden" value="0" />
+						</div>
+						<input type="text" name="" value="" placeholder="请输入关键词" />
+						<input type="submit" value="搜索" />
+					</form>
+				</div>
+				<div class="hot-search">
+					<a href="#">珠宝</a>
+					<a href="#">名牌手表</a>
+					<a href="#">足金</a>
+					<a href="#">K金</a>
+					<a href="#">墨翠</a>
+					<a href="#">绿翠</a>
+					<a href="#">红翠</a>
+				</div>
+			</div>
+			
+			<!-- cart -->
+			<div class="cart">
+				<div class="my-cart">我的购物车<small>1</small></div>
+				<div class="eject-cart">
+					<!--空购物车-->
+					<div class="no-product">
+						<img src="../images/cartno.png" />
+						<span>购物车中还没有商品，赶紧选购吧！</span>
+					</div>
+
+					<!--有产品-->
+					<div class="yes-product">
+						<h2>最新加入的商品</h2>
+						<ul>
+							<li>
+								<dl>
+									<dt>
+										<a href="#">
+											<img src="../images/demoimg/img_01.png" />
+										</a>
+									</dt>
+									<dd class="title"><a href="#">联想乐檬3</a></dd>
+									<dd class="attribute">( K32C36 ) 16GB金色移动4G手机双卡</dd>
+								</dl>
+								<div class="price-del">
+									<div class="price"><strong>¥599.00</strong><span>X</span><strong>1</strong></div>
+									<div class="del"><a href="javascript:;">删除</a></div>
+								</div>
+							</li>
+							<li>
+								<dl>
+									<dt>
+										<a href="#">
+											<img src="../images/demoimg/img_01.png" />
+										</a>
+									</dt>
+									<dd class="title"><a href="#">联想乐檬3</a></dd>
+									<dd class="attribute">( K32C36 ) 16GB金色移动4G手机双卡</dd>
+								</dl>
+								<div class="price-del">
+									<div class="price"><strong>¥599.00</strong><span>X</span><strong>1</strong></div>
+									<div class="del"><a href="javascript:;">删除</a></div>
+								</div>
+							</li>
+							<li>
+								<dl>
+									<dt>
+										<a href="#">
+											<img src="../images/demoimg/img_01.png" />
+										</a>
+									</dt>
+									<dd class="title"><a href="#">联想乐檬3</a></dd>
+									<dd class="attribute">( K32C36 ) 16GB金色移动4G手机双卡</dd>
+								</dl>
+								<div class="price-del">
+									<div class="price"><strong>¥599.00</strong><span>X</span><strong>1</strong></div>
+									<div class="del"><a href="javascript:;">删除</a></div>
+								</div>
+							</li>
+						</ul>
+
+						<!--去结算-->
+						<div class="go-end">
+							<span>共
+								<small>1</small>
+								件商品&nbsp;&nbsp;&nbsp;共计
+								<small>¥1.00</small>
+							</span>
+							<a href="#">去购物车</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<!-- 主导航 -->
+		<div class="main-nav">
+			<div class="nav">
+				<div class="classify">
+					<div class="title">
+						<h2>商家中心</h2>
+					</div>
+				</div>
+				<ul class="nav-wrap">
+					<li class="active"><a href="index.html">首页</a></li>
+					<li><a href="list_replaced.html">流通置换</a></li>
+					<li><a href="list_brand.html">品牌店</a></li>
+					<li><a href="list_auction.html">拍卖</a></li>
+					<li><a href="#">活动</a></li>
+					<li><a href="#">金融</a></li>
+					<li><a href="c2c.html">C2C</a></li>
+					<li><a href="list_curing.html">养护</a></li>
+					<li><a href="list_groupon.html">团购</a></li>
+					<li><a href="list_seckill.html">秒杀</a></li>
+				</ul>
+			</div>
+			<img class="bottom-line" th:src="@{/assets/images/nav_bg_line.png}" />
+		</div>
+	</div>
+	<!-- 头部结束 -->
+	
+	<div id="container">
+		<div class="g-content">
+			<div th:include="seller/temp/left :: left" th:remove="tag"></div>
+			<div id="right">
+			
+			</div>
+		</div>
+	</div>
+	
+	<!-- 底部 -->
+	<div id="footer">
+		<div class="min-width">
+			<div class="footer-service">
+				<ul>
+					<li class="icon1">
+						<div class="img"></div>
+						<div class="title">典当大师</div>
+						<div class="text">百人鉴定鉴定团队</div>
+					</li>
+					<li class="icon2">
+						<div class="img"></div>
+						<div class="title">权威鉴定</div>
+						<div class="text">高端商品出具证书</div>
+					</li>
+					<li class="icon3">
+						<div class="img"></div>
+						<div class="title">门店支持</div>
+						<div class="text">40家实体店面</div>
+					</li>
+					<li class="icon4">
+						<div class="img"></div>
+						<div class="title">真品好价格</div>
+						<div class="text">多宝鱼最具性价比</div>
+					</li>
+					<li class="icon5">
+						<div class="img"></div>
+						<div class="title">客服电话</div>
+						<div class="text">010-52820505</div>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="service-link">
+				<div class="help-link">
+					<dl>
+						<dt>购物与支付</dt>
+						<dd><a href="#">购物与支付</a></dd>
+						<dd><a href="#">订单查询</a></dd>
+						<dd><a href="#">支付方式</a></dd>
+						<dd><a href="#">发票制度</a></dd>
+					</dl>
+					<dl>
+						<dt>配送说明</dt>
+						<dd><a href="#">配送方式及时间</a></dd>
+						<dd><a href="#">配送费及签收</a></dd>
+					</dl>
+					<dl>
+						<dt>关于我们</dt>
+						<dd><a href="#">联系我们</a></dd>
+						<dd><a href="#">品牌阁</a></dd>
+						<dd><a href="#">业务范围</a></dd>
+						<dd><a href="#">隐藏说明</a></dd>
+					</dl>
+					<dl>
+						<dt>售后服务</dt>
+						<dd><a href="#">退换货政策</a></dd>
+						<dd><a href="#">退款说明</a></dd>
+					</dl>
+					<dl>
+						<dt>自助服务</dt>
+						<dd><a href="#">戒指手镯测量标准</a></dd>
+						<dd><a href="#">会员中心</a></dd>
+						<dd><a href="#">会员等级</a></dd>
+					</dl>
+				</div>
+				<div class="qr-code">
+					<dl>
+						<dt><img src="../images/footer_qrcode.png" /></dt>
+						<dd class="title">多宝鱼典当行总部地</dd>
+						<dd class="address">北京市东城区崇外大街11号新成文化大厦A座6</dd>
+						<dd class="tel">客服电话：010-52820505</dd>
+						<dd class="mail">邮箱：ds@huaxiapawn.com</dd>
+						<dd class="wx">公众号：xxxxxx</dd>
+					</dl>
+				</div>
+				
+			</div>
+			
+			<!-- 版权 -->
+			<div class="copy-right">版权所有&nbsp;多鱼宝典当行&nbsp;&nbsp;&nbsp;京ICP备12012799号</div>
+			
+		</div>
+	</div>
+	<!-- 底部结束 -->
+</div>
+
+
+
+

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')}">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: brand(active,c2c_two)" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(brand)" th:remove="tag"></div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		<!-- 二级banner --> 
+		<div class="second-banner">
+			<div class="banner-wrap">
+				<div class="banner-4">
+					<div class="block_home_slider">
+						<div id="home_slider" class="flexslider">
+							<ul class="slides">
+								<li th:each="item:${@_YdShopServiceAds.get_many_list('home_store')}"><a href="#"><img th:src="${item.imgsrc}" alt="" title="" /></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 中间内容 -->
+		<div id="container">
+			
+			<div class="brand-page">
+				
+				<div class="wrap-top">
+					<h2>品牌</h2>
+					<ul>
+						<li th:each="item,niter:${@_cache.get('web_brand_hot')}" th:if="${niter.index} lt 16">
+							<a href="store.html"><img th:src="@{http://res.zwzyd.com/dby/web__${item.img1}__}" /></a>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="wrap-content">
+					<div class="col-name">
+						<label>品牌旗舰店</label>
+						<div class="select">
+							<span>排序</span>
+							<ul>
+								<li data-val="0">排序</li>
+								<li data-val="1">排序</li>
+								<li data-val="2">排序</li>
+								<li data-val="3">排序</li>
+							</ul>
+							<input type="hidden" value="0" />
+						</div>
+					</div>
+					<div class="list">
+						<ul>
+							<li th:each="item,niter:${@_cache.get('web_brand_flagship')}" th:if="${niter.index} lt 9">
+								<a href="store.html">
+									<div class="img">
+										<img th:src="@{http://res.zwzyd.com/dby/web__${item.img1}__}" />
+									</div>
+									<div class="bottom-info">
+										<span th:text="${item.text1}">日本直邮</span>
+										<div class="info">
+											<div class="logo">
+												<a href="store.html"><img th:src="@{http://res.zwzyd.com/dby/web__${item.img2}__}" /></a>
+											</div>
+											<div class="title">
+												<a href="store.html" th:text="${item.text2}">芙兰旗舰店</a>
+											</div>
+										</div>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer"></div>
+		
+		<div th:include="shop/template/footer :: javascript"></div>
+		<script>
+			$(function(){
+				$(".brand-page .wrap-content .col-name .select span").click(function(){
+					$(this).next("ul").slideToggle(200);
+				});
+				$(".brand-page .wrap-content .col-name .select ul li").click(function(){
+					$(this).parent().slideToggle(200);
+					$(this).parent().prev("span").html( $(this).html() );
+					$(this).parent().next("input").val( $(this).attr("data-val") );
+				});
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,167 @@
+<div th:fragment="main" th:remove="tag">
+	<yd:ajax key="memberOrderFefund" value="get.member_order_refund"  />
+	<yd:ajax key="memberOrderComplain" value="get.member_order_complain"  />
+	
+	<div class="d-right order-page">
+		<ul class="btn-page-top">
+			<li onclick="memberOrderIndex([this, 1, 0])" data-state="0" class="active">全部订单</li>
+			<li onclick="memberOrderIndex([this, 1, 1])" data-state="1">待付款</li>
+			<li onclick="memberOrderIndex([this, 1, 2])" data-state="2">待发货</li>
+			<li onclick="memberOrderIndex([this, 1, 3])" data-state="3">待收货</li>
+			<li onclick="memberOrderIndex([this, 1, 4])" data-state="4">待评价</li>
+			<li onclick="memberOrderIndex([this, 1, 5])" data-state="9">已取消</li>
+			
+		</ul>
+		
+		<div class="search-body">
+			<form class="search-body-form" data-search-func="memberOrderIndex">
+				<div class="s-node">
+					<span>订单编号：</span>
+					<input name="order_sn" placeholder="订单编号" class="text" type="text" />
+				</div>
+				<div class="s-node">
+					<a class="btn-s-a" href="javascript:void(0)"><botton type="button" class="btn-search btn-search-body">搜索</botton></a>
+				</div>
+			</form>
+		</div>
+		
+		<a target="_blank" id="clickOpenHref"></a>
+		<div class="d-all pop">
+			<table class="list-table order-lists">
+				<thead>
+					<tr>
+						<th colspan="2">商品</th>
+						<th class="w80">单价(元)</th>
+						<th class="w80">数量</th>
+						<th class="w80">&nbsp;</th>
+						<th class="w120">订单金额</th>
+						<th class="w110">交易状态</th>
+						<th class="w110">状态与操作</th>
+					</tr>
+				</thead>
+				<tbody th:each="item:${data}" th:inline="text">
+					<tr>
+						<td class="order-info" colspan="8">
+							<span>订单号：[[${item.orderSn}]]</span>
+							<span>下单时间：[[${ #calendars.format(item.createdAt,'yyyy-MM-dd hh:mm:ss') }]]</span>
+							<span><a th:href="@{/store/}+${item.storeId}" target="_blank">[[${item.storeName}]]</a></span>
+							
+						</td>
+					</tr>
+					<tr class="goods-info" th:each="itemGoods, k:${item.goods}" th:inline="text">
+						<td class="w70 img"><a target="_blank" th:href="@{/g/goods/}+${itemGoods.goodsId}"><img th:src="${@_url.goods()}+${itemGoods.goodsCover}" /></a></td>
+						<td><p class="goods-name"><a target="_blank" th:href="@{/g/goods/}+${itemGoods.goodsId}">[[${itemGoods.goodsName}]]</a></p></td>
+						<td>￥[[${itemGoods.goodsGoodsPrice}]]</td>
+						<td>[[${itemGoods.goodsNum}]]</td>
+						<td>
+							<a th:attr="data-goods-id=${itemGoods.ogId}, data-order-id=${item.orderId}, data-order-sn=${item.orderSn}" target="_blank" class="order-refund" href="javascript:;" th:if="${item.state} eq 2 or ${item.state} eq 3 or ${item.state} eq 4 ">退款/退货</a>
+							<a th:attr="data-goods-id=${itemGoods.ogId}, data-order-id=${item.orderId}, data-order-sn=${item.orderSn}" target="_blank" class="btn-order-complain" href="javascript:;" th:if="${item.state} eq 5 ">交易投诉</a>
+						</td>
+						<goods th:if="${k.index == 0}" remove="tag">
+						<td class="bdl" th:rowspan="${item.goods.size()}">[[${item.totalPrice}]]<br/>（含运费[[${item.transportPrice}]]）<br/>在线支付</td>
+						<td class="bdl" th:rowspan="${item.goods.size()}">
+							<div th:switch="${item.state}" class="trade-state-div">
+								<a th:case="1">等待买家付款</a>
+								<a th:case="2">等待卖家发货</a>
+								<a th:case="4">交易成功</a>
+								<a th:case="5">已取消</a>
+								<a th:case="6">交易成功</a>
+								<a th:case="9">交易关闭</a>
+								<a target="_blank" th:href="@{/member/order/detail?id=}+${item.orderId}">订单详情</a>
+								<a target="_blank" th:href="@{/member/order/logis?id=}+${item.orderId}" th:if="${item.state} eq 3 or ${item.state} eq 4 or ${item.state} eq 6">查看物流</a>
+							</div>
+						</td>
+						<td class="bdl" th:rowspan="${item.goods.size()}">
+							<div th:switch="${item.state}">
+								<span th:case="1" class="btn-order-span">
+									<a href="javascript:;" class="btn cancel cancel-order" th:attr="data-id=${item.orderId}, data-order-sn=${item.orderSn}">取消订单</a>
+									<a href="javascript:;" class="btn btn-default order-pay" th:attr="data-id=${item.orderId}, data-order-sn=${item.orderSn}">去付款</a>
+								</span>
+								
+								<!--
+								<span th:case="2" class="btn-order-span">
+									<a href="javascript:;" class="btn btn-default order-refund" th:attr="data-id=${item.orderId}, data-order-sn=${item.orderSn}">订单退款</a>
+								</span>
+								-->
+								
+								<a href="javascript:;" th:case="3" th:attr="data-id=${item.orderId}" class="btn btn-sm btn-default btn-operate-alert" data-func="orderConfirmReceipt">确认收货</a>
+								<a target="_blank" th:href="@{/member/order/orderAssess?num=}+${item.orderSn}" th:case="4" th:attr="data-id=${item.orderId}" class="btn btn-sm btn-default">去评价</a>
+								<a th:case="5"></a>
+								<a th:case="6">已完成</a>
+								<span th:case="9">
+									已取消<br/>
+									<a href="javascript:;" class="delete del-alert" data-func="memberOrderDelete" th:attr="data-id=${item.orderId}">删除</a></span>
+							</div>
+						</td>
+						</goods>
+						
+					</tr>
+					<tr>
+						<td class="order-td-bg" colspan="8">&nbsp;</td>
+					</tr>
+				</tbody>
+				<tfoot>
+				
+				</tfoot>
+			</table>
+		</div>
+		<!-- 分页 -->
+		<div class="pagination"></div>
+	
+		
+		
+		<div class="Z-jump s-edit-address-body add-card"  style="display: none">
+			<div class="Z-newly2">
+				<div class="Z-add_new">
+					订单原因
+				</div>
+				<span class="close-win" data-close-class=".s-edit-address-body">×</span>
+				<div class="Z-new_table">
+					<form class="form-ajax-sub" data-func="cardStore">
+						<ul>
+							<li style="margin-bottom: 15px;">
+								<div class="Z_note">订单号：</div>
+								<p class="cancel-order-sn">0</p>
+							</li>
+							<li>
+								<div class="Z_note">取消原因：</div>
+								<div class="reason">
+									<select name="cancel_reason">
+										<option value="我不想买了">我不想买了</option>
+										<option value="信息填写错误，重新拍">信息填写错误，重新拍</option>
+										<option value="卖家缺货">卖家缺货</option>
+										<option value="同城见面交易">同城见面交易</option>
+										<option value="付款遇到问题（如余额不足、不知道怎么付款等）">付款遇到问题（如余额不足、不知道怎么付款等）</option>
+										<option value="拍错了">拍错了</option>
+										<option value="其他原因">其他原因</option>
+									</select>
+								</div>
+							</li>
+							<li>
+								<div class="Z_note">取消原因：</div>
+								<div class="reason">
+									<a href="javascript:;" class="btn btn-sm cancel" id="btnCancelOrder">确认</a>
+								</div>
+							</li>
+						</ul>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+		var orderId = 0;
+		$(function() {
+			pagination(".pagination", [[${totalPage}]], [[${p}]], "memberOrderIndex");
+			
+			// 取消订单
+			$(".cancel-order").click(function() {
+				$(".cancel-order-sn").html( $(this).attr("data-order-sn") );
+				orderId = $(this).attr("data-id");
+				$(".s-edit-address-body").css("display", "block");
+			});
+			
+		});
+	</script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.ajax.js}"></script>
+</div>

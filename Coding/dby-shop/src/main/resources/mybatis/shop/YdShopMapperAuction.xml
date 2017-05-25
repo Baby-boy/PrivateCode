@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.b.shop.mapper.YdShopMapperAuction">
+
+	<select id="select_history_bid" resultMap="YdMapperAuctionHistoryResult">
+		SELECT
+			yd_money_record.money_id,
+			yd_money_record.money_num,
+			yd_money_record.money_created_time,
+			yd_user.user_id,
+			yd_user.user_nickname,
+			yd_user.user_avatar
+		FROM
+			yd_money_record
+		JOIN yd_user ON yd_money_record.user_id = yd_user.user_id
+		WHERE
+			yd_money_record.money_type = 4
+		AND yd_money_record.money_fid = 1
+		ORDER BY
+			yd_money_record.money_id DESC
+	</select>
+
+	<resultMap id="YdMapperAuctionHistoryResult" type="java.util.HashMap">
+		<id property="id" column="money_id" />
+		<result property="price" column="money_num" />
+		<result property="created_time" column="money_created_time" />
+		<association property="user" javaType="java.util.HashMap">
+			<id property="id" column="user_id" />
+			<result property="nickname" column="user_nickname" />
+			<result property="avatar" column="user_avatar" />
+		</association>
+	</resultMap>
+
+
+	
+	<!-- 查询最后出价人 -->
+	<select id="select_latest_bid" resultMap="YdMapperAuctionLatestBidResult">
+		SELECT
+			yd_money_record.money_num,
+			yd_user.user_id,
+			yd_user.user_nickname,
+			yd_user.user_avatar
+		FROM
+			yd_money_record
+		JOIN yd_user ON yd_money_record.user_id = yd_user.user_id
+		WHERE
+			yd_money_record.money_fid = 1
+		AND yd_money_record.money_type = 4
+		ORDER BY
+			yd_money_record.money_id DESC
+		LIMIT 1;
+	</select>
+	
+	<resultMap id="YdMapperAuctionLatestBidResult" type="java.util.HashMap">
+		<result property="price" column="money_num" />
+		<association property="user" javaType="java.util.HashMap">
+			<id property="id" column="user_id" />
+			<result property="nickname" column="user_nickname" />
+			<result property="avatar" column="user_avatar" />
+		</association>
+	</resultMap>
+	
+
+
+</mapper>

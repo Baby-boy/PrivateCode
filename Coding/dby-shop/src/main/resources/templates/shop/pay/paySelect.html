@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/yd-tipbox.css}" />
+	</head>
+	<body th:with="conf=${@_conf.get('web_config')}" th:inline="text">
+		<yd:ajax key="settlement_pay" value="settlement.pay" />
+		<!-- 头部 -->
+		<div id="header-cart">
+			<div th:include="shop/template/header :: cart('3')" th:remove="tag"></div>
+		</div>
+		<!-- 头部结束 -->
+		<div id="container">
+			<div class="cashier-page">
+				<h2>订单提交成功</h2>
+				<p>订单详情可通过查看我的订单进行核对处理</p>
+				<div class="total-price">请您及时付款，以便订单尽快处理！在线支付金额：<strong th:text="@{￥}+${#numbers.formatDecimal(data.money, 1, 2)}"></strong></div>
+				<div class="order-info">
+					<ul id="payOrderList">
+						<li class="bg-color">
+							<div class="number">订单号</div>
+							<div class="payment">支付方式</div>
+							<div class="price">金额</div>
+							<div class="logistics">物流</div>
+						</li>
+					</ul>
+				</div>
+				<div class="payment-type">
+					<h3>支付方式</h3>
+					<ul>
+						<li class="active" data-val="alipay_pc_direct">
+							<i></i>
+							<img th:src="${@_url.images()}+@{alipay.png}" />
+						</li>
+						<!-- <li data-val="wx_pub_qr">
+							<i></i>
+							<img th:src="${@_url.images()}+@{weixinpay.png}" />
+						</li> -->
+					</ul>
+				</div>
+				<div class="btn-submit">
+					<input type="submit" id="paySub" value="确定提交支付" />
+				</div>
+			</div>
+		</div>
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		
+		<script type="text/javascript" th:src="@{/assets/shop/js/jquery-1.11.1.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/yd-tipbox-min.js}" ></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/pingpp.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/shop/js/settlement.js}" ></script>
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var orderUu = "";
+			$(function() {
+				// 订单信息
+				orderUu = [[${key}]];
+				var order = [[${data.order}]];
+				order = JSON.parse( order );
+				var str = "";
+				for(var ele in order) {
+					str += "<li>" +
+								"<div class=\"number\" >"+order[ele]["order_sn"]+"</div>" +
+								"<div class=\"payment\">在线支付</div>" +
+								"<div class=\"price\">¥"+ toDecimal2( order[ele]["money"] ) +"</div>" +
+								"<div class=\"logistics\">"+ order[ele]["deliver"] +"</div>" +
+							"</li>";
+				}
+				$("#payOrderList").append( str );
+			});
+			           
+			/*
+			var settlement = {};
+			settlement.pay = {
+				url : function(self) {
+					return "/order/PayNow";
+				},
+				params : function(self) {
+					return self;
+				},
+				verification : function(self, params) {
+					console.log("验证");
+					return true;
+				},
+				callback : function(self, data) {
+					pingpp.createPayment(data.xx, function(result, err) {
+						if (result == "success") {
+							// 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
+						} else if (result == "fail") {
+							// charge 不正确或者微信公众账号支付失败时会在此处返回
+						} else if (result == "cancel") {
+							// 微信公众账号支付取消支付
+						}
+					});
+				}
+			};
+			
+			$(function(){
+				
+				if( GetQueryString("result") != "" ){
+					$.payment({
+						callback:function(){
+							
+						},
+						paycallback:function(){
+							
+						}
+					});
+				}
+				
+				$(".cashier-page .btn-submit input").click(function(){
+					var pay_json = {
+						pay_type:$(".cashier-page .payment-type ul li.active").attr("data-val")
+					}
+					settlement_pay(pay_json);
+				});
+			});
+			
+			function GetQueryString(name){
+			     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+			     var r = window.location.search.substr(1).match(reg);
+			     if(r!=null)return  unescape(r[2]); return null;
+			}
+			*/
+			/*]]>*/
+		</script>
+		
+	</body>
+</html>

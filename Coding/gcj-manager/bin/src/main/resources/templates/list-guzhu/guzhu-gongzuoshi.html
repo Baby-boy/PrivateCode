@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功成记</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body th:inline="text">
+<!--顶部导航-->
+<div th:include="public/hander"></div>
+
+<div class="select-persons">
+    <div class="select">
+        <div class="title">
+            <span>选择人才</span>
+            <div class="guzhu-check">
+                <a th:href="'/list-guzhu/guzhu-xuanzerencai/'+${taskId}">企业用户</a>
+                <a href="###" class="now">个人工作室</a>
+            </div>
+        </div>
+        <ul class="rencai">
+        
+            <li th:each="tender,niter:${tenderVos}">
+                <div class="img">
+                    <img src="" alt=""/>
+                </div>
+                <div class="rencais">
+                    <p class="p1"><a  th:href="'/list-guzhu/guzhu-guanzhu-xq/'+${tender.tender_id}">[[${tender.tender_uine == null?'':tender.tender_uine}]]</a><i></i></p>
+                    <p class="p2"><i></i><span>[[${tender.tender_uname}]]</span></p>
+                </div>
+                <div class="input">
+                    <a  th:href="'/list-guzhu/guzhu-guanzhu-xq/'+${tender.tender_id}" class="btn-1">查看申请资料</a>
+                    <a href="###" th:class="'btn-2 select'+${tender.tender_id}" th:style="${tender.tender_state}==1 and ${tender.tender_type}==2?'display:none;':''" th:data="${tender.tender_state}" th:onclick="'selectionS('+${taskId}+','+${tender.tender_id}+','+${tender.tender_uid}+',1,this)'">[[${tender.tender_state}==1?(${tender.tender_type}==1?'取消选定':'选定'):'选定']]</a>
+                </div>
+            </li>
+            
+        </ul>
+        <a href="/people/people" class="yaoqing">邀请</a>
+    </div>
+</div>
+
+<!--底部-->
+<div th:include="public/foot"></div>
+
+
+
+<div class="zhezhao dis-none"></div>
+
+<!-- <div class="refund-box dis-none">
+    <div class="guanbi"></div>
+    <h4>可以将此任务托管到平台</h4>
+    <p>1、托管平台后享有xxx</p>
+    <p>2、凡高工舍建筑设计事物所</p>
+    <div class="select-tc">
+        <button type="submit">托管到平台</button>
+        <button type="button">算了，我不想</button>
+    </div>
+</div> -->
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/chajian/jqkuozhan.js"></script>
+<script src="/js/chajian/jquery.select.js"></script>
+<script>
+    $(".refund-box select").select();
+</script>
+<script src="/js/common.js"></script>
+
+<script type="text/javascript" src="/js/bg/ajaxPost.js"></script>
+<script type="text/javascript" src="/js/bg/tender.js"></script>
+</html>

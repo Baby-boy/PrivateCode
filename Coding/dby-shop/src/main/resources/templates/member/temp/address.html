@@ -1,0 +1,125 @@
+<div th:fragment="address" th:remove="tag">
+	<div class="Z_g-right">
+		<div class="Z-acc1-1">
+			<div class="Z-title_inf">
+				收货地址
+			</div>
+			
+			<!--更改信息-->
+			<div class="Z-address_information">
+				<div class="Z-add_title">
+					<div class="Z-shouhuoren">收货人</div>
+					<div class="Z-xiangxidizhi">详细地址</div>
+					<div class="Z-shoujihaoma">手机</div>
+					<div class="Z-caozuo">操作</div>
+					<div class="Z-zhuangtai">状态</div>
+				</div>
+				<div class="Z-add_con">
+					<ul>
+						<li th:each="item:${body}" th:inline="text">
+							<div class="Z-con_name" th:text="${item.name}"></div>
+							<div class="Z-con_add">[[${item.province_value}]] [[${item.city_value + item.street + item.more}]]</div>
+							<div class="Z-con_number" th:text="${item.mobile}">13685564997</div>
+							<div class="Z-con_operation">
+								<a href="##" class="Z-edit">编辑</a>
+								<a href="##" class="Z-delete">删除</a>
+							</div>
+							<div class="Z-con_state Z-conn">设为默认</div>
+						</li>
+					</ul>
+				</div>
+				<div class="Z-jump" style="display:none">
+					<div class="Z-newly2">
+						<div class="Z-add_new">
+							修改收货信息
+						</div>
+						<span>×</span>
+						<div class="Z-new_table">
+							<ul>
+								<li>
+									<div class="Z_note">收货人姓名：</div>
+									<input type="text" placeholder="张三" />
+									*
+									<select>
+										<option>男</option>
+										<option>女</option>
+										<option>保密</option>
+									</select>
+								</li>
+								<li>
+									<div class="Z_note">手机：</div>
+									<input type="text" placeholder="1368546856" />
+									或	电话：
+									<input type="text" />
+								</li>
+								<li>
+									<div class="Z_note">地址：</div>
+									<div class="select-city">
+										<select class="province" data-value="" data-first-title="选择省" disabled="disabled"></select>
+										<select class="city" data-value="" data-first-title="选择市" disabled="disabled"></select>
+										<select class="area" data-value="" data-first-title="选择地区" disabled="disabled"></select>
+									</div>
+								</li>
+								<li class="Z-long">
+									<div class="Z_note">详细地址：</div>
+									<input type="text" placeholder="上海 上海市宝山区XX街道XX大楼XXXX号" />
+								</li>
+							</ul>
+							<div class="Z-input_box">
+								<div class="Z-input_button">保存收货人地址</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="Z-newly">
+					<div class="Z-add_new">
+						新增收货人
+					</div>
+					<div class="Z-new_table">
+						<ul>
+							<li>
+								<div class="Z_note">收货人姓名：</div>
+								<input type="text" placeholder="张三" />
+								*
+								<select>
+									<option>男</option>
+									<option>女</option>
+									<option>保密</option>
+								</select>
+							</li>
+							<li>
+								<div class="Z_note">手机：</div>
+								<input type="text" placeholder="1368546856" />
+								或	电话：
+								<input type="text" />
+							</li>
+							<li>
+								<div class="Z_note">地址：</div>
+								<div class="select-city">
+									<select class="province" data-value="" data-first-title="选择省" disabled="disabled"></select>
+									<select class="city" data-value="" data-first-title="选择市" disabled="disabled"></select>
+									<select class="area" data-value="" data-first-title="选择地区" disabled="disabled"></select>
+								</div>
+
+							</li>
+							<li class="Z-long">
+								<div class="Z_note">详细地址：</div>
+								<input type="text" placeholder="上海 上海市宝山区XX街道XX大楼XXXX号" />
+							</li>
+						</ul>
+						<div class="Z-input_box">
+							<div class="Z-input_button">保存收货人详情</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript" th:src="@{/assets/js/jquery.cxselect.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jq_select.js}"></script>
+</div>
+	
+	
+	
+	

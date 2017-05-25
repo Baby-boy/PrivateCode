@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="keywords" content=""/>
+		<meta name="description" content=""/>
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/c2c.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/supply.css}" />
+	</head>
+	<body th:with="searchkeys=${@_dict.many('web_search_key')},
+	navs=${@_nav.getByType('0')}
+	">
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: supply(active)" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(supply)" th:remove="tag"></div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		<div class="second-banner">
+			<div class="banner-wrap">
+				<div class="banner-3">
+					<div class="block_home_slider">
+						<div id="home_slider" class="flexslider">
+							<ul class="slides">
+								<li th:each="item:${@_cache.get('web_supply_banner')}">
+									<a href="javascript:;">
+										<img th:src="${item.img1}" />
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="right-section">
+					<div class="bulletin">
+						<div class="content">
+							<div class="title">
+								<span>供货商城快讯</span>
+								<a href="c2c_notice.html">更多&gt;&gt;</a>
+							</div>
+							<div class="arc-list">
+								<ul>
+									<li><a href="c2c_notice_details.html"><strong>[特惠]</strong>8月箱包季 跨店300减100</a></li>
+									<li><a href="c2c_notice_details.html"><strong>[公告]</strong>浙江地区订单配送可能延迟</a></li>
+									<li><a href="c2c_notice_details.html"><strong>[特惠]</strong>好奇裤爽夏日 满399减80</a></li>
+									<li><a href="c2c_notice_details.html"><strong>[公告]</strong>京东生鲜正式启动全球寻“鲜”</a></li>
+									<li><a href="c2c_notice_details.html"><strong>[特惠]</strong>IT超级品类日 每满千减百</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="recomm">
+						<dl>
+							<dt>
+								<a href="details.html">
+									<img src="http://res.zwzyd.com/dby/web/images/demoimg/img_04.png" />
+								</a>
+							</dt>
+							<dd class="title">升级版西施</dd>
+							<dd class="intro">原矿地槽清健康好胡</dd>
+							<dd class="price">¥238.00</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 楼层 -->
+		<div id="container">
+			
+			<div class="c2c-recom">
+				<div class="col-title">
+					<ul>
+						<li>猜你喜欢</li>
+					</ul>
+					<a href="#">更多&gt;&gt;</a>
+				</div>
+				<div class="content">
+					<div class="list">
+						<ul>
+							<li>
+								<a href="details.html">
+									<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+									<div class="title">笑佛冰种飘花翡翠挂件</div>
+									<div class="intro">全新2</div>
+									<div class="price">¥1612.00</div>
+								</a>
+							</li>
+							<li>
+								<a href="details.html">
+									<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_05.png" /></div>
+									<div class="title">笑佛冰种飘花翡翠挂件</div>
+									<div class="intro">全新2</div>
+									<div class="price">¥1612.00</div>
+								</a>
+							</li>
+							<li>
+								<a href="details.html">
+									<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_07.png" /></div>
+									<div class="title">笑佛冰种飘花翡翠挂件</div>
+									<div class="intro">全新2</div>
+									<div class="price">¥1612.00</div>
+								</a>
+							</li>
+							<li>
+								<a href="details.html">
+									<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_09.png" /></div>
+									<div class="title">笑佛冰种飘花翡翠挂件</div>
+									<div class="intro">全新2</div>
+									<div class="price">¥1612.00</div>
+								</a>
+							</li>
+							<li>
+								<a href="details.html">
+									<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+									<div class="title">笑佛冰种飘花翡翠挂件</div>
+									<div class="intro">全新2</div>
+									<div class="price">¥1612.00</div>
+								</a>
+							</li>
+							<li>
+								<a href="details.html">
+									<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_05.png" /></div>
+									<div class="title">笑佛冰种飘花翡翠挂件</div>
+									<div class="intro">全新2</div>
+									<div class="price">¥1612.00</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 黄铂金 -->
+			<div class="section">
+				<div class="col-title">
+					<span>黄铂金</span>
+					<ul>
+						<li><a href="javascript:;">足金</a></li>
+						<li class="active"><a href="javascript:;">K金</a></li>
+						<li><a href="javascript:;">定制款</a></li>
+					</ul>
+				</div>
+				
+				<!-- 一 -->
+				<div style="display: block;" class="list">
+					<ul>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_05.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_07.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_09.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				
+				<!-- 二 -->
+				<div class="list">
+					<ul>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_05.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_07.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_09.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				
+				<!-- 三 -->
+				<div class="list">
+					<ul>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_05.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_07.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_09.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				
+			</div>
+			
+			<!-- 黄铂金 -->
+			<div class="section">
+				<div class="col-title">
+					<span>黄铂金</span>
+					<ul>
+						<li><a href="javascript:;">足金</a></li>
+						<li class="active"><a href="javascript:;">K金</a></li>
+						<li><a href="javascript:;">定制款</a></li>
+					</ul>
+				</div>
+				
+				<!-- 一 -->
+				<div style="display: block;" class="list">
+					<ul>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_05.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_07.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_09.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				
+				<!-- 二 -->
+				<div class="list">
+					<ul>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_05.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_07.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_09.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				
+				<!-- 三 -->
+				<div class="list">
+					<ul>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_05.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_07.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_09.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				
+			</div>
+			
+			<!-- 黄铂金 -->
+			<div class="section">
+				<div class="col-title">
+					<span>黄铂金</span>
+					<ul>
+						<li><a href="javascript:;">足金</a></li>
+						<li class="active"><a href="javascript:;">K金</a></li>
+						<li><a href="javascript:;">定制款</a></li>
+					</ul>
+				</div>
+				
+				<!-- 一 -->
+				<div style="display: block;" class="list">
+					<ul>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_05.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_07.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_09.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				
+				<!-- 二 -->
+				<div class="list">
+					<ul>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_05.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_07.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_09.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				
+				<!-- 三 -->
+				<div class="list">
+					<ul>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_03.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_05.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_07.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_09.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+						<li>
+							<a href="details.html">
+								<div class="img"><img src="http://res.zwzyd.com/dby/web/images/demoimg/index_11.png" /></div>
+								<div class="title">笑佛冰种飘花翡翠挂件</div>
+								<div class="intro">全新2</div>
+								<div class="price">¥1612.00</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		
+	
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+
+		
+	</body>
+</html>

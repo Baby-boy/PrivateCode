@@ -1,0 +1,40 @@
+<div th:fragment="main" th:remove="tag">
+	<yd:ajax key="storeGoodsClassifyDestroy" value="get.store_goods_classify_destroy" />
+	<yd:ajax key="storeGoodsClassifyEdit" value="get.store_goods_classify_edit" />
+	<yd:ajax key="storeGoodsClassifySetShow" value="get.store_goods_classify_setshow" />	
+	
+	<script th:inline="javascript">
+		treeEachStoreGoodsCLassify([[${data}]], ".store-goods-classify-list tbody");
+	</script>
+	<div class="d-right nav-page">
+		<ul class="btn-page-top">
+			<li class="active">店铺分类</li>
+			<li yd:ajax="onclick,get.classifyCreate" class="active flr">新增分类</li>
+		</ul>
+		<div class="d-all pop">
+			<table class="list-table store-goods-classify-list">
+				<thead>
+					<tr>
+						<th class="w50"><input type="checkbox" /></th>
+						<th class="w500 al">分类名称</th>
+						<th class="w120">排序</th>
+						<th class="w130">显示</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="4"></td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+	
+	
+	
+	

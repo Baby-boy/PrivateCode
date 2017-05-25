@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.c.member.mapper.YdMemberMapperOrderRefund">
+
+
+	<sql id="field">
+		refund_id, order_id, order_sn, refund_sn, store_id, store_name, buyer_id,
+		buyer_name, goods_id, order_goods_id, goods_name, goods_num, refund_amount,
+		goods_image, order_goods_type, refund_type, seller_state, refund_state,
+		return_type, order_lock, goods_state, add_time, seller_time, admin_time,
+		reason_id, reason_info, pic_info, buyer_message, seller_message,
+		admin_message, express_id, invoice_no, ship_time, delay_time, receive_time,
+		receive_message, commis_rate
+	</sql>
+	
+	
+	<sql id="WhereRefund" >
+		<trim prefix="where" suffixOverrides="and" >
+			<if test="state_service != null ">
+				<!-- 退款 -->
+				 refund_type = #{state_service} and
+			</if>
+			<if test="order_sn != null and order_sn != '' ">
+				<!-- 退款 -->
+				 order_sn = #{order_sn} and
+			</if>
+			<if test="refund_sn != null and order_sn != '' ">
+				<!-- 退款 -->
+				 refund_sn = #{refund_sn} and
+			</if>
+			
+			buyer_id = #{user_id}
+		</trim>
+	</sql>
+	
+	<!-- 查询退货 -->
+	<select id="saleService" resultType="com.yd.dby.c.member.entity.YdOrderRefund" >
+		select * from yd_order_refund
+		<include refid="WhereRefund"></include>
+		limit #{to},#{perPage}		
+	</select>
+	
+	<select id="totalService" resultType="java.lang.Integer" >
+		select count(refund_id) from yd_order_refund 
+		<include refid="WhereRefund"></include>
+	</select>
+	
+	
+	<select id="info" resultType="com.yd.dby.c.member.entity.vo.YdMemberRefundOrderVo">
+		SELECT
+			<include refid="field"></include>
+		FROM
+			yd_order_refund
+		WHERE
+			buyer_id = #{userId} AND refund_id = #{refundId}
+		LIMIT 1
+	</select>
+	
+	
+	<resultMap type="java.util.HashMap" id="YdWebMapperOrderRefundList">
+		<id property="refuundId" column="refund_id" />
+		<result property="orderId" column="order_id"/>
+		<result property="orderSn" column="order_sn"/>
+		<result property="refundSn" column="refund_sn"/>
+		<result property="storeId" column="store_id"/>
+		<result property="storeName" column="store_name"/>
+		<result property="buyerId" column="buyer_id"/>
+		<result property="buyerName" column="buyer_name"/>
+		<result property="goodsId" column="goods_id"/>
+		<result property="orderGoodsId" column="order_goods_id"/>
+		<result property="goodsName" column="goods_name"/>
+		<result property="goodsNum" column="goods_num"/>
+		<result property="refundAmount" column="refund_amount"/>
+		<result property="goodsImage" column="goods_image"/>
+		<result property="orderGoodsType" column="order_goods_type"/>
+		<result property="refundType" column="refund_type"/>
+		<result property="sellerState" column="seller_state"/>
+		<result property="refundState" column="refund_state"/>
+		<result property="returnType" column="return_type"/>
+		<result property="orderLock" column="order_lock"/>
+		<result property="goodState" column="goods_state"/>
+		<result property="addTime" column="add_time"/>
+		<result property="sellerTime" column="seller_time"/>
+		<result property="adminTime" column="admin_time"/>
+		<result property="reasonId" column="reason_id"/>
+		<result property="reasonInfo" column="reason_info"/>
+		<result property="picInfo" column="pic_info"/>
+		<result property="buyerMessage" column="buyer_message"/>
+		<result property="sellerMessage" column="seller_message"/>
+		<result property="adminMadessage" column="admin_message"/>
+		<result property="expressId" column="express_id"/>
+		<result property="invoiceNo" column="invoice_no"/>
+		<result property="shipTime" column="ship_time"/>
+		<result property="delayTime" column="delay_time"/>
+		<result property="receiveTime" column="receive_time"/>
+		<result property="receiveMessage" column="receive_message"/>
+		<result property="commisRate" column="commis_rate"/>
+	</resultMap>
+	
+	<insert id="store">
+		INSERT INTO yd_order_refund
+			(
+				order_id, order_sn, refund_sn, store_id, store_name, buyer_id, buyer_name, goods_id, order_goods_id, goods_name, goods_num, refund_amount, goods_image, order_goods_type, refund_type, seller_state, refund_state, return_type, order_lock, goods_state, add_time, seller_time, admin_time, reason_id, reason_info, pic_info, buyer_message, seller_message, admin_message, express_id, invoice_no, ship_time, delay_time, receive_time, receive_message, commis_rate
+			)
+		VALUE
+			(
+				#{order_id},#{order_sn},#{refund_sn},#{store_id},#{store_name},#{buyer_id},#{buyer_name},#{goods_id},#{order_goods_id},#{goods_name},#{goods_num},#{refund_amount},#{goods_image},#{order_goods_type},#{refund_type},#{seller_state},#{refund_state},#{return_type},#{order_lock},#{goods_state},#{add_time},#{seller_time},#{admin_time},#{reason_id},#{reason_info},#{pic_info},#{buyer_message},#{seller_message},#{admin_message},#{express_id},#{invoice_no},#{ship_time},#{delay_time},#{receive_time},#{receive_message},#{commis_rate}
+			)
+	</insert>
+</mapper>

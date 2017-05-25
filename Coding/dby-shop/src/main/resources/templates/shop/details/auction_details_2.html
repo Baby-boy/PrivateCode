@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/auction-details.css}" />
+	</head>
+	<body>
+		<!-- 头部 -->
+		<div id="header">
+			<div th:include="shop/template/header :: header" th:remove="tag"></div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: auction(active,c2c_two)" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav(auction)" th:remove="tag"></div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		<!-- 商品展示信息 -->
+		<div class="product-show">
+			<div class="min-width">
+				<div class="left-info">
+					<div class="details-pic">
+						<div class="thumbnail">
+							<ul class="tb-thumb" id="thumblist">
+								<li>
+									<img src="images/demoimg/details_video.jpg" />
+								</li>
+								<li>
+									<img src="images/demoimg/details_1.jpg" mid="images/demoimg/details_1.jpg" big="images/demoimg/details_1_1.jpg" />
+								</li>
+								<li>
+									<img src="images/demoimg/details_2.jpg" mid="images/demoimg/details_2.jpg" big="images/demoimg/details_2_2.jpg" />
+								</li>
+								<li>
+									<img src="images/demoimg/details_3.jpg" mid="images/demoimg/details_3.jpg" big="images/demoimg/details_3_3.jpg" />
+								</li>
+								<li>
+									<img src="images/demoimg/details_4.jpg" mid="images/demoimg/details_4.jpg" big="images/demoimg/details_4_4.jpg" />
+								</li>
+							</ul>
+						</div>
+						<div class="detail-video">
+							<video width="800" height="" controls="controls">
+								<source src="images/demoimg/01.mp4" type="video/mp4"></source>
+								<source src="myvideo.ogv" type="video/ogg"></source>
+								<source src="myvideo.webm" type="video/webm"></source>
+								<object width="" height="" type="application/x-shockwave-flash" data="myvideo.swf">
+									<param name="movie" value="myvideo.swf" />
+									<param name="flashvars" value="autostart=true&amp;file=myvideo.swf" />
+								</object>
+								当前浏览器不支持 video直接播放，点击这里下载视频： <a href="myvideo.webm">下载视频</a>
+							</video>
+						</div>
+						<div class="big-picture">
+							<a href="images/demoimg/details_1.jpg">
+								<img class="jqzoom" src="images/demoimg/details_1.jpg" rel="images/demoimg/details_1_1.jpg" />
+							</a>
+						</div>
+					</div>
+					<div class="product-info">
+						<h2>经典商务双肩包</h2>
+						<dl>
+							<dt>正在进行</dt>
+							<dd class="margin4">距离结束仅剩：<label class="end-time" data-endtime="2016-10-10 10:00:00">00 天 10 时 44 分</label></dd>
+							<dd><small>39</small><span>人已报名</span><small>708</small><span>次围观</span></dd>
+						</dl>
+						<div class="introduce">当前价：<strong>99</strong>元<span>出价<small>10</small>次</span></div>
+						<div class="introduce color6">保证金：<strong>50</strong><font>元</font><span>出价不成拍则结束后退还</span></div>
+						<div class="introduce">参与资格：本次拍卖仅支持注册及以上级别会员参与</div>
+						<div class="buy-link">
+							<a href="auction_bond.html">交保证金报名</a>
+						</div>
+						<ul>
+							<li>起拍价：¥1.00</li>
+							<li>加价幅度：<span>¥200</span></li>
+							<li>保留价：无</li>
+							<li>延时周期：0分钟/次</li>
+							<li>拍卖方式：升价拍</li>
+							<li>佣   金：无</li>
+						</ul>
+					</div>
+					
+				</div>
+				<div class="right-info">
+					<div class="title">进入该拍卖专场</div>
+					<ul>
+						<li><a href="#">留言咨询</a></li>
+						<li><a href="#">在线咨询</a></li>
+						<li><a href="#">进店逛逛</a></li>
+						<li><a href="#">关注店铺</a></li>
+					</ul>
+					
+					<div class="bid-record">
+						<p>出价记录（10）</p>
+						<dl>
+							<dd>状态</dd>
+							<dd>价格</dd>
+							<dd>竞拍人</dd>
+						</dl>
+						<div class="list">
+							<dl>
+								<dd>领先</dd>
+								<dd>¥4600.00</dd>
+								<dd>***启</dd>
+							</dl>
+							<dl>
+								<dd>出局</dd>
+								<dd>¥4600.00</dd>
+								<dd>***启</dd>
+							</dl>
+							<dl>
+								<dd>出局</dd>
+								<dd>¥4600.00</dd>
+								<dd>***启</dd>
+							</dl>
+							<dl>
+								<dd>出局</dd>
+								<dd>¥4600.00</dd>
+								<dd>***启</dd>
+							</dl>
+							<dl>
+								<dd>出局</dd>
+								<dd>¥4600.00</dd>
+								<dd>***启</dd>
+							</dl>
+						</div>
+						
+						<a href="javascript:;">查看更多&gt;</a>
+					</div>
+				</div>
+			</div>
+			<div class="process">
+				<ul>
+					<li>竞拍流程：</li>
+					<li><span>01</span>竞拍流程</li>
+					<li><span>02</span>参与竞拍</li>
+					<li><span>03</span>竞拍成功</li>
+					<li><span>04</span>支付货款</li>
+					<li><span>05</span>交易成功</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 商品展示信息结束 -->
+		
+		<!-- 中间内容 -->
+		<div id="container">
+			<div class="details-page">
+				
+				<div class="top-screen">
+					<ul>
+						<li class="active">拍品描述</li>
+						<li>出价记录</li>
+						<li>卖家承诺</li>
+						<li>保证金须知</li>
+					</ul>
+				</div>
+				
+				<div class="tab-switch product-detail">
+					<!-- 参数 -->
+					<div class="pro-parameter">
+						<div class="store-name">
+							品牌：<a href="#">圣康尼（SAUCONY）</a><span class="follow"><small>关注</small></span>
+						</div>
+						<div class="parameter">
+							<ul>
+								<li>商品名称：SAUCONY圣康尼LEXI...</li>
+								<li>商品编号：10188534018</li>
+								<li>店铺：<a href="#">SAUCONY旗舰店</a></li>
+								<li>商品毛重：0.89kg</li>
+								<li>货号：S25251-A</li>
+								<li>适合路面：跑道</li>
+								<li>上市时间：2016春季</li>
+								<li>选购热点：经典款</li>
+								<li>尺码：42</li>
+								<li>功能科技：缓冲，避震</li>
+								<li>适合人群：男士</li>
+								<li>场合：运动</li>
+								<li>闭合方式：系带</li>
+							</ul>
+						</div>
+					</div>
+					<!-- 参数结束 -->
+					
+					<!-- 正文 -->
+					<div class="product-details">
+						<img src="images/demoimg/details_01.png" />
+					</div>
+					<!-- 正文结束 -->
+				
+				</div>
+				
+				<!-- 出价记录 -->
+				<div class="tab-switch bid-record">
+					<div class="title">出价记录</div>
+					<ul>
+						<li>状态</li>
+						<li>价格</li>
+						<li>竞拍人</li>
+						<li>时间</li>
+					</ul>
+					<div class="list">
+						<ul>
+							<li>领先</li>
+							<li>¥86000.00</li>
+							<li>***启</li>
+							<li>13:16</li>
+						</ul>
+						<ul>
+							<li>出局</li>
+							<li>¥86000.00</li>
+							<li>***启</li>
+							<li>13:16</li>
+						</ul>
+						<ul>
+							<li>出局</li>
+							<li>¥86000.00</li>
+							<li>***启</li>
+							<li>13:16</li>
+						</ul>
+						<ul>
+							<li>出局</li>
+							<li>¥86000.00</li>
+							<li>***启</li>
+							<li>13:16[代理]</li>
+						</ul>
+						<ul>
+							<li>出局</li>
+							<li>¥86000.00</li>
+							<li>***启</li>
+							<li>13:16</li>
+						</ul>
+						<ul>
+							<li>出局</li>
+							<li>¥86000.00</li>
+							<li>***启</li>
+							<li>13:16</li>
+						</ul>
+						<ul>
+							<li>出局</li>
+							<li>¥86000.00</li>
+							<li>***启</li>
+							<li>13:16</li>
+						</ul>
+						<ul>
+							<li>出局</li>
+							<li>¥86000.00</li>
+							<li>***启</li>
+							<li>13:16[代理]</li>
+						</ul>
+						<ul>
+							<li>出局</li>
+							<li>¥86000.00</li>
+							<li>***启</li>
+							<li>13:16</li>
+						</ul>
+					</div>
+					<div id="sales" class="pagelist pagelist-right pagelist-margin10">
+						<a class="active" href="#">1</a>
+						<a href="#">2</a>
+						<a href="#">3</a>
+						<a href="#">下一页&gt;</a>
+					</div>
+				</div>
+				<!-- 出价记录 -->
+				
+				<!-- 卖家承诺 -->
+				<div class="tab-switch promise">
+					<div class="title">卖家承诺</div>
+					<div class="content">
+						<img src="images/demoimg/auction_01.png" />
+					</div>
+				</div>
+				<!-- 卖家承诺结束 -->
+				
+				<!-- 保证金须知 -->
+				<div class="tab-switch promise">
+					<div class="title">保证金须知</div>
+					<div class="content">
+						<img src="images/demoimg/auction_02.png" />
+					</div>
+				</div>
+				<!-- 保证金须知结束 -->
+			</div>
+		</div>
+		
+		
+		<!-- 底部 -->
+		<div id="footer">
+			<div class="min-width">
+				<div class="footer-service">
+					<ul>
+						<li class="icon1">
+							<div class="img"></div>
+							<div class="title">专业鉴定</div>
+							<div class="text">百人鉴定鉴定团队</div>
+						</li>
+						<li class="icon2">
+							<div class="img"></div>
+							<div class="title">权威鉴定</div>
+							<div class="text">高端商品出具证书</div>
+						</li>
+						<li class="icon3">
+							<div class="img"></div>
+							<div class="title">门店支持</div>
+							<div class="text">40家实体店面</div>
+						</li>
+						<li class="icon4">
+							<div class="img"></div>
+							<div class="title">真品好价格</div>
+							<div class="text">多宝鱼最具性价比</div>
+						</li>
+						<li class="icon5">
+							<div class="img"></div>
+							<div class="title">客服电话</div>
+							<div class="text">010-52820505</div>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="service-link">
+					<div class="help-link">
+						<dl>
+							<dt>购物与支付</dt>
+							<dd><a href="help_center.html">购物与支付</a></dd>
+							<dd><a href="help_center.html">订单查询</a></dd>
+							<dd><a href="help_center.html">支付方式</a></dd>
+							<dd><a href="help_center.html">发票制度</a></dd>
+						</dl>
+						<dl>
+							<dt>配送说明</dt>
+							<dd><a href="help_center.html">配送方式及时间</a></dd>
+							<dd><a href="help_center.html">配送费及签收</a></dd>
+						</dl>
+						<dl>
+							<dt>关于我们</dt>
+							<dd><a href="help_center.html">联系我们</a></dd>
+							<dd><a href="help_center.html">品牌阁</a></dd>
+							<dd><a href="help_center.html">业务范围</a></dd>
+							<dd><a href="help_center.html">隐藏说明</a></dd>
+						</dl>
+						<dl>
+							<dt>售后服务</dt>
+							<dd><a href="help_center.html">退换货政策</a></dd>
+							<dd><a href="help_center.html">退款说明</a></dd>
+						</dl>
+						<dl>
+							<dt>自助服务</dt>
+							<dd><a href="help_center.html">戒指&手镯测量标准</a></dd>
+							<dd><a href="help_center.html">会员中心</a></dd>
+							<dd><a href="help_center.html">会员等级</a></dd>
+						</dl>
+					</div>
+					<div class="qr-code">
+						<dl>
+							<dt><img src="images/footer_qrcode.png" /></dt>
+							<dd class="title">多宝鱼典当行总部地</dd>
+							<dd class="address">北京市东城区崇外大街11号新成文化大厦A座6</dd>
+							<dd class="tel">客服电话：010-52820505</dd>
+							<dd class="mail">邮箱：ds@huaxiapawn.com</dd>
+							<dd class="wx">公众号：xxxxxx</dd>
+						</dl>
+					</div>
+					
+				</div>
+				
+				<!-- 版权 -->
+				<div class="copy-right">版权所有&nbsp;多鱼宝典当行&nbsp;&nbsp;&nbsp;京ICP备12012799号</div>
+				
+			</div>
+		</div>
+		<!-- 底部结束 -->
+		
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js" ></script>
+		<script type="text/javascript" src="js/common.js" ></script>
+		<script type="text/javascript" src="js/jquery.imagezoom.min.js" ></script>
+		<script type="text/javascript" src="js/details.js" ></script>
+		<script type="text/javascript" src="js/jquery.page.js" ></script>
+		<script>
+			$(function(){
+				$("#sales").createPage({
+			        pageCount:42,
+			        current:1,
+			        backFn:function(page){
+			            console.log(p);
+			        }
+			    });
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/assets/shop/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/assets/shop/css/main.css}" />
+	</head>
+	<body>
+		<!-- 头部 -->
+		<div id="header-store">
+			<div class="top-bar">
+				<div class="min-width">
+					<div class="left">
+						欢迎来到多宝鱼&nbsp;&nbsp;请
+						<a class="login" href="/login">登录</a>
+						<a class="register" href="/register">免费注册</a>
+					</div>
+					<div class="right">
+						<ul>
+							<li><a href="/member">我的订单</a></li>
+							<li><small>|</small><a href="/member">个人中心</a></li>
+							<li class="more">
+								<small>|</small><a href="#">关注我们</a>
+								<div class="qr-code">
+									<img th:src="${@_url.goods()}+'footer_qrcode.png'" />
+								</div>
+							</li>
+							<li class="more">
+								<small>|</small><a href="#">客户服务</a>
+								<div class="more-list">
+									<dl>
+										<dd><a href="#">帮助中心</a></dd>
+										<dd><a href="javascript:;">贵宾专线：</a></dd>
+										<dd><a href="javascript:;">400-8756-789</a></dd>
+									</dl>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="head-layout">
+				<!-- logo -->
+				<div class="logo-wrap">
+					<a class="logo" href="#"><img src="http://res.zwzyd.com/dby/web/images/logo.png" /></a>
+					<div class="city">
+						<span>北京</span>
+						<a href="javascript:;">[切换]</a>
+					</div>
+				</div>
+				
+				<!-- search -->
+				<div class="search-wrap">
+					<div class="search">
+						<form>
+							<input type="text" name="" value="" placeholder="请输入关键词" />
+							<input class="total-station" type="submit" value="搜索" />
+							<input class="this-shop" type="submit" value="搜本店" />
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="store-site">
+				<div class="left">
+					<span>店铺：典当行</span>
+					<a href="#">进入店铺</a>	
+				</div>
+				<div class="right">
+					<a href="#">关注店铺</a>
+				</div>
+			</div>
+			
+			
+			<div class="store-name">
+				<div class="min-width">
+					<span>XXX典当行有限公司</span>(店招)
+				</div>
+			</div>
+			
+			<!-- 主导航 -->
+			<div class="main-nav">
+				<div class="nav">
+					<div th:include="shop/template/classify :: index('')" th:remove="tag"></div>
+					<div th:include="shop/template/header :: nav('')" th:remove="tag"></div>
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		
+		<!-- 二级banner --> 
+		<div class="second-banner" style="background: none;">
+			<div class="banner-wrap">
+				<div class="banner">
+					<div class="block_home_slider">
+						<div id="home_slider" class="flexslider">
+							<ul class="slides">
+								<li th:each="item,niter:${@_Store.banner(id)}" th:if="${niter.index} lt 4"><a href="#"><img th:src="@{http://res.zwzyd.com/dby/web__${item.img}__}" alt="" title="" /></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 中间内容 -->
+		<div id="container" style="margin: 10px auto;">
+			<div class="store">
+				<div class="left">
+					<!-- 本店搜索 -->
+					<div class="store-search">
+						<h2>本店搜索</h2>
+						<div class="from">
+							<p>
+								<label for="">关键字</label>
+								<input type="text" value="" placeholder="" />
+							</p>
+							<p>
+								<label for="">价格</label>
+								<input class="start" type="text" value="" placeholder="¥" />
+								<input class="end" type="text" value="" placeholder="¥" />
+							</p>
+							<div class="submit">
+								<input type="submit" value="搜   索" />
+							</div>
+						</div>
+					</div>
+					
+					<!-- 商品分类 -->
+					<div class="sorts">
+						<h2>商品分类</h2>
+						<ul>
+							<li th:each="item:${@_Store.classfiy(id)}">
+								<h3>
+									<a href="#" th:text="${item.name}">查看所有宝贝</a>
+									<em th:if="${item.nodes.size()} > 0">&gt;</em>
+								</h3>
+								<dl th:each="sitem:${item.nodes}" th:if="${item.nodes.size()}">
+									<dd><a href="##" th:text="${sitem.name}">精品文玩核桃</a></dd>
+								</dl>
+							</li>
+						</ul>
+					</div>
+					
+					<!-- 排行榜 -->
+					<div class="ranking">
+						<h2>商品分类</h2>
+						<dl th:each="item:${@_Store.top_sell_goods(id)}" th:inline="text">
+							<dt>
+								<a href="##">
+									<img th:src="@{http://res.zwzyd.com/dby/web__${item.goods_cover}__}" />
+								</a>
+							</dt>
+							<dd class="title"><a href="##" th:text="${item.goods_name}">清末.红木盒竹骨</a></dd>
+							<dd class="price">¥[[${#numbers.formatDecimal(item.avg_price, 0, 2)}]]</dd>
+							<dd class="text">已售出<span th:text="${item.total}">0</span>件</dd>
+						</dl>
+					</div>
+					
+					<!-- 友情链接 -->
+					<div class="flink">
+						<h2>友情链接</h2>
+						<ul>
+							<li th:each="item:${@_Store.link(id)}"><a th:href="${item.url}" th:text="${item.title}">帅子小童装屋</a></li>
+						</ul>
+					</div>
+					
+				</div>
+				<div class="right">
+					
+					<div class="store-top">
+						<strong>商品推荐</strong>
+						<a href="#">更多&gt;&gt;</a>
+					</div>
+					
+					<div class="store-pro-list">
+						<ul>
+							<li th:each="item:${@_Store.recommend_goods(id)}" th:inline="text">
+								<a href="details.html">
+									<div class="img"><img th:src="@{http://res.zwzyd.com/dby/web__${item.goods_cover}__}" /></div>
+									<div class="title" th:text="${item.goods_name}">笑佛冰种飘花翡翠挂件</div>
+									<div class="intro" th:text="${item.tag_name}">全新2</div>
+									<div class="price">¥[[${#numbers.formatDecimal(item.depot_price, 0, 2)}]]</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+					
+				</div>
+			</div>
+			
+		</div>
+		<!-- 中间内容结束 -->
+		
+		<!-- 底部 -->
+		<div th:include="shop/template/footer :: footer" th:remove="tag"></div>
+		
+		<div th:include="shop/template/footer :: javascript" th:remove="tag"></div>
+		<script type="text/javascript" th:src="@{/assets/shop/js/store.js}" ></script>
+	</body>
+</html>

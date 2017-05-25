@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta charset="utf-8" name="renderer" content="webkit" />
+    <title>功城记</title>
+    <link rel="stylesheet" href="/css/public.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+    <script type="text/javascript">localStorage.setItem('nvaNum',1);</script>
+    <style>
+        .clear-fix:before,.clear-fix:after{
+            content:' ';
+            display: table;
+        }
+        .clear-fix:after{
+            clear:both;
+        }
+        .banner-bottom-container{
+            height: 130px;
+            background-color: #e2e2e2;
+        }
+        .gcj-special{
+            width: 1200px;
+            height: 100%;
+            margin: 0 auto;
+        }
+        .gcj-special-list{
+            position: relative;
+            float: left;
+            width: 20%;
+            height: 100%;
+            padding: 40px 0px 40px 20px;
+            box-sizing:border-box;
+            overflow: hidden;
+        }
+        .special-left{
+            position: relative;
+            z-index:1
+        }
+        .special-left>h2{
+            font-size: 1.2em;
+            line-height: 1.5;
+            transition:color .15s ease;
+        }
+        .special-left>p{
+            line-height: 1.5;
+        }
+        .special-right{
+            width: 175px;
+            height: 175px;
+            position: absolute;
+            z-index: 0;
+            right: -45px;
+            top:-5px;
+            /*background-image: url(https://img.alicdn.com/tps/TB13MlVLXXXXXXuaXXXXXXXXXXX-350-21000.jpg);*/
+            -webkit-background-size: 175px;
+            background-size: 175px;
+            background-repeat: no-repeat;
+            background-position: 0px 0px;
+        }
+        .box-bg-odd{
+            background-color: #e2e2e2 !important;
+        }
+        .box-bg-even{
+            background-color: #ebebec !important;
+        }
+        .gcj-special-list:hover .special-left>h2{
+            color:#3cc8b4;
+        }
+        .deal-box .deal{
+            border-top: none;
+        }
+    </style>
+</head>
+<body>
+    <!--顶部导航-->
+    <div th:include="public/hander"></div>
+    
+    <div class="banner">
+        <div class="item" data-href="#" style="background-image: url('images/banner1_bg_1.png');" data-isTransition="true" >
+            <div class="container animated clearfix">
+                <div class="banner-left">
+                    <div class="banner-text">
+                        <img class="banner-text1" src="/images/banner1_text_1.png" alt=""/>
+                        <img class="banner-text2" src="/images/baner1_text_2.png" alt=""/>
+                        <h1 class="green mb-47">“功城记”—— 个人梦想孵化器</h1>
+                    </div>
+                    <a class="banner-btn" href="#"></a>
+                </div>
+                <div class="lines line-one"></div>
+                <div class="banner-right" data-transition="transform:translateZ(50px)">
+                    <img src="/images/banner1_img.png" alt=""/>
+                </div>
+            </div>
+        </div>
+        <div class="item" data-href="#" style="background-image: url('images/banner1_bg_1.png');"  data-isTransition="true">
+            <div class="container animated clearfix">
+                <div class="banner-left">
+                    <div class="banner-text">
+                        <img src="/images/banner2_text.png" alt=""/>
+                        <h1 class="green mb-47 mt-29">“功城记”—— 企业发展助推器</h1>
+                    </div>
+                    <a class="banner-btn" href="#"></a>
+                </div>
+                <div class="lines line-two"></div>
+                <div class="banner-right pt-35 pr-70" data-transition="transform:translateZ(50px)">
+                    <img src="/images/banner2_img.png" alt=""/>
+                </div>
+            </div>
+        </div>
+        <div class="item" data-href="#" data-isTransition="true" style="background-image: url('images/banner1_bg_1.png');" >
+            <div class="container animated clearfix">
+                <div class="banner-left mt-122">
+                    <div class="banner-text mb-54">
+                        <img src="/images/banner3_text.png" alt=""/>
+                    </div>
+                    <a class="banner-btn" href="#"></a>
+                </div>
+                <div class="lines line-three"></div>
+                <div class="roll-stage">
+                    <div class="layer top-left" data-transition="1">
+                        <img src="/images/banne3_litte_img1.png" alt=""/>
+                    </div>
+                    <div class="layer top-right" data-transition="1">
+                        <img src="/images/banner3_little_img2.png" alt=""/>
+                    </div>
+                    <div class="layer bottom-left" data-transition="1">
+                        <img src="/images/banner3_little_img3.png" alt=""/>
+                    </div>
+                    <div class="layer bottom-right" data-transition="1">
+                        <img src="/images/banner3_little_img4.png" alt=""/>
+                    </div>
+                    <div class="layer">
+                        <img src="/images/banner3_img.png" alt=""/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item" data-href="#" style="background-image: url('images/banner4_bg.png');" >
+            <div class="container animated clearfix">
+                <div class="compu-img">
+                    <img src="/images/banner4 _img.png" alt=""/>
+                </div>
+            </div>
+        </div>
+        <ul class="indicators">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <!-- subnav-->
+    <nav class="sub-nav">
+        <div class="sub-nav-wrap  clearfix">
+            <a class="icon_bag" href="/list-fabaodt/fabaodating">
+                <dl>
+                    <dt>发包大厅</dt>
+                    <dd>填写发包信息</dd>
+                </dl>
+            </a>
+            <a class="bordered icon_task" href="/task/task">
+                <dl class="w-237">
+                    <dt>任务大厅</dt>
+                    <dd>查看已发布的任务</dd>
+                </dl>
+            </a>
+            <a class="icon_workhall"  href="/work/work-hall">
+                <dl>
+                    <dt>工作大厅</dt>
+                    <dd>查看实施的项目</dd>
+                </dl>
+            </a>
+            <a class="bordered icon_tanlent" href="/people/people">
+                <dl class="w-237">
+                    <dt>人才大厅</dt>
+                    <dd>查看个专业人才</dd>
+                </dl>
+            </a>
+            <a class="icon_call" href="#">
+                <dl>
+                    <dt>呼一呼</dt>
+                    <dd>呼叫人才协助工作</dd>
+                </dl>
+            </a>
+        </div>
+    </nav>
+    <!--交易流程-->
+    <div class="deal-box">
+        <div class="deal">
+            <h4>交易流程</h4>
+            <p>Transaction</p>
+            <ul>
+                <li class="li1">
+                    <i></i>
+                    <p>1.快捷发包</p>
+                </li>
+                <li class="li2">
+                    <i></i>
+                    <p>2.威客投标</p>
+                </li>
+                <li class="li3">
+                    <i></i>
+                    <p>3.高效选标</p>
+                </li>
+                <li class="li4">
+                    <i></i>
+                    <p>4.协同工作</p>
+                </li>
+                <li class="li5">
+                    <i></i>
+                    <p>5.阶段成果</p>
+                </li>
+                <li class="li6">
+                    <i></i>
+                    <p>6.分期付款</p>
+                </li>
+                <li class="li7">
+                    <i></i>
+                    <p>7.项目完成</p>
+                </li>
+                <li class="li8">
+                    <i></i>
+                    <p>8.支付尾款</p>
+                </li>
+                <li class="li9">
+                    <i></i>
+                    <p>9.工作点评</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <!--底部-->
+    <div th:include="public/foot"></div>
+    
+</body>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/index.js"></script>
+<script src="/js/chajian/external.js"></script>
+<script src="/js/index_img.js"></script>
+
+</html>

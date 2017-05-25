@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>添加管理员</title>
+    <link rel="stylesheet" href="/system/css/pintuer.css" />
+    <link rel="stylesheet" href="/system/css/admin.css" />
+    <script src="/system/js/jquery.js"></script>
+    <script src="/system/js/pintuer.js"></script>  
+</head>
+<body>
+<div class="panel admin-panel margin-top">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>添加管理员</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="/system/addAdmin" id="addForm" >   
+      <input type="hidden" name="id"  value="" />
+      
+      <div class="form-group">
+        <div class="label">
+          <label>管理员账号：</label>
+        </div>
+        <div class="field">
+          <input id="adminAccount" type="text" class="input w50" name="admin_account"  data-validate="required:请输入管理员账号" />
+          <span id="name" ></span>         
+          <div class="tips"></div>
+        </div>
+      </div>
+        
+      <div class="form-group">
+        <div class="label">
+          <label>管理员名称：</label>
+        </div>
+        <div class="field">
+          <input id="adminName" type="text" class="input w50" name="admin_name" data-validate="required:请输入管理员名称"  />         
+          <div class="tips"></div>
+        </div>
+      </div>
+        <div class="form-group">
+            <div class="label">
+                <label>管理员密码：</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" name="admin_password" value="" data-validate="required:请输入密码" />
+                <div class="tips"></div>
+            </div>
+        </div>
+      
+     <div class="form-group">
+        <div class="label">
+          <label>手机号码：</label>
+        </div>
+        <div class="field">
+          <input id="phone" type="text" class="input w50" name="admin_phone"  data-validate="required:请输入联系方式" onblur="validateTel()" /><span id="telNum"></span>         
+          <div class="tips"></div>
+        </div>
+      </div>
+    
+     <div class="form-group">
+        <div class="label">
+          <label>是否为超级管理员：</label>
+        </div>
+        <div class="field">
+          <div class="button-group radio">
+          
+          <label class="button active">
+         	  <span class="icon icon-check"></span>             
+              <input name="admin_is_super" value="0" type="radio" checked="checked" />是             
+          </label>             
+        
+          <label class="button active"><span class="icon icon-times"></span>          	
+              <input name="admin_is_super" value="1"  type="radio" checked="checked" />否
+          </label>         
+           </div>       
+        </div>
+     </div>
+     <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="button" id="btnSubmit" > 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">
+
+ 	$("#btnSubmit").click(function(){
+ 		var data = $("#addForm").serializeArray();
+ 		var ydMangerSystemAdmin = {};
+		$.each(data, function(k, v) {
+			ydMangerSystemAdmin[ v["name"] ] = v["value"];
+		});
+ 		
+ 		$.ajax({
+ 			url: "/system/addAdmin",
+ 			data: $("#addForm").serialize(),
+ 			type: "post",
+ 			success: function(datas) {
+ 				if(datas.msg==true){
+ 					alert("添加成功");
+ 					location.reload();
+ 				};
+ 				if(datas.msg==false){
+ 					alert("添加失败");
+ 				};
+ 				if(datas.msg==100){
+ 					alert("手机号码不合法");
+ 				}
+ 			}
+ 		});
+ 	});
+ 	
+ 	//验证手机号码的唯一性
+ 	function validateTel(){ 
+ 	    var admin_phone = $("#phone").val();
+ 	    if(!(/^1[34578]\d{9}$/.test(admin_phone))){ 
+ 	        alert("手机号码有误，请重填");  
+ 	        return false; 
+ 	    }else{
+ 	    	$.ajax({
+ 	    	    url: "/system/validateTelNum", 
+ 	    	    type: "POST", 
+ 	    	    data: {
+ 	    	        "admin_phone": admin_phone,
+ 	    	    },    
+ 	    	    success: function(jsonObject){
+ 	    	         if(jsonObject.msg==false){ 
+ 	    	             alert("手机号码已经存在");
+ 	    	         }; 
+ 	    	         if(jsonObject.msg==true) {
+ 	    	             alert("手机号码可以使用");
+ 	    	         }
+ 	    	         if(jsonObject.msg==100) {
+ 	    	             alert("手机号码不合法");
+ 	    	         }
+ 	    	     } 
+ 	    	});
+ 	    } 
+ 	}
+	
+ //ajax验证管理员名称的唯一性
+ jQuery(function($){
+	 $("#adminName").blur(function(){
+		 var admin_name = $("#adminName").val();
+		 $.ajax({
+	    	    url: "/system/validateAdminName", 
+	    	    type: "POST", 
+	    	    data: {
+	    	        "admin_name": admin_name,
+	    	    },    
+	    	    success: function(jsonObject){
+	    	         if(jsonObject.msg==false){ 
+	    	             alert("管理员名称已经存在");
+	    	         } else {
+	    	             alert("可以使用");
+	    	         }
+	    	     } 
+	    	}); 		
+	 		
+	 });
+ })
+ 
+ //ajax验证管理员账号的唯一性
+ jQuery(function($){
+	 $("#adminAccount").blur(function(){
+		 var admin_account = $("#adminAccount").val();
+		 $.ajax({
+	    	    url: "/system/validateAdminAccount", 
+	    	    type: "POST", 
+	    	    data: {
+	    	        "admin_account": admin_account,
+	    	    },    
+	    	    success: function(jsonObject){
+	    	         if(jsonObject.msg==false){ 
+	    	             alert("管理员账号已经存在");
+	    	         } else {
+	    	             alert("可以使用");
+	    	         }
+	    	     } 
+	    	}); 		
+	 		
+	 });
+ })
+</script>
+</body></html>

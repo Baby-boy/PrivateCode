@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperTaskTemp">
+	
+	<select id="$queryAll" resultType="com.yd.gcj.entity.YdMangerTaskTemp">
+		select 
+			tasktemp_id,tasktemp_num,tasktemp_area,tasktemp_price,tasktemp_pnum,tasktemp_schedule
+		from 
+			yd_task_temp
+		limit #{startPageNum},#{queryPageNum}
+	</select>
+	
+	<select id="$queryById" resultType="com.yd.gcj.entity.YdMangerTaskTemp">
+		select 
+			tasktemp_id,tasktemp_num,tasktemp_area,tasktemp_price,tasktemp_pnum,tasktemp_schedule
+		from 
+			yd_task_temp
+		where 
+			tasktemp_id = #{tasktemp_id}
+	</select>
+	
+	<select id="$queryCountNum" resultType="java.lang.Integer">
+		select 
+			count(*) 
+		from 
+			yd_task_temp
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerTaskTemp">
+		insert into yd_task_temp
+			(tasktemp_num,tasktemp_area,tasktemp_price,tasktemp_pnum,tasktemp_schedule)
+		value
+			(#{tasktemp_num},#{tasktemp_area},#{tasktemp_price},#{tasktemp_pnum},#{tasktemp_schedule})
+	</insert>
+	
+	
+	<update id="$update" parameterType="com.yd.gcj.entity.YdMangerTaskTemp">
+		update yd_task_temp
+		<set>
+			<trim suffixOverrides=",">
+				<if test="tasktemp_num != null">aaaa = #{aaaaa}</if>
+				<if test="tasktemp_area != null">tasktemp_area = #{tasktemp_area}</if>
+				<if test="tasktemp_price != null">tasktemp_price = #{tasktemp_price}</if>
+				<if test="tasktemp_pnum != null">tasktemp_pnum = #{tasktemp_pnum}</if>
+				<if test="tasktemp_schedule != null">tasktemp_schedule = #{tasktemp_schedule}</if>
+			</trim>
+		</set>
+		where tasktemp_id = #{tasktemp_id}
+	</update>
+	
+	<delete id="$delete" parameterType="java.lang.Integer">
+		delete from yd_task_temp
+		where tasktemp_id = #{tasktemp_id}
+	</delete>
+	
+</mapper>
+

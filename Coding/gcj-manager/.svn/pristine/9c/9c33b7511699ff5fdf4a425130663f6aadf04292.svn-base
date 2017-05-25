@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.gcj.mapper.YdMangerMapperCollection">
+	
+	<select id="$queryAll" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerCollection">
+		select 
+			colle_id,colle_uid,colle_taskid,colle_tpn,colle_tpa,colle_price,colle_start_time,colle_end_time
+		from 
+			yd_collection
+		where
+			colle_uid = #{colle_uid}
+	</select>
+	
+	<select id="$queryAllByPageNum" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerCollection">
+		select 
+			colle_id,colle_uid,colle_taskid,colle_tpn,colle_tpa,colle_price,colle_term,colle_start_time,colle_end_time
+		from 
+			yd_collection
+		where 
+			colle_uid = #{colle_uid}
+			limit #{startPageNum},#{queryPageNum}
+	</select>
+	
+	<select id="$queryCountNum" parameterType="java.lang.Integer" resultType="com.yd.gcj.entity.YdMangerCollection">
+		select 
+			count(*)
+		from 
+			yd_collection
+		where 
+			colle_uid = #{colle_uid}
+	</select>
+	
+	<insert id="$insert" parameterType="com.yd.gcj.entity.YdMangerCollection">
+		insert into 
+			yd_collection
+			(colle_uid,colle_taskid,colle_tpn,colle_tpa,colle_price,colle_term,colle_start_time,colle_end_time)
+			select 
+			#{userId},#{taskId},task_pname,task_paddr,task_price,task_term,task_start_time,task_end_time
+			 from yd_task where task_id = #{taskId}
+	</insert>
+	
+	<delete id="$delete">
+		delete from yd_collection
+		where colle_uid = #{userId} and colle_taskid = #{taskId}
+	</delete>
+	
+	<select id="$isExist" resultType="java.lang.Integer">
+		select count(*) from yd_collection
+		where colle_uid = #{userId} and colle_taskid = #{taskId}
+	</select>
+	
+</mapper>
+

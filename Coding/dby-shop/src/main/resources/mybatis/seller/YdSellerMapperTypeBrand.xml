@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.dby.d.seller.mapper.YdSellerMapperTypeBrand">
+
+	<select id="lists" resultType="java.util.HashMap">
+		SELECT
+			yd_brand.`brand_id`, yd_brand.`brand_name`
+		FROM
+			yd_type_brand
+		LEFT JOIN
+			yd_brand
+		ON
+			yd_brand.`brand_id` = yd_type_brand.`brand_id`
+		WHERE
+			type_id = #{type_id}
+		ORDER BY
+			yd_brand.brand_sort ASC
+	</select>
+</mapper>
