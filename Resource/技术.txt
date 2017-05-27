@@ -1,0 +1,26 @@
+scp  ycthr@172.16.16.230:~
+ssh ycthr@172.16.16.230
+YCT$QWE1POI2
+
+
+-- 客户内Oracle网数据库
+172.16.16.220
+实例: YCT
+用户名: YCTHR 
+密码: yamatoYCT
+
+-- 伽然Jenkins
+http://121.40.102.225/jenkins/login?from=/jenkins/
+用户名: jenkins
+密码: Glanway2015Jenkins
+
+-- Pulse Secure
+※类型：SRX
+※名称：YCT-SKC-IDC
+※服务器URL：114.80.227.214
+
+伽然-HR使用：
+账户：yct_hr
+密码：yct$qwe1poi2
+
+yum load-transaction /tmp/yum_save_tx.2017-05-26.16-24.QBd4Kw.yumtx
