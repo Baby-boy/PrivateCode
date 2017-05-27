@@ -291,3 +291,8 @@ nohup java -jar dby-app-0.0.1.jar > /dev/null 2>&1 &	:运行jar包
 	./nginx // 已经拥有权限并运行
 	
 ps -ef|grep nginx	查询进程,有两个进程即可(成功)
+
+./nginx -s stop         快速关闭Nginx，可能不保存相关信息，并迅速终止web服务。（quick exit）
+./nginx -s quit         平稳关闭Nginx，保存相关信息，有安排的结束web服务。（graceful exit）
+./nginx -s reload       因改变了Nginx相关配置，需要重新加载配置而重载。（changing configuration，start a new worker,quitting an old worker gracefully.)
+./nginx -s reopen       重新打开日志文件。(reopenging log files)
