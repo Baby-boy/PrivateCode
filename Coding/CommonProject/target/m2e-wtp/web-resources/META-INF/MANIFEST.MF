@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-Title: CommonProject
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.tadpole
+Build-Jdk: 1.7.0_17
+Built-By: zhengyaozhong
+Created-By: Maven Integration for Eclipse
+Implementation-URL: http://projects.spring.io/spring-boot/CommonProjec
+ t/
+

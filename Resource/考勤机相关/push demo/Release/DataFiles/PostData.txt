@@ -1,0 +1,2904 @@
+﻿From: [192.168.211.8:34698],Time: [2017/4/19 16:28:16]
+GET /iclock/cdata?SN=0278141600030&options=all&pushver=2.32&language=83 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34698],Time: [2017/4/19 16:28:16]
+GET /iclock/cdata?SN=0278141600030&options=all&pushver=2.32&language=83 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34698],Time: [2017/4/19 16:28:16]
+GET /iclock/cdata?SN=0278141600030&options=all&pushver=2.32&language=83 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34698],Time: [2017/4/19 16:28:16]
+GET http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&options=all&pushver=2.32&language=83
+
+From: [192.168.211.8:34698],Time: [2017/4/19 16:28:16]
+GET http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&options=all&pushver=2.32&language=83
+
+From: [192.168.211.8:34698],Time: [2017/4/19 16:28:16]
+GET http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&options=all&pushver=2.32&language=83
+
+Send to: [192.168.211.8:34698], Time: [2017/4/19 16:28:16]
+GET OPTION FROM:111
+ErrorDelay=35
+Delay=30
+TransTimes=00:00;14:05
+TransInterval=1
+TransFlag=1111111111	
+Realtime=1
+Encrypt=0
+TimeZone=+08:00
+Timeout=60
+SyncTime=0
+ServerVer=IIS5+
+ATTLOGStamp=0
+OPERLOGStamp=0
+ATTPHOTOStamp=0
+Send to: [192.168.211.8:34698], Time: [2017/4/19 16:28:16]
+GET OPTION FROM:111
+ErrorDelay=35
+Delay=30
+TransTimes=00:00;14:05
+TransInterval=1
+TransFlag=1111111111	
+Realtime=1
+Encrypt=0
+TimeZone=+08:00
+Timeout=60
+SyncTime=0
+ServerVer=IIS5+
+ATTLOGStamp=0
+OPERLOGStamp=0
+ATTPHOTOStamp=0
+Send to: [192.168.211.8:34698], Time: [2017/4/19 16:28:16]
+GET OPTION FROM:111
+ErrorDelay=35
+Delay=30
+TransTimes=00:00;14:05
+TransInterval=1
+TransFlag=1111111111	
+Realtime=1
+Encrypt=0
+TimeZone=+08:00
+Timeout=60
+SyncTime=0
+ServerVer=IIS5+
+ATTLOGStamp=0
+OPERLOGStamp=0
+ATTPHOTOStamp=0
+From: [192.168.211.8:34699],Time: [2017/4/19 16:28:18]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34699],Time: [2017/4/19 16:28:18]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34699],Time: [2017/4/19 16:28:18]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34699],Time: [2017/4/19 16:28:18]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:34699],Time: [2017/4/19 16:28:18]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:34699],Time: [2017/4/19 16:28:18]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:34699], Time: [2017/4/19 16:28:18]
+OK
+
+Send to: [192.168.211.8:34699], Time: [2017/4/19 16:28:18]
+OK
+
+Send to: [192.168.211.8:34699], Time: [2017/4/19 16:28:18]
+OK
+
+From: [192.168.211.8:34700],Time: [2017/4/19 16:28:19]
+POST /iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043298 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 150
+Accept: */*
+
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+USER PIN=111	Name=����	Pri=0	Passwd=11	Card=	Grp=0	TZ=0000000000000000
+
+From: [192.168.211.8:34700],Time: [2017/4/19 16:28:19]
+POST /iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043298 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 150
+Accept: */*
+
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+USER PIN=111	Name=����	Pri=0	Passwd=11	Card=	Grp=0	TZ=0000000000000000
+
+From: [192.168.211.8:34700],Time: [2017/4/19 16:28:19]
+POST /iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043298 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 150
+Accept: */*
+
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+USER PIN=111	Name=����	Pri=0	Passwd=11	Card=	Grp=0	TZ=0000000000000000
+
+From: [192.168.211.8:34700],Time: [2017/4/19 16:28:19]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043298
+
+From: [192.168.211.8:34700],Time: [2017/4/19 16:28:19]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043298
+
+From: [192.168.211.8:34700],Time: [2017/4/19 16:28:19]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043298
+
+From: [192.168.211.8:34700],Time: [2017/4/19 16:28:19]
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+USER PIN=111	Name=����	Pri=0	Passwd=11	Card=	Grp=0	TZ=0000000000000000
+
+From: [192.168.211.8:34700],Time: [2017/4/19 16:28:19]
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+USER PIN=111	Name=����	Pri=0	Passwd=11	Card=	Grp=0	TZ=0000000000000000
+
+From: [192.168.211.8:34700],Time: [2017/4/19 16:28:19]
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+USER PIN=111	Name=����	Pri=0	Passwd=11	Card=	Grp=0	TZ=0000000000000000
+
+Send to: [192.168.211.8:34700], Time: [2017/4/19 16:28:19]
+OK
+
+Send to: [192.168.211.8:34700], Time: [2017/4/19 16:28:19]
+OK
+
+Send to: [192.168.211.8:34700], Time: [2017/4/19 16:28:19]
+OK
+
+From: [192.168.211.8:34701],Time: [2017/4/19 16:28:21]
+POST /iclock/cdata?SN=0278141600030&table=ATTLOG&Stamp=556024163 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 130
+Accept: */*
+
+1	2017-04-19 10:44:45	0	0
+2	2017-04-19 10:44:52	0	0
+1	2017-04-19 10:44:59	0	0
+2	2017-04-19 10:45:03	0	0
+1	2017-04-19 11:09:23	0	0
+
+From: [192.168.211.8:34701],Time: [2017/4/19 16:28:21]
+POST /iclock/cdata?SN=0278141600030&table=ATTLOG&Stamp=556024163 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 130
+Accept: */*
+
+1	2017-04-19 10:44:45	0	0
+2	2017-04-19 10:44:52	0	0
+1	2017-04-19 10:44:59	0	0
+2	2017-04-19 10:45:03	0	0
+1	2017-04-19 11:09:23	0	0
+
+From: [192.168.211.8:34701],Time: [2017/4/19 16:28:21]
+POST /iclock/cdata?SN=0278141600030&table=ATTLOG&Stamp=556024163 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 130
+Accept: */*
+
+1	2017-04-19 10:44:45	0	0
+2	2017-04-19 10:44:52	0	0
+1	2017-04-19 10:44:59	0	0
+2	2017-04-19 10:45:03	0	0
+1	2017-04-19 11:09:23	0	0
+
+From: [192.168.211.8:34701],Time: [2017/4/19 16:28:21]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=ATTLOG&Stamp=556024163
+
+From: [192.168.211.8:34701],Time: [2017/4/19 16:28:21]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=ATTLOG&Stamp=556024163
+
+From: [192.168.211.8:34701],Time: [2017/4/19 16:28:21]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=ATTLOG&Stamp=556024163
+
+From: [192.168.211.8:34701],Time: [2017/4/19 16:28:21]
+1	2017-04-19 10:44:45	0	0
+2	2017-04-19 10:44:52	0	0
+1	2017-04-19 10:44:59	0	0
+2	2017-04-19 10:45:03	0	0
+1	2017-04-19 11:09:23	0	0
+
+From: [192.168.211.8:34701],Time: [2017/4/19 16:28:21]
+1	2017-04-19 10:44:45	0	0
+2	2017-04-19 10:44:52	0	0
+1	2017-04-19 10:44:59	0	0
+2	2017-04-19 10:45:03	0	0
+1	2017-04-19 11:09:23	0	0
+
+From: [192.168.211.8:34701],Time: [2017/4/19 16:28:21]
+1	2017-04-19 10:44:45	0	0
+2	2017-04-19 10:44:52	0	0
+1	2017-04-19 10:44:59	0	0
+2	2017-04-19 10:45:03	0	0
+1	2017-04-19 11:09:23	0	0
+
+Send to: [192.168.211.8:34701], Time: [2017/4/19 16:28:21]
+OK
+
+Send to: [192.168.211.8:34701], Time: [2017/4/19 16:28:21]
+OK
+
+Send to: [192.168.211.8:34701], Time: [2017/4/19 16:28:21]
+OK
+
+From: [192.168.211.8:34702],Time: [2017/4/19 16:28:23]
+POST /iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043297 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 77
+Accept: */*
+
+OPLOG 0	0	2017-04-19 16:28:16	0	0	0	0
+OPLOG 3	0	2017-04-19 16:28:17	55	0	0	0
+
+From: [192.168.211.8:34702],Time: [2017/4/19 16:28:23]
+POST /iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043297 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 77
+Accept: */*
+
+OPLOG 0	0	2017-04-19 16:28:16	0	0	0	0
+OPLOG 3	0	2017-04-19 16:28:17	55	0	0	0
+
+From: [192.168.211.8:34702],Time: [2017/4/19 16:28:23]
+POST /iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043297 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 77
+Accept: */*
+
+OPLOG 0	0	2017-04-19 16:28:16	0	0	0	0
+OPLOG 3	0	2017-04-19 16:28:17	55	0	0	0
+
+From: [192.168.211.8:34702],Time: [2017/4/19 16:28:23]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043297
+
+From: [192.168.211.8:34702],Time: [2017/4/19 16:28:23]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043297
+
+From: [192.168.211.8:34702],Time: [2017/4/19 16:28:23]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043297
+
+From: [192.168.211.8:34702],Time: [2017/4/19 16:28:23]
+OPLOG 0	0	2017-04-19 16:28:16	0	0	0	0
+OPLOG 3	0	2017-04-19 16:28:17	55	0	0	0
+
+From: [192.168.211.8:34702],Time: [2017/4/19 16:28:23]
+OPLOG 0	0	2017-04-19 16:28:16	0	0	0	0
+OPLOG 3	0	2017-04-19 16:28:17	55	0	0	0
+
+From: [192.168.211.8:34702],Time: [2017/4/19 16:28:23]
+OPLOG 0	0	2017-04-19 16:28:16	0	0	0	0
+OPLOG 3	0	2017-04-19 16:28:17	55	0	0	0
+
+Send to: [192.168.211.8:34702], Time: [2017/4/19 16:28:23]
+OK
+
+Send to: [192.168.211.8:34702], Time: [2017/4/19 16:28:23]
+OK
+
+Send to: [192.168.211.8:34702], Time: [2017/4/19 16:28:23]
+OK
+
+From: [192.168.211.8:34703],Time: [2017/4/19 16:28:53]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34703],Time: [2017/4/19 16:28:53]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34703],Time: [2017/4/19 16:28:53]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34703],Time: [2017/4/19 16:28:53]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:34703],Time: [2017/4/19 16:28:53]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:34703],Time: [2017/4/19 16:28:53]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:34703], Time: [2017/4/19 16:28:53]
+OK
+
+Send to: [192.168.211.8:34703], Time: [2017/4/19 16:28:53]
+OK
+
+Send to: [192.168.211.8:34703], Time: [2017/4/19 16:28:53]
+OK
+
+From: [192.168.211.8:34704],Time: [2017/4/19 16:29:27]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34704],Time: [2017/4/19 16:29:27]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34704],Time: [2017/4/19 16:29:27]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34704],Time: [2017/4/19 16:29:27]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:34704],Time: [2017/4/19 16:29:27]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:34704],Time: [2017/4/19 16:29:27]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+Send to: [192.168.211.8:34704], Time: [2017/4/19 16:29:27]
+OK
+
+Send to: [192.168.211.8:34704], Time: [2017/4/19 16:29:27]
+OK
+
+Send to: [192.168.211.8:34704], Time: [2017/4/19 16:29:27]
+OK
+
+From: [192.168.211.8:34705],Time: [2017/4/19 16:30:03]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34705],Time: [2017/4/19 16:30:03]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34705],Time: [2017/4/19 16:30:03]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34705],Time: [2017/4/19 16:30:03]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:34705],Time: [2017/4/19 16:30:03]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:34705],Time: [2017/4/19 16:30:03]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:34705], Time: [2017/4/19 16:30:03]
+OK
+
+Send to: [192.168.211.8:34705], Time: [2017/4/19 16:30:03]
+OK
+
+Send to: [192.168.211.8:34705], Time: [2017/4/19 16:30:03]
+OK
+
+From: [192.168.211.8:34706],Time: [2017/4/19 16:30:38]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34706],Time: [2017/4/19 16:30:38]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34706],Time: [2017/4/19 16:30:38]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34706],Time: [2017/4/19 16:30:38]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:34706],Time: [2017/4/19 16:30:38]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:34706],Time: [2017/4/19 16:30:38]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:34706], Time: [2017/4/19 16:30:38]
+C:123456666666666:DATA QUERY USERINFO
+
+Send to: [192.168.211.8:34706], Time: [2017/4/19 16:30:38]
+C:123456666666666:DATA QUERY USERINFO
+
+Send to: [192.168.211.8:34706], Time: [2017/4/19 16:30:38]
+C:123456666666666:DATA QUERY USERINFO
+
+From: [192.168.211.8:34707],Time: [2017/4/19 16:30:39]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 37
+Accept: */*
+
+ID=123456666666666&Return=0&CMD=DATA
+
+From: [192.168.211.8:34707],Time: [2017/4/19 16:30:39]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 37
+Accept: */*
+
+ID=123456666666666&Return=0&CMD=DATA
+
+From: [192.168.211.8:34707],Time: [2017/4/19 16:30:39]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 37
+Accept: */*
+
+ID=123456666666666&Return=0&CMD=DATA
+
+From: [192.168.211.8:34707],Time: [2017/4/19 16:30:39]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:34707],Time: [2017/4/19 16:30:39]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:34707],Time: [2017/4/19 16:30:39]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:34707],Time: [2017/4/19 16:30:39]
+ID=123456666666666&Return=0&CMD=DATA
+
+From: [192.168.211.8:34707],Time: [2017/4/19 16:30:39]
+ID=123456666666666&Return=0&CMD=DATA
+
+From: [192.168.211.8:34707],Time: [2017/4/19 16:30:39]
+ID=123456666666666&Return=0&CMD=DATA
+
+Send to: [192.168.211.8:34707], Time: [2017/4/19 16:30:39]
+OK
+Send to: [192.168.211.8:34707], Time: [2017/4/19 16:30:39]
+OK
+Send to: [192.168.211.8:34707], Time: [2017/4/19 16:30:39]
+OK
+From: [192.168.211.8:34708],Time: [2017/4/19 16:30:41]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34708],Time: [2017/4/19 16:30:41]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34708],Time: [2017/4/19 16:30:41]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34708],Time: [2017/4/19 16:30:41]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:34708],Time: [2017/4/19 16:30:41]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:34708],Time: [2017/4/19 16:30:41]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:34708], Time: [2017/4/19 16:30:41]
+OK
+
+Send to: [192.168.211.8:34708], Time: [2017/4/19 16:30:41]
+OK
+
+Send to: [192.168.211.8:34708], Time: [2017/4/19 16:30:41]
+OK
+
+From: [192.168.211.8:34709],Time: [2017/4/19 16:31:15]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34709],Time: [2017/4/19 16:31:15]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34709],Time: [2017/4/19 16:31:15]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34709],Time: [2017/4/19 16:31:15]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:34709],Time: [2017/4/19 16:31:15]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:34709],Time: [2017/4/19 16:31:15]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+Send to: [192.168.211.8:34709], Time: [2017/4/19 16:31:15]
+OK
+
+Send to: [192.168.211.8:34709], Time: [2017/4/19 16:31:15]
+OK
+
+Send to: [192.168.211.8:34709], Time: [2017/4/19 16:31:15]
+OK
+
+From: [192.168.211.8:34710],Time: [2017/4/19 16:31:51]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34710],Time: [2017/4/19 16:31:51]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34710],Time: [2017/4/19 16:31:51]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:34710],Time: [2017/4/19 16:31:51]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:34710],Time: [2017/4/19 16:31:51]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:34710],Time: [2017/4/19 16:31:51]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:34710], Time: [2017/4/19 16:31:51]
+OK
+
+Send to: [192.168.211.8:34710], Time: [2017/4/19 16:31:51]
+OK
+
+Send to: [192.168.211.8:34710], Time: [2017/4/19 16:31:51]
+OK
+
+From: [192.168.211.8:47140],Time: [2017/4/19 16:32:25]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47140],Time: [2017/4/19 16:32:25]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47140],Time: [2017/4/19 16:32:25]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47140],Time: [2017/4/19 16:32:25]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:47140],Time: [2017/4/19 16:32:25]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:47140],Time: [2017/4/19 16:32:25]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+Send to: [192.168.211.8:47140], Time: [2017/4/19 16:32:25]
+OK
+
+Send to: [192.168.211.8:47140], Time: [2017/4/19 16:32:25]
+OK
+
+Send to: [192.168.211.8:47140], Time: [2017/4/19 16:32:25]
+OK
+
+From: [192.168.211.8:47141],Time: [2017/4/19 16:33:01]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47141],Time: [2017/4/19 16:33:01]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47141],Time: [2017/4/19 16:33:01]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47141],Time: [2017/4/19 16:33:01]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:47141],Time: [2017/4/19 16:33:01]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:47141],Time: [2017/4/19 16:33:01]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:47141], Time: [2017/4/19 16:33:01]
+OK
+
+Send to: [192.168.211.8:47141], Time: [2017/4/19 16:33:01]
+OK
+
+Send to: [192.168.211.8:47141], Time: [2017/4/19 16:33:01]
+OK
+
+From: [192.168.211.8:47142],Time: [2017/4/19 16:33:36]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47142],Time: [2017/4/19 16:33:36]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47142],Time: [2017/4/19 16:33:36]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47142],Time: [2017/4/19 16:33:36]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:47142],Time: [2017/4/19 16:33:36]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:47142],Time: [2017/4/19 16:33:36]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:47142], Time: [2017/4/19 16:33:36]
+OK
+
+Send to: [192.168.211.8:47142], Time: [2017/4/19 16:33:36]
+OK
+
+Send to: [192.168.211.8:47142], Time: [2017/4/19 16:33:36]
+OK
+
+From: [192.168.211.8:47143],Time: [2017/4/19 16:34:10]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47143],Time: [2017/4/19 16:34:10]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47143],Time: [2017/4/19 16:34:10]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47143],Time: [2017/4/19 16:34:10]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:47143],Time: [2017/4/19 16:34:10]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:47143],Time: [2017/4/19 16:34:10]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+Send to: [192.168.211.8:47143], Time: [2017/4/19 16:34:10]
+OK
+
+Send to: [192.168.211.8:47143], Time: [2017/4/19 16:34:10]
+OK
+
+Send to: [192.168.211.8:47143], Time: [2017/4/19 16:34:10]
+OK
+
+From: [192.168.211.8:47144],Time: [2017/4/19 16:34:46]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47144],Time: [2017/4/19 16:34:46]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47144],Time: [2017/4/19 16:34:46]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47144],Time: [2017/4/19 16:34:46]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:47144],Time: [2017/4/19 16:34:46]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:47144],Time: [2017/4/19 16:34:46]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:47144], Time: [2017/4/19 16:34:46]
+OK
+
+Send to: [192.168.211.8:47144], Time: [2017/4/19 16:34:46]
+OK
+
+Send to: [192.168.211.8:47144], Time: [2017/4/19 16:34:46]
+OK
+
+From: [192.168.211.8:47145],Time: [2017/4/19 16:35:20]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47145],Time: [2017/4/19 16:35:20]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47145],Time: [2017/4/19 16:35:20]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47145],Time: [2017/4/19 16:35:20]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:47145],Time: [2017/4/19 16:35:20]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:47145],Time: [2017/4/19 16:35:20]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+Send to: [192.168.211.8:47145], Time: [2017/4/19 16:35:20]
+OK
+
+Send to: [192.168.211.8:47145], Time: [2017/4/19 16:35:20]
+OK
+
+Send to: [192.168.211.8:47145], Time: [2017/4/19 16:35:20]
+OK
+
+From: [192.168.211.8:47146],Time: [2017/4/19 16:35:56]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47146],Time: [2017/4/19 16:35:56]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47146],Time: [2017/4/19 16:35:56]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47146],Time: [2017/4/19 16:35:56]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:47146],Time: [2017/4/19 16:35:56]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:47146],Time: [2017/4/19 16:35:56]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:47146], Time: [2017/4/19 16:35:56]
+OK
+
+Send to: [192.168.211.8:47146], Time: [2017/4/19 16:35:56]
+OK
+
+Send to: [192.168.211.8:47146], Time: [2017/4/19 16:35:56]
+OK
+
+From: [192.168.211.8:47147],Time: [2017/4/19 16:36:30]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47147],Time: [2017/4/19 16:36:30]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47147],Time: [2017/4/19 16:36:30]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:47147],Time: [2017/4/19 16:36:30]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:47147],Time: [2017/4/19 16:36:30]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:47147],Time: [2017/4/19 16:36:30]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+Send to: [192.168.211.8:47147], Time: [2017/4/19 16:36:30]
+OK
+
+Send to: [192.168.211.8:47147], Time: [2017/4/19 16:36:30]
+OK
+
+Send to: [192.168.211.8:47147], Time: [2017/4/19 16:36:30]
+OK
+
+From: [192.168.211.8:48585],Time: [2017/4/19 16:37:52]
+POST /iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043808 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 131
+Accept: */*
+
+OPLOG 3	0	2017-04-19 16:36:46	65535	65535	65535	65535
+OPLOG 4	0	2017-04-19 16:36:47	0	0	0	0
+OPLOG 3	0	2017-04-19 16:36:48	55	0	0	0
+
+From: [192.168.211.8:48585],Time: [2017/4/19 16:37:52]
+POST /iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043808 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 131
+Accept: */*
+
+OPLOG 3	0	2017-04-19 16:36:46	65535	65535	65535	65535
+OPLOG 4	0	2017-04-19 16:36:47	0	0	0	0
+OPLOG 3	0	2017-04-19 16:36:48	55	0	0	0
+
+From: [192.168.211.8:48585],Time: [2017/4/19 16:37:52]
+POST /iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043808 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 131
+Accept: */*
+
+OPLOG 3	0	2017-04-19 16:36:46	65535	65535	65535	65535
+OPLOG 4	0	2017-04-19 16:36:47	0	0	0	0
+OPLOG 3	0	2017-04-19 16:36:48	55	0	0	0
+
+From: [192.168.211.8:48585],Time: [2017/4/19 16:37:52]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043808
+
+From: [192.168.211.8:48585],Time: [2017/4/19 16:37:52]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043808
+
+From: [192.168.211.8:48585],Time: [2017/4/19 16:37:52]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556043808
+
+From: [192.168.211.8:48585],Time: [2017/4/19 16:37:52]
+OPLOG 3	0	2017-04-19 16:36:46	65535	65535	65535	65535
+OPLOG 4	0	2017-04-19 16:36:47	0	0	0	0
+OPLOG 3	0	2017-04-19 16:36:48	55	0	0	0
+
+From: [192.168.211.8:48585],Time: [2017/4/19 16:37:52]
+OPLOG 3	0	2017-04-19 16:36:46	65535	65535	65535	65535
+OPLOG 4	0	2017-04-19 16:36:47	0	0	0	0
+OPLOG 3	0	2017-04-19 16:36:48	55	0	0	0
+
+From: [192.168.211.8:48585],Time: [2017/4/19 16:37:52]
+OPLOG 3	0	2017-04-19 16:36:46	65535	65535	65535	65535
+OPLOG 4	0	2017-04-19 16:36:47	0	0	0	0
+OPLOG 3	0	2017-04-19 16:36:48	55	0	0	0
+
+Send to: [192.168.211.8:48585], Time: [2017/4/19 16:37:52]
+OK
+
+Send to: [192.168.211.8:48585], Time: [2017/4/19 16:37:52]
+OK
+
+Send to: [192.168.211.8:48585], Time: [2017/4/19 16:37:52]
+OK
+
+From: [192.168.211.8:48586],Time: [2017/4/19 16:37:54]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48586],Time: [2017/4/19 16:37:54]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48586],Time: [2017/4/19 16:37:54]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48586],Time: [2017/4/19 16:37:54]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:48586],Time: [2017/4/19 16:37:54]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:48586],Time: [2017/4/19 16:37:54]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:48586], Time: [2017/4/19 16:37:54]
+OK
+
+Send to: [192.168.211.8:48586], Time: [2017/4/19 16:37:54]
+OK
+
+Send to: [192.168.211.8:48586], Time: [2017/4/19 16:37:54]
+OK
+
+From: [192.168.211.8:48587],Time: [2017/4/19 16:38:28]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48587],Time: [2017/4/19 16:38:28]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48587],Time: [2017/4/19 16:38:28]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48587],Time: [2017/4/19 16:38:28]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:48587],Time: [2017/4/19 16:38:28]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:48587],Time: [2017/4/19 16:38:28]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+Send to: [192.168.211.8:48587], Time: [2017/4/19 16:38:28]
+C:123456666666666:DATA QUERY USERINFO
+
+Send to: [192.168.211.8:48587], Time: [2017/4/19 16:38:28]
+C:123456666666666:DATA QUERY USERINFO
+
+Send to: [192.168.211.8:48587], Time: [2017/4/19 16:38:28]
+C:123456666666666:DATA QUERY USERINFO
+
+From: [192.168.211.8:48588],Time: [2017/4/19 16:38:29]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 37
+Accept: */*
+
+ID=123456666666666&Return=0&CMD=DATA
+
+From: [192.168.211.8:48588],Time: [2017/4/19 16:38:29]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 37
+Accept: */*
+
+ID=123456666666666&Return=0&CMD=DATA
+
+From: [192.168.211.8:48588],Time: [2017/4/19 16:38:29]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 37
+Accept: */*
+
+ID=123456666666666&Return=0&CMD=DATA
+
+From: [192.168.211.8:48588],Time: [2017/4/19 16:38:29]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:48588],Time: [2017/4/19 16:38:29]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:48588],Time: [2017/4/19 16:38:29]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:48588],Time: [2017/4/19 16:38:29]
+ID=123456666666666&Return=0&CMD=DATA
+
+From: [192.168.211.8:48588],Time: [2017/4/19 16:38:29]
+ID=123456666666666&Return=0&CMD=DATA
+
+From: [192.168.211.8:48588],Time: [2017/4/19 16:38:29]
+ID=123456666666666&Return=0&CMD=DATA
+
+Send to: [192.168.211.8:48588], Time: [2017/4/19 16:38:29]
+OK
+Send to: [192.168.211.8:48588], Time: [2017/4/19 16:38:29]
+OK
+Send to: [192.168.211.8:48588], Time: [2017/4/19 16:38:29]
+OK
+From: [192.168.211.8:48589],Time: [2017/4/19 16:38:31]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48589],Time: [2017/4/19 16:38:31]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48589],Time: [2017/4/19 16:38:31]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48589],Time: [2017/4/19 16:38:31]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:48589],Time: [2017/4/19 16:38:31]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:48589],Time: [2017/4/19 16:38:31]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:48589], Time: [2017/4/19 16:38:31]
+OK
+
+Send to: [192.168.211.8:48589], Time: [2017/4/19 16:38:31]
+OK
+
+Send to: [192.168.211.8:48589], Time: [2017/4/19 16:38:31]
+OK
+
+From: [192.168.211.8:48590],Time: [2017/4/19 16:39:06]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48590],Time: [2017/4/19 16:39:06]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48590],Time: [2017/4/19 16:39:06]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48590],Time: [2017/4/19 16:39:06]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:48590],Time: [2017/4/19 16:39:06]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:48590],Time: [2017/4/19 16:39:06]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:48590], Time: [2017/4/19 16:39:06]
+OK
+
+Send to: [192.168.211.8:48590], Time: [2017/4/19 16:39:06]
+OK
+
+Send to: [192.168.211.8:48590], Time: [2017/4/19 16:39:06]
+OK
+
+From: [192.168.211.8:48591],Time: [2017/4/19 16:39:40]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48591],Time: [2017/4/19 16:39:40]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48591],Time: [2017/4/19 16:39:40]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48591],Time: [2017/4/19 16:39:40]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:48591],Time: [2017/4/19 16:39:40]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:48591],Time: [2017/4/19 16:39:40]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+Send to: [192.168.211.8:48591], Time: [2017/4/19 16:39:40]
+OK
+
+Send to: [192.168.211.8:48591], Time: [2017/4/19 16:39:40]
+OK
+
+Send to: [192.168.211.8:48591], Time: [2017/4/19 16:39:40]
+OK
+
+From: [192.168.211.8:48592],Time: [2017/4/19 16:40:16]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48592],Time: [2017/4/19 16:40:16]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48592],Time: [2017/4/19 16:40:16]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48592],Time: [2017/4/19 16:40:16]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:48592],Time: [2017/4/19 16:40:16]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:48592],Time: [2017/4/19 16:40:16]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:48592], Time: [2017/4/19 16:40:16]
+OK
+
+Send to: [192.168.211.8:48592], Time: [2017/4/19 16:40:16]
+OK
+
+Send to: [192.168.211.8:48592], Time: [2017/4/19 16:40:16]
+OK
+
+From: [192.168.211.8:48593],Time: [2017/4/19 16:40:50]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48593],Time: [2017/4/19 16:40:50]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48593],Time: [2017/4/19 16:40:50]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48593],Time: [2017/4/19 16:40:50]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:48593],Time: [2017/4/19 16:40:50]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:48593],Time: [2017/4/19 16:40:50]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+Send to: [192.168.211.8:48593], Time: [2017/4/19 16:40:50]
+OK
+
+Send to: [192.168.211.8:48593], Time: [2017/4/19 16:40:50]
+OK
+
+Send to: [192.168.211.8:48593], Time: [2017/4/19 16:40:50]
+OK
+
+From: [192.168.211.8:48594],Time: [2017/4/19 16:41:26]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48594],Time: [2017/4/19 16:41:26]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48594],Time: [2017/4/19 16:41:26]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48594],Time: [2017/4/19 16:41:26]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:48594],Time: [2017/4/19 16:41:26]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:48594],Time: [2017/4/19 16:41:26]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:48594], Time: [2017/4/19 16:41:26]
+OK
+
+Send to: [192.168.211.8:48594], Time: [2017/4/19 16:41:26]
+OK
+
+Send to: [192.168.211.8:48594], Time: [2017/4/19 16:41:26]
+OK
+
+From: [192.168.211.8:48595],Time: [2017/4/19 16:42:01]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48595],Time: [2017/4/19 16:42:01]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48595],Time: [2017/4/19 16:42:01]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:48595],Time: [2017/4/19 16:42:01]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:48595],Time: [2017/4/19 16:42:01]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:48595],Time: [2017/4/19 16:42:01]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:48595], Time: [2017/4/19 16:42:01]
+OK
+
+Send to: [192.168.211.8:48595], Time: [2017/4/19 16:42:01]
+OK
+
+Send to: [192.168.211.8:48595], Time: [2017/4/19 16:42:01]
+OK
+
+From: [192.168.211.8:36339],Time: [2017/4/19 16:42:35]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36339],Time: [2017/4/19 16:42:35]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36339],Time: [2017/4/19 16:42:35]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36339],Time: [2017/4/19 16:42:35]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:36339],Time: [2017/4/19 16:42:35]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:36339],Time: [2017/4/19 16:42:35]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+Send to: [192.168.211.8:36339], Time: [2017/4/19 16:42:35]
+OK
+
+Send to: [192.168.211.8:36339], Time: [2017/4/19 16:42:35]
+OK
+
+Send to: [192.168.211.8:36339], Time: [2017/4/19 16:42:35]
+OK
+
+From: [192.168.211.8:36340],Time: [2017/4/19 16:43:11]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36340],Time: [2017/4/19 16:43:11]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36340],Time: [2017/4/19 16:43:11]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36340],Time: [2017/4/19 16:43:11]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:36340],Time: [2017/4/19 16:43:11]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:36340],Time: [2017/4/19 16:43:11]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:36340], Time: [2017/4/19 16:43:11]
+OK
+
+Send to: [192.168.211.8:36340], Time: [2017/4/19 16:43:11]
+OK
+
+Send to: [192.168.211.8:36340], Time: [2017/4/19 16:43:11]
+OK
+
+From: [192.168.211.8:36341],Time: [2017/4/19 16:43:45]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36341],Time: [2017/4/19 16:43:45]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36341],Time: [2017/4/19 16:43:45]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36341],Time: [2017/4/19 16:43:45]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:36341],Time: [2017/4/19 16:43:45]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:36341],Time: [2017/4/19 16:43:45]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+Send to: [192.168.211.8:36341], Time: [2017/4/19 16:43:45]
+OK
+
+Send to: [192.168.211.8:36341], Time: [2017/4/19 16:43:45]
+OK
+
+Send to: [192.168.211.8:36341], Time: [2017/4/19 16:43:45]
+OK
+
+From: [192.168.211.8:36342],Time: [2017/4/19 16:44:22]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36342],Time: [2017/4/19 16:44:22]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36342],Time: [2017/4/19 16:44:22]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36342],Time: [2017/4/19 16:44:22]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:36342],Time: [2017/4/19 16:44:22]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:36342],Time: [2017/4/19 16:44:22]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:36342], Time: [2017/4/19 16:44:22]
+OK
+
+Send to: [192.168.211.8:36342], Time: [2017/4/19 16:44:22]
+OK
+
+Send to: [192.168.211.8:36342], Time: [2017/4/19 16:44:22]
+OK
+
+From: [192.168.211.8:36343],Time: [2017/4/19 16:44:56]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36343],Time: [2017/4/19 16:44:56]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36343],Time: [2017/4/19 16:44:56]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36343],Time: [2017/4/19 16:44:56]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:36343],Time: [2017/4/19 16:44:56]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:36343],Time: [2017/4/19 16:44:56]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+Send to: [192.168.211.8:36343], Time: [2017/4/19 16:44:56]
+C:123:DATA QUERY USERINFO	PIN=1
+C:123:DATA QUERY USERINFO	PIN=2
+C:123:DATA QUERY USERINFO	PIN=3
+
+Send to: [192.168.211.8:36343], Time: [2017/4/19 16:44:56]
+C:123:DATA QUERY USERINFO	PIN=1
+C:123:DATA QUERY USERINFO	PIN=2
+C:123:DATA QUERY USERINFO	PIN=3
+
+Send to: [192.168.211.8:36343], Time: [2017/4/19 16:44:56]
+C:123:DATA QUERY USERINFO	PIN=1
+C:123:DATA QUERY USERINFO	PIN=2
+C:123:DATA QUERY USERINFO	PIN=3
+
+From: [192.168.211.8:36344],Time: [2017/4/19 16:44:57]
+POST /iclock/cdata?SN=0278141600030&table=USERINFO&Stamp=0 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 79
+Accept: */*
+
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+
+From: [192.168.211.8:36344],Time: [2017/4/19 16:44:57]
+POST /iclock/cdata?SN=0278141600030&table=USERINFO&Stamp=0 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 79
+Accept: */*
+
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+
+From: [192.168.211.8:36344],Time: [2017/4/19 16:44:57]
+POST /iclock/cdata?SN=0278141600030&table=USERINFO&Stamp=0 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 79
+Accept: */*
+
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+
+From: [192.168.211.8:36344],Time: [2017/4/19 16:44:57]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=USERINFO&Stamp=0
+
+From: [192.168.211.8:36344],Time: [2017/4/19 16:44:57]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=USERINFO&Stamp=0
+
+From: [192.168.211.8:36344],Time: [2017/4/19 16:44:57]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=USERINFO&Stamp=0
+
+From: [192.168.211.8:36344],Time: [2017/4/19 16:44:57]
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+
+From: [192.168.211.8:36344],Time: [2017/4/19 16:44:57]
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+
+From: [192.168.211.8:36344],Time: [2017/4/19 16:44:57]
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+
+Send to: [192.168.211.8:36344], Time: [2017/4/19 16:44:57]
+OK
+
+Send to: [192.168.211.8:36344], Time: [2017/4/19 16:44:57]
+OK
+
+Send to: [192.168.211.8:36344], Time: [2017/4/19 16:44:57]
+OK
+
+From: [192.168.211.8:36345],Time: [2017/4/19 16:44:57]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 25
+Accept: */*
+
+ID=123&Return=1&CMD=DATA
+
+From: [192.168.211.8:36345],Time: [2017/4/19 16:44:57]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 25
+Accept: */*
+
+ID=123&Return=1&CMD=DATA
+
+From: [192.168.211.8:36345],Time: [2017/4/19 16:44:57]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 25
+Accept: */*
+
+ID=123&Return=1&CMD=DATA
+
+From: [192.168.211.8:36345],Time: [2017/4/19 16:44:57]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:36345],Time: [2017/4/19 16:44:57]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:36345],Time: [2017/4/19 16:44:57]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:36345],Time: [2017/4/19 16:44:57]
+ID=123&Return=1&CMD=DATA
+
+From: [192.168.211.8:36345],Time: [2017/4/19 16:44:57]
+ID=123&Return=1&CMD=DATA
+
+From: [192.168.211.8:36345],Time: [2017/4/19 16:44:57]
+ID=123&Return=1&CMD=DATA
+
+Send to: [192.168.211.8:36345], Time: [2017/4/19 16:44:57]
+OK
+Send to: [192.168.211.8:36345], Time: [2017/4/19 16:44:57]
+OK
+Send to: [192.168.211.8:36345], Time: [2017/4/19 16:44:57]
+OK
+From: [192.168.211.8:36346],Time: [2017/4/19 16:45:00]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 50
+Accept: */*
+
+ID=123&Return=0&CMD=DATA
+ID=123&Return=0&CMD=DATA
+
+From: [192.168.211.8:36346],Time: [2017/4/19 16:45:00]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 50
+Accept: */*
+
+ID=123&Return=0&CMD=DATA
+ID=123&Return=0&CMD=DATA
+
+From: [192.168.211.8:36346],Time: [2017/4/19 16:45:00]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 50
+Accept: */*
+
+ID=123&Return=0&CMD=DATA
+ID=123&Return=0&CMD=DATA
+
+From: [192.168.211.8:36346],Time: [2017/4/19 16:45:00]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:36346],Time: [2017/4/19 16:45:00]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:36346],Time: [2017/4/19 16:45:00]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:36346],Time: [2017/4/19 16:45:00]
+ID=123&Return=0&CMD=DATA
+ID=123&Return=0&CMD=DATA
+
+From: [192.168.211.8:36346],Time: [2017/4/19 16:45:00]
+ID=123&Return=0&CMD=DATA
+ID=123&Return=0&CMD=DATA
+
+From: [192.168.211.8:36346],Time: [2017/4/19 16:45:00]
+ID=123&Return=0&CMD=DATA
+ID=123&Return=0&CMD=DATA
+
+Send to: [192.168.211.8:36346], Time: [2017/4/19 16:45:00]
+OK
+Send to: [192.168.211.8:36346], Time: [2017/4/19 16:45:00]
+OK
+Send to: [192.168.211.8:36346], Time: [2017/4/19 16:45:00]
+OK
+From: [192.168.211.8:36347],Time: [2017/4/19 16:45:03]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36347],Time: [2017/4/19 16:45:03]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36347],Time: [2017/4/19 16:45:03]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36347],Time: [2017/4/19 16:45:03]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:36347],Time: [2017/4/19 16:45:03]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:36347],Time: [2017/4/19 16:45:03]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:36347], Time: [2017/4/19 16:45:03]
+OK
+
+Send to: [192.168.211.8:36347], Time: [2017/4/19 16:45:03]
+OK
+
+Send to: [192.168.211.8:36347], Time: [2017/4/19 16:45:03]
+OK
+
+From: [192.168.211.8:36348],Time: [2017/4/19 16:45:37]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36348],Time: [2017/4/19 16:45:37]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36348],Time: [2017/4/19 16:45:37]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36348],Time: [2017/4/19 16:45:37]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:36348],Time: [2017/4/19 16:45:37]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:36348],Time: [2017/4/19 16:45:37]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+Send to: [192.168.211.8:36348], Time: [2017/4/19 16:45:37]
+OK
+
+Send to: [192.168.211.8:36348], Time: [2017/4/19 16:45:37]
+OK
+
+Send to: [192.168.211.8:36348], Time: [2017/4/19 16:45:37]
+OK
+
+From: [192.168.211.8:36349],Time: [2017/4/19 16:46:13]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36349],Time: [2017/4/19 16:46:13]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36349],Time: [2017/4/19 16:46:13]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36349],Time: [2017/4/19 16:46:13]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:36349],Time: [2017/4/19 16:46:13]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:36349],Time: [2017/4/19 16:46:13]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:36349], Time: [2017/4/19 16:46:13]
+OK
+
+Send to: [192.168.211.8:36349], Time: [2017/4/19 16:46:13]
+OK
+
+Send to: [192.168.211.8:36349], Time: [2017/4/19 16:46:13]
+OK
+
+From: [192.168.211.8:36350],Time: [2017/4/19 16:46:47]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36350],Time: [2017/4/19 16:46:47]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36350],Time: [2017/4/19 16:46:47]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:36350],Time: [2017/4/19 16:46:47]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:36350],Time: [2017/4/19 16:46:47]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:36350],Time: [2017/4/19 16:46:47]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+Send to: [192.168.211.8:36350], Time: [2017/4/19 16:46:47]
+OK
+
+Send to: [192.168.211.8:36350], Time: [2017/4/19 16:46:47]
+OK
+
+Send to: [192.168.211.8:36350], Time: [2017/4/19 16:46:47]
+OK
+
+From: [192.168.211.8:40047],Time: [2017/4/19 16:47:23]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40047],Time: [2017/4/19 16:47:23]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40047],Time: [2017/4/19 16:47:23]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40047],Time: [2017/4/19 16:47:23]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:40047],Time: [2017/4/19 16:47:23]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:40047],Time: [2017/4/19 16:47:23]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:40047], Time: [2017/4/19 16:47:23]
+C:123:DATA QUERY USERINFO	PIN=1
+
+
+Send to: [192.168.211.8:40047], Time: [2017/4/19 16:47:23]
+C:123:DATA QUERY USERINFO	PIN=1
+
+
+Send to: [192.168.211.8:40047], Time: [2017/4/19 16:47:23]
+C:123:DATA QUERY USERINFO	PIN=1
+
+
+From: [192.168.211.8:40048],Time: [2017/4/19 16:47:24]
+POST /iclock/cdata?SN=0278141600030&table=USERINFO&Stamp=0 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 79
+Accept: */*
+
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+
+From: [192.168.211.8:40048],Time: [2017/4/19 16:47:24]
+POST /iclock/cdata?SN=0278141600030&table=USERINFO&Stamp=0 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 79
+Accept: */*
+
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+
+From: [192.168.211.8:40048],Time: [2017/4/19 16:47:24]
+POST /iclock/cdata?SN=0278141600030&table=USERINFO&Stamp=0 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 79
+Accept: */*
+
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+
+From: [192.168.211.8:40048],Time: [2017/4/19 16:47:24]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=USERINFO&Stamp=0
+
+From: [192.168.211.8:40048],Time: [2017/4/19 16:47:24]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=USERINFO&Stamp=0
+
+From: [192.168.211.8:40048],Time: [2017/4/19 16:47:24]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=USERINFO&Stamp=0
+
+From: [192.168.211.8:40048],Time: [2017/4/19 16:47:24]
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+
+From: [192.168.211.8:40048],Time: [2017/4/19 16:47:24]
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+
+From: [192.168.211.8:40048],Time: [2017/4/19 16:47:24]
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+
+Send to: [192.168.211.8:40048], Time: [2017/4/19 16:47:24]
+OK
+
+Send to: [192.168.211.8:40048], Time: [2017/4/19 16:47:24]
+OK
+
+Send to: [192.168.211.8:40048], Time: [2017/4/19 16:47:24]
+OK
+
+From: [192.168.211.8:40049],Time: [2017/4/19 16:47:24]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 25
+Accept: */*
+
+ID=123&Return=1&CMD=DATA
+
+From: [192.168.211.8:40049],Time: [2017/4/19 16:47:24]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 25
+Accept: */*
+
+ID=123&Return=1&CMD=DATA
+
+From: [192.168.211.8:40049],Time: [2017/4/19 16:47:24]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 25
+Accept: */*
+
+ID=123&Return=1&CMD=DATA
+
+From: [192.168.211.8:40049],Time: [2017/4/19 16:47:24]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:40049],Time: [2017/4/19 16:47:24]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:40049],Time: [2017/4/19 16:47:24]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:40049],Time: [2017/4/19 16:47:24]
+ID=123&Return=1&CMD=DATA
+
+From: [192.168.211.8:40049],Time: [2017/4/19 16:47:24]
+ID=123&Return=1&CMD=DATA
+
+From: [192.168.211.8:40049],Time: [2017/4/19 16:47:24]
+ID=123&Return=1&CMD=DATA
+
+Send to: [192.168.211.8:40049], Time: [2017/4/19 16:47:24]
+OK
+Send to: [192.168.211.8:40049], Time: [2017/4/19 16:47:24]
+OK
+Send to: [192.168.211.8:40049], Time: [2017/4/19 16:47:24]
+OK
+From: [192.168.211.8:40050],Time: [2017/4/19 16:47:26]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40050],Time: [2017/4/19 16:47:26]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40050],Time: [2017/4/19 16:47:26]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40050],Time: [2017/4/19 16:47:26]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:40050],Time: [2017/4/19 16:47:26]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:40050],Time: [2017/4/19 16:47:26]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+Send to: [192.168.211.8:40050], Time: [2017/4/19 16:47:26]
+OK
+
+Send to: [192.168.211.8:40050], Time: [2017/4/19 16:47:26]
+OK
+
+Send to: [192.168.211.8:40050], Time: [2017/4/19 16:47:26]
+OK
+
+From: [192.168.211.8:40051],Time: [2017/4/19 16:48:04]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40051],Time: [2017/4/19 16:48:04]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40051],Time: [2017/4/19 16:48:04]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40051],Time: [2017/4/19 16:48:04]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:40051],Time: [2017/4/19 16:48:04]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:40051],Time: [2017/4/19 16:48:04]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:40051], Time: [2017/4/19 16:48:04]
+OK
+
+Send to: [192.168.211.8:40051], Time: [2017/4/19 16:48:04]
+OK
+
+Send to: [192.168.211.8:40051], Time: [2017/4/19 16:48:04]
+OK
+
+From: [192.168.211.8:40052],Time: [2017/4/19 16:48:38]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40052],Time: [2017/4/19 16:48:38]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40052],Time: [2017/4/19 16:48:38]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40052],Time: [2017/4/19 16:48:38]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:40052],Time: [2017/4/19 16:48:38]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:40052],Time: [2017/4/19 16:48:38]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+Send to: [192.168.211.8:40052], Time: [2017/4/19 16:48:38]
+OK
+
+Send to: [192.168.211.8:40052], Time: [2017/4/19 16:48:38]
+OK
+
+Send to: [192.168.211.8:40052], Time: [2017/4/19 16:48:38]
+OK
+
+From: [192.168.211.8:40053],Time: [2017/4/19 16:49:14]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40053],Time: [2017/4/19 16:49:14]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40053],Time: [2017/4/19 16:49:14]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40053],Time: [2017/4/19 16:49:14]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:40053],Time: [2017/4/19 16:49:14]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:40053],Time: [2017/4/19 16:49:14]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:40053], Time: [2017/4/19 16:49:14]
+C:123456666666666:DATA QUERY USERINFO
+
+Send to: [192.168.211.8:40053], Time: [2017/4/19 16:49:14]
+C:123456666666666:DATA QUERY USERINFO
+
+Send to: [192.168.211.8:40053], Time: [2017/4/19 16:49:14]
+C:123456666666666:DATA QUERY USERINFO
+
+From: [192.168.211.8:40054],Time: [2017/4/19 16:49:15]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 37
+Accept: */*
+
+ID=123456666666666&Return=0&CMD=DATA
+
+From: [192.168.211.8:40054],Time: [2017/4/19 16:49:15]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 37
+Accept: */*
+
+ID=123456666666666&Return=0&CMD=DATA
+
+From: [192.168.211.8:40054],Time: [2017/4/19 16:49:15]
+POST /iclock/devicecmd?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 37
+Accept: */*
+
+ID=123456666666666&Return=0&CMD=DATA
+
+From: [192.168.211.8:40054],Time: [2017/4/19 16:49:15]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:40054],Time: [2017/4/19 16:49:15]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:40054],Time: [2017/4/19 16:49:15]
+POST http://192.168.211.2:8089/iclock/devicecmd?SN=0278141600030
+
+From: [192.168.211.8:40054],Time: [2017/4/19 16:49:15]
+ID=123456666666666&Return=0&CMD=DATA
+
+From: [192.168.211.8:40054],Time: [2017/4/19 16:49:15]
+ID=123456666666666&Return=0&CMD=DATA
+
+From: [192.168.211.8:40054],Time: [2017/4/19 16:49:15]
+ID=123456666666666&Return=0&CMD=DATA
+
+Send to: [192.168.211.8:40054], Time: [2017/4/19 16:49:15]
+OK
+Send to: [192.168.211.8:40054], Time: [2017/4/19 16:49:15]
+OK
+Send to: [192.168.211.8:40054], Time: [2017/4/19 16:49:15]
+OK
+From: [192.168.211.8:40055],Time: [2017/4/19 16:49:17]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40055],Time: [2017/4/19 16:49:17]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40055],Time: [2017/4/19 16:49:17]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40055],Time: [2017/4/19 16:49:17]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:40055],Time: [2017/4/19 16:49:17]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:40055],Time: [2017/4/19 16:49:17]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:40055], Time: [2017/4/19 16:49:17]
+OK
+
+Send to: [192.168.211.8:40055], Time: [2017/4/19 16:49:17]
+OK
+
+Send to: [192.168.211.8:40055], Time: [2017/4/19 16:49:17]
+OK
+
+From: [192.168.211.8:40056],Time: [2017/4/19 16:49:51]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40056],Time: [2017/4/19 16:49:51]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40056],Time: [2017/4/19 16:49:51]
+GET /iclock/getrequest?SN=0278141600030 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40056],Time: [2017/4/19 16:49:51]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:40056],Time: [2017/4/19 16:49:51]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+From: [192.168.211.8:40056],Time: [2017/4/19 16:49:51]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030
+
+Send to: [192.168.211.8:40056], Time: [2017/4/19 16:49:51]
+OK
+
+Send to: [192.168.211.8:40056], Time: [2017/4/19 16:49:51]
+OK
+
+Send to: [192.168.211.8:40056], Time: [2017/4/19 16:49:51]
+OK
+
+From: [192.168.211.8:40057],Time: [2017/4/19 16:50:27]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40057],Time: [2017/4/19 16:50:27]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40057],Time: [2017/4/19 16:50:27]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:40057],Time: [2017/4/19 16:50:27]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:40057],Time: [2017/4/19 16:50:27]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:40057],Time: [2017/4/19 16:50:27]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:40057], Time: [2017/4/19 16:50:27]
+OK
+
+Send to: [192.168.211.8:40057], Time: [2017/4/19 16:50:27]
+OK
+
+Send to: [192.168.211.8:40057], Time: [2017/4/19 16:50:27]
+OK
+
+From: [192.168.211.8:38378],Time: [2017/4/19 16:51:55]
+GET /iclock/cdata?SN=0278141600030&options=all&pushver=2.32&language=83 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:38378],Time: [2017/4/19 16:51:55]
+GET /iclock/cdata?SN=0278141600030&options=all&pushver=2.32&language=83 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:38378],Time: [2017/4/19 16:51:55]
+GET /iclock/cdata?SN=0278141600030&options=all&pushver=2.32&language=83 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:38378],Time: [2017/4/19 16:51:55]
+GET http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&options=all&pushver=2.32&language=83
+
+From: [192.168.211.8:38378],Time: [2017/4/19 16:51:55]
+GET http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&options=all&pushver=2.32&language=83
+
+From: [192.168.211.8:38378],Time: [2017/4/19 16:51:55]
+GET http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&options=all&pushver=2.32&language=83
+
+Send to: [192.168.211.8:38378], Time: [2017/4/19 16:51:55]
+GET OPTION FROM:111
+ErrorDelay=35
+Delay=30
+TransTimes=00:00;14:05
+TransInterval=1
+TransFlag=1111111111	
+Realtime=1
+Encrypt=0
+TimeZone=+08:00
+Timeout=60
+SyncTime=0
+ServerVer=IIS5+
+ATTLOGStamp=0
+OPERLOGStamp=0
+ATTPHOTOStamp=0
+Send to: [192.168.211.8:38378], Time: [2017/4/19 16:51:55]
+GET OPTION FROM:111
+ErrorDelay=35
+Delay=30
+TransTimes=00:00;14:05
+TransInterval=1
+TransFlag=1111111111	
+Realtime=1
+Encrypt=0
+TimeZone=+08:00
+Timeout=60
+SyncTime=0
+ServerVer=IIS5+
+ATTLOGStamp=0
+OPERLOGStamp=0
+ATTPHOTOStamp=0
+Send to: [192.168.211.8:38378], Time: [2017/4/19 16:51:55]
+GET OPTION FROM:111
+ErrorDelay=35
+Delay=30
+TransTimes=00:00;14:05
+TransInterval=1
+TransFlag=1111111111	
+Realtime=1
+Encrypt=0
+TimeZone=+08:00
+Timeout=60
+SyncTime=0
+ServerVer=IIS5+
+ATTLOGStamp=0
+OPERLOGStamp=0
+ATTPHOTOStamp=0
+From: [192.168.211.8:38379],Time: [2017/4/19 16:51:57]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:38379],Time: [2017/4/19 16:51:57]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:38379],Time: [2017/4/19 16:51:57]
+GET /iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Accept: */*
+
+
+From: [192.168.211.8:38379],Time: [2017/4/19 16:51:57]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:38379],Time: [2017/4/19 16:51:57]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+From: [192.168.211.8:38379],Time: [2017/4/19 16:51:57]
+GET http://192.168.211.2:8089/iclock/getrequest?SN=0278141600030&INFO=Ver%206.5.4(build%20155),2,0,5,192.168.211.8,10,-1,0,0,101
+
+Send to: [192.168.211.8:38379], Time: [2017/4/19 16:51:57]
+OK
+
+Send to: [192.168.211.8:38379], Time: [2017/4/19 16:51:57]
+OK
+
+Send to: [192.168.211.8:38379], Time: [2017/4/19 16:51:57]
+OK
+
+From: [192.168.211.8:38380],Time: [2017/4/19 16:51:58]
+POST /iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556044718 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 150
+Accept: */*
+
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+USER PIN=111	Name=����	Pri=0	Passwd=11	Card=	Grp=0	TZ=0000000000000000
+
+From: [192.168.211.8:38380],Time: [2017/4/19 16:51:58]
+POST /iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556044718 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 150
+Accept: */*
+
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+USER PIN=111	Name=����	Pri=0	Passwd=11	Card=	Grp=0	TZ=0000000000000000
+
+From: [192.168.211.8:38380],Time: [2017/4/19 16:51:58]
+POST /iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556044718 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 150
+Accept: */*
+
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+USER PIN=111	Name=����	Pri=0	Passwd=11	Card=	Grp=0	TZ=0000000000000000
+
+From: [192.168.211.8:38380],Time: [2017/4/19 16:51:58]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556044718
+
+From: [192.168.211.8:38380],Time: [2017/4/19 16:51:58]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556044718
+
+From: [192.168.211.8:38380],Time: [2017/4/19 16:51:58]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556044718
+
+From: [192.168.211.8:38380],Time: [2017/4/19 16:51:58]
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+USER PIN=111	Name=����	Pri=0	Passwd=11	Card=	Grp=0	TZ=0000000000000000
+
+From: [192.168.211.8:38380],Time: [2017/4/19 16:51:58]
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+USER PIN=111	Name=����	Pri=0	Passwd=11	Card=	Grp=0	TZ=0000000000000000
+
+From: [192.168.211.8:38380],Time: [2017/4/19 16:51:58]
+USER PIN=1	Name=123	Pri=0	Passwd=1	Card=[0000000000]	Grp=1	TZ=0000000000000000
+USER PIN=111	Name=����	Pri=0	Passwd=11	Card=	Grp=0	TZ=0000000000000000
+
+Send to: [192.168.211.8:38380], Time: [2017/4/19 16:51:58]
+OK
+
+Send to: [192.168.211.8:38380], Time: [2017/4/19 16:51:58]
+OK
+
+Send to: [192.168.211.8:38380], Time: [2017/4/19 16:51:58]
+OK
+
+From: [192.168.211.8:38381],Time: [2017/4/19 16:52:00]
+POST /iclock/cdata?SN=0278141600030&table=ATTLOG&Stamp=556024163 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 130
+Accept: */*
+
+1	2017-04-19 10:44:45	0	0
+2	2017-04-19 10:44:52	0	0
+1	2017-04-19 10:44:59	0	0
+2	2017-04-19 10:45:03	0	0
+1	2017-04-19 11:09:23	0	0
+
+From: [192.168.211.8:38381],Time: [2017/4/19 16:52:00]
+POST /iclock/cdata?SN=0278141600030&table=ATTLOG&Stamp=556024163 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 130
+Accept: */*
+
+1	2017-04-19 10:44:45	0	0
+2	2017-04-19 10:44:52	0	0
+1	2017-04-19 10:44:59	0	0
+2	2017-04-19 10:45:03	0	0
+1	2017-04-19 11:09:23	0	0
+
+From: [192.168.211.8:38381],Time: [2017/4/19 16:52:00]
+POST /iclock/cdata?SN=0278141600030&table=ATTLOG&Stamp=556024163 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 130
+Accept: */*
+
+1	2017-04-19 10:44:45	0	0
+2	2017-04-19 10:44:52	0	0
+1	2017-04-19 10:44:59	0	0
+2	2017-04-19 10:45:03	0	0
+1	2017-04-19 11:09:23	0	0
+
+From: [192.168.211.8:38381],Time: [2017/4/19 16:52:00]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=ATTLOG&Stamp=556024163
+
+From: [192.168.211.8:38381],Time: [2017/4/19 16:52:00]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=ATTLOG&Stamp=556024163
+
+From: [192.168.211.8:38381],Time: [2017/4/19 16:52:00]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=ATTLOG&Stamp=556024163
+
+From: [192.168.211.8:38381],Time: [2017/4/19 16:52:00]
+1	2017-04-19 10:44:45	0	0
+2	2017-04-19 10:44:52	0	0
+1	2017-04-19 10:44:59	0	0
+2	2017-04-19 10:45:03	0	0
+1	2017-04-19 11:09:23	0	0
+
+From: [192.168.211.8:38381],Time: [2017/4/19 16:52:00]
+1	2017-04-19 10:44:45	0	0
+2	2017-04-19 10:44:52	0	0
+1	2017-04-19 10:44:59	0	0
+2	2017-04-19 10:45:03	0	0
+1	2017-04-19 11:09:23	0	0
+
+From: [192.168.211.8:38381],Time: [2017/4/19 16:52:00]
+1	2017-04-19 10:44:45	0	0
+2	2017-04-19 10:44:52	0	0
+1	2017-04-19 10:44:59	0	0
+2	2017-04-19 10:45:03	0	0
+1	2017-04-19 11:09:23	0	0
+
+Send to: [192.168.211.8:38381], Time: [2017/4/19 16:52:00]
+OK
+
+Send to: [192.168.211.8:38381], Time: [2017/4/19 16:52:00]
+OK
+
+Send to: [192.168.211.8:38381], Time: [2017/4/19 16:52:00]
+OK
+
+From: [192.168.211.8:38382],Time: [2017/4/19 16:52:02]
+POST /iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556044706 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 77
+Accept: */*
+
+OPLOG 0	0	2017-04-19 16:51:45	0	0	0	0
+OPLOG 3	0	2017-04-19 16:51:46	55	0	0	0
+
+From: [192.168.211.8:38382],Time: [2017/4/19 16:52:02]
+POST /iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556044706 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 77
+Accept: */*
+
+OPLOG 0	0	2017-04-19 16:51:45	0	0	0	0
+OPLOG 3	0	2017-04-19 16:51:46	55	0	0	0
+
+From: [192.168.211.8:38382],Time: [2017/4/19 16:52:02]
+POST /iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556044706 HTTP/1.0
+Host: 192.168.211.2:8089
+User-Agent: iClock Proxy/1.09
+Connection: close
+Content-Length: 77
+Accept: */*
+
+OPLOG 0	0	2017-04-19 16:51:45	0	0	0	0
+OPLOG 3	0	2017-04-19 16:51:46	55	0	0	0
+
+From: [192.168.211.8:38382],Time: [2017/4/19 16:52:02]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556044706
+
+From: [192.168.211.8:38382],Time: [2017/4/19 16:52:02]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556044706
+
+From: [192.168.211.8:38382],Time: [2017/4/19 16:52:02]
+POST http://192.168.211.2:8089/iclock/cdata?SN=0278141600030&table=OPERLOG&Stamp=556044706
+
+From: [192.168.211.8:38382],Time: [2017/4/19 16:52:02]
+OPLOG 0	0	2017-04-19 16:51:45	0	0	0	0
+OPLOG 3	0	2017-04-19 16:51:46	55	0	0	0
+
+From: [192.168.211.8:38382],Time: [2017/4/19 16:52:02]
+OPLOG 0	0	2017-04-19 16:51:45	0	0	0	0
+OPLOG 3	0	2017-04-19 16:51:46	55	0	0	0
+
+From: [192.168.211.8:38382],Time: [2017/4/19 16:52:02]
+OPLOG 0	0	2017-04-19 16:51:45	0	0	0	0
+OPLOG 3	0	2017-04-19 16:51:46	55	0	0	0
+
+Send to: [192.168.211.8:38382], Time: [2017/4/19 16:52:02]
+OK
+
+Send to: [192.168.211.8:38382], Time: [2017/4/19 16:52:02]
+OK
+
+Send to: [192.168.211.8:38382], Time: [2017/4/19 16:52:02]
+OK
+

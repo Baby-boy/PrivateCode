@@ -1,0 +1,2 @@
+C:123:DATA QUERY tablename=user,fielddesc=*,filter=*
+

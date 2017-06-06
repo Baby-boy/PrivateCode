@@ -1,0 +1,1 @@
+C:123:DATA UPDATE USERINFO PIN=111	Name=уехЩ	Passwd=11	Pri=14

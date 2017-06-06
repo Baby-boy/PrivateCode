@@ -1,0 +1,2 @@
+C:a1:DATA UPDATE USERINFO PIN=112233	Name=test	Pri=0	Passwd=0	Card=0
+C:a1:DATA UPDATE USERINFO PIN=123	Name=test	Pri=0	Passwd=0	Card=0
