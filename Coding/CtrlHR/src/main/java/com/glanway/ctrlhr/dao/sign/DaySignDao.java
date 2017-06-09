@@ -19,6 +19,7 @@ public interface DaySignDao extends BaseDao<DaySign> {
 	public int updateByPrimaryKey(DaySign record);
 
 	/** 根据员工代码查询员工 */
-	public DaySign findEmployeeById(@Param("employeeId") Long employeeId, @Param("dateStart") String dateStart,
+	public DaySign findEmployeeByCode(@Param("employeeCode") String employeeCode, @Param("dateStart") String dateStart,
 			@Param("dateEnd") String dateEnd);
+
 }

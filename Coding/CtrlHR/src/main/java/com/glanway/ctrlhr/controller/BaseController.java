@@ -1,24 +1,36 @@
 package com.glanway.ctrlhr.controller;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.util.List;
+
 /**
  * 每个项目都有的 Base Controller, 项目中 Controller 都应该继承, 方便后续增加逻辑
  *
  * @author yangchanghe
- * @deprecated
  * @see com.glanway.eshop.admin.controller.AdminBaseController
  */
-@Deprecated
-public abstract class BaseController extends org.ponly.webbase.controller.ControllerSupport {
-    /*
-    @ResponseBody
-    @ExceptionHandler
-    public Map<String, Object> handleException(Exception e) {
-        e.printStackTrace();
-        return ImmutableMap.<String, Object>of("success", false, "message", e.getLocalizedMessage());
-    }
-    */
+public abstract class BaseController {
 
-    protected String getViewPath(String path) {
-        return getRelativeViewPath(path);
+    /**
+     * 导出功能使用
+     *
+     * @author fuqihao
+     * @param cvsList
+     * @param bw
+     * @throws IOException
+     * @since 1.0-20170526
+     */
+    protected void writeLine(final List<String> cvsList, BufferedWriter bw) throws IOException {
+        StringBuffer buffer = new StringBuffer();
+        for (String line : cvsList) {
+            if (null == line) {
+                line = "";
+            }
+            buffer.append(line).append(",");
+        }
+        /* bw.write(new String(new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF })); */
+        bw.write(buffer.deleteCharAt(buffer.length() - 1).toString());
+        bw.newLine();
     }
 }

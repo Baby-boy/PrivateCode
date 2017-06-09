@@ -36,18 +36,15 @@ public class SignJob {
 		List<SignRecordVo> list = signDao.findExList(TimeUtil.getDateStart(), TimeUtil.getDateEnd());
 		if (null != list && list.size() > 0) {
 			for (SignRecordVo signRecordVo : list) {
-				if (signRecordVo.getEmployeeId() == null) {
-					continue;
-				}
 				// 根据员工代码查询天表中有没有该员工今天的考勤记录
-				DaySign daySign = daySignDao.findEmployeeById(signRecordVo.getEmployeeId(), TimeUtil.getDateStart(),
+				DaySign daySign = daySignDao.findEmployeeByCode(signRecordVo.getEmployeeCode(), TimeUtil.getDateStart(),
 						TimeUtil.getDateEnd());
 				if (null == daySign) {
 					if (signRecordVo.getCount() > 0) {
 						SignRecordVo maxAndMinTime = signDao.findEmployeeByCode(signRecordVo.getEmployeeCode(),
 								TimeUtil.getDateStart(), TimeUtil.getDateEnd());
 						daySign = new DaySign();
-						daySign.setEmployeeId(signRecordVo.getEmployeeId());
+						daySign.setEmployeeCode(signRecordVo.getEmployeeCode());
 						daySign.setDateFrom(maxAndMinTime.getMinTime());
 						daySign.setHours(new BigDecimal(0));
 						daySign.setState(1);

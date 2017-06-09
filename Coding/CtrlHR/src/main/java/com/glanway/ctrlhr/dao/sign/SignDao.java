@@ -8,28 +8,35 @@ import com.glanway.ctrlhr.dao.BaseDao;
 import com.glanway.ctrlhr.entity.para.SignPara;
 import com.glanway.ctrlhr.entity.sign.Sign;
 import com.glanway.ctrlhr.entity.vo.SignRecordVo;
-import com.glanway.ctrlhr.entity.vo.SignVo;
+import com.glanway.ctrlhr.entity.vo.SignDetailVo;
+import com.glanway.ctrlhr.entity.vo.SignExportVo;
 
 public interface SignDao extends BaseDao<Sign> {
-	public int deleteByPrimaryKey(Long id);
+    public int deleteByPrimaryKey(Long id);
 
-	public int insert(Sign record);
+    public int insert(Sign record);
 
-	public int insertSelective(Sign record);
+    public int insertSelective(Sign record);
 
-	public Sign selectByPrimaryKey(Long id);
+    public Sign selectByPrimaryKey(Long id);
 
-	public int updateByPrimaryKeySelective(Sign record);
+    public int updateByPrimaryKeySelective(Sign record);
 
-	public int updateByPrimaryKey(Sign record);
+    public int updateByPrimaryKey(Sign record);
 
-	/** 查询考勤记录详情导出列表 */
-	public List<SignVo> findMany(@Param("para") SignPara para);
+    /** 查询考勤记录详情导出列表 */
+    public List<SignDetailVo> findMany(@Param("para") SignPara para);
 
-	/** 查询人员一天考勤的异常状态 (Task) */
-	public List<SignRecordVo> findExList(@Param("dateStart") String dateStart, @Param("dateEnd") String dateEnd);
+    /** 查询人员一天考勤的异常状态 (Task) */
+    public List<SignRecordVo> findExList(@Param("dateStart") String dateStart, @Param("dateEnd") String dateEnd);
 
-	/** 根据员工代码查询员工 */
-	public SignRecordVo findEmployeeByCode(@Param("employeeCode") String employeeCode,
-			@Param("dateStart") String dateStart, @Param("dateEnd") String dateEnd);
+    /** 根据员工代码查询员工 */
+    public SignRecordVo findEmployeeByCode(@Param("employeeCode") String employeeCode,
+                                           @Param("dateStart") String dateStart, @Param("dateEnd") String dateEnd);
+
+    /** 查询考勤记录详情导出列表 */
+    public List<SignExportVo> findSignExportList(@Param("para") SignPara para);
+
+    /** 根据条件查询对应考勤的员工 */
+    public List<SignExportVo> findEmployeeList(@Param("para") SignPara para);
 }

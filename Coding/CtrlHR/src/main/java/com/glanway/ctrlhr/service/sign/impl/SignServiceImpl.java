@@ -9,7 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.glanway.ctrlhr.dao.sign.SignDao;
 import com.glanway.ctrlhr.entity.para.SignPara;
 import com.glanway.ctrlhr.entity.sign.Sign;
-import com.glanway.ctrlhr.entity.vo.SignVo;
+import com.glanway.ctrlhr.entity.vo.SignDetailVo;
+import com.glanway.ctrlhr.entity.vo.SignExportVo;
 import com.glanway.ctrlhr.service.BaseServiceImpl;
 import com.glanway.ctrlhr.service.sign.SignService;
 
@@ -17,13 +18,24 @@ import com.glanway.ctrlhr.service.sign.SignService;
 @Service("signService")
 public class SignServiceImpl extends BaseServiceImpl<Sign> implements SignService {
 
-	@Autowired
-	private SignDao signDao;
+    @Autowired
+    private SignDao signDao;
 
-	@Override
-	public List<SignVo> findMany(SignPara para) {
+    @Override
+    public List<SignDetailVo> findMany(SignPara para) {
 
-		return signDao.findMany(para);
-	}
+        return signDao.findMany(para);
+    }
+
+    @Override
+    public List<SignExportVo> findSignExportList(SignPara para) {
+
+        return signDao.findSignExportList(para);
+    }
+
+    @Override
+    public List<SignExportVo> findEmployeeList(SignPara para) {
+        return signDao.findEmployeeList(para);
+    }
 
 }

@@ -92,15 +92,15 @@
 	<!-- S error page -->
 	<error-page>
 		<error-code>403</error-code>
-		<location>/WEB-INF/view/403.jsp</location>
+		<location>/WEB-INF/view/login.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/WEB-INF/view/404.jsp</location>
+		<location>/WEB-INF/view/login.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/WEB-INF/view/500.jsp</location>
+		<location>/WEB-INF/view/login.jsp</location>
 	</error-page>
 	<!-- E error page -->
 

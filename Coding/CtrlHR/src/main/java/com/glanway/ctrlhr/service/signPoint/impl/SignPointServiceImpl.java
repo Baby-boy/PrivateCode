@@ -76,7 +76,7 @@ public class SignPointServiceImpl extends BaseServiceImpl<SignPoint> implements 
 
 		if (StringUtils.isNotEmpty(para.getDeviceIds())) {
 			String[] deviceIdArr = StringUtils.split(para.getDeviceIds(), ",");
-			// 更新未绑定考勤点的考勤机的数据
+			// 更新考勤机的考勤点数据
 			deviceService.update(signPoint.getId(), deviceIdArr);
 		}
 
@@ -103,12 +103,18 @@ public class SignPointServiceImpl extends BaseServiceImpl<SignPoint> implements 
 			String[] deptIdArr = StringUtils.split(para.getDeptIds(), ",");
 			// 更新考勤点和部门关系
 			signPointDeptService.updateDept(signPoint.getId(), deptIdArr);
+		} else {
+			// 更新考勤点和部门关系
+			signPointDeptService.updateDept(signPoint.getId(), null);
 		}
 
 		if (StringUtils.isNotEmpty(para.getDeviceIds())) {
 			String[] deviceIdArr = StringUtils.split(para.getDeviceIds(), ",");
 			// 更新未绑定考勤点的考勤机的数据
 			deviceService.updateDevice(signPoint.getId(), deviceIdArr);
+		} else {
+			// 更新未绑定考勤点的考勤机的数据
+			deviceService.updateDevice(signPoint.getId(), null);
 		}
 
 	}

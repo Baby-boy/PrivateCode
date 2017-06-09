@@ -11,7 +11,7 @@ public class SimpleDeviceVo {
 
 	private Long id;// 设备id
 
-	private String name;// 设备名称
+	private String deviceName;// 设备名称
 
 	public Long getId() {
 		return id;
@@ -21,12 +21,12 @@ public class SimpleDeviceVo {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getDeviceName() {
+		return deviceName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
 	}
 
 }

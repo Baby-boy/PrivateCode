@@ -25,11 +25,10 @@
 		template: '#componentSearch',
 		data:function(){
 			return {
-				searchText:""
+				searchText:this.value
 			}
 		},
 		mounted:function(){
-			this.searchText = this.value;
 		},
 		props:['searchTips','value'],
 		methods:{

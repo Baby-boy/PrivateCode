@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.ctrlhr.dao.perfStall.PerfStallDao">
+	<select id="findSimpleByJobGradeId" resultType="SimplePerfStall">
+		SELECT RS.ID,RS.NAME,RS.SALARY_NUM FROM T_JOB_GRADE_PERF_STALL JGPS LEFT JOIN T_PERF_STALL RS 
+		ON JGPS.PERF_STALL_ID = RS.ID AND RS.DELETED = 0
+		WHERE JGPS.JOB_GRADE_ID =  #{jobGradeId} AND JGPS.DELETED = 0
+	</select>
+</mapper>

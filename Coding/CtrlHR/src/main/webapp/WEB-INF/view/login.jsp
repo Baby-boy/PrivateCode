@@ -19,6 +19,7 @@
 				bottom:0;
 				left:0;
 				right:0;
+				
 			}
 			
 			.login-title{
@@ -71,7 +72,7 @@
 					},
 					urls:{
 						login:"${ctx}/api/user/login",
-						mainPage:"${ctx}/pageTo/attendance/attendanceList?viewName=2"
+						mainPage:"${ctx}/pageTo/sign/signList?viewName=2"
 					}
 				},
 				methods: {
@@ -105,6 +106,7 @@
 						Vue.http.get(vm.urls.login +"?name="+vm.user.name+"&pwd="+vm.user.pwd).then(function(response){
 							response.json().then(function(responseData){
 								if(responseData.code == "200"){
+									sessionStorage.setItem('name',responseData.data)
 									window.location = vm.urls.mainPage;
 								}else{
 									if(responseData.code == "204"){

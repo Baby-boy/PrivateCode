@@ -1,0 +1,55 @@
+{
+    "code": "200",
+    "msg": "操作成功!",
+    "loginState": 2,
+    "data": [{
+        "id": 10,
+        "batchDate": 1492497900000,
+        "creProId": 1,
+        "createdBy": 1,
+        "createdDate": 1492497905000,
+        "modProId": 1,
+        "lastModifiedBy": 1,
+        "lastModifiedDate": 1492497910000,
+        "companyId": 1,
+        "companyName": "雅玛多",
+        "name": "松江伴亭路营业所",
+        "code": "2000",
+        "duty": "松江伴亭路营业所",
+        "isIndependent": "0",
+        "hasSupervisePower": "0",
+        "supervised": null,
+        "position": 4,
+        "state": 1,
+        "parentId": 9,
+        "path": "/9/10",
+        "pathNames": "/虹桥区/松江伴亭路营业所",
+        "depth": 1,
+        "isLeaf": "0",
+        "deleted": "0",
+        "childDept": null,
+        "parentDept": null,
+        "deptJobORGVOs": [{ "jobId": "6", "jobName": "SD(机动车)", "orgId": "2", "orgCount": "100", "emplCount": "4", "workSystem": "全日", "jobGradeId": 1, "orgChildDetps": null, "deptJobORGVOs": [{ "jobId": "8", "jobName": "SD(电瓶车)", "orgId": "4", "orgCount": "100", "emplCount": "3", "workSystem": "全日", "jobGradeId": 2, "orgChildDetps": [], "deptJobORGVOs": null }] }, {
+            "jobId": "7",
+            "jobName": "GOP",
+            "orgId": "3",
+            "orgCount": "100",
+            "emplCount": "2",
+            "workSystem": "全日",
+            "jobGradeId": 1,
+            "orgChildDetps": [{ "id": null, "name": "战略推进课", "childDetpORGVOs": [{ "name": "GOP", "orgCount": "100", "emplCount": null, "workSystem": "全日" }] }, {
+                "id": null,
+                "name": "区域支店",
+                "childDetpORGVOs": [{
+                    "name": "GOP",
+                    "orgCount": "100",
+                    "emplCount": null,
+                    "workSystem": "全日"
+                }]
+            }],
+            "deptJobORGVOs": null
+        }],
+        "jobTypes": null
+    }],
+    "dataMap": {}
+}

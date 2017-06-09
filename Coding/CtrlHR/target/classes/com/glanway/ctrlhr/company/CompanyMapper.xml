@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.ctrlhr.dao.company.CompanyDao" >
+ 
+  <!-- 查询考勤设备下的部门 -->
+  <select id="findByParent" resultType="SimpleCompanyVo">
+	SELECT TCO.ID,TCO.NAME,TCO.SIMPLE_NAME,TCO.ATTR,TCO.IS_OWNERSHIP,TCO.DEPTH,TCO.IS_LEAF FROM T_COMPANY TCO 
+	WHERE TCO.DELETED=0 AND TCO.PARENT_ID=#{parentId}
+  </select>
+  
+  
+  <select id="findOne" resultType="SimpleCompanyVo">
+	SELECT TCO.ID,TCO.NAME,TCO.SIMPLE_NAME,TCO.ATTR,TCO.IS_OWNERSHIP,TCO.DEPTH,TCO.IS_LEAF FROM T_COMPANY TCO 
+	WHERE TCO.ID=#{id}
+  </select>
+</mapper>

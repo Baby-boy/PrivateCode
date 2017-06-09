@@ -3,6 +3,8 @@ package com.glanway.ctrlhr.controller.signPoint;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,8 @@ import com.glanway.ctrlhr.service.signPoint.SignPointService;
 @Controller
 @RequestMapping("/api/signPoint")
 public class SignPointController {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(SignPointController.class);
 
 	@Autowired
 	private SignPointService signPointService;
@@ -43,7 +47,7 @@ public class SignPointController {
 			Page<SignPoint> page = signPointService.findList(para);
 			jsonResult.setData(page);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info("查询考勤点列表时异常信息为: {}", e.getMessage());
 			jsonResult.setCode(HttpCode.INTERNAL_SERVER_ERROR);
 			jsonResult.setMsg("操作失败!");
 		}
@@ -73,7 +77,7 @@ public class SignPointController {
 		try {
 			signPointService.save(para);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info("新增考勤点时异常信息为: {}", e.getMessage());
 			jsonResult.setCode(HttpCode.INTERNAL_SERVER_ERROR);
 			jsonResult.setMsg("操作失败!");
 		}
@@ -103,7 +107,7 @@ public class SignPointController {
 			}
 			jsonResult.setData(signPointVo);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info("获取考勤点信息时异常信息为: {}", e.getMessage());
 			jsonResult.setCode(HttpCode.INTERNAL_SERVER_ERROR);
 			jsonResult.setMsg("操作失败!");
 		}
@@ -124,10 +128,16 @@ public class SignPointController {
 	public JsonResult update(SignPointPara para) {
 		JsonResult jsonResult = new JsonResult();
 
+		if (StringUtils.isEmpty(para.getName())) {
+			jsonResult.setCode(HttpCode.BAD_REQUEST);
+			jsonResult.setMsg("考勤点名称不能为空!");
+			return jsonResult;
+		}
+
 		try {
 			signPointService.update(para);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info("更新考勤点信息时异常信息为: {}", e.getMessage());
 			jsonResult.setCode(HttpCode.INTERNAL_SERVER_ERROR);
 			jsonResult.setMsg("操作失败!");
 		}
@@ -158,7 +168,7 @@ public class SignPointController {
 			JsonResult result = signPointService.delete(ids);
 			return result;
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info("删除考勤点时异常信息为: {}", e.getMessage());
 			jsonResult.setCode(HttpCode.INTERNAL_SERVER_ERROR);
 			jsonResult.setMsg("操作失败!");
 		}
@@ -183,7 +193,7 @@ public class SignPointController {
 			List<SimpleSignPointVo> simpleList = signPointService.findSimpleList(para);
 			jsonResult.setData(simpleList);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info("查询考勤点精简列表时异常信息为: {}", e.getMessage());
 			jsonResult.setCode(HttpCode.INTERNAL_SERVER_ERROR);
 			jsonResult.setMsg("操作失败!");
 		}

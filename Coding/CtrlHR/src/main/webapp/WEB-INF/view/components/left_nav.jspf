@@ -23,8 +23,8 @@
 }
 .leftNav .navItem:hover,.leftNav .navItem.on{
 	color: #fff;
-	background-color: #5DA1D5;
-	border-color: #5DA1D5;
+	background-color: #00a58b;
+	border-color: #00a58b;
 }
 </style>
 <script type="text/x-template" id="leftNavWrap">

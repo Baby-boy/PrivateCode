@@ -1,0 +1,173 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
+<script type="text/x-template" id="tree">
+  <div class="tree">
+	  <fieldset id="orgTree">
+	      <div style="text-align:left;line-height:40px;height:40px;font-weight:bold;font-size:14px;">
+	        <span style="padding-left:50px;">部门名称</span>
+	        <span style="width:200px;float:right;text-align:center">操作</span>
+	        <span style="width:200px;float:right;text-align:center">职位类型</span>
+	        <span style="width:200px;float:right;text-align:center">部门代码</span>
+	      </div>
+	      <el-tree style="text-align:left;font-size:14px;"
+	        :data="value"
+	        :props="treeTemp"
+	        node-key="id"
+	        default-expand-all
+	        :expand-on-click-node="false"
+	        :render-content="renderTree">
+	      </el-tree>
+	  </fieldset>
+ </div>
+</script>
+<script type="text/javascript">
+		Vue.component('tree', {
+		template: '#tree',
+		props:["value"],
+		data:function(){
+			console.log(this.value)
+			return{	
+				 treeTemp:{
+				 		children: 'childDept',
+						label: 'name'
+				 }
+			}
+		},
+		methods: {
+				renderTree: function renderOrgTree3(h, _ref) {
+						var _this = this;
+
+						var node = _ref.node,
+						    data = _ref.data,
+						    store = _ref.store;
+
+						return h(
+								'span',
+								{ 'class': 'tree-table-row' },
+								[h(
+										'span',
+										null,
+										[data.name]
+								), h(
+										'span',
+										{ 'class': 'tree-table-cell', style: 'width:200px;text-align:center' },
+										[h(
+												'el-button',
+												{
+														attrs: { type: 'text', size: 'small' },
+														on: {
+																'click': function click(e) {
+																		return _this.handleEdit(data);
+																}
+														}
+												},
+												['\u7F16\u8F91']
+										), h(
+												'el-button',
+												{
+														attrs: { type: 'text', size: 'small' },
+														on: {
+																'click': function click(e) {
+																		return _this.handleDelete(data);
+																}
+														}
+												},
+												['\u5220\u9664']
+										)]
+								), h(
+										'span',
+										{ 'class': 'tree-table-cell', style: 'width:200px;text-align:center' },
+										[data.code]
+								), h(
+										'span',
+										{ 'class': 'tree-table-cell', style: 'width:200px;text-align:center' },
+										[data.duty ? data.duty : "暂无"]
+								)]
+						);
+				},
+				handleEdit: function handleEdit() {
+					
+				},
+				handleDelete: function handleDelete() {
+						var _this2 = this;
+						this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+								confirmButtonText: '确定',
+								cancelButtonText: '取消',
+								type: 'warning'
+						}).then(function () {
+								_this2.$message({
+										type: 'success',
+										message: '删除成功!'
+								});
+						}).catch(function () {
+								_this2.$message({
+										type: 'info',
+										message: '已取消删除'
+								});
+						});
+				},
+				confirm: function confirm() {
+						var _this3 = this;
+						this.$msgbox({
+								title: '消息',
+								message: '这是一段内容, 这是一段内容, 这是一段内容, 这是一段内容, 这是一段内容, 这是一段内容, 这是一段内容',
+								showCancelButton: true,
+								confirmButtonText: '确定',
+								cancelButtonText: '取消',
+								beforeClose: function beforeClose(action, instance, done) {
+										if (action === 'confirm') {
+												instance.confirmButtonLoading = true;
+												instance.confirmButtonText = '执行中...';
+												setTimeout(function () {
+														done();
+														setTimeout(function () {
+																instance.confirmButtonLoading = false;
+														}, 300);
+												}, 3000);
+										} else {
+												done();
+										}
+								}
+						}).then(function (action) {
+								_this3.$message({
+										type: 'info',
+										message: 'action: ' + action
+								});
+						});
+				},
+				alert: function alert() {
+						var _this4 = this;
+
+						this.$alert('这是一段内容', '标题名称', {
+								confirmButtonText: '确定',
+								callback: function callback(action) {
+										_this4.$message({
+												type: 'info',
+												message: 'action: ' + action
+										});
+								}
+						});
+				}
+		}
+});
+
+</script>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style type="text/css">
+  fieldset{
+    /*padding:30px;*/
+/*    border:solid 1px #eee;*/
+    margin-bottom:50px;
+  }
+
+  .el-tree{
+    border:none;
+  }
+
+  .tree-table-row .tree-table-cell{
+        float:right;
+      }
+  .el-transfer-panel{
+    width:400px;
+  }
+  .vert-m{vertical-align: middle}
+</style>

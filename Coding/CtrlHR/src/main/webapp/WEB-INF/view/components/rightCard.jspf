@@ -15,7 +15,7 @@
 		transition: all 0.5s;
 	}
 	.rightCard.active{
-		right: 20px!important;
+		right: 20px;
 	}
 	.rightCardTitle{
 		position: absolute;
@@ -44,7 +44,7 @@
 </style>
 <!--组件模板-->
 <script type="text/x-template" id="componentRightCard">
-	<div class="rightCard" :class="{active:show}" :style="'top:'+top+';width:'+width+';right:-'+width">
+	<div class="rightCard" :class="{active:value}" :style="'top:'+top+';width:'+width+';right:-'+width">
 		<div class="rightCardTitle clearfix">
 			<span>{{cardTitle}}</span>
 			<a href="javascript:;" class="fr el-icon-close" @click="closeRightCard"></a>
@@ -58,10 +58,10 @@
 <script>
 	Vue.component('rightCard',{
 		template: '#componentRightCard',
-		props:['cardTitle','show','top','width'],
+		props:['cardTitle','value','top','width'],
 		methods:{
 			closeRightCard:function(){
-				this.$emit('hide',false);
+				this.$emit('input',false);
 			}
 		}
 	})

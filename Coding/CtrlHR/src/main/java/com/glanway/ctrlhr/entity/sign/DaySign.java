@@ -9,7 +9,7 @@ public class DaySign extends BaseEntity {
 
 	private static final long serialVersionUID = -8638521592358173146L;
 
-	private Long employeeId;// 员工ID
+	private String employeeCode;// 员工ID
 
 	private Date dateFrom;// 每天考勤开始时间
 
@@ -21,12 +21,12 @@ public class DaySign extends BaseEntity {
 
 	private String deleted;// 是否删除(0.否，1.是)
 
-	public Long getEmployeeId() {
-		return employeeId;
+	public String getEmployeeCode() {
+		return employeeCode;
 	}
 
-	public void setEmployeeId(Long employeeId) {
-		this.employeeId = employeeId;
+	public void setEmployeeCode(String employeeCode) {
+		this.employeeCode = employeeCode;
 	}
 
 	public Date getDateFrom() {

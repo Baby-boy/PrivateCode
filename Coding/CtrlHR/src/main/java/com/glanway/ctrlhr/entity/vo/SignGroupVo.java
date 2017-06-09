@@ -16,7 +16,13 @@ public class SignGroupVo {
 
 	private String name;// 考勤群组名称
 
+	private String remark;// 备注
+
 	private String state;// 考勤群组状态
+
+	private Integer employeeType;// 选择部门职位还是人员,1:部门职位,2:人员
+
+	private Integer signType;// 选择考勤点还是组织架构,1:考勤点,2:组织架构
 
 	private List<SignGroupDeptVo> jobDepts = new ArrayList<>();// 职位部门关联
 
@@ -44,12 +50,36 @@ public class SignGroupVo {
 		this.name = name;
 	}
 
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
 	public String getState() {
 		return state;
 	}
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public Integer getEmployeeType() {
+		return employeeType;
+	}
+
+	public void setEmployeeType(Integer employeeType) {
+		this.employeeType = employeeType;
+	}
+
+	public Integer getSignType() {
+		return signType;
+	}
+
+	public void setSignType(Integer signType) {
+		this.signType = signType;
 	}
 
 	public List<SignGroupDeptVo> getJobDepts() {

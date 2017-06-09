@@ -53,13 +53,18 @@ public class SignPointDeptServiceImpl extends BaseServiceImpl<SignPointDept> imp
 		// 部门的更新是先把中间表的所有数据先删除,然后在重新创建的思路
 		// 先通过考勤点ID查询中间表中所有相关的数据进行删除处理
 		List<SignPointDept> signPointDeptList = signPointDeptDao.findMany(id);
-		// 执行删除操作
-		for (SignPointDept signPointDept : signPointDeptList) {
-			signPointDept.setDeleted("1");// 逻辑删除
-			signPointDeptDao.updateByPrimaryKeySelective(signPointDept);
+		if (null != signPointDeptList && signPointDeptList.size() > 0) {
+			// 执行删除操作
+			for (SignPointDept signPointDept : signPointDeptList) {
+				signPointDept.setDeleted("1");// 逻辑删除
+				signPointDeptDao.updateByPrimaryKey(signPointDept);
+			}
 		}
-		// 重新创建
-		save(id, deptIdArr);
+
+		if (null != deptIdArr) {
+			// 重新创建
+			save(id, deptIdArr);
+		}
 	}
 
 }

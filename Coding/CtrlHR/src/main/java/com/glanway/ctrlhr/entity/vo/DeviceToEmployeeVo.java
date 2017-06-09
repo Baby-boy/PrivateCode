@@ -19,6 +19,8 @@ public class DeviceToEmployeeVo {
 
 	private String jobName;// 职位名称
 
+	private Integer gatherMsgState;// 采集状态 1:未采集,2部分采集,3:已采集
+
 	public Long getId() {
 		return id;
 	}
@@ -73,6 +75,14 @@ public class DeviceToEmployeeVo {
 
 	public void setJobName(String jobName) {
 		this.jobName = jobName;
+	}
+
+	public Integer getGatherMsgState() {
+		return gatherMsgState;
+	}
+
+	public void setGatherMsgState(Integer gatherMsgState) {
+		this.gatherMsgState = gatherMsgState;
 	}
 
 }

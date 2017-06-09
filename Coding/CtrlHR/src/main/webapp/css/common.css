@@ -292,3 +292,44 @@ html, body {
         page-break-after: avoid;
     }
 }
+/*弹出框*/
+.dialog-title{    
+	line-height: 1;
+    font-size: 16px;
+    font-weight: 700;
+    color: rgb(31, 45, 61);
+    }
+.el-dialog__headerbtn{position: absolute;right: 20px;top: 20px;}
+.dialog-title.hasLine{border-bottom: 1px solid #ccc;padding-bottom: 20px;}
+/*.hasModal{background-color: rgba(48,48,48,0.3);}*/
+/*文本*/
+.text-center{text-align: center;}
+.v-center{display: inline-block;height: 100%;}
+/*间隔*/
+.margin-l-10{margin: 0 10px;}
+/*选择框*/
+.el-select.block{display: block;}
+/*颜色*/
+.c-white{color:white;}
+.c-grey{color: #999999;}
+/*button*/
+.el-button.circle{border-radius: 50%;}
+.circle.circle-small{padding: 5px;}
+.el-button--text.h-b:hover, .el-button--text.h-b:focus{color: #000;}
+.noResize textarea{resize: none;}
+/*tree*/
+fieldset{
+    margin-bottom:50px;
+  }
+
+  .el-tree{
+    border:none;
+  }
+
+  .tree-table-row .tree-table-cell{
+        float:right;
+      }
+  .el-transfer-panel{
+    width:400px;
+  }
+  .vert-m{vertical-align: middle}

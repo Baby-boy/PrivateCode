@@ -1,0 +1,1672 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
+<style type="text/css">
+	.dev.pageTop .pageTopCont{width: 30%;}
+	.dev.pageTop .pageTopSlot{width: 70%;height: 30px;line-height: 30px;}
+	.dev.pageTop .pageTopSlot .searchDiv input[type="text"]{width: 100px;font-size: 1em;}
+	.stateSelect{width: 105px;}
+	.place .cell.el-tooltip{padding: 0 180px;}
+</style>	
+	<!--考勤管理弹窗-->
+	<script type="text/x-template" id="manager">
+	<div>
+		<div class="icon-set">	
+			<el-dialog v-model="popupShow" :before-close="popupShowToggle">
+				<div class="popup">
+					<div class="popupCard">
+						<div class="popupContent">
+							<div class="menuTab clearfix">
+								<div class="menuTabTitle">
+									<a href="javascript:;" v-for="(item,index) in tabTitle"
+										:class="{active:item.active}" @click="clickTabs(index)">{{item.name}}</a>
+								</div>
+								<div class="menuTabBox">
+									<div class="tabBox" v-if="tabTitle[0].active">
+										<page-top page-title="设备管理" class="dev" page-description="在这里您可以更清晰的查看考勤机的使用情况"> 
+											<search search-tips="请输入考勤点" @search="searchDev" class="fr"></search>
+											<el-select v-model="devState.state"  @change="getDevice" clearable placeholder="设备状态" size="small" class="fr stateSelect" >
+												<el-option label="未使用" :value="1"></el-option>
+												<el-option label="已使用" :value="2"></el-option>
+												<el-option label="异常" :value="3"></el-option>
+											</el-select>
+											<el-select v-model="devState.syncState" @change="getDevice" clearable placeholder="同步状态" size="small" class="fr stateSelect" >
+												<el-option label="未同步" :value="4"></el-option>
+												<el-option label="处理中" :value="5"></el-option>
+												<el-option label="已同步" :value="6"></el-option>
+											</el-select>
+										</page-top>
+										<div class="equipmentMamage clearfix">
+											<el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+											<span class="fr">
+											<el-button type="primary" size="small" class="btn-step" @click="getDevice(0)" :loading="loading.refresh">刷新</el-button>
+											<el-button type="primary" size="small" class="btn-step" @click="copyStep" :loading="loading.copyStep">同步</el-button>
+											</span>
+											<!--<el-button class="rl btn-device-plus"
+												@click.stop="deviceToggle"> <i
+												class="el-icon-plus"></i> 新增设备</el-button>-->
+										</div>
+										<div class="equipmentList clearfix">
+											<el-checkbox-group v-model="checkedEquipment" @change="handleCheckedEquipment">
+												<div class="equipmentItem"
+													v-if="equipmentData.list&&equipmentData.list.length"
+													v-for="(item,index) in equipmentData.list"
+													:class="{active:item.active}">
+													<div class="hoverShow clearfix">
+														<el-checkbox  class="fl"  :label="item" @change="checkItem(item)">&nbsp;</el-checkbox>
+														<span class="fr setting">
+															操作:<i class="el-icon-arrow-down"></i>
+															<ul>
+																<li @click="deviceToggle(item.id)" v-loading.fullscreen.lock="loading.fullLoading">编辑</li>
+																<!--<li @click="delDevice(item.id)">删除</li>-->
+															</ul>
+														</span>	
+													</div>
+													<div class="itemAddr">
+														<div class="noAddr" v-if="item.state == 1">
+															<p>暂未</p>
+															<el-button type="text" @click="addNewPlace(false,item)">添加考勤点</el-button>
+														</div>
+														<div class="inner" v-else>{{item.signPointName}}</div>
+													</div>
+													<div class="itemName">
+														<span class="inner">
+															<span :title="item.deviceName" class="exception" v-if="item.state == 3">未连接</span>
+															<span :title="item.deviceName" class="nomal" v-if="item.state == 2 && item.syncState == 3">正常</span>
+															<span :title="item.deviceName" class="noStep" v-if="item.state == 2 && item.syncState ==1">未同步</span>
+															<span :title="item.deviceName" class="onStep" v-if="item.state == 2 && item.syncState ==2">同步中</span>
+															<span :title="item.deviceName" class="noMember" v-if="item.state == 1">未绑定</span>
+														</span>
+													</div>
+													<div class="itemInfo">
+														<el-button type="text" @click="clickViewMember(item,'1,2,3')">查看成员</el-button>
+														<p>共{{item.totalPeople}}人</p>
+														<p>已同步{{item.totalPeople -
+															item.unsyncPeople}}人/未同步
+															<el-button type="text" @click="clickViewMember(item,'1')">{{item.unsyncPeople}}</el-button>	
+															人
+														</p>
+													</div>
+												</div>
+												<div v-else>暂无设备</div>
+											</el-checkbox-group>
+										</div>
+									</div>
+									<div class="tabBox" v-if="tabTitle[1].active">
+										<page-top page-title="考勤点管理" page-description="在这里您可以考勤点进行管理">
+											<el-button class="rl btn-sign-point-plus" @click.stop="signPointToggle(1)">
+												<i class="el-icon-plus"></i> 新增考勤点
+											</el-button> 
+										</page-top>
+										<div class="clearfix pointTop">
+											<el-button size="small" @click="delCheckPoint" :loading="loading.delCheckPoint">删除</el-button>
+											<search search-tips="搜索..." @search="searchSingPoint" class="fr smallSearch"></search>
+										</div>	
+										<!--数据列表-->
+										<el-table :data="signPointData.list" stripe v-loading="isloading" ref="pointerTable" @selection-change="handleCheckPoint"> 
+											<el-table-column type="selection" width="40px"></el-table-column> 
+											<el-table-column prop="name" align="center" label="考勤点" width="160" :show-overflow-tooltip="true"> </el-table-column>
+											<el-table-column prop="depts" align="center" label="部门" width="180" :show-overflow-tooltip="true"> </el-table-column> 
+											<el-table-column prop="devices" align="center" label="设备名称" :show-overflow-tooltip="true"> </el-table-column>
+											<el-table-column align="center" label="操作" width="100">
+												<template scope="scope"> 
+													<el-button type="text" size="small" @click.stop="editSignPoint(scope.row.id)" v-loading.fullscreen.lock="loading.fullLoading">编辑</el-button>
+													<el-button type="text" size="small" @click.stop="delSignPoint(scope.row.id)">删除</el-button> 
+												</template>
+											</el-table-column>
+										</el-table>
+										<div class="pagination" v-if="signPointData.list && signPointData.list.length>0">
+											<el-pagination layout="total,sizes,prev,pager,next,jumper"
+												:current-page="page" :page-size="pageSize"
+												@current-change="handleCurrentChange"
+												:page-sizes="[10,20,30]" @size-change="sizeChange"
+												:total="signPointData.totalCount">
+											</el-pagination>
+										</div>
+									</div>
+									<div class="tabBox" v-if="tabTitle[2].active">
+										<page-top page-title="考勤群组管理" page-description="在这里您可以进行考勤规则管理设置"> 
+											<el-button class="rl btn-sign-group-plus" @click="editSignGroup()">
+												<i class="el-icon-plus"></i>新增群组
+											</el-button> 
+										</page-top>
+										<div class="clearfix pointTop">
+											<el-button size="small" @click="delCheckPoinGroup" :loading="loading.delCheckPointGroup">删除</el-button>
+											<!--<search search-tips="搜索..." @search="searchSingPoint" class="fr smallSearch"></search>-->
+										</div>	
+										<!--数据列表-->
+										<div>
+											<el-table :data="signGroupData.list" stripe v-loading="isloading" @selection-change="handleCheckPointGroup"> 
+												<el-table-column type="selection" width="40px"></el-table-column> 
+												<el-table-column prop="name" label="群组名称" width="160" :show-overflow-tooltip="true">
+												</el-table-column>
+												<el-table-column prop="jje" align="center" label="考勤对象" width="160" :show-overflow-tooltip="true"> </el-table-column>
+												<el-table-column prop="sp" align="center" label="考勤地" :show-overflow-tooltip="true" class-name="place"></el-table-column> 
+												<el-table-column align="center" label="操作" width="100">
+													<template scope="scope"> 
+														<el-button type="text" size="small" @click.stop="editSignGroup(scope.row.id)" v-loading.fullscreen.lock="loading.fullLoading">编辑</el-button> 
+														<el-button type="text" size="small" @click.stop="delSignGroup(scope.row.id)">删除</el-button> 
+													</template> 
+												</el-table-column>
+											</el-table>
+										</div>
+										<div class="pagination"
+											v-if="signGroupData.list && signGroupData.list.length>0">
+											<el-pagination layout="total,sizes,prev,pager,next,jumper"
+												:current-page="page" :page-size="pageSize"
+												:page-sizes="[10,20,30]" @size-change="sizeChange"
+												@current-change="handleCurrentChange"
+												:total="signGroupData.totalCount">
+											</el-pagination>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div slot="title">
+					<i class="el-icon-setting"></i> 
+					<span>考勤管理</span>
+				</div>
+			</el-dialog>
+		</div>
+		<el-dialog v-model="showViewMember">
+			<!--查看成员弹窗-->
+			<div class="viewMemberHd clearfix" slot="title">
+				<span>查看成员</span> 
+			</div>
+			<div :class="{block:showViewMember}">
+				<div class="viewMemberAbout">
+					查看
+					<el-button type="text" @click="seeDepartmentPop(1)">部门</el-button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看
+					<el-button type="text" class="groupBtn" @click="seeDepartmentPop(0)">群组</el-button>
+				</div>
+				<div class="viewMemberFillter clearfix">
+					<span class="color6 hadMembers">已有{{viewMemberData.totalCount}}个成员</span>
+					<search  search-tips="搜索姓名或者职员代码..." @search="searchViewMember" class="fr popsearch"></search>
+				</div>
+				<div class="viewMemberBd">
+					<el-table :data="viewMemberData.list" stripe
+						v-loading="viewMemberLoading"> 
+						<el-table-column prop="name" label="姓名"></el-table-column> 
+						<el-table-column prop="deptName" align="center" label="部门"></el-table-column>
+						<el-table-column prop="jobName" align="center" label="职位"></el-table-column> 
+						<el-table-column prop="jobName" align="center" label="采集状态">
+							<template scope="scope">
+								<p>{{scope.row.gatherMsgState==1?'未采集':'采集'}}</p>	
+							</template>
+						</el-table-column> 
+					</el-table>
+					<div class="pagination"
+						v-if="viewMemberData.list && viewMemberData.list.length>0">
+						<el-pagination layout="total,sizes,prev,pager,next,jumper" 
+							:page-size="pageSize"
+							:current-page="page"
+							:page-sizes="[10,20,30]" @size-change="sizeChange"
+							@current-change="viewMemberCurrentChange"
+							:total="viewMemberData.totalCount">
+						</el-pagination>
+					</div>
+				</div>
+			</div>
+		</el-dialog>
+		<!--查看成员弹窗-查看部门或群组弹窗-->
+		<el-dialog v-model="memberOrgroupShow" class="gropOrMember">
+			<p class="groupTitle" slot="title">查看{{memberOrgropTitle}}</p>
+			<div class="groupWrap" v-if="groupData.length">
+					<el-tooltip class="item" effect="light" :content="item.name"
+						placement="bottom-start" v-for="item in groupData"  v-if="item"> 
+						<el-button type="text">{{item.name}}</el-button> 
+					</el-tooltip>
+			</div>
+			<span v-else>暂无</span>	
+		</el-dialog>
+		<!--选择考勤点弹窗-->
+		<el-dialog v-model="newPlacePop" :close-on-click-modal="false" modal-append-to-body>
+			<div>
+				<div class="topHandle clearfix">
+					<span class="fl">共<span>{{aboutPlace.length}}</span>个考勤点
+					</span>
+					<div class="rightSearch fr">
+						<!--<el-input placeholder="搜索..." v-model="search.newPlaceSearch"
+							icon="search" autocomplete="off" :on-icon-click="addNewPlace" class="searchInput">
+						</el-input>-->
+						<search  search-tips="搜索..." @search="searchPlace" class="fr popsearch"></search>
+					</div>
+				</div>
+				<div class="newPoint" style="margin-bottom: 20px">
+					<el-button type="text" @click.stop="signPointToggle(1)"> <i
+						class="el-icon-plus"></i> 新增考勤点</el-button>
+				</div>
+				<div class="checkList">
+					<el-radio-group v-model="placeRadio"> <el-radio
+						:label="placeItem.id" v-for="placeItem in aboutPlace">{{placeItem.name}}</el-radio>
+					</el-radio-group>
+				</div>
+				<div slot="footer" class="dialog-footer sureBtns">
+					<el-button type="primary" @click="selSignPoint" :loading="loading.selSignPoint">确定</el-button>
+					<el-button @click="newPlacePop = false">取消</el-button>
+				</div>
+			</div>
+		</el-dialog>
+
+		<!-- 基于考勤点 -->
+		<!--<el-dialog v-model="mulSignPointPop" modal-append-to-body>
+			<div>
+				<div class="topHandle clearfix">
+					<span class="fl">共<span>{{mulSignPointData.length}}</span>个考勤点
+					</span>
+					<div class="rightSearch fr">
+						<search  search-tips="搜索..." @search="searchPlace" class="fr popsearch"></search>
+					</div>
+				</div>
+				<div class="newPoint">
+				</div>
+				<div class="checkList">
+					<el-checkbox-group v-model="checkedMulSignPointData">
+						<el-checkbox :label="item.id" v-for="item in mulSignPointData">{{item.name}}</el-checkbox>
+					</el-checkbox-group>
+				</div>
+				<div slot="footer" class="dialog-footer sureBtns">
+					<el-button type="primary" @click="selMulSignPoint" :loading="loading.selMulSignPoint">确定</el-button>
+					<el-button @click="mulSignPointPop = false">取消</el-button>
+				</div>
+			</div>
+		</el-dialog>-->
+
+		<!-- 编辑设备 -->
+		<el-dialog v-model="editDevice"  :close-on-click-modal="false" :before-close="deviceToggle" modal-append-to-body>
+			<div class="divice-page">
+				<div class="deviceHd clearfix">
+					<span>{{deviceTitle}}</span>
+				</div>
+				<div class="divice-wrapper">
+					<el-form :model="deviceForm"  ref="deviceForm" label-position="right" label-width="120px"> 
+						<el-form-item label="考勤机别名" required prop="deviceName" :rules="{required:true,message:'考勤机别名不能为空',trigger:'blur'}">
+							<el-input v-model="deviceForm.deviceName" placeholder="请输入考勤机别名"></el-input>
+						</el-form-item> 
+						<el-form-item label="考勤机序列号" required prop="sn" :rules="{required:true,message:'考勤机序列号不能为空',trigger:'blur'}">
+							<el-input v-model="deviceForm.sn" placeholder="请输入考勤机序列号"></el-input> 
+						</el-form-item> 
+						<el-form-item label="考勤点" prop="signPointName"> 
+							<p>{{deviceForm.signPointName?deviceForm.signPointName:"暂无设置"}}</p>
+						</el-form-item> 
+						<a class="link-sign" href="javascript:;" @click="addNewPlace(true,deviceForm)">选择考勤点</a>
+						<el-form-item label=""> 
+							<span class="span-block">{{signPointName}}</span>
+							<el-input type="hidden" v-model="deviceForm.signPointId"></el-input>
+						</el-form-item> 
+					</el-form>
+					<div slot="footer" class="dialog-footer sureBtns">
+						<el-button type="primary" @click="saveDevice('deviceForm')" :loading="loading.saveDevice">确定</el-button>
+						<el-button @click="deviceToggle">取消</el-button>
+					</div>
+				</div>
+			</div>
+		</el-dialog>
+
+		<!-- 新增或编辑考勤点 弹窗 -->
+		<el-dialog v-model="signPointView" v-if="signPointView" modal-append-to-body>
+				<slot name="title">
+					<div class="placeHd clearfix">
+						<span>{{pointTitle}}考勤点</span>
+					</div>
+				</slot>
+				<div class="place-wrapper">
+					<el-form :model="signPointForm" ref="signPointForm"  label-position="right" label-width="120px"> 
+						<el-form-item label="考勤点名称" required prop="name" :rules="{ required: true, message: '考勤点名称不能为空',trigger:'blur'}"> 
+							<el-input v-model="signPointForm.name"  placeholder="请输入考勤点名称"></el-input> 
+						</el-form-item> 
+						<el-form-item label="选择部门" prop="deptIds"> 
+							<el-select v-model="signPointForm.deptIds"  multiple filterable> 
+								<el-option :value="dept.id" :label="dept.name"  v-for="dept in deptList" :key="dept.id">{{dept.name}}</el-option>
+							</el-select>     
+						</el-form-item>
+						<el-form-item label="选择设备" prop="deviceIds"> 
+							<!--<el-select v-model="signPointForm.deviceIds"> 
+								<el-option :value="device.id" :label="device.name" clearable v-for="device in equipmentData.list" :key="device.id">{{device.deviceName}}</el-option>
+							</el-select>-->
+							<a class="link-sign" href="javascript:;" @click.stop="deviceSelToggle">选择设备</a>
+							<span class="span-block">{{deviceCheckedNames}}</span> 
+							<!--<el-input type="hidden" v-model="signPointForm.deviceIds"></el-input>-->
+						</el-form-item>
+					</el-form>
+					<div slot="footer" class="dialog-footer sureBtns">
+						<el-button type="primary" @click.stop="saveSignPoint('signPointForm')" :loading="loading.saveSignPoint">确定</el-button>
+						<el-button @click.stop="signPointToggle(1)">取消</el-button>
+					</div>
+				</div>
+		</el-dialog>
+
+		<!-- 新增或编辑考勤组 弹窗 -->
+		<el-dialog v-model="signGroupView" :close-on-click-modal="false" :before-close="signGroupBeforeClose">
+			<div>
+				<div class="placeHd clearfix">
+					<span>{{signGroupTitle}}</span>
+				</div>
+				<div class="place-wrapper">
+					<el-form :model="signGroupForm" ref="signGroupForm"
+						label-position="right" label-width="120px"> 
+						<el-form-item label="考勤组名称" prop="name" required :rules="{required:true,message:'考勤组名称不能为空',trigger:'blur'}"> 
+							<el-input v-model="signGroupForm.name" placeholder="请输入考勤组名称">
+							</el-input> 
+						</el-form-item>
+						<el-form-item label="确定人员:" required> 
+							<el-tabs type="card" v-model="grourCard" @tab-click="cardChange"> 
+								<el-tab-pane label="部门职位选择"> 
+									<!--<a href="javascript:;" @click="deptSelToggle(1)">选择部门</a>
+									<div>{{signGroupForm.jobDeptNames}}</div> -->
+									<el-row>
+										<el-col :span="11" class="text-center">
+											<el-form-item prop="jobDeptIds" style="margin-bottom: 20px"> 
+												<el-select v-model="signGroupForm.jobDeptIds" placeholder="选择部门" multiple filterable @change="deptChange(0)"> 
+													<el-option :value="item.id" :label="item.name"  v-for="item in deptList"></el-option>
+												</el-select>
+											</el-form-item>
+										</el-col>
+										<el-col :span="2">&nbsp;</el-col>
+										<el-col :span="11" class="text-center">
+											<el-form-item prop="jobIds"> 
+												<el-select v-model="signGroupForm.jobIds" placeholder="选择职位" filterable multiple> 
+													<el-option :value="item.id" :label="item.name"  v-for="item in positions" :key="item.id">{{item.name}}</el-option>
+												</el-select>
+											</el-form-item>
+										</el-col>
+									</el-row>	
+									<!--<a class="sel-position" href="javascript:;" @click="posSelToogle(1)">选择职位</a>-->  
+								</el-tab-pane> 
+								<el-tab-pane label="人员选择">
+									<!--<a class="sel-employee" href="javascript:;">选择人员</a> 
+									<span>{{signGroupForm.employeeIds}}</span>
+									<span>{{signGroupForm.employeeNames}}</span> -->
+									<el-row>
+										<el-col :span="11" class="text-center">
+											<el-form-item prop="jobDeptIds2" style="margin-bottom: 20px"> 
+												<el-select v-model="signGroupForm.jobDeptIds2" placeholder="选择部门" multiple filterable @change="deptChange(1)"> 
+													<el-option :value="item.id" :label="item.name"  v-for="item in deptList"></el-option>
+												</el-select>
+											</el-form-item>
+										</el-col>
+										<el-col :span="2">&nbsp;</el-col>
+										<el-col :span="11" class="text-center">
+											<el-form-item prop="employeeIds"> 
+												<el-select v-model="signGroupForm.employeeIds" placeholder="选择人员" filterable multiple> 
+													<el-option :value="item.id" :label="item.name"  v-for="item in employees" :key="item.id">{{item.name}}</el-option>
+												</el-select>
+											</el-form-item>
+										</el-col>
+									</el-row>
+								</el-tab-pane> 
+							</el-tabs> 
+						</el-form-item> 
+						<el-form-item label="确定考勤设备:" required>
+							<el-row>
+								<el-col :span="11" class="text-center">
+									<!--<el-button type="text"  @click="mulSignPoint" >基于考勤点选择</el-button>-->
+									<el-form-item prop="signPointIds"> 
+										<el-select v-model="signGroupForm.signPointIds" placeholder="基于考勤点选择" filterable multiple @change="clearPlaceDept"> 
+													<el-option :value="item.id" :label="item.name"  v-for="item in mulSignPointData" :key="item.id">{{item.name}}</el-option>
+												</el-select>
+										</el-form-item>
+								</el-col>	
+								<el-col :span="2" class="text-center">或</el-col>	
+								<el-col :span="11" class="text-center">
+									<!--<el-button type="text"  @click="deptSelToggle">基于组织架构选择</el-button>-->
+									<el-form-item prop="placeDeptIds" style="margin-bottom: 20px"> 
+												<el-select v-model="signGroupForm.placeDeptIds" placeholder="基于组织架构选择" multiple filterable @change="clearSignGroup"> 
+													<el-option :value="item.id" :label="item.name"  v-for="item in deptList"></el-option>
+												</el-select>
+									</el-form-item>
+								</el-col>	
+							</el-row>
+							<!--<div class="sign-point-left">
+								<div class="sign-point-content" v-if="mulSignPointCheckedNames">{{mulSignPointCheckedNames}}</div> 
+								<el-button type="text"  @click="mulSignPoint">基于考勤点选择</el-button>
+							</div>
+							<span class="fl">或</span>
+							<div class="dept-right">
+								<div class="dept-right-content" v-if="mulSignPointCheckedNames">{{mulSignPointCheckedNames}}</div>
+								<el-button type="text"  @click="deptSelToggle">基于组织架构选择</el-button>
+							</div>-->
+						</el-form-item> 
+						<!--<el-form-item> 基于组织架构选择 </el-form-item>--> 
+						<el-form-item label="备注" prop="remark">
+							<el-input type="textarea" v-model="signGroupForm.remark" placeholder="请输入备注"></el-input> 
+						</el-form-item>
+					</el-form>
+					<div slot="footer" class="dialog-footer sureBtns">
+						<el-button type="primary" @click.stop="saveSignGroup('signGroupForm')" :loading="loading.saveSignGroup">确定</el-button>
+						<el-button @click="signGroupClose('signGroupForm')">取消</el-button>
+					</div>
+				</div>
+			</div>
+		</el-dialog>
+		<!--选择部门-->
+		<!--<el-dialog v-model="deptSel" modal-append-to-body>
+			<div>
+				<div class="dept-sel-title clearfix">
+					<span>选择部门</span>
+				</div>
+				<tree v-model="seldepts" refName="tree" :list="deptsTree" :prop="defaultProps"></tree>
+				<div style="margin-top: 20px;">
+					<el-row type="flex" class="row-bg" justify="center"> 
+						<el-col :span="8" :offset="8"> 
+							<el-button type="primary" @click.stop="confirmSelDept">确定</el-button>
+						</el-col> 
+						<el-col :span="16">
+							<el-button @click="deptSelToggle">取消</el-button>
+						</el-col>
+					</el-row>
+				</div>
+			</div>
+		</el-dialog>-->
+		<!--选择职位-->
+		<!--<el-dialog v-model="positionSel" modal-append-to-body>
+			<div>
+				<div class="position-sel-title clearfix">
+					<span>选择职位</span>
+				</div>
+				<el-checkbox-group v-model="selPositions"> 
+					<el-checkbox v-for="item in positions" 
+						:key="item.id" :label="item.id" :value="item.id"> 
+						{{item.name}}
+					</el-checkbox> 
+				</el-checkbox-group>
+				<div style="margin-top: 20px;">
+					<el-row type="flex" class="row-bg" justify="center"> 
+						<el-col :span="8" :offset="8">
+							<el-button type="primary" @click.stop="confirmSelpost">确定</el-button>
+						</el-col> 
+						<el-col :span="16">
+							<el-button @click.stop="">取消</el-button>
+						</el-col> 
+					</el-row>
+				</div>
+			</div>
+		</el-dialog>-->
+		<!--选择人员-->
+		<!--<el-dialog v-model="employeeSel" modal-append-to-body>
+			<div>
+				<div class="employee-sel-title clearfix">
+					<span>选择部门</span>
+				</div>
+				<el-checkbox-group v-model="selPositions"> <el-checkbox
+					v-for="item in positions" :key="item.id" :label="item.id"
+					:value="item.id"> {{item.name}} </el-checkbox> </el-checkbox-group>
+				<div style="margin-top: 20px;">
+					<el-row type="flex" class="row-bg" justify="center"> <el-col
+						:span="8" :offset="8"> <el-button type="primary"
+						@click.stop="confirmSelEmployee">确定</el-button></el-col> <el-col :span="16">
+					<el-button @click.stop="employeeSelToggle">取消</el-button></el-col> </el-row>
+	
+				</div>
+			</div>
+		</el-dialog>-->
+
+		<!--选择设备弹窗-->
+		<el-dialog v-model="deviceViewPop" v-if="deviceViewPop" :before-close="deviceSelToggle" modal-append-to-body>
+		<div>
+			<div class="topHandle clearfix">
+				<span class="fl">
+					共<span>{{equipmentData.list?equipmentData.list.length:0}}</span>台设备,已选择
+					<el-button type="text">{{deviceCheckedList.length}}</el-button>
+					台设备
+				</span>
+				<div class="rightSearch fr">
+					<search search-tips="请输入考勤点" @search="searchUnBindDev" class="fr"></search>
+				</div>
+			</div>
+			<div class="newPoint">
+				<!--<el-button v-if="currentVisualPage != 'device'" type="text" @click.stop="deviceToggle(true)">
+				<i class="el-icon-plus"></i> 新增设备</el-button>-->
+			</div>
+			<div class="checkList">
+				<el-checkbox-group v-model="deviceCheckedList" v-if="equipmentData.list&&equipmentData.list.length">
+					<el-checkbox class="device-item" :label="item.id"
+						v-for="item in equipmentData.list"> 
+						{{item.deviceName}}
+						<!--<el-tooltip effect="light" :content="item.deviceName" placement="bottom"> 
+					    	<el-button type="text">{{item.deviceName}}</el-button>
+						</el-tooltip>   	-->
+					</el-checkbox> 
+				</el-checkbox-group>
+				<div v-else>暂无设备</div>
+			</div>
+			<div slot="footer" class="dialog-footer sureBtns">
+				<el-button type="primary" @click.stop="selDevice" >确定</el-button>
+				<el-button @click="deviceSelToggle">取消</el-button>
+			</div>
+		</div>
+		</el-dialog>
+		</div>
+	</script>
+<script>
+Vue.component('manager',{
+	template: '#manager',
+	props:["value"],
+	data:function(){
+	return  {
+		seldepts:{},
+		popupShow: this.value,
+		isloading: true,
+		pointTitle:"",
+		tabTitle: [{
+			name: '设备管理',
+			active: true,
+			page:'device'
+		}, {
+			name: '考勤点管理',
+			active: false,
+			page:'signPoint'
+		}, {
+			name: '考勤群组管理',
+			active: false,
+			page:'signGroup'
+		}],
+		equipmentData: '',
+		groupData: [],
+		placeRadio: "",
+		aboutPlace: [],
+		pageSize: 10,
+		page: 1,
+		search:{
+			newPlaceSearch: "",
+			searchPointer:"",
+			searchMember:"",
+		},
+		loading:{
+			refresh:false,
+			copyStep:false,
+			selSignPoint:false,
+			selMulSignPoint:false,
+			saveDevice:false,
+			saveSignPoint:false,
+			saveSignGroup:false,
+			delCheckPoint:false,
+			delCheckPointGroup:false,
+			fullLoading:false,
+		},
+		checkedEquipment: [],
+		checkAll: false,
+		isIndeterminate: false,
+		viewMemberData: {},
+		viewMemberLoading: false,
+		showViewMember: false,
+		newPlacePop: false,
+		currentViewMember: {},
+		memberState:1,
+		memberOrgroupShow: false,
+		signPointData:{},
+		signPointForm:{
+			name:"",
+			deptIds:[],
+			deviceIds:[],
+			},
+		signPointView: false,
+		signGroupData:{},
+		grourCard:"0",
+		signGroupForm:{
+			name:"",
+			jobDeptIds:[],
+			jobDeptIds2:[],
+//			jobDeptNames:"暂无部门",
+			jobIds:[],
+//			jobNames:"暂无职位",
+			employeeIds:[],
+			signPointIds:[],
+			placeDeptIds:[],
+//			employeeNames:"暂无员工",
+			remark:""
+		},
+		signGroupView:false,
+		signGroupTitle:"",
+		currentVisualPage:'',
+		editDevice:false,
+		deviceTitle:'编辑设备',
+		signPointName:"",
+		deviceForm:{
+			deviceName:"",
+			sn:"",
+		},
+		deptSel:false,
+		deptSelType:'',
+		deptsTree:[],
+		positions:[],
+		employees:[],
+		selPositions:[],
+		defaultProps:{
+			children:'childDept',
+			label:'name'
+		},
+		positionSel:false,
+		employeeSel:false,
+		deviceViewPop:false,
+		devices:[],//
+		deviceCheckedList:[],
+		signPointId:0,
+		isPointAdd:false,
+		selPointerType:"",
+		deviceCheckedNames:"",
+//		deptCheckedNames:"",
+		mulSignPointPop:false,
+		mulSignPointData: [],
+		mulSignPointCheckedNames:"",
+		checkedMulSignPointData:[],
+		popupTitle:"考勤管理",
+		memberOrgropTitle:"部门",
+		devId:"",//打开新增考勤点的设备id
+		deptList:[],
+		delCheckPoints:"",
+		delCheckPointGroups:"",
+		singGroupEditinit:true,
+		httpUrl: {
+			group: "${ctx}/api/signGroup/list",
+			devInGroup:"${ctx}/api/signGroup/simpleList",
+			department: "${ctx}/api/dept/simpleList",
+			signPointGet: "${ctx}/api/signPoint/getInfo",
+			signPointList: "${ctx}/api/signPoint/list",
+			addSignPoint: "${ctx}/api/signPoint/add",
+			updateSignPoint: "${ctx}/api/signPoint/update",
+			delSignPoint: "${ctx}/api/signPoint/delete",
+			newPlace: "${ctx}/api/signPoint/simpleList",
+			deviceDetail:"${ctx}/api/device/getInfo",
+			addDevice: "${ctx}/api/device/add",
+			updateDevice: "${ctx}/api/device/update",
+			deleteDevice:"${ctx}/api/device/delete",
+			quickUpdateDevice:"${ctx}/api/device/quickUpdate",
+			signGroupList: "${ctx}/api/signGroup/list",
+			addSignGroup: "${ctx}/api/signGroup/add",
+			updateSignGroup: "${ctx}/api/signGroup/update",
+			delSignGroup: "${ctx}/api/signGroup/delete",
+			getDevice:"${ctx}/api/device/list",
+			getDeviceSimple:"${ctx}/api/device/simpleList",
+			getDeviceDrow:"${ctx}/api/device/dropDownList",
+			getPositions:"${ctx}/api/job/simpleList",
+			getTreeDept: "${ctx}/api/dept/getDeptTree",
+			mulSignPoint: "${ctx}/api/signPoint/simpleList",
+			dropDownList:"${ctx}/api/dept/dropDownList",
+			employee:"${ctx}/api/employee/simpleList",
+			signGroupDetail:"${ctx}/api/signGroup/getInfo",
+			viewMemberAip:"${ctx}/api/employee/queryEmployeeList",
+		},
+		params: {
+			"dateStart": "",
+			"dateEnd": ""
+		},
+		devState:{
+			state:"",
+			syncState:"",
+			txt:"",
+			unBindTxt:""
+		}
+	  }
+	},
+	mounted:function() {
+		this.currentVisualPage = "device";
+		this.getDevice(0);
+	},
+	methods:{
+		//获取昨天的日期
+		//TODO 会影响到导出
+		//搜索考勤点
+		searchDev:function(txt){
+			this.devState.txt=txt;
+			this.page=1;
+			this.getDevice(0);
+		},
+		searchUnBindDev:function(txt){
+			this.devState.unBindTxt=txt;
+			this.page=1;
+			if(this.isPointAdd){
+				this.getDevice(1);
+			}else{
+				this.getDevice(2);
+			}
+			
+		},
+		showRightCard: function() {
+			this.showRight = false;
+		},
+		clickTabs: function(num) {
+			var vm = this;
+			for (var i = 0; i < vm.tabTitle.length; i++) {
+				vm.tabTitle[i].active = false;
+			}
+			vm.tabTitle[num].active = true;
+			vm.currentVisualPage = vm.tabTitle[num].page;
+			vm.page=1;
+			vm.pageSize=10;
+			if(num ==0) {
+				vm.checkAll=false;
+				vm.getDevice(0);
+			}
+			if(num == 1) {
+				vm.getSignPoint();
+			}
+			if(num == 2) {
+				vm.getSignGroup();
+			}
+		},
+		//转时间戳
+		dateToTimestamp: function(date){
+			if (date) {
+				return date.getTime();
+			} else {
+				return null;
+			}
+		},
+		//分页方法
+		handleCurrentChange: function(val) {
+			var vm = this;
+			vm.page=val;
+			if(vm.currentVisualPage == 'device'){
+				vm.clickViewMember();
+			}else if(vm.currentVisualPage == 'signPoint') {
+				vm.getSignPoint();
+			} else if(vm.currentVisualPage == 'signGroup') {
+				vm.getSignGroup();
+			}
+		},
+		sizeChange:function(val){
+			var vm = this;
+			vm.pageSize=val;
+			if(vm.currentVisualPage == 'device'){
+				vm.clickViewMember();
+			}else if(vm.currentVisualPage == 'signPoint') {
+				vm.getSignPoint();
+			} else if(vm.currentVisualPage == 'signGroup') {
+				vm.getSignGroup();
+			}
+			
+		},
+		//筛选设备状态
+//		stateSelect:function(val){
+//			
+//		},
+		//获取所有部门集合
+		getDeptList:function(){
+			var vm=this;
+			Vue.http.get(vm.httpUrl.dropDownList).then(function(response) {
+				response.json().then(function(responseData) {
+					vm.deptList=responseData.data;
+				})
+			})
+		},
+		//获取设备列表
+		getDevice: function(type) {
+			var vm = this;
+			var param="?";
+			var api="";
+			if(type=='1'){
+				api=vm.httpUrl.getDeviceSimple;
+				param+="keyword="+vm.devState.unBindTxt;
+			}else if(type=='0'){
+				vm.loading.refresh=true;
+				vm.viewMemberLoading = true;
+				api=vm.httpUrl.getDevice;
+				if(vm.devState.state)param+="state="+vm.devState.state;
+				if(vm.devState.syncState)param+="&&syncState="+(vm.devState.syncState-3);
+				if(vm.devState.txt)param+="&&keyword="+vm.devState.txt;
+			}else{
+				api=vm.httpUrl.getDeviceDrow;
+				param+="keyword="+vm.devState.unBindTxt;
+			}
+			Vue.http.get(api+param).then(function(response) {
+				response.json().then(function(responseData) {
+					if(responseData.data.list){
+						vm.equipmentData=responseData.data;
+					}else{
+						vm.$set(vm.equipmentData, 'list', responseData.data);
+					}
+					for (var i = 0; i < vm.equipmentData.list.length; i++) {
+							vm.$set(vm.equipmentData.list[i], 'active', false);
+						}
+					if(vm.viewMemberLoading)vm.viewMemberLoading = false;
+					if(vm.loading.refresh)vm.loading.refresh=false;
+				})
+			})
+		},
+		//根据id获取设备详情
+		getDeviceDetail:function(id){
+			var vm=this;
+			vm.loading.fullLoading=true;
+			Vue.http.get(vm.httpUrl.deviceDetail+"?id="+id)
+			.then(function(response) {
+				response.json().then(function(responseData){
+					vm.deviceForm=responseData.data;
+					vm.loading.fullLoading=false;
+				})
+			})
+		},
+		deviceToggle:function(deviceId) {
+			var vm = this;
+			if(!vm.editDevice){
+					vm.getDeviceDetail(deviceId)
+				}else{
+					vm.getDevice(0);
+				}
+			vm.editDevice = !vm.editDevice;
+		},
+		// 添加设备
+		saveDevice:function(formName){
+			var vm=this;
+			vm.$refs[formName].validate(function(valid){
+				if(valid){
+					vm.loading.saveDevice=true;
+					var param={};
+					param.id=vm.deviceForm.id;
+					param.signPointId=vm.deviceForm.signPointId;
+					param.name=vm.deviceForm.deviceName;
+					param.sn=vm.deviceForm.sn;
+					Vue.http.post(vm.httpUrl.updateDevice,param, {emulateJSON: true})
+					.then(function(response) {
+						response.json().then(function(responseData) {
+							vm.loading.saveDevice=false;
+							if(responseData.code == '200') {
+								vm.getDevice(0);
+								vm.editDevice = false;
+								vm.$message({message:'编辑成功！',type:'success'});
+							} else {
+								vm.$message.error(responseData.msg);
+							}
+						})
+					})
+				}
+			})
+		},
+
+		//全选和单选部分
+		handleCheckAllChange(event) {
+			var vm = this;
+			this.checkedEquipment = event.target.checked ? this.equipmentData.list : []
+			this.isIndeterminate = false;
+			for (var i = 0; i < vm.equipmentData.list.length; i++) {
+				if(event.target.checked){
+					vm.equipmentData.list[i].active = true;
+				}else{
+					vm.equipmentData.list[i].active = false;
+				}
+			}
+		},
+		handleCheckedEquipment(value) {
+			var checkedCount = value.length;
+			this.checkAll = checkedCount === this.equipmentData.list.length;
+			this.isIndeterminate = checkedCount > 0 && checkedCount < this.equipmentData.list.length;
+		},
+		checkItem: function(data) {
+			data.active=!data.active;
+		},
+		//数据同步
+		copyStep: function() {
+			var vm = this;
+			vm.loading.copyStep=true;
+			var transfor = [];
+			for (var i = 0; i < vm.checkedEquipment.length; i++) {
+				transfor.push(vm.checkedEquipment[i].id)
+			}
+			var test = transfor.join(',');
+			Vue.http.post("${ctx}/api/device/sync", {ids: test}, {emulateJSON: true})
+			.then(function(response) {
+				response.json().then(function(responseData) {
+					vm.loading.copyStep=false;
+					vm.$message("同步成功！");
+				})
+			})
+		},
+		//获取查看成员列表
+		clickViewMember: function(item,type) {
+			var vm = this;
+			vm.showViewMember = true;
+			if(item){vm.currentViewMember=item;vm.page=1};
+			if(type){
+				vm.memberState=type;
+			}
+			var param="?pageSize=" + vm.pageSize + "&page=" + vm.page + "&keyword=" + vm.search.searchMember + "&sn=" + vm.currentViewMember.sn+"&gatherMsgStates="+vm.memberState;
+			Vue.http.get(vm.httpUrl.viewMemberAip+param).then(function(response) {
+				response.json().then(function(responseData) {
+					vm.viewMemberData = responseData.data;
+				})
+			})
+		},
+		viewMemberCurrentChange: function(val) {
+			this.page=val;
+			this.clickViewMember();
+		},
+		//查看成员列表模糊搜索
+		searchViewMember: function(txt) {
+			this.search.searchMember=txt;
+			this.page=1;
+			this.clickViewMember();
+		},
+		//查看部门或群组弹窗
+		seeDepartmentPop: function(type) {
+			var vm = this;
+			vm.memberOrgropTitle=type?"部门":"群组";
+			var api=type?vm.httpUrl.department:vm.httpUrl.devInGroup;
+			Vue.http.get(api + "?sn=" + vm.currentViewMember.sn).then(function(response) {
+				response.json().then(function(responseData) {
+					console.log(responseData)
+					vm.groupData=responseData.data;
+				})
+			})
+			vm.memberOrgroupShow = true;
+		},
+		searchPlace:function(txt){
+			this.search.newPlaceSearch=txt;
+			this.page=1;
+			this.addNewPlace();
+		},
+		//添加考勤点
+		addNewPlace: function(type,item) {
+			var vm = this;
+			if(item){
+				if(item.id)vm.devId=item.id;
+				if(type){
+					vm.selPointerType=type;
+					vm.placeRadio=item.signPointId;
+				}else{
+					vm.placeRadio="";
+				}
+			}
+			if(!vm.newPlacePop)vm.newPlacePop = true;
+			//根据Id获取当前设备的考勤地点列表
+			var param="";
+			if(vm.devId){
+				param+="&&id=" + vm.devId
+			}
+			Vue.http.get(vm.httpUrl.newPlace + "?keyword=" + vm.search.newPlaceSearch+param).then(function(response) {
+				response.json().then(function(responseData) {
+					vm.aboutPlace = responseData.data;
+				})
+			});
+		},
+		// 多条件筛选
+		mulSignPoint: function() {
+			var vm = this;
+//			vm.mulSignPointPop = true;
+//			Vue.http.get(vm.httpUrl.mulSignPoint + "?KeywordPara=" + vm.search.newPlaceSearch).then(function(response) {
+			Vue.http.get(vm.httpUrl.mulSignPoint).then(function(response) {
+				response.json().then(function(responseData) {
+					vm.mulSignPointData = responseData.data
+				})
+			});
+		},
+		//新增或编辑考勤点
+		editSignPoint: function(id) {
+			var vm = this;
+			// 麻烦下次写代码测试一下
+			var depts = "";
+			var devices = "";
+			var detpIds = [];
+			var deviceIds = [];
+			vm.loading.fullLoading=true;
+			Vue.http.get(vm.httpUrl.signPointGet + "?id=" + id).then(function(response) {
+				response.json().then(function(responseData) {
+					vm.loading.fullLoading=false;
+					var info = responseData.data;
+					if(info.depts.length) {
+						info.depts.forEach(function(node){
+							detpIds.push(node.deptId);
+						});
+					}	
+					if(info.devices.length) {
+						info.devices.forEach(function(node){
+							devices+= ","+node.deviceName;
+							deviceIds.push(node.deviceId);
+						});
+					}
+//					vm.deptCheckedNames = depts;
+					vm.deviceCheckedNames = devices.substr(1);
+					vm.signPointForm.deptIds=detpIds;
+					vm.signPointForm.deviceIds = deviceIds;
+					vm.deviceCheckedList=deviceIds;
+					vm.signPointForm.id=info.id;
+					vm.signPointForm.name=info.name;
+					vm.signPointToggle(0);
+				})
+			});
+		},
+		signPointToggle:function(type) {
+			var vm = this;
+			if(!vm.signPointView){
+				if(type){
+					vm.signPointForm={
+						name:"",
+						deptIds:[],
+						deviceIds:[],
+					};
+					vm.deviceCheckedNames = "";
+					vm.deviceCheckedList=[];
+					vm.pointTitle="新增";
+					vm.isPointAdd=true;
+				}else{
+					vm.isPointAdd=false;
+					vm.pointTitle="编辑";
+				}
+				vm.getDeptList();
+			}else{
+				 vm.deviceCheckedList=[]; 
+				 vm.signPointForm.deviceIds=[];
+				 vm.deviceCheckedNames="";
+				 vm.$refs.signPointForm.resetFields();
+				 
+			}
+				vm.signPointView =!vm.signPointView;
+		},
+		//确定添加的考勤点
+		saveSignPoint: function(formName) {
+			var vm = this;
+			vm.$refs[formName].validate(function(valid){
+				if(valid){
+					vm.loading.saveSignPoint=true;
+					var url = "";
+					var param={};
+					param.deviceIds=vm.signPointForm.deviceIds.join(",");
+					param.name=vm.signPointForm.name;
+					param.deptIds=vm.signPointForm.deptIds.join(",");
+					if(vm.signPointForm.id) {
+						url = vm.httpUrl.updateSignPoint;
+						param.id=vm.signPointForm.id;
+					} else {
+						url = vm.httpUrl.addSignPoint;
+					}
+					console.log(param);
+					Vue.http.post(url,param, {emulateJSON: true}).
+					then(function(response) {
+						response.json().then(function(responseData) {
+							vm.loading.saveSignPoint=false;
+							if(responseData.code == '200') {
+								vm.$refs[formName].resetFields();
+								if(vm.currentVisualPage == 'signPoint'){
+									vm.getSignPoint();
+								}else{
+									vm.addNewPlace(true);
+								}
+								vm.signPointView = false;
+								vm.$message({message:vm.signPointForm.id?'编辑成功！':'添加成功!',type:'success'});
+							} else {
+								vm.$refs[formName].resetFields();
+								vm.$message.error(responseData.msg);
+							}
+//							vm.newPlacePop = false;
+						})
+					})
+				}
+			})
+		},
+		//考勤点列表选择
+		handleCheckPoint:function(val){
+			if(val.length){
+			    var ids=[];
+				val.forEach(function(point){
+					ids.push(point.id);
+				})
+				this.delCheckPoints=ids.join(",");
+			}
+		},
+		//删除选择的靠考勤点
+		delCheckPoint:function(){
+			if(this.delCheckPoints){
+				this.delSignPoint(this.delCheckPoints,true);
+			}
+		},
+		//考勤群组列表选择
+		handleCheckPointGroup:function(val){
+			if(val.length){
+			    var ids=[];
+				val.forEach(function(point){
+					ids.push(point.id);
+				})
+				this.delCheckPointGroups=ids.join(",");
+			}
+		},
+		//删除选择的考勤群组
+		delCheckPoinGroup:function(){
+			if(this.delCheckPointGroups){
+				this.delSignGroup(this.delCheckPointGroups);
+			}
+		},
+		// 删除考勤点
+		delSignPoint:function(id,isAll) {
+			var vm = this;
+			vm.$confirm('确认删除吗?','提示',{
+				type: 'info'
+			}).then(function(){
+				if(isAll)vm.loading.delCheckPoint=true;
+				var para = {ids:id};
+				Vue.http.post(vm.httpUrl.delSignPoint, para, {
+					emulateJSON: true
+				}).then(function(response) {
+					response.json().then(function(responseData) {
+						if(isAll)vm.loading.delCheckPoint=false;
+						if(responseData.code == '200') {
+							vm.getSignPoint();
+							vm.$message({message:'删除成功！',type:'success'});
+						} else {
+							vm.$message.error(responseData.msg);
+						}
+					})
+				})
+			}).catch(function(){
+				if(isAll)vm.loading.delCheckPoint=false;
+			})
+		},
+		searchSingPoint:function(txt){
+			this.search.searchPointer=txt;
+			this.page=1;
+			this.getSignPoint();
+		},
+		// 获取考勤点列表
+		getSignPoint: function() {
+			var vm = this;
+			vm.isloading = true;
+			var param="?pageSize="+vm.pageSize+"&page=" + vm.page+"&keyword=" + vm.search.searchPointer;
+			Vue.http.get(vm.httpUrl.signPointList+param).then(function(response) {
+				response.json().then(function(responseData) {
+					console.log(responseData);
+					vm.signPointData = responseData.data;
+					for (var i = 0; i < vm.signPointData.list.length; i++) {
+						var depts = vm.signPointData.list[i].depts;
+						var deptsStr = '';
+						// 计算返回字段 depts 是否是多个
+						for(var j = 0;j < depts.length;j++) {
+							deptsStr += ","+depts[j].deptName;
+						}
+//						console.log(deptsStr)
+						
+						if(deptsStr != undefined && deptsStr.length > 0) {
+							vm.signPointData.list[i].depts = deptsStr.substr(1);
+						}
+						// 计算 返回字段 devices 是否是多个
+						var devices = vm.signPointData.list[i].devices;
+						var devicesStr = '';
+						for(var j = 0;j < devices.length;j++) {
+							devicesStr += ","+devices[j].deviceName;
+						}
+						
+						if(devicesStr != undefined) {
+							vm.signPointData.list[i].devices = devicesStr.substr(1);
+						}
+					}
+					console.log(vm.signPointData)
+					vm.isloading = false;
+				})
+			})
+		},
+		// 获取考勤组
+		getSignGroup: function() {
+			var vm = this;
+			vm.isloading = true;
+			var param ="?pageSize=" + vm.pageSize + "&page=" + vm.page;
+			Vue.http.get(vm.httpUrl.signGroupList+param).then(function(response) {
+				response.json().then(function(responseData) {
+					vm.signGroupData = responseData.data;
+					for (var i = 0; i < vm.signGroupData.list.length; i++) {
+						var jobDepts = vm.signGroupData.list[i].jobDepts;
+						var jobs = vm.signGroupData.list[i].jobs;
+						var employees = vm.signGroupData.list[i].employees;
+						var jobDeptsStr = '';
+						for(var j = 0;j < jobDepts.length;j++) {
+							jobDeptsStr +=","+jobDepts[j].deptName;
+						}
+						var jobsStr = '';
+						for(var j = 0;j < jobs.length;j++) {
+							jobsStr += ","+jobs[j].jobName;
+						}
+						var employeesStr = '';
+						for(var j = 0;j < employees.length;j++) {
+							employeesStr += ","+employees[j].employeeName;
+						}
+						vm.signGroupData.list[i].jje = jobDeptsStr.substring(1)+jobsStr.substring(1)+employeesStr.substring(1);
+						var signPoints = vm.signGroupData.list[i].signPoints;
+						var placeDepts = vm.signGroupData.list[i].placeDepts;
+						var signPointsStr = '';
+						for(var j = 0;j < signPoints.length;j++) {
+							signPointsStr += ","+signPoints[j].signPointName;
+						}
+						var placeDeptsStr = '';
+						for(var j = 0;j < placeDepts.length;j++) {
+							placeDeptsStr += ","+placeDepts[j].deptName;
+						}
+							vm.signGroupData.list[i].sp = signPointsStr.substring(1)+placeDeptsStr.substring(1);
+					}
+					vm.isloading = false;
+				})
+			})
+		},
+		popupShowToggle:function() {
+			var vm = this;
+			vm.popupShow = !vm.popupShow;
+			vm.$emit("input",false)
+			if(vm.popupShow == false) {
+				vm.currentVisualPage = "device";
+			}
+		},
+		// 确定离职时间
+		confirmQuit: function() {
+			var vm = this;
+			vm.$confirm('确认删除此考勤点吗','提示',{
+				type: 'info'
+			}).then(function() {
+				
+			}).catch(function(){
+				
+			});
+		},
+		//新增或编辑考勤组
+		editSignGroup: function(id) {
+			var vm = this;
+			vm.getPositions();
+			vm.getDeptList();
+			vm.getPositions();
+			vm.mulSignPoint();
+			vm.getEmployees();
+			if(!id) {
+//				vm.signGroupForm.jobDeptNames = "暂无部门";
+				vm.grourCard="0";
+				vm.signGroupForm.name="";
+				vm.signGroupForm.jobDeptIds=[];
+				vm.signGroupForm.jobDeptIds2=[];
+				vm.signGroupForm.jobIds=[];
+				vm.signGroupForm.signPointIds=[];
+				vm.signGroupForm.employeeIds=[];
+				
+				vm.signGroupForm.id="";
+				vm.signGroupForm.remark = "";
+//				vm.seldepts={};
+//				vm.signGroupForm.employeeNames = "暂无员工";
+				vm.signGroupTitle = "新增考勤组";
+			} else {
+				vm.singGroupEditinit=true;
+				vm.loading.fullLoading=true;
+				Vue.http.get(vm.httpUrl.signGroupDetail+"?id="+id,{
+						emulateJSON: true
+					}).then(function(response) {
+						response.json().then(function(responseData) {
+							var data=responseData.data;
+							vm.signGroupForm.name=data.name;
+							vm.signGroupForm.id=data.id;
+							vm.signGroupForm.remark=data.remark;
+							if(data.employeeType==1){
+								vm.grourCard="0";
+								var jobIds=[];
+								var jobDeptIds=[];
+								if(data.jobDepts.length){
+									data.jobDepts.forEach(function(item){
+										jobDeptIds.push(item.deptId);
+									})
+								}
+								vm.signGroupForm.jobDeptIds=jobDeptIds;
+								if(data.jobs.length){
+									data.jobs.forEach(function(item){
+										jobIds.push(item.jobId);
+									})
+								}
+								vm.signGroupForm.jobIds=jobIds;
+							}else{
+								vm.grourCard="1";
+								var employeeIds=[];
+								if(data.employees.length){
+									
+									data.employees.forEach(function(item){
+										employeeIds.push(item.employeeId);
+									})
+								}
+								vm.signGroupForm.employeeIds=employeeIds;
+							}
+							if(data.signType==1){
+								var signPointIds=[];
+								if(data.signPoints.length){
+									data.signPoints.forEach(function(item){
+										signPointIds.push(item.signPointId);
+									})
+								}
+								vm.signGroupForm.signPointIds=signPointIds;
+							}else{
+								var placeDeptIds=[];
+								if(data.placeDepts.length){
+									data.placeDepts.forEach(function(item){
+										placeDeptIds.push(item.deptId);
+									})
+								}
+								vm.signGroupForm.placeDeptIds=placeDeptIds;
+								
+							}
+							vm.loading.fullLoading=false;
+						})
+					})
+				vm.signGroupTitle = "编辑考勤组";
+			}
+			vm.signGroupView = true;
+		},
+		signGroupClose:function(formName) {
+			var vm = this;
+			vm.$refs[formName].resetFields();
+			vm.signGroupView =false;
+		},
+		signGroupBeforeClose:function(done){
+			this.$refs.signGroupForm.resetFields();
+			done();
+		},
+		cardChange:function(){
+			var vm=this;
+			vm.getTreeDept();
+		},
+		//添加或编辑考勤组
+		saveSignGroup: function(formName) {
+			var vm = this;
+			this.$refs[formName].validate(function(valid){
+				if(valid){
+					vm.loading.saveSignGroup=true;
+					var param={};
+					param.name=vm.signGroupForm.name;
+					param.remark=vm.signGroupForm.remark;
+					if(vm.grourCard=="1"){
+						param.employeeIds=vm.signGroupForm.employeeIds.join(",");
+					}else{
+						param.jobDeptIds=vm.signGroupForm.jobDeptIds.join(",");
+						param.jobIds=vm.signGroupForm.jobIds.join(",");
+					}
+					if(vm.signGroupForm.signPointIds.length){
+						param.signPointIds=vm.signGroupForm.signPointIds.join(",");
+					}
+					if(vm.signGroupForm.placeDeptIds.length){
+						param.placeDeptIds=vm.signGroupForm.placeDeptIds.join(",");
+					}
+					var url = "";
+					if(vm.signGroupForm.id) {
+						url = vm.httpUrl.updateSignGroup;
+						param.id=vm.signGroupForm.id;
+					} else {
+						url = vm.httpUrl.addSignGroup;
+					}
+					
+					Vue.http.post(url, param, {
+						emulateJSON: true
+					}).then(function(response) {
+						response.json().then(function(responseData) {
+						vm.loading.saveSignGroup=false;
+							if(responseData.code == '200') {
+								vm.$refs[formName].resetFields();
+								vm.signGroupView=false;
+								vm.getSignGroup();
+								vm.$message({message:vm.signGroupForm.id?'编辑成功！':"新增成功",type:'success'});
+							} else {
+								vm.$message.error(responseData.msg);
+							}
+						})
+					})
+				}
+			})
+		},
+		// 删除考勤组
+		delSignGroup:function(ids) {
+			var vm = this;
+			vm.$confirm('确认删除吗?','提示',{
+				type: 'info'
+			}).then(function(){
+				var para = {ids:ids};
+				vm.loading.delCheckPointGroup=true;
+				Vue.http.post(vm.httpUrl.delSignGroup, para, {
+					emulateJSON: true
+				}).then(function(response) {
+					response.json().then(function(responseData) {
+						vm.loading.delCheckPointGroup=false;
+						if(responseData.code == '200') {
+							vm.getSignGroup();
+							vm.$message({message:'删除成功！',type:'success'});
+						} else {
+							vm.$message.error(responseData.msg);
+						}
+					})
+				})
+			}).catch(function(){
+				
+			})
+		},
+		// Toggle 选择部门或基于组织架构
+		deptSelToggle:function(type) {
+			var vm = this;
+			vm.seldepts.ids="1";
+			if(!vm.deptSel) {
+				vm.deptSelType=type;
+				vm.getTreeDept();
+			}else{
+//				console.log(vm.$refs.tree)
+//				vm.$refs.tree.setCheckedKeys([1]);
+			}
+			vm.deptSel = !vm.deptSel;
+		},
+		//职位选择
+//		posSelToogle:function(type){
+//			var vm = this;
+//			if(!vm.positionSel) {
+////				vm.deptSelType=type;
+////				vm.getPositions("")
+//			}
+//			vm.positionSel = !vm.positionSel;
+//		},
+		// 查看员工
+		showEmployees:function() {
+			
+		},
+		// 获取部门树状结构
+		getTreeDept:function() {
+			var vm = this;
+			Vue.http.get(vm.httpUrl.getTreeDept).then(function(response) {
+				response.json().then(function(responseData) {
+					vm.deptsTree = responseData.data;
+					console.log(responseData);
+//					vm.signGroupForm.jobNames = "";
+				})
+			})
+		},
+		//
+		deptChange:function(type) {
+			var vm = this;
+			if(type){
+				vm.getEmployees();
+				vm.signGroupForm.employeeIds=[];
+			}else{
+				vm.getPositions();
+				if(!vm.singGroupEditinit){
+					vm.signGroupForm.jobIds=[];
+				}
+				vm.singGroupEditinit=false;
+			}
+		},
+		clearSignGroup:function(){
+			if(this.signGroupForm.placeDeptIds.length){
+				this.signGroupForm.signPointIds=[];
+			}
+		},
+		clearPlaceDept:function(){
+			if(this.signGroupForm.signPointIds.length){
+				this.signGroupForm.placeDeptIds=[];
+			}
+		},
+		//获取人员
+		getEmployees:function(){
+			var vm = this;
+			if(vm.signGroupForm.jobDeptIds2)
+			Vue.http.get(vm.httpUrl.employee+"?deptIds="+vm.signGroupForm.jobDeptIds2.join(",")).then(function(response) {
+				response.json().then(function(responseData) {
+					vm.employees = responseData.data;
+				})
+			})
+		},
+		// 获取职位
+		getPositions:function() {
+			var vm = this;
+			Vue.http.get(vm.httpUrl.getPositions+"?deptIds="+vm.signGroupForm.jobDeptIds.join(",")).then(function(response) {
+				response.json().then(function(responseData) {
+					vm.positions= responseData.data;
+				})
+			})
+		},
+		// 确认选择部门
+//		confirmSelDept:function() {
+//			var vm = this;
+//			if(vm.deptSelType==1){
+//				vm.signGroupForm.jobDeptNames=vm.seldepts.names;
+//				vm.signGroupForm.jobDeptIds=vm.seldepts.ids;
+//				vm.getPositions(vm.seldepts.ids);
+//			}
+//			vm.deptSel = !vm.deptSel;
+//		},
+		// 员工选择toggle
+//		employeeSelToggle:function() {
+//			var vm = this;
+//			vm.deptSel = !vm.deptSel;
+//			
+//			if(vm.deptSel) {
+//				vm.getTreeDept();	
+//			}
+//		},
+		// 设备查看toggle
+		deviceSelToggle:function() {
+			var vm = this;
+			if(!vm.deviceViewPop) {
+				if(vm.isPointAdd){
+					vm.getDevice(1);
+				}else{
+					vm.getDevice(2);
+				}
+			}else{
+			    vm.devState.unBindTxt="";
+			}
+			vm.deviceViewPop = !vm.deviceViewPop;
+		},
+		selDevice:function() {
+			var vm = this;
+			vm.deviceCheckedNames= "";
+			vm.equipmentData.list.forEach(function(node){
+				vm.deviceCheckedList.forEach(function(cnode){
+					if(node.id == cnode) {
+						vm.deviceCheckedNames +=","+node.deviceName;
+					}
+				});
+			});
+			vm.deviceCheckedNames=vm.deviceCheckedNames.substr(1);
+			vm.signPointForm.deviceIds=vm.deviceCheckedList;
+//			if(vm.currentVisualPage == "device") {
+//				vm.deviceForm.deviceIds = vm.deviceCheckedList.join(',');
+//			} else if(vm.currentVisualPage == "signPoint") {
+//				vm.signPointForm.deviceIds = vm.deviceCheckedList.join(',');
+//			}
+			vm.deviceViewPop = false;
+		},
+		selSignPoint: function() {
+			var vm = this;
+			vm.loading.selSignPoint=true;
+			if(!vm.selPointerType){
+				var param={};
+				param.id=vm.devId;
+				if(vm.placeRadio){
+					param.signPointId=vm.placeRadio;
+				}
+				Vue.http.post(vm.httpUrl.quickUpdateDevice,param,{emulateJSON: true})
+				.then(function(response) {
+					response.json().then(function(responseData) {
+						vm.loading.selSignPoint=false;
+						vm.getDevice(0);
+						vm.newPlacePop = false;
+					})
+				})
+			}else{
+				if(vm.placeRadio){
+					vm.aboutPlace.forEach(function(node) {
+						if(node.id == vm.placeRadio) {
+							vm.deviceForm.signPointName = node.name;
+						}
+					});
+					vm.deviceForm.signPointId=vm.placeRadio;
+					vm.loading.selSignPoint=false;
+				}
+			}
+			vm.newPlacePop = false;
+		},
+		selMulSignPoint: function() {
+			var vm = this;
+			vm.loading.selMulSignPoint=true;
+			vm.mulSignPointCheckedNames += "";
+			vm.mulSignPointData.forEach(function(node,index) {
+				vm.checkedMulSignPointData.forEach(function(cnode,cindex)  {
+					if(node.id == cnode) {
+						vm.mulSignPointCheckedNames += node.name+",";
+					}
+				});
+			});
+			vm.signGroupForm.signPointIds = vm.checkedMulSignPointData.join(',');
+			vm.loading.selMulSignPoint=false;
+			vm.mulSignPointPop = false;
+		},
+	}
+})
+//以前的
+//		saveDevice: function() {
+//			var vm = this;
+//			vm.$confirm('确认提交吗','提示',{
+//				type: 'info'
+//			}).then(() => {
+//				vm.listLoading = true;
+//				let para = Object.assign({},vm.deviceForm);
+//				var url = "";
+//				if(vm.deviceForm.id) {
+//					url = vm.httpUrl.updateDevice;
+//				} else {
+//					url = vm.httpUrl.addDevice;
+//				}
+//				
+//				Vue.http.post(url, para, {
+//					emulateJSON: true
+//				}).then(function(response) {
+//					response.json().then(function(responseData) {
+//						if(responseData.code == '200') {
+//							vm.getDevice();
+//							vm.editDevice = false;
+//							vm.$message({message:vm.deviceForm.id?'编辑成功！':'添加成功!',type:'success'});
+//						} else {
+//							vm.$message.error(responseData.msg);
+//						}
+//					})
+//				})
+//			}).catch(() => {
+//				
+//			});
+//			
+//			vm.newPlacePop = false;
+//		},
+//设备删除现在说不要了
+//		delDevice:function(id){
+//			var vm=this;
+//			var param={};
+//			if(id){
+//				param.ids=id;
+//			}else{
+//				param.ids=
+//			}
+//			Vue.http.post(vm.httpUrl.deleteDevice,param, {emulateJSON: true})
+//			.then(function(response) {
+//				response.json().then(function(responseData) {
+//					if(responseData.code == '200') {
+//						vm.getDevice();
+//						vm.editDevice = false;
+//						vm.$message({message:'编辑成功！',type:'success'});
+//					} else {
+//						vm.$message.error(responseData.msg);
+//					}
+//				})
+//			})
+//		},
+		//保存设备
+	/* 	saveDevice: function() {
+			var vm = this;
+			Vue.http.get(vm.httpUrl.update + "?id="+ id + "&" + "&keyword=" + vm.search.newPlaceSearch).then(function(response){
+				response.json().then(function(responseData){
+					vm.aboutPlace = responseData.data
+				})
+			})						
+			vm.newPlacePop = false;
+		}, */
+</script>

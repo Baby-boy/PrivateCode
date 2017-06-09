@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.ctrlhr.dao.employee.FingerFaceTemplateDao">
+	<resultMap id="BaseResultMap"
+		type="com.glanway.ctrlhr.entity.employee.FingerFaceTemplate">
+		<id column="ID" property="id" />
+		<result column="EMPLOYEE_CODE" property="employeeCode" />
+		<result column="FID" property="fid" />
+		<result column="TMP_SIZE" property="tmpSize" />
+		<result column="VALID" property="valid" />
+		<result column="TMP" property="tmp" />
+		<result column="TYPE" property="type" />
+		<result column="DELETED" property="deleted" />
+		<result column="BATCH_DATE" property="batchDate" />
+		<result column="CRE_PRO_ID" property="creProId" />
+		<result column="CREATED_BY" property="createdBy" />
+		<result column="CREATED_DATE" property="createdDate" />
+		<result column="MOD_PRO_ID" property="modProId" />
+		<result column="LAST_MODIFIED_BY" property="lastModifiedBy" />
+		<result column="LAST_MODIFIED_DATE" property="lastModifiedDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, EMPLOYEE_CODE, FID, TMP_SIZE, VALID, TMP,
+		TYPE,DELETED,BATCH_DATE, CRE_PRO_ID,
+		CREATED_BY, CREATED_DATE,
+		MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE
+	</sql>
+
+	<!-- 删除指纹模板和脸纹模板(逻辑删除) -->
+	<update id="delete">
+		UPDATE 
+			T_FINGER_FACE_TEMPLATE 
+		SET DELETED = 1
+		WHERE EMPLOYEE_CODE IN 
+		<foreach collection="codeArr" item="code" open="(" close=")" separator=",">
+			#{code}
+		</foreach>
+	</update>
+</mapper>

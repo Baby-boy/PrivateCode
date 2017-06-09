@@ -10,10 +10,11 @@ public interface UserService extends BaseService<User> {
 	 * 
 	 * @param name
 	 * @param pwd
+	 * @param ip
 	 * @return
 	 * @author 付其浩
 	 * @dateTime 2017年4月25日 下午2:23:08
 	 */
-	public User doLogin(String name, String pwd);
+	public User doLogin(String name, String pwd, String ip);
 
 }

@@ -12,34 +12,40 @@ import com.glanway.ctrlhr.entity.vo.SimpleSignGroupVo;
 
 public interface SignGroupDao extends BaseDao<SignGroup> {
 
-	public int deleteByPrimaryKey(Long id);
+    public int deleteByPrimaryKey(Long id);
 
-	public int insert(SignGroup record);
+    public int insert(SignGroup record);
 
-	public int insertSelective(SignGroup record);
+    public int insertSelective(SignGroup record);
 
-	public SignGroup selectByPrimaryKey(Long id);
+    public SignGroup selectByPrimaryKey(Long id);
 
-	public int updateByPrimaryKeySelective(SignGroup record);
+    public int updateByPrimaryKeySelective(SignGroup record);
 
-	public int updateByPrimaryKey(SignGroup record);
+    public int updateByPrimaryKey(SignGroup record);
 
-	/** 查询考勤群组列表总数 */
-	public int findListCount(@Param("para") BasePara para);
+    /** 查询考勤群组列表总数 */
+    public int findListCount(@Param("para") BasePara para);
 
-	/** 查询考勤群组列表 */
-	public List<SignGroupVo> findList(@Param("para") BasePara para);
+    /** 查询考勤群组列表 */
+    public List<SignGroupVo> findList(@Param("para") BasePara para);
 
-	/** 根据ID获取考勤群组信息 */
-	public SignGroupVo getInfo(@Param("id") Long id);
+    /** 根据ID获取考勤群组信息 */
+    public SignGroupVo getInfo(@Param("id") Long id);
 
-	/** 批量删除考勤群组 */
-	public void deleteBatch(@Param("idArr") String[] idArr);
+    /** 批量删除考勤群组 */
+    public void deleteBatch(@Param("idArr") String[] idArr);
 
-	/** 根据考勤组ID修改考勤组的状态 */
-	public void updateState(@Param("id") Long id, @Param("state") Integer state);
+    /** 根据考勤组ID修改考勤组的状态 */
+    public void updateState(@Param("id") Long id, @Param("state") Integer state);
 
-	/** 查询此设备上的群组 */
-	public List<SimpleSignGroupVo> findSimpleList(@Param("sn") String sn);
+    /** 查询此设备上的群组 */
+    public List<SimpleSignGroupVo> findSimpleList(@Param("sn") String sn);
+
+    /** 根据名称查询考勤群组 */
+    public SignGroup findByName(@Param("signGroupName") String signGroupName);
+
+    /** 根据员工代码考勤群组 */
+    public SignGroup findByEmployeeCode(String employeeCode);
 
 }

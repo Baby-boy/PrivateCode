@@ -3,6 +3,8 @@ package com.glanway.ctrlhr.controller.device;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import com.glanway.ctrlhr.entity.para.KeywordPara;
 import com.glanway.ctrlhr.entity.vo.DeviceVo;
 import com.glanway.ctrlhr.entity.vo.SimpleDeviceVo;
 import com.glanway.ctrlhr.service.device.DeviceService;
+import com.glanway.ctrlhr.service.server.IClockServerService;
 
 /**
  * 说明 : 设备管理相关
@@ -30,8 +33,13 @@ import com.glanway.ctrlhr.service.device.DeviceService;
 @RequestMapping("api/device")
 public class DeviceController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(DeviceController.class);
+
 	@Autowired
 	private DeviceService deviceService;
+
+	@Autowired
+	private IClockServerService iClockServerService;
 
 	/**
 	 * 说明 : 查询设备列表
@@ -50,7 +58,7 @@ public class DeviceController {
 			Page<DeviceVo> page = deviceService.findList(para);
 			jsonResult.setData(page);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info("查询设备列表时异常信息为: {}", e.getMessage());
 			jsonResult.setCode(HttpCode.INTERNAL_SERVER_ERROR);
 			jsonResult.setMsg("操作失败!");
 		}
@@ -86,7 +94,7 @@ public class DeviceController {
 		try {
 			deviceService.saveDevice(device);
 		} catch (RuntimeException e) {
-			e.printStackTrace();
+			LOGGER.info("添加设备时异常信息为: {}", e.getMessage());
 			jsonResult.setMsg("设备已存在!");
 			jsonResult.setCode(HttpCode.BAD_REQUEST);
 		} catch (Exception e) {
@@ -115,7 +123,7 @@ public class DeviceController {
 			DeviceVo deviceVo = deviceService.getInfo(id);
 			jsonResult.setData(deviceVo);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info("获取设备信息时异常信息为: {}", e.getMessage());
 			jsonResult.setCode(HttpCode.INTERNAL_SERVER_ERROR);
 			jsonResult.setMsg("操作失败!");
 		}
@@ -149,12 +157,44 @@ public class DeviceController {
 
 		try {
 			deviceService.updateDevice(device);
-		} catch (RuntimeException e) {
-			e.printStackTrace();
-			jsonResult.setMsg("设备已存在!");
-			jsonResult.setCode(HttpCode.BAD_REQUEST);
+
+			// 更新完设备信息后,调用IClock系统
+			iClockServerService.syncUserInfoByDeviceSn(device.getSn());
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info("更新设备信息时异常信息为: {}", e.getMessage());
+			jsonResult.setCode(HttpCode.INTERNAL_SERVER_ERROR);
+			jsonResult.setMsg("操作失败!");
+		}
+
+		return jsonResult;
+	}
+
+	/**
+	 * 快速添加考勤点.
+	 *
+	 * @author fuqihao
+	 * @param device
+	 * @return
+	 * @since 1.0-20170526
+	 */
+	@ResponseBody
+	@RequestMapping(value = "quickUpdate", method = RequestMethod.POST)
+	public JsonResult quickUpdate(Device device) {
+		JsonResult jsonResult = new JsonResult();
+
+		if (null == device.getSignPointId()) {
+			jsonResult.setCode(HttpCode.BAD_REQUEST);
+			jsonResult.setMsg("未选中任何考勤点!");
+			return jsonResult;
+		}
+
+		try {
+			deviceService.updateDevice(device);
+
+			// 快速更新考勤点后,调用IClock系统
+			iClockServerService.syncUserInfoByDeviceId(device.getId().toString());
+		} catch (Exception e) {
+			LOGGER.info("快速更新设备信息时异常信息为: {}", e.getMessage());
 			jsonResult.setCode(HttpCode.INTERNAL_SERVER_ERROR);
 			jsonResult.setMsg("操作失败!");
 		}
@@ -180,11 +220,12 @@ public class DeviceController {
 			jsonResult.setMsg("参数有误!");
 			return jsonResult;
 		}
+
 		try {
 			JsonResult result = deviceService.delete(ids);
 			return result;
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info("删除设备时异常信息为: {}", e.getMessage());
 			jsonResult.setCode(HttpCode.INTERNAL_SERVER_ERROR);
 			jsonResult.setMsg("操作失败!");
 		}
@@ -192,7 +233,7 @@ public class DeviceController {
 	}
 
 	/**
-	 * 说明 : 查询设备(精简)列表(备注: 该接口是提供个考勤点添加设备时使用,该设备必须是未使用的状态)
+	 * 说明 : 查询设备(精简)列表(备注: 该接口是提供个考勤点添加设备时使用,该设备是非异常的状态)
 	 * 
 	 * @return
 	 * @author 付其浩
@@ -207,7 +248,32 @@ public class DeviceController {
 			List<SimpleDeviceVo> simpleList = deviceService.findsimpleList(para);
 			jsonResult.setData(simpleList);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info("查询设备精简列表时异常信息为: {}", e.getMessage());
+			jsonResult.setCode(HttpCode.INTERNAL_SERVER_ERROR);
+			jsonResult.setMsg("操作失败!");
+		}
+
+		return jsonResult;
+	}
+
+	/**
+	 * 说明 : 查询所有设备精简列表(正常连接的设备)
+	 * 
+	 * @param para
+	 * @return
+	 * @author fuqihao
+	 * @dateTime 2017年6月7日 下午5:42:22
+	 */
+	@ResponseBody
+	@RequestMapping(value = "dropDownList", method = RequestMethod.GET)
+	public JsonResult dropDownList(KeywordPara para) {
+		JsonResult jsonResult = new JsonResult();
+
+		try {
+			List<SimpleDeviceVo> dropDownList = deviceService.findDropDownList(para);
+			jsonResult.setData(dropDownList);
+		} catch (Exception e) {
+			LOGGER.info("查询设备精简列表时异常信息为: {}", e.getMessage());
 			jsonResult.setCode(HttpCode.INTERNAL_SERVER_ERROR);
 			jsonResult.setMsg("操作失败!");
 		}
@@ -229,9 +295,9 @@ public class DeviceController {
 		JsonResult jsonResult = new JsonResult();
 
 		try {
-			deviceService.findSnById(ids);
+			iClockServerService.syncUserInfoByDeviceId(ids);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info("同步信息时异常信息为: {}", e.getMessage());
 			jsonResult.setCode(HttpCode.INTERNAL_SERVER_ERROR);
 			jsonResult.setMsg("操作失败!");
 		}

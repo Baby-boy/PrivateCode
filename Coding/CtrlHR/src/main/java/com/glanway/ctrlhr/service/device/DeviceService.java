@@ -12,34 +12,6 @@ import com.glanway.ctrlhr.entity.vo.SimpleDeviceVo;
 import com.glanway.ctrlhr.service.BaseService;
 
 /**
- * 说明 : 
- *
- * @author 高伟南
- * @version 1.0.0
- * @dateTime 2017年4月20日 上午11:44:31
- */
-/**
- * 说明 : 
- *
- * @author 高伟南
- * @version 1.0.0
- * @dateTime 2017年4月20日 上午11:44:34
- */
-/**
- * 说明 : 
- *
- * @author 高伟南
- * @version 1.0.0
- * @dateTime 2017年4月20日 上午11:44:36
- */
-/**
- * 说明 : 
- *
- * @author 高伟南
- * @version 1.0.0
- * @dateTime 2017年4月20日 上午11:44:36
- */
-/**
  * 说明 :
  *
  * @author 高伟南
@@ -136,12 +108,13 @@ public interface DeviceService extends BaseService<Device> {
 	public List<SimpleDeviceVo> findsimpleList(KeywordPara para);
 
 	/**
-	 * 说明 : 根据设备ID同步数据
+	 * 说明 : 查询所有设备精简列表(正常连接的设备)
 	 * 
-	 * @param ids
-	 * @author 付其浩
-	 * @dateTime 2017年4月24日 下午6:24:51
+	 * @param para
+	 * @return
+	 * @author fuqihao
+	 * @dateTime 2017年6月7日 下午5:42:56
 	 */
-	public void findSnById(String ids) throws Exception;
+	public List<SimpleDeviceVo> findDropDownList(KeywordPara para);
 
 }

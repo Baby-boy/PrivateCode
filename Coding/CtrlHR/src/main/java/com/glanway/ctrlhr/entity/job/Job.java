@@ -6,15 +6,17 @@ public class Job extends BaseEntity {
 
 	private static final long serialVersionUID = 370977013136778732L;
 
-	private String name;// 职位名称
+	private String name; // 职位名称
 
-	private Long jobTypeId;// 职位类型
+	private Long jobTypeId; // 职位类型ID
 
-	private Long jobGradeId;// 职位等级
+	private Long jobGradeId; // 职位等级ID
 
-	private Integer state;// 状态(1:开启,2:关闭)
+	private Long salaryTypeId; // 薪资类型ID
 
-	private String deleted;// 是否删除(0:未删除,1:删除)
+	private Integer state; // 状态(1:开启,2:关闭)
+
+	private String deleted; // 是否删除(0:未删除,1:删除)
 
 	public String getName() {
 		return name;
@@ -38,6 +40,14 @@ public class Job extends BaseEntity {
 
 	public void setJobGradeId(Long jobGradeId) {
 		this.jobGradeId = jobGradeId;
+	}
+
+	public Long getSalaryTypeId() {
+		return salaryTypeId;
+	}
+
+	public void setSalaryTypeId(Long salaryTypeId) {
+		this.salaryTypeId = salaryTypeId;
 	}
 
 	public Integer getState() {

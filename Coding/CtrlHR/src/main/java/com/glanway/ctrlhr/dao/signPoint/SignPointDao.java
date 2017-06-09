@@ -39,4 +39,10 @@ public interface SignPointDao extends BaseDao<SignPoint> {
 	/** 查询(精简)考勤点列表 */
 	public List<SimpleSignPointVo> findSimpleList(@Param("para") KeywordPara para);
 
+	/** 查询所有考勤点列表 */
+	public List<SignPoint> findAllSignPoint();
+
+	/** 根据设备序列号查询考勤点 */
+	public List<SignPoint> findSignPointBySn(@Param("snArr") String[] snArr);
+
 }

@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.ctrlhr.dao.job.JobOrgDao">
+	<resultMap id="BaseResultMap" type="com.glanway.ctrlhr.entity.job.JobOrg">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
+		<result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+		<result column="DEPT_ID" property="deptId" jdbcType="DECIMAL" />
+		<result column="JOB_ID" property="jobId" jdbcType="DECIMAL" />
+		<result column="ORGANIZE_NUM" property="organizeNum" jdbcType="DECIMAL" />
+		<result column="WORK_SYSTEM_ID" property="workSystemId" jdbcType="DECIMAL" />
+		<result column="ORGANIZE_STATE" property="organizeState" jdbcType="DECIMAL" />
+		<result column="BATCH_DATE" property="batchDate" jdbcType="TIMESTAMP" />
+		<result column="DELETED" property="deleted" jdbcType="CHAR" />
+		<result column="CRE_PRO_ID" property="creProId" jdbcType="DECIMAL" />
+		<result column="CREATED_BY" property="createdBy" jdbcType="DECIMAL" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="MOD_PRO_ID" property="modProId" jdbcType="DECIMAL" />
+		<result column="LAST_MODIFIED_BY" property="lastModifiedBy" jdbcType="DECIMAL" />
+		<result column="LAST_MODIFIED_DATE" property="lastModifiedDate" jdbcType="TIMESTAMP" />
+		<collection property="orgDeptList" ofType="OrgDept">
+			<result property="id" column="D_ID"/>
+    		<result property="jobOrgId" column="D_JOB_ORG_ID"/>
+        	<result property="deptId" column="D_DEPT_ID"/>
+        	<result property="deptName" column="D_DEPT_NAME"/>
+    	</collection>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID, PARENT_ID, COMPANY_ID, DEPT_ID, JOB_ID, ORGANIZE_NUM, WORK_SYSTEM_ID, ORGANIZE_STATE,BATCH_DATE,DELETED,
+		CRE_PRO_ID, CREATED_BY,CREATED_DATE, MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from T_JOB_ORGANIZE
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from T_JOB_ORGANIZE
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.glanway.ctrlhr.entity.job.JobOrg">
+		insert into T_JOB_ORGANIZE (ID, PARENT_ID, COMPANY_ID, DEPT_ID, JOB_ID, ORGANIZE_NUM, WORK_SYSTEM_ID, ORGANIZE_STATE,BATCH_DATE,DELETED,
+		CRE_PRO_ID, CREATED_BY,CREATED_DATE, MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE)
+		values (#{id,jdbcType=DECIMAL}, #{parentId,jdbcType=DECIMAL}, #{companyId,jdbcType=DECIMAL},#{deptId,jdbcType=DECIMAL},
+		#{jobId,jdbcType=DECIMAL}, #{organizeNum,jdbcType=DECIMAL}, #{workSystemId,jdbcType=DECIMAL},
+		#{organizeState,jdbcType=TIMESTAMP},#{batchDate,jdbcType=TIMESTAMP},#{deleted,jdbcType=CHAR}, #{creProId,jdbcType=DECIMAL},
+		#{createdBy,jdbcType=DECIMAL},#{createdDate,jdbcType=TIMESTAMP}, #{modProId,jdbcType=DECIMAL},
+		#{lastModifiedBy,jdbcType=DECIMAL},#{lastModifiedDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.glanway.ctrlhr.entity.job.JobOrg">
+		insert into T_JOB_ORGANIZE
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE">
+			SELECT S_T_JOB_ORGANIZE.NEXTVAL FROM DUAL
+		</selectKey>
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="parentId != null">
+				PARENT_ID,
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID,
+			</if>
+			<if test="deptId != null">
+				DEPT_ID,
+			</if>
+			<if test="jobId != null">
+				JOB_ID,
+			</if>
+			<if test="organizeNum != null">
+				ORGANIZE_NUM,
+			</if>
+			<if test="workSystemId != null">
+				WORK_SYSTEM_ID,
+			</if>
+			<if test="organizeState != null">
+				ORGANIZE_STATE,
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE,
+			</if>
+			<if test="deleted != null">
+				DELETED,
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID,
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID,
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY,
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=DECIMAL},
+			</if>
+			<if test="companyId != null">
+				#{companyId,jdbcType=DECIMAL},
+			</if>
+			<if test="deptId != null">
+				#{deptId,jdbcType=DECIMAL},
+			</if>
+			<if test="jobId != null">
+				#{jobId,jdbcType=DECIMAL},
+			</if>
+			<if test="organizeNum != null">
+				#{organizeNum,jdbcType=DECIMAL},
+			</if>
+			<if test="workSystemId != null">
+				#{workSystemId,jdbcType=DECIMAL},
+			</if>
+			<if test="organizeState != null">
+				#{organizeState,jdbcType=DECIMAL},
+			</if>
+			<if test="batchDate != null">
+				#{batchDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=CHAR},
+			</if>
+			<if test="creProId != null">
+				#{creProId,jdbcType=DECIMAL},
+			</if>
+			<if test="createdBy != null">
+				#{createdBy,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modProId != null">
+				#{modProId,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedBy != null">
+				#{lastModifiedBy,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedDate != null">
+				#{lastModifiedDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.glanway.ctrlhr.entity.job.Job">
+		update T_JOB_ORGANIZE
+		<set>
+			<if test="parentId != null">
+				PARENT_ID = #{parentId,jdbcType=DECIMAL},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+			</if>
+			<if test="deptId != null">
+				DEPT_ID = #{deptId,jdbcType=DECIMAL},
+			</if>
+			<if test="jobId != null">
+				JOB_ID = #{jobId,jdbcType=DECIMAL},
+			</if>
+			<if test="organizeNum != null">
+				ORGANIZE_NUM = #{organizeNum,jdbcType=DECIMAL},
+			</if>
+			<if test="workSystemId != null">
+				WORK_SYSTEM_ID = #{workSystemId,jdbcType=DECIMAL},
+			</if>
+			<if test="organizeState != null">
+				ORGANIZE_STATE = #{organizeState,jdbcType=DECIMAL},
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=CHAR},
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.glanway.ctrlhr.entity.job.JobOrg">
+		update T_JOB_ORGANIZE
+		set PARENT_ID = #{parentId,jdbcType=DECIMAL}, 
+		COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+		DEPT_ID = #{deptId,jdbcType=DECIMAL},
+		JOB_ID = #{jobId,jdbcType=DECIMAL},
+		ORGANIZE_NUM = #{organizeNum,jdbcType=DECIMAL},
+		WORK_SYSTEM_ID = #{workSystemId,jdbcType=DECIMAL},
+		ORGANIZE_STATE = #{organizeState,jdbcType=DECIMAL},
+		BATCH_DATE = #{batchDate,jdbcType=TIMESTAMP},
+		DELETED = #{deleted,jdbcType=CHAR},
+		CRE_PRO_ID = #{creProId,jdbcType=DECIMAL},
+		CREATED_BY = #{createdBy,jdbcType=DECIMAL},
+		CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+		MOD_PRO_ID = #{modProId,jdbcType=DECIMAL},
+		LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=DECIMAL},
+		LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	
+	<!-- 根据ID获取职位编制信息 -->
+	<select id="findOne" resultType="JobOrgVo">
+		SELECT
+		JO.ID,D.NAME DEPT_NAME,J.NAME JOB_NAME,WS.NAME WORK_SYSTEM_NAME,JO.ORGANIZE_NUM,
+		JO.DEPT_ID,JO.JOB_ID,JO.WORK_SYSTEM_ID
+		FROM
+		T_JOB_ORGANIZE JO
+		LEFT JOIN T_JOB J ON J.ID = JO.JOB_ID AND J.DELETED = 0
+		LEFT JOIN T_DEPT D ON D.ID = JO.DEPT_ID AND D.DELETED = 0
+		LEFT JOIN T_WORK_SYSTEM WS ON WS.ID = JO.WORK_SYSTEM_ID AND WS.DELETED = 0
+		WHERE JO.ID = #{id}
+	</select>
+
+	<!-- 根据ID获取管理子部门信息 -->
+	<select id="findChindDept" resultType="OrgDept">
+		SELECT
+		JO.ID JOB_ORG_ID, D.ID DEPT_ID, D.NAME DEPT_NAME
+		FROM
+		T_JOB_ORGANIZE JO
+		LEFT JOIN T_ORG_DEPT OD ON OD.JOB_ORG_ID = JO.ID AND OD.DELETED = 0
+		LEFT JOIN T_DEPT D ON D.ID = OD.DEPT_ID AND D.DELETED = 0
+		WHERE JO.ID = #{id}
+	</select>
+    
+    <!-- 同部门下该编制的父编制 -->
+    <select id="findParentJobOrg" resultMap="BaseResultMap">
+    	SELECT
+	       JO.*,
+	       OD.ID            D_ID,
+	       OD.JOB_ORG_ID    D_JOB_ORG_ID,
+	       D.ID             D_DEPT_ID, 
+	       D.NAME           D_DEPT_NAME
+        FROM
+	       T_JOB_ORGANIZE JO
+        LEFT JOIN T_JOB J ON J. ID = JO.JOB_ID AND J.DELETED = 0 
+        LEFT JOIN T_ORG_DEPT OD ON OD.JOB_ORG_ID = JO.ID AND OD.DELETED = 0
+		LEFT JOIN T_DEPT D ON D.ID = OD.DEPT_ID AND D.DELETED = 0
+        WHERE
+	       JO.DEPT_ID = #{0}
+	    AND JO.DELETED = 0 
+        AND J.JOB_GRADE_ID = (
+	       SELECT
+		      *
+	       FROM
+		   (
+			  SELECT
+				  JJ.JOB_GRADE_ID
+			  FROM
+			      T_JOB_ORGANIZE JJO
+			  LEFT JOIN T_JOB JJ ON JJ. ID = JJO.JOB_ID AND JJ.DELETED = 0
+			  AND JJ.JOB_GRADE_ID &lt; #{1}
+			  WHERE
+				  JJO.DEPT_ID = #{0}
+			  ORDER BY
+				  JJ.JOB_GRADE_ID
+		   )
+	    WHERE
+		   ROWNUM = 1
+       )
+    </select>
+    
+    <!-- 同部门下该编制的子孙编制 -->
+    <select id="findChildJobOrg" resultMap="BaseResultMap">
+    	SELECT
+	       JO.*,
+	       OD.ID            D_ID,
+	       OD.JOB_ORG_ID    D_JOB_ORG_ID,
+	       D.ID             D_DEPT_ID, 
+	       D.NAME           D_DEPT_NAME
+        FROM
+	       T_JOB_ORGANIZE JO
+        LEFT JOIN T_JOB J ON J. ID = JO.JOB_ID AND J.DELETED = 0 
+        LEFT JOIN T_ORG_DEPT OD ON OD.JOB_ORG_ID = JO.ID AND OD.DELETED = 0
+		LEFT JOIN T_DEPT D ON D.ID = OD.DEPT_ID AND D.DELETED = 0
+        WHERE
+	       JO.DEPT_ID = #{0}
+        AND J.JOB_GRADE_ID &gt; #{1}
+	    AND JO.DELETED = 0  
+    </select>
+    
+    <!-- 同部门下该编制的同级编制 -->
+    <select id="findSiblingsJobOrg" resultMap="BaseResultMap">
+    	SELECT
+	       JO.*,
+	       OD.ID            D_ID,
+	       OD.JOB_ORG_ID    D_JOB_ORG_ID,
+	       D.ID             D_DEPT_ID, 
+	       D.NAME           D_DEPT_NAME
+        FROM
+	       T_JOB_ORGANIZE JO
+        LEFT JOIN T_JOB J ON J. ID = JO.JOB_ID AND J.DELETED = 0 
+        LEFT JOIN T_ORG_DEPT OD ON OD.JOB_ORG_ID = JO.ID AND OD.DELETED = 0
+		LEFT JOIN T_DEPT D ON D.ID = OD.DEPT_ID AND D.DELETED = 0
+        WHERE
+	       JO.DEPT_ID = #{0}
+        AND J.JOB_GRADE_ID = #{1}
+	    AND JO.DELETED = 0  
+    </select>
+
+	<insert id="insertOrgDept" parameterType="com.glanway.ctrlhr.entity.job.OrgDept">
+		insert into T_ORG_DEPT
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE">
+			SELECT S_T_ORG_DEPT.NEXTVAL FROM DUAL
+		</selectKey>
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="jobOrgId != null">
+				JOB_ORG_ID,
+			</if>
+			<if test="deptId != null">
+				DEPT_ID,
+			</if>
+			<if test="batchDate != null">
+				BATCH_DATE,
+			</if>
+			<if test="deleted != null">
+				DELETED,
+			</if>
+			<if test="creProId != null">
+				CRE_PRO_ID,
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="modProId != null">
+				MOD_PRO_ID,
+			</if>
+			<if test="lastModifiedBy != null">
+				LAST_MODIFIED_BY,
+			</if>
+			<if test="lastModifiedDate != null">
+				LAST_MODIFIED_DATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="jobOrgId != null">
+				#{jobOrgId,jdbcType=DECIMAL},
+			</if>
+			<if test="deptId != null">
+				#{deptId,jdbcType=DECIMAL},
+			</if>
+			<if test="batchDate != null">
+				#{batchDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=CHAR},
+			</if>
+			<if test="creProId != null">
+				#{creProId,jdbcType=DECIMAL},
+			</if>
+			<if test="createdBy != null">
+				#{createdBy,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modProId != null">
+				#{modProId,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedBy != null">
+				#{lastModifiedBy,jdbcType=DECIMAL},
+			</if>
+			<if test="lastModifiedDate != null">
+				#{lastModifiedDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	
+	<select id="getJobOrgByDeptId" resultType="DeptOrgTreeVO" parameterType="long">
+		
+		SELECT 
+		    2 AS type,
+			TJ.ID AS id,
+			TJ.NAME AS name,
+			TJO.ID AS orgId,
+			TJO.ORGANIZE_NUM AS orgCount,
+			TE.COUNT AS emplCount,
+			TJ.JOB_GRADE_ID AS jobGradeId,	
+			TWS.ID AS workSystemId,
+			TWS.NAME AS workSystem,
+			TJO.DEPT_ID AS deptId
+		FROM 
+			T_JOB_ORGANIZE TJO
+			INNER JOIN T_DEPT TD ON TD.ID = TJO.DEPT_ID AND TD.DELETED = 0
+			INNER JOIN T_JOB TJ ON TJ.ID = TJO.JOB_ID AND TJ.DELETED=0
+		  LEFT JOIN 
+				(
+					SELECT 
+					COUNT(1) AS COUNT,
+						DEPT_ID,
+						JOB_ID
+				FROM T_EMPLOYEE WHERE DELETED = 0 GROUP BY DEPT_ID,JOB_ID
+				) TE ON TE.DEPT_ID = TD.ID AND TE.JOB_ID = TJ.ID
+		  LEFT JOIN T_WORK_SYSTEM TWS ON TWS.ID = TJO.WORK_SYSTEM_ID AND TJO.DELETED=0
+		WHERE 
+			TJO.DELETED = 0  
+			
+			AND TJO.DEPT_ID = #{id}
+			
+			
+		ORDER BY TJ.JOB_GRADE_ID  ASC
+
+	</select>
+	
+	
+	
+	<resultMap id="ORGChildDetpMap" type="DeptOrgTreeVO" >
+	    <result property="type" column="TYPE"  />
+	    <result property="id" column="ID"  />
+       	<result property="name" column="NAME"  />
+	    <collection property="child" ofType="DeptOrgTreeVO">
+	        <result property="type" column="C_TYPE"/>
+	        <result property="id" column="C_ID"/>
+	        <result property="name" column="C_NAME"/>
+	        <result property="orgId" column="C_ORG_ID"/>
+	        <result property="orgCount" column="C_ORG_COUNT"/>
+	        <result property="emplCount" column="C_EMPL_COUNT"/>
+	        <result property="workSystem" column="C_WORK_SYSTEM"/>
+	        <result property="workSystemId" column="C_WORK_SYSTEM_ID"/>
+	        <result property="deptId" column="C_DEPT_ID"/>
+	       
+	    </collection>
+ 	</resultMap>
+	
+	<select id="getOrgDeptByOrgId" resultMap="ORGChildDetpMap" parameterType="long">
+		SELECT 
+			1 AS TYPE,
+			TD.ID,
+			TD.NAME,
+			
+			2 AS C_TYPE ,
+			TJ.ID AS C_ID,
+			TJ.NAME AS C_NAME,
+			TJO.ID AS C_ORG_ID,
+			TJO.ORGANIZE_NUM AS C_ORG_COUNT,
+			TE.COUNT AS C_EMPL_COUNT,
+			TWS.NAME AS C_WORK_SYSTEM,
+			TWS.ID AS C_WORK_SYSTEM_ID,
+			TOD.DEPT_ID AS C_DEPT_ID
+			
+			
+		FROM 
+			T_ORG_DEPT TOD 
+		    LEFT JOIN T_DEPT TD ON TD.ID = TOD.DEPT_ID AND TD.DELETED= 0
+			LEFT JOIN T_JOB_ORGANIZE TJO ON TJO.DEPT_ID = TD.ID AND TJO.DELETED = 0
+		    LEFT JOIN T_JOB TJ ON TJ.ID = TJO.JOB_ID AND TJ.DELETED = 0
+			LEFT JOIN 
+		  		(
+		  			SELECT 
+						COUNT(1) AS COUNT,
+					   	DEPT_ID,
+					  	JOB_ID
+					FROM T_EMPLOYEE WHERE DELETED = 0 GROUP BY DEPT_ID,JOB_ID
+		  		) TE ON TE.DEPT_ID = TD.ID AND TE.JOB_ID = TJ.ID
+		  	LEFT JOIN T_WORK_SYSTEM TWS ON TWS.ID = TJO.WORK_SYSTEM_ID AND TJO.DELETED=0
+		  	WHERE  
+		  		TOD.JOB_ORG_ID = #{id}
+	
+	</select>
+	
+	
+
+	
+	
+
+
+</mapper>

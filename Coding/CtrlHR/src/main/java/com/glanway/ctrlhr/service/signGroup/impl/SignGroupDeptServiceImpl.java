@@ -98,10 +98,12 @@ public class SignGroupDeptServiceImpl extends BaseServiceImpl<SignGroupDept> imp
 	public void updateEmployeeAndSignGroup(Long id, String[] employeeIdArr) {
 		// 关联表的编辑是先删除在新建的思想
 		// 根据考勤群组的ID和类型获取获取关联表的所有信息
-		List<SignGroupDept> signGroupDeptLis = signGroupDeptDao.findMany(id);
-		for (SignGroupDept signGroupDept : signGroupDeptLis) {
-			signGroupDept.setDeleted("1");// 表示删除,逻辑删除
-			signGroupDeptDao.updateByPrimaryKeySelective(signGroupDept);
+		List<SignGroupDept> signGroupDeptList = signGroupDeptDao.findMany(id);
+		if (null != signGroupDeptList && signGroupDeptList.size() > 0) {
+			for (SignGroupDept signGroupDept : signGroupDeptList) {
+				signGroupDept.setDeleted("1");// 表示删除,逻辑删除
+				signGroupDeptDao.updateByPrimaryKey(signGroupDept);
+			}
 		}
 
 		saveEmployeeAndSignGroup(id, employeeIdArr);
@@ -111,10 +113,12 @@ public class SignGroupDeptServiceImpl extends BaseServiceImpl<SignGroupDept> imp
 	public void updateJobDeptAndSignGroup(Long id, String[] jobDeptIdArr, String[] jobIdArr) {
 		// 关联表的编辑是先删除在新建的思想
 		// 根据考勤群组的ID和类型获取获取关联表的所有信息
-		List<SignGroupDept> signGroupDeptLis = signGroupDeptDao.findMany(id);
-		for (SignGroupDept signGroupDept : signGroupDeptLis) {
-			signGroupDept.setDeleted("1");// 表示删除,逻辑删除
-			signGroupDeptDao.updateByPrimaryKeySelective(signGroupDept);
+		List<SignGroupDept> signGroupDeptList = signGroupDeptDao.findMany(id);
+		if (null != signGroupDeptList && signGroupDeptList.size() > 0) {
+			for (SignGroupDept signGroupDept : signGroupDeptList) {
+				signGroupDept.setDeleted("1");// 表示删除,逻辑删除
+				signGroupDeptDao.updateByPrimaryKey(signGroupDept);
+			}
 		}
 
 		saveJobDeptAndSignGroup(id, jobDeptIdArr, jobIdArr);
@@ -126,7 +130,7 @@ public class SignGroupDeptServiceImpl extends BaseServiceImpl<SignGroupDept> imp
 			List<SignGroupDept> signGroupDeptLis = signGroupDeptDao.findMany(Long.valueOf(id));
 			for (SignGroupDept signGroupDept : signGroupDeptLis) {
 				signGroupDept.setDeleted("1");// 表示删除,逻辑删除
-				signGroupDeptDao.updateByPrimaryKeySelective(signGroupDept);
+				signGroupDeptDao.updateByPrimaryKey(signGroupDept);
 			}
 
 		}

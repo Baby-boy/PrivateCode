@@ -1,6 +1,10 @@
 package com.glanway.ctrlhr.entity.dept;
 
+import java.util.List;
+
 import com.glanway.ctrlhr.entity.BaseEntity;
+import com.glanway.ctrlhr.entity.job.Job;
+import com.glanway.ctrlhr.entity.job.JobType;
 
 public class Dept extends BaseEntity {
 
@@ -36,10 +40,51 @@ public class Dept extends BaseEntity {
 
     private String isLeaf;//是否叶子节点(0.否，1.是)
 
-    private String deleted;//是否删除(0.否，1.是)
+	private String deleted;//是否删除(0.否，1.是)
 
+    private List<Dept> childDept;//下级节点
+    
+    private Dept parentDept;//上级节点
+    
+    
+    private List<JobType> JobTypes;//对应职位类型
+    
+    private List<DeptJobORGVO> deptJobORGVOs;//部门下面职位 编制 在职人数
+    
+    
+    public List<DeptJobORGVO> getDeptJobORGVOs() {
+		return deptJobORGVOs;
+	}
 
-    public Long getCompanyId() {
+	public void setDeptJobORGVOs(List<DeptJobORGVO> deptJobORGVOs) {
+		this.deptJobORGVOs = deptJobORGVOs;
+	}
+
+	public List<JobType> getJobTypes() {
+		return JobTypes;
+	}
+
+	public void setJobTypes(List<JobType> jobTypes) {
+		JobTypes = jobTypes;
+	}
+
+    public Dept getParentDept() {
+		return parentDept;
+	}
+
+	public void setParentDept(Dept parentDept) {
+		this.parentDept = parentDept;
+	}
+
+	public List<Dept> getChildDept() {
+		return childDept;
+	}
+
+	public void setChildDept(List<Dept> childDept) {
+		this.childDept = childDept;
+	}
+
+	public Long getCompanyId() {
         return companyId;
     }
 

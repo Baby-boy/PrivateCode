@@ -9,96 +9,106 @@ package com.glanway.ctrlhr.entity.vo;
  */
 public class DeviceVo {
 
-	private Long id;// id
+    private Long id;// id
 
-	private String deviceName;// 设备名称
+    private String deviceName;// 设备名称
 
-	private String sn;// 设备序列号
+    private String sn;// 设备序列号
 
-	private Integer state;// 状态
+    private Integer state;// 状态
 
-	private Integer syncState;// 同步状态
+    private Integer syncState;// 同步状态
 
-	private Long totalPeople;// 设备总人数
+    private Long totalPeople;// 设备总人数
 
-	private Long unsyncPeople;// 未同步人数
+    private Long unsyncPeople;// 未同步人数
 
-	private String signPointName;// 考勤点的名字
+    private Long signPointId;// 考勤点ID
 
-	public Long getId() {
-		return id;
-	}
+    private String signPointName;// 考勤点的名字
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getDeviceName() {
-		if (null == deviceName) {
-			this.deviceName = "";
-		}
-		return deviceName;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setDeviceName(String deviceName) {
-		this.deviceName = deviceName;
-	}
+    public String getDeviceName() {
+        if (null == deviceName) {
+            this.deviceName = "";
+        }
+        return deviceName;
+    }
 
-	public String getSn() {
-		return sn;
-	}
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
 
-	public void setSn(String sn) {
-		this.sn = sn;
-	}
+    public String getSn() {
+        return sn;
+    }
 
-	public Integer getState() {
-		return state;
-	}
+    public void setSn(String sn) {
+        this.sn = sn;
+    }
 
-	public void setState(Integer state) {
-		this.state = state;
-	}
+    public Integer getState() {
+        return state;
+    }
 
-	public Integer getSyncState() {
-		return syncState;
-	}
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
-	public void setSyncState(Integer syncState) {
-		this.syncState = syncState;
-	}
+    public Integer getSyncState() {
+        return syncState;
+    }
 
-	public Long getTotalPeople() {
-		if (null == totalPeople) {
-			this.totalPeople = 0L;
-		}
-		return totalPeople;
-	}
+    public void setSyncState(Integer syncState) {
+        this.syncState = syncState;
+    }
 
-	public void setTotalPeople(Long totalPeople) {
-		this.totalPeople = totalPeople;
-	}
+    public Long getTotalPeople() {
+        if (null == totalPeople) {
+            this.totalPeople = 0L;
+        }
+        return totalPeople;
+    }
 
-	public Long getUnsyncPeople() {
-		if (null == unsyncPeople) {
-			this.unsyncPeople = 0L;
-		}
-		return unsyncPeople;
-	}
+    public void setTotalPeople(Long totalPeople) {
+        this.totalPeople = totalPeople;
+    }
 
-	public void setUnsyncPeople(Long unsyncPeople) {
-		this.unsyncPeople = unsyncPeople;
-	}
+    public Long getUnsyncPeople() {
+        if (null == unsyncPeople) {
+            this.unsyncPeople = 0L;
+        }
+        return unsyncPeople;
+    }
 
-	public String getSignPointName() {
-		if (null == signPointName) {
-			this.signPointName = "";
-		}
-		return signPointName;
-	}
+    public void setUnsyncPeople(Long unsyncPeople) {
+        this.unsyncPeople = unsyncPeople;
+    }
 
-	public void setSignPointName(String signPointName) {
-		this.signPointName = signPointName;
-	}
+    public Long getSignPointId() {
+        return signPointId;
+    }
+
+    public void setSignPointId(Long signPointId) {
+        this.signPointId = signPointId;
+    }
+
+    public String getSignPointName() {
+        if (null == signPointName) {
+            this.signPointName = "";
+        }
+        return signPointName;
+    }
+
+    public void setSignPointName(String signPointName) {
+        this.signPointName = signPointName;
+    }
 
 }

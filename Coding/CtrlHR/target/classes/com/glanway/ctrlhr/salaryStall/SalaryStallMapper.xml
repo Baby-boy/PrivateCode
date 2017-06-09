@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.ctrlhr.dao.salaryStall.SalaryStallDao">
+	<select id="findSimpleByJobGradeId" resultType="SimpleSalaryStall">
+		SELECT SS.ID,SS.NAME,SS.SALARY_NUM FROM T_JOB_GRADE_SALARY_STALL JGSS LEFT JOIN T_SALARY_STALL SS 
+		ON JGSS.SALARY_STALL_ID = SS.ID AND SS.DELETED = 0
+		WHERE JGSS.JOB_GRADE_ID = #{jobGradeId} AND JGSS.DELETED = 0
+	</select>
+</mapper>

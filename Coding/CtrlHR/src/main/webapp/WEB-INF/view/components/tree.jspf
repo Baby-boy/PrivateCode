@@ -1,0 +1,98 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
+<script type="text/x-template" id="tree">
+	      <el-tree style="text-align:left;font-size:14px;"
+	        :data="list"
+	        :props="prop"
+	        node-key="id"
+	        :ref="refName"
+	        default-expand-all
+	        :default-checked-keys="checks"
+	        :expand-on-click-node="false"
+	        :render-content="renderTree2">
+	      </el-tree>
+</script>
+<script type="text/javascript">
+		Vue.component('tree', {
+		template: '#tree',
+		props:["value","list","prop","refName"],
+		data:function(){
+		console.log(this.value)
+			return{
+				checks:this.value&&this.value.ids?this.value.ids.split(","):[],
+			}
+		},
+		mounted:function() {
+			console.log(this.checks)
+		},
+		methods: {
+				renderTree2:function (h, _ref) {
+							var _this = this;
+				
+							var node = _ref.node,
+							    data = _ref.data,
+							    store = _ref.store;
+				
+							return h(
+										"span",
+										{ "class": "tree-table-row" },
+										[h(
+													"el-checkbox",
+													{
+																on: {
+																			"change": function change(event) {
+																						return _this.handleOrgChecked(event, store, data);
+																			}
+																}
+													},
+													[]
+										), "\xA0", h(
+													"span",
+													null,
+													[h(
+																"span",
+																null,
+																[data.name]
+													)]
+										)]
+							);
+				},
+			     handleOrgChecked:function(event, store,data){
+			        if(event.target.checked){
+			          this.checks.push(data)
+			        }else{
+			          for(var i = 0  ;i< this.checks.length;i++){
+			            var current = this.checks[i];
+			            if(current.id == data.id){
+			              this.checks.splice(i,1);
+			              break;
+			            }
+			          }
+			        }
+			      },
+		},
+		watch:{
+			checks:function(val,oldval){
+				var arr={};
+				var ids=[];
+				var names=[];
+				val.forEach(function(item){
+					ids.push(item.id);
+					names.push(item.name);
+				})
+				arr.ids=ids.join(",");
+				arr.names=names.join(",");
+				this.$emit("input",arr);
+			}
+		}
+});
+
+</script>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style type="text/css">
+  .el-tree{
+    border:none;
+  }
+  .el-transfer-panel{
+    width:400px;
+  }
+</style>

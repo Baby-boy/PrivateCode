@@ -1,178 +1,181 @@
 package com.glanway.ctrlhr.entity.para;
 
-import java.util.Date;
-
-import com.glanway.ctrlhr.util.TimeUtil;
-
 public class EmployeePara extends BasePara {
 
-	private String keyword;// 搜索关键字
+    private String keyword;// 搜索关键字
 
-	/**
-	 * 排序字段 :
-	 * "employeeNameDesc","employeeNameAsc","employeeCodeDesc","employeeCodeAsc",
-	 * "deptNameDesc""deptNameAsc","jobNameDesc","jobNameAsc","jobStateDesc","jobStateAsc",
-	 * "entryDateDesc","entryDateAsc","formalDateDesc","formalDateAsc","quitDateDesc","quitDateAsc"
-	 */
-	private String orderBy;// 排序字段
+    /**
+     * 排序字段 :
+     * "employeeNameDesc","employeeNameAsc","employeeCodeDesc","employeeCodeAsc",
+     * "deptNameDesc""deptNameAsc","jobNameDesc","jobNameAsc","jobStateDesc","jobStateAsc",
+     * "entryDateDesc","entryDateAsc","formalDateDesc","formalDateAsc","quitDateDesc","quitDateAsc"
+     */
+    private String orderBy;// 排序字段
 
-	private Long companyId;// 公司ID
-	
-	private Long deptId; //部门id
-	
-	private String deptIds;// 部门ID(备注: 多个ID使用","分隔)
+    private Long companyId;// 公司ID
 
-	private Integer jobId;// 职位ID
+    private Long deptId; // 部门id
 
-	private String jobStates;// 在职状态(1试用:, 2:正式, 3:离职)(备注: 多个ID使用","分隔)
+    private String deptIds;// 部门ID(备注: 多个ID使用","分隔)
 
-	private String entryDateFrom;// 入职日期检索-开始
+    private Integer jobId;// 职位ID
 
-	private String entryDateTo;// 入职日期检索-结束
+    private String jobStates;// 在职状态(1试用:, 2:正式, 3:离职)(备注: 多个ID使用","分隔)
 
-	private String formalDateFrom;// 转正日期检索-开始
+    private String entryDateFrom;// 入职日期检索-开始
 
-	private String formalDateTo;// 转正日期检索-结束
+    private String entryDateTo;// 入职日期检索-结束
 
-	private String quitDateFrom;// 离职日期检索-开始
+    private String formalDateFrom;// 转正日期检索-开始
 
-	private String quitDateTo;// 离职日期检索-结束
+    private String formalDateTo;// 转正日期检索-结束
 
-	private String[] deptIdList;// id数组
-	
-	
-	public Long getDeptId() {
-		return deptId;
-	}
+    private String quitDateFrom;// 离职日期检索-开始
 
-	public void setDeptId(Long deptId) {
-		this.deptId = deptId;
-	}
+    private String quitDateTo;// 离职日期检索-结束
 
-	private String[] jobStateList;// 状态数组
+    private String gatherMsgStates;// 员工信息采集状态
 
-	public String getKeyword() {
-		return keyword;
-	}
+    private String[] gatherMsgStateList;// 员工信息采集数组
 
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
+    private String[] deptIdList;// id数组
 
-	public String getOrderBy() {
-		return orderBy;
-	}
+    private String[] jobStateList;// 状态数组
 
-	public void setOrderBy(String orderBy) {
-		this.orderBy = orderBy;
-	}
+    public Long getDeptId() {
+        return deptId;
+    }
 
-	public Long getCompanyId() {
-		return companyId;
-	}
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
+    }
 
-	public void setCompanyId(Long companyId) {
-		this.companyId = companyId;
-	}
+    public String getKeyword() {
+        return keyword;
+    }
 
-	public String getDeptIds() {
-		return deptIds;
-	}
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
 
-	public void setDeptIds(String deptIds) {
-		this.deptIds = deptIds;
-	}
+    public String getOrderBy() {
+        return orderBy;
+    }
 
-	public Integer getJobId() {
-		return jobId;
-	}
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
+    }
 
-	public void setJobId(Integer jobId) {
-		this.jobId = jobId;
-	}
+    public Long getCompanyId() {
+        return companyId;
+    }
 
-	public String getJobStates() {
-		return jobStates;
-	}
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
 
-	public void setJobStates(String jobStates) {
-		this.jobStates = jobStates;
-	}
+    public String getDeptIds() {
+        return deptIds;
+    }
 
-	public String getEntryDateFrom() {
-		return entryDateFrom;
-	}
+    public void setDeptIds(String deptIds) {
+        this.deptIds = deptIds;
+    }
 
-	public void setEntryDateFrom(Long entryDateFrom) {
-		if (null != entryDateFrom) {
-			this.entryDateFrom = TimeUtil.format(new Date(entryDateFrom));
-		}
-	}
+    public Integer getJobId() {
+        return jobId;
+    }
 
-	public String getEntryDateTo() {
-		return entryDateTo;
-	}
+    public void setJobId(Integer jobId) {
+        this.jobId = jobId;
+    }
 
-	public void setEntryDateTo(Long entryDateTo) {
-		if (null != entryDateTo) {
-			this.entryDateTo = TimeUtil.format(new Date(entryDateTo));
-		}
-	}
+    public String getJobStates() {
+        return jobStates;
+    }
 
-	public String getFormalDateFrom() {
-		return formalDateFrom;
-	}
+    public void setJobStates(String jobStates) {
+        this.jobStates = jobStates;
+    }
 
-	public void setFormalDateFrom(Long formalDateFrom) {
-		if (null != formalDateFrom) {
-			this.formalDateFrom = TimeUtil.format(new Date(formalDateFrom));
-		}
-	}
+    public String getEntryDateFrom() {
+        return entryDateFrom;
+    }
 
-	public String getFormalDateTo() {
-		return formalDateTo;
-	}
+    public void setEntryDateFrom(String entryDateFrom) {
+        this.entryDateFrom = entryDateFrom;
+    }
 
-	public void setFormalDateTo(Long formalDateTo) {
-		if (null != formalDateTo) {
-			this.formalDateTo = TimeUtil.format(new Date(formalDateTo));
-		}
-	}
+    public String getEntryDateTo() {
+        return entryDateTo;
+    }
 
-	public String getQuitDateFrom() {
-		return quitDateFrom;
-	}
+    public void setEntryDateTo(String entryDateTo) {
+        this.entryDateTo = entryDateTo;
+    }
 
-	public void setQuitDateFrom(Long quitDateFrom) {
-		if (null != quitDateFrom) {
-			this.quitDateFrom = TimeUtil.format(new Date(quitDateFrom));
-		}
-	}
+    public String getFormalDateFrom() {
+        return formalDateFrom;
+    }
 
-	public String getQuitDateTo() {
-		return quitDateTo;
-	}
+    public void setFormalDateFrom(String formalDateFrom) {
+        this.formalDateFrom = formalDateFrom;
+    }
 
-	public void setQuitDateTo(Long quitDateTo) {
-		if (null != quitDateTo) {
-			this.quitDateTo = TimeUtil.format(new Date(quitDateTo));
-		}
-	}
+    public String getFormalDateTo() {
+        return formalDateTo;
+    }
 
-	public String[] getDeptIdList() {
-		return deptIdList;
-	}
+    public void setFormalDateTo(String formalDateTo) {
+        this.formalDateTo = formalDateTo;
+    }
 
-	public void setDeptIdList(String[] deptIdList) {
-		this.deptIdList = deptIdList;
-	}
+    public String getQuitDateFrom() {
+        return quitDateFrom;
+    }
 
-	public String[] getJobStateList() {
-		return jobStateList;
-	}
+    public void setQuitDateFrom(String quitDateFrom) {
+        this.quitDateFrom = quitDateFrom;
+    }
 
-	public void setJobStateList(String[] jobStateList) {
-		this.jobStateList = jobStateList;
-	}
+    public String getQuitDateTo() {
+        return quitDateTo;
+    }
+
+    public void setQuitDateTo(String quitDateTo) {
+        this.quitDateTo = quitDateTo;
+    }
+
+    public String getGatherMsgStates() {
+        return gatherMsgStates;
+    }
+
+    public void setGatherMsgStates(String gatherMsgStates) {
+        this.gatherMsgStates = gatherMsgStates;
+    }
+
+    public String[] getGatherMsgStateList() {
+        return gatherMsgStateList;
+    }
+
+    public void setGatherMsgStateList(String[] gatherMsgStateList) {
+        this.gatherMsgStateList = gatherMsgStateList;
+    }
+
+    public String[] getDeptIdList() {
+        return deptIdList;
+    }
+
+    public void setDeptIdList(String[] deptIdList) {
+        this.deptIdList = deptIdList;
+    }
+
+    public String[] getJobStateList() {
+        return jobStateList;
+    }
+
+    public void setJobStateList(String[] jobStateList) {
+        this.jobStateList = jobStateList;
+    }
 
 }

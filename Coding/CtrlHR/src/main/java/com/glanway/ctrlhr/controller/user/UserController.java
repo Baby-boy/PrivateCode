@@ -13,6 +13,7 @@ import com.glanway.ctrlhr.common.JsonResult;
 import com.glanway.ctrlhr.entity.user.User;
 import com.glanway.ctrlhr.service.user.UserService;
 import com.glanway.ctrlhr.util.Base64;
+import com.glanway.ctrlhr.util.IPUtil;
 
 @Controller
 @RequestMapping("/api/user")
@@ -21,18 +22,17 @@ public class UserController {
 	private UserService userService;
 
 	/**
-	 * 说明 :
-	 * 
+	 * 用户登录.
+	 *
+	 * @author fuqihao
 	 * @param name
 	 * @param pwd
 	 * @param request
-	 * @param token
 	 * @return
-	 * @author 付其浩
-	 * @dateTime 2017年4月25日 下午2:18:05
+	 * @since 1.0-20170425
 	 */
-	@RequestMapping(value = "login")
 	@ResponseBody
+	@RequestMapping(value = "login")
 	public JsonResult userLogin(String name, String pwd, HttpServletRequest request) {
 		JsonResult jsonResult = new JsonResult();
 
@@ -47,15 +47,17 @@ public class UserController {
 			return jsonResult;
 		}
 
-		User user;
 		try {
-			user = userService.doLogin(name, pwd);
+			String ip = IPUtil.getIp(request);
+
+			User user = userService.doLogin(name, pwd, ip);
 			if (null == user) {
 				jsonResult.setCode(HttpCode.NO_CONTENT);
 				jsonResult.setMsg("用户名或者密码错误!");
 				return jsonResult;
 			}
 
+			jsonResult.setData(user.getRealName());
 			String token = Base64.encodeToString((user.getName() + user.getPwd()).getBytes());
 			// 用户登录成功,保存token
 			request.getSession().setAttribute("token", token);
@@ -68,4 +70,26 @@ public class UserController {
 		return jsonResult;
 	}
 
+	/**
+	 * 用户登出功能.
+	 *
+	 * @author fuqihao
+	 * @param request
+	 * @since 1.0-20170425
+	 */
+	@ResponseBody
+	@RequestMapping(value = "loginOut")
+	public JsonResult userLoginOut(HttpServletRequest request) {
+		JsonResult jsonResult = new JsonResult();
+
+		try {
+			request.getSession().setAttribute("token", "");
+		} catch (Exception e) {
+			e.printStackTrace();
+			jsonResult.setCode(HttpCode.INTERNAL_SERVER_ERROR);
+			jsonResult.setMsg("操作失败!");
+		}
+
+		return jsonResult;
+	}
 }

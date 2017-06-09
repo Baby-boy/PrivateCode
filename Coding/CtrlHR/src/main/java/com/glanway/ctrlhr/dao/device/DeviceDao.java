@@ -40,7 +40,7 @@ public interface DeviceDao extends BaseDao<Device> {
 	/** 新增考勤设备 */
 	public void saveDevice(Device device);
 
-	/** 查询设备(精简)列表 */
+	/** 查询设备(精简)列表(未删除和未使用) */
 	public List<SimpleDeviceVo> findsimpleList(@Param("para") KeywordPara para);
 
 	/** 根据id查询考勤设备(删除时) */
@@ -60,5 +60,8 @@ public interface DeviceDao extends BaseDao<Device> {
 
 	/** 查询所有可用未同步的设备序列号 */
 	public List<Device> findAllSn();
+
+	/** 查询所有设备精简列表(正常连接的设备) */
+	public List<SimpleDeviceVo> findDropDownList(@Param("para") KeywordPara para);
 
 }

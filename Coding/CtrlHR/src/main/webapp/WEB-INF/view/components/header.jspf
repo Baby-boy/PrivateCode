@@ -1,23 +1,22 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
 <style>
 	.head {
-	  position: absolute;
+	  position: relative;
 	  width: 96%;
 	  height: 50px;
 	  line-height: 50px;
 	  padding: 0 2%;
-	  background: #000;
+	  background: #00a58b;
 	  color: #fff;
 	}
 	.head .name {
 	  position: absolute;
-	  left: 3%;
 	  font-size: 20px;
 	  line-height: 50px;
 	}
 	.head .menu {
 	  position: absolute;
-	  left: 11%;
+	  left: 168px;
 	  font-size: 25px;
 	  color: #fff;
 	}
@@ -71,15 +70,40 @@
 	.head .loginUser .icon2 {
 	  font-size: 14px;
 	}
+	.loginUser{
+		position:relative
+	}
+	.head .out{
+		position: absolute;
+		top:50px;
+		right:0;
+		text-align: center;
+		width:100%;
+		height:36px;
+		line-height:36px;
+		z-index:50;
+		color:#333;
+		border:1px solid #ccc;
+		font-size:14px;
+		cursor: pointer; 
+		display:none;
+	}
+	.el-icon-arrow-down{
+		cursor: pointer;
+	}
+	.el-icon-arrow-down.on .out{
+		display:block;
+	}
+	.logo{height:40px;margin-top:-5px;margin-right:5px}
 </style>
 <script type="text/x-template" id="headNav">
 	<div class="head" id="header">
-		<div class="name">CtrlHR</div>
+		<div class="name"><img src="${ctx}/images/logo.png" class="logo">YCTHR</div>
         <div class="menu iconfont icon-navigation"></div>
         <div class="nav">
-	        <a href="javascript:void(0);">组织</a>
+	        <a href="${ctx}/pageTo/organize/department?viewName=0" :class="{on:activeNav==0}">组织</a>
 	        <a href="${ctx}/pageTo/employee/employeeList?viewName=1" :class="{on:activeNav==1}">员工</a>
-	        <a href="${ctx}/pageTo/attendance/attendanceList?viewName=2" :class="{on:activeNav==2}">考勤</a>
+	        <a href="${ctx}/pageTo/sign/signList?viewName=2" :class="{on:activeNav==2}">考勤</a>
         </div>
        	<a href="javascript:void(0);" class="manageNav">
            	<i class="iconfont icon-setting icon1"></i>
@@ -88,8 +112,10 @@
         </a>
         <div class="loginUser">
              <img src="${ctx}/images/people.jpg" class="loginHead">
-             <span class="userName">test</span>
-             <i class="el-icon-arrow-down icon2"></i>
+             <span class="userName">{{name}}</span>
+             <i class="el-icon-arrow-down icon2" @click="state" :class="{on:show}">
+             	<div class="out" @click="outlogin">退出</div>
+             </i>
         </div>
 	</div>
 </script>
@@ -97,11 +123,28 @@
 	Vue.component('headerNav',{
 		template: '#headNav',
 		data:function(){
-			var activeNav=Util.getUrlParam("viewName")
+			var activeNav=Util.getUrlParam("viewName");
+			var name = sessionStorage.getItem('name');
+			var show = false;
 			return{
-				activeNav:activeNav
+				activeNav:activeNav,
+				name:name,
+				show:show
 			}
 		},
-		
+		methods: {
+			state:function(){
+				this.show = !this.show
+			},
+			outlogin:function(){
+				var vm = this;
+				Vue.http.get('${ctx}/api/user/loginOut').then(function(response){
+					response.json().then(function(responseData){
+						window.location = "${ctx}/pageTo/login"
+					});
+				});
+			}
+		}	
 	})
+
 </script>

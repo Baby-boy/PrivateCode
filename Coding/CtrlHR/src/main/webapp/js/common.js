@@ -75,3 +75,4 @@ var formatChinaTime = function(time, format){
         }
     })
 }
+

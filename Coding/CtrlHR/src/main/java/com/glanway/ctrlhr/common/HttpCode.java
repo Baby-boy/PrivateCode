@@ -1,9 +1,11 @@
 package com.glanway.ctrlhr.common;
 
 /**
- * 说明: 状态码
+ * 状态码
  * 
- * @Version:1.0
+ * @author  fuqihao
+ * @version 1.0-20170405
+ * @since   1.0-20170405
  */
 public enum HttpCode {
 
