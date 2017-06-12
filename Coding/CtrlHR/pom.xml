@@ -700,9 +700,9 @@
         <!-- 开发环境 -->
         <profile>
             <id>develop</id>
-            <!-- <activation>
+            <activation>
                 <activeByDefault>true</activeByDefault>
-            </activation> -->
+            </activation>
             <properties>
                 <skipTests>true</skipTests>
                 <checkstyle.skip>true</checkstyle.skip>
@@ -726,9 +726,9 @@
         <!--开发测试环境 -->
         <profile>
             <id>test</id>
-            <activation>
+            <!-- <activation>
                 <activeByDefault>true</activeByDefault>
-            </activation>
+            </activation> -->
             <properties>
                 <skipTests>true</skipTests>
                 <checkstyle.skip>true</checkstyle.skip>

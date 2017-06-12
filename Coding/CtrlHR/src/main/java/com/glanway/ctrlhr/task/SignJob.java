@@ -29,7 +29,7 @@ public class SignJob {
 	 * @author 付其浩
 	 * @dateTime 2017年4月26日 上午11:46:55
 	 */
-	@Scheduled(cron = "0 0 0/1  * * ?")
+	 @Scheduled(cron = "0 0 0/1  * * ?")
 	// @Scheduled(cron = "0 0 20 * * ? ") 每天十点执行一次
 	public void taskJob() {
 		// 查询人员当天考勤异常状态

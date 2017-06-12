@@ -495,8 +495,6 @@
 		</if>
 	</sql>
 	
-
-
 	<!--根据ID获取员工信息 -->
 	<select id="find" parameterType="long" resultType="Employee">
 		SELECT
@@ -504,4 +502,11 @@
 		FROM T_EMPLOYEE E WHERE E.ID=#{id} AND E.DELETED=0
 	</select>
 
+	<!-- 根据职位代码查询员工是否离职 -->
+	<select id="findOneByEmployeeCode" resultType="Employee">
+		SELECT 
+		<include refid="Base_Column_List"/> 
+		FROM T_EMPLOYEE 
+		WHERE CODE = #{employeeCode} AND JOB_STATE != 3 AND DELETED = 0
+	</select>
 </mapper>

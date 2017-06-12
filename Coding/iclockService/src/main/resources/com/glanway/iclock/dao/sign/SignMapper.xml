@@ -236,9 +236,11 @@
 			<if test="sn != null">
 				AND SN = #{sn}
 			</if>
-			<if test="time != null">
-				AND TIME <![CDATA[<=]]> #{time}
-				AND #{time} <![CDATA[<=]]> (TIME  + NUMTODSINTERVAL(5, 'minute'))
+			<if test="time != null and beforeDate !=null">
+				<!-- AND TIME <![CDATA[<=]]> #{time}
+				AND #{time} <![CDATA[<=]]> (TIME  + NUMTODSINTERVAL(5, 'minute')) -->
+				AND #{time} >= TIME
+				AND TIME >= #{beforeDate} 
 			</if>
 			<if test="state != null">
 				AND STATE = #{state}

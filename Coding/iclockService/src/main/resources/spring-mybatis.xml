@@ -52,7 +52,7 @@
 
     <tx:annotation-driven transaction-manager="mybatisTransactionManager"/>
 
-      <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="${jdbc.driver}"/>
         <property name="jdbcUrl" value="${jdbc.url}"/>
         <property name="user" value="${jdbc.user}"/>
@@ -61,7 +61,21 @@
         <property name="maxPoolSize" value="50" />
         <property name="minPoolSize" value="2" />
         <property name="acquireIncrement" value="5" />
-        <property name="checkoutTimeout" value="0"/>
+        <property name="checkoutTimeout" value="3000"/>
         <property name="idleConnectionTestPeriod" value="3000"/>
+        <property name="testConnectionOnCheckout" value="true" />
     </bean>
+	
+	<!-- <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="idleConnectionTestPeriod" value="60" />
+        <property name="idleMaxAge" value="30" />
+        <property name="maxConnectionsPerPartition" value="100" />
+        <property name="minConnectionsPerPartition" value="5" />
+        <property name="acquireIncrement" value="5" />
+        <property name="partitionCount" value="4" />
+    </bean> -->
 </beans>

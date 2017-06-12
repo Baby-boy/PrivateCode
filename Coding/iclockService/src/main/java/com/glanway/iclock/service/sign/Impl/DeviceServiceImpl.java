@@ -1,7 +1,5 @@
 package com.glanway.iclock.service.sign.Impl;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,23 +9,18 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.w3c.dom.ls.LSInput;
 
 import com.glanway.gone.util.StringUtils;
-import com.glanway.iclock.common.CommandWrapper;
 import com.glanway.iclock.dao.employee.EmployeeDeviceInfoDao;
 import com.glanway.iclock.dao.employee.FingerFaceTemplateDao;
 import com.glanway.iclock.dao.sign.DeviceDao;
 import com.glanway.iclock.entity.employee.EmployeeDeviceInfo;
 import com.glanway.iclock.entity.employee.FingerFaceTemplate;
 import com.glanway.iclock.entity.sign.Device;
-import com.glanway.iclock.entity.vo.device.DeviceEmployeeVo;
 import com.glanway.iclock.entity.vo.device.EmployeeDeviceFingerFaceVo;
 import com.glanway.iclock.entity.vo.device.EmployeeDeviceInfoVO;
 import com.glanway.iclock.service.BaseServiceImpl;
 import com.glanway.iclock.service.sign.DeviceService;
-import com.glanway.iclock.util.StringUtil;
-import com.google.common.base.Charsets;
 
 @Service("deviceService")
 @Transactional
@@ -71,7 +64,6 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 	 */
 	@Override
 	public Device selectByDeviceSn(String sn) {
-		// TODO Auto-generated method stub
 		return deviceDao.selectByDeviceSn(sn);
 	}
 
@@ -85,7 +77,6 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 	 */
 	@Override
 	public List<Device> findLastConnectionTimeExcendFiveMinute() {
-		// TODO Auto-generated method stub
 		return deviceDao.findLastConnectionTimeExcendFiveMinute();
 	}
 
@@ -100,8 +91,6 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 	 */
 	@Override
 	public void updateStateById(Long id, Integer state) {
-		// TODO Auto-generated method stub
-
 		Map<String, Object> param = new HashMap<String, Object>();
 
 		param.put("id", id);
@@ -123,8 +112,6 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 	 */
 	@Override
 	public void updateStateBySn(String sn, Integer state) {
-		// TODO Auto-generated method stub
-
 		Map<String, Object> param = new HashMap<String, Object>();
 
 		param.put("sn", sn);
@@ -145,7 +132,6 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 	 */
 	@Override
 	public List<String> updateUserInfoDataBySn(String sn) {
-		// TODO Auto-generated method stub
 		// 先根据设备sn 查询 需要到当前设备上打卡的所有员工信息
 		List<EmployeeDeviceInfoVO> employeeVos = this.findEmployeeBySn(sn);
 		// 开始拼接命令
@@ -164,7 +150,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 
 			if (StringUtils.hasText(name)) {
 				param.append(HT).append("Name=");
-				
+
 				param.append(name);
 			}
 
@@ -177,6 +163,10 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 			}
 
 			param.append(HT).append("Pri=").append(StringUtils.hasText(pri) ? pri : "0");
+
+			for (int i = 0; i < name.length() - 1; i++) {
+				param.append(HT);
+			}
 
 			/*
 			 * //单个参数 param.append("PIN="+eInfoVO.getCode()+HT);
@@ -196,15 +186,13 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 			 * eInfoVO.getPri()? "0" : eInfoVO.getPri())+HT); //
 			 * param.append(LF);
 			 */
-			
-			
+
 			/*
-			 * 新需求 2017-04-27
-			 * 如果员工没有指纹信息或脸部信息,就不需要同步到设备上
+			 * 新需求 2017-04-27 如果员工没有指纹信息或脸部信息,就不需要同步到设备上
 			 */
-			//先根据员工编号查询是否有指纹和脸纹 , 如果没有指纹或面部数据,就不同步当前员工
+			// 先根据员工编号查询是否有指纹和脸纹 , 如果没有指纹或面部数据,就不同步当前员工
 			final int count = this.countFingerAndFaceByEmployeeCode(code);
-			if(count > 0){
+			if (count > 0) {
 				list.add(param.toString());
 			}
 		}
@@ -222,7 +210,6 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 	 */
 	@Override
 	public List<EmployeeDeviceInfoVO> findEmployeeBySn(String sn) {
-		// TODO Auto-generated method stub
 		if (null == sn && "".equals(sn)) {
 			return null;
 		}
@@ -244,7 +231,6 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 	 */
 	@Override
 	public List<String> updateUserPhoneDataBySn(String sn) {
-		// TODO Auto-generated method stub
 		// 先根据设备sn 查询 需要到当前设备上打卡的所有员工信息
 		List<EmployeeDeviceInfoVO> employeeVos = this.findEmployeeBySn(sn);
 		// 开始拼接命令
@@ -262,12 +248,11 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 				param.append(HT).append("Size=").append(pic.length());
 				param.append(HT).append("Content=").append(pic);
 				/*
-				 * 新需求 2017-04-27
-				 * 如果员工没有指纹信息或脸部信息,就不需要同步到设备上
+				 * 新需求 2017-04-27 如果员工没有指纹信息或脸部信息,就不需要同步到设备上
 				 */
-				//先根据员工编号查询是否有指纹和脸纹 , 如果没有指纹或面部数据,就不同步当前员工
+				// 先根据员工编号查询是否有指纹和脸纹 , 如果没有指纹或面部数据,就不同步当前员工
 				final int count = this.countFingerAndFaceByEmployeeCode(code);
-				if(count > 0){
+				if (count > 0) {
 					list.add(param.toString());
 				}
 			}
@@ -303,7 +288,6 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 	 */
 	@Override
 	public List<EmployeeDeviceFingerFaceVo> findEmployeeFingerFaceBySn(String sn, Integer type) {
-		// TODO Auto-generated method stub
 		if (null == sn || null == type) {
 			return null;
 		}
@@ -325,7 +309,6 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 	 */
 	@Override
 	public List<String> updateUserFingerTmpDataBySn(String sn) {
-		// TODO Auto-generated method stub
 		// 先根据设备sn 查询 需要到当前设备上打卡的所有员工指纹
 		List<EmployeeDeviceFingerFaceVo> employeeVos = this.findEmployeeFingerFaceBySn(sn, 1);
 		// 开始拼接命令
@@ -388,7 +371,6 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 	 */
 	@Override
 	public List<String> updateUserFaceTmpDataBySn(String sn) {
-		// TODO Auto-generated method stub
 		// 先根据设备sn 查询 需要到当前设备上打卡的所有员工面部模板
 		List<EmployeeDeviceFingerFaceVo> employeeVos = this.findEmployeeFingerFaceBySn(sn, 2);
 		// 开始拼接命令
@@ -396,13 +378,13 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 
 		List<String> list = new ArrayList<String>();
 		for (EmployeeDeviceFingerFaceVo eInfoVO : employeeVos) {
-			
+
 			final StringBuilder param = new StringBuilder();
 			final String code = eInfoVO.getCode();
 			final String fid = eInfoVO.getFid();
 			final Integer size = eInfoVO.getSize();
 			final String valid = eInfoVO.getValid();
-			
+
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("type", 2);
 			map.put("fid", eInfoVO.getFid());
@@ -410,9 +392,9 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 			FingerFaceTemplate faceTemplate = faceTemplateDao.findInfoByEmployeeCodeAndTypeAndFid(map);
 			if (null != faceTemplate && null != faceTemplate.getTmp()) {
 				String tmp = faceTemplate.getTmp();
-				
+
 				param.append("PIN=").append(code);
-				
+
 				param.append(HT).append("FID=").append(fid);
 				param.append(HT).append("Size=").append(size);
 				param.append(HT).append("Valid=").append(valid);
@@ -420,26 +402,23 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 
 				list.add(param.toString());
 			}
-			
-			/*StringBuffer param = new StringBuffer();
-			// 单个参数
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("type", 1);
-			map.put("fid", eInfoVO.getFid());
-			map.put("employeeCode", eInfoVO.getCode());
-			FingerFaceTemplate faceTemplate = faceTemplateDao.findInfoByEmployeeCodeAndTypeAndFid(map);
-			String tmp = "";
-			if (null != faceTemplate && null != faceTemplate.getTmp()) {
-				tmp = faceTemplate.getTmp();
-				param.append("PIN=" + eInfoVO.getCode() + HT);
-				param.append("FID=" + eInfoVO.getFid() + HT);
-				param.append("Size=" + eInfoVO.getSize() + HT);
-				param.append("Valid=" + eInfoVO.getValid() + HT);
-				param.append("TMP=" + tmp);
-				// param.append(LF);
 
-				list.add(param.toString());
-			}*/
+			/*
+			 * StringBuffer param = new StringBuffer(); // 单个参数 Map<String,
+			 * Object> map = new HashMap<String, Object>(); map.put("type", 1);
+			 * map.put("fid", eInfoVO.getFid()); map.put("employeeCode",
+			 * eInfoVO.getCode()); FingerFaceTemplate faceTemplate =
+			 * faceTemplateDao.findInfoByEmployeeCodeAndTypeAndFid(map); String
+			 * tmp = ""; if (null != faceTemplate && null !=
+			 * faceTemplate.getTmp()) { tmp = faceTemplate.getTmp();
+			 * param.append("PIN=" + eInfoVO.getCode() + HT);
+			 * param.append("FID=" + eInfoVO.getFid() + HT);
+			 * param.append("Size=" + eInfoVO.getSize() + HT);
+			 * param.append("Valid=" + eInfoVO.getValid() + HT);
+			 * param.append("TMP=" + tmp); // param.append(LF);
+			 * 
+			 * list.add(param.toString()); }
+			 */
 		}
 		return list;
 	}
@@ -455,7 +434,6 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 	 */
 	@Override
 	public int updateByPrimaryKeySelective(Device record) {
-		// TODO Auto-generated method stub
 		return deviceDao.updateByPrimaryKey(record);
 	}
 
@@ -470,34 +448,32 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 	 */
 	@Override
 	public Device selectSignPointNotNullByDeviceSn(String sn) {
-		// TODO Auto-generated method stub
 		return deviceDao.selectSignPointNotNullByDeviceSn(sn);
 	}
 
 	/**
-     * TODO - 2017-04-26 glanwayuser11 complete JavaDoc. 
-     *根据设备sn 查询 需要到当前设备上打卡的所有员工的数量
-     * @author zhangshuagn
-     * @param param
-     * @return 
-     * @since  1.0-20170426
-     */
-
-    @Override
-    public int countEmployeeBySn(String sn) {
-        Map<String, Object> param = new  HashMap<String, Object>();
-        if(null == sn){
-            return 0;
-        }
-        
-        param.put("sn", sn);
-        return deviceDao.countEmployeeBySn(param);
-    }
-
-    /**
+	 * 需要到当前设备上打卡的所有员工的数量
 	 * 
-	 * 说明 : 
-	 * 根据员工code,查询员工的指纹模板和面部模板数
+	 * @author zhangshuagn
+	 * @param param
+	 * @return
+	 * @since 1.0-20170426
+	 */
+
+	@Override
+	public int countEmployeeBySn(String sn) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		if (null == sn) {
+			return 0;
+		}
+
+		param.put("sn", sn);
+		return deviceDao.countEmployeeBySn(param);
+	}
+
+	/**
+	 * 说明 : 根据员工code,查询员工的指纹模板和面部模板数
+	 * 
 	 * @param code
 	 * @return
 	 * @author zhangshaung
@@ -505,11 +481,20 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 	 */
 	@Override
 	public int countFingerAndFaceByEmployeeCode(String code) {
-		// TODO Auto-generated method stub
-		
-		if(null == code){
+		if (null == code) {
 			return 0;
 		}
 		return deviceDao.countFingerAndFaceByEmployeeCode(code);
+	}
+
+	@Override
+	public Long syncPeopleCountEmployeeBySn(String sn) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		if (org.apache.commons.lang3.StringUtils.isEmpty(sn)) {
+			return 0L;
+		}
+
+		param.put("sn", sn);
+		return deviceDao.syncPeopleCountEmployeeBySn(param);
 	}
 }

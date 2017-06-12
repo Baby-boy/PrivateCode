@@ -146,7 +146,8 @@ public class CommandWrapper {
     public static final String CMD_UNALARM = "C:%s:AC_UNALARM";
 
     public static final String CMD_RELOAD_DATA = "C:%s:RELOAD DATA";
-
+    
+    public static final String CMD_DATA_QUERY_ATTLOG = "C:%s:DATA QUERY ATTLOG %s";
     public static final String CMD_DATA_QUERY_USER_ALL = "C:%s:DATA QUERY USERINFO";
     public static final String CMD_DATA_QUERY_FINGER_ALL = "C:%s:DATA QUERY FINGERTMP";
     public static final String CMD_DATA_QUERY_PHOTO_ALL = "C:%s:DATA QUERY USERPIC";

@@ -669,12 +669,20 @@
         </dependency>
 
         <!--第三方登录 开始-->
-       <!--  <dependency>
+       	<!-- <dependency>
             <groupId>org.ponly</groupId>
             <artifactId>ponly-oauth2</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency> -->
         <!--第三方登录 结束-->
+        
+        <!-- bonecp start -->
+		<dependency>
+			<groupId>com.jolbox</groupId>
+			<artifactId>bonecp-spring</artifactId>
+			<version>0.8.0.RELEASE</version>
+		</dependency>
+        <!-- bonecp end -->
     </dependencies>
 
     <profiles>
@@ -702,10 +710,11 @@
                 <tomcat.path>/ROOT</tomcat.path>
             </properties>
         </profile>
-        <!-- 外网测试 -->
+        
+		<!--开发测试环境 -->
         <profile>
-            <id>out</id>
-           <!--  <activation>
+            <id>test</id>
+            <!-- <activation>
                 <activeByDefault>true</activeByDefault>
             </activation> -->
             <properties>
@@ -715,41 +724,17 @@
                 <cobertura.skip>true</cobertura.skip>
                 <tomcat.contextPath>/</tomcat.contextPath>
                 <jdbc.driver>oracle.jdbc.driver.OracleDriver</jdbc.driver>
-               
+                
                 <jdbc.url>jdbc:oracle:thin:@222.73.197.126:1521:YCTTEST</jdbc.url>
                 <jdbc.username>YCTTEST</jdbc.username>
                 <jdbc.password>YAMATOYCT</jdbc.password>
+                
+                <httpclient.request.url>http://114.80.227.222:8081</httpclient.request.url>
                	<!-- <data.file.home>local:///D:/fs/</data.file.home> -->
                 <!-- <tomcat.server>java-tomcat-dev</tomcat.server> -->
                 <!-- <tomcat.url>http://192.168.2.17/manager/text</tomcat.url> -->
-                <!-- <tomcat.path>/${project.artifactId}</tomcat.path> -->
-                <tomcat.path>/ROOT</tomcat.path>
-            </properties>
-        </profile>
-        <!--开发测试环境 -->
-        <profile>
-            <id>test</id>
-            <!--  <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation> -->
-            
-            <properties>
-                <skipTests>true</skipTests>
-                <checkstyle.skip>true</checkstyle.skip>
-                <findbugs.skip>true</findbugs.skip>
-                <cobertura.skip>true</cobertura.skip>
-                <tomcat.server>glanway-tomcat</tomcat.server>
-                <tomcat.contextPath>/</tomcat.contextPath>
-                <tomcat.url>http://10.0.0.105:8080/manager/text</tomcat.url>
-<!--                 <tomcat.url>http://121.40.102.225:6060/manager/text</tomcat.url> -->
-                <tomcat.path>/ROOT</tomcat.path>
-                <jdbc.driver>oracle.jdbc.driver.OracleDriver</jdbc.driver>
-                <jdbc.url>jdbc:oracle:thin:@10.0.0.105:1521:ORCL</jdbc.url>
-                <jdbc.username>YAMATO</jdbc.username>
-                <jdbc.password>root</jdbc.password>
+                <tomcat.path>/${project.artifactId}</tomcat.path>
                 <webAppRootKey>webAppRootKey.${artifactId}</webAppRootKey>
-<!--                 <data.file.home>local:///mnt/project-data/${project.artifactId}/data/</data.file.home> -->
-                <data.file.home>local:///D:/fs/</data.file.home>
             </properties>
         </profile>
 
@@ -760,22 +745,22 @@
                 <activeByDefault>true</activeByDefault>
             </activation> -->
             <properties>
-                <skipTests>true</skipTests>
+            	<skipTests>true</skipTests>
                 <checkstyle.skip>true</checkstyle.skip>
                 <findbugs.skip>true</findbugs.skip>
                 <cobertura.skip>true</cobertura.skip>
-                <tomcat.server>jinde-tomcat</tomcat.server>
-                <tomcat.url>http://101.37.16.217:8080/manager/text</tomcat.url>
-                <tomcat.path>/ROOT</tomcat.path>
-                <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
-                <jdbc.url>jdbc:mysql://101.37.16.217:3306/JINDE?characterEncoding=UTF-8</jdbc.url>
-                <jdbc.username>jinde</jdbc.username>
-                <jdbc.password>jinde@glanway</jdbc.password>
-                <webAppRootKey>webAppRootKey.${artifactId}-release</webAppRootKey>
-                <data.file.home>local:///mnt/project-data/${project.artifactId}/data/</data.file.home>
+                <tomcat.contextPath>/</tomcat.contextPath>
+                <jdbc.driver>oracle.jdbc.driver.OracleDriver</jdbc.driver>
+                
+                <jdbc.url>jdbc:oracle:thin:@172.16.16.220:1521:YCT</jdbc.url>
+                <jdbc.username>YCTHR</jdbc.username>
+                <jdbc.password>yamatoYCT</jdbc.password>
+                
+                <httpclient.request.url>http://114.80.227.222:8080</httpclient.request.url>
+                <tomcat.path>/${project.artifactId}</tomcat.path>
+                <webAppRootKey>webAppRootKey.${artifactId}</webAppRootKey>
             </properties>
         </profile>
-
 
         <profile>
             <id>release2</id>

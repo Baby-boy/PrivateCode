@@ -159,6 +159,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
 				device.setState(1);// 状态设置为未使用
 				device.setTotalPeople(0L);// 设备恢复未使用状态,对应的总人数应该剔除
 				device.setUnsyncPeople(0L);// // 设备恢复未使用状态,对应的未同步人数应该剔除
+				device.setSyncState(1);// 设置同步状态为未同步
 				// TODO 最后更新人ID写死,后期需要更改
 				device.setLastModifiedBy(1L);
 				device.setLastModifiedDate(new Date());

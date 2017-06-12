@@ -19,48 +19,31 @@
 	   <result column="LAST_MODIFIED_DATE" property="lastModifiedDate"  />
 	 </resultMap>
 	 <sql id="baseCols">
-	 	ID
-	 	,SN
-	 	,STATE
-	 	,COMMAND
-	 	,ARGS
-	 	,START_HANDLE_TIME
-	 	,COMPLETE_TIME
-	 	,BATCH_DATE
-	 	,DELETED
-	 	,CRE_PRO_ID
-	 	,CREATED_BY
-	 	,CREATED_DATE
-	 	,MOD_PRO_ID
-	 	,LAST_MODIFIED_BY
-	 	,LAST_MODIFIED_DATE
+	 	ID, SN, STATE, COMMAND, ARGS,
+	 	START_HANDLE_TIME, COMPLETE_TIME, BATCH_DATE,
+	 	DELETED, CRE_PRO_ID, CREATED_BY, CREATED_DATE,
+	 	MOD_PRO_ID, LAST_MODIFIED_BY, LAST_MODIFIED_DATE
 	 </sql>
 	 
 	 <sql id="baseFilter">
 	 	<if test="sn != null">
 	 		AND SN = #{sn}
 	 	</if>
-	 	
 	 	<if test="state != null">
 	 		AND STATE = #{state}
 	 	</if>
-	 	
 	 	<if test="command != null">
 	 		AND COMMAND = #{command}
 	 	</if>
-	 	
 	 	<if test="args != null">
 	 		AND ARGS = #{args}
 	 	</if>
-	 	
 	 	<if test="startHandleTime != null">
 	 		AND START_HANDLE_TIME = #{startGandleTime}
 	 	</if>
-	 	
 	 	<if test="completeTime != null">
 	 		AND COMPLETE_TIME = #{completeTime}
 	 	</if>
-	 	
 	 	<if test="batchDate != null">
 	 		AND BATCH_DATE = #{batchDate}
 	 	</if>
@@ -72,27 +55,21 @@
 	 	<if test="sn != null">
 	 		AND T.SN = #{sn}
 	 	</if>
-	 	
 	 	<if test="state != null">
 	 		AND T.STATE = #{state}
 	 	</if>
-	 	
 	 	<if test="command != null">
 	 		AND T.COMMAND = #{command}
 	 	</if>
-	 	
 	 	<if test="args != null">
 	 		AND T.ARGS = #{args}
 	 	</if>
-	 	
 	 	<if test="startHandleTime != null">
 	 		AND T.START_HANDLE_TIME = #{startGandleTime}
 	 	</if>
-	 	
 	 	<if test="completeTime != null">
 	 		AND T.COMPLETE_TIME = #{completeTime}
 	 	</if>
-	 	
 	 	<if test="batchDate != null">
 	 		AND T.BATCH_DATE = #{batchDate}
 	 	</if>
@@ -193,10 +170,12 @@
 	 <update id="delete" parameterType="Task">
 	 	UPDATE T_TASK SET DELETED = '1' WHERE ID = #{id}
 	 </update>
+	
 	 <!-- 根据设备代码SN,删除(逻辑删除)所有关于当前设备的记录 -->
 	 <update id="chearCommandsBySn" parameterType="java.lang.String">
 	 	UPDATE T_TASK SET DELETED = '1' WHERE SN = #{sn}
 	 </update>
+	 
 	 <!-- 根据设备代码SN,修改当前命令的状态 -->
 	 <update id="updateStateBySn" parameterType="map">
 	 	UPDATE T_TASK SET STATE = #{state} 
@@ -205,6 +184,7 @@
 	 		AND STATE = #{oldState}
 	 	</if>
 	 </update>
+	 
 	 <!-- 根据任务ID,修改当前命令的状态 -->
 	 <update id="updateStateById" parameterType="map">
 	 	UPDATE T_TASK SET STATE = #{state}
@@ -219,4 +199,14 @@
 	 		AND STATE = #{oldState}
 	 	</if>
 	 </update>
+	 
+	 <!-- 根据设备序列号查询该设备是否还存在任务 -->
+	 <select id="findTaskByDeviceSn" resultType="Task">
+	 	SELECT 
+			<include refid="baseCols"/>
+		FROM T_TASK
+		WHERE SN = #{sn} 
+		AND STATE != 3 
+		AND COMMAND LIKE '%DATA UPDATE%'
+	 </select>
 </mapper>

@@ -1,27 +1,27 @@
 package com.glanway.iclock.dao.employee;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
 import com.glanway.iclock.dao.BaseDao;
 import com.glanway.iclock.entity.employee.Employee;
 
-
 public interface EmployeeDao extends BaseDao<Employee> {
 
-	int deleteByPrimaryKey(Long id);
+    public int deleteByPrimaryKey(Long id);
 
-	int insert(Employee record);
+    public int insert(Employee record);
 
-	int insertSelective(Employee record);
+    public int insertSelective(Employee record);
 
-	Employee selectByPrimaryKey(Long id);
-	
-	Employee selectByCode(String code);
+    public Employee selectByPrimaryKey(Long id);
 
-	int updateByPrimaryKeySelective(Employee record);
+    public Employee selectByCode(String code);
 
-	int updateByPrimaryKey(Employee record);
+    public int updateByPrimaryKeySelective(Employee record);
+
+    public int updateByPrimaryKey(Employee record);
+
+    /** 根据职员代码查询员工是否离职 */
+    public Employee findOneByEmployeeCode(@Param("employeeCode") String employeeCode);
 
 }

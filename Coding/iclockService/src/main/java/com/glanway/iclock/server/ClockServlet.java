@@ -29,10 +29,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.glanway.iclock.common.CommandWrapper;
+import com.glanway.iclock.entity.employee.Employee;
 import com.glanway.iclock.entity.employee.EmployeeDeviceInfo;
 import com.glanway.iclock.entity.employee.FingerFaceTemplate;
 import com.glanway.iclock.entity.sign.Device;
@@ -48,6 +48,7 @@ import com.glanway.iclock.service.sign.SignService;
 import com.glanway.iclock.service.task.TaskService;
 import com.glanway.iclock.util.DateUtils;
 import com.glanway.iclock.util.StringUtil;
+import com.glanway.iclock.util.TimeUtil;
 
 /**
  * 中控考勤机 push-sdk 服务器接口.
@@ -73,6 +74,9 @@ import com.glanway.iclock.util.StringUtil;
  */
 @Component("iclock")
 public class ClockServlet extends HttpServlet {
+	
+	private static final long serialVersionUID = -2036458039532875830L;
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClockServlet.class);
 
 	private static final String UNSET = "0";
@@ -259,6 +263,7 @@ public class ClockServlet extends HttpServlet {
 
 	private static final String CMD_RELOAD_DATA = "C:%s:RELOAD DATA";
 
+	private final String CMD_DATA_QUERY_ATTLOG = "C:%s:DATA QUERY ATTLOG ";
 	private final String CMD_DATA_QUERY_USER_ALL = "C:%s:DATA QUERY USERINFO";
 	private final String CMD_DATA_QUERY_FINGER_ALL = "C:%s:DATA QUERY FINGERTMP";
 	private final String CMD_DATA_QUERY_PHOTO_ALL = "C:%s:DATA QUERY USERPIC";
@@ -902,13 +907,19 @@ public class ClockServlet extends HttpServlet {
 		verifyMap.put("16", "脸纹");
 
 		final String type = verifyMap.get(verify);
+		LOGGER.info("系统存储从考勤机返回的考勤时间: {}" , time);
 		final Date newDate=DateUtils.str2Date(time, DateUtils.DATETIME_FORMAT_YYYY_MM_DD_HHMMSS);
+		LOGGER.info("系统格式化后的考勤机考勤时间: {}" , newDate);
 		
+		// 获取newDate的前一分钟值 , 为了过滤同一人短时间重复打卡的
+		final Date beforeDate = TimeUtil.getTimeBeforeMinute(newDate, -1);
+		LOGGER.info("系统格式化后的考勤机考勤时间的前一分钟: {}" , beforeDate);
 		
 		Map<String, Object> params = new HashMap<String,Object>();
-		params.put("empliyeeCode", pin);
+		params.put("employeeCode", pin);
 		params.put("sn", sn);
 		params.put("time", newDate);
+		params.put("beforeDate", beforeDate);
 		params.put("state",status);
 		params.put("verify", verify);
 		int count= signService.count(params);
@@ -1234,69 +1245,72 @@ public class ClockServlet extends HttpServlet {
 	 * @author zhangshaung
 	 * @dateTime 2017年4月19日 下午5:12:35
 	 */
-	private int isChangedEmployeeInfo(final int type, final EmployeeDeviceInfo employeeDeviceInfo) {
+    private int isChangedEmployeeInfo(final int type, final EmployeeDeviceInfo employeeDeviceInfo) {
 
-		int result = 0;
-		try {
+        int result = 0;
+        try {
+            // 根据职员代码查询该员工是否已经离职,若离职则不插入职位模板, 修改于 20170531 am 9:51
+            Employee employee = employeeService.findOne(employeeDeviceInfo.getEmployeeCode());
+            if (null != employee) {
+                EmployeeDeviceInfo oldEmployeeDeviceInfo = employeeDeviceInfoService
+                    .getInfoByEmployeeCode(employeeDeviceInfo.getEmployeeCode());
 
-			EmployeeDeviceInfo oldEmployeeDeviceInfo = employeeDeviceInfoService
-					.getInfoByEmployeeCode(employeeDeviceInfo.getEmployeeCode());
+                if (null != oldEmployeeDeviceInfo) {
+                    int flag = 0;
+                    if (type == 1) {
+                        if (null == oldEmployeeDeviceInfo.getPri() && null == oldEmployeeDeviceInfo.getPwd()
+                            && null == oldEmployeeDeviceInfo.getCard()) {
+                            flag = 3;
+                        } else {
+                            if (null != employeeDeviceInfo.getPri()) {
+                                if (!employeeDeviceInfo.getPri().equals(oldEmployeeDeviceInfo.getPri())) {
+                                    flag = 1;
+                                }
+                            }
 
-			if (null != oldEmployeeDeviceInfo) {
-				int flag = 0;
-				if (type == 1) {
-					if (null == oldEmployeeDeviceInfo.getPri() && null == oldEmployeeDeviceInfo.getPwd()
-							&& null == oldEmployeeDeviceInfo.getCard()) {
-						flag = 3;
-					} else {
-						if (null != employeeDeviceInfo.getPri()) {
-							if (!employeeDeviceInfo.getPri().equals(oldEmployeeDeviceInfo.getPri())) {
-								flag = 1;
-							}
-						}
+                            if (null != employeeDeviceInfo.getPwd()) {
+                                if (!employeeDeviceInfo.getPwd().equals(oldEmployeeDeviceInfo.getPwd())) {
+                                    flag = 1;
+                                }
+                            }
 
-						if (null != employeeDeviceInfo.getPwd()) {
-							if (!employeeDeviceInfo.getPwd().equals(oldEmployeeDeviceInfo.getPwd())) {
-								flag = 1;
-							}
-						}
+                            if (null != employeeDeviceInfo.getCard()) {
+                                if (!employeeDeviceInfo.getCard().equals(oldEmployeeDeviceInfo.getCard())) {
+                                    flag = 1;
+                                }
+                            }
+                        }
 
-						if (null != employeeDeviceInfo.getCard()) {
-							if (!employeeDeviceInfo.getCard().equals(oldEmployeeDeviceInfo.getCard())) {
-								flag = 1;
-							}
-						}
-					}
+                    } else if (type == 2) {
+                        if (null != employeeDeviceInfo.getPic()) {
+                            if (!employeeDeviceInfo.getPic().equals(oldEmployeeDeviceInfo.getPic())) {
+                                flag = 1;
+                            }
+                        } else {
+                            flag = 2;
+                        }
 
-				} else if (type == 2) {
-					if (null != employeeDeviceInfo.getPic()) {
-						if (!employeeDeviceInfo.getPic().equals(oldEmployeeDeviceInfo.getPic())) {
-							flag = 1;
-						}
-					} else {
-						flag = 2;
-					}
+                    }
+                    if (flag == 0) {// 没有变化
+                        result = 0;
+                    } else if (flag == 1) {// 出现变化
+                        result = 2;
+                    } else if (flag == 2) {// 没有存储过照片
+                        result = 3;
+                    } else if (flag == 3) {// 没有存储过员工基本信息
+                        result = 4;
+                    }
+                } else {
+                    result = 1;
+                }
+            }
 
-				}
-				if (flag == 0) {// 没有变化
-					result = 0;
-				} else if (flag == 1) {// 出现变化
-					result = 2;
-				} else if (flag == 2) {// 没有存储过照片
-					result = 3;
-				} else if (flag == 3) {// 没有存储过员工基本信息
-					result = 4;
-				}
-			} else {
-				result = 1;
-			}
-
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		return result;
-	}
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return result;
+    }
 
 	/**
 	 * 
@@ -1956,33 +1970,36 @@ public class ClockServlet extends HttpServlet {
     					
     					 //应该同步的人数
     					int totalPeople = deviceService.countEmployeeBySn(sn);
-    					
     					device.setTotalPeople(totalPeople > 0 ? totalPeople : 0l);
     					
-    					//设备已同步人数
+    					//设备已同步人数(这里获取的是设备上的人员数据,不能排查出脏数据,所有需要改动成手动获取的情况) 修改于2017/06/05 pm 14:00
                         Long syncPeople=null != userCount ? Long.parseLong(userCount) : 0l;
-    					
-    					//修改状态
-    					//device.setState(2);
+    					LOGGER.info("考勤机已同步的人数是: {}", syncPeople);
+                        
     					//未同步人数
     					long unsyncPeople=totalPeople-syncPeople;
-    					if(unsyncPeople == 0){
+    					
+    					// 修改于20170526 13:51 原来是等于,现发现考勤机上存在脏数据后,导致未同步人数为负数,所以修改为小于等于
+    					if(unsyncPeople <= 0){
     						//如果同步人数大于0,同步状态为 已同步
     						device.setSyncState(3);
     					}else{
-    						//反之,同步状态为 未同步
-    						device.setSyncState(1);
+    						// 根据设备序列号查询该设备的更新命令是否已经执行完成
+    						List<Task> list = taskService.findTaskByDeviceSn(sn);
+    						if (null == list || list.size() < 1) {
+    							// 命令执行完毕了但是还是不相等,说明有未同步的人
+    							device.setSyncState(1);
+							}
+    						LOGGER.info("未同步的人数是: {}", unsyncPeople);
+    						// 现阶段考勤机中如果存在脏数据不能够清除,所以为了让数据显示正确,需要手动查询一次
+    						syncPeople = deviceService.syncPeopleCountEmployeeBySn(sn);
+    						device.setUnsyncPeople(unsyncPeople > 0 ? unsyncPeople : 0l);
     					}
-    					device.setUnsyncPeople(unsyncPeople > 0 ? unsyncPeople : 0l);
-				    
                     }
 					//设备未同步数
 					device.setLastConnectionTime(date);
-
-				
 					device.setLastModifiedDate(date);
 
-					// deviceService.update(device);
 					deviceService.updateByPrimaryKeySelective(device);
 				}
 				boolean finger = false; // 是否支持指纹下载.
