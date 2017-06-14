@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.hr.app.dao.TempletDao" >
+	<resultMap id="BaseResultMap" type="com.glanway.hr.app.entity.Templet">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="CODE" property="code" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="SEX" property="sex" jdbcType="DECIMAL" />
+		<result column="JOB_STATE" property="jobState" jdbcType="DECIMAL" />
+		<result column="ENTRY_DATE" property="entryDate" jdbcType="TIMESTAMP" />
+		<result column="FORMAL_DATE" property="formalDate" jdbcType="TIMESTAMP" />
+		<result column="QUIT_DATE" property="quitDate" jdbcType="TIMESTAMP" />
+		<result column="DEPT_ID" property="deptId" jdbcType="DECIMAL" />
+		<result column="JOB_ID" property="jobId" jdbcType="DECIMAL" />
+		<result column="SALARY_ID" property="salaryId" jdbcType="DECIMAL" />
+		<result column="PERF_ID" property="perfId" jdbcType="DECIMAL" />
+		<result column="BATCH_DATE" property="batchDate" jdbcType="TIMESTAMP" />
+		<result column="DELETED" property="deleted" jdbcType="CHAR" />
+		<result column="CRE_PRO_ID" property="creProId" jdbcType="DECIMAL" />
+		<result column="CREATED_BY" property="createdBy" jdbcType="DECIMAL" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="MOD_PRO_ID" property="modProId" jdbcType="DECIMAL" />
+		<result column="LAST_MODIFIED_BY" property="lastModifiedBy"
+			jdbcType="DECIMAL" />
+		<result column="LAST_MODIFIED_DATE" property="lastModifiedDate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+ 	<!-- 模板列表查询条件 -->
+	<sql id="where_findList">
+		<where>
+			EMP.DELETED = 0 
+			<if test="para.companyId != null and para.companyId != ''">
+				AND COM.ID = #{para.companyId}
+			</if>
+			<if test="para.deptIds != null and para.deptIds != ''">
+				AND EMP.DEPT_ID IN
+				<foreach collection="para.deptIdList" item="deptId" open="(" close=")" separator=",">
+					#{deptId}
+				</foreach>
+			</if>
+			<if test="para.jobId != null and para.jobId != ''">
+				AND EMP.JOB_ID = #{para.jobId}
+			</if>
+			<if test="para.jobStates != null and para.jobStates != ''">
+				AND EMP.JOB_STATE IN
+				<foreach collection="para.jobStateList" item="jobState" open="(" close=")" separator=",">
+					#{jobState}
+				</foreach>
+			</if>
+			<if test="para.entryDateFrom != null and para.entryDateFrom != '' and para.entryDateTo != null and para.entryDateTo != ''">
+				AND (EMP.ENTRY_DATE BETWEEN TO_DATE('${para.entryDateFrom}', 'yyyy-MM-dd HH24:mi:ss') AND TO_DATE('${para.entryDateTo}', 'yyyy-MM-dd HH24:mi:ss'))
+			</if>
+			<if test="para.formalDateFrom != null and para.formalDateFrom != '' and para.formalDateTo != null and para.formalDateTo != ''">
+				AND (EMP.FORMAL_DATE BETWEEN TO_DATE('${para.formalDateFrom}', 'yyyy-MM-dd HH24:mi:ss') AND TO_DATE('${para.formalDateTo}', 'yyyy-MM-dd HH24:mi:ss'))
+			</if>
+			<if test="para.quitDateFrom != null and para.quitDateFrom != '' and para.quitDateTo != null and para.quitDateTo != ''">
+				AND (EMP.QUIT_DATE BETWEEN TO_DATE('${para.quitDateFrom}', 'yyyy-MM-dd HH24:mi:ss') AND TO_DATE('${para.quitDateTo}', 'yyyy-MM-dd HH24:mi:ss'))
+			</if>
+
+			<if test="para.entryDateFrom != null and para.entryDateFrom != '' and (para.entryDateTo == null or para.entryDateTo == '')">
+				AND EMP.ENTRY_DATE >= TO_DATE('${para.entryDateFrom}', 'yyyy-MM-dd HH24:mi:ss')
+			</if>
+			<if test="para.entryDateTo != null and para.entryDateTo != '' and (para.entryDateFrom == null or para.entryDateFrom == '')">
+				AND EMP.ENTRY_DATE <![CDATA[<=]]> TO_DATE('${para.entryDateTo}', 'yyyy-MM-dd HH24:mi:ss')
+			</if>
+			<if test="para.formalDateFrom != null and para.formalDateFrom != '' and (para.formalDateTo == null or para.formalDateTo == '')">
+				AND EMP.FORMAL_DATE >= TO_DATE('${para.formalDateFrom}', 'yyyy-MM-dd HH24:mi:ss')
+			</if>
+			<if test="para.formalDateTo != null and para.formalDateTo != '' and (para.formalDateFrom == null or para.formalDateFrom == '')">
+				AND EMP.FORMAL_DATE <![CDATA[<=]]> TO_DATE('${para.formalDateTo}', 'yyyy-MM-dd HH24:mi:ss')
+			</if>
+			<if test="para.quitDateFrom != null and para.quitDateFrom != '' and (para.quitDateTo == null or para.quitDateTo == '')">
+				AND EMP.QUIT_DATE >= TO_DATE('${para.quitDateFrom}', 'yyyy-MM-dd HH24:mi:ss') 
+			</if>
+			<if test="para.quitDateTo != null and para.quitDateTo != '' and (para.quitDateFrom == null or para.quitDateFrom == '')">
+				AND EMP.QUIT_DATE <![CDATA[<=]]> TO_DATE('${para.quitDateTo}', 'yyyy-MM-dd HH24:mi:ss')
+			</if>
+			
+			<if test="para.keyword != null and para.keyword != ''">
+				AND (EMP.CODE LIKE '%${para.keyword}%' OR EMP.NAME LIKE '%${para.keyword}%')
+			</if>
+
+		</where>
+	</sql>
+	<!-- 模板列表查询Orcale分页查询主体数据 -->
+	<sql id="list_findList">
+		SELECT 
+			T.ID,T.NAME,T.CODE,T.JOB_STATE,T.ENTRY_DATE,T.FORMAL_DATE,T.QUIT_DATE,T.DEPT_ID,T.DEPT_NAME,T.JOB_ID,T.JOB_NAME,T.GATHER_MSG_STATE
+		FROM(
+			SELECT 
+				EMP.ID,EMP.NAME,EMP.CODE,EMP.JOB_STATE,EMP.ENTRY_DATE,EMP.FORMAL_DATE,EMP.QUIT_DATE,EMP.DEPT_ID,DEPT.NAME DEPT_NAME,EMP.JOB_ID,JOB.NAME JOB_NAME,
+				<!-- 这里是为了筛选模板信息采集情况,但是这种写法影响性能,后期需要修改 -->
+				CASE 
+				WHEN FIN.ID IS NULL AND FAC.ID IS NULL THEN 1
+				WHEN (FIN.ID IS NOT NULL AND FAC.ID IS NULL) OR (FIN.ID IS NULL AND FAC.ID IS NOT NULL) THEN 2
+				WHEN FIN.ID IS NOT NULL AND FAC.ID IS NOT NULL THEN 3
+				END GATHER_MSG_STATE
+			FROM T_EMPLOYEE EMP
+			LEFT JOIN T_DEPT DEPT ON DEPT.ID = EMP.DEPT_ID AND DEPT.STATE = 1 AND DEPT.DELETED=0
+			LEFT JOIN T_COMPANY COM ON COM.ID = DEPT.COMPANY_ID AND COM.STATE = 1 AND DEPT.DELETED=0
+			LEFT JOIN T_JOB JOB ON JOB.ID = EMP.JOB_ID AND JOB.STATE = 1 AND DEPT.DELETED=0
+			
+			<!-- 这里是为了筛选模板信息采集情况 -->
+			LEFT JOIN T_FINGER_FACE_TEMPLATE FIN ON FIN.EMPLOYEE_CODE = EMP.CODE AND FIN.VALID = 1 AND FIN.TYPE = 1 AND FIN.DELETED = 0
+			LEFT JOIN T_FINGER_FACE_TEMPLATE FAC ON FAC.EMPLOYEE_CODE = EMP.CODE AND FAC.VALID = 1 AND FAC.TYPE = 2 AND FAC.DELETED = 0
+			<include refid="where_findList"/>
+		) T 
+		<!-- 这里是为了筛选模板信息采集情况 -->
+		<if test="para.gatherMsgStates != null and para.gatherMsgStates != ''">
+			<where>
+				T.GATHER_MSG_STATE IN
+				<foreach collection="para.gatherMsgStateList" item="gatherMsgState" open="(" close=")" separator=",">
+					#{gatherMsgState}
+				</foreach>
+			</where>
+		</if>
+		GROUP BY T.ID,T.NAME,T.CODE,T.JOB_STATE,T.ENTRY_DATE,T.FORMAL_DATE,T.QUIT_DATE,T.DEPT_ID,T.DEPT_NAME,T.JOB_ID,T.JOB_NAME,T.GATHER_MSG_STATE
+		ORDER BY T.CODE
+	</sql>
+	
+	<!-- 查询模板列表总数 -->
+	<select id="findListCount" resultType="java.lang.Integer">
+		SELECT 
+			COUNT(DISTINCT T.ID)
+		FROM (
+			SELECT 
+				EMP.ID,
+				<!-- 这里是为了筛选员工信息采集情况,但是这种写法影响性能,后期需要修改 -->
+				CASE 
+				WHEN FIN.ID IS NOT NULL AND FAC.ID IS NOT NULL THEN 3
+				WHEN (FIN.ID IS NOT NULL AND FAC.ID IS NULL) OR (FIN.ID IS NULL AND FAC.ID IS NOT NULL) THEN 2
+				WHEN FIN.ID IS NULL AND FAC.ID IS NULL THEN 1
+				END GATHER_MSG_STATE
+			FROM T_EMPLOYEE EMP
+			LEFT JOIN T_DEPT DEPT ON DEPT.ID = EMP.DEPT_ID AND DEPT.STATE = 1 AND DEPT.DELETED=0
+			LEFT JOIN T_COMPANY COM ON COM.ID = DEPT.COMPANY_ID AND COM.STATE = 1 AND DEPT.DELETED=0
+			LEFT JOIN T_JOB JOB ON JOB.ID = EMP.JOB_ID AND JOB.STATE = 1 AND DEPT.DELETED=0
+			
+			LEFT JOIN T_FINGER_FACE_TEMPLATE FIN ON FIN.EMPLOYEE_CODE = EMP.CODE AND FIN.VALID = 1 AND FIN.TYPE = 1 AND FIN.DELETED = 0
+			LEFT JOIN T_FINGER_FACE_TEMPLATE FAC ON FAC.EMPLOYEE_CODE = EMP.CODE AND FAC.VALID = 1 AND FAC.TYPE = 2 AND FAC.DELETED = 0
+			<include refid="where_findList"/>
+		) T
+		<!-- 这里是为了筛选员工信息采集情况 -->
+		<if test="para.gatherMsgStates != null and para.gatherMsgStates != ''">
+			<where>
+				T.GATHER_MSG_STATE IN
+				<foreach collection="para.gatherMsgStateList" item="gatherMsgState" open="(" close=")" separator=",">
+					#{gatherMsgState}
+				</foreach>
+			</where>
+		</if>
+	 </select>
+	 
+	 <!-- 查询模板列表 -->
+	 <select id="findList" resultType="TempletVo">
+		SELECT 
+			TT.ID,TT.NAME,TT.CODE,TT.JOB_STATE,TT.ENTRY_DATE,TT.FORMAL_DATE,TT.QUIT_DATE,TT.DEPT_ID,TT.DEPT_NAME,TT.JOB_ID,TT.JOB_NAME
+		FROM(
+			SELECT R.*, ROWNUM RN
+			FROM (
+				<include refid="list_findList"/>
+			) R
+			where ROWNUM <![CDATA[<]]> (#{para.startIndex} + #{para.pageSize})
+		) TT WHERE TT.RN >= #{para.startIndex}
+	</select>
+</mapper>
