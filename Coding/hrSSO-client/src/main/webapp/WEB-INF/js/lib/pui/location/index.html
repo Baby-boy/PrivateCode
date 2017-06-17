@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="JS代码,菜单导航,JS广告代码,JS特效代码" />
+<meta name="description" content="此代码内容为仿京东城市地区选择器3级联动菜单，属于站长常用代码，更多菜单导航代码请访问懒人图库JS代码频道。" />
+<title>仿京东城市地区选择器3级联动菜单_懒人图库</title>
+<link type="text/css" rel="stylesheet" href="css/lrtk.css" />
+<script type="text/javascript" src="js/data.js" charset="utf-8"></script>
+</head>
+<body>
+<!-- 代码 开始 -->
+<!--
+<ul id="list1" style="width:620px;margin:40px auto 0 auto;">
+	<li id="summary-stock" class="clearfix">
+		<div class="dt">配&nbsp;送&nbsp;至：</div>
+		<div class="dd">
+			<div id="store-selector">
+				<div class="text"><div></div><b></b></div>                   
+				<div onclick="$('#store-selector').removeClass('hover')" class="close"></div>
+			</div><!--store-selector end-->
+<!--
+			<div id="store-prompt"><strong></strong></div><!--store-prompt end--->
+<!--
+		</div>
+	</li>
+</ul>
+-->
+
+<style type="text/css">
+    #summary-stock {
+        margin-bottom: 10px;
+    }
+    .div_fl {
+        margin-top: 0;
+    }
+</style>
+<div id="summary-stock" class="clearfix">
+    <div class="dt" style="display: inline-block;float:left;">配&nbsp;送&nbsp;至：</div>
+    <div class="dd">
+        <div id="store-selector"></div>
+        <div id="store-prompt"><strong></strong></div>
+    </div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/location.js"></script>
+<!-- 代码 结束 -->
+
+<div style="text-align:center;margin:50px 0">
+<p style="margin:20px 0"></p>
+</div>
+<script type="text/javascript">
+    (function () {
+        CityPicker({
+            dom: $('#store-selector')[0],
+            cache: true,
+            // defPath: ['310000', '310101'], // 这里待处理, 获取当前区域编码
+            /*
+            nodeConfig: [
+                { url: "${ctx}/provinces" },
+                { url: function (path) { return "${ctx}/cities?fid=" + path[0].value } }
+            ],
+            */
+            handler: function (path) {
+                var cityId = path[path.length - 1].value;
+                console.log(cityId);
+            }
+        });
+    })();
+</script>
+</body>
+</html>

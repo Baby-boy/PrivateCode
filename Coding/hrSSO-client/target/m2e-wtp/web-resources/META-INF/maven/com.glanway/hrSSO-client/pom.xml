@@ -65,7 +65,7 @@
 							</systemProperty>
 						</systemProperties>
 						<stopKey>${project.artifactId}</stopKey>
-						<stopPort>8888</stopPort>
+						<stopPort>8878</stopPort>
 						<!-- 手动部署可以通过输入"回车换行" 部署(manual/automatic -->
 						<reload>automatic</reload>
 						<!-- 0 表示禁用热部署 -->
@@ -602,6 +602,7 @@
 				<jdbc.password>YAMATOYCT</jdbc.password>
 
 				<httpclient.request.url>http://114.80.227.222:8081</httpclient.request.url>
+				<httpclient.sso.request.url>http://114.80.227.222:8081/hrSSO</httpclient.sso.request.url>
 				<tomcat.path>/${project.artifactId}</tomcat.path>
 				<webAppRootKey>webAppRootKey.${artifactId}</webAppRootKey>
 			</properties>

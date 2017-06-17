@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+	<TITLE> ZTREE DEMO - multiTree</TITLE>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="../../../css/demo.css" type="text/css">
+	<link rel="stylesheet" href="../../../css/zTreeStyle/zTreeStyle.css" type="text/css">
+	<script type="text/javascript" src="../../../js/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript" src="../../../js/jquery.ztree.core-3.5.js"></script>
+	<script type="text/javascript" src="../../../js/jquery.ztree.excheck-3.5.js"></script>
+	<script type="text/javascript" src="../../../js/jquery.ztree.exedit-3.5.js"></script>
+	<script type="text/javascript" src="../../../js/Math.uuid.js"></script>
+	<SCRIPT type="text/javascript">
+		var setting1 = {
+			edit: {
+				enable: true,
+				showRemoveBtn: false,
+				showRenameBtn: false,
+				drag: {
+					isCopy: true,
+					isMove: false,
+					prev: false,
+					next: false,
+					inner: false
+
+				}
+			},
+			
+			check: {
+				enable: true,
+				chkStyle: "checkbox"
+			},
+
+			
+			data: {
+				simpleData: {
+					enable: true,
+					rootPId: 0
+
+				}
+			},		
+			callback: {
+				//beforeDrag: beforeDrag,
+				beforeDrop: beforeDrop,
+				onDrop: dropTree2Tree
+			}
+		};
+		
+		var setting2 = {
+			edit: {
+				enable: true,
+				showRemoveBtn: true,
+				showRenameBtn: false,
+				drag: {
+					isCopy: false,
+					isMove: false,
+					prev: false,
+					next: false,
+					inner: true
+				}
+			},
+			
+			check: {
+				enable: true,
+				chkStyle: "checkbox"
+			},
+
+			
+			data: {
+				simpleData: {
+					enable: true,
+					rootPId: 0
+
+				}
+			},		
+			callback: {
+				//beforeDrag: beforeDrag,
+				beforeDrop: beforeDrop,
+				onDrop: dropTree2Tree,
+				beforeRemove: zTree2BeforeRemove
+			}
+		};
+
+		var zNodes1 =[
+			{ id:"431F7BD9BC8D493CAD3BFD285BD3A320", pId:0, name:"Discount", pType: "discount", open:true},   
+			{ id:11, pId:"431F7BD9BC8D493CAD3BFD285BD3A320", name:"叶子节点 1-1", pType: "discount"},
+			{ id:12, pId:"431F7BD9BC8D493CAD3BFD285BD3A320", name:"叶子节点 1-2", pType: "discount"},
+			{ id:13, pId:"431F7BD9BC8D493CAD3BFD285BD3A320", name:"叶子节点 1-3", pType: "discount"},
+			{ id:"DBE4D509D4B141939DD7796184F88AFB", pId:0, name:"Delivery", pType: "delivery", open:true},
+			{ id:21, pId:"DBE4D509D4B141939DD7796184F88AFB", name:"叶子节点 2-1", pType: "delivery"},
+			{ id:22, pId:"DBE4D509D4B141939DD7796184F88AFB", name:"叶子节点 2-2", pType: "delivery"},
+			{ id:32, pId:"DBE4D509D4B141939DD7796184F88AFB", name:"叶子节点 3-2", pType: "coupon"},
+			{ id:23, pId:"DBE4D509D4B141939DD7796184F88AFB", name:"叶子节点 2-3", pType: "delivery"},
+			{ id:"FF57395C0D3C36B5E040A8B4AF2935A6", pId:0, name:"Coupon", pType: "coupon", open:true},
+			{ id:31, pId:"FF57395C0D3C36B5E040A8B4AF2935A6", name:"叶子节点 3-1", pType: "coupon"},
+			{ id:32, pId:"FF57395C0D3C36B5E040A8B4AF2935A6", name:"叶子节点 3-2", pType: "coupon"},
+			{ id:33, pId:"FF57395C0D3C36B5E040A8B4AF2935A6", name:"叶子节点 3-3", pType: "coupon"},
+			{ id:42, pId:"DBE4D509D4B141939DD7796184F88AFB", name:"叶子节点 4-2", pType: "coupon"}
+		];
+		
+		
+		var zNodes2 =[
+			{ id:"431F7BD9BC8D493CAD3BFD285BD3A320", pId:0, name:"Discount", pType: "discount", open:true},
+			{ id:"DBE4D509D4B141939DD7796184F88AFB", pId:0, name:"Delivery", pType: "delivery", open:true},
+			{ id:"FF57395C0D3C36B5E040A8B4AF2935A6", pId:0, name:"Coupon", pType: "coupon", open:true}
+		];
+		
+		function setRemoveBtn(treeId, treeNode) {
+ 
+			//判断为顶级节点则不显示删除按钮(树的层级更改后，此处要更改判断逻辑）
+			if(treeNode.level == 0)
+				return false;
+            else
+               return true;
+               
+        };
+
+
+		function beforeDrag(treeId, treeNodes) {
+			for (var i=0,l=treeNodes.length; i<l; i++) {
+				if (treeNodes[i].drag === false) {
+					return false;
+				}
+			}
+			return true;
+		}
+		function beforeDrop(treeId, treeNodes, targetNode, moveType) {
+			var isTarget = true;
+			
+			return isTarget;
+		}
+		
+		function zTree2BeforeRemove(treeId, treeNode) {
+			//判断为顶级节点则删除按钮所有的子节点(树的层级更改后，此处要更改判断逻辑）
+			if(treeNode.level == 0){
+				var zTree2 = $.fn.zTree.getZTreeObj(treeId);
+				zTree2.removeChildNodes(treeNode);
+				if(!treeNode.children){
+					zTree2.checkNode(treeNode, false, true, false); //取消空的类型节点的选中状态
+				}
+				return false;
+			}else{
+               return true;
+			}
+		}
+		
+		/**树“拖拽放下”的拦截*/
+		function dropTree2Tree(e, treeId, treeNodes, targetNode, moveType) {
+				var zTree1 = $.fn.zTree.getZTreeObj("treeDemo");
+				var zTree2 = $.fn.zTree.getZTreeObj("treeDemo2");
+				
+				zTree2.checkAllNodes(false);
+				
+				moveNodes(treeNodes[0], zTree1, zTree2, targetNode);
+				
+				/**var domId = "dom_" + treeNodes[0].getParentNode().id;
+				if (moveType == null && (domId == e.target.id || $(e.target).parents("#" + domId).length > 0)) {
+					var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+					zTree.removeNode(treeNodes[0]);
+
+					var newDom = $("span[domId=" + treeNodes[0].id + "]");
+					if (newDom.length > 0) {
+						newDom.removeClass("domBtn_Disabled");
+						newDom.addClass("domBtn");
+					} else {
+						$("#" + domId).append("<span class='domBtn' domId='" + treeNodes[0].id + "'>" + treeNodes[0].name + "</span>");
+					}
+					updateType();
+				} else if ( $(e.target).parents(".domBtnDiv").length > 0) {
+					alert(MoveTest.errorMsg);
+					console.log("dropTree2Dom");
+				} */
+		}
+		/** 将左边的树节点右移  只移动规则节点  规则类型节点忽略*/
+		function moveRight(){
+			var zTree1 = $.fn.zTree.getZTreeObj("treeDemo");
+			var zTree2 = $.fn.zTree.getZTreeObj("treeDemo2");
+			var checkedNodes = zTree1.getCheckedNodes(true);
+			if(checkedNodes.length == 0) return;
+			zTree2.checkAllNodes(false);
+			
+			for(var i in checkedNodes) {
+				if(checkedNodes[i].id =="431F7BD9BC8D493CAD3BFD285BD3A320" || 
+					checkedNodes[i].id =="DBE4D509D4B141939DD7796184F88AFB" || 
+					checkedNodes[i].id =="FF57395C0D3C36B5E040A8B4AF2935A6"){	
+					continue;				
+				}	
+				var z2Nodes = zTree2.getNodes(); //目标树的所有节点
+					var targetParentNode; //新的父节点
+					for (var j in z2Nodes){
+						if((z2Nodes[j].id =="431F7BD9BC8D493CAD3BFD285BD3A320" || 
+							z2Nodes[j].id =="DBE4D509D4B141939DD7796184F88AFB" || 
+							z2Nodes[j].id =="FF57395C0D3C36B5E040A8B4AF2935A6")&& 
+							z2Nodes[j].pType== checkedNodes[i].pType ){
+							
+							targetParentNode = z2Nodes[j];  //确定新的父节点
+							continue;
+						}	
+					}
+					if(!targetParentNode) return;
+					var nid = Math.uuid();
+					var nNode = {id: nid, name: checkedNodes[i].name, pType : checkedNodes[i].pType};
+					zTree2.addNodes(targetParentNode, nNode);//将新的节点加入目标树	
+					zTree2 = $.fn.zTree.getZTreeObj("treeDemo2");
+					nNodes = zTree2.getNodesByParam("id", nid, null);
+					zTree2.checkNode(nNodes[0], true, true, false); //将新加入的节点选中，方便查看哪些是新增加的节点
+	
+			}
+			zTree1.checkAllNodes(false);
+		}
+		
+		/** 将右边的树节点删除 只删除规则节点  规则类型节点忽略*/
+		function moveLeft(){
+			var zTree2 = $.fn.zTree.getZTreeObj("treeDemo2");
+			var checkedNodes = zTree2.getCheckedNodes(true);
+
+			for(var i in checkedNodes) {
+				if(checkedNodes[i].id =="431F7BD9BC8D493CAD3BFD285BD3A320" || 
+					checkedNodes[i].id =="DBE4D509D4B141939DD7796184F88AFB" || 
+					checkedNodes[i].id =="FF57395C0D3C36B5E040A8B4AF2935A6"){	
+					continue;				
+				}	
+					zTree2.removeNode(checkedNodes[i]);
+			}
+			zTree2.checkAllNodes(false);
+		}
+		
+		//检查拖动的目标节点targetNode是否为空或为原树本身的节点
+		function isSelf(node, targetNode) {
+			if(targetNode && node.tId == targetNode.tId){
+				return true;
+			}
+			if(node.isParent){
+				for(var i in node.children){
+					return isSelf(node.children[i], targetNode);				
+				}				
+			}
+			return false;
+		}
+		
+		/**针对拖拽树时的节点移动处理*/
+		function moveNodes(treeNode, zTree1, zTree2, targetNode){
+			var nodes = zTree1.getNodes();
+			if(!targetNode) { //如果目标节点targetNode为空时，拖动动作停止，并删除已经拖动过去的节点
+				zTree2.removeNode(treeNode);
+				return;
+			}
+			for(var i in nodes) {
+				if (isSelf(nodes[i], targetNode)){//如果拖动的目标节点targetNode是否为空或为原树本身的节点，停止拖动动作
+					return;
+				}
+			}				
+			if(treeNode.id =="431F7BD9BC8D493CAD3BFD285BD3A320" || 
+					treeNode.id =="DBE4D509D4B141939DD7796184F88AFB" || 
+					treeNode.id =="FF57395C0D3C36B5E040A8B4AF2935A6"){//如果拖动的节点为规则类型节点
+					zTree2.removeNode(treeNode);
+					var tempTreeNodes = treeNode.children; //拖动节点的所有子节点
+					var z2Nodes = zTree2.getNodes(); //目标树的所有节点
+					var targetParentNode; //新的父节点
+					for (var i in z2Nodes){
+						if(z2Nodes[i].id == treeNode.id){
+							targetParentNode = z2Nodes[i];  //确定新的父节点
+						}	
+					}
+					//var t2Nodes = zTree2.
+					for(var i in tempTreeNodes) {
+						var nid = Math.uuid();
+						var nNode = {id:nid, name: tempTreeNodes[i].name, pType : tempTreeNodes[i].pType};
+						zTree2.addNodes(targetParentNode, nNode);//将新的节点加入目标树	
+						zTree2 = $.fn.zTree.getZTreeObj("treeDemo2");
+						nNodes = zTree2.getNodesByParam("id", nid, null);
+						zTree2.checkNode(nNodes[0], true, true, false); //将新加入的节点选中，方便查看哪些是新增加的节点
+					}					
+					updateType();
+				}else if(!treeNode.isParent){ //如果拖动的节点为单个规则节点
+					zTree2.removeNode(treeNode);
+					var z2Nodes = zTree2.getNodes(); //目标树的所有节点
+					var targetParentNode; //新的父节点
+					for (var i in z2Nodes){
+						if((z2Nodes[i].id =="431F7BD9BC8D493CAD3BFD285BD3A320" || 
+							z2Nodes[i].id =="DBE4D509D4B141939DD7796184F88AFB" || 
+							z2Nodes[i].id =="FF57395C0D3C36B5E040A8B4AF2935A6")&& 
+							z2Nodes[i].pType== treeNode.pType ){
+							
+							targetParentNode = z2Nodes[i];  //确定新的父节点
+						}	
+					}
+					if(!targetParentNode) return;
+					var nid = Math.uuid();
+					var nNode = {id:nid, name: treeNode.name, pType : treeNode.pType};
+					zTree2.addNodes(targetParentNode, nNode);//将新的节点加入目标树	
+					zTree2 = $.fn.zTree.getZTreeObj("treeDemo2");
+					nNodes = zTree2.getNodesByParam("id", nid, null);
+					zTree2.checkNode(nNodes[0], true, true, false); //将新加入的节点选中，方便查看哪些是新增加的节点					
+				}
+		}
+		
+		function updateType() {
+				var zTree2 = $.fn.zTree.getZTreeObj("treeDemo2"),
+				nodes = zTree2.getNodes();
+				for (var i=0, l=nodes.length; i<l; i++) {
+					zTree2.updateNode(nodes[i]);
+				}
+			}
+		
+		function testSave(){
+			console.log("success!!");
+		}
+		
+		$(document).ready(function(){
+			$.fn.zTree.init($("#treeDemo"), setting1, zNodes1);
+			$.fn.zTree.init($("#treeDemo2"), setting2, zNodes2);
+			
+		});
+	</SCRIPT>
+</HEAD>
+
+<BODY>
+<h1>多棵树之间 的 数据交互</h1>
+<h6>[ 文件路径: exedit/multiTree.html ]</h6>
+<div class="content_wrap">
+	<div>
+		<ul class="info">
+			<li class="title"><h2>1、setting 配置信息说明</h2>
+				<ul class="list">
+				<li>zTree 对于多棵树之间拖拽的操作非常简单，只需要创建两棵可拖拽的树即可，同时可根据 各种事件回调函数 以及 zTree 的方法配合实现较复杂的操作规则，这里只是基本演示。</li>
+				<li class="highlight_red">关于配置信息请参考拖拽、编辑等 Demo 的详细说明</li>
+				</ul>
+			</li>
+			<li class="title"><h2>2、treeNode 节点数据说明</h2>
+				<ul class="list">
+				<li>对 节点数据 没有特殊要求，用户可以根据自己的需求添加自定义属性</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div class="zTreeDemoBackground left" >
+		<ul id="treeDemo" class="ztree"></ul>
+	</div>
+	<div class="zTreeDemoBackground center">
+		<input type= "button" value = ">" name = "右移" style="margin-top:380%;" onClick=moveRight() />
+		<input type= "button" value = "<" name = "左移"  onClick=moveLeft() />
+	</div>	
+	<div class="right">
+		<ul id="treeDemo2" class="ztree"></ul>
+	</div>
+</div>
+</BODY>
+</HTML>

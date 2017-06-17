@@ -5,6 +5,10 @@
  */
 package com.glanway.hr.sso.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,7 @@ import com.glanway.hr.sso.common.JsonResult;
 import com.glanway.hr.sso.common.Page;
 import com.glanway.hr.sso.entity.para.TempletPara;
 import com.glanway.hr.sso.entity.vo.TempletVo;
+import com.glanway.hr.sso.interceptors.UserHandlerInterceptor;
 import com.glanway.hr.sso.service.TempletService;
 
 /**
@@ -31,33 +36,36 @@ import com.glanway.hr.sso.service.TempletService;
 @RequestMapping("api/templet")
 public class TempletController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TempletController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(TempletController.class);
 
-    @Autowired
-    private TempletService templetService;
+	@Autowired
+	private TempletService templetService;
 
-    /**
-     * 查询模板列表. 
-     *
-     * @param para
-     * @return 
-     * @author fuqihao
-     * @since 2017年6月9日
-     */
-    @ResponseBody
-    @RequestMapping(value = "list", method = RequestMethod.GET)
-    public JsonResult list(TempletPara para) {
-        JsonResult jsonResult = new JsonResult();
+	/**
+	 * 查询模板列表.
+	 *
+	 * @param para
+	 * @return
+	 * @author fuqihao
+	 * @since 2017年6月9日
+	 */
+	@ResponseBody
+	@RequestMapping(value = "list", method = RequestMethod.GET)
+	public JsonResult list(TempletPara para) {
+		JsonResult jsonResult = new JsonResult();
 
-        try {
-            Page<TempletVo> page = templetService.findList(para);
-            jsonResult.setData(page);
-        } catch (Exception e) {
-            jsonResult.setCode(HttpCode.INTERNAL_SERVER_ERROR);
-            jsonResult.setMsg("操作失败!");
-            LOGGER.info("查询模板列表时异常信息为: {}", e.getMessage());
-        }
+		try {
+			Page<TempletVo> page = templetService.findList(para);
+			jsonResult.setData(page);
+			Map<String, Object> map = new HashMap<>();
+			map.put("user", UserHandlerInterceptor.THREAD_LOCAL.get());
+			jsonResult.setDataMap(map);
+		} catch (Exception e) {
+			jsonResult.setCode(HttpCode.INTERNAL_SERVER_ERROR);
+			jsonResult.setMsg("操作失败!");
+			LOGGER.info("查询模板列表时异常信息为: {}", e.getMessage());
+		}
 
-        return jsonResult;
-    }
+		return jsonResult;
+	}
 }

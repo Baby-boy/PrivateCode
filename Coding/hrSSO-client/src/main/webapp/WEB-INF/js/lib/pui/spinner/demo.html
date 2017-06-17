@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../../../css/admin.css"/>
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+</head>
+<body style="padding: 200px;">
+    <span id="position-spinner" class="spinner">
+        <input id="position" name="position" class="input" value="">
+        <span class="spin-buttons">
+            <span class="btn-up"></span>
+            <span class="btn-down"></span>
+        </span>
+    </span>
+    <script src="spinner.js"></script>
+    <script>
+        $('#position-spinner').spinner({
+            max: 20
+            , min: 0
+            , step: 1
+            , allowEmpty: true
+            , minusBtn: '.btn-down'
+            , plusBtn: '.btn-up'
+        });
+    </script>
+</body>
+</html>

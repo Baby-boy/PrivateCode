@@ -1,0 +1,1016 @@
+.btnFillter {
+	margin-right: 20px;
+	color: #999;
+}
+
+.searchDiv {
+	margin-top: 15px;
+}
+
+.textBtn {
+	margin-top: 13px;
+}
+
+.el-message__img {
+	color: #4794D0;
+	background: #4794D0 !important;
+}
+/*右侧滑出卡片的内容*/
+.dateFillter dt {
+	color: #666;
+	font-size: 13px;
+	margin-bottom: 20px;
+}
+
+.dateFillter .el-select {
+	width: 48%;
+}
+
+/*弹窗*/
+/*公用的弹窗背景样式*/
+
+/*弹窗-考勤管理*/
+.popupCard {
+	border-radius: 5px;
+	padding-bottom: 10px;
+}
+.el-dialog__header{
+	font-size: 16px;
+	padding: 0;
+}
+/*调整默认弹窗宽度*/
+.icon-set .el-dialog--small{
+	width: 1200px;
+}
+.icon-set .el-dialog__header{
+	padding: 0 0 10px 0;
+	color: #00a58b;
+	border-bottom: 1px solid rgb(238,242,253);
+}
+.el-dialog--small{
+	padding: 20px;
+}
+.el-dialog__body{
+	padding: 0;
+}
+.popupTitle {
+	/*padding: 15px 0;*/
+	/*margin: 0 20px;*/
+	font-size: 16px;
+	border-bottom: #ddd solid 1px;
+}
+
+.popupTitle i {
+	display: inline-block;
+	width: 21px;
+}
+
+.popupContent {
+	padding-top: 20px;
+}
+
+.menutab {
+	
+}
+.el-radio-group .el-radio,.el-checkbox-group .el-checkbox{
+	margin-left: 0;
+	margin-right: 15px;
+	margin-bottom: 5px;
+}
+
+.menuTabTitle {
+	float: left;
+	width: 120px;
+}
+
+.menuTabTitle a {
+	display: block;
+	width: 100px;
+	padding: 10px 5px;
+	font-size: 14px;
+	border: #dedede solid 1px;
+	text-align: center;
+	margin-bottom: 20px;
+	color: #666;
+	border-radius: 10px;
+}
+
+.menuTabTitle a:hover, .menuTabTitle a.active {
+	border-color: #00a58b;
+	color: #00a58b;
+}
+
+.menuTabBox {
+	float: right;
+	width: 1000px;
+}
+
+.menuTabBox .pageTop {
+	padding-top: 0;
+}
+
+.equipmentMamage {
+	padding: 10px 0;
+}
+
+.equipmentList {
+	margin-top: 20px;
+	height: 300px;
+	overflow-y: auto;
+}
+
+.equipmentItem {
+	float: left;
+	width: 20%;
+	text-align: center;
+	position: relative;
+	padding: 30px 0 20px;
+}
+
+.equipmentItem:hover,.equipmentItem.active{
+	background-color: #f4f4f4;
+}
+.equipmentItem .hoverShow{
+	display: none;
+	position: absolute;
+	width:100%;
+	padding: 10px;
+	top:0;
+	left:0;
+	font-size: 0.8em;
+	box-sizing: border-box;
+	}
+/*.equipmentItem el-checkbox{
+	display: none;
+}*/
+.setting{cursor: pointer;color:#00a58b}
+.setting ul{transition: all 1s ease;height: 0;overflow: hidden;opacity: 0;}
+.setting:hover ul{height: 40px;opacity: 1;color: #00a58b;}
+.setting:hover{color: #666;}
+.equipmentItem:hover .hoverShow,.equipmentItem.active .hoverShow {
+	display:block;
+}
+/*.equipmentItem:hover .el-checkbox, .equipmentItem.active .el-checkbox {
+	display: inline-block;
+}*/
+
+.equipmentItem .itemAddr {
+	display: inline-block;
+	width: 100px;
+	height: 50px;
+	border: #ddd solid 1px;
+	border-radius: 5px;
+	position: relative;
+	margin-bottom: 15px;
+}
+
+.equipmentItem .itemAddr:after {
+	content: "";
+	display: block;
+	width: 1px;
+	height: 15px;
+	background-color: #ddd;
+	position: absolute;
+	left: 50%;
+	top: 50px;
+}
+
+.equipmentItem .itemAddr .inner {
+	display: table-cell;
+	width: 100px;
+	height: 50px;
+	vertical-align: middle;
+	color: #666;
+}
+
+.equipmentItem .itemName {
+	position: relative;
+}
+
+.equipmentItem .noAddr {
+	display: table-cell;
+	width: 100px;
+	height: 50px;
+	vertical-align: middle;
+	color: #666;
+}
+
+.equipmentItem .noAddr p {
+	margin-top: 5px;
+}
+/*正常*/
+.equipmentItem .inner span.nomal {
+	background-color: #00a58b;
+}
+/*异常*/
+.equipmentItem .inner span.exception {
+	background-color: #ff6600;
+}
+/*未同步*/
+.equipmentItem .inner span.noStep {
+	background-color: #ffcc00;
+}
+/*同步中*/
+.equipmentItem .inner span.onStep {
+	background-color: #4794D0;
+}
+/*考勤点为空*/
+.equipmentItem .inner span.noMember {
+	background-color: #ccc;
+}
+
+.equipmentItem .itemName:after {
+	content: "";
+	display: block;
+	width: 100%;
+	height: 2px;
+	background-color: #00a58b;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	color:
+}
+
+.equipmentItem .itemName .inner {
+	display: inline-block;
+	width: 60px;
+	height: 60px;
+	position: relative;
+	z-index: 1;
+}
+
+.equipmentItem .itemName .inner span {
+	display: block;
+	vertical-align: middle;
+	padding: 5px;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	border-radius: 50%;
+	color: #fff;
+	overflow: hidden;
+}
+
+.equipmentItem .itemInfo {
+	color: #999;
+	margin-top: 5px;
+}
+
+.equipmentItem .itemInfo a {
+	color: #00a58b;
+	font-size: 13px;
+}
+
+.viewMemberAbout button {
+	font-size: 12px;
+	color: #00a58b;
+}
+
+.viewMemberAbout .groupBtn {
+	margin-left: 0;
+}
+
+.hadMembers {
+	position: relative;
+	top: 17px;
+}
+/*弹窗*/
+.viewMember {
+	z-index: 999;
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 600px;
+	height: 500px;
+	margin-left: -325px;
+	margin-top: -250px;
+	padding: 0 25px;
+	background: #fff;
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 0 10px;
+}
+
+.viewMember.block {
+	display: block;
+}
+
+.viewMemberHd {
+	text-align: center;
+	padding: 20px 0;
+	font-size: 15px;
+	color: #666;
+}
+
+.viewMemberHd span {
+	font-size: 17px;
+}
+
+.viewMemberAbout {
+	padding-bottom: 5px;
+	border-bottom: #ddd solid 1px;
+}
+
+.viewMemberFillter {
+	padding: 10px 0;
+}
+
+.viewMemberAbout a {
+	color: #4794D0;
+}
+
+.viewMemberBd .pagination {
+	margin-top: 30px;
+}
+/*查看群组弹窗*/
+.groupPop {
+	display: none;
+	position: fixed;
+	background: #fff;
+	top: 0;
+	left: 0;
+	width: 430px;
+	height: 200px;
+	padding: 20px 15px;
+	left: 50%;
+	margin-left: -223px;
+	top: 28%;
+	z-index: 999;
+	border: 1px solid #ccc;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 0 10px;
+}
+
+.seeGroup.on, .seeDepartment.on {
+	display: block;
+}
+
+.closeGroup {
+	cursor: pointer;
+}
+
+.groupPop .closeGroup {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 14px;
+}
+
+.groupTitle {
+	text-align: center;
+	font-size: 16px;
+	padding: 10px 0;
+}
+
+.hadGroup {
+	color: #666;
+	font-size: 12px;
+}
+
+.groupWrap {
+	padding-top: 10px;
+}
+/*新增考勤点弹窗*/
+.topHandle {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 5px;
+	line-height: 36px;
+	font-size: 12px;
+}
+
+.rightSearch {
+	width: 200px;
+}
+
+.rightSearch input {
+	border: none;
+}
+
+.newPoint {
+	text-align: right;
+	padding: 5px 0;
+}
+
+.checkList {
+	height: 100px;
+	overflow: auto;
+}
+
+.sureBtns {
+	text-align: center;
+}
+
+.dateChoice .el-input__inner, .el-date-editor.el-input {
+	width: 129px;
+}
+
+.btn-sign-point-plus {
+	float: right;
+	width: 120px;
+}
+
+.btn-sign-group-plus {
+	float: right;
+	width: 120px;
+}
+
+.btn-device-plus {
+	float: right;
+	width: 100px;
+	margin-right: 5px;
+	height: 37px;
+}
+
+.btn-step {
+	height: 37px;
+}
+
+.deviceTitle {
+	text-align: center;
+	font-size: 16px;
+	padding: 10px 0;
+}
+.divice-wrapper a {
+	color: #4794D0;
+	font-size: 13px;
+}
+
+.divice-wrapper .link-sign {
+	margin-left: 65px;
+}
+
+/*新增设备弹窗*/
+.devicePop {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 600px;
+	height: 500px;
+	margin-left: -325px;
+	margin-top: -250px;
+	padding: 0 25px;
+	background: #fff;
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 0 10px;
+}
+
+.devicePop.block {
+	display: block;
+}
+
+.deviceHd {
+	text-align: center;
+	padding: 20px 0;
+	font-size: 15px;
+	color: #666;
+}
+
+.deviceHd span {
+	font-size: 17px;
+}
+/*新增考勤点弹窗*/
+.sign-point-wrapper a {
+	color: #4794D0;
+	font-size: 13px;
+}
+
+.sign-point-wrapper .link-sign {
+	margin-left: 15px;
+}
+
+.editSignPointPop {
+	z-index: 2002;
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 600px;
+	height: 500px;
+	margin-left: -325px;
+	margin-top: -250px;
+	padding: 0 25px;
+	background: #fff;
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 0 10px;
+}
+
+.editSignPointPop.block {
+	display: block;
+}
+
+.placeHd {
+	text-align: center;
+	padding: 20px 0;
+	font-size: 15px;
+	color: #666;
+}
+
+/*新增考勤组弹窗*/
+a {
+	color: #4794D0;
+	font-size: 13px;
+}
+
+.link-sign {
+	margin-left: 15px;
+}
+
+.sel-dept {
+	display: block;
+}
+
+.sel-position {
+	display: block;
+}
+
+.sel-employee {
+	display: block;
+}
+
+.editSignGroupPop {
+	z-index: 999;
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 600px;
+	height: 650px;
+	margin-left: -325px;
+	margin-top: -260px;
+	padding: 0 25px;
+	background: #fff;
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 0 10px;
+}
+
+.editSignGroupPop.block {
+	display: block;
+}
+
+.placeHd {
+	text-align: center;
+	padding: 20px 0;
+	font-size: 15px;
+	color: #666;
+}
+
+/*选择部门*/
+.dept-sel-wrapper {
+	z-index: 29999;
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 500px;
+	height: 500px;
+	margin-left: -270px;
+	margin-top: -250px;
+	padding: 0 25px;
+	background: #fff;
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 0 10px;
+}
+
+.dept-sel-wrapper.block {
+	display: block;
+}
+
+.dept-sel-wrapper .dept-sel-title {
+	text-align: center;
+	padding: 20px 0;
+	font-size: 15px;
+	color: #666;
+}
+
+.dept-sel-title span {
+	font-size: 17px;
+}
+
+.dept-sel-wrapper .pagination {
+	margin-top: 30px;
+}
+
+.dept-sel-wrapper .dept-sel-tree {
+	width: 100%;
+	height: 70%;
+}
+
+/*选择职位*/
+.position-sel-wrapper {
+	z-index: 999;
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 500px;
+	height: 500px;
+	margin-left: -270px;
+	margin-top: -250px;
+	padding: 0 25px;
+	background: #fff;
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 0 10px;
+}
+
+.position-sel-wrapper.block {
+	display: block;
+}
+
+.position-sel-wrapper .dept-sel-title {
+	text-align: center;
+	padding: 20px 0;
+	font-size: 15px;
+	color: #666;
+}
+
+.position-sel-title span {
+	font-size: 17px;
+}
+
+.position-sel-wrapper .pagination {
+	margin-top: 30px;
+}
+
+/*选择人员*/
+.employee-sel-wrapper {
+	z-index: 999;
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 500px;
+	height: 500px;
+	margin-left: -270px;
+	margin-top: -250px;
+	padding: 0 25px;
+	background: #fff;
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 0 10px;
+}
+
+.employee-sel-wrapper.block {
+	display: block;
+}
+
+.employee-sel-wrapper .dept-sel-title {
+	text-align: center;
+	padding: 20px 0;
+	font-size: 15px;
+	color: #666;
+}
+
+.employee-sel-title span {
+	font-size: 17px;
+}
+
+.employee-sel-wrapper .pagination {
+	margin-top: 30px;
+}
+
+/*选择设备*/
+.device-view-pop-wrapper {
+	z-index: 29999 !important;
+}
+
+/* .device-view-pop-wrapper .device-item {
+	width: 150px;
+} */
+
+/*选择人员弹出框*/
+.group-container {
+	width: 760px;
+	margin: 0 auto;
+	font-size: 12px;
+	position: relative;
+}
+
+.group-container .group-title {
+	color: #999;
+	line-height: 40px;
+}
+
+.group-container .group-search {
+	position: relative;
+	height: 30px;
+	background-color: #f5f5f5;
+}
+
+.group-container .group-search .group-search-input-box {
+	position: absolute;
+	top: 0;
+	right: 30px;
+	left: 10px;
+	bottom: 0;
+}
+
+.group-container .group-search .group-search-input {
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	border: 0;
+	color: #333;
+	outline: none;
+	background-color: transparent;
+}
+
+.group-container .group-search .group-search-ico {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 0;
+	width: 30px;
+	height: 30px;
+	border: 0;
+	background: url(../../images/icon-serch.png) center no-repeat;
+	outline: none;
+	cursor: pointer;
+}
+
+.group-container .group-select-box {
+	float: left;
+	width: 430px;
+}
+
+.group-container .group-selected-box {
+	float: right;
+	width: 288px;
+}
+
+.group-container .group-content-box {
+	border: 1px solid #e5e5e5;
+	border-radius: 3px;
+	padding: 10px 20px;
+	height: 440px;
+	position: relative;
+}
+
+.group-container .group-tree {
+	padding: 0;
+	border-right: solid 1px #e5e5e5;
+	position: absolute;
+	top: 90px;
+	left: 20px;
+	right: 50%;
+	bottom: 10px;
+}
+
+.group-container .group-select-user, .group-container .group-selected-user
+	{
+	padding: 0;
+	position: absolute;
+	top: 90px;
+	left: 54%;
+	right: 20px;
+	bottom: 10px;
+}
+
+.group-container .group-selected-user {
+	left: 20px;
+}
+
+.group-container .group-select-all {
+	color: #4891E7;
+	display: block;
+	line-height: 30px;
+}
+
+.group-container .group-tab-box {
+	margin: 8px 0;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.group-container .group-tab-box a {
+	display: inline-block;
+	line-height: 24px;
+	position: relative;
+	border-top: 2px solid #fff;
+	border-right: 1px solid #fff;
+	border-left: 1px solid #fff;
+	background-color: #fff;
+	border-bottom: 1px solid white;
+	color: #4891E7;
+}
+
+.group-container .group-tab-box .group-tab {
+	border-top-color: #4891E7;
+	border-right-color: #ccc;
+	border-left-color: #ccc;
+	bottom: -1px;
+	padding: 0 12px;
+	color: #333;
+}
+
+.group-container .group-select-user-box {
+	margin: 0;
+	padding: 0;
+	line-height: 44px;
+	position: absolute;
+	top: 30px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+/*.group-container .group-select-user-empty {
+             }*/
+
+/*.group-container .group-select-user-empty .mCustomScrollBox {
+                 display: none;
+             }*/
+.group-container .group-select-user-empty .mCustomScrollBox:after {
+	content: "暂无数据";
+	color: #ccc;
+	line-height: 20px;
+	height: 20px;
+	text-align: center;
+	position: absolute;
+	font-size: 14px;
+	top: 50%;
+	margin-top: -10px;
+	left: 0;
+	right: 0;
+	letter-spacing: 4px;
+}
+
+.group-container .group-selected-user .group-select-user-box {
+	top: 0;
+}
+
+.group-container .group-select-user-box .group-user-item {
+	position: relative;
+	display: none;
+}
+
+.group-container .group-select-user-box .group-user-item.group-user-filter
+	{
+	display: block;
+	width: 95%;
+}
+
+.group-container .group-select-user-box .group-user-item.group-user-selected
+	{
+	display: none;
+}
+
+.group-container .group-select-user-box .group-user-item .group-user-operation
+	{
+	display: none;
+	float: right;
+	margin-right: 5px;
+}
+
+.group-container .group-select-user-box .group-user-item.group-user-active,
+	.group-container .group-select-user-box .group-user-item:hover {
+	background-color: #f2f8fb;
+	cursor: pointer;
+	color: #4891E7;
+}
+
+.group-container .group-select-user-box .group-user-item:hover .group-user-operation
+	{
+	display: block;
+	color: #4891E7;
+	position: absolute;
+	top: 0;
+	right: 10px;
+	bottom: 0;
+}
+
+.group-container .group-select-user-box .group-user-item img {
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	margin: 2px 10px;
+}
+
+.group-container .group-arrow-box {
+	position: absolute;
+	left: 430px;
+	right: 288px;
+	top: 0;
+	bottom: 0;
+}
+
+.group-container .group-arrow-box .group-arrow-left, .group-container .group-arrow-box .group-arrow-right
+	{
+	position: absolute;
+	width: 16px;
+	height: 25px;
+	left: 13px;
+	cursor: pointer;
+	top: 50%;
+	opacity: 0.3;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.group-container .group-arrow-box .group-arrow-left {
+	background-image: url(../../images/icon-arrow-left-gray06.png);
+	margin-top: 60px;
+}
+
+.group-container .group-arrow-box .group-arrow-right {
+	background-image: url(../../images/icon-arrow-right-gray06.png);
+	margin-top: -60px;
+}
+
+.group-container .group-arrow-box .group-arrow-left.group-arrow-active {
+	background-image: url(../../images/icon-arrow-left-blue06.png);
+	opacity: 1;
+}
+
+.group-container .group-arrow-box .group-arrow-right.group-arrow-active
+	{
+	background-image: url(../../images/icon-arrow-right-blue06.png);
+	opacity: 1;
+}
+
+/*按钮通用样式 今后放入common*/
+.pop-btn-box {
+	font-size: 0;
+	padding: 20px 0;
+	text-align: center;
+}
+
+.pop-btn {
+	border: 0;
+	display: inline-block;
+	padding: 0 34px;
+	height: 32px;
+	text-align: center;
+	line-height: 32px;
+	text-decoration: none;
+	letter-spacing: 5px;
+	font-size: 14px;
+	border-radius: 2px;
+	border-width: 1px;
+	border-style: solid;
+	cursor: pointer;
+	outline: none;
+	margin: 0 5px;
+}
+
+.pop-btn.pop-btn-blue {
+	color: #FFF;
+	background-color: #4891E7;
+	border-color: #4891E7;
+}
+
+.pop-btn.pop-btn-blue:hover {
+	opacity: 0.8;
+}
+
+.pop-btn.pop-btn-white {
+	color: #333;
+	background-color: #fff;
+	border: 1px solid #4891E7;
+}
+
+.pop-btn.pop-btn-gray {
+	color: #333;
+	background-color: #CCC;
+	border: 1px solid #CCC;
+}
+
+.pop-btn.pop-btn-disabled {
+	color: #333;
+	background-color: #CCC;
+	border: 1px solid #CCC;
+	cursor: default;
+}
+
+.pop-btn.pop-btn-disabled:hover {
+	opacity: 1;
+}
+
+.pop-btn.pop-btn-gray:hover, .pop-btn.pop-btn-white:hover {
+	color: #FFF;
+	background-color: #4891E7;
+	border-color: #4891E7;
+}
+
+/* 查看考勤点*/
+.sign-point-view-wrapper {
+	z-index: 1999999 !important;
+}
+
+.span-block {
+	display: block;
+}
+
+.sign-point-left {
+	text-align: left;
+	float: left;
+	display: inline-block;
+}
+
+.dept-right {
+	text-align: left;
+	float: left;
+	display: inline-block;
+}
+.popsearch input,.smallSearch input{font-size: 1em}
+.gropOrMember{top: 25%;}
+.gropOrMember .el-dialog{width: 430px;height: 200px;}
+.pointTop{padding-bottom: 15px;}
+.pointTop button{margin-top: 15px;}
