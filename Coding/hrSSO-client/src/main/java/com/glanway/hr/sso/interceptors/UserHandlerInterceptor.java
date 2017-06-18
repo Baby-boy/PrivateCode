@@ -40,10 +40,12 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 	private static final String COOKIE_NAME = "HR_TOKEN";
 
 	/** SSO系统登录地址 */
-	private final String LOGIN_URL = URL + "/login/";
+	private String LOGIN_URL = URL + "/login/";
+	// private String LOGIN_URL = "http://192.168.1.107:8088/login/";
 
 	/** 检查token是否有效接口地址 */
-	private final String REQUEST_URL = URL + "/api/user/";
+	private String REQUEST_URL = URL + "/api/user/";
+	// private String REQUEST_URL = "http://192.168.1.107:8088/api/user/";
 
 	@Value("${httpclient.sso.request.url}")
 	private void setURL(String url) {
@@ -64,7 +66,7 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 		if (StringUtils.isNotEmpty(TOKEN)) {
 			byte[] decode = Base64.decode(TOKEN.getBytes());// 对登录完成后的token进行解码
 			TOKEN = new String(decode);
-			CookieUtil.setCookie(response, COOKIE_NAME, TOKEN);
+			CookieUtil.setCookie(response, COOKIE_NAME, TOKEN, 1000 * 60 * 60 * 24 * 3);
 
 			response.sendRedirect(url);
 			return false;
@@ -72,7 +74,7 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 			TOKEN = CookieUtil.getCookieValue(request, COOKIE_NAME);
 			if (StringUtils.isEmpty(TOKEN)) {
 				String encodeUrl = Base64.encodeToString(url.getBytes());// 对请求地址进行编码
-				response.sendRedirect(LOGIN_URL + encodeUrl);
+				response.sendRedirect(LOGIN_URL + "?redirectUrl=" + encodeUrl);
 				return false;
 			}
 		}
@@ -128,7 +130,7 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 
 				// 未登录
 				String encodeUrl = Base64.encodeToString(url.getBytes());
-				response.sendRedirect(LOGIN_URL + encodeUrl);
+				response.sendRedirect(LOGIN_URL + "?redirectUrl=" + encodeUrl);
 				return false;
 			}
 		} catch (Exception e) {
