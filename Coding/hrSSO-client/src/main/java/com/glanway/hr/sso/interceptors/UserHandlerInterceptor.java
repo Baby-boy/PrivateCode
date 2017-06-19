@@ -39,14 +39,6 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 	/** cookie的名称 */
 	private static final String COOKIE_NAME = "HR_TOKEN";
 
-	/** SSO系统登录地址 */
-	private String LOGIN_URL = URL + "/login/";
-	// private String LOGIN_URL = "http://192.168.1.107:8088/login/";
-
-	/** 检查token是否有效接口地址 */
-	private String REQUEST_URL = URL + "/api/user/";
-	// private String REQUEST_URL = "http://192.168.1.107:8088/api/user/";
-
 	@Value("${httpclient.sso.request.url}")
 	private void setURL(String url) {
 		URL = url;
@@ -60,6 +52,7 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+
 		String url = request.getRequestURL().toString();
 		TOKEN = request.getParameter("token");
 
@@ -74,7 +67,7 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 			TOKEN = CookieUtil.getCookieValue(request, COOKIE_NAME);
 			if (StringUtils.isEmpty(TOKEN)) {
 				String encodeUrl = Base64.encodeToString(url.getBytes());// 对请求地址进行编码
-				response.sendRedirect(LOGIN_URL + "?redirectUrl=" + encodeUrl);
+				response.sendRedirect(URL + "/login?redirectUrl=" + encodeUrl);
 				return false;
 			}
 		}
@@ -106,7 +99,7 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 	 * @dateTime 2017年6月15日 上午10:00:05
 	 */
 	private Boolean queryUserByToken(HttpServletResponse response, String url, String token) throws IOException {
-		String requestUrl = REQUEST_URL + token;
+		String requestUrl = URL + "/api/user/" + token;
 
 		CloseableHttpClient httpClient = HttpClients.createDefault();// 创建Httpclient对象
 		HttpGet httpGet = new HttpGet(requestUrl);// 创建Httpclient GET请求
@@ -130,7 +123,7 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 
 				// 未登录
 				String encodeUrl = Base64.encodeToString(url.getBytes());
-				response.sendRedirect(LOGIN_URL + "?redirectUrl=" + encodeUrl);
+				response.sendRedirect(URL + "/login?redirectUrl=" + encodeUrl);
 				return false;
 			}
 		} catch (Exception e) {
