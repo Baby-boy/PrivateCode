@@ -1,6 +1,7 @@
 package com.glanway.hr.sso.interceptors;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,8 +34,8 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 	/** SSO项目的路径 */
 	private String URL;
 
-	/** 票据token */
-	private static String TOKEN = "";
+	/** token参数 */
+	private static final String TOKEN = "token";
 
 	/** cookie的名称 */
 	private static final String COOKIE_NAME = "HR_TOKEN";
@@ -46,33 +47,56 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 
 	private static final ObjectMapper MAPPER = new ObjectMapper();
 
-	/** 用户线程池(可以通过此线程池获取用户信息) */
+	/** 用户线程池变量(可以通过此线程池获取用户信息) */
 	public static final ThreadLocal<User> THREAD_LOCAL = new ThreadLocal<User>();
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 
 		String url = request.getRequestURL().toString();
-		TOKEN = request.getParameter("token");
 
-		if (StringUtils.isNotEmpty(TOKEN)) {
-			byte[] decode = Base64.decode(TOKEN.getBytes());// 对登录完成后的token进行解码
-			TOKEN = new String(decode);
-			CookieUtil.setCookie(response, COOKIE_NAME, TOKEN, 1000 * 60 * 60 * 24 * 3);
+		// 票据token
+		String token = "";
+
+		// 对请求参数进行处理,只针对GET请求
+		if (request.getMethod().equalsIgnoreCase("GET")) {
+			Enumeration<String> names = request.getParameterNames();
+			StringBuffer buffer = new StringBuffer();
+			buffer.append("?");
+			while (names.hasMoreElements()) {
+				String element = names.nextElement();
+				if (!element.equals(TOKEN)) {
+					String parameter = request.getParameter(element);
+					if (StringUtils.isNotEmpty(parameter)) {
+						buffer.append(element).append("=").append(parameter).append("&");
+					}
+				}
+			}
+			String params = buffer.deleteCharAt(buffer.length() - 1).toString();
+			url = url + params;
+		}
+
+		token = request.getParameter(TOKEN);
+
+		if (StringUtils.isNotEmpty(token)) {
+			byte[] decode = Base64.decode(token.getBytes());// 对登录完成后的token进行解码
+			token = new String(decode);
+			CookieUtil.setCookie(response, COOKIE_NAME, token, 1000 * 60 * 60 * 24 * 3);
 
 			response.sendRedirect(url);
 			return false;
 		} else {
-			TOKEN = CookieUtil.getCookieValue(request, COOKIE_NAME);
-			if (StringUtils.isEmpty(TOKEN)) {
+			token = CookieUtil.getCookieValue(request, COOKIE_NAME);
+			if (StringUtils.isEmpty(token)) {
 				String encodeUrl = Base64.encodeToString(url.getBytes());// 对请求地址进行编码
 				response.sendRedirect(URL + "/login?redirectUrl=" + encodeUrl);
 				return false;
 			}
 		}
 
-		queryUserByToken(response, url, TOKEN);
+		queryUserByToken(response, url, token);
 		return true;
 	}
 
@@ -121,13 +145,17 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 					}
 				}
 
-				// 未登录
+				// 登录过期
 				String encodeUrl = Base64.encodeToString(url.getBytes());
 				response.sendRedirect(URL + "/login?redirectUrl=" + encodeUrl);
 				return false;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			// 异常重新登录
+			String encodeUrl = Base64.encodeToString(url.getBytes());
+			response.sendRedirect(URL + "/login?redirectUrl=" + encodeUrl);
+			return false;
 		} finally {
 			if (null != res) {
 				res.close();
