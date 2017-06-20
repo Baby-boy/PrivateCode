@@ -1,6 +1,7 @@
 package com.glanway.hr.sso.interceptors;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,19 +34,11 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 	/** SSO项目的路径 */
 	private String URL;
 
-	/** 票据token */
-	private static String TOKEN = "";
+	/** token参数 */
+	private static final String TOKEN = "token";
 
 	/** cookie的名称 */
 	private static final String COOKIE_NAME = "HR_TOKEN";
-
-	/** SSO系统登录地址 */
-	private String LOGIN_URL = URL + "/login/";
-	// private String LOGIN_URL = "http://192.168.1.107:8088/login/";
-
-	/** 检查token是否有效接口地址 */
-	private String REQUEST_URL = URL + "/api/user/";
-	// private String REQUEST_URL = "http://192.168.1.107:8088/api/user/";
 
 	@Value("${httpclient.sso.request.url}")
 	private void setURL(String url) {
@@ -54,32 +47,56 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 
 	private static final ObjectMapper MAPPER = new ObjectMapper();
 
-	/** 用户线程池(可以通过此线程池获取用户信息) */
+	/** 用户线程池变量(可以通过此线程池获取用户信息) */
 	public static final ThreadLocal<User> THREAD_LOCAL = new ThreadLocal<User>();
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		String url = request.getRequestURL().toString();
-		TOKEN = request.getParameter("token");
 
-		if (StringUtils.isNotEmpty(TOKEN)) {
-			byte[] decode = Base64.decode(TOKEN.getBytes());// 对登录完成后的token进行解码
-			TOKEN = new String(decode);
-			CookieUtil.setCookie(response, COOKIE_NAME, TOKEN, 1000 * 60 * 60 * 24 * 3);
+		String url = request.getRequestURL().toString();
+
+		// 票据token
+		String token = "";
+
+		// 对请求参数进行处理,只针对GET请求
+		if (request.getMethod().equalsIgnoreCase("GET")) {
+			Enumeration<String> names = request.getParameterNames();
+			StringBuffer buffer = new StringBuffer();
+			buffer.append("?");
+			while (names.hasMoreElements()) {
+				String element = names.nextElement();
+				if (!element.equals(TOKEN)) {
+					String parameter = request.getParameter(element);
+					if (StringUtils.isNotEmpty(parameter)) {
+						buffer.append(element).append("=").append(parameter).append("&");
+					}
+				}
+			}
+			String params = buffer.deleteCharAt(buffer.length() - 1).toString();
+			url = url + params;
+		}
+
+		token = request.getParameter(TOKEN);
+
+		if (StringUtils.isNotEmpty(token)) {
+			byte[] decode = Base64.decode(token.getBytes());// 对登录完成后的token进行解码
+			token = new String(decode);
+			CookieUtil.setCookie(response, COOKIE_NAME, token, 1000 * 60 * 60 * 24 * 3);
 
 			response.sendRedirect(url);
 			return false;
 		} else {
-			TOKEN = CookieUtil.getCookieValue(request, COOKIE_NAME);
-			if (StringUtils.isEmpty(TOKEN)) {
+			token = CookieUtil.getCookieValue(request, COOKIE_NAME);
+			if (StringUtils.isEmpty(token)) {
 				String encodeUrl = Base64.encodeToString(url.getBytes());// 对请求地址进行编码
-				response.sendRedirect(LOGIN_URL + "?redirectUrl=" + encodeUrl);
+				response.sendRedirect(URL + "/login?redirectUrl=" + encodeUrl);
 				return false;
 			}
 		}
 
-		queryUserByToken(response, url, TOKEN);
+		queryUserByToken(response, url, token);
 		return true;
 	}
 
@@ -106,7 +123,7 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 	 * @dateTime 2017年6月15日 上午10:00:05
 	 */
 	private Boolean queryUserByToken(HttpServletResponse response, String url, String token) throws IOException {
-		String requestUrl = REQUEST_URL + token;
+		String requestUrl = URL + "/api/user/" + token;
 
 		CloseableHttpClient httpClient = HttpClients.createDefault();// 创建Httpclient对象
 		HttpGet httpGet = new HttpGet(requestUrl);// 创建Httpclient GET请求
@@ -128,13 +145,17 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 					}
 				}
 
-				// 未登录
+				// 登录过期
 				String encodeUrl = Base64.encodeToString(url.getBytes());
-				response.sendRedirect(LOGIN_URL + "?redirectUrl=" + encodeUrl);
+				response.sendRedirect(URL + "/login?redirectUrl=" + encodeUrl);
 				return false;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			// 异常重新登录
+			String encodeUrl = Base64.encodeToString(url.getBytes());
+			response.sendRedirect(URL + "/login?redirectUrl=" + encodeUrl);
+			return false;
 		} finally {
 			if (null != res) {
 				res.close();
