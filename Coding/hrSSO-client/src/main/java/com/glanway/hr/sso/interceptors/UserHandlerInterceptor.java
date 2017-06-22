@@ -34,6 +34,9 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 	/** SSO项目的路径 */
 	private String URL;
 
+	/** 登录地址拼接 */
+	private String loginUrl = "/login?redirectUrl=";
+
 	/** token参数 */
 	private static final String TOKEN = "token";
 
@@ -91,7 +94,7 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 			token = CookieUtil.getCookieValue(request, COOKIE_NAME);
 			if (StringUtils.isEmpty(token)) {
 				String encodeUrl = Base64.encodeToString(url.getBytes());// 对请求地址进行编码
-				response.sendRedirect(URL + "/login?redirectUrl=" + encodeUrl);
+				response.sendRedirect(URL + loginUrl + encodeUrl);
 				return false;
 			}
 		}
@@ -147,14 +150,14 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 
 				// 登录过期
 				String encodeUrl = Base64.encodeToString(url.getBytes());
-				response.sendRedirect(URL + "/login?redirectUrl=" + encodeUrl);
+				response.sendRedirect(URL + loginUrl + encodeUrl);
 				return false;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			// 异常重新登录
 			String encodeUrl = Base64.encodeToString(url.getBytes());
-			response.sendRedirect(URL + "/login?redirectUrl=" + encodeUrl);
+			response.sendRedirect(URL + loginUrl + encodeUrl);
 			return false;
 		} finally {
 			if (null != res) {

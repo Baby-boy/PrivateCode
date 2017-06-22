@@ -2,7 +2,12 @@
 SELECT * from USER_SEQUENCES;
 
 -- 创建序列
-create SEQUENCE SEQ_TEST;
+CREATE SEQUENCE SEQ_TEST
+INCREMENT BY 1 -- 每次加几个
+START WITH 1 -- 从1开始计数
+NOMAXVALUE -- 不设置最大值
+NOCYCLE -- 一直累加，不循环
+NOCACHE -- 不建缓冲区
 
 -- 查询序列值
 SELECT SEQ_TEST.NEXTVAL FROM DUAL;
