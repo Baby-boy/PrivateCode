@@ -155,6 +155,7 @@ userdel 用户名			:删除用户(不会删除home目录)
 userdel -r 用户名		:删除用户以及home目录
 ===== 用户组 =====
 groupadd 组名			:创建一个组
+groupmod -n 新组名 旧组名:更新组(-n <新群组名称>)
 useradd 用户名 -g 组名	:创建用户指定组
 groupdel 组名			:删除组(如果存在组用户需要先删除组用户)
 /etc/group				:组所在文件夹
@@ -169,6 +170,7 @@ su - 用户名				:切换到指定用户,并且将环境也切换到该用户的环境
 /etc/shadow  			:密码文件
 /etc/group  			:组信息文件
 /etc/sysconfig/iptables	:防火墙文件
+/etc/ssh/sshd_config	:SSH请求Linux系统相关配置信息
 
 ===== 文件权限 =====
 -打头					:文件
@@ -240,6 +242,115 @@ lsof -i:8885 	:查看端口为8885的PID
 kill -9 9001	:强制杀死PID为9001的进程
 nohup java -jar dby-app-0.0.1.jar > /dev/null 2>&1 &	:运行jar包
 
+===== SSHD相关 =====
+/etc/ssh/sshd_config		:SSH请求Linux系统相关配置信息
+/etc/init.d/sshd restart	:重启sshd服务
+/etc/pam.d/system-auth		:设置登录失败几次过后多长时间才能再次登录
+
+-- PermitRootLogin 属性
+参数类别			是否允许ssh登陆		登录方式		交互shell
+yes						允许			没有限制		没有限制
+without-password		允许			除密码以外		没有限制
+forced-commands-only	允许		仅允许使用密钥	仅允许已授权的命令
+no						不允许			N/A				N/A
+
+-- MaxAuthTries 属性
+默认未设置,设置数字则表示为密码可以输错的次数
+
+-- ClientAliveInterval 属性
+ClientAliveInterval设置一个以秒记的时长,如果超过这么长时间没有收到客户端的任何数据,sshd将通过安全通道向客户端
+发送一个”alive”消息，并等候应答。
+默认值 0 表示不发送”alive”消息。这个选项仅对SSH-2有效。
+-- ClientAliveCountMax 属性
+在未收到任何客户端回应前最多允许发送多少个”alive”消息.默认值是 3.
+到达这个上限后,sshd 将强制断开连接、关闭会话.
+备注一: 以上两个命令要配合使用,总时间为两属性设置的值相乘的秒值
+备注二: 去除配置文件中ClientAliveCountMax前的#号,设置一个以分记的时长,如果超过这么长时间,
+sshd将强制断开连接,关闭会话(待验证)
+
+===== 用户相关 =====
+adduser	用户名		:添加一个用户(新增用户后一定要设置密码,不然无法登陆)
+userdel 用户名		:删除一个用户
+cut -d : -f 1 /etc/passwd	:查看所有用户
+passwd				:修改密码(root权限回车后直接输入两次密码即可)
+passwd 普通用户名	:修改密码(普通用户回车后输入旧密码后输入两次密码即可)
+== 赋予root权限
+方式一: 
+修改 /etc/sudoers 文件，找到下面一行，在root下面添加一行，如下所示：
+## Allow root to run any commands anywhere
+root    ALL=(ALL)     ALL
+用户名   ALL=(ALL)     ALL
+方式二:
+修改 /etc/sudoers 文件，找到下面一行，把前面的注释（#）去掉
+## Allows people in group wheel to run all commands
+%wheel    ALL=(ALL)    ALL
+然后修改用户，使其属于root组（wheel），命令如下：
+usermod -g root 用户名
+
+usermod [options] user_name (usermod命令解释)
+usermod 命令修改系统帐户文件来反映通过命令行指定的变化
+选项(options)
+	-a|--append		:把用户追加到某些组中，仅与-G选项一起使用 
+	-c|--comment	:修改/etc/passwd文件第五段comment 
+	-d|--home    	:修改用户的家目录通常和-m选项一起使用 
+	-e|--expiredate :指定用户帐号禁用的日期，格式YY-MM-DD 
+	-f|--inactive   :用户密码过期多少天后采用就禁用该帐号，0表示密码已过期就禁用帐号，-1表示禁用此功能，默认值是-1 
+	-g|--gid     	:修改用户的gid，改组一定存在
+	-G|--groups  	:把用户追加到某些组中，仅与-a选项一起使用 
+	-l|--login   	:修改用户的登录名称 
+	-L|--lock    	:锁定用户的密码 
+	-m|--move-home  :修改用户的家目录通常和-d选项一起使用 
+	-s|--shell   	:修改用户的shell 
+	-u|--uid     	:修改用户的uid，该uid必须唯一 
+	-U|--unlock  	:解锁用户的密码 
+	
+useradd [options] LOGIN
+选项(Options)
+	-b|--base-dir BASE_DIR		:设置基本路径作为用户的登录目录
+	-c|--comment COMMENT		:对用户的注释
+	-d|--home-dir HOME_DIR		:设置用户的登录目录
+	-D|--defaults				:改变设置
+	-e|--expiredate EXPIRE_DATE	:设置用户的有效期
+	-f|--inactive INACTIVE		:用户过期后，让密码无效
+	-g|--gid GROUP				:使用户只属于某个组
+	-G|--groups GROUPS			:使用户加入某个组
+	-h|--help					:帮助
+	-k|--skel SKEL_DIR			:指定其他的skel目录
+	-K|--key KEY=VALUE			:覆盖 /etc/login.defs 配置文件
+	-m|--create-home			:自动创建登录目录
+	-l							:不把用户加入到lastlog文件中
+	-M							:不自动创建登录目录
+	-r							:建立系统账号
+	-o|--non-unique				:允许用户拥有相同的UID
+	-p|--password PASSWORD		:为新用户使用加密密码
+	-s|--shell SHELL			:登录时候的shell
+	-u|--uid UID				:为新用户指定一个UID
+	-Z|--selinux-user SEUSER	:use a specific SEUSER for the SELinux user mappinguseradd test
+
+===== 日志记录 =====
+清除登陆系统成功的记录
+echo > /var/log/wtmp	:此文件默认打开时乱码，可查到ip等信息
+last					:此时即查不到用户登录信息
+
+清除最后一次登陆系统的记录
+echo > /var/log/lastlog :此文件默认打开时乱码，可查到ip等信息
+lastlog					:此时即查不到用户登录信息
+
+清除登陆系统失败的记录
+echo > /var/log/btmp	:此文件默认打开时乱码，可查到登陆失败信息
+lastb					:查不到登陆失败信息
+
+清除历史执行命令
+history -c				:清空历史执行命令
+history -w 				:立即写入命令到 ./.bash_history文件中
+echo > ./.bash_history	:或清空用户目录下的这个文件即可
+
+导入空历史记录
+vi /root/history 			:新建记录文件
+history -c					:清除记录 
+history -r /root/history.txt:导入记录 
+history						:查询导入结果	
+
 //***Linux下安装nginx***//
 -- 第一步: 在线安装Nginx的依赖(命令如下)
 	yum -y install gcc-c++  
@@ -296,3 +407,6 @@ ps -ef|grep nginx	查询进程,有两个进程即可(成功)
 ./nginx -s quit         平稳关闭Nginx，保存相关信息，有安排的结束web服务。（graceful exit）
 ./nginx -s reload       因改变了Nginx相关配置，需要重新加载配置而重载。（changing configuration，start a new worker,quitting an old worker gracefully.)
 ./nginx -s reopen       重新打开日志文件。(reopenging log files)
+
+
+在线安装SSHD服务 yum install -y openssh-server

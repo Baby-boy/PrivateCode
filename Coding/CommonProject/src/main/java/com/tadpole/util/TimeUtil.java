@@ -474,4 +474,64 @@ public abstract class TimeUtil {
 			return WEEK_SUNDAY;
 		}
 	}
+
+	/**
+	 * 获取当前时间的日历年.
+	 *
+	 * @return
+	 * @author FUQIHAO
+	 * @dateTime 2017年6月21日 下午1:09:12
+	 */
+	public static Integer getYear(Integer year) {
+		Calendar calendar = getCalendar();
+		if (null != year) {
+			calendar.set(Calendar.YEAR, year);
+		}
+		return calendar.get(Calendar.YEAR);
+	}
+
+	/**
+	 * 获取当前时间的日历月.
+	 *
+	 * @return
+	 * @author FUQIHAO
+	 * @dateTime 2017年6月21日 下午1:10:16
+	 */
+	public static Integer getMonth(Integer month) {
+		Calendar calendar = getCalendar();
+		if (null != month) {
+			calendar.set(Calendar.MONTH, month - 1);
+		}
+		return calendar.get(Calendar.MONTH) + 1;
+	}
+
+	/**
+	 * 获取当前时间的日历天.
+	 *
+	 * @return
+	 * @author FUQIHAO
+	 * @dateTime 2017年6月21日 下午1:10:31
+	 */
+	public static Integer getDay(Integer day) {
+		Calendar calendar = getCalendar();
+		if (null != day) {
+			calendar.set(Calendar.DAY_OF_MONTH, day);
+		}
+		return calendar.get(Calendar.DAY_OF_MONTH);
+	}
+
+	/**
+	 * 仅获取当前时间的月份最后一天的天份.
+	 *
+	 * @return
+	 * @author FUQIHAO
+	 * @dateTime 2017年6月22日 下午5:48:13
+	 */
+	public static Integer getOnlyMonthLastDay(Integer year, Integer month) {
+		Calendar calendar = getCalendar();
+		calendar.set(Calendar.YEAR, getYear(year));
+		calendar.set(Calendar.MONTH, getMonth(month) - 1);
+		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+		return calendar.get(Calendar.DAY_OF_MONTH);
+	}
 }
