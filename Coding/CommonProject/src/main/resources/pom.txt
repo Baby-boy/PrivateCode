@@ -1,0 +1,641 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.glanway</groupId>
+	<artifactId>hrDMS</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+
+		<!-- 资源替换 -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/web.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+		</resources>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.6</version>
+					<configuration>
+						<resourceEncoding>${project.build.sourceEncoding}</resourceEncoding>
+						<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+						<webResources>
+							<resource>
+								<directory>src/main/webapp/WEB-INF</directory>
+								<filtering>true</filtering>
+								<targetPath>WEB-INF</targetPath>
+								<includes>
+									<include>web.xml</include>
+								</includes>
+							</resource>
+						</webResources>
+						<webXml>${profile.webXml}</webXml>
+					</configuration>
+				</plugin>
+
+				<!-- jetty plugin -->
+				<plugin>
+					<!-- | jetty 9.x 支持 maven-war-plugin include/exclude 配置 | 之前版本bug: https://bugs.eclipse.org/bugs/show_bug.cgi?id=403123 -->
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-maven-plugin</artifactId>
+					<version>9.2.6.v20141205</version>
+					<configuration>
+						<systemProperties>
+							<systemProperty>
+								<name>jetty.port</name>
+								<value>8086</value>
+							</systemProperty>
+						</systemProperties>
+						<stopKey>${project.artifactId}</stopKey>
+						<stopPort>8086</stopPort>
+						<!-- 手动部署可以通过输入"回车换行" 部署(manual/automatic -->
+						<reload>automatic</reload>
+						<!-- 0 表示禁用热部署 -->
+						<scanIntervalSeconds>0</scanIntervalSeconds>
+						<webAppConfig>
+							<contextPath>/</contextPath>
+						</webAppConfig>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>2.2</version>
+					<configuration>
+						<server>${tomcat.server}</server>
+						<url>${tomcat.url}</url>
+						<path>${tomcat.path}</path>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.zeroturnaround</groupId>
+					<artifactId>jrebel-maven-plugin</artifactId>
+					<version>1.1.5</version>
+					<executions>
+						<execution>
+							<id>generate-rebel-xml</id>
+							<phase>process-resources</phase>
+							<goals>
+								<goal>generate</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<properties>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<war.encoding>UTF-8</war.encoding>
+
+		<!-- logging -->
+		<slf4j.version>1.7.6</slf4j.version>
+		<log4j.version>1.2.17</log4j.version>
+		<p6spy.version>2.0.2</p6spy.version>
+		<!-- util -->
+		<guava.version>15.0</guava.version>
+		<!-- el/servlet/jsp/jstl -->
+		<el.version>2.2.4</el.version>
+		<servlet.version>2.5</servlet.version>
+		<jsp.version>2.1</jsp.version>
+		<jstl.version>1.2</jstl.version>
+		<!-- aop -->
+		<aspectj.version>1.7.2</aspectj.version>
+		<!-- spring -->
+		<spring.version>4.1.4.RELEASE</spring.version>
+		<!-- mybatis -->
+		<mybatis.version>3.2.8</mybatis.version>
+		<mybatis.spring.version>1.2.2</mybatis.spring.version>
+		<!-- jdbc driver -->
+		<oracle.version>11.1.0.7.0</oracle.version>
+		<mysql.version>5.1.34</mysql.version>
+		<c3p0.version>0.9.2</c3p0.version>
+		<dbcp2.version>2.1</dbcp2.version>
+		<!-- jackson json -->
+		<jackson.version>2.3.0</jackson.version>
+		<!-- commons-fileupload -->
+		<commons.fileupload.version>1.3</commons.fileupload.version>
+		<freemarker.version>2.3.19</freemarker.version>
+		<!-- javax mail -->
+		<javax.mail.version>1.4.1</javax.mail.version>
+		<commons.email.version>1.3.3</commons.email.version>
+		<!-- ehcache -->
+		<ehcache.version>2.6.10</ehcache.version>
+		<!-- junit -->
+		<junit.version>4.11</junit.version>
+		<jsoup.version>1.8.2</jsoup.version>
+		<h2.version>1.4.177</h2.version>
+		<poi.version>3.9</poi.version>
+		<httpclient.version>3.1</httpclient.version>
+		<bean.validation.version>1.1.0.Final</bean.validation.version>
+		<quartz.version>2.2.1</quartz.version>
+		<ponly.version>0.1-SNAPSHOT</ponly.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.ponly</groupId>
+			<artifactId>ponly-common</artifactId>
+			<version>${ponly.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ponly</groupId>
+			<artifactId>ponly-fs</artifactId>
+			<version>${ponly.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ponly</groupId>
+			<artifactId>ponly-context</artifactId>
+			<version>${ponly.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ponly</groupId>
+			<artifactId>ponly-webbase</artifactId>
+			<version>${ponly.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ponly</groupId>
+			<artifactId>ponly-web</artifactId>
+			<version>${ponly.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.jcraft</groupId>
+			<artifactId>jsch</artifactId>
+			<version>0.1.51</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>${bean.validation.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${h2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+			<version>${junit.version}</version>
+		</dependency>
+
+		<!-- ehcache BEGIN -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>${ehcache.version}</version>
+		</dependency>
+		<!-- ehcache END -->
+
+		<!-- logging BEGIN -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>p6spy</groupId>
+			<artifactId>p6spy</artifactId>
+			<version>${p6spy.version}</version>
+		</dependency>
+		<!-- logging END -->
+
+		<!-- el/servlet/jsp/jstl BEGIN -->
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<scope>provided</scope>
+			<version>${el.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+			<version>${servlet.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<scope>provided</scope>
+			<version>${jsp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.version}</version>
+		</dependency>
+		<!-- el/servlet/jsp/jstl END -->
+
+		<!-- aspectj BEGIN -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<!-- aspectj END -->
+
+		<!-- spring BEGIN -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!-- spring END -->
+
+		<!-- spring web mvc BEGIN -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!-- spring web mvc END -->
+
+		<!-- mybatis BEGIN -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis.spring.version}</version>
+		</dependency>
+		<!-- mybatis END -->
+
+		<!-- mysql jdbc driver BEGIN -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
+		</dependency>
+		<!-- mysql jdbc driver END -->
+
+		<!-- util BEGIN -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>${c3p0.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>${dbcp2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<!-- util END -->
+
+		<!-- oracle jdbc driver BEGIN -->
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>${oracle.version}</version>
+		</dependency>
+		<!-- oracle jdbc driver END -->
+
+		<!-- jackson json BEGIN -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-jaxb-annotations</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<!-- jackson json END -->
+
+		<!-- commons-fileupload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons.fileupload.version}</version>
+		</dependency>
+
+		<!-- freemarker BEGIN -->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>${freemarker.version}</version>
+		</dependency>
+		<!-- freemarker END -->
+
+		<!-- mail BEGIN -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>${javax.mail.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>${commons.email.version}</version>
+		</dependency>
+		<!-- mail END -->
+
+		<!-- poi BEGIN -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		<!-- poi END -->
+
+		<!--commons-httpclient -->
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>${httpclient.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
+
+		<!-- quartz start -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>${quartz.version}</version>
+		</dependency>
+		<!-- quartz end -->
+
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>${jsoup.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>jdk.tools</groupId>
+			<artifactId>jdk.tools</artifactId>
+			<version>1.7</version>
+			<scope>system</scope>
+			<systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ponly</groupId>
+			<artifactId>ponly-common</artifactId>
+			<version>${ponly.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.jhlabs</groupId>
+			<artifactId>filters</artifactId>
+			<version>2.0.235-1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.8.1</version>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- bonecp start -->
+		<dependency>
+			<groupId>com.jolbox</groupId>
+			<artifactId>bonecp-spring</artifactId>
+			<version>0.8.0.RELEASE</version>
+		</dependency>
+		<!-- bonecp end -->
+
+		<!-- hibernate-validator start -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.0.2.Final</version>
+		</dependency>
+		<!-- hibernate-validator end -->
+	</dependencies>
+
+	<profiles>
+		<!-- 开发环境 -->
+		<profile>
+			<id>develop</id>
+			<properties>
+				<skipTests>true</skipTests>
+				<checkstyle.skip>true</checkstyle.skip>
+				<findbugs.skip>true</findbugs.skip>
+				<cobertura.skip>true</cobertura.skip>
+				<tomcat.contextPath>/</tomcat.contextPath>
+				<jdbc.driver>oracle.jdbc.driver.OracleDriver</jdbc.driver>
+
+				<jdbc.url>jdbc:oracle:thin:@192.168.1.97:1521:ORCL</jdbc.url>
+				<jdbc.username>db_Glanway</jdbc.username>
+				<jdbc.password>Glanway2017</jdbc.password>
+
+				<httpclient.request.url>http://192.168.1.56:8080</httpclient.request.url>
+				<data.file.home>local:///D:/fs/</data.file.home>
+				<tomcat.server>java-tomcat-dev</tomcat.server>
+				<tomcat.url>http://192.168.2.17/manager/text</tomcat.url>
+				<tomcat.path>/${project.artifactId}</tomcat.path>
+				<webAppRootKey>webAppRootKey.${artifactId}</webAppRootKey>
+			</properties>
+		</profile>
+		<!--开发测试环境 -->
+		<profile>
+			<id>test</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<skipTests>true</skipTests>
+				<checkstyle.skip>true</checkstyle.skip>
+				<findbugs.skip>true</findbugs.skip>
+				<cobertura.skip>true</cobertura.skip>
+				<tomcat.contextPath>/</tomcat.contextPath>
+
+				<jdbc.driver>oracle.jdbc.driver.OracleDriver</jdbc.driver>
+				<jdbc.url>jdbc:oracle:thin:@222.73.197.126:1521:YCTTEST</jdbc.url>
+				<jdbc.username>YCTTEST</jdbc.username>
+				<jdbc.password>YAMATOYCT</jdbc.password>
+
+				<httpclient.request.url>http://114.80.227.222:8081</httpclient.request.url>
+				<tomcat.path>/${project.artifactId}</tomcat.path>
+				<webAppRootKey>webAppRootKey.${artifactId}</webAppRootKey>
+			</properties>
+		</profile>
+
+		<!-- 客户正式环境 -->
+		<profile>
+			<id>release</id>
+			<properties>
+				<skipTests>true</skipTests>
+				<checkstyle.skip>true</checkstyle.skip>
+				<findbugs.skip>true</findbugs.skip>
+				<cobertura.skip>true</cobertura.skip>
+				<tomcat.contextPath>/</tomcat.contextPath>
+				<jdbc.driver>oracle.jdbc.driver.OracleDriver</jdbc.driver>
+
+				<jdbc.url>jdbc:oracle:thin:@172.16.16.220:1521:YCT</jdbc.url>
+				<jdbc.username>YCTHR</jdbc.username>
+				<jdbc.password>yamatoYCT</jdbc.password>
+
+				<httpclient.request.url>http://114.80.227.222:8080</httpclient.request.url>
+				<tomcat.path>/${project.artifactId}</tomcat.path>
+				<webAppRootKey>webAppRootKey.${artifactId}</webAppRootKey>
+			</properties>
+		</profile>
+	</profiles>
+
+	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>public</id>
+			<name>Public Repositories</name>
+			<url>http://gitool.glanway.com/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>public</id>
+			<name>Public Repositories</name>
+			<url>http://gitool.glanway.com/nexus/content/groups/public/</url>
+		</pluginRepository>
+	</pluginRepositories>
+</project>
