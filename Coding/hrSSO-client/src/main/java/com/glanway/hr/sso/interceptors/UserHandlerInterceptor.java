@@ -99,8 +99,7 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 			}
 		}
 
-		queryUserByToken(response, url, token);
-		return true;
+		return queryUserByToken(response, url, token);
 	}
 
 	@Override
