@@ -38,6 +38,8 @@
 	</head>
 	<body>
 		<div id="login">
+		
+		<!--<ellipsis-label :items="testData"></ellipsis-label>-->	
 			<el-card class="login-box">
 				<div slot="header">
 					<h1 class="login-title">登录</h1>
@@ -56,12 +58,15 @@
 				</el-form>
 			</el-card>
 		</div>
+		<%@ include file="/WEB-INF/view/components/ellipsis_label.jspf" %>
+	
 		<script>
 			new Vue({
 				el: '#login',
 				mounted: function() {
 				},
 				data: {
+					testData:[{name:"aaaa"},{name:"aaaa"},{name:"aaaa"},{name:"aaaa"}],
 					user:{
 						name:"",
 						pwd:""
@@ -104,7 +109,7 @@
 						
 						vm.switchLoginBtnStatus(true);
 						Vue.http.get(vm.urls.login +"?name="+vm.user.name+"&pwd="+vm.user.pwd).then(function(response){
-							response.json().then(function(responseData){
+							Util.processRes(response,function(responseData){
 								if(responseData.code == "200"){
 									sessionStorage.setItem('name',responseData.data)
 									window.location = vm.urls.mainPage;

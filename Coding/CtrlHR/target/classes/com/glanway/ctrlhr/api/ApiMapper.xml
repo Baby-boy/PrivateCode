@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glanway.ctrlhr.dao.api.ApiDao">
+	<!-- 员工列表总数 -->
+	<select id="findEmployeeListCount" resultType="java.lang.Integer">
+		SELECT 
+			COUNT(DISTINCT EMP.ID)
+		FROM T_EMPLOYEE EMP
+		LEFT JOIN T_DEPT DEPT ON DEPT.ID = EMP.DEPT_ID AND DEPT.STATE = 1 AND DEPT.DELETED=0
+		LEFT JOIN T_COMPANY COM ON COM.ID = DEPT.COMPANY_ID AND COM.STATE = 1 AND DEPT.DELETED=0
+		LEFT JOIN T_JOB JOB ON JOB.ID = EMP.JOB_ID AND JOB.STATE = 1 AND DEPT.DELETED=0
+		<include refid="where_findEmployeeList"/>
+	</select>
+	<!-- 员工列表 -->
+	<select id="findEmployeeList" resultType="ApiEmployeeVo">
+		SELECT 
+			TT.ID,TT.NAME,TT.CODE
+		FROM(
+			SELECT R.*, ROWNUM RN
+			FROM (
+				<include refid="list_findEmployeeList"/>
+			) R
+			where ROWNUM <![CDATA[<]]> (#{para.startIndex} + #{para.pageSize})
+		) TT WHERE TT.RN >= #{para.startIndex}
+	</select>
+	
+	<sql id="where_findEmployeeList">
+		<where>
+			EMP.DELETED = 0 
+			<if test="para.deptIds != null and para.deptIds != ''">
+				AND EMP.DEPT_ID IN
+				<foreach collection="para.deptIdList" item="deptId" open="(" close=")" separator=",">
+					#{deptId}
+				</foreach>
+			</if>
+			<if test="para.jobIds != null and para.jobIds != ''">
+				AND EMP.JOB_ID IN
+				<foreach collection="para.jobIdList" item="jobId" open="(" close=")" separator=",">
+					#{jobId}
+				</foreach>
+			</if>
+			<if test="para.jobStates != null and para.jobStates != ''">
+				AND EMP.JOB_STATE IN
+				<foreach collection="para.jobStateList" item="jobState" open="(" close=")" separator=",">
+					#{jobState}
+				</foreach>
+			</if>
+			<if test="para.keyword != null and para.keyword != ''">
+				AND (EMP.CODE LIKE '%${para.keyword}%' OR EMP.NAME LIKE '%${para.keyword}%')
+			</if>
+		</where>
+	</sql>
+	<sql id="list_findEmployeeList">
+		SELECT 
+			EMP.ID,EMP.NAME,EMP.CODE
+		FROM T_EMPLOYEE EMP
+		LEFT JOIN T_DEPT DEPT ON DEPT.ID = EMP.DEPT_ID AND DEPT.STATE = 1 AND DEPT.DELETED=0
+		LEFT JOIN T_COMPANY COM ON COM.ID = DEPT.COMPANY_ID AND COM.STATE = 1 AND DEPT.DELETED=0
+		LEFT JOIN T_JOB JOB ON JOB.ID = EMP.JOB_ID AND JOB.STATE = 1 AND DEPT.DELETED=0
+		<include refid="where_findEmployeeList"/>
+		GROUP BY EMP.ID,EMP.NAME,EMP.CODE
+		ORDER BY EMP.CODE
+	</sql>
+	
+	<!-- 部门列表总数 -->
+	<select id="findDeptListCount" resultType="java.lang.Integer">
+		SELECT
+			COUNT(DISTINCT ID)
+		FROM T_DEPT
+		<include refid="where_findDeptList"/>
+	</select>
+	<!-- 部门列表 -->
+	<select id="findDeptList" resultType="ApiDeptVo">
+		SELECT 
+			TT.ID,TT.NAME
+		FROM(
+			SELECT R.*, ROWNUM RN
+			FROM (
+				<include refid="list_findDeptList"/>
+			) R
+			where ROWNUM <![CDATA[<]]> (#{para.startIndex} + #{para.pageSize})
+		) TT WHERE TT.RN >= #{para.startIndex}
+	</select>
+	
+	<sql id="where_findDeptList">
+		<where>
+			DELETED = 0 AND STATE = 1
+			<if test="para.keyword != null and para.keyword != ''">
+				AND NAME LIKE '%${para.keyword}%'
+			</if>
+		</where>
+	</sql>
+	<sql id="list_findDeptList">
+		SELECT
+			ID,NAME
+		FROM T_DEPT
+		<include refid="where_findDeptList"/>
+	</sql>
+	
+	<!-- 职位列表总数 -->
+	<select id="findJobListCount" resultType="java.lang.Integer">
+		SELECT 
+			COUNT(DISTINCT JOB.ID) 
+		FROM T_DEPT DEPT
+		INNER JOIN T_JOB_TYPE_DEPT TJTD ON TJTD.DEPT_ID = DEPT.ID AND TJTD.DELETED = 0
+		INNER JOIN T_JOB_TYPE TJT ON TJT.ID = TJTD.JOB_TYPE_ID AND TJT.DELETED = 0
+		INNER JOIN T_JOB JOB ON JOB.JOB_TYPE_ID = TJT.ID AND JOB.STATE = 1 AND JOB.DELETED = 0
+		<include refid="where_findJobList"/>
+	</select>
+	<!-- 职位列表 -->
+	<select id="findJobList" resultType="ApiJobVo">
+		SELECT 
+			TT.ID,TT.NAME
+		FROM(
+			SELECT R.*, ROWNUM RN
+			FROM (
+				<include refid="list_findJobList"/>
+			) R
+			where ROWNUM <![CDATA[<]]> (#{para.startIndex} + #{para.pageSize})
+		) TT WHERE TT.RN >= #{para.startIndex}
+	</select>
+	
+	<sql id="where_findJobList">
+		<where>
+			DEPT.DELETED = 0 AND DEPT.STATE = 1 
+			<if test="para.deptIds != null and para.deptIds != ''">
+				AND DEPT.ID IN 
+				<foreach collection="para.deptIdList" item="deptId" open="(" close=")" separator=",">
+					#{deptId}
+				</foreach>
+			</if>
+			<if test="para.keyword != null and para.keyword != ''">
+				AND JOB.NAME LIKE '%${para.keyword}%'
+			</if>
+		</where>
+	</sql>
+	<sql id="list_findJobList">
+		SELECT 
+			JOB.ID,JOB.NAME 
+		FROM T_DEPT DEPT
+		INNER JOIN T_JOB_TYPE_DEPT TJTD ON TJTD.DEPT_ID = DEPT.ID AND TJTD.DELETED = 0
+		INNER JOIN T_JOB_TYPE TJT ON TJT.ID = TJTD.JOB_TYPE_ID AND TJT.DELETED = 0
+		INNER JOIN T_JOB JOB ON JOB.JOB_TYPE_ID = TJT.ID AND JOB.STATE = 1 AND JOB.DELETED = 0
+		<include refid="where_findJobList"/>
+		GROUP BY JOB.ID,JOB.NAME
+	</sql>
+</mapper>

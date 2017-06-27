@@ -1,0 +1,46 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
+<script type="text/x-template" id="ellipsis-label">
+	<label
+		:style='{"line-height":height +"px"}' >
+		<span style="overflow:hidden;display:inline-block;text-overflow:ellipsis;white-space:nowrap;"
+			:style='{"line-height":height +"px","height":height +"px","width":(width-80) +"px"}'>
+			<template v-for="item in items">{{item[label]}} , </template>
+		</span>
+		<span>共{{items.length}}条记录</span>
+	</label>
+</script>
+<script>
+	Vue.component('ellipsis-label',{
+		template: '#ellipsis-label',
+		props:{
+			items:{
+				type:Array,
+				default:[]
+			},
+			label:{
+				type:String,
+				default:"name"
+			},
+			width:{
+				type:Number,
+				default:200
+			},
+			height:{
+				type:Number,
+				default:30
+			}
+		},
+		data:function(){
+
+			return{
+			}
+		},
+		mounted:function(){
+			debugger;
+		},
+		methods: {
+			
+		}
+	})
+
+</script>

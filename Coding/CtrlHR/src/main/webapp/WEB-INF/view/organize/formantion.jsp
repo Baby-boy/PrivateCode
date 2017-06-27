@@ -59,7 +59,7 @@
 					</fieldset>
 				 </div>
 				<!--编辑-->
-				<el-dialog  v-model="editShow" :before-close="closeDialog" :close-on-click-modal="false">
+				<el-dialog  v-model="editShow"  v-if="editShow" :close-on-click-modal="false">
 					<div slot="title" class="dialog-title text-center hasLine">
 						<span>{{dialogTitle}}编制</span>
 					</div>
@@ -133,7 +133,7 @@ new Vue({
             { required: true, message: '请选择部门'},
           ],
           jobId: [
-            { required: true, message: '请选择职位',trigger:'blur'},
+            { required: true, message: '请选择职位'},
           ],
           organizeNum: [
             { required: true, message: '请填写编制人数'},
@@ -398,10 +398,6 @@ new Vue({
 		cancleIt:function(formName){
 			this.$refs[formName].resetFields();
 			this.editShow=false;
-		},
-		closeDialog:function(done){
-			this.$refs["editForm"].resetFields();
-			done();
 		},
 		//创建树结构html
 		renderTree:function renderOrgTree3(h, _ref) {

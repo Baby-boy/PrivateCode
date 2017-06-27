@@ -151,7 +151,7 @@
 			vm.isloading = true;
 			var getAttendanceApi = "${ctx}/api/monthlySign/list?pageSize=" + vm.pageSize + "&page=" + vm.page + "&keyword=" + vm.searchTxt + "&" + Util.parseParam(vm.params)
 			Vue.http.get(getAttendanceApi).then(function(response) {
-				response.json().then(function(responseData) {
+				Util.processRes(response,function(responseData) {
 					vm.searchLoading=false;
 					vm.attendanceData = responseData.data;
 					for (var i = 0; i < vm.attendanceData.list.length; i++) {

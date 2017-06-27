@@ -390,7 +390,6 @@ new Vue({
 								    param.childDeptIds=vm.department.childDeptIds;
 									param.parentId=vm.department.parentId;
 								}
-								debugger;
 								param.jobTypeIds=vm.department.jobTypeIds.join(",");
 								param.name=vm.department.name;
 							    param.code=vm.department.code;

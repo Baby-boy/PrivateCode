@@ -37,22 +37,12 @@
      */
     Util.processRes = function(response, sucessCallback, failCallback) {
         response.json().then(function(responseData) {
-            if (responseData.success) {
+            if (responseData.code == '200') {
                 if (sucessCallback)
                     sucessCallback.call(response, responseData)
             } else {
-                if (responseData.isLogin === 0) {
-                    layer.open({
-                        shadeClose: true,
-                        title: false,
-                        closeBtn: '2',
-                        area: ['408px', '258px'],
-                        content: "<h2 style='text-align:center;padding-top:20px;'>请重新登录</h2><p style='text-align:center;padding-top:30px;'>由于长时间未操作，为了您的信息安全，请重新登录</p>",
-                        btn: ["确 定"],
-                        yes: function() {
-                            window.open(ctx + "/userLogin/login");
-                        }
-                    });
+                if (responseData.loginState === 0) {
+                    location.href="${ctx}/pageTo/login";
                 }
                 if (failCallback)
                     failCallback.call(response, responseData)

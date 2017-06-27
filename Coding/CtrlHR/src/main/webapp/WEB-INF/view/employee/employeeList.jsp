@@ -589,7 +589,7 @@
 						param.page=vm.page;
 						param.keyword=vm.param.keyword;
 						Vue.http.get(vm.httpUrl.listUrl +"?"+Util.parseParam(param)).then(function(response) {
-							response.json().then(function(responseData) {
+							Util.processRes(response,function(responseData) {
 								vm.searchLoading=false;
 								vm.employeeList = responseData.data;
 								for(var i=0; i<vm.employeeList.list.length; i++){

@@ -29,8 +29,9 @@ public class SignJob {
 	 * @author 付其浩
 	 * @dateTime 2017年4月26日 上午11:46:55
 	 */
-	 @Scheduled(cron = "0 0 0/1  * * ?")
+	// @Scheduled(cron = "0 0 0/1 * * ?") 每一个小时执行一次
 	// @Scheduled(cron = "0 0 20 * * ? ") 每天十点执行一次
+	@Scheduled(cron = "0 55 6,12,20,23 * * ?")
 	public void taskJob() {
 		// 查询人员当天考勤异常状态
 		List<SignRecordVo> list = signDao.findExList(TimeUtil.getDateStart(), TimeUtil.getDateEnd());

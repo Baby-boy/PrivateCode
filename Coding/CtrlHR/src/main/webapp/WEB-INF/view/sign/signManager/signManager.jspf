@@ -16,7 +16,7 @@
 						<div class="popupContent">
 							<div class="menuTab clearfix">
 								<div class="menuTabTitle">
-									<a href="javascript:;" v-for="(item,index) in tabTitle"
+									<a href="javascript:;" v-for="(item,index) in tabTitle" 
 										:class="{active:item.active}" @click="clickTabs(index)">{{item.name}}</a>
 								</div>
 								<div class="menuTabBox">
@@ -215,7 +215,7 @@
 			<p class="groupTitle" slot="title">查看{{memberOrgropTitle}}</p>
 			<div class="groupWrap" v-if="groupData.length">
 					<el-tooltip class="item" effect="light" :content="item.name"
-						placement="bottom-start" v-for="item in groupData"  v-if="item"> 
+						placement="bottom-start" v-for="(item,index) in groupData" :key="index"  v-if="item"> 
 						<el-button type="text">{{item.name}}</el-button> 
 					</el-tooltip>
 			</div>
@@ -240,7 +240,7 @@
 				</div>
 				<div class="checkList">
 					<el-radio-group v-model="placeRadio"> <el-radio
-						:label="placeItem.id" v-for="placeItem in aboutPlace">{{placeItem.name}}</el-radio>
+						:label="placeItem.id" v-for="placeItem in aboutPlace" :key="placeItem.id">{{placeItem.name}}</el-radio>
 					</el-radio-group>
 				</div>
 				<div slot="footer" class="dialog-footer sureBtns">
@@ -360,7 +360,7 @@
 										<el-col :span="11" class="text-center">
 											<el-form-item prop="jobDeptIds" style="margin-bottom: 20px"> 
 												<el-select v-model="signGroupForm.jobDeptIds" placeholder="选择部门" multiple filterable @change="deptChange(0)"> 
-													<el-option :value="item.id" :label="item.name"  v-for="item in deptList"></el-option>
+													<el-option :value="item.id" :label="item.name" :key="item.id" v-for="item in deptList"></el-option>
 												</el-select>
 											</el-form-item>
 										</el-col>
@@ -383,14 +383,14 @@
 										<el-col :span="11" class="text-center">
 											<el-form-item prop="jobDeptIds2" style="margin-bottom: 20px"> 
 												<el-select v-model="signGroupForm.jobDeptIds2" placeholder="选择部门" multiple filterable @change="deptChange(1)"> 
-													<el-option :value="item.id" :label="item.name"  v-for="item in deptList"></el-option>
+													<el-option :value="item.id" :label="item.name" :key="item.id" v-for="item in deptList"></el-option>
 												</el-select>
 											</el-form-item>
 										</el-col>
 										<el-col :span="2">&nbsp;</el-col>
 										<el-col :span="11" class="text-center">
 											<el-form-item prop="employeeIds"> 
-												<el-select v-model="signGroupForm.employeeIds" placeholder="选择人员" filterable multiple> 
+												<el-select v-model="signGroupForm.employeeIds" remote :remote-method="searchEmployees" placeholder="选择人员" filterable multiple> 
 													<el-option :value="item.id" :label="item.name"  v-for="item in employees" :key="item.id">{{item.name}}</el-option>
 												</el-select>
 											</el-form-item>
@@ -405,7 +405,7 @@
 									<!--<el-button type="text"  @click="mulSignPoint" >基于考勤点选择</el-button>-->
 									<el-form-item prop="signPointIds"> 
 										<el-select v-model="signGroupForm.signPointIds" placeholder="基于考勤点选择" filterable multiple @change="clearPlaceDept"> 
-													<el-option :value="item.id" :label="item.name"  v-for="item in mulSignPointData" :key="item.id">{{item.name}}</el-option>
+													<el-option :value="item.id" :label="item.name" v-for="item in mulSignPointData" :key="item.id">{{item.name}}</el-option>
 												</el-select>
 										</el-form-item>
 								</el-col>	
@@ -414,7 +414,7 @@
 									<!--<el-button type="text"  @click="deptSelToggle">基于组织架构选择</el-button>-->
 									<el-form-item prop="placeDeptIds" style="margin-bottom: 20px"> 
 												<el-select v-model="signGroupForm.placeDeptIds" placeholder="基于组织架构选择" multiple filterable @change="clearSignGroup"> 
-													<el-option :value="item.id" :label="item.name"  v-for="item in deptList"></el-option>
+													<el-option :value="item.id" :label="item.name" :key="item.id" v-for="item in deptList"></el-option>
 												</el-select>
 									</el-form-item>
 								</el-col>	
@@ -523,7 +523,7 @@
 			<div class="checkList">
 				<el-checkbox-group v-model="deviceCheckedList" v-if="equipmentData.list&&equipmentData.list.length">
 					<el-checkbox class="device-item" :label="item.id"
-						v-for="item in equipmentData.list"> 
+						v-for="item in equipmentData.list" :key="item.id"> 
 						{{item.deviceName}}
 						<!--<el-tooltip effect="light" :content="item.deviceName" placement="bottom"> 
 					    	<el-button type="text">{{item.deviceName}}</el-button>
@@ -658,7 +658,7 @@ Vue.component('manager',{
 		deptList:[],
 		delCheckPoints:"",
 		delCheckPointGroups:"",
-		singGroupEditinit:true,
+		//singGroupEditinit:true,
 		httpUrl: {
 			group: "${ctx}/api/signGroup/list",
 			devInGroup:"${ctx}/api/signGroup/simpleList",
@@ -1256,11 +1256,10 @@ Vue.component('manager',{
 		//新增或编辑考勤组
 		editSignGroup: function(id) {
 			var vm = this;
-			vm.getPositions();
+			vm.searchPositions();
 			vm.getDeptList();
-			vm.getPositions();
 			vm.mulSignPoint();
-			vm.getEmployees();
+//			vm.getEmployees();
 			if(!id) {
 //				vm.signGroupForm.jobDeptNames = "暂无部门";
 				vm.grourCard="0";
@@ -1277,7 +1276,7 @@ Vue.component('manager',{
 //				vm.signGroupForm.employeeNames = "暂无员工";
 				vm.signGroupTitle = "新增考勤组";
 			} else {
-				vm.singGroupEditinit=true;
+				//vm.singGroupEditinit=true;
 				vm.loading.fullLoading=true;
 				Vue.http.get(vm.httpUrl.signGroupDetail+"?id="+id,{
 						emulateJSON: true
@@ -1355,6 +1354,7 @@ Vue.component('manager',{
 		//添加或编辑考勤组
 		saveSignGroup: function(formName) {
 			var vm = this;
+			console.log(vm.signGroupForm.jobDeptIds);
 			this.$refs[formName].validate(function(valid){
 				if(valid){
 					vm.loading.saveSignGroup=true;
@@ -1461,18 +1461,13 @@ Vue.component('manager',{
 				})
 			})
 		},
-		//
+		//部门改变联动职位或者员工
 		deptChange:function(type) {
 			var vm = this;
 			if(type){
-				vm.getEmployees();
-				vm.signGroupForm.employeeIds=[];
+				vm.searchEmployees();
 			}else{
-				vm.getPositions();
-				if(!vm.singGroupEditinit){
-					vm.signGroupForm.jobIds=[];
-				}
-				vm.singGroupEditinit=false;
+				vm.searchPositions();
 			}
 		},
 		clearSignGroup:function(){
@@ -1485,24 +1480,34 @@ Vue.component('manager',{
 				this.signGroupForm.placeDeptIds=[];
 			}
 		},
-		//获取人员
-		getEmployees:function(){
+		searchEmployees:function(keyword){
 			var vm = this;
-			if(vm.signGroupForm.jobDeptIds2)
-			Vue.http.get(vm.httpUrl.employee+"?deptIds="+vm.signGroupForm.jobDeptIds2.join(",")).then(function(response) {
-				response.json().then(function(responseData) {
-					vm.employees = responseData.data;
+			//判断如果选择了部门重新获取.如果没有选择部门清空
+			if(vm.signGroupForm.jobDeptIds2.length || keyword){
+				Vue.http.get(vm.httpUrl.employee+"?keyword="+(keyword||"")+"&deptIds="+vm.signGroupForm.jobDeptIds2.join(",")).then(function(response) {
+					response.json().then(function(responseData) {
+						vm.employees = responseData.data;
+					})
 				})
-			})
+			}else{
+				vm.employees=[];
+				//vm.signGroupForm.employeeIds=[];
+			}
 		},
+		
 		// 获取职位
-		getPositions:function() {
+		searchPositions:function() {
 			var vm = this;
-			Vue.http.get(vm.httpUrl.getPositions+"?deptIds="+vm.signGroupForm.jobDeptIds.join(",")).then(function(response) {
-				response.json().then(function(responseData) {
-					vm.positions= responseData.data;
+			//if(vm.signGroupForm.jobDeptIds.length){
+				Vue.http.get(vm.httpUrl.getPositions+"?deptIds="+vm.signGroupForm.jobDeptIds.join(",")).then(function(response) {
+					response.json().then(function(responseData) {
+						vm.positions= responseData.data;
+					})
 				})
-			})
+			//}else{
+				//vm.positions = [];
+				//vm.signGroupForm.jobIds=[];
+			//}
 		},
 		// 确认选择部门
 //		confirmSelDept:function() {
@@ -1537,6 +1542,7 @@ Vue.component('manager',{
 			}
 			vm.deviceViewPop = !vm.deviceViewPop;
 		},
+		//选择设备
 		selDevice:function() {
 			var vm = this;
 			vm.deviceCheckedNames= "";
@@ -1556,6 +1562,7 @@ Vue.component('manager',{
 //			}
 			vm.deviceViewPop = false;
 		},
+		//选择考勤点
 		selSignPoint: function() {
 			var vm = this;
 			vm.loading.selSignPoint=true;
@@ -1586,6 +1593,7 @@ Vue.component('manager',{
 			}
 			vm.newPlacePop = false;
 		},
+		//
 		selMulSignPoint: function() {
 			var vm = this;
 			vm.loading.selMulSignPoint=true;

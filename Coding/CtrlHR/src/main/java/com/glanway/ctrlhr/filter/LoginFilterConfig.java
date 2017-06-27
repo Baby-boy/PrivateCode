@@ -27,7 +27,12 @@ public class LoginFilterConfig extends OncePerRequestFilter {
 
 		String loginURI = "/api/user/login";
 
-		if (!reqUrl.contains(loginURI) && !reqUrl.contains(loginURL)) {
+		String apiJobURI = "/api/jobList";
+		String apiDeptURI = "/api/deptList";
+		String apiEmployeeURI = "/api/employeeList";
+		if (reqUrl.contains(apiJobURI) || reqUrl.contains(apiDeptURI) || reqUrl.contains(apiEmployeeURI)) {
+			filterChain.doFilter(request, response);
+		} else if (!reqUrl.contains(loginURI) && !reqUrl.contains(loginURL)) {
 			// 是否过滤
 			boolean doFilter = true;
 
