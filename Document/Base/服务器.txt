@@ -14,3 +14,5 @@ IP: 121.41.89.108
 √‹¬Î: YUNdong*#*#121
 
 /opt/gcj/gcj.sql
+
+%USERPROFILE%\Local Settings\Application Data\youdao\YNote
