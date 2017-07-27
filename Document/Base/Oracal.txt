@@ -25,6 +25,34 @@ BEGIN
 SELECT SEQ_SIGN_POINT.NEXTVAL INTO:new.ID FROM DUAL;
 END;
 
+-- 修改Oracle连接超时问题
+方法一、在sqlnet.ora中设置参数
+如需要设置客户端空闲10分钟即被中断，则在sqlnet.ora的末尾添加SQLNET.EXPIRE_TIME=10
+注：sqlnet.ora文件的路径在$ORACLE_HOME/network/admin下。 
+方法二、Oracle Profile中设置
+生产库上执行如下操作：
+SQL> col name format a15
+SQL> col value format a10
+查询resource limit是否开启：
+SQL> SELECT name, value FROM gv$parameter WHERE name = 'resource_limit';
+NAME            VALUE
+--------------- ----------
+resource_limit  FALSE
+如果没有，则开启这个参数：
+SQL> ALTER SYSTEM SET RESOURCE_LIMIT=TRUE;
+System altered.
+SQL> SELECT name, value FROM gv$parameter WHERE name = 'resource_limit';
+NAME            VALUE
+--------------- ----------
+resource_limit  TRUE
+创建空闲10分钟中止空闲例程的Profile：
+SQL> CREATE PROFILE app_user LIMIT IDLE_TIME  10;
+Profile created.
+设置用户的Profile：
+SQL>alter user mzh profile app_user;
+也可以修改已存在的Profile中的IDLE_TIME：
+SQL> ALTER PROFILE DEFAULT LIMIT IDLE_TIME  10;
+
 -- Oracle分页
 SELECT 
 	TT.* 
@@ -38,3 +66,21 @@ FROM(
 	ROWNUM <=1
 ) TT 
 WHERE TT.RN >=1
+
+-- Oracle时间算法
+SELECT 
+	TS.DAY,TS.EMPLOYEE_CODE,TS.START_TIME,START_TIME + interval '1' day END_TIME,
+	TS.SCHEDULE_START_TIME,TS.SCHEDULE_END_TIME
+FROM(
+	SELECT 
+		TS.DAY,TS.EMPLOYEE_CODE,TO_DATE(SCHEDULE_START_TIME, 'yyyy-MM-dd HH24:mi:ss') - interval '4' hour START_TIME,
+		TS.SCHEDULE_START_TIME,TS.SCHEDULE_END_TIME
+	FROM(
+		SELECT 
+			TS.DAY,TS.EMPLOYEE_CODE,TS.YEAR||'-'||TS.MONTH||'-'||TS.DAY||' '||TWW.START_TIME||':00' SCHEDULE_START_TIME,
+			TS.YEAR||'-'||TS.MONTH||'-'||TS.DAY||' '||TWW.END_TIME||':00' SCHEDULE_END_TIME
+		FROM T_SCHEDULE TS 
+		INNER JOIN T_WORK_WAY TWW ON TWW.ID = TS.WORK_WAY_ID 
+		WHERE TS.DELETED = 0 AND TS.EMPLOYEE_CODE = 30001106
+	) TS
+)TS
