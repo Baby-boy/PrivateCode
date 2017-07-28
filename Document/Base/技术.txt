@@ -2,12 +2,15 @@ scp  ycthr@172.16.16.230:~
 ssh ycthr@172.16.16.230
 YCT$QWE1POI2
 
-
--- 客户内Oracle网数据库
-172.16.16.220
+-- 客户内网Oracle正式数据库 172.16.16.220
 实例: YCT
 用户名: YCTHR 
 密码: yamatoYCT
+
+-- 客户内网Oracle测试数据库 222.73.197.126
+实例: YCTTEST
+用户名: YCTTEST
+密码: YAMATOYCT
 
 -- 伽然Jenkins
 http://121.40.102.225/jenkins/login?from=/jenkins/
@@ -22,6 +25,16 @@ http://121.40.102.225/jenkins/login?from=/jenkins/
 伽然-HR使用：
 账户：yct_hr
 密码：yct$qwe1poi2
+
+-- 伽然121服务器
+IP: 121.40.102.225 
+账户: wildfly 
+密码: wildfly@glanway
+
+-- 伽然114 window服务器
+IP: 114.80.176.10
+账户: administrator
+密码: WYtg@2017!
 
 yum load-transaction /tmp/yum_save_tx.2017-05-26.16-24.QBd4Kw.yumtx
 

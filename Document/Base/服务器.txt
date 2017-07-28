@@ -13,6 +13,11 @@ IP: 121.41.89.108
 ’Àªß: root
 √‹¬Î: YUNdong*#*#121
 
+-- Ÿ§»ª
+IP: 121.40.102.225 
+’Àªß: wildfly 
+√‹¬Î: wildfly@glanway
+
 /opt/gcj/gcj.sql
 
 %USERPROFILE%\Local Settings\Application Data\youdao\YNote
