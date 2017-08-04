@@ -1,0 +1,19 @@
+-- redis config
+daemonize yes
+maxmemory 200mb
+requirepass YAMATOYCT
+bind 0.0.0.0
+
+mkdir -p /usr/local/src/redis
+cd /usr/local/src/redis
+wget http://download.redis.io/releases/redis-2.8.11.tar.gz
+tar xzf redis-2.8.11.tar.gz
+cd redis-2.8.11
+make
+make install
+
+修改配置文件，使用redis后台运行：
+vi /etc/redis.conf 
+
+启动
+redis-server /etc/redis.conf 

@@ -410,3 +410,6 @@ ps -ef|grep nginx	查询进程,有两个进程即可(成功)
 
 
 在线安装SSHD服务 yum install -y openssh-server
+
+在 Linux 上可用以下语句看了一下服务器的TCP状态(连接状态数量统计): 
+netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}' 

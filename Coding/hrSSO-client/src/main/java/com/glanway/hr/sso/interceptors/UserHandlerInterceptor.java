@@ -43,6 +43,9 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 	/** cookie的名称 */
 	private static final String COOKIE_NAME = "HR_TOKEN";
 
+	/** 用户信息cookie的名称 */
+	private static final String USER_COOKIE_NAME = "HR_USER";
+
 	@Value("${httpclient.sso.request.url}")
 	private void setURL(String url) {
 		URL = url;
@@ -85,8 +88,11 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 
 		if (StringUtils.isNotEmpty(token)) {
 			byte[] decode = Base64.decode(token.getBytes());// 对登录完成后的token进行解码
-			token = new String(decode);
-			CookieUtil.setCookie(response, COOKIE_NAME, token, 1000 * 60 * 60 * 24 * 3);
+			String tokenDecode = new String(decode);
+			token = tokenDecode.substring(tokenDecode.indexOf("_") + 1);
+			String userEncode = tokenDecode.substring(0, tokenDecode.indexOf("_"));
+			CookieUtil.setCookie(response, COOKIE_NAME, token, 1000 * 60 * 60 * 24 * 30);
+			CookieUtil.setCookie(response, USER_COOKIE_NAME, userEncode, 1000 * 60 * 60 * 24 * 30);
 
 			response.sendRedirect(url);
 			return false;
@@ -125,7 +131,7 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 	 * @dateTime 2017年6月15日 上午10:00:05
 	 */
 	private Boolean queryUserByToken(HttpServletResponse response, String url, String token) throws IOException {
-		String requestUrl = URL + "/api/user/" + token;
+		String requestUrl = URL + "/api/user?token=" + token;
 
 		CloseableHttpClient httpClient = HttpClients.createDefault();// 创建Httpclient对象
 		HttpGet httpGet = new HttpGet(requestUrl);// 创建Httpclient GET请求
@@ -159,6 +165,7 @@ public class UserHandlerInterceptor implements HandlerInterceptor {
 			response.sendRedirect(URL + loginUrl + encodeUrl);
 			return false;
 		} finally {
+			httpGet.releaseConnection();
 			if (null != res) {
 				res.close();
 			}
