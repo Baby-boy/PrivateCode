@@ -17,6 +17,15 @@ http://121.40.102.225/jenkins/login?from=/jenkins/
 用户名: jenkins
 密码: Glanway2015Jenkins
 
+-- 伽然121服务器(wildfly@121.40.102.225)
+IP: 121.40.102.225
+账户: wildfly
+密码: wildfly@glanway
+Glanway2015Aliyun!123
+
+vi ~/.m2/settings.xml
+将server片段,copy一份 修改ID，账号密码
+
 -- Pulse Secure
 ※类型：SRX
 ※名称：YCT-SKC-IDC
