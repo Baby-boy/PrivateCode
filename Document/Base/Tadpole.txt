@@ -114,3 +114,13 @@
 　　3. 我们的类和方法在做设计的时候，要尽量设计成无状态的
 
 5. Java不支持脚本语言,所以开发了一款脚本语言Groovy,Gradle是基于Groovy脚本语言,相当于maven
+
+-- Tomcat跨域请求过滤器配置
+  <filter>
+    <filter-name>CORS</filter-name>
+    <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CORS</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
