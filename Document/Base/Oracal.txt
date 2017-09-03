@@ -1,3 +1,11 @@
+-- 修改Oracle表的字段顺序问题
+第一步: 找到对应表的对象ID
+SELECT OBJECT_ID FROM ALL_OBJECTS WHERE OBJECT_NAME='T_SIGN_GROUP';
+第二步: 查询此表的字段对应的顺序
+SELECT OBJ#,COL#,NAME FROM SYS.COL$ WHERE OBJ#=82389;　
+第三步: 以超级用户的权限登录修改对应表的字段排序
+UPDATE SYS.COL$ SET COL# = 13 WHERE OBJ#=82389 AND NAME= 'LAST_MODIFIED_DATE'
+
 -- 查询所有序列
 SELECT * from USER_SEQUENCES;
 
