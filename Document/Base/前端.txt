@@ -1,10 +1,10 @@
-1. 安装node
-2. 熟悉npm命令
-2.1 安装cnpm替代npm
-3. 进入项目文件夹
-4. npm init 生成package.json 相当于POM.XML
-5. cnpm install vue -S  (cnpm i vue-cli -D)
-5.1 -S 保存到package.json  -D package.json里边有一个开发环境包
-5.2 -g 全局
-
-webpack
+-- 安装VUE步骤(Vue.js支持所有兼容ECMAScript5的浏览器,Vue.js不支持IE8及其以下版本)
+1. 安装node(node自带npm),安装完成后执行 node -v(出现版本号即安装成功)
+2. 安装cnpm,执行 npm install -g cnpm --registry=https://registry.npm.taobao.org
+3. 全局安装vue,执行 cnpm install -g vue(执行 vue -V出现版本号即成功)
+4. 安装脚手架,执行 cnpm install -g vue-cli
+5. 进入项目文件夹
+6. 创建一个基于webpack模板的新项目,执行 vue init webpack 项目名称
+7. cd 项目名称
+8. 安装模块下代码的依赖,执行 cnpm install
+9. 运行项目,执行 cnpm run dev
