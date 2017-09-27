@@ -1,6 +1,11 @@
-scp  ycthr@172.16.16.230:~
+scp ycthr@172.16.16.230:~
 ssh ycthr@172.16.16.230
 YCT$QWE1POI2
+
+-- 雅玛多服务器
+IP: 172.16.16.230
+用户名: ycthr/root
+密码: YCT$QWE1POI2/YCT$HR1704
 
 -- 客户内网Oracle正式数据库 172.16.16.220
 实例: YCT
