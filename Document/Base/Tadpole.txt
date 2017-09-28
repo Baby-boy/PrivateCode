@@ -115,7 +115,8 @@
 
 5. Java不支持脚本语言,所以开发了一款脚本语言Groovy,Gradle是基于Groovy脚本语言,相当于maven
 
--- Tomcat跨域请求过滤器配置
+-- Tomcat跨域请求过滤器配置(Tomcat)
+/conf/web.xml配置如下:
   <filter>
     <filter-name>CORS</filter-name>
     <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
@@ -124,3 +125,91 @@
     <filter-name>CORS</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+/lib放入如下jar包:
+	cors-filter-2.5.jar
+	mysql-connector-java-5.1.38.jar
+  
+6. maven相关技术
+Maven共有6类属性：
+	内置属性(Maven预定义,用户可以直接使用)
+	${basedir}表示项目根目录,即包含pom.xml文件的目录;
+	${version}表示项目版本;
+	${project.basedir}同${basedir};
+	${project.baseUri}表示项目文件地址;
+	${maven.build.timestamp}表示项目构件开始时间;
+	${maven.build.timestamp.format}表示属性${maven.build.timestamp}的展示格式,
+	默认值为yyyyMMdd-HHmm,可自定义其格式,其类型可参考java.text.SimpleDateFormat。用法如下：
+	<properties>
+		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+	</properties>
+
+POM属性(使用pom属性可以引用到pom.xml文件对应元素的值)
+	${project.build.directory}表示主源码路径;
+	${project.build.sourceEncoding}表示主源码的编码格式;
+	${project.build.sourceDirectory}表示主源码路径;
+	${project.build.finalName}表示输出文件名称;
+	${project.version}表示项目版本,与${version}相同;
+
+自定义属性(在pom.xml文件的<properties>标签下定义的Maven属性)
+	<project>
+	  <properties>
+		<my.pro>abc</my.pro>
+	  </properties>
+	</project>
+
+在其他地方使用${my.pro}使用该属性值。
+	settings.xml文件属性(与pom属性同理,用户使用以settings.
+	开头的属性引用settings.xml文件中的XML元素值)
+	${settings.localRepository}表示本地仓库的地址;
+
+Java系统属性(所有的Java系统属性都可以使用Maven属性引用)
+	使用mvn help:system命令可查看所有的Java系统属性;
+	System.getProperties()可得到所有的Java属性;
+	${user.home}表示用户目录;
+ 
+环境变量属性(所有的环境变量都可以用以env.开头的Maven属性引用)
+	使用mvn help:system命令可查看所有环境变量;
+	${env.JAVA_HOME}表示JAVA_HOME环境变量的值;
+	
+-- maven打包本地jar包配置如下:
+修改maven-compiler-plugin的配置，如下：
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>2.3.2</version>
+    <configuration>
+        <source>1.7</source>
+        <target>1.7</target>
+        <encoding>UTF-8</encoding>
+        <compilerArguments>
+            <verbose />
+            <bootclasspath>${env.JAVA_HOME}/jre/lib/rt.jar</bootclasspath>
+            <extdirs>${project.basedir}/src/main/webapp/WEB-INF/lib</extdirs>
+        </compilerArguments>
+    </configuration>
+</plugin>
+
+其他配置是我的原来配置，针对lib引用这个问题，只需要增加的是： 
+<extdirs>${project.basedir}/src/main/webapp/WEB-INF/lib</extdirs>
+
+不过在3.1版本以后maven-compiler-plugin将compilerArguments定为过时了，建议大家按下面的方法写。 
+其中表示javac平时用空格隔开的的每一个参数。
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.1</version>
+    <configuration>
+        <source>1.7</source>
+        <target>1.7</target>
+        <encoding>UTF-8</encoding>
+        <compilerArgs> 
+            <arg>-verbose</arg>
+            <arg>-Xlint:unchecked</arg>
+            <arg>-Xlint:deprecation</arg>
+            <arg>-bootclasspath</arg>
+            <arg>${env.JAVA_HOME}/jre/lib/rt.jar</arg>
+            <arg>-extdirs</arg> 
+            <arg>${project.basedir}/src/main/webapp/WEB-INF/lib</arg>
+        </compilerArgs> 
+    </configuration>
+</plugin>
