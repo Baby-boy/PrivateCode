@@ -59,3 +59,5 @@ yum load-transaction /tmp/yum_save_tx.2017-05-26.16-24.QBd4Kw.yumtx
 3.重启 eclipse / myeclipse
 
 idea 只要找 Lombok 插件装下就行了
+
+elasticsearch

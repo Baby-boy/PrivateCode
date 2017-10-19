@@ -1,0 +1,25 @@
+-- 技术选型
+SSM Oracle Tomcat
+
+-- Java框架
+Java后台, 经典框架 SSM即SpringMVC + Spring + Mybatis  
+  对应Controller层(控制层)(controller),  Service层(数据处理),Dao层(数据库数据交互)(model), 前端页面(view层)
+SpringMVC是一款优秀的MVC框架
+Spring容器 - IOC(控制反转)和AOP(面向切面编程)
+Mybatis是一款和数据库交互的框架
+
+-- 前后端分离
+后台的业务数据处理层处理完数据对外暴露接口, 
+控制层通过暴露的接口获取到数据,给前台页面提供一套RESTful风格的API接口
+
+前端通过http协议请求获取数据进行渲染
+
+-- 方法说明
+针对考勤机模块(包含设备管理,考勤点管理,考勤群组管理)
+数据层都是最基本的CRUD 对应 Create Retrieve Update Delete 
+业务层进行数据的业务处理,根据业务的需求进行不同的增删改查的接口暴露
+
+B/S Brower/Server 浏览器服务
+C/S Client/Server 客户端服务
+
+com.glanway.hr.sso.controller.menu.AdminMenuController.queryGroup
