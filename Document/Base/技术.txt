@@ -35,20 +35,26 @@ vi ~/.m2/settings.xml
 ※类型：SRX
 ※名称：YCT-SKC-IDC
 ※服务器URL：114.80.227.214
-
 伽然-HR使用：
 账户：yct_hr
 密码：yct$qwe1poi2
 
--- 伽然121服务器
-IP: 121.40.102.225 
-账户: wildfly 
-密码: wildfly@glanway
-
 -- 伽然114 window服务器
-IP: 114.80.176.10
+IP: 114.80.176.10:6789
 账户: administrator
 密码: WYtg@2017!
+
+-- 秉匠科技 windows服务器
+虚拟主机登录说明：
+登录地址：180.169.42.126:12889
+用户名：bingjiang
+密码：Iamfine2
+此为应用服务器,内网地址 10.101.1.128
+此服务器内可以用远程桌面连接另一台服务器，用作数据服务器
+远程地址：10.101.1.129
+用户名：bingjiang
+密码：Iamfine2
+管理员: weiw1495 密码: flzx3000FEET
 
 yum load-transaction /tmp/yum_save_tx.2017-05-26.16-24.QBd4Kw.yumtx
 
