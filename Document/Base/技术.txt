@@ -7,12 +7,20 @@ IP: 172.16.16.230
 用户名: ycthr/root
 密码: YCT$QWE1POI2/YCT$HR1704
 
--- 客户内网Oracle正式数据库 172.16.16.220
+-- Pulse Secure
+※类型：SRX
+※名称：YCT-SKC-IDC
+※服务器URL：114.80.227.214
+伽然-HR使用：
+账户：yct_hr
+密码：yct$qwe1poi2
+
+-- 雅玛多客户内网Oracle正式数据库 172.16.16.220
 实例: YCT
 用户名: YCTHR 
 密码: yamatoYCT
 
--- 客户内网Oracle测试数据库 222.73.197.126
+-- 雅玛多客户内网Oracle测试数据库 222.73.197.126
 实例: YCTTEST
 用户名: YCTTEST
 密码: YAMATOYCT
@@ -28,21 +36,27 @@ IP: 121.40.102.225
 密码: wildfly@glanway
 Glanway2015Aliyun!123
 
-vi ~/.m2/settings.xml
+vi ~/.m2/settings.xml  -- jenkins配置
 将server片段,copy一份 修改ID，账号密码
-
--- Pulse Secure
-※类型：SRX
-※名称：YCT-SKC-IDC
-※服务器URL：114.80.227.214
-伽然-HR使用：
-账户：yct_hr
-密码：yct$qwe1poi2
 
 -- 伽然114 window服务器
 IP: 114.80.176.10:6789
 账户: administrator
 密码: WYtg@2017!
+
+-- 伽然112 window服务器
+IP: 112.124.123.60
+账户: administrator
+密码: 
+fadsiuohlgewRP(*TIUGO*^RYUFJVO*&RO*&TIUG75eE&^RYUFU&^ERO*LIU[]l
+';2fewp89y21!@$RFDSVCX
+
+-- 德智福 登陆跳板机
+IP: 120.27.237.182
+用户: root
+密码: qaz!@#6yhnm,./
+...跳到服务器
+ssh root@172.16.2.3
 
 -- 秉匠科技 windows服务器
 虚拟主机登录说明：
