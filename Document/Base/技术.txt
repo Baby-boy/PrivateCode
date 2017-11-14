@@ -42,7 +42,7 @@ vi ~/.m2/settings.xml  -- jenkins配置
 -- 伽然114 window服务器
 IP: 114.80.176.10:6789
 账户: administrator
-密码: WYtg@2017!
+密码: P@ssw0rd--!@#$%^
 
 -- 伽然112 window服务器
 IP: 112.124.123.60
