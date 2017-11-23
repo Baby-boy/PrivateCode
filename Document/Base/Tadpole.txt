@@ -128,6 +128,7 @@
 /lib放入如下jar包:
 	cors-filter-2.5.jar
 	mysql-connector-java-5.1.38.jar
+http://mvnrepository.com/
   
 6. maven相关技术
 Maven共有6类属性：
