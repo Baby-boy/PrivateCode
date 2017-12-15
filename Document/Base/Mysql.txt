@@ -1,0 +1,64 @@
+-- 登陆命令
+	mysql (-h连接的主机ip -P端口3306) -u用户名 -p密码
+
+-- 修改密码步骤:
+	1) 停止服务
+	2) mysqld --skip-grant-tables  跳过密码验证
+	3) update user set password = password('密码') where user = '用户';
+	
+-- 修改用户权限
+	Grant all privileges on *.* to '用户'@'IP' identified by '密码' with grant option;
+	
+-- 数据库分类
+DDL(数据定义问题)
+	数据定义语言 - Data Definition Language
+	用来定义数据库的对象，如数据表、视图、索引等
+DML(数据操作问题)
+	数据处理语言 - Data Manipulation Language
+	在数据库表中更新，增加和删除记录
+	如 update， insert， delete
+DQL(数据查询问题)
+	数据查询语言 – Data Query Language
+	select （学习的重点）
+DCL(数据控制问题)
+	数据控制语言 – Data Control Language
+	指用于设置用户权限和控制事务语句
+	如grant，revoke，if…else，while，begin transaction
+	
+-- 创建函数出现1418错误, 解决方案
+	SET GLOBAL log_bin_trust_function_creators = 1;// root权限执行语句
+
+-- 创建索引
+	单索引
+	CREATE INDEX NAME_INDEX ON Employee (Employee_Name);
+	组合索引
+	CREATE INDEX NAME_INDEX ON Employee (Employee_Name, Employee_Age);
+	
+-- 创建索引(ALTER TABLE用来创建普通索引、UNIQUE索引或PRIMARY KEY索引)
+	ALTER TABLE table_name ADD INDEX index_name (column_list)
+	ALTER TABLE table_name ADD UNIQUE (column_list)
+	ALTER TABLE table_name ADD PRIMARY KEY (column_list)
+-- 创建索引(CREATE INDEX可对表增加普通索引或UNIQUE索引。)
+	CREATE INDEX index_name ON table_name (column_list)
+	CREATE UNIQUE INDEX index_name ON table_name (column_list)
+-- 删除索引
+	DROP INDEX index_name ON talbe_name
+	ALTER TABLE table_name DROP INDEX index_name
+	ALTER TABLE table_name DROP PRIMARY KEY
+-- 查看索引
+	show index from tblname;
+	show keys from tblname;
+	
+-- Linux下的MySQL配置默认在 /etc/my.cnf
+[client]
+default-character-set=utf8
+
+[mysqld]	
+default-character-set=utf8
+character-set-server=utf8
+default-storage-engine=INNODB
+	-- 查看默认引擎 show engines;
+	-- 查看编码状态	status;
+	-- 重启MySQL服务 service mysqld restart
+
+
