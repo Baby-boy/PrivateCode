@@ -28,26 +28,22 @@ DCL(数据控制问题)
 -- 创建函数出现1418错误, 解决方案
 	SET GLOBAL log_bin_trust_function_creators = 1;// root权限执行语句
 
--- 创建索引
-	单索引
-	CREATE INDEX NAME_INDEX ON Employee (Employee_Name);
-	组合索引
-	CREATE INDEX NAME_INDEX ON Employee (Employee_Name, Employee_Age);
-	
 -- 创建索引(ALTER TABLE用来创建普通索引、UNIQUE索引或PRIMARY KEY索引)
-	ALTER TABLE table_name ADD INDEX index_name (column_list)
-	ALTER TABLE table_name ADD UNIQUE (column_list)
-	ALTER TABLE table_name ADD PRIMARY KEY (column_list)
+	ALTER TABLE 表名 ADD INDEX 索引名 (字段1, 字段2....)
+	ALTER TABLE 表名 ADD UNIQUE (字段1, 字段2....)
+	ALTER TABLE 表名 ADD PRIMARY KEY (字段1, 字段2....)
 -- 创建索引(CREATE INDEX可对表增加普通索引或UNIQUE索引。)
-	CREATE INDEX index_name ON table_name (column_list)
-	CREATE UNIQUE INDEX index_name ON table_name (column_list)
+	CREATE UNIQUE INDEX 索引名 ON 表名 (字段1, 字段2....)
+	CREATE INDEX 索引名 ON 表名 (字段1, 字段2....)
+		1) CREATE INDEX 索引名 ON 表名(字段);					单索引	
+		2) CREATE INDEX 索引名 ON 表名(字段1, 字段2....);		组合索引
 -- 删除索引
-	DROP INDEX index_name ON talbe_name
-	ALTER TABLE table_name DROP INDEX index_name
-	ALTER TABLE table_name DROP PRIMARY KEY
+	DROP INDEX 索引名 ON 表名
+	ALTER TABLE 表名 DROP INDEX 索引名
+	ALTER TABLE 表名 DROP PRIMARY KEY
 -- 查看索引
-	show index from tblname;
-	show keys from tblname;
+	show index from 表名;
+	show keys from 表名;
 	
 -- Linux下的MySQL配置默认在 /etc/my.cnf
 [client]
