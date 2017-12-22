@@ -1,13 +1,12 @@
 -- 登陆命令
 	mysql (-h连接的主机ip -P端口3306) -u用户名 -p密码
-
--- 修改密码步骤:
-	1) 停止服务
-	2) mysqld --skip-grant-tables  跳过密码验证
-	3) update user set password = password('密码') where user = '用户';
 	
 -- 修改用户权限
 	Grant all privileges on *.* to '用户'@'IP' identified by '密码' with grant option;
+	Grant all privileges on 表名.* to '用户'@'IP' identified by '密码'；
+	都需要flush privileges;
+	*.* : 代表所有数据库以及所有表
+	all privileges或者all : 代表所有权限,也可以指定权限
 	
 -- 数据库分类
 DDL(数据定义问题)
@@ -56,5 +55,25 @@ default-storage-engine=INNODB
 	-- 查看默认引擎 show engines;
 	-- 查看编码状态	status;
 	-- 重启MySQL服务 service mysqld restart
+	
+-- Linux下修改用户密码
+	/etc/init.d/mysql stop   (service mysqld stop)
+	/usr/bin/mysqld_safe --skip-grant-tables
+	另外开个SSH连接
+	[root@localhost ~]# mysql
+	mysql>use mysql
+	mysql>update user set password=password("123456") where user="root";
+	mysql>flush privileges;
+	mysql>exit
+
+	然后
+	[mysql@localhost etc]$ ps -A | grep mysql
+	4532 pts/0    00:00:00 mysqld_safe
+	5542 pts/0    00:00:00 mysqld
+	[mysql@localhost etc]$ kill -9 4532 5542 
+	正常启动 MySQL：/etc/init.d/mysql start   (service mysqld start)
+
+	
+
 
 
