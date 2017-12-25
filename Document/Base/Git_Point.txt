@@ -25,6 +25,7 @@ git config --global user.mail
 -- 获取git公钥(用于SSH协议)
 ssh-keygen.exe
 
+%userprofile%\.git-credentials
 
 常用 Git 命令清单
 
