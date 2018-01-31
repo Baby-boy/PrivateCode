@@ -23,3 +23,10 @@ B/S Brower/Server 浏览器服务
 C/S Client/Server 客户端服务
 
 com.glanway.hr.sso.controller.menu.AdminMenuController.queryGroup
+
+十年编程两茫茫，工期短，需求长。
+千行代码，Bug?何处藏。
+纵使上线又如何，新版本，继续忙。
+黑白颠倒没商量，睡地铺，吃食堂。
+夜半梦醒，无人在身旁。
+最怕灯火阑珊时，手机响，心里慌。 
