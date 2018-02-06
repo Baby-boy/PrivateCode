@@ -1,0 +1,5 @@
+-- 极光推送API
+https://docs.jiguang.cn/jpush/server/sdk/java_sdk/
+
+-- maven仓库
+http://mvnrepository.com/
