@@ -3,3 +3,9 @@ https://docs.jiguang.cn/jpush/server/sdk/java_sdk/
 
 -- maven仓库
 http://mvnrepository.com/
+
+-- Tomcat在Window服务器下以服务启动导致项目乱码问题解决(修改服务名称相同)
+http://blog.csdn.net/u012551585/article/details/54563747
+
+-- SpringCloud
+http://blog.csdn.net/forezp/article/details/70148833
