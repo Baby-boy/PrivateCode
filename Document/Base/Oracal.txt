@@ -92,3 +92,12 @@ FROM(
 		WHERE TS.DELETED = 0 AND TS.EMPLOYEE_CODE = 30001106
 	) TS
 )TS
+
+-- Oracle表死锁问题解决
+(system查询死锁表)
+SELECT 
+	s.sid,s.serial#
+FROM v$locked_object lo,dba_objects ao ,v$SESSION s
+WHERE ao.object_id = lo.object_id AND lo.session_id = s.sid
+(杀掉死锁session)
+ALTER system kill session 'sid,serial#';

@@ -1,0 +1,47 @@
+问题一: -bash: fork: retry: No child processes
+	更改	vi /etc/security/limits.d/20-nproc.conf
+	或者	vi /etc/security/limits.d/90-nproc.conf
+		内容如下:
+			*		soft	nproc	4096
+			root	soft	nproc	unlimited
+	把4096更改为更大(65535)或者unlimited
+
+	问题排查
+	1. 关闭一般用户(a)下所有应用	为了安全JAVA应用跑在一般用户(a),由于报错,切换a用户,提示系统资源限制,于是关闭a用户下所有应用,使能切换到a用户下(一般是root用户),方便排除问题.
+	2. 查看www用户配置文件ulimit参数
+	[root@OneinStack ~]# su - a
+	[a@OneinStack ~]$ ulimit -a
+	core file size          (blocks, -c) 0
+	data seg size           (kbytes, -d) unlimited
+	scheduling priority             (-e) 0
+	file size               (blocks, -f) unlimited
+	pending signals                 (-i) 256345
+	max locked memory       (kbytes, -l) 64
+	max memory size         (kbytes, -m) unlimited
+	open files                      (-n) 65535
+	pipe size            (512 bytes, -p) 8
+	POSIX message queues     (bytes, -q) 819200
+	real-time priority              (-r) 0
+	stack size              (kbytes, -s) 10240
+	cpu time               (seconds, -t) unlimited
+	max user processes              (-u) 1024
+	virtual memory          (kbytes, -v) unlimited
+	file locks                      (-x) unlimited
+	从上面可以看出，系统默认max user processes为1024，显然就是这个问题。
+	3. 查看系统ulimit全局参数
+	[root@OneinStack ~]# grep -v ^# /etc/security/limits.conf
+	* soft nproc 65535
+	* hard nproc 65535
+	* soft nofile 65535
+	* hard nofile 65535	奇怪，通过系统ulimit全局参数看，*代表所有用户，a用户竟然还有限制，于是Google获知，REHL6下引入配置文件/etc/security/limits.d/90-nproc.conf（可参考：https://bugzilla.redhat.com/show_bug.cgi?id=919793）
+	注：也可能是其它命名，如Linode修改为：/etc/security/limits.d/20-nproc.conf
+	4. 修改/etc/security/limits.d/90-nproc.conf
+	[root@OneinStack ~]# grep -v ^# /etc/security/limits.d/90-nproc.conf
+	*          soft    nproc     1024
+	root       soft    nproc     unlimited
+	问题就在这里，这里限制为1024
+	修改为65535，保持文件如下：
+	[root@OneinStack ~]# grep -v ^# /etc/security/limits.d/90-nproc.conf
+	*          soft    nproc     65535
+	root       soft    nproc     unlimited
+	退出当前用户，重新登录即可让之前修改的limits生效，执行如下命令发现修改成功
