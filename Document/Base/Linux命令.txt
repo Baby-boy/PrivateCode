@@ -105,6 +105,7 @@ file：file是命令文件的名字,表示将file做为crontab的任务列表文件并载入crontab.如果
 -i		:在删除用户的crontab文件时给确认提示.
 内容格式如下:
 minute(0-59) hour(0-23) day(1-31) month(1-12) week(0-7) command(执行的命令)
+定时删除几天前的文件命令格式:	/bin/find 对应目录 -mtime +天数 -name "文件名" -exec /bin/rm -rf {} \;
 样例: 1 0 * * * /bin/echo > /data/apache-tomcat-7.0.56/logs/catalina.out;
 /etc/init.d/crond reload 重新加载
 /etc/init.d/crond restart 重新启动
