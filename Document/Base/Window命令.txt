@@ -36,3 +36,12 @@ regedit
                 组件。 
 netstat -nao | find "端口号"  	-- 查询端口号
 netstat -nao | findstr 端口号	-- 查询端口号
+
+-- Windows服务器Tomcat服务文件乱码配置
+	1) /tomcat/conf/server.xml
+		URIEncoding="UTF-8"
+	2) /tomcat/bin/catalina.bat
+		set JAVA_OPTS=-Dfile.encoding=UTF-8 -server -XX:MaxPermSize=2048m
+	3) /tomcat/bin/tomcat7.exe  --> 修改名称为tomcat服务名称, 双击修改Java环境配置为以下即可.
+		a) -XX:MaxPermSize=2048m
+		b) -Dfile.encoding=UTF-8
