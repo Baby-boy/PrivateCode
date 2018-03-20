@@ -1,11 +1,91 @@
--- 极光推送API
-https://docs.jiguang.cn/jpush/server/sdk/java_sdk/
+-- Java相关
+# SpringBoot和Dubbo以及Mybatis整合
+http://blog.csdn.net/aa342246168/article/details/52883418
+# SpringBoot和Dubbo整合
+http://www.cnblogs.com/heavenhome/articles/6223973.html
+# Spring定时器任务
+http://gong1208.iteye.com/blog/1773177
+# Spring定时器异常解释(那两个异常是DEBUG日志,无关代码问题)
+http://blog.csdn.net/oarsman/article/details/52801877
+# SpringBatch-Quarts
+https://my.oschina.net/wliming/blog/688240
+# SpringMVC注解@initbinder
+http://blog.csdn.net/jiubugeinifo/article/details/41678717
+# SpringCloud
+http://blog.csdn.net/forezp/article/details/70148833
+# Java注解
+http://www.cnblogs.com/peida/archive/2013/04/24/3036689.html
+# Get和Post区别
+http://www.cnblogs.com/nankezhishi/archive/2012/06/09/getandpost.html
 
--- maven仓库
-http://mvnrepository.com/
+-- Git相关
+# Git常用命令
+http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html
 
--- Tomcat在Window服务器下以服务启动导致项目乱码问题解决(修改服务名称相同)
+-- Tomcat相关
+# Tomcat在Window服务器下以服务启动导致项目乱码问题解决(修改服务名称相同)
 http://blog.csdn.net/u012551585/article/details/54563747
 
--- SpringCloud
-http://blog.csdn.net/forezp/article/details/70148833
+-- 数据库相关
+# Mysql数据库死锁问题
+http://blog.sina.com.cn/s/blog_66519bd80102v3ct.html
+# C3p0 APPARENT DEADLOCK!!!错误
+http://myzee.blog.163.com/blog/static/2088712420121110139423
+# C3p0详细配置
+http://www.cnblogs.com/xiohao/p/3658961.html
+http://blog.csdn.net/caihaijiang/article/details/6843496
+https://www.oschina.net/question/59889_44927
+# Oracle数据库更新死锁问题
+http://blog.csdn.net/kuailexiaozi1989/article/details/72817322
+# PLSQL远程连接Oracle设置
+http://blog.csdn.net/hr541659660/article/details/51683189
+# Navicat客户端问题
+https://my.oschina.net/junn/blog/202958
+
+-- Linux相关
+# 端口状态说明LISTENING、ESTABLISHED、TIME_WAIT及CLOSE_WAIT
+http://blog.csdn.net/zzhongcy/article/details/38851271
+# 服务器大量CLOSE_WAIT
+http://www.cnblogs.com/sunxucool/p/3449068.html
+http://blog.csdn.net/shootyou/article/details/6615051
+# Linux上没有SSHD脚本问题
+http://codingstandards.iteye.com/blog/1558394
+
+-- 其他相关
+# 极光推送API
+https://docs.jiguang.cn/jpush/server/sdk/java_sdk
+# maven仓库
+http://mvnrepository.com
+# 大数据相关
+http://www.aboutyun.com/thread-6780-1-1.html
+# JIRA下载和安装(Linux系统)
+http://blog.csdn.net/mchdba/article/details/39441871
+# 关于java.sql.SQLRecoverableException: Closed Connection异常的解决(转)(其包含Orcale的防火墙问题解释)  
+http://www.cnblogs.com/softidea/p/4004076.html
+# CAS | Apereo
+https://www.apereo.org/projects/cas
+# CAS实现SSO
+http://www.coin163.com/java/cas/cas.html
+# CAS实现SSO
+http://blog.csdn.net/flash8627/article/details/37833925
+# CAS实现源码
+http://blog.csdn.net/small_love/article/details/6664831
+# CAS实现源码http://alexwangjie.iteye.com/blog/2117552
+# Gradle项目构建工具
+http://blog.csdn.net/caolaosanahnu/article/details/17022321
+# Gradle和eclipse结合
+http://www.cnblogs.com/274914765qq/p/4401525.html
+# Gradle项目导入Eclipse报错解决方案
+http://www.cnblogs.com/lixuwu/p/6692371.html
+# 解决跨域问题
+http://blog.csdn.net/lmy86263/article/details/51724221
+http://blog.csdn.net/qq_17612199/article/details/51540685
+# Redis命令大全
+http://doc.redisfans.com/key/keys.html
+# 获取法定节假日
+http://www.cnblogs.com/MyBeN/p/4281015.html
+
+-- 心灵鸡汤
+# 技术类
+https://www.barretlee.com/blog/2016/07/21/donnot-repeat-yourself
+# 鸡汤类
