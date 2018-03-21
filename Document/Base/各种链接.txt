@@ -1,4 +1,8 @@
 -- Java相关
+# Java8的高并发计数组件(★)
+https://my.oschina.net/7001/blog/1634801
+# 支持多线程并发的计数器实现
+http://chenjumin.iteye.com/blog/2298094
 # SpringBoot和Dubbo以及Mybatis整合
 http://blog.csdn.net/aa342246168/article/details/52883418
 # SpringBoot和Dubbo整合
@@ -17,6 +21,10 @@ http://blog.csdn.net/forezp/article/details/70148833
 http://www.cnblogs.com/peida/archive/2013/04/24/3036689.html
 # Get和Post区别
 http://www.cnblogs.com/nankezhishi/archive/2012/06/09/getandpost.html
+# Elasticsearch权威指南(中文版)
+https://es.xiaoleilu.com/
+# ES(Elasticsearch)(★)
+http://blog.csdn.net/laoyang360/article/details/52244917
 
 -- Git相关
 # Git常用命令
@@ -70,7 +78,8 @@ http://www.coin163.com/java/cas/cas.html
 http://blog.csdn.net/flash8627/article/details/37833925
 # CAS实现源码
 http://blog.csdn.net/small_love/article/details/6664831
-# CAS实现源码http://alexwangjie.iteye.com/blog/2117552
+# CAS实现源码
+http://alexwangjie.iteye.com/blog/2117552
 # Gradle项目构建工具
 http://blog.csdn.net/caolaosanahnu/article/details/17022321
 # Gradle和eclipse结合
