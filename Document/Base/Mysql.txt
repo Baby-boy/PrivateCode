@@ -8,6 +8,9 @@
 	*.* : 代表所有数据库以及所有表
 	all privileges或者all : 代表所有权限,也可以指定权限
 	
+	样例:
+	Grant SELECT,INSERT,UPDATE,REFERENCES,DELETE,CREATE,DROP,ALTER,INDEX,TRIGGER,CREATE VIEW,SHOW VIEW,EXECUTE,ALTER ROUTINE,CREATE ROUTINE,CREATE TEMPORARY TABLES,LOCK TABLES,EVENT ON `数据库`.* TO '用户'@'IP';
+	
 -- 数据库分类
 DDL(数据定义问题)
 	数据定义语言 - Data Definition Language
