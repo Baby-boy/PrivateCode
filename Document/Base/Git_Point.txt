@@ -13,6 +13,9 @@ git clean -df
 -- 强制推送
 git push -f
 
+// windows用户目录下添加.开头的文件
+touch .git-credentials
+
 
 -- 修改git用户或者查看用户
 git config --global user.name 用户名
