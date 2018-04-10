@@ -1,0 +1,5 @@
+打包命令 mvn clean package -DskipTests && pause
+jar文件
+config目录下放置application.yml文件和log4j.properties文件
+
+./stop.sh  -> 删除jar -> 上传jar -> ./start.sh && tail -f stdout.log

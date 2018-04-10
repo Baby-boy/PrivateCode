@@ -30,6 +30,9 @@ https://www.cnblogs.com/wshsdlau/p/5643862.html
 # POI SAX解析excel2007大量数据
 https://blog.csdn.net/rainyspring4540/article/details/50747122
 https://www.cnblogs.com/wshsdlau/p/5643847.html
+# Mysql数据库临时文件爆硬盘问题
+http://blog.itpub.net/26355921/viewspace-1273862/
+http://zhoumo123.cn/mysql/3417.html
 
 -- Git相关
 # Git常用命令

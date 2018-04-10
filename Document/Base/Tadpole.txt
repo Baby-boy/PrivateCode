@@ -216,3 +216,12 @@ Java系统属性(所有的Java系统属性都可以使用Maven属性引用)
         </compilerArgs> 
     </configuration>
 </plugin>
+
+maven对私服进行打包注入
+maven配置文件setting.xml中加入以下配置
+    <server>
+      <id>deploymentRepo</id>
+      <username>repouser</username>
+      <password>repopwd</password>
+    </server>
+执行 mvn clean deploy -DskipTests && pause命令
