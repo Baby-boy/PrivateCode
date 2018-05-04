@@ -8,3 +8,6 @@
 7. cd 项目名称
 8. 安装模块下代码的依赖,执行 cnpm install
 9. 运行项目,执行 cnpm run dev
+
+$ cnpm i lodash -D
+$ cnpm i lodash -S
