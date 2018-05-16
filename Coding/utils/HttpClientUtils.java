@@ -50,7 +50,7 @@ import org.apache.http.util.EntityUtils;
  * @version 1.0
  * @date 2018年1月1日
  */
-public class HttpClientUtils {
+public abstract class HttpClientUtils {
 
 	/** http */
 	private static final String HTTP = "http";
