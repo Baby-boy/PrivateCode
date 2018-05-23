@@ -37,6 +37,8 @@ http://zhoumo123.cn/mysql/3417.html
 -- Git相关
 # Git常用命令
 http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html
+# .git-credentials
+https://blog.csdn.net/kevinew/article/details/24588123/
 
 -- Tomcat相关
 # Tomcat在Window服务器下以服务启动导致项目乱码问题解决(修改服务名称相同)
@@ -66,6 +68,8 @@ http://www.cnblogs.com/sunxucool/p/3449068.html
 http://blog.csdn.net/shootyou/article/details/6615051
 # Linux上没有SSHD脚本问题
 http://codingstandards.iteye.com/blog/1558394
+# Linux安装nodejs
+https://www.cnblogs.com/liuqi/p/6483317.html
 
 -- 其他相关
 # 极光推送API
