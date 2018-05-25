@@ -225,3 +225,16 @@ maven配置文件setting.xml中加入以下配置
       <password>repopwd</password>
     </server>
 执行 mvn clean deploy -DskipTests && pause命令
+
+7.SpringBoot相关
+@Aspect
+@Pointcut("execution(public * com.example.controller.*.*(..))")  
+execution(方法修饰符(可选)  返回类型  方法名  参数  异常模式(可选)) 
+参数部分允许使用通配符：
+*  匹配任意字符，但只能匹配一个元素
+.. 匹配任意字符，可以匹配任意多个元素，表示类时，必须和*联合使用
++  必须跟在类名后面，如Horseman+，表示类本身和继承或扩展指定类的所有类
+
+@Before
+@After
+@Around

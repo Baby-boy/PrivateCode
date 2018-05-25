@@ -70,6 +70,13 @@ ssh root@172.16.2.3
 密码：Iamfine2
 管理员: weiw1495 密码: flzx3000FEET
 
+伽然短信
+key：3SDK-JRX-0130-RITUL
+秘钥：D1C3CCA229BE9E37 
+密钥格式：【企业签名】尊敬的领导，“***”项目中您有一条编号为“***”，标题为“***”的**记录需要审批，请及时处理。
+	【伽然科技】我们的可以这样填。
+接口地址：http://shmtn.b2m.cn:80/inter/sendSingleSMS
+
 yum load-transaction /tmp/yum_save_tx.2017-05-26.16-24.QBd4Kw.yumtx
 
 1. 将 lombok.jar 复制到 myeclipse.ini / eclipse.ini 所在的文件夹目录下

@@ -3,6 +3,8 @@ man more/less/tail		:帮助(外国版)
 指令 --help				:帮助(中国版)
 yum						:在线安装
 rz						:上传
+sz						:下载
+scp						:远程上传
 ./						:安装
 ./nginx -s stop			:停止服务
 
