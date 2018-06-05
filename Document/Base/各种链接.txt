@@ -70,6 +70,10 @@ http://blog.csdn.net/shootyou/article/details/6615051
 http://codingstandards.iteye.com/blog/1558394
 # Linux安装nodejs
 https://www.cnblogs.com/liuqi/p/6483317.html
+# Linux安装mongoDB
+https://blog.csdn.net/a123demi/article/details/70238972
+# mongoDB配置文件
+https://my.oschina.net/pwd/blog/399374
 
 -- 其他相关
 # 极光推送API
