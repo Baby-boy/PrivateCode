@@ -238,3 +238,6 @@ execution(方法修饰符(可选)  返回类型  方法名  参数  异常模式(可选))
 @Before
 @After
 @Around
+
+-XX:MaxPermSize=2048m
+-Dfile.encoding=UTF-8
