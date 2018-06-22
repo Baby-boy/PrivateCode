@@ -23,6 +23,13 @@ http://www.cnblogs.com/peida/archive/2013/04/24/3036689.html
 http://www.cnblogs.com/nankezhishi/archive/2012/06/09/getandpost.html
 # Elasticsearch权威指南(中文版)
 https://es.xiaoleilu.com/
+https://www.elastic.co/guide/cn/elasticsearch/guide/current/index.html
+# kibana下载
+https://www.elastic.co/downloads/kibana
+# kibana介绍
+https://www.cnblogs.com/wxw16/p/6156335.html
+# X-pack
+https://www.jianshu.com/p/f36b7dc63ba6
 # ES(Elasticsearch)(★)
 http://blog.csdn.net/laoyang360/article/details/52244917
 # POI SAX解析excel2003大量数据
