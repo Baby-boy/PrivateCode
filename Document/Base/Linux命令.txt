@@ -181,12 +181,27 @@ useradd 用户名 -d /home/t1	:指定用户home目录
 passwd 用户名			:为用户设置或修改密码
 userdel 用户名			:删除用户(不会删除home目录)
 userdel -r 用户名		:删除用户以及home目录
+/etc/passwd				:用户文件
+
+cat /etc/passwd
+deploy:x:500:500::/home/deploy:/bin/bash
+username:password:userId:groupId     :comment:home      :directory:shell
+用户名  :密码    :用户id:用户所在组id:备注   :用户根目录:shell命令所在目录
+x是密码段，表示没有设置密码
+
 ===== 用户组 =====
 groupadd 组名			:创建一个组
 groupmod -n 新组名 旧组名:更新组(-n <新群组名称>)
 useradd 用户名 -g 组名	:创建用户指定组
 groupdel 组名			:删除组(如果存在组用户需要先删除组用户)
 /etc/group				:组所在文件夹
+
+cat /etc/group
+deploy:x:500:sftp
+lp    :x         :  7:daemon:lp
+用户组:用户组口令:GID:该用户组所包含的用户(user)
+x是密码段，表示没有设置密码
+
 ===== id命令 =====
 id 参数 用户名			:查看一个用户的UID和GID
 ===== su命令 =====
