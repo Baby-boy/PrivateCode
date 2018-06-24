@@ -36,6 +36,14 @@ IP: 121.40.102.225
 密码: wildfly@glanway
 Glanway2015Aliyun!123
 
+-- 伽然118服务器(glanway@118.31.52.248)
+IP: 118.31.52.248
+账户: glanway
+密码: Glanway2018
+GlanwayP@ssw0rd2018
+deploy@118.31.52.248/deploy@glanway
+mysql@118.31.52.248/mysql@glanway
+
 vi ~/.m2/settings.xml  -- jenkins配置
 将server片段,copy一份 修改ID，账号密码
 

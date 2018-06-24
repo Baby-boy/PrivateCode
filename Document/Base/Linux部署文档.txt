@@ -1,0 +1,175 @@
+cd /etc/yum.repos.d/
+mv CentOS-Base.repo CentOS-Base.repo.backup
+wget http://mirrors.163.com/.help/CentOS6-Base-163.repo
+
+# 清除yum机制的本地缓存的
+yum clean all
+# 将服务器上的软件包信息在本地缓存，以提高搜索安装软件的速度
+yum makecache
+# 更新所有的rpm包
+yum update
+
+# 安装rzsz
+yum -y install lrzsz
+yum -y install cpp binutils glibc glibc-kernheaders glibc-common glibc-devel gcc make gcc-c++ libstdc++-devel tcl
+yum -y install pcre pcre-devel zlib zlib-devel openssl openssl—devel
+
+# 添加用户组
+groupadd deploy
+# 添加用户，并修改密码
+mkdir -p /home/glanway
+useradd glanway -r -g deploy -d /home/glanway
+passwd glanway
+chown glanway:deploy /home/glanway/ -R
+# 添加用户，并修改密码
+mkdir -p /home/deploy
+useradd deploy -r -g deploy -d /home/deploy
+passwd deploy
+chown deploy:deploy /home/deploy/ -R
+
+# 用户出现-bash-4.1#情况修改（用户目录下几个配置文件丢失）
+cp /etc/skel/.bashrc /home/glanway
+cp /etc/skel/.bash_profile /home/glanway
+cp /etc/skel/.bashrc /home/deploy
+cp /etc/skel/.bash_profile /home/deploy
+
+-- Java环境
+	mkdir -p /usr/local/src/java
+	cd /usr/local/src/java
+	rz jdk-8u171-linux-x64.tar.gz
+	tar -xvf jdk-8u171-linux-x64.tar.gz
+	vim /etc/profile
+		#Set java environment
+		JAVA_HOME=/usr/local/src/java/jdk1.8.0_171
+		CLASSPATH=.:$JAVA_HOME/lib.tools.jar
+		PATH=$JAVA_HOME/bin:$PATH
+		export JAVA_HOME CLASSPATH PATH
+	source /etc/profile
+	
+-- MongoDB
+	mkdir -p /usr/local/src/mongodb
+	cd /usr/local/src/mongodb
+	rz mongodb-linux-x86_64-3.6.3.tgz
+	tar -xvf mongodb-linux-x86_64-3.6.3.tgz
+	mv mongodb-linux-x86_64-3.6.3 mongodb-3.6.3
+	vim /etc/profile
+		#Set mongodb environment
+		MONGODB_HOME=/usr/local/src/mongodb/mongodb-3.6.3
+		PATH=$MONGODB_HOME/bin:$PATH
+		export MONGODB_HOME PATH
+	source /etc/profile
+	cd mongodb-3.6.3
+	mkdir conf
+	mkdir logs
+	mkdir data/db -p
+	vim /conf/mongodb.conf
+		# 端口
+		port = 27017
+		# 以守护程序的方式启用，即在后台运行
+		fork = true
+		# 绑定地址
+		bind_ip = 118.31.52.248,127.0.0.1
+		# 数据文件存放目录 
+		dbpath = /usr/local/src/mongodb/mongodb-3.6.3/data/db
+		# 日志文件存放目录
+		logpath = /usr/local/src/mongodb/mongodb-3.6.3/logs/mongodb.log
+		# 追加日志
+		logappend = true
+	# 停止
+	mongod -shutdown -dbpath=/usr/local/src/mongodb/mongodb-3.6.3/data/db/
+	# 启动
+	mongod -config /usr/local/src/mongodb/mongodb-3.6.3/conf/mongodb.conf
+	# 启动
+	mongod -f /usr/local/src/mongodb/mongodb-3.6.3/conf/mongodb.conf
+	# 进入数据库
+	mongo 
+	# 自启动，当前目录下mongodb.sh文件 --> /etc/init.d/mongodb，参考mysql自启动
+	
+-- Redis
+	mkdir -p /usr/local/src/redis
+	cd /usr/local/src/redis
+	rz redis-3.0.0.tar.gz
+	tar -xvf redis-3.0.0.tar.gz
+	cd redis-3.0.0
+	make
+	make test #这个就不要执行了，需要很长时间
+	make install
+	cp redis.conf /etc/
+	vi /etc/redis.conf
+		# 守护进程修改如下，默认为no
+		daemonize yes
+	# 启动
+	redis-server /etc/redis.conf
+	# 测试
+	redis-cli
+
+-- Nginx
+	mkdir -p /usr/local/src/nginx
+	cd /usr/local/src/nginx
+	rz nginx-1.7.7.tar.gz
+	tar -xvf nginx-1.7.7.tar.gz
+	cd nginx-1.7.7
+	./configure --prefix=/usr/local/src/nginx --user=root --group=root
+	make  
+	make install
+	# 运行
+	./nginx
+	# 停止
+	./nginx -s stop 
+	# 重新加载
+	./nginx -s reload
+	# 自启动，当前目录下nginx.sh文件 --> /etc/init.d/nginx，参考mysql自启动
+
+-- Mysql
+	# 添加用户组和用户，并修改密码
+	groupadd mysql
+	mkdir -p /home/mysql
+	useradd mysql -r -g deploy -d /home/mysql
+	passwd mysql
+	chown mysql:mysql /home/mysql/ -R
+	# 安装mysql
+	mkdir -p /usr/local/mysql
+	cd /usr/local/mysql
+	rz mysql-5.6.27-linux-glibc2.5-x86_64.tar.gz
+	tar -xvf mysql-5.6.27-linux-glibc2.5-x86_64.tar.gz
+	mv mysql-5.6.27-linux-glibc2.5-x86_64/* .
+	rm -rf mysql-5.6.27-linux-glibc2.5-x86_64
+	mkdir tmp
+　　mkdir logs
+	mkdir -p run/mysqld
+	cp support-files/my-default.cnf /etc/my.cnf
+	> /etc/my.cnf
+	vim /etc/my.cnf
+		[client]
+			default-character-set=utf8
+			socket=/usr/local/mysql/tmp/mysql.sock
+			
+		[mysql]
+			default-character-set=utf8
+			
+		[mysqld]
+			socket=/usr/local/mysql/tmp/mysql.sock
+			tmpdir=/usr/local/mysql/tmp/
+			basedir=/usr/local/mysql
+			datadir=/usr/local/mysql/data
+			symbolic-links=0
+			character_set_server=utf8
+			
+		[mysqld_safe]
+			default-character-set=utf8
+			log-error=/usr/local/mysql/logs/mysqld.log
+			pid-file=/usr/local/mysql/run/mysqld/mysqld.pid
+	chown -R mysql:mysql ./
+	./scripts/mysql_install_db --user=mysql --defaults-file=/etc/my.cnf --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data/
+	cp support-files/mysql.server /etc/init.d/mysql
+	# 添加服务
+	chkconfig --add mysql 
+	# 显示服务列表(3,4,5为on，如果不是执行 chkconfig --level 345 mysql on)
+	chkconfig --list
+	service mysql start
+	# 修改root用户密码
+	./mysql -h127.0.0.1  -uroot 
+	Grant all privileges on *.* to '用户'@'IP' identified by '密码' with grant option;
+	Grant all privileges on 表名.* to '用户'@'IP' identified by '密码';
+	flush privileges;
+	
