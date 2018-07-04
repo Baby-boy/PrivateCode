@@ -124,7 +124,7 @@ cp /etc/skel/.bash_profile /home/deploy
 	# 添加用户组和用户，并修改密码
 	groupadd mysql
 	mkdir -p /home/mysql
-	useradd mysql -r -g deploy -d /home/mysql
+	useradd mysql -r -g mysql -d /home/mysql
 	passwd mysql
 	chown mysql:mysql /home/mysql/ -R
 	# 安装mysql
@@ -161,6 +161,12 @@ cp /etc/skel/.bash_profile /home/deploy
 			pid-file=/usr/local/mysql/run/mysqld/mysqld.pid
 	chown -R mysql:mysql ./
 	./scripts/mysql_install_db --user=mysql --defaults-file=/etc/my.cnf --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data/
+
+// BUG
+FATAL ERROR: please install the following Perl modules before executing ./scripts/mysql_install_db:Data::Dumper
+解决方案
+	安装autoconf库, yum -y install autoconf
+	
 	cp support-files/mysql.server /etc/init.d/mysql
 	# 添加服务
 	chkconfig --add mysql 
@@ -172,4 +178,11 @@ cp /etc/skel/.bash_profile /home/deploy
 	Grant all privileges on *.* to '用户'@'IP' identified by '密码' with grant option;
 	Grant all privileges on 表名.* to '用户'@'IP' identified by '密码';
 	flush privileges;
+	# 环境变量
+	vim /etc/profile
+		#Set mysql environment
+		MYSQL_HOME=/usr/local/mysql
+		PATH=$MYSQL_HOME/bin:$PATH
+		export MYSQL_HOME PATH
+
 	
