@@ -126,3 +126,5 @@ http://www.cnblogs.com/MyBeN/p/4281015.html
 # 技术类
 https://www.barretlee.com/blog/2016/07/21/donnot-repeat-yourself
 # 鸡汤类
+# Shadowsocks安装
+https://www.freeluffy.com/bandwagonhost-ss/
