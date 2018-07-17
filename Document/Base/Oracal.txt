@@ -101,3 +101,33 @@ FROM v$locked_object lo,dba_objects ao ,v$SESSION s
 WHERE ao.object_id = lo.object_id AND lo.session_id = s.sid
 (杀掉死锁session)
 ALTER system kill session 'sid,serial#';
+
+-- Oracle由于监听日志过大,导致假死状态(删除以下命令该日志即可)
+Oracle\diag\tnslsnr\DESKTOP-FST6VBK\listener\trace\listener.log
+
+-- 修改密码永不过期
+1. 查看用户的proifle是哪个，一般是default：
+sql>SELECT username,PROFILE FROM dba_users;
+2. 查看指定概要文件（如default）的密码有效期设置：
+sql>SELECT * FROM dba_profiles s WHERE s.profile='DEFAULT' AND resource_name='PASSWORD_LIFE_TIME';
+3. 将密码有效期由默认的180天修改成“无限制”：
+ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
+修改之后不需要重启动数据库，会立即生效。
+4. 修改后，还没有被提示ORA-28002警告的帐户不会再碰到同样的提示；
+已经被提示的帐户必须再改一次密码，举例如下：
+  $sqlplus / as sysdba
+  sql> alter user smsc identified by <原来的密码> ----不用换新密码
+
+-- 常用命令
+sqlplus				: 运行SQLPLUS工具
+sqlplus /nolog		: 直接进入SQLPLUS命令提示符
+sqlplus / as sysdba	: 以os身份连接
+connect / as sysdba	: 以os身份连接
+sqlplus 用户/密码	: 普通用户登录
+connect 用户/密码	: 普通用户登录
+conn 用户/密码		: 切换用户
+connect 用户/密码	: 切换用户
+lsnrctl				: 进入监听状态
+	stop			: 停止监听
+	start			: 启动监听器
+	status			: 监听状态
