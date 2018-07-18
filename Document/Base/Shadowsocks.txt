@@ -1,0 +1,14 @@
+yum -y install wget
+wget –no-check-certificate -O shadowsocks.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh
+chmod +x shadowsocks.sh
+./shadowsocks.sh 2>&1 | tee shadowsocks.log
+	-- 1）shadowsocks-python
+	-- 设置密码和端口
+	-- 设置加密方式 7.aes-256-cfb
+	
+
+-- Shadowsocks
+74.82.195.127
+9289
+fqh005277
+aes-256-cfb
