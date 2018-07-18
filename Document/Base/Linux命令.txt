@@ -7,6 +7,8 @@ sz						:下载
 scp						:远程上传
 ./						:安装
 ./nginx -s stop			:停止服务
+df -lh					:硬盘存储
+du -h --max-depth=1		:查询文件夹大小
 
 ===== 安装方式 =====
 源码安装				:编译后 执行make install命令安装
