@@ -1,0 +1,66 @@
+-- make install 后的执行日志
+cp objs/nginx '/home/glanway/nginx/sbin/nginx'
+test -d '/home/glanway/nginx/conf' \
+        || mkdir -p '/home/glanway/nginx/conf'
+cp conf/koi-win '/home/glanway/nginx/conf'
+cp conf/koi-utf '/home/glanway/nginx/conf'
+cp conf/win-utf '/home/glanway/nginx/conf'
+test -f '/home/glanway/nginx/conf/mime.types' \
+        || cp conf/mime.types '/home/glanway/nginx/conf'
+cp conf/mime.types '/home/glanway/nginx/conf/mime.types.default'
+test -f '/home/glanway/nginx/conf/fastcgi_params' \
+        || cp conf/fastcgi_params '/home/glanway/nginx/conf'
+cp conf/fastcgi_params \
+        '/home/glanway/nginx/conf/fastcgi_params.default'
+test -f '/home/glanway/nginx/conf/fastcgi.conf' \
+        || cp conf/fastcgi.conf '/home/glanway/nginx/conf'
+cp conf/fastcgi.conf '/home/glanway/nginx/conf/fastcgi.conf.default'
+test -f '/home/glanway/nginx/conf/uwsgi_params' \
+        || cp conf/uwsgi_params '/home/glanway/nginx/conf'
+cp conf/uwsgi_params \
+        '/home/glanway/nginx/conf/uwsgi_params.default'
+test -f '/home/glanway/nginx/conf/scgi_params' \
+        || cp conf/scgi_params '/home/glanway/nginx/conf'
+cp conf/scgi_params \
+        '/home/glanway/nginx/conf/scgi_params.default'
+test -f '/home/glanway/nginx/conf/nginx.conf' \
+        || cp conf/nginx.conf '/home/glanway/nginx/conf/nginx.conf'
+cp conf/nginx.conf '/home/glanway/nginx/conf/nginx.conf.default'
+test -d '/home/glanway/nginx/logs' \
+        || mkdir -p '/home/glanway/nginx/logs'
+test -d '/home/glanway/nginx/logs' \
+        || mkdir -p '/home/glanway/nginx/logs'
+test -d '/home/glanway/nginx/html' \
+        || cp -R html '/home/glanway/nginx'
+test -d '/home/glanway/nginx/logs' \
+        || mkdir -p '/home/glanway/nginx/logs'
+make[1]: Leaving directory `/usr/local/install/nginx-1.12.2'
+
+
+Nginx已安装，动态添加模块
+	说明：已经安装好的nginx，需要添加一个未被编译安装的模块，需要怎么弄呢？
+
+	具体：
+	这里以安装第三方ngx_http_google_filter_module模块为例
+	nginx的模块是需要重新编译nginx，而不是像apache一样配置文件引用.so
+	1. 下载第三方扩展模块ngx_http_google_filter_module
+	# cd /data/software/
+	# git clone https://github.com/cuber/ngx_http_google_filter_module
+	 
+	2. 查看nginx编译安装时安装了哪些模块
+	# nginx -V
+	nginx version: nginx/1.8.0
+	built by gcc 4.4.7 20120313 (Red Hat 4.4.7-11) (GCC) 
+	built with OpenSSL 1.0.1e-fips 11 Feb 2013
+	TLS SNI support enabled
+	configure arguments: --prefix=/usr/local/nginx --with-http_ssl_module --with-http_sub_module --with-http_gzip_static_module --with-http_stub_status_module --add-module=/data/software/ngx_http_substitutions_filter_module
+
+	可以看出编译安装使用了--prefix=/usr/local/nginx --with-http_ssl_module --with-http_sub_module --with-http_gzip_static_module --with-http_stub_status_module --add-module=/data/software/ngx_http_substitutions_filter_module这些参数。--add-module=/data/software/ngx_http_substitutions_filter_module是之前编译添加ngx_http_substitutions_filter_module模块时添加
+	 
+	3. 加入需要安装的模块，重新编译，如这里添加–add-module=/data/software/ngx_http_google_filter_module
+	# ./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-http_sub_module --with-http_gzip_static_module --with-http_stub_status_module --add-module=/data/software/ngx_http_substitutions_filter_module --add-module=/data/software/ngx_http_google_filter_module
+	# make    //千万不要make install，不然就真的覆盖了
+	 
+	4. 替换nginx二进制文件:
+	# cp /usr/local/nginx/sbin/nginx /usr/local/nginx/sbin/nginx.bak
+	# cp ./objs/nginx /usr/local/nginx/sbin/
