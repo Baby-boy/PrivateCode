@@ -14,6 +14,9 @@ yum -y install lrzsz
 yum -y install cpp binutils glibc glibc-kernheaders glibc-common glibc-devel gcc make gcc-c++ libstdc++-devel tcl
 yum -y install pcre pcre-devel zlib zlib-devel openssl openssl—devel
 
+yum -y install mlocate
+updatedb
+
 # 添加用户组
 groupadd deploy
 # 添加用户，并修改密码

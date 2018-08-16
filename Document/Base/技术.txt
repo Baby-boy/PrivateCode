@@ -88,6 +88,9 @@ key：3SDK-JRX-0130-RITUL
 chenmin@glanway.com
 sonia1986
 
+12523194@qq.com
+Glanway2015
+
 yum load-transaction /tmp/yum_save_tx.2017-05-26.16-24.QBd4Kw.yumtx
 
 1. 将 lombok.jar 复制到 myeclipse.ini / eclipse.ini 所在的文件夹目录下

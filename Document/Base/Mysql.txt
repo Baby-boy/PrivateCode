@@ -112,3 +112,61 @@ default-storage-engine=INNODB
 -- EXISTS和IN区别
 	EXISTS与IN的使用效率的问题，通常情况下采用exists要比in效率高，因为IN不走索引，但要看实际情况具体使用：
 IN适合于外表大而内表小的情况；EXISTS适合于外表小而内表大的情况。
+
+-- 存储过程书写
+	DROP PROCEDURE IF EXISTS `init_auth`;
+	-- 开始定义
+	DELIMITER ;;
+	CREATE DEFINER=`root`@`%` PROCEDURE `init_auth`(IN a VARCHAR(255))
+	BEGIN
+		-- 定义变量
+		DECLARE pro_id VARCHAR(255);
+		DECLARE prom_id INT;
+		DECLARE ns_id INT;
+		DECLARE fl_id INT;
+
+		-- 设置变量
+		SET pro_id = (SELECT id FROM ctrlproject.t_project_template WHERE merchant_id = a);
+		IF pro_id IS NOT NULL then
+			DELETE FROM ctrlproject.t_project_menu WHERE project_id = pro_id; 
+		END IF;
+
+		SET prom_id = (SELECT id FROM ctrlproject.t_program WHERE merchant_id = a);
+		IF prom_id IS NOT NULL then
+			DELETE FROM ctrlproject.t_program_permission WHERE program_id = prom_id; 
+		END IF;
+
+		SET prom_id = (SELECT id FROM ctrlproject.t_program WHERE merchant_id = a);
+		IF prom_id IS NOT NULL then
+			DELETE FROM ctrlproject.t_member WHERE program_id = prom_id; 
+		END IF;
+
+		SET ns_id = (SELECT id FROM ctrldoc.t_doc_namespace WHERE merchant_id = a);
+		IF ns_id IS NOT NULL then
+			DELETE FROM ctrldoc.t_doc_namespace_role_setting WHERE namespace_id = ns_id; 
+		END IF;
+
+		SET fl_id = (SELECT COUNT(id) FROM ctrldoc.t_doc_file WHERE merchant_id = a);
+		IF fl_id != 0 then
+			DELETE FROM ctrldoc.t_doc_file_tag WHERE file_id IN (SELECT id FROM ctrldoc.t_doc_file WHERE merchant_id = a); 
+		END IF;
+		
+		DELETE FROM authcenter.t_auth WHERE merchant_id = a;
+		DELETE FROM ctrlproject.t_employee WHERE merchant_id = a;
+		DELETE FROM ctrlproject.t_merchant WHERE id = a;
+		DELETE FROM ctrloperation.t_employee_product WHERE merchant_id = a;
+		DELETE FROM ctrloperation.t_order WHERE merchant_id = a;
+		DELETE FROM ctrloperation.t_order_detail WHERE merchant_id = a;
+		DELETE FROM ctrlproject.t_task_template WHERE merchant_id = a;
+		DELETE FROM ctrlproject.t_project_template WHERE merchant_id = a;
+		DELETE FROM ctrlproject.t_task_category WHERE merchant_id = a;
+		DELETE FROM ctrlproject.t_program WHERE merchant_id = a;
+		DELETE FROM ctrldoc.t_doc_namespace WHERE merchant_id = a;
+		DELETE FROM ctrldoc.t_doc_member WHERE merchant_id = a;
+		DELETE FROM ctrldoc.t_doc_tag WHERE merchant_id = a;
+		DELETE FROM ctrldoc.t_doc_tag_category WHERE merchant_id = a;
+		DELETE FROM ctrldoc.t_doc_file WHERE merchant_id = a;
+		DELETE FROM ctrldoc.t_doc_folder WHERE merchant_id = a;
+	END
+	;;
+	DELIMITER ;

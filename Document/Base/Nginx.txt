@@ -1,0 +1,11 @@
+-- 静态资源支持跨域
+ 原生态      
+	location ^~ /repurchase-web/ {
+          alias /var/www/webapps/repurchase-web/;
+    }
+ 支持跨域      
+	location ^~ /repurchase-web/ {
+          add_header Access-Control-Allow-Origin *;
+          add_header Access-Control-Allow-Credentials true;
+          alias /var/www/webapps/repurchase-web/;
+    }
