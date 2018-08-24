@@ -11,6 +11,8 @@ yum update
 
 # 安装rzsz
 yum -y install lrzsz
+yum -y install vim*
+yum -y install lsof
 yum -y install cpp binutils glibc glibc-kernheaders glibc-common glibc-devel gcc make gcc-c++ libstdc++-devel tcl
 yum -y install pcre pcre-devel zlib zlib-devel openssl openssl—devel
 

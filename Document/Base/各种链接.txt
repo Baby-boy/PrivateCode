@@ -81,6 +81,10 @@ https://www.jianshu.com/p/3667157d63bb
 # Java进程导致GC溢出优化
 https://blog.csdn.net/lifuxiangcaohui/article/details/37992725
 
+--Window服务器
+Window服务器安装Nginx服务
+https://www.cnblogs.com/edward2013/p/5506588.html
+
 -- Elasticsearch相关
 # 2.x-5.x升级坑
 https://www.jianshu.com/p/dc6b4e84a673
@@ -136,6 +140,12 @@ http://www.cnblogs.com/MyBeN/p/4281015.html
 -- 心灵鸡汤
 # 技术类
 https://www.barretlee.com/blog/2016/07/21/donnot-repeat-yourself
+# Apache OpenOffice安装(转换office套餐)
+https://blog.csdn.net/a20101021202/article/details/51886862   --   window
+https://blog.csdn.net/zouqingfang/article/details/44460823   --   Linux
+https://blog.csdn.net/cjd285461936/article/details/76136146   --   Linux
+# 使用FFmpeg转换视频
+https://blog.csdn.net/xuheazx/article/details/51969535
 # 鸡汤类
 # Shadowsocks安装
 https://www.freeluffy.com/bandwagonhost-ss/
