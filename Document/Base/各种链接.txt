@@ -148,7 +148,8 @@ https://blog.csdn.net/cjd285461936/article/details/76136146   --   Linux
 https://blog.csdn.net/xuheazx/article/details/51969535
 # Linux安装ffmpeg, mencoder
 https://blog.csdn.net/zouqingfang/article/details/41719545
-https://www.cnblogs.com/shuaixf/archive/2012/11/16/2773979.html
+https://www.cnblogs.com/freeweb/p/6897907.html  -- Linux安装ffmpeg
+https://www.cnblogs.com/shuaixf/archive/2012/11/16/2773979.html  --  Linux安装mencoder
 # 鸡汤类
 # Shadowsocks安装
 https://www.freeluffy.com/bandwagonhost-ss/
