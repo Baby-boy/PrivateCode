@@ -1,0 +1,67 @@
+1. Apache 部署SSL证书(只能应用一个证书, 如果多个不同站点都需要安装不同的证书,请使用nginx)
+    a. 查看apache是否开启ssl
+        打开 apache安装目录/conf/httpd.conf 文件,找到里面两行      
+        #LoadModule ssl_module modules/mod_ssl.so
+        将行首的#去掉,保存文件
+
+        执行命令: apache安装目录/bin/httpd -M | grep ssl_module, 
+		出现 Syntax OK 说明apache已经支持ssl, 否则请先开启apache的ssl模块
+    b. 配置证书到对应的站点
+        编辑站点对应的站点配置文件,如:apache安装目录/conf/extra/httpd-ssl.conf, 修改内容如下
+        <VirtualHost www.domain.com:443>    
+            DocumentRoot "/var/www/html"    
+            ServerName www.domain.com    
+            SSLEngine on    
+            SSLCertificateFile          证书文件路径/_www.domain.com.cer  
+            SSLCertificateKeyFile    证书文件路径/_www.domain.com.key    
+            SSLCertificateChainFile 证书文件路径/_www.domain.com_ca.crt  
+        </VirtualHost>
+    c. 重启apache生效
+2. Nginx 部署SSL证书(特别注意下面加红内容,需要先合并.crt、.cer文件)
+        a.  查看nginx是否开启ssl
+        执行命令: nginx安装目录/sbin/nginx -V, 查看命令结果中是否包含"--with-http_ssl_module",否则请先安装ssl模块
+        b.  配置证书到对应的站点
+        编辑站点对应的站点配置文件,新增或修改如下内容
+        server {
+            listen          443 ssl;                                             #将原来的80 修改为443
+            ...
+            root /www/web/xxxx/public_html;
+            ssl_certificate        证书文件路径/_www.domain.com.crt;          #需将_www.domain.com.cer  中的内容复制到这个文件头部，中间不要有空行
+            ssl_certificate_key 证书文件路径/_www.domain.com.key;         #证书密钥文件
+            ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+            ssl_ciphers ALL:!DH:!EXPORT:!RC4:+HIGH:+MEDIUM:!LOW:!aNULL:!eNULL;
+            ...
+        }
+3. Tomcat 证书部署
+    a. 配置SSL连接器
+        将www.domain.com.jks文件存放到conf目录下，然后配置同目录下的server.xml文件, 新增如下内容
+			<Connector 
+                port="443" 
+                protocol="HTTP/1.1" 
+                SSLEnabled="true"    
+                maxThreads="150" 
+                scheme="https" 
+                secure="true"    
+                keystoreFile="conf\www.domain.com.jks"    
+                keystorePass="changeit"    
+                clientAuth="false" sslProtocol="TLS" 
+            />
+
+            说明: 
+            clientAuth如果设为true，表示Tomcat要求所有的SSL客户出示安全证书，对SSL客户进行身份验证
+            keystoreFile指定keystore文件的存放位置，可以指定绝对路径，也可以指定相对于 （Tomcat安装目录）环境变量的相对路径。如果此项没有设定，默认情况下，Tomcat将从当前操作系统用户的用户目录下读取名为 “.keystore”的文件。
+            keystorePass密钥库密码，指定keystore的密码。（如果申请证书时有填写私钥密码，密钥库密码即私钥密码）
+            sslProtocol指定套接字（Socket）使用的加密/解密协议，默认值为TLS
+    b. http自动跳转https的安全配置
+        到conf目录下的web.xml。在</welcome-file-list>后面，</web-app>，也就是倒数第二段里，加上这样一段
+            <web-resource-collection >    
+				<web-resource-name >SSL</web-resource-name>    
+				<url-pattern>/*</url-pattern> 
+			</web-resource-collection> 
+			<user-data-constraint>    
+				<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+			</user-data-constraint>
+
+            这步目的是让非ssl的connector跳转到ssl的connector去。所以还需要前往server.xml进行配置：
+            <Connector port="8080" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="443" />
+            redirectPort改成ssl的connector的端口443，重启后便会生效。
