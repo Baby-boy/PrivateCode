@@ -33,7 +33,7 @@ http://121.40.102.225/jenkins/login?from=/jenkins/
 -- 伽然121服务器(wildfly@121.40.102.225)
 IP: 121.40.102.225
 账户: wildfly
-密码: wildfly@glanway
+密码: wildfly@glanway2018
 Glanway2015Aliyun!123
 
 -- 伽然118服务器(glanway@118.31.52.248)
