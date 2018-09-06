@@ -32,6 +32,13 @@
             ssl_ciphers ALL:!DH:!EXPORT:!RC4:+HIGH:+MEDIUM:!LOW:!aNULL:!eNULL;
             ...
         }
+	BUG: 去除静态资源的非https
+	Nginx设置upgrade-insecure-requests
+	好在 W3C 工作组考虑到了我们升级 HTTPS 的艰难，在 2015 年 4 月份就出了一个 Upgrade Insecure Requests 的草案，他的作用就是让浏览器自动升级请求。
+
+	在我们nginx服务器的响应头中加入：
+	add_header Content-Security-Policy upgrade-insecure-requests;
+		
 3. Tomcat 证书部署
     a. 配置SSL连接器
         将www.domain.com.jks文件存放到conf目录下，然后配置同目录下的server.xml文件, 新增如下内容

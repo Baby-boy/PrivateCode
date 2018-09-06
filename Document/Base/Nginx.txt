@@ -38,3 +38,43 @@ proxy_cache_valid: 缓存时效
 client_max_body_size 8M;
 client_body_buffer_size 128k;
 large_client_header_buffers 8 10m;
+
+-- 重定向到https请求
+server {
+    listen      80;
+    server_name sunoye-sh.com;
+    return 301 https://$host$request_uri;
+}
+-- SSL配置
+server {
+    listen      443;
+    server_name sunoye-sh.com;
+    access_log  logs/access.log combined;
+
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Forwarded-Server $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+    ssl                 on;
+    ssl_certificate     /usr/local/nginx/conf/cert/214844538970321.pem;
+    ssl_certificate_key /usr/local/nginx/conf/cert/214844538970321.key;
+    ssl_session_timeout 5m;
+    ssl_ciphers         ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+
+    location / {
+        proxy_pass        http://localhost:8888;
+        proxy_set_header  Host            $host;
+        proxy_set_header  Remote_Addr     $remote_addr;
+        proxy_set_header  X-Real-IP       $remote_addr;
+        proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+        add_header Content-Security-Policy upgrade-insecure-requests; # 过滤静态资源的https
+    }
+
+    error_page 404              /404.html;
+    error_page 500 502 503 504  /50x.html;
+    location = /50x.html {
+        root html;
+    }
+}
