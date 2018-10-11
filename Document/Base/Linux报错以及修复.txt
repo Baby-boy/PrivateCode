@@ -45,3 +45,13 @@
 	*          soft    nproc     65535
 	root       soft    nproc     unlimited
 	退出当前用户，重新登录即可让之前修改的limits生效，执行如下命令发现修改成功
+	
+问题二: SSH连接服务器报ssh_exchange_identification: Connection closed by remote host
+	下午发现公司有台图片服务器不能SSH远程连接了，从内网的其它服务器上ssh也不能连接，都是报：ssh_exchange_identification: Connection closed by remote host
+	众所周知的原因，现在google搜索不翻墙暂时用不了，用百度搜索都不是想要的，让同事翻墙用google搜索到了，立马找到了　http://www.lao8.org/article_1319/ssh　这篇文章。
+
+	没办法，给机房打电话，先让帮重启下，重启后ssh能连接了，果断把ssh连接数改大了。
+
+	# vi /etc/ssh/sshd_config 
+	# MaxSessions 10 
+	去掉前面的"#" 并把数字改大，我先改为60了，最后重启service sshd reload然后重新连接即可.  
