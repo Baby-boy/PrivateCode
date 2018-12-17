@@ -9,5 +9,35 @@
 8. 安装模块下代码的依赖,执行 cnpm install
 9. 运行项目,执行 cnpm run dev
 
-$ cnpm i lodash -D
-$ cnpm i lodash -S
+-- npm install -S -D -g 有什么区别（相关打包的东西，也就是webpack -D）
+npm install module_name -S    即    npm install module_name –save     写入dependencies
+npm install module_name -D    即    npm install module_name –save-dev 写入devDependencies
+npm install module_name -g    全局安装(命令行使用)
+npm install module_name       本地安装(将安装包放在 ./node_modules 下)
+
+-- 安装webpack
+npm install webpack -g // 全局安装
+npm install webpack@3.0.0 -g // 指定版本全局安装
+npm install webpack-cli -g // 全局安装webpack脚手架
+webpack -v // 查看版本
+npm uninstall webpage -g // 全局卸载
+
+-- 安装vue
+npm install vue -g // 全局安装
+npm install vue@2.4.2 -g // 指定版本全局安装
+npm install vue-cli -g // 全局安装vue脚手架
+vue -V // 查看版本
+npm uninstall vue -g // 全局卸载
+
+-- 安装webpack相关依赖
+npm i babel-loader babel-core babel-preset-es2015 babel-plugin-transform-runtime -D 
+
+-- 安装vue相关依赖
+npm i vue -S
+npm i vue-loader vue-template-compiler -D
+
+-- 命令
+npm init -y				--> 生成package.json
+npm i 					--> 恢复package.json中 devDependencies, dependencies
+npm i --production		--> 恢复package.json中 dependencies
+. /node_modules/.bin/webpack-dev-server --inline --hot -- open	-->热启动
